@@ -7,9 +7,11 @@ import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.Stats.*;
 import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Occupation;
+import com.vengeful.sloths.Models.SaveLoad.SaveVisitor;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
+import org.w3c.dom.Element;
 
 /**
  * Created by luluding on 2/21/16.
@@ -17,13 +19,12 @@ import com.vengeful.sloths.Utility.Direction;
 public abstract class Entity {
     private Coord location;
     private Direction facingDirection;
-    private String name;
-
     private Occupation occupation;
     private AbilityManager abilityManager;
     private BuffManager buffManager;
     private Inventory inventory;
     private Equipped equipped;
+    private String name;
     private Stats stats;
 
     protected boolean isMoving = false;
@@ -31,24 +32,34 @@ public abstract class Entity {
     //for avatar
     public Entity(){}
 
-    //pass in stats as well
     public Entity(String name, BuffManager buffManager, Stats stats){
-        this.name = name;
+        this(name, stats);
+        this.setBuffManager(buffManager);
+    }
 
+    public Entity(String name, Stats stats){
+        this.name = name;
         this.stats = stats;
         this.inventory = new Inventory();
         this.equipped = new Equipped();
         this.abilityManager = new AbilityManager();
-        this.buffManager = buffManager;
+        this.buffManager = new BuffManager(this);
         this.occupation = new DummyOccupation(stats);
 
         this.location = new Coord(0,0);
         this.facingDirection = Direction.N;
     }
 
-
     public void doAbility(){
         //do something
+    }
+
+
+    /**
+     *This visit call is only for the save visitor
+     */
+    public void visit(SaveVisitor sv, Element e, Coord c){
+        sv.visitEntity(this, e, c);
     }
 
     /********** Getter and Setters *************/

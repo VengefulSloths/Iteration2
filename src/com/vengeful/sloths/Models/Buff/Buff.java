@@ -23,6 +23,24 @@ public class Buff {
         this.duration = duration;
     }
 
+    ////////////////getters/setters/////////////////////////
+
+
+    public StatsAddable getBuff() {
+        return buff;
+    }
+
+    public void setBuff(StatsAddable buff) {
+        this.buff = buff;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
 
     ////////////////////public api//////////////////////////
     public void apply(Stats stats){
@@ -33,7 +51,12 @@ public class Buff {
         stats.subtract(buff);
     }
 
-    public void applyOnTick(Stats stats){
-        //do nothing
+    public boolean applyOnTick(Stats stats){
+        this.duration -= 1;
+        if(duration <= 0){
+            destroy(stats);
+            return true;
+        }
+        return false;
     }
 }

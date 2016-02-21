@@ -31,7 +31,7 @@ public class Avatar extends Entity{
         return avatar;
     }
 
-    //pass in stats
+
     public void avatarInit(String occupationString, AbilityManager abilityManager, BuffManager buffManager, Stats stats){
 
         this.setInventory(new Inventory());
@@ -54,6 +54,11 @@ public class Avatar extends Entity{
                 this.setOccupation(new Summoner(this.getStats()));
         }
     }
+
+    public void avatarInit(String occupationString, AbilityManager abilityManager, Stats stats){
+        this.avatarInit(occupationString, abilityManager, new BuffManager(this), stats);
+    }
+
 
 
     private ActionCommandFactory commandFactory;
