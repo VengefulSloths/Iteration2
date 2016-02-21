@@ -27,6 +27,9 @@ public class Stats {
     private int defensiveRating;
     private int armorRating;
 
+    private int bonusHealth = 0;
+    private int bonusMana = 0;
+
     public Stats(){
         this.strength = 1;
         this.agility = 1;
@@ -41,18 +44,18 @@ public class Stats {
         this.currentExperience = 0;
     }
     public Stats(StatsAddable stats){
-        this.strength = stats.getStrength();
-        this.agility = stats.getAgility();
-        this.intellect = stats.getIntellect();
-        this.hardiness = stats.getHardiness();
-        this.movement = stats.getMovement();
+        setStrength(stats.getStrength());
+        setAgility(stats.getAgility());
+        setIntellect(stats.getIntellect());
+        setHardiness(stats.getHardiness());
+        setMovement(stats.getMovement());
         this.level = 1;
 
         calculateStats();
 
-        this.currentHealth = this.maxHealth;
-        this.currentMana = this.maxMana;
-        this.currentExperience = 0;
+        setCurrentHealth(this.maxHealth);
+        setCurrentMana(this.maxMana);
+        setCurrentExperience(0);
     }
 
     private void calculateStats(){
@@ -64,10 +67,10 @@ public class Stats {
         calculateArmorRating();
     }
     private void calculateMaxMana(){
-        this.maxMana = (1 + this.level + (3*this.intellect));
+        this.maxMana = (1 + this.level + (3*this.intellect)) + bonusMana;
     }
     private void calculateMaxHealth(){
-        this.maxHealth = (1 + this.level + (2*this.hardiness));
+        this.maxHealth = (1 + this.level + (2*this.hardiness)) + bonusHealth;
     }
     private void calculateMaxExperience(){
         this.maxExperience = (int)Math.pow(((double)this.level), 2); //calculates experience to next level as level^2
@@ -82,7 +85,7 @@ public class Stats {
         this.armorRating = (1 + 2*this.level + (3*this.hardiness));
     }
 
-    ////////////////////////////// public api //////////////////////////////
+    ////////////////////////////// public getters/setters //////////////////////////////
 
 
     public int getStrength() {
@@ -130,7 +133,15 @@ public class Stats {
     }
 
     public void setCurrentExperience(int currentExperience) {
-        this.currentExperience = currentExperience;
+        if(currentExperience >= 0) {
+            this.currentExperience = currentExperience;
+        }else{
+            this.currentExperience = 0;
+        }
+        if(currentExperience >= maxExperience){
+            this.setLevel(this.level + 1);
+            setCurrentExperience(currentExperience - maxExperience);
+        }
     }
 
     public int getLevel() {
@@ -138,7 +149,9 @@ public class Stats {
     }
 
     public void setLevel(int level) {
-        this.level = level;
+        if(level > 0) {
+            this.level = level;
+        }
     }
 
     public int getCurrentMana() {
@@ -146,7 +159,13 @@ public class Stats {
     }
 
     public void setCurrentMana(int currentMana) {
-        this.currentMana = currentMana;
+        if(currentMana >= 0 && currentMana <= maxMana) {
+            this.currentMana = currentMana;
+        }else if(currentMana >= this.maxMana){
+            this.currentMana = this.maxMana;
+        }else{
+            this.currentMana = 0;
+        }
     }
 
     public int getCurrentHealth() {
@@ -154,6 +173,44 @@ public class Stats {
     }
 
     public void setCurrentHealth(int currentHealth) {
-        this.currentHealth = currentHealth;
+
+        if(currentHealth >= 0 && currentHealth <= maxHealth) {
+            this.currentHealth = currentHealth;
+        }else if(currentHealth >= this.maxHealth){
+            this.currentHealth = this.maxHealth;
+        }else{
+            this.currentHealth = 0;
+        }
+    }
+
+    /////////////////////////// public api ////////////////////////////////////
+    public void add(StatsAddable stats){
+        setStrength(this.strength + stats.getStrength());
+        setAgility(this.agility + stats.getAgility());
+        setIntellect(this.intellect + stats.getIntellect());
+        setHardiness(this.hardiness + stats.getHardiness());
+        setMovement(this.movement + stats.getMovement());
+
+        this.bonusHealth += stats.getBonusHealth();
+        this.bonusMana += stats.getBonusMana();
+
+        setCurrentHealth(this.currentHealth + stats.getCurrentHealth());
+        setCurrentMana(this.currentMana + stats.getCurrentMana());
+        setCurrentExperience(this.currentExperience + stats.getCurrentExperience());
+    }
+
+    public void subtract(StatsAddable stats){
+        setStrength(this.strength - stats.getStrength());
+        setAgility(this.agility - stats.getAgility());
+        setIntellect(this.intellect - stats.getIntellect());
+        setHardiness(this.hardiness - stats.getHardiness());
+        setMovement(this.movement - stats.getMovement());
+
+        this.bonusHealth -= stats.getBonusHealth();
+        this.bonusMana -= stats.getBonusMana();
+
+        setCurrentHealth(this.currentHealth - stats.getCurrentHealth());
+        setCurrentMana(this.currentMana - stats.getCurrentMana());
+        setCurrentExperience(this.currentExperience - stats.getCurrentExperience());
     }
 }
