@@ -5,6 +5,7 @@ import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
+import com.vengeful.sloths.Models.Stats.*;
 import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Occupation;
 import com.vengeful.sloths.Utility.Coord;
@@ -23,15 +24,18 @@ public abstract class Entity {
     private BuffManager buffManager;
     private Inventory inventory;
     private Equipped equipped;
-    //private Stats stats;
+    private Stats stats;
+
+    protected boolean isMoving = false;
 
     //for avatar
     public Entity(){}
 
     //pass in stats as well
-    public Entity(String name, BuffManager buffManager){
+    public Entity(String name, BuffManager buffManager, Stats stats){
         this.name = name;
 
+        this.stats = stats;
         this.inventory = new Inventory();
         this.equipped = new Equipped();
         this.abilityManager = new AbilityManager();
@@ -112,5 +116,13 @@ public abstract class Entity {
 
     protected void setOccupation(Occupation occupation){
         this.occupation = occupation;
+    }
+
+    public Stats getStats(){
+        return this.stats;
+    }
+
+    public void setStats(Stats stats){
+        this.stats = stats;
     }
 }
