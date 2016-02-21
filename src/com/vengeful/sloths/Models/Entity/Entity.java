@@ -7,11 +7,8 @@ import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.Stats.*;
 import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Occupation;
-<<<<<<< HEAD
 import com.vengeful.sloths.Models.SaveLoad.SaveVisitor;
-=======
 import com.vengeful.sloths.Models.Stats.Stats;
->>>>>>> 53b16dff3bce0c2cee3028d4d345173132cf845f
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
 import org.w3c.dom.Element;
