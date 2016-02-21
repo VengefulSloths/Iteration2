@@ -26,7 +26,7 @@ public class EntityViewObject extends ViewObject{
 
         //Logic for how to load all the images for an entity
         //Load the walking images
-        this.walkingN = new SingleFrameImage("resources/entities/smasher/smasher_north_standing.png", new CenteredPositioningStrategy());
+        this.walkingN = new SingleFrameImage("resources/entities/smasher/smasher_north_standing.png", 78, 126, new CenteredPositioningStrategy());
         this.currentDynamicImage = walkingN;
     }
     @Override
