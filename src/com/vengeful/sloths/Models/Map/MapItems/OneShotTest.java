@@ -1,7 +1,6 @@
 package com.vengeful.sloths.Models.Map.MapItems;
 
 import com.vengeful.sloths.Models.Entity.Entity;
-import com.vengeful.sloths.Models.SaveLoad.SaveManager;
 
 /**
  * Created by Ian on 2/1/2016.

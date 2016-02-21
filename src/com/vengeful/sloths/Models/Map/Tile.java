@@ -1,5 +1,7 @@
 package com.vengeful.sloths.Models.Map;
 
+import com.vengeful.sloths.Models.Effects.EffectCommand;
+import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Map.AreaEffects.AreaEffect;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;

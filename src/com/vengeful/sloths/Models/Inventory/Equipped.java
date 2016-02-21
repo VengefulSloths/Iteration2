@@ -1,23 +1,12 @@
 package com.vengeful.sloths.Models.Inventory;
 
 
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.*;
-import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
-import com.vengeful.sloths.Models.SaveLoad.SaveManager;
-import com.vengeful.sloths.Models.SaveLoad.Saveable;
-import com.vengeful.sloths.Models.ViewObservable;
-import com.vengeful.sloths.View.EquipmentView.EquipmentObserver;
-import com.vengeful.sloths.View.Observers.ModelObserver;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-
 /**
  * Created by qianwen on 1/30/16.
  */
-public class Equipped implements ViewObservable, Saveable{
+public class Equipped{
 
-    
+    /*
     private Hat hat;
     private Sword sword;
 
@@ -107,11 +96,6 @@ public class Equipped implements ViewObservable, Saveable{
     @Override
     public void registerObserver(ModelObserver modelObserver) {
         this.equipmentObserver.add((EquipmentObserver) modelObserver);
-    }
-    public void saveMe(SaveManager sv, int ws) {
-        sv.writeClassLine(ws, "Equipped");
-        if(hat != null){hat.saveMe(sv, ws+1);}
-        if(sword != null){sword.saveMe(sv, ws+1);}
-        sv.writeCloseBracket(ws);
-    }
+    }*/
+
 }

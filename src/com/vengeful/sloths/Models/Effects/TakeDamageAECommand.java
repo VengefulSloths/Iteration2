@@ -32,7 +32,7 @@ public class TakeDamageAECommand extends EffectCommand{
     public void execute() {
 
         //If Entity is still on the tile, take damage and respawn damage command
-        if(this.entity.getLocation().getX() == this.currentLoc.getX() && this.entity.getLocation().getY() == this.currentLoc.getY()){
+        if(this.entity.getLocation().getR() == this.currentLoc.getS() && this.entity.getLocation().getS() == this.currentLoc.getS()){
             //damage avatar
             //This AE can only be applied to Avatar
             if(this.entity instanceof Avatar)

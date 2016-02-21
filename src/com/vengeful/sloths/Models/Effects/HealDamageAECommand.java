@@ -30,7 +30,7 @@ public class HealDamageAECommand extends EffectCommand{
     @Override
     public void execute() {
         //If Entity is still on the tile, take damage and respawn damage command
-        if(this.entity.getLocation().getX() == this.currentLoc.getX() && this.entity.getLocation().getY() == this.currentLoc.getY()){
+        if(this.entity.getLocation().getR() == this.currentLoc.getR() && this.entity.getLocation().getS() == this.currentLoc.getS()){
 
             //damage entity
             //This AE can only be applied to Avatar

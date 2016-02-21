@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<single_frame_animation>
+  <width>52</width>
+  <height>78</height>
+  <rootPath>resources/terrain</rootPath>
+  <fileName>grass.png</fileName>
+  <positioning>center</positioning>
+</single_frame_animation>

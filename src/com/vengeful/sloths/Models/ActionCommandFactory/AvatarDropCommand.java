@@ -23,16 +23,16 @@ public class AvatarDropCommand extends DropCommand{
 
         //System.out.Println(" I am the execute() of AvatarDropCommand");
         //System.out.Println("I am dropping item: " + itemToDrop.getItemName());
-        Tile tile = map.getTile(dropLocation);
-        tile.addMapItem(itemToDrop.getMapItemRep());
-        entity.getInventory().removeItem(itemToDrop);
-
-
-        Iterator<EntityObserver> iter = this.entity.entityObserverIterator();
-        while (iter.hasNext()) {
-            EntityObserver eo = iter.next();
-            eo.alertDrop(dropLocation.getX(), dropLocation.getY(), itemToDrop.getMapItemRep());
-        }
+//        Tile tile = map.getTile(dropLocation);
+//        tile.addMapItem(itemToDrop.getMapItemRep());
+//        entity.getInventory().removeItem(itemToDrop);
+//
+//
+//        Iterator<EntityObserver> iter = this.entity.entityObserverIterator();
+//        while (iter.hasNext()) {
+//            EntityObserver eo = iter.next();
+//            eo.alertDrop(dropLocation.getX(), dropLocation.getY(), itemToDrop.getMapItemRep());
+//        }
 
 
     }

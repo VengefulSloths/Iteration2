@@ -1,36 +1,36 @@
 package com.vengeful.sloths.Models.InventoryItems.EquippableItems;
 
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
-import com.vengeful.sloths.Models.SaveLoad.SaveManager;
-import com.vengeful.sloths.Models.SaveLoad.Saveable;
-import com.vengeful.sloths.Models.Stats.BaseStats;
+import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 
 /**
  * Created by qianwen on 1/30/16.
  */
-public abstract class EquippableItems extends InventoryItem implements Saveable {
-    protected BaseStats itemStats;
+
+public abstract class EquippableItems extends InventoryItem {
+    private StatsAddable itemStats;
+    private String itemName;
     //private BaseStats baseStats;
 
 
-    public BaseStats getItemStats() {
-        return itemStats;
+    public StatsAddable getItemStats() {
+        return this.itemStats;
     }
 
-    public EquippableItems(){
+    public EquippableItems() {
 
     }
 
     //public EquippableItems(String itemName, BaseStats b){
-        //super(); //not needed
+    //super(); //not needed
     //    this.itemName = itemName;
     //    this.itemStats = b;
     //}
 
-    public EquippableItems(String itemName){
+    public EquippableItems(String itemName) {
         //super(); //not needed
         this.itemName = itemName;
-        this.itemStats = new BaseStats(0,0,0,0,0);
+
     }
 
 //    public void saveMe(SaveManager sv, int ws){
@@ -44,8 +44,7 @@ public abstract class EquippableItems extends InventoryItem implements Saveable 
 //        sm.writeVariableLine(ws, "itemName", itemName, true);
 //    }
 
-    public void setBaseStats(BaseStats itemStats) {
+    public void setBaseStats(StatsAddable itemStats) {
         this.itemStats = itemStats;
     }
-
 }

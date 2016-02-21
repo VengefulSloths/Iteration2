@@ -32,12 +32,12 @@ public class AvatarMovementCommand extends MovementCommand {
                 sourceTile.removeEntity();
                 destTile.addEntity(entity);
                 entity.setLocation(dst);
-
-                Iterator<EntityObserver> iter = this.entity.entityObserverIterator();
-                while (iter.hasNext()) {
-                    EntityObserver eo = iter.next();
-                    eo.alertMove(this.dst.getX(), this.dst.getY(), 200);
-                }
+                //commnented the below out to compile
+//                //Iterator<EntityObserver> iter = this.entity.entityObserverIterator();
+//                while (iter.hasNext()) {
+//                    EntityObserver eo = iter.next();
+//                    eo.alertMove(this.dst.getR(), this.dst.getS(), 200);
+//                }
 
 
                 ////System.out.Println("My location: " + entity.getLocation().getX() + ", " + entity.getLocation().getY());
@@ -61,11 +61,11 @@ public class AvatarMovementCommand extends MovementCommand {
         } catch (Exception e){
             //do something
         } finally {
-            Iterator<EntityObserver> iter = this.entity.entityObserverIterator();
-            while (iter.hasNext()) {
-                EntityObserver eo = iter.next();
-                eo.alertDirectionChange(this.direction);
-            }
+//            Iterator<EntityObserver> iter = this.entity.entityObserverIterator();
+//            while (iter.hasNext()) {
+//                EntityObserver eo = iter.next();
+//                eo.alertDirectionChange(this.direction);
+//            }
         }
 
         // Tile t = map.getTile()
@@ -80,7 +80,7 @@ public class AvatarMovementCommand extends MovementCommand {
     @Override
     public void execute() {
 
-        entity.setMoving(false);
+        //entity.setMoving(false);
     }
 
 
