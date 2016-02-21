@@ -28,6 +28,7 @@ public class ViewEngine extends JFrame implements Runnable{
         while(true) {
             long lastTime = System.currentTimeMillis();
 
+            ViewTime.getInstance().tick();
             this.repaint();
 
             long delta = System.currentTimeMillis() - lastTime;
