@@ -1,12 +1,12 @@
 package com.vengeful.sloths.Models.Entity;
 
-import com.sun.jdi.connect.Connector;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Occupation;
+import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
 
@@ -23,7 +23,7 @@ public abstract class Entity {
     private BuffManager buffManager;
     private Inventory inventory;
     private Equipped equipped;
-    //private Stats stats;
+    private Stats stats;
 
     //for avatar
     public Entity(){}
@@ -112,5 +112,13 @@ public abstract class Entity {
 
     protected void setOccupation(Occupation occupation){
         this.occupation = occupation;
+    }
+
+    public Stats getStats() {
+        return stats;
+    }
+
+    public void setStats(Stats stats) {
+        this.stats = stats;
     }
 }
