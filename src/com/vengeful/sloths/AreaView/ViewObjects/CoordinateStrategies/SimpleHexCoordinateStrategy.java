@@ -1,7 +1,7 @@
-package ViewObjects.CoordinateStrategies;
+package com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies;
 
-import ViewObjects.CoordinateStrategies.CoordinateStrategy;
-import ViewObjects.ViewObject;
+
+import com.vengeful.sloths.AreaView.ViewObjects.ViewObject;
 
 /**
  * Created by alexs on 2/20/2016.

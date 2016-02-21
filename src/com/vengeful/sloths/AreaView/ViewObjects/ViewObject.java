@@ -1,7 +1,8 @@
-package ViewObjects;
+package com.vengeful.sloths.AreaView.ViewObjects;
 
-import ViewObjects.CoordinateStrategies.CoordinateStrategy;
-import ViewObjects.LocationStrategies.LocationStrategy;
+
+import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
+import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +10,7 @@ import java.awt.*;
 /**
  * Created by alexs on 2/20/2016.
  */
-public abstract class ViewObject extends JComponent{
+public abstract class ViewObject extends JComponent {
     private int xPixels;
     private int yPixels;
 
@@ -20,7 +21,7 @@ public abstract class ViewObject extends JComponent{
     private LocationStrategy locationStrategy;
 
 
-    public ViewObject(int r, int  s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy) {
+    public ViewObject(int r, int  s, CoordinateStrategy coordinateStrategy,LocationStrategy locationStrategy) {
         this.r = r;
         this.s = s;
         this.coordinateStrategy = coordinateStrategy;

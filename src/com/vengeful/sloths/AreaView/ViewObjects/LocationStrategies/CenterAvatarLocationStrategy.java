@@ -1,6 +1,7 @@
-package ViewObjects.LocationStrategies;
+package com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies;
 
-import ViewObjects.LocationStrategies.LocationStrategy;
+
+
 
 /**
  * Created by alexs on 2/20/2016.
