@@ -1,4 +1,4 @@
-package com.vengeful.sloths.Model.Buff;
+package com.vengeful.sloths.Models.Buff;
 
 import java.util.ArrayList;
 

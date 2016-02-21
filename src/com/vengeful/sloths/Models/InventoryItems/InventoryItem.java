@@ -1,4 +1,4 @@
-package com.vengeful.sloths.Model.InventoryItems;
+package com.vengeful.sloths.Models.InventoryItems;
 
 
 /**

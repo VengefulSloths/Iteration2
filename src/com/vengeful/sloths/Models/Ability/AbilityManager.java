@@ -1,4 +1,4 @@
-package com.vengeful.sloths.Model.Ability;
+package com.vengeful.sloths.Models.Ability;
 
 import java.util.ArrayList;
 

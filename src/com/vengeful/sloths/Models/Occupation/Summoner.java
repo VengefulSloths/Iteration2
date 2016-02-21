@@ -1,4 +1,4 @@
-package com.vengeful.sloths.Model.Occupation;
+package com.vengeful.sloths.Models.Occupation;
 
 
 /**

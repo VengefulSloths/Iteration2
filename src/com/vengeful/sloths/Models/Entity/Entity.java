@@ -1,10 +1,10 @@
-package com.vengeful.sloths.Model.Entity;
+package com.vengeful.sloths.Models.Entity;
 
-import com.vengeful.sloths.Model.Ability.AbilityManager;
-import com.vengeful.sloths.Model.Buff.BuffManager;
-import com.vengeful.sloths.Model.Inventory.Equipped;
-import com.vengeful.sloths.Model.Inventory.Inventory;
-import com.vengeful.sloths.Model.Occupation.Occupation;
+import com.vengeful.sloths.Models.Ability.AbilityManager;
+import com.vengeful.sloths.Models.Buff.BuffManager;
+import com.vengeful.sloths.Models.Inventory.Equipped;
+import com.vengeful.sloths.Models.Inventory.Inventory;
+import com.vengeful.sloths.Models.Occupation.Occupation;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
 

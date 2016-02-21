@@ -1,4 +1,4 @@
-package com.vengeful.sloths.Model.Buff;
+package com.vengeful.sloths.Models.Buff;
 
 /**
  * Created by luluding on 2/21/16.

@@ -1,4 +1,4 @@
-package com.vengeful.sloths.Model.Map;
+package com.vengeful.sloths.Models.Map;
 
 import com.vengeful.sloths.Utility.Coord;
 

@@ -1,8 +1,5 @@
-package com.vengeful.sloths.Model.Inventory;
+package com.vengeful.sloths.Models.Inventory;
 
-
-import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Created by qianwen on 1/30/16.

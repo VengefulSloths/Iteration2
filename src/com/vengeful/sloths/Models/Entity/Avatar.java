@@ -1,11 +1,11 @@
-package com.vengeful.sloths.Model.Entity;
+package com.vengeful.sloths.Models.Entity;
 
-import com.vengeful.sloths.Model.Ability.AbilityManager;
-import com.vengeful.sloths.Model.Buff.BuffManager;
-import com.vengeful.sloths.Model.Inventory.Equipped;
-import com.vengeful.sloths.Model.Inventory.Inventory;
-import com.vengeful.sloths.Model.Occupation.Occupation;
-import com.vengeful.sloths.Model.InventoryItems.*;
+import com.vengeful.sloths.Models.Ability.AbilityManager;
+import com.vengeful.sloths.Models.Buff.BuffManager;
+import com.vengeful.sloths.Models.Inventory.Equipped;
+import com.vengeful.sloths.Models.Inventory.Inventory;
+import com.vengeful.sloths.Models.Occupation.Occupation;
+import com.vengeful.sloths.Models.InventoryItems.*;
 
 import com.vengeful.sloths.Utility.Direction;
 
@@ -14,11 +14,12 @@ import com.vengeful.sloths.Utility.Direction;
  */
 public class Avatar extends Entity{
 
-    public static Avatar avtar;
+    private static Avatar avatar;
 
     private Avatar(Occupation occupation, Inventory inventory, Equipped equipped, AbilityManager abilityManager, BuffManager buffManager){
         //super(occupation, inventory, equipped, abilityManager, buffManager);
     }
+    
 
     /*
     private ActionCommandFactory commandFactory;
