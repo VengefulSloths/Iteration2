@@ -6,7 +6,7 @@ import com.vengeful.sloths.Utility.Visitor;
 
 /**
  * Created by John on 2/21/2016.
- * This class now only contains the respawn point(See Utility.Location) and an array of MapAreas
+ * This class now only contains the respawn point(See Utility.Location), an array of MapAreas, and the active mapArea
  * Map Area now contains all the tiles and logic for accessing them
  */
 public class Map {
@@ -15,6 +15,7 @@ public class Map {
      */
     private Location respawnPoint;
     private MapArea[] MapAreas;
+    private MapArea activeMapArea;
     /**
     *CONSTRUCTORS INCLUDING THE DEFAULT CONSTRUCTOR
      */
@@ -32,6 +33,14 @@ public class Map {
      */
     public void visit(Visitor v){
         v.visitMap(this);
+    }
+
+    /**
+     *Allows us to call getTile on map
+     * The reques is forwarded to active maparea
+     */
+    public Tile getTile(Coord c){
+        return activeMapArea.getTile(c);
     }
     /**
     *GETTER AND SETTERS FOR ALL PRIVATE VARIABLES
@@ -54,4 +63,11 @@ public class Map {
         MapAreas = mapAreas;
     }
 
+    public MapArea getActiveMapArea() {
+        return activeMapArea;
+    }
+
+    public void setActiveMapArea(MapArea activeMapArea) {
+        this.activeMapArea = activeMapArea;
+    }
 }
