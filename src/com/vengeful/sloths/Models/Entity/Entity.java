@@ -40,7 +40,7 @@ public abstract class Entity {
         this.equipped = new Equipped();
         this.abilityManager = new AbilityManager();
         this.buffManager = buffManager;
-        this.occupation = new DummyOccupation();
+        this.occupation = new DummyOccupation(stats);
 
         this.location = new Coord(0,0);
         this.facingDirection = Direction.N;
@@ -50,8 +50,6 @@ public abstract class Entity {
     public void doAbility(){
         //do something
     }
-
-
 
     /********** Getter and Setters *************/
     public String getName(){

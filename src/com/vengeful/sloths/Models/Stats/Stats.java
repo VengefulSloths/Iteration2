@@ -159,6 +159,8 @@ public class Stats {
             this.level = level;
         }
         calculateStats();
+        this.currentHealth = maxHealth;
+        this.currentMana = maxMana;
     }
 
     public int getCurrentMana() {
@@ -188,6 +190,10 @@ public class Stats {
         }else{
             this.currentHealth = 0;
         }
+    }
+
+    public int getMaxExperience(){
+        return this.maxExperience;
     }
 
     /////////////////////////// public api ////////////////////////////////////

@@ -6,14 +6,14 @@ import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.*;
 import com.vengeful.sloths.Models.ActionCommandFactory.*;
+import com.vengeful.sloths.Models.Occupation.Occupation;
 import com.vengeful.sloths.Models.Occupation.Smasher;
 import com.vengeful.sloths.Models.Occupation.Sneak;
 import com.vengeful.sloths.Models.Occupation.Summoner;
+import com.vengeful.sloths.Models.Stats.StatAddables.HealthManaExperienceAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
-
-
 
 /**
  * Created by luluding on 2/21/16.
@@ -34,30 +34,26 @@ public class Avatar extends Entity{
     //pass in stats
     public void avatarInit(String occupationString, AbilityManager abilityManager, BuffManager buffManager, Stats stats){
 
-        switch (occupationString) {
-            case "Smasher":
-                this.setOccupation(new Smasher());
-                break;
-            case "Sneak":
-                this.setOccupation(new Sneak());
-                break;
-            case "Summoner":
-                this.setOccupation(new Summoner());
-                break;
-            default:
-                this.setOccupation(new Summoner());
-        }
-
-        //Starts at level 0, then level up to leve 1
-        //this.getOccupation().levelUp();
         this.setInventory(new Inventory());
         this.setEquipped(new Equipped());
         this.setAbilityManager(abilityManager);
         this.setBuffManager(buffManager);
         this.setStats(stats);
+
+        switch (occupationString) {
+            case "Smasher":
+                this.setOccupation(new Smasher(this.getStats()));
+                break;
+            case "Sneak":
+                this.setOccupation(new Sneak(this.getStats()));
+                break;
+            case "Summoner":
+                this.setOccupation(new Summoner(this.getStats()));
+                break;
+            default:
+                this.setOccupation(new Summoner(this.getStats()));
+        }
     }
-
-
 
 
     private ActionCommandFactory commandFactory;
@@ -132,16 +128,22 @@ public class Avatar extends Entity{
         return false;
     }
 
+    //called by levelUp AE
     public void levelUp() {
+        this.getStats().add(new HealthManaExperienceAddable(0, 0, 0, 0, this.getStats().getMaxExperience() - this.getStats().getCurrentExperience()));
+        this.getOccupation().levelUp(this.getStats());
     }
 
     public void gainXP(int xp) {
+        this.getStats().add(new HealthManaExperienceAddable(0, 0, 0, 0, xp));
     }
 
     public void gainHealth(int health) {
+        this.getStats().add(new HealthManaExperienceAddable(health, 0, 0, 0, 0));
     }
 
     public void takeDamage(int damage) {
+        this.getStats().subtract(new HealthManaExperienceAddable(damage, 0, 0, 0, 0));
     }
 
     public void die() {

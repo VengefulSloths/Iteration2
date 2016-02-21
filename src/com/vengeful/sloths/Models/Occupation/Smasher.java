@@ -1,22 +1,21 @@
 package com.vengeful.sloths.Models.Occupation;
 
+import com.vengeful.sloths.Models.Stats.StatAddables.BaseStatsAddable;
+import com.vengeful.sloths.Models.Stats.StatAddables.HealthManaExperienceAddable;
+import com.vengeful.sloths.Models.Stats.Stats;
+
 /**
  * Created by zach on 1/30/16.
  */
 public class Smasher extends Occupation {
 
-    public Smasher() {
-
+    public Smasher(Stats stats) {
+        stats.add(new BaseStatsAddable(10, 0, 0, 0, 0));
     }
 
-
-
-    /*
     @Override
-    public void levelUp(EntityStats eStats) {
-        super.levelUp(eStats);
-
-        eStats.updateStats(new BaseStats(2, 1, 1, 1, 0));
-    }*/
+    public void levelUp(Stats stats) {
+        stats.add(new BaseStatsAddable(2, 1, 1, 1, 0));
+    }
 
 }
