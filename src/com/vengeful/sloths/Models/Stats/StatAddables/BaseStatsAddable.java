@@ -3,7 +3,7 @@ package com.vengeful.sloths.Models.Stats.StatAddables;
 /**
  * Created by John on 2/21/2016.
  */
-public class AgilityAddable extends StatsAddable {
+public class BaseStatsAddable extends StatsAddable {
     private int strength = 0;
     private int agility = 0;
     private int intellect = 0;
@@ -15,7 +15,11 @@ public class AgilityAddable extends StatsAddable {
     private int bonusMana = 0;
     private int currentExperience = 0;
 
-    public AgilityAddable(int agility){
+    public BaseStatsAddable(int strength, int agility, int intellect, int hardiness, int movement){
+        this.strength = strength;
         this.agility = agility;
+        this.intellect = intellect;
+        this.hardiness = hardiness;
+        this.movement = movement;
     }
 }
