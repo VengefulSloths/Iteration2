@@ -43,7 +43,7 @@ public abstract class ViewObject extends JComponent {
 
     public void setR(int r) {
         this.r = r;
-        coordinateStrategy.adjustXY(this.s, this.r, this);
+        coordinateStrategy.adjustXY(this.r, this.s, this);
     }
 
     public int getS() {
@@ -52,7 +52,7 @@ public abstract class ViewObject extends JComponent {
 
     public void setS(int s) {
         this.s = s;
-        coordinateStrategy.adjustXY(this.s, this.r, this);
+        coordinateStrategy.adjustXY(this.r, this.s, this);
     }
 
     public void setXPixels(int xPixels) {

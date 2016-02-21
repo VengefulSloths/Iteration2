@@ -12,7 +12,7 @@ public abstract class DynamicImage {
     public abstract Image getImage();
 
     //TODO pull positioningStrategy out of the config
-    public DynamicImage(int height, int width, PositioningStrategy positioningStrategy) {
+    public DynamicImage(int width, int height, PositioningStrategy positioningStrategy) {
         this.positioningStrategy = positioningStrategy;
         this.height = height;
         this.width = width;
