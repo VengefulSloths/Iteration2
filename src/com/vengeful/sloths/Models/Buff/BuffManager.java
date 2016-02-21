@@ -42,6 +42,7 @@ public class BuffManager implements Tickable {
     }
     @Override
     public void tick() {
+        System.out.println("tick");
         for (Iterator<Buff> iterator = buffs.iterator(); iterator.hasNext();) {
             Buff buff = iterator.next();
             buff.applyOnTick(entity.getStats());

@@ -57,6 +57,32 @@ public class Avatar extends Entity{
         this.setStats(stats);
     }
 
+    public void avatarInit(String occupationString, AbilityManager abilityManager, Stats stats){
+
+        switch (occupationString) {
+            case "Smasher":
+                this.setOccupation(new Smasher());
+                break;
+            case "Sneak":
+                this.setOccupation(new Sneak());
+                break;
+            case "Summoner":
+                this.setOccupation(new Summoner());
+                break;
+            default:
+                this.setOccupation(new Summoner());
+        }
+
+        //Starts at level 0, then level up to leve 1
+        //this.getOccupation().levelUp();
+        this.setInventory(new Inventory());
+        this.setEquipped(new Equipped());
+        this.setAbilityManager(abilityManager);
+        this.setBuffManager(new BuffManager(this));
+        this.setStats(stats);
+    }
+
+
 
 
 
