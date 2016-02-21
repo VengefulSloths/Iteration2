@@ -4,36 +4,112 @@ import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
-import com.vengeful.sloths.Models.Occupation.Occupation;
 import com.vengeful.sloths.Models.InventoryItems.*;
-
+import com.vengeful.sloths.Models.ActionCommandFactory.*;
+import com.vengeful.sloths.Models.Occupation.Smasher;
+import com.vengeful.sloths.Models.Occupation.Sneak;
+import com.vengeful.sloths.Models.Occupation.Summoner;
+import com.vengeful.sloths.Models.Stats.Stats;
+import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
+
+
 
 /**
  * Created by luluding on 2/21/16.
  */
 public class Avatar extends Entity{
 
-    private static Avatar avatar;
+    private static Avatar avatar = null;
 
-    private Avatar(Occupation occupation, Inventory inventory, Equipped equipped, AbilityManager abilityManager, BuffManager buffManager){
-        //super(occupation, inventory, equipped, abilityManager, buffManager);
+    private Avatar(){}
+
+    public static Avatar getInstance(){
+        if(avatar == null)
+            avatar = new Avatar();
+
+        return avatar;
     }
-    
 
-    /*
+    //pass in stats
+    public void avatarInit(String occupationString, AbilityManager abilityManager, BuffManager buffManager, Stats stats){
+
+        switch (occupationString) {
+            case "Smasher":
+                this.setOccupation(new Smasher());
+                break;
+            case "Sneak":
+                this.setOccupation(new Sneak());
+                break;
+            case "Summoner":
+                this.setOccupation(new Summoner());
+                break;
+            default:
+                this.setOccupation(new Summoner());
+        }
+
+        //Starts at level 0, then level up to leve 1
+        //this.getOccupation().levelUp();
+        this.setInventory(new Inventory());
+        this.setEquipped(new Equipped());
+        this.setAbilityManager(abilityManager);
+        this.setBuffManager(buffManager);
+        this.setStats(stats);
+    }
+
+
+
+
     private ActionCommandFactory commandFactory;
 
 
     public void setCommandFactory(ActionCommandFactory acf) {
         this.commandFactory = acf;
-    }*/
+    }
 
-    public Equipped getEquipped() {
-        return this.getEquipped();
+
+    public void talk(){
+        //create talk command
     }
 
     public void move(Direction dir) {
+
+        if(!isMoving) {
+
+            this.setFacingDirection(dir);
+
+            isMoving = true;
+
+            Coord dst = new Coord(this.getLocation().getR(), this.getLocation().getS());
+            switch (dir) {
+                case N:
+                    dst.setS(dst.getS() - 1);
+                    break;
+                case S:
+                    dst.setS(dst.getS() + 1);
+                    break;
+                case NE:
+                    dst.setR(dst.getR() + 1);
+                    dst.setS(dst.getS() - 1);
+                    break;
+                case NW:
+                    dst.setR(dst.getR() - 1);
+                    break;
+                case SE:
+                    dst.setR(dst.getR() + 1);
+                    break;
+                case SW:
+                    dst.setR(dst.getR() - 1);
+                    dst.setS(dst.getS() + 1);
+                    break;
+                default:
+                    break;
+            }
+            this.commandFactory.createMovementCommand(this.getLocation(), dst, dir, this, this.getStats().getMovement());
+
+        }else{
+            ////System.out.Println("<<<<<<<<<<<<<<<<<<movement rejected>>>>>>>>>>>>>>>>");
+        }
 
     }
 
@@ -56,8 +132,6 @@ public class Avatar extends Entity{
         return false;
     }
 
-
-
     public void levelUp() {
     }
 
@@ -72,8 +146,4 @@ public class Avatar extends Entity{
 
     public void die() {
     }
-
-
-
-
 }

@@ -10,6 +10,11 @@ public abstract class StatsAddable {
     private int intellect;
     private int hardiness;
     private int movement;
+    private int currentHealth;
+    private int bonusHealth;
+    private int currentMana;
+    private int bonusMana;
+    private int currentExperience;
 
     public int getStrength() {
         return strength;
@@ -29,5 +34,25 @@ public abstract class StatsAddable {
 
     public int getMovement() {
         return movement;
+    }
+
+    public int getCurrentHealth() {
+        return currentHealth;
+    }
+
+    public int getBonusHealth() {
+        return bonusHealth;
+    }
+
+    public int getCurrentMana() {
+        return currentMana;
+    }
+
+    public int getBonusMana() {
+        return bonusMana;
+    }
+
+    public int getCurrentExperience() {
+        return currentExperience;
     }
 }

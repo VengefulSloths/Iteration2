@@ -5,11 +5,7 @@ package com.vengeful.sloths.Models.Occupation;
  */
 public abstract class Occupation{
 
-
-    /*
-    public void levelUp(EntityStats eStats) {
-        eStats.levelUp();
-    }*/
+    //public abstract void levelUp();
 
 
 
