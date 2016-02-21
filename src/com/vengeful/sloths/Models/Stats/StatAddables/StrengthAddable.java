@@ -12,7 +12,6 @@ public class StrengthAddable extends StatsAddable {
     private int intellect = 0;
     private int hardiness = 0;
     private int movement = 0;
-    private int health = 0;
     private int currentHealth = 0;
     private int bonusHealth = 0;
     private int currentMana = 0;

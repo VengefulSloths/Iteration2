@@ -94,6 +94,7 @@ public class Stats {
 
     public void setStrength(int strength) {
         this.strength = strength;
+        calculateStats();
     }
 
     public int getAgility() {
@@ -102,6 +103,7 @@ public class Stats {
 
     public void setAgility(int agility) {
         this.agility = agility;
+        calculateStats();
     }
 
     public int getIntellect() {
@@ -110,6 +112,7 @@ public class Stats {
 
     public void setIntellect(int intellect) {
         this.intellect = intellect;
+        calculateStats();
     }
 
     public int getHardiness() {
@@ -118,6 +121,7 @@ public class Stats {
 
     public void setHardiness(int hardiness) {
         this.hardiness = hardiness;
+        calculateStats();
     }
 
     public int getMovement() {
@@ -126,6 +130,7 @@ public class Stats {
 
     public void setMovement(int movement) {
         this.movement = movement;
+        calculateStats();
     }
 
     public int getCurrentExperience() {
@@ -140,6 +145,7 @@ public class Stats {
         }
         if(currentExperience >= maxExperience){
             this.setLevel(this.level + 1);
+            calculateStats();
             setCurrentExperience(currentExperience - maxExperience);
         }
     }
@@ -152,6 +158,7 @@ public class Stats {
         if(level > 0) {
             this.level = level;
         }
+        calculateStats();
     }
 
     public int getCurrentMana() {

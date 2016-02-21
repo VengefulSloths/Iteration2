@@ -1,10 +1,10 @@
 package com.vengeful.sloths.Models.Stats.StatAddables;
 
+
 /**
  * Created by John on 2/21/2016.
  */
-public class HealthAddable {
-
+public class HardinessAddable extends StatsAddable{
     private int strength = 0;
     private int agility = 0;
     private int intellect = 0;
@@ -17,7 +17,7 @@ public class HealthAddable {
     private int bonusMana = 0;
     private int currentExperience = 0;
 
-    public HealthAddable(int health){
-        this.bonusHealth = health;
+    public HardinessAddable(int hardiness){
+        this.hardiness = hardiness;
     }
 }
