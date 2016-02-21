@@ -16,7 +16,7 @@ public class GrassViewObject extends ViewObject {
     private DynamicImage grassImage;
     public GrassViewObject(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy) {
         super(r, s, coordinateStrategy, locationStrategy);
-        grassImage = new SingleFrameImage("resources/terrain/grass.png", new CenteredPositioningStrategy());
+        grassImage = new SingleFrameImage("resources/terrain/grass.png", 78, 52, new CenteredPositioningStrategy());
     }
 
     @Override

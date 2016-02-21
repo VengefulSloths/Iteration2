@@ -9,8 +9,8 @@ import java.awt.*;
  */
 public class SingleFrameImage extends DynamicImage {
     private Image image;
-    public SingleFrameImage(String configPath, PositioningStrategy positioningStrategy) {
-        super(52, 78, positioningStrategy);
+    public SingleFrameImage(String configPath, int width, int height, PositioningStrategy positioningStrategy) {
+        super(width, height, positioningStrategy);
         this.image = (new ImageIcon(configPath)).getImage();
     }
     public Image getImage() {
