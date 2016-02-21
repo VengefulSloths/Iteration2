@@ -18,7 +18,10 @@ public class AvatarDieCommand extends DieCommand {
     @Override
     public void execute() {
         AvatarActionCommandFactory cf = new AvatarActionCommandFactory(map);
-        Coord location = map.getRespawnPoint();
+        /*THIS COMMAND NEEDS TO BE UPDATED TO ACCOUNT FOR MAP AREAS NOW
+        I CHANGED THE LINE BELOW TO GET RESPAWN.GETCOORD SO THAT IT COMPILES FOR THE MOMENT
+         */
+        Coord location = map.getRespawnPoint().getCoord();
 //        map.getTile(coord).removeEntity();
 //        map.getTile(location).addEntity(entity);
         cf.createMovementCommand(coord, location, Direction.N,entity,0);

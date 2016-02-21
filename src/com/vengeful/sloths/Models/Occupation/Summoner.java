@@ -6,9 +6,7 @@ package com.vengeful.sloths.Models.Occupation;
  */
 public class Summoner extends Occupation {
 
-    public Summoner() {
 
-    }
 
     /*
     @Override

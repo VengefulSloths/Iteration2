@@ -2,19 +2,23 @@ package com.vengeful.sloths.Models.Map.MapItems;
 
 import com.vengeful.sloths.Models.Entity.Entity;
 
+import com.vengeful.sloths.Models.SaveLoad.SaveVisitor;
 import com.vengeful.sloths.Models.ViewObservable;
+import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.View.Observers.MapItemObserver;
 import com.vengeful.sloths.View.Observers.ModelObserver;
+import org.w3c.dom.Element;
 
 /**
  * Created by John on 1/30/2016.
+ * This class needs to be updated to follow black box inheritance
  */
 public abstract class MapItem implements ViewObservable {
 
     protected MapItemObserver observer;
     protected boolean destroy = false;
 
-    protected String itemName;
+    private String itemName;
     protected String graphicFolder;
 
     public abstract void interact(Entity entity);
@@ -23,19 +27,26 @@ public abstract class MapItem implements ViewObservable {
         return true;
     }
 
-    public String getItemName(){
-        return this.itemName;
-    }
-
     public boolean destroyFlag()
     {
         return destroy;
+    }
+
+    /**
+     * this visit is only for saveVisitor
+     * this visit might be changed to abstract and each of the subclasses will implement their own
+     */
+    public void visit(SaveVisitor sv, Element e, Coord c){
+        sv.visitMapItem(this, e, c);
     }
 
     //public void setDestroyFlag(boolean flag){
     //    this.destroy = flag;
     //}
 
+    public String getItemName(){
+        return this.itemName;
+    }
     public void setItemName(String itemName) {
         this.itemName = itemName;
     }
