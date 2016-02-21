@@ -4,9 +4,11 @@ import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
-import com.vengeful.sloths.Models.Occupation.Occupation;
 import com.vengeful.sloths.Models.InventoryItems.*;
 
+import com.vengeful.sloths.Models.Occupation.Smasher;
+import com.vengeful.sloths.Models.Occupation.Sneak;
+import com.vengeful.sloths.Models.Occupation.Summoner;
 import com.vengeful.sloths.Utility.Direction;
 
 /**
@@ -14,12 +16,41 @@ import com.vengeful.sloths.Utility.Direction;
  */
 public class Avatar extends Entity{
 
-    private static Avatar avatar;
+    private static Avatar avatar = null;
 
-    private Avatar(Occupation occupation, Inventory inventory, Equipped equipped, AbilityManager abilityManager, BuffManager buffManager){
-        //super(occupation, inventory, equipped, abilityManager, buffManager);
+    private Avatar(){}
+
+    public static Avatar getInstance(){
+        if(avatar == null)
+            avatar = new Avatar();
+
+        return avatar;
     }
-    
+
+    //pass in stats
+    public void avatarInit(String occupationString, AbilityManager abilityManager, BuffManager buffManager){
+
+        switch (occupationString) {
+            case "Smasher":
+                this.setOccupation(new Smasher());
+                break;
+            case "Sneak":
+                this.setOccupation(new Sneak());
+                break;
+            case "Summoner":
+                this.setOccupation(new Summoner());
+                break;
+            default:
+                this.setOccupation(new Summoner());
+        }
+
+        this.setInventory(new Inventory());
+        this.setEquipped(new Equipped());
+        this.setAbilityManager(abilityManager);
+        this.setBuffManager(buffManager);
+    }
+
+
 
     /*
     private ActionCommandFactory commandFactory;
@@ -29,8 +60,9 @@ public class Avatar extends Entity{
         this.commandFactory = acf;
     }*/
 
-    public Equipped getEquipped() {
-        return this.getEquipped();
+
+    public void talk(){
+        //create talk command
     }
 
     public void move(Direction dir) {
@@ -56,8 +88,6 @@ public class Avatar extends Entity{
         return false;
     }
 
-
-
     public void levelUp() {
     }
 
@@ -72,8 +102,4 @@ public class Avatar extends Entity{
 
     public void die() {
     }
-
-
-
-
 }
