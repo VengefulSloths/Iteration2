@@ -7,26 +7,29 @@ import com.vengeful.sloths.Models.Stats.Stats;
  * Created by luluding on 2/21/16.
  */
 public class BuffOverTime extends Buff{
-    private StatsAddable buff;
-    private int duration;
 
     public BuffOverTime(StatsAddable buff, int duration){
-        this.buff = buff;
-        this.duration = duration;
+        this.setBuff(buff);
+        this.setDuration(duration);
     }
 
 
     ////////////////////public api//////////////////////////
     public void apply(Stats stats){
-        stats.add(buff);
+        stats.add(this.getBuff());
     }
 
     public void destroy(Stats stats){
-        stats.subtract(buff);
+        stats.subtract(this.getBuff());
     }
 
     public boolean applyOnTick(Stats stats){
-        stats.add(buff);
-        return true;
+        stats.add(this.getBuff());
+        this.setDuration(this.getDuration() - 1);
+        if(this.getDuration() <= 0){
+            destroy(stats);
+            return true;
+        }
+        return false;
     }
 }

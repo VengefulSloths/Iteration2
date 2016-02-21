@@ -39,6 +39,8 @@ public class TimeModel {
     public void registerAlertable(Alertable alertable, int ticks){
         alertables.add(new TimedObject(alertable, ticks));
     }
+    public void registerTickable(Tickable tickable){tickables.add(tickable);}
+    public void removeTickable(Tickable tickable){tickables.remove(tickable);}
     private static TimeModel ourInstance = new TimeModel();
 
     public static TimeModel getInstance() {

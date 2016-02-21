@@ -2,6 +2,7 @@ package com.vengeful.sloths.Models.Buff;
 
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.TimeModel.Tickable;
+import com.vengeful.sloths.Models.TimeModel.TimeModel;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -17,6 +18,7 @@ public class BuffManager implements Tickable {
     public BuffManager(Entity entity){
         this.entity = entity;
         this.buffs = new ArrayList<Buff>();
+        TimeModel.getInstance().registerTickable(this);
     }
 
 
@@ -32,7 +34,12 @@ public class BuffManager implements Tickable {
         buff.destroy(entity.getStats());
         this.buffs.remove(buff);
     }
-
+    public void destroy(){
+        TimeModel.getInstance().removeTickable(this);
+    }
+    public ArrayList<Buff> getBuffs(){
+        return buffs;
+    }
     @Override
     public void tick() {
         for (Iterator<Buff> iterator = buffs.iterator(); iterator.hasNext();) {

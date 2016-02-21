@@ -6,7 +6,7 @@ package com.vengeful.sloths.Models.Stats.StatAddables;
 
 //Here is an example addable, all will implement every base stat, but
 public class StrengthAddable extends StatsAddable {
-    
+
     public StrengthAddable(int strength){
         this.setStrength(strength);
     }
