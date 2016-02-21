@@ -7,16 +7,26 @@ import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.Map.Terrains.Grass;
 import com.vengeful.sloths.Models.Map.Terrains.Terrain;
+import com.vengeful.sloths.Models.SaveLoad.SaveVisitor;
+import com.vengeful.sloths.Utility.Coord;
+import org.w3c.dom.Element;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by John on 2/21/2016.
  */
 public class Tile{
-
+    /**
+     * Private variables, everything that can be held on a tile
+     * Note that the arrayList nonCollideableEntites will need to have well coded accessors so there aren't null slots between entities listed
+     * add and remove MapItem should probably be updated in this fashion
+     * right now it(nonCollideableEntities) just has a standard getter/setter nothing that adds or removes a specific entity
+     */
     private Entity entity = null;
+    private ArrayList<Entity> nonCollideableEntities;
     private boolean canBeMovedOn;
     private ArrayList<MapItem> mapItems;
     private ArrayList<AreaEffect> areaEffect;
@@ -41,6 +51,13 @@ public class Tile{
         this.terrain = terrain;
         this.cleaningup = false;
 
+    }
+
+    /**
+     *This visit is only for the saveVisitor
+     */
+    public void visit(SaveVisitor sv, Element e, Coord c){
+        sv.visitTile(this,e,c);
     }
 
     public void execute(){
@@ -189,4 +206,31 @@ public class Tile{
         return null;
     }
 
+    /**
+     *Below are getter/setters for the nonCollideableEntities
+     * I've edited teh getter so it returns an array rather than an array list
+     */
+    public Entity[] getNonCollideableEntities() {
+        List<Entity> nonColEnts = nonCollideableEntities;
+        Entity[] nonColE = (Entity[]) nonColEnts.toArray();
+        return nonColE;
+    }
+
+    public void setNonCollideableEntities(ArrayList<Entity> nonCollideableEntities) {
+        this.nonCollideableEntities = nonCollideableEntities;
+    }
+
+    /**
+     *Below are getter/setters for the MapItems ( not individual mapItem accessors)
+     * I've edited the getter so it returns an array rather than an array list
+     */
+    public MapItem[] getMapItems() {
+        List<MapItem> mapItemList= mapItems;
+        MapItem[] mapItemArray = (MapItem[]) mapItemList.toArray();
+        return mapItemArray;
+    }
+
+    public void setMapItems(ArrayList<MapItem> mapItems) {
+        this.mapItems = mapItems;
+    }
 }

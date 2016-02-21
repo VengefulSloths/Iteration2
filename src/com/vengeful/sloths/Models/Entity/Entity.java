@@ -5,8 +5,10 @@ import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.Occupation.Occupation;
+import com.vengeful.sloths.Models.SaveLoad.SaveVisitor;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
+import org.w3c.dom.Element;
 
 /**
  * Created by luluding on 2/21/16.
@@ -20,6 +22,7 @@ public abstract class Entity {
     private BuffManager buffManager;
     private Inventory inventory;
     private Equipped equipped;
+    private String name;
 
     //pass in stats as well
     /*
@@ -37,10 +40,16 @@ public abstract class Entity {
         //do something
     }
 
+    /**
+     *This visit call is only for the save visitor
+     */
+    public void visit(SaveVisitor sv, Element e, Coord c){
+        sv.visitEntity(this, e, c);
+    }
 
-
-
-
+    /**
+     *Getter/Setters
+     */
     public Coord getLocation(){
         return this.location;
     }
@@ -65,6 +74,11 @@ public abstract class Entity {
         return this.equipped;
     }
 
+    public String getName() {
+        return name;
+    }
 
-
+    public void setName(String name) {
+        this.name = name;
+    }
 }
