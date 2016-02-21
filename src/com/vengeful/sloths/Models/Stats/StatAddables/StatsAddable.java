@@ -55,4 +55,44 @@ public abstract class StatsAddable {
     public int getCurrentExperience() {
         return currentExperience;
     }
+
+    public void setStrength(int strength) {
+        this.strength = strength;
+    }
+
+    public void setAgility(int agility) {
+        this.agility = agility;
+    }
+
+    public void setIntellect(int intellect) {
+        this.intellect = intellect;
+    }
+
+    public void setHardiness(int hardiness) {
+        this.hardiness = hardiness;
+    }
+
+    public void setMovement(int movement) {
+        this.movement = movement;
+    }
+
+    public void setCurrentHealth(int currentHealth) {
+        this.currentHealth = currentHealth;
+    }
+
+    public void setBonusHealth(int bonusHealth) {
+        this.bonusHealth = bonusHealth;
+    }
+
+    public void setCurrentMana(int currentMana) {
+        this.currentMana = currentMana;
+    }
+
+    public void setBonusMana(int bonusMana) {
+        this.bonusMana = bonusMana;
+    }
+
+    public void setCurrentExperience(int currentExperience) {
+        this.currentExperience = currentExperience;
+    }
 }

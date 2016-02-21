@@ -25,7 +25,8 @@ public class BuffOverTime extends Buff{
         stats.subtract(buff);
     }
 
-    public void applyOnTick(Stats stats){
+    public boolean applyOnTick(Stats stats){
         stats.add(buff);
+        return true;
     }
 }
