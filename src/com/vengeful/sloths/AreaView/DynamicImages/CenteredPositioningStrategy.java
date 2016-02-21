@@ -1,7 +1,7 @@
-package DynamicImages;
+package com.vengeful.sloths.AreaView.DynamicImages;
 
-import DynamicImages.DynamicImage;
-import DynamicImages.PositioningStrategy;
+
+
 
 /**
  * Created by alexs on 2/20/2016.

@@ -1,8 +1,13 @@
-import ViewObjects.*;
-import ViewObjects.CoordinateStrategies.CoordinateStrategy;
-import ViewObjects.CoordinateStrategies.SimpleHexCoordinateStrategy;
-import ViewObjects.LocationStrategies.CenterAvatarLocationStrategy;
-import ViewObjects.LocationStrategies.LocationStrategy;
+package com.vengeful.sloths.AreaView;
+
+
+import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
+import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.SimpleHexCoordinateStrategy;
+import com.vengeful.sloths.AreaView.ViewObjects.EntityViewObject;
+import com.vengeful.sloths.AreaView.ViewObjects.GrassViewObject;
+import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.CenterAvatarLocationStrategy;
+import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
+import com.vengeful.sloths.AreaView.ViewObjects.ViewObject;
 
 import javax.swing.*;
 import java.awt.*;

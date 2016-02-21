@@ -1,7 +1,5 @@
-package DynamicImages;
+package com.vengeful.sloths.AreaView.DynamicImages;
 
-import DynamicImages.DynamicImage;
-import DynamicImages.PositioningStrategy;
 
 import javax.swing.*;
 import java.awt.*;

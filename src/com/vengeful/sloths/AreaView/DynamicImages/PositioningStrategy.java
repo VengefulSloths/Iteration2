@@ -1,4 +1,4 @@
-package DynamicImages;
+package com.vengeful.sloths.AreaView.DynamicImages;
 
 /**
  * Created by alexs on 2/20/2016.

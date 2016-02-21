@@ -1,10 +1,11 @@
-package ViewObjects;
+package com.vengeful.sloths.AreaView.ViewObjects;
 
-import DynamicImages.CenteredPositioningStrategy;
-import DynamicImages.DynamicImage;
-import DynamicImages.SingleFrameImage;
-import ViewObjects.CoordinateStrategies.CoordinateStrategy;
-import ViewObjects.LocationStrategies.LocationStrategy;
+
+import com.vengeful.sloths.AreaView.DynamicImages.CenteredPositioningStrategy;
+import com.vengeful.sloths.AreaView.DynamicImages.DynamicImage;
+import com.vengeful.sloths.AreaView.DynamicImages.SingleFrameImage;
+import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
+import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 
 import java.awt.*;
 

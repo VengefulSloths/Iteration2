@@ -1,3 +1,4 @@
+package com.vengeful.sloths.AreaView;
 import javax.swing.*;
 
 /**
