@@ -8,7 +8,6 @@ import com.vengeful.sloths.AreaView.ViewObjects.GrassViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.CenterAvatarLocationStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.ViewObject;
-import com.vengeful.sloths.Model.Entity.Entity;
 import com.vengeful.sloths.Utility.Direction;
 
 import javax.swing.*;

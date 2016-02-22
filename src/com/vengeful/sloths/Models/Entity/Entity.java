@@ -41,7 +41,7 @@ public abstract class Entity {
         this.name = name;
         this.stats = stats;
         this.inventory = new Inventory();
-        this.equipped = new Equipped();
+        this.equipped = new Equipped(stats);
         this.abilityManager = new AbilityManager();
         this.buffManager = new BuffManager(this);
         this.occupation = new DummyOccupation(stats);

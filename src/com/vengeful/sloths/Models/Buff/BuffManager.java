@@ -21,9 +21,6 @@ public class BuffManager implements Tickable {
         TimeModel.getInstance().registerTickable(this);
     }
 
-
-
-
     //////////////////////public api//////////////////////////////////
     public void addBuff(Buff buff){
         buff.apply(entity.getStats());
