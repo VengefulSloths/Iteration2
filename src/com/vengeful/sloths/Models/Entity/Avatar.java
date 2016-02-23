@@ -6,6 +6,7 @@ import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.*;
 import com.vengeful.sloths.Models.ActionCommandFactory.*;
+import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.ConsumableItems;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.EquippableItems;
 import com.vengeful.sloths.Models.Occupation.Occupation;
@@ -131,7 +132,6 @@ public class Avatar extends Entity{
         item.use(this.getStats());
     }
 
-
     public boolean drop(InventoryItem item) {
 
         return true;
@@ -140,9 +140,6 @@ public class Avatar extends Entity{
     public boolean pickup(){
         return false;
     }
-
-
-
 
     //called by levelUp AE
     public void levelUp() {
@@ -163,5 +160,10 @@ public class Avatar extends Entity{
     }
 
     public void die() {
+    }
+
+    @Override
+    public void accept(ModelVisitor modelVisitor) {
+        modelVisitor.visitAvatar(this);
     }
 }

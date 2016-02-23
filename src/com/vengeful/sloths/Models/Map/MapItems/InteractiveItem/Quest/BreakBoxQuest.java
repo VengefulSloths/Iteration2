@@ -1,7 +1,7 @@
 package com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest;
 
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
-import com.vengeful.sloths.Models.Map.MapItems.OneShotTest;
+//import com.vengeful.sloths.Models.Map.MapItems.OneShotTest;
 import com.vengeful.sloths.Models.Map.Tile;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class BreakBoxQuest extends Quest {
         for(Tile t : this.tiles){
             Iterator<MapItem> it = t.getMapItemIterator();
             while(it.hasNext()){
-                if(it.next() instanceof OneShotTest) //once entity step on a tile, all one-shot on tile gets activated
+//                if(it.next() instanceof OneShotTest) //once entity step on a tile, all one-shot on tile gets activated
                     return false;
             }
         }

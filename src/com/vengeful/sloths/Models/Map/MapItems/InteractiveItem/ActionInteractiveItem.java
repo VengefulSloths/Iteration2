@@ -3,6 +3,7 @@ package com.vengeful.sloths.Models.Map.MapItems.InteractiveItem;
 import com.vengeful.sloths.Models.Effects.EffectCommand;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.*;
+import com.vengeful.sloths.Models.ModelVisitor;
 
 /**
  * Created by luluding on 2/6/16.
@@ -29,6 +30,12 @@ public class ActionInteractiveItem extends InteractiveItem{
         }
 
 
+    }
+
+    // @TODO: Make visitor method for this
+    @Override
+    public void accept(ModelVisitor vistior) {
+        vistior.visitMapItem(this);
     }
 
 

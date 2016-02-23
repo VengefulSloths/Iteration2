@@ -1,6 +1,7 @@
 package com.vengeful.sloths.Models.Entity;
 
 import com.vengeful.sloths.Models.Buff.BuffManager;
+import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Stats.Stats;
 
 /**
@@ -12,5 +13,8 @@ public class AggressiveNPC extends NPC{
         super(name, buffManager, stats);
     }
 
-
+    @Override
+    public void accept(ModelVisitor modelVisitor) {
+        modelVisitor.visitAggressiveNPC(this);
+    }
 }

@@ -2,6 +2,7 @@ package com.vengeful.sloths.Models.Map.MapItems.InteractiveItem;
 
 import com.vengeful.sloths.Models.Effects.EffectCommand;
 import com.vengeful.sloths.Models.Entity.Entity;
+import com.vengeful.sloths.Models.ModelVisitor;
 
 /**
  * Created by qianwen on 2/6/16.
@@ -30,6 +31,12 @@ public class InventoryInteractiveItem extends InteractiveItem{
         }catch (NullPointerException e){
             //dont have any objects, sont execute command
         }
+    }
+
+    // @TODO: Make visitor method for this
+    @Override
+    public void accept(ModelVisitor vistior) {
+        vistior.visitMapItem(this);
     }
 
     public void setRequiredItem(String requiredItem) {

@@ -7,9 +7,8 @@ import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.Map.Terrains.Grass;
 import com.vengeful.sloths.Models.Map.Terrains.Terrain;
-import com.vengeful.sloths.Models.SaveLoad.SaveVisitor;
-import com.vengeful.sloths.Utility.Coord;
-import org.w3c.dom.Element;
+import com.vengeful.sloths.Models.ModelVisitable;
+import com.vengeful.sloths.Models.ModelVisitor;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -18,14 +17,14 @@ import java.util.List;
 /**
  * Created by John on 2/21/2016.
  */
-public class Tile{
+public class Tile implements ModelVisitable{
     /**
      * Private variables, everything that can be held on a tile
      * Note that the arrayList nonCollideableEntites will need to have well coded accessors so there aren't null slots between entities listed
      * add and remove MapItem should probably be updated in this fashion
      * right now it(nonCollideableEntities) just has a standard getter/setter nothing that adds or removes a specific entity
      */
-    private Entity entity = null;
+    private ArrayList<Entity> entities = new ArrayList<>();
     private ArrayList<Entity> nonCollideableEntities;
     private boolean canBeMovedOn;
     private ArrayList<MapItem> mapItems;
@@ -56,9 +55,9 @@ public class Tile{
     /**
      *This visit is only for the saveVisitor
      */
-    public void visit(SaveVisitor sv, Element e, Coord c){
-        sv.visitTile(this,e,c);
-    }
+    //public void visit(SaveVisitor sv, Element e, Coord c){
+    //    sv.visitTile(this,e,c);
+    //}
 
     public void execute(){
 
@@ -90,8 +89,14 @@ public class Tile{
         Iterator<AreaEffect> aeIter = this.getAreaEffectIterator();
         while(aeIter.hasNext()){
             AreaEffect ae = aeIter.next();
-            EffectCommand effect = ae.createEffectCommand(this.entity);
-            effect.execute();
+
+            Iterator<Entity> entityIterator = this.getEntityIterator();
+            EffectCommand effect;
+
+            while (entityIterator.hasNext()) {
+                effect = ae.createEffectCommand(entityIterator.next());
+                effect.execute();
+            }
             //System.out.Println("AE: " + ae);
         }
 
@@ -101,22 +106,26 @@ public class Tile{
 
     public void addEntity(Entity entity){
         //may need to check for an entity already being on the tile
-        this.entity = entity;
+        this.entities.add(entity);
 
         //For some reason check hasmapItem, and check hasAE logic can't be here
         //Have to put the checking logic in movement command or the Pickup/drop, AE commands would not work
     }
 
 
-    public boolean hasEntity() { return this.entity != null; }
+    public boolean hasEntity() { return this.entities.size() > 0; }
 
-    public Entity getEntity() {
-        return this.entity;
+    public Iterator<Entity> getEntityIterator() {
+        return this.entities.iterator();
     }
 
-    public Entity removeEntity(){
-        Entity entity = this.entity;
-        this.entity = null;
+    public Entity removeEntity(Entity e){
+        if (this.entities.contains(e)) {
+            this.entities.remove(e);
+        }
+
+//        Entity entity = this.entity;
+//        this.entity = null;
 
         for (Iterator<MapItem> iter = mapItems.iterator(); iter.hasNext();) {
             MapItem item = iter.next();
@@ -126,7 +135,7 @@ public class Tile{
         }
 
 
-        return entity;
+        return e;
     }
 
     public Terrain getTerrain() { return this.terrain; }
@@ -232,5 +241,9 @@ public class Tile{
 
     public void setMapItems(ArrayList<MapItem> mapItems) {
         this.mapItems = mapItems;
+    }
+
+    public void accept(ModelVisitor visitor) {
+        visitor.visitTile(this);
     }
 }

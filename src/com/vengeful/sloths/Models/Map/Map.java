@@ -37,11 +37,12 @@ public class Map {
 
     /**
      *Allows us to call getTile on map
-     * The reques is forwarded to active maparea
+     * The request is forwarded to active maparea
      */
     public Tile getTile(Coord c){
         return activeMapArea.getTile(c);
     }
+
     /**
     *GETTER AND SETTERS FOR ALL PRIVATE VARIABLES
      */

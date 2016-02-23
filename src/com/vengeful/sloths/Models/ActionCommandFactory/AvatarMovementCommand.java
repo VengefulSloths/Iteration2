@@ -29,7 +29,9 @@ public class AvatarMovementCommand extends MovementCommand {
             ////System.out.Println(" source BEFORE: " + sourceTile.getEntity());
             ////System.out.Println(destTile.getEntity());
             if (destTile.canMove()) {
-                sourceTile.removeEntity();
+                // @TODO: FIX THIS WITH ENTITY ARRAYLIST
+                //      sourceTile.removeEntity();
+                // END FIX THIS
                 destTile.addEntity(entity);
                 entity.setLocation(dst);
                 //commnented the below out to compile
