@@ -31,7 +31,6 @@ public class HandViewObject extends MovingViewObject implements vAlertable {
     private int xPixelOffset;
     private int yPixelOffset;
 
-    private final int HAND_MOVING_RADIUS = 5;
     private int handMovingRadius = 0;
     private int handMovingXOffset = 0;
     private int handMovingYOffset = 0;
@@ -50,7 +49,7 @@ public class HandViewObject extends MovingViewObject implements vAlertable {
         this.radius = radius;
         this.height = height;
 
-        this.handMovingRadius = HAND_MOVING_RADIUS*radius/Math.abs(radius);
+        this.handMovingRadius = (int)(SIN_34/2*Math.abs(radius)*radius/Math.abs(radius));
 
         changeDirection(dir);
     }
