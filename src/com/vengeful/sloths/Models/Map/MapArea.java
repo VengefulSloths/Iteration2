@@ -1,5 +1,7 @@
 package com.vengeful.sloths.Models.Map;
 
+import com.vengeful.sloths.Models.ModelVisitable;
+import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.SaveLoad.SaveVisitor;
 import com.vengeful.sloths.Utility.Coord;
 import org.w3c.dom.Element;
@@ -10,7 +12,7 @@ import org.w3c.dom.Element;
  * Has int maxR, maxS, and Tile[][] tiles
  * Access to a coord with a value >= maxR | maxS throws an error
  */
-public class MapArea {
+public class MapArea implements ModelVisitable{
     /**
      * All private variables
      */
@@ -105,5 +107,9 @@ public class MapArea {
 
     public void setMaxS(int maxS) {
         this.maxS = maxS;
+    }
+
+    public void accept(ModelVisitor v) {
+        v.visitMapArea(this);
     }
 }

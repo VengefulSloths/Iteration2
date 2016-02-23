@@ -141,7 +141,5 @@ public abstract class Entity implements ModelVisitable {
     /**
      * Handles accepting a ModelVisitor
      */
-    public void accept(ModelVisitor modelVisitor) {
-        modelVisitor.visit(this);
-    }
+
 }

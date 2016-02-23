@@ -1,9 +1,13 @@
 package com.vengeful.sloths.Models;
 
 import com.vengeful.sloths.Models.Entity.*;
+import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
+import com.vengeful.sloths.Models.Map.Terrains.Grass;
+import com.vengeful.sloths.Models.Map.Terrains.Mountain;
+import com.vengeful.sloths.Models.Map.Terrains.Water;
 import com.vengeful.sloths.Models.Map.Tile;
 
 /**
@@ -11,12 +15,14 @@ import com.vengeful.sloths.Models.Map.Tile;
  */
 public interface ModelVisitor {
 
-    void visit(Object o);
+    //void visit(Object o);
 
     void visitAvatar(Avatar avatar);
     void visitPiggy(Piggy piggy);
     void visitAggressiveNPC(AggressiveNPC aNPC);
     void visitNonAggressiveNPC(NonAggressiveNPC nonANPC);
+
+    void visitMapArea(MapArea mapArea);
 
     void visitTile(Tile tile);
 
@@ -25,4 +31,7 @@ public interface ModelVisitor {
     void visitTakeableItem(TakeableItem takeableItem);
     void visitObstacle(Obstacle obstacle);
 
+    void visitGrass(Grass grass);
+    void visitMountain(Mountain mountain);
+    void visitWater(Water water);
 }

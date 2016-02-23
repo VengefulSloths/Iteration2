@@ -2,9 +2,13 @@ package com.vengeful.sloths.Controllers;
 
 import com.vengeful.sloths.Models.Entity.*;
 import com.vengeful.sloths.Models.Map.Map;
+import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
+import com.vengeful.sloths.Models.Map.Terrains.Grass;
+import com.vengeful.sloths.Models.Map.Terrains.Mountain;
+import com.vengeful.sloths.Models.Map.Terrains.Water;
 import com.vengeful.sloths.Models.Map.Tile;
 
 import java.util.Iterator;
@@ -16,11 +20,6 @@ public class AggressiveNPCSearchingController extends SearchingController {
 
     public AggressiveNPCSearchingController(Map map, Entity entity, boolean isSearching) {
         super(map, entity, isSearching);
-    }
-
-    @Override
-    public void visit(Object o) {
-
     }
 
     @Override
@@ -43,6 +42,11 @@ public class AggressiveNPCSearchingController extends SearchingController {
 
     }
 
+    @Override
+    public void visitMapArea(MapArea mapArea) {
+
+    }
+
     public void visitTile(Tile tile) {
         Iterator<Entity> iter = tile.getEntityIterator();
         while (iter.hasNext()) {
@@ -60,6 +64,21 @@ public class AggressiveNPCSearchingController extends SearchingController {
 
     @Override
     public void visitObstacle(Obstacle obstacle) {
+
+    }
+
+    @Override
+    public void visitGrass(Grass grass) {
+
+    }
+
+    @Override
+    public void visitMountain(Mountain mountain) {
+
+    }
+
+    @Override
+    public void visitWater(Water water) {
 
     }
 

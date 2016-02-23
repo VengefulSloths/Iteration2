@@ -4,10 +4,10 @@ package com.vengeful.sloths.AreaView;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.SimpleHexCoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.EntityViewObject;
-import com.vengeful.sloths.AreaView.ViewObjects.GroundLevelTerrainViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.CenterAvatarLocationStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.ViewObject;
+import com.vengeful.sloths.GameLaunching.LevelFactory;
 import com.vengeful.sloths.Utility.Direction;
 
 import javax.swing.*;
@@ -22,6 +22,9 @@ import java.util.concurrent.TimeUnit;
 public class AreaView extends JPanel {
     ArrayList<ViewObject> testVOs;
     EntityViewObject testEntity;
+    CameraView testCamera;
+
+
     public AreaView() {
         this.setBackground(Color.GRAY);
         setPreferredSize(new Dimension(400,400));
@@ -30,19 +33,14 @@ public class AreaView extends JPanel {
         CoordinateStrategy cs = new SimpleHexCoordinateStrategy();
         LocationStrategy ls = new CenterAvatarLocationStrategy();
 
-        PersistantViewObjectFactory voFactory = new PlainsPersistantViewObjectFactory(cs, ls);
+        PersistentViewObjectFactory voFactory = new PlainsPersistantViewObjectFactory(cs, ls);
 
         testVOs = new ArrayList<>();
 
-        for (int i = 0;i<10; i++) {
-            for (int j=0; j<10; j++) {
-                if (i*j >5 && i*j*j/2 <18) {
-                    testVOs.add(voFactory.createMountainTerrainViewObject(i, j));
-                } else {
-                    testVOs.add(voFactory.createGrassViewObject(i, j));
-                }
-            }
-        }
+        LevelFactory lf = new LevelFactory();
+        lf.init("test");
+        testCamera = lf.getCameras().getCurrentCameraView();
+
         testEntity = new EntityViewObject(0, 4, cs, ls, "resources/entities/smasher/");
 
         final ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
@@ -103,9 +101,8 @@ public class AreaView extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        for (ViewObject vo: testVOs) {
-            vo.paintComponent(g2d);
-        }
+
+        testCamera.paintComponent(g2d);
         testEntity.paintComponent(g2d);
         g2d.drawString("Hello World!!!", 50, 50);
 
