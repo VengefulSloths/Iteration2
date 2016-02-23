@@ -95,6 +95,20 @@ public class HandViewObject extends MovingViewObject implements vAlertable {
                 handMovingXOffset = 0;
                 handMovingYOffset = -((int)(COS_45 * handMovingRadius));
                 break;
+            case NW:
+                handMovingXOffset = (int)(COS_34 * handMovingRadius);
+                handMovingYOffset = (int)(SIN_34_x_COS_45 * handMovingRadius);
+                break;
+            case SE:
+                handMovingXOffset = -(int)(COS_34 * handMovingRadius);
+                handMovingYOffset = -(int)(SIN_34_x_COS_45 * handMovingRadius);
+                break;
+            case NE:
+                handMovingXOffset = (int)(COS_34 * handMovingRadius);
+                handMovingYOffset = -(int)(SIN_34_x_COS_45 * handMovingRadius);
+            case SW:
+                handMovingXOffset = -(int)(COS_34 * handMovingRadius);
+                handMovingYOffset = (int)(SIN_34_x_COS_45 * handMovingRadius);
         }
 
     }

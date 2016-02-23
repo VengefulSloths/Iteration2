@@ -38,56 +38,56 @@ public class AreaView extends JPanel {
                 testVOs.add(new GrassViewObject(i,j, cs, ls));
             }
         }
-        testEntity = new EntityViewObject(1, 3, cs, ls, "resources/entities/smasher/");
+        testEntity = new EntityViewObject(0, 4, cs, ls, "resources/entities/smasher/");
 
         final ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
         executor.schedule(new Runnable() {
             @Override
             public void run() {
-                testEntity.alertDirectionChange(Direction.S);
-                testEntity.alertMove(1,4,1000);
+                testEntity.alertDirectionChange(Direction.NE);
+                testEntity.alertMove(1,3,1000);
             }
         }, 3, TimeUnit.SECONDS);
         executor.schedule(new Runnable() {
             @Override
             public void run() {
-                testEntity.alertDirectionChange(Direction.S);
-                testEntity.alertMove(1,5,1000);
+                testEntity.alertDirectionChange(Direction.NE);
+                testEntity.alertMove(2,2,1000);
             }
         }, 5, TimeUnit.SECONDS);
         executor.schedule(new Runnable() {
             @Override
             public void run() {
-                testEntity.alertDirectionChange(Direction.S);
-                testEntity.alertMove(1,6,1000);
+                testEntity.alertDirectionChange(Direction.NE);
+                testEntity.alertMove(3,1,1000);
             }
         }, 7, TimeUnit.SECONDS);
         executor.schedule(new Runnable() {
             @Override
             public void run() {
-                testEntity.alertDirectionChange(Direction.S);
-                testEntity.alertMove(1,7,1000);
+                testEntity.alertDirectionChange(Direction.NE);
+                testEntity.alertMove(4,0,1000);
             }
         }, 9, TimeUnit.SECONDS);
         executor.schedule(new Runnable() {
             @Override
             public void run() {
-                testEntity.alertDirectionChange(Direction.N);
-                testEntity.alertMove(1,4,1000);
+                testEntity.alertDirectionChange(Direction.SW);
+                testEntity.alertMove(1,3,1000);
             }
         }, 18, TimeUnit.SECONDS);
         executor.schedule(new Runnable() {
             @Override
             public void run() {
-                testEntity.alertDirectionChange(Direction.N);
-                testEntity.alertMove(1,5,1000);
+                testEntity.alertDirectionChange(Direction.SW);
+                testEntity.alertMove(2,2,1000);
             }
         }, 15, TimeUnit.SECONDS);
         executor.schedule(new Runnable() {
             @Override
             public void run() {
-                testEntity.alertDirectionChange(Direction.N);
-                testEntity.alertMove(1,6,1000);
+                testEntity.alertDirectionChange(Direction.SW);
+                testEntity.alertMove(3,1,1000);
             }
         }, 13, TimeUnit.SECONDS);
 
