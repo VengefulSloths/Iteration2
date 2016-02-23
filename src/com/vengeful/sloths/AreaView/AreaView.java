@@ -37,7 +37,7 @@ public class AreaView extends JPanel {
         for (int i = 0;i<10; i++) {
             for (int j=0; j<10; j++) {
                 if (i*j >5 && i*j*j/2 <18) {
-                    testVOs.add(voFactory.createRoadViewObject(i, j));
+                    testVOs.add(voFactory.createMountainTerrainViewObject(i, j));
                 } else {
                     testVOs.add(voFactory.createGrassViewObject(i, j));
                 }

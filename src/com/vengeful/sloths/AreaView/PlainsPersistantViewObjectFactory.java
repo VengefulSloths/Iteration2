@@ -3,6 +3,7 @@ package com.vengeful.sloths.AreaView;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.GroundLevelTerrainViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
+import com.vengeful.sloths.AreaView.ViewObjects.MountainLevelTerrainViewObject;
 
 /**
  * Created by alexs on 2/22/2016.
@@ -21,5 +22,10 @@ public class PlainsPersistantViewObjectFactory extends PersistantViewObjectFacto
     public GroundLevelTerrainViewObject createRoadViewObject(int r, int s) {
         return new GroundLevelTerrainViewObject(r, s, getCoordinateStrategy(), getLocationStrategy(), "resources/terrain/cracked_sand.xml");
 
+    }
+
+    @Override
+    public MountainLevelTerrainViewObject createMountainTerrainViewObject(int r, int s) {
+        return new MountainLevelTerrainViewObject(r, s, getCoordinateStrategy(), getLocationStrategy(), "resources/terrain/grass_mountain.xml");
     }
 }
