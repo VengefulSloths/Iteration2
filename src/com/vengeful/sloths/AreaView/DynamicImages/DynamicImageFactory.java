@@ -63,7 +63,7 @@ public class DynamicImageFactory {
     private DynamicImage createSingleFrameAnimation(Element root) {
         Element element = root;
 
-        //System.out.println("root path: " + element.getElementsByTagName("rootPath").item(0).getTextContent()+ element.getElementsByTagName("fileName").item(0).getTextContent());
+        System.out.println("root path: " + element.getElementsByTagName("rootPath").item(0).getTextContent()+ element.getElementsByTagName("fileName").item(0).getTextContent());
         String rootPath = element.getElementsByTagName("rootPath").item(0).getTextContent();
 
         return new SingleFrameImage(rootPath + element.getElementsByTagName("fileName").item(0).getTextContent(),
