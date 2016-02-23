@@ -13,11 +13,11 @@ import java.awt.*;
 /**
  * Created by alexs on 2/20/2016.
  */
-public class GrassViewObject extends ViewObject {
+public class GroundLevelTerrainViewObject extends ViewObject {
     private DynamicImage grassImage;
-    public GrassViewObject(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy) {
+    public GroundLevelTerrainViewObject(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy, String xmlPath) {
         super(r, s, coordinateStrategy, locationStrategy);
-        grassImage = DynamicImageFactory.getInstance().loadDynamicImage("resources/terrain/grass.xml");
+        grassImage = DynamicImageFactory.getInstance().loadDynamicImage(xmlPath);
     }
 
     @Override

@@ -4,7 +4,7 @@ package com.vengeful.sloths.AreaView;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.SimpleHexCoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.EntityViewObject;
-import com.vengeful.sloths.AreaView.ViewObjects.GrassViewObject;
+import com.vengeful.sloths.AreaView.ViewObjects.GroundLevelTerrainViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.CenterAvatarLocationStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.ViewObject;
@@ -13,7 +13,6 @@ import com.vengeful.sloths.Utility.Direction;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.TimerTask;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -31,11 +30,17 @@ public class AreaView extends JPanel {
         CoordinateStrategy cs = new SimpleHexCoordinateStrategy();
         LocationStrategy ls = new CenterAvatarLocationStrategy();
 
+        PersistantViewObjectFactory voFactory = new PlainsPersistantViewObjectFactory(cs, ls);
+
         testVOs = new ArrayList<>();
 
         for (int i = 0;i<10; i++) {
             for (int j=0; j<10; j++) {
-                testVOs.add(new GrassViewObject(i,j, cs, ls));
+                if (i*j >5 && i*j*j/2 <18) {
+                    testVOs.add(voFactory.createRoadViewObject(i, j));
+                } else {
+                    testVOs.add(voFactory.createGrassViewObject(i, j));
+                }
             }
         }
         testEntity = new EntityViewObject(0, 4, cs, ls, "resources/entities/smasher/");
@@ -45,49 +50,49 @@ public class AreaView extends JPanel {
             @Override
             public void run() {
                 testEntity.alertDirectionChange(Direction.NE);
-                testEntity.alertMove(1,3,1000);
+                testEntity.alertMove(1,3,500);
             }
         }, 3, TimeUnit.SECONDS);
         executor.schedule(new Runnable() {
             @Override
             public void run() {
                 testEntity.alertDirectionChange(Direction.NE);
-                testEntity.alertMove(2,2,1000);
+                testEntity.alertMove(2,2,500);
             }
         }, 5, TimeUnit.SECONDS);
         executor.schedule(new Runnable() {
             @Override
             public void run() {
                 testEntity.alertDirectionChange(Direction.NE);
-                testEntity.alertMove(3,1,1000);
+                testEntity.alertMove(3,1,500);
             }
         }, 7, TimeUnit.SECONDS);
         executor.schedule(new Runnable() {
             @Override
             public void run() {
                 testEntity.alertDirectionChange(Direction.NE);
-                testEntity.alertMove(4,0,1000);
+                testEntity.alertMove(4,0,500);
             }
         }, 9, TimeUnit.SECONDS);
         executor.schedule(new Runnable() {
             @Override
             public void run() {
                 testEntity.alertDirectionChange(Direction.SW);
-                testEntity.alertMove(1,3,1000);
+                testEntity.alertMove(1,3,500);
             }
         }, 18, TimeUnit.SECONDS);
         executor.schedule(new Runnable() {
             @Override
             public void run() {
                 testEntity.alertDirectionChange(Direction.SW);
-                testEntity.alertMove(2,2,1000);
+                testEntity.alertMove(2,2,500);
             }
         }, 15, TimeUnit.SECONDS);
         executor.schedule(new Runnable() {
             @Override
             public void run() {
                 testEntity.alertDirectionChange(Direction.SW);
-                testEntity.alertMove(3,1,1000);
+                testEntity.alertMove(3,1,500);
             }
         }, 13, TimeUnit.SECONDS);
 

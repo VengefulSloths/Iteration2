@@ -16,27 +16,38 @@ import java.awt.*;
 public class HandViewObject extends MovingViewObject implements vAlertable {
     private DynamicImage handImage;
 
+    //Constant trig functions pre-calculated to ease the processor
     private final double COS_34 = 0.829;
     private final double SIN_34 = 0.559;
     private final double COS_45 = 0.707;
     private final double SIN_34_x_COS_45 = SIN_34 * COS_45;
 
+    //Height is how far above the ground the hand rests
     private int height;
-    private int radius;
-    private int lrmag;
 
+    //Radius is how far from the body center the hand extends
+    //Positive radii are for left hands
+    private int radius;
+
+    //the offset that comes from the direction the avatar is facing
     private int xd;
     private int yd;
 
+    //the offset that comes from the avatar moving
     private int xPixelOffset;
     private int yPixelOffset;
 
-    private int handMovingRadius = 0;
+    //how far the hand will move (absolute top down cartesian distance) when walking
+    private final int handMovingRadius;
+
+    //The adjusted (non-cartesian) distance the hand will move when walking
     private int handMovingXOffset = 0;
     private int handMovingYOffset = 0;
 
-
+    //Where the avatar is in the 5 step walking motion
     private int step = 0;
+
+    //How long a walking motion will take
     private long duration = 0;
 
     private Direction direction;
@@ -49,73 +60,66 @@ public class HandViewObject extends MovingViewObject implements vAlertable {
         this.radius = radius;
         this.height = height;
 
+        //This is signOf(radius)*portionOf(radius)
         this.handMovingRadius = (int)(SIN_34/2*Math.abs(radius)*radius/Math.abs(radius));
 
         changeDirection(dir);
     }
 
+    //Change all the direction offsets when direction changes
     public void changeDirection(Direction dir) {
         this.direction = dir;
         switch (dir) {
             case N:
                 xd = radius;
                 yd = -height;
-                break;
-            case S:
-                xd = -radius;
-                yd = -height;
-                break;
-            case NW:
-                xd = (int)(COS_34 * radius);
-                yd = -(int)(SIN_34 * radius + height);
-                break;
-            case NE:
-                xd = (int)(COS_34 * radius);
-                yd = -(int)(-SIN_34 * radius + height);
-                break;
-            case SW:
-                xd = (int)(-COS_34 * radius);
-                yd = -(int)(SIN_34 * radius + height);
-                break;
-            case SE:
-                xd = (int)(-COS_34 * radius);
-                yd = -(int)(-SIN_34 * radius + height);
-                break;
-        }
-    }
 
-    public void updateMovingHandOffsets(Direction dir) {
-        switch (dir) {
-            case N:
                 handMovingXOffset = 0;
                 handMovingYOffset = (int) (COS_45 * handMovingRadius);
                 break;
             case S:
+                xd = -radius;
+                yd = -height;
+
                 handMovingXOffset = 0;
                 handMovingYOffset = -((int)(COS_45 * handMovingRadius));
                 break;
             case NW:
+                xd = (int)(COS_34 * radius);
+                yd = -(int)(SIN_34 * radius + height);
+
                 handMovingXOffset = (int)(COS_34 * handMovingRadius);
                 handMovingYOffset = (int)(SIN_34_x_COS_45 * handMovingRadius);
-                break;
-            case SE:
-                handMovingXOffset = -(int)(COS_34 * handMovingRadius);
-                handMovingYOffset = -(int)(SIN_34_x_COS_45 * handMovingRadius);
                 break;
             case NE:
-                handMovingXOffset = (int)(COS_34 * handMovingRadius);
-                handMovingYOffset = -(int)(SIN_34_x_COS_45 * handMovingRadius);
-            case SW:
+                xd = (int)(COS_34 * radius);
+                yd = -(int)(-SIN_34 * radius + height);
+
                 handMovingXOffset = -(int)(COS_34 * handMovingRadius);
                 handMovingYOffset = (int)(SIN_34_x_COS_45 * handMovingRadius);
-        }
+                break;
+            case SW:
+                xd = (int)(-COS_34 * radius);
+                yd = -(int)(SIN_34 * radius + height);
 
+                handMovingXOffset = (int)(COS_34 * handMovingRadius);
+                handMovingYOffset = -(int)(SIN_34_x_COS_45 * handMovingRadius);
+                break;
+            case SE:
+                xd = (int)(-COS_34 * radius);
+                yd = -(int)(-SIN_34 * radius + height);
+
+                handMovingXOffset = -(int)(COS_34 * handMovingRadius);
+                handMovingYOffset = -(int)(SIN_34_x_COS_45 * handMovingRadius);
+                break;
+        }
     }
+
+
 
     @Override
     protected void movementHook(int r, int s, long duration) {
         this.duration = duration;
-        updateMovingHandOffsets(this.direction);
         ViewTime.getInstance().registerAlert(this, duration/5);
     }
 
