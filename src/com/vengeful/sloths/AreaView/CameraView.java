@@ -2,7 +2,9 @@ package com.vengeful.sloths.AreaView;
 
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
+import com.vengeful.sloths.AreaView.ViewObjects.MovingViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.TileViewObject;
+import com.vengeful.sloths.AreaView.ViewObjects.ViewObject;
 import com.vengeful.sloths.Models.Map.MapArea;
 
 import javax.swing.*;
@@ -15,7 +17,7 @@ import java.util.Iterator;
 /**
  * Created by alexs on 2/23/2016.
  */
-public abstract class CameraView{
+public abstract class CameraView implements MovingVOObserver{
     private TileViewObject[][] tiles;
     private int maxX;
     private int maxY;
@@ -26,6 +28,11 @@ public abstract class CameraView{
         this.factory = factory;
     }
 
+    public void addViewObject(ViewObject vo) {
+        int     x = findX(vo.getR(), vo.getS()),
+                y = findY(vo.getR(), vo.getS());
+        tiles[x][y].addChild(vo);
+    }
 
     public void init(MapArea mapArea) {
         PersistentVOCreationVisitor creator = new PersistentVOCreationVisitor(factory);
@@ -78,4 +85,17 @@ public abstract class CameraView{
     private int findS(int x, int y) {
         return (y-x)/2;
     }
+
+    @Override
+    public void alertMove(int srcR, int srcS, int destR, int destS, MovingViewObject subject) {
+        int     srcX = findX(srcR,srcS),
+                srcY = findY(srcR,srcS),
+                destX = findX(destR,destS),
+                destY = findY(destR,destS);
+
+        tiles[srcX][srcY].removeChild(subject);
+        tiles[destX][destY].addChild(subject);
+    }
+
+
 }

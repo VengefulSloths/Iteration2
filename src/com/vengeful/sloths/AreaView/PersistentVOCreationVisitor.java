@@ -94,11 +94,12 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
     }
 
     //**********************************************************************
-    //*      Methods below here are not visiting constant objects and thus *
-    //*      do not create anything                                        *
+    //*     Methods below will need to register the cameraview as an observer
     //**********************************************************************
     @Override
-    public void visitAvatar(Avatar avatar) {}
+    public void visitAvatar(Avatar avatar) {
+        //Avatar should be made dynmically
+    }
 
     @Override
     public void visitPiggy(Piggy piggy) {}

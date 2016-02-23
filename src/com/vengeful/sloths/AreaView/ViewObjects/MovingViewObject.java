@@ -1,20 +1,26 @@
 package com.vengeful.sloths.AreaView.ViewObjects;
 
 import com.vengeful.sloths.AreaView.DynamicImages.DynamicTimedImage;
+import com.vengeful.sloths.AreaView.MovingVOObserver;
 import com.vengeful.sloths.AreaView.Observers.MovementObserver;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 import com.vengeful.sloths.AreaView.ViewTime;
 
+import java.util.ArrayList;
+
 /**
  * Created by Alex on 2/22/2016.
  */
-public abstract class MovingViewObject extends ViewObject implements MovementObserver{
+public abstract class MovingViewObject extends ViewObject implements MovementObserver {
     private int previousXPixel;
     private int previousYPixel;
     private long startTime;
     private long duration;
     private boolean isMoving;
+
+    ArrayList<MovingVOObserver> observers = new ArrayList<>();
+
     public MovingViewObject(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy) {
         super(r, s, coordinateStrategy, locationStrategy);
     }
@@ -50,8 +56,16 @@ public abstract class MovingViewObject extends ViewObject implements MovementObs
         //For subclasses to hook into alertMove for animations and whatnot
     }
 
+    public void registerObserver(MovingVOObserver observer) {
+        observers.add(observer);
+    }
+
     @Override
     final public void alertMove(int r, int s, long duration) {
+        for (MovingVOObserver observer: observers) {
+            observer.alertMove(getR(),getS(),r,s, this);
+        }
+
         this.previousXPixel = getXPixels();
         this.previousYPixel = getYPixels();
         setR(r);

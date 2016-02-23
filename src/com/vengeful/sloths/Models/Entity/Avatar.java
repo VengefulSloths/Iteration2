@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Models.Entity;
 
+import com.vengeful.sloths.AreaView.Observers.MovementObserver;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.Inventory.Equipped;
@@ -18,6 +19,9 @@ import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 /**
  * Created by luluding on 2/21/16.
  */
@@ -33,6 +37,8 @@ public class Avatar extends Entity{
 
         return avatar;
     }
+
+    private ArrayList<MovementObserver> observers;
 
 
     public void avatarInit(String occupationString, AbilityManager abilityManager, BuffManager buffManager, Stats stats){
@@ -76,6 +82,7 @@ public class Avatar extends Entity{
         //create talk command
     }
 
+    //TODO: This needs to be on the entity level!
     public void move(Direction dir) {
 
         if(!isMoving) {
@@ -110,6 +117,11 @@ public class Avatar extends Entity{
                     break;
             }
             this.commandFactory.createMovementCommand(this.getLocation(), dst, dir, this, this.getStats().getMovement());
+
+            for (MovementObserver observer: observers) {
+                //TODO: dont hardcode the movement time
+                observer.alertMove(dst.getR(), dst.getS(), 500);
+            }
 
         }else{
             ////System.out.Println("<<<<<<<<<<<<<<<<<<movement rejected>>>>>>>>>>>>>>>>");
@@ -160,6 +172,10 @@ public class Avatar extends Entity{
     }
 
     public void die() {
+    }
+
+    public void registerObserver(MovementObserver observer) {
+        this.observers.add(observer);
     }
 
     @Override

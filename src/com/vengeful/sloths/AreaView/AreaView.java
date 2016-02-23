@@ -9,6 +9,7 @@ import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.CenterAvatarL
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.ViewObject;
 import com.vengeful.sloths.GameLaunching.LevelFactory;
+import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Utility.HexMath;
@@ -34,6 +35,7 @@ public class AreaView extends JPanel {
         setPreferredSize(new Dimension(400,400));
         setDoubleBuffered(true);
 
+
         CoordinateStrategy cs = new SimpleHexCoordinateStrategy();
         LocationStrategy ls = new CenterAvatarLocationStrategy();
 
@@ -44,6 +46,9 @@ public class AreaView extends JPanel {
         LevelFactory lf = new LevelFactory();
         lf.init("test");
         testCamera = lf.getCameras().getCurrentCameraView();
+        TemporaryVOCreationVisitor.getInstance().setActiveCameraView(testCamera);
+
+        TemporaryVOCreationVisitor.getInstance().visitAvatar(Avatar.getInstance());
 
         testEntity = new EntityViewObject(2, 0, cs, ls, "resources/entities/smasher/");
         final ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
