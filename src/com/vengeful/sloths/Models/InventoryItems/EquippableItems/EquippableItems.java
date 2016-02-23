@@ -1,7 +1,9 @@
 package com.vengeful.sloths.Models.InventoryItems.EquippableItems;
 
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
+import com.vengeful.sloths.Models.Stats.StatAddables.BaseStatsAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
+import com.vengeful.sloths.Models.Inventory.Equipped;
 
 /**
  * Created by qianwen on 1/30/16.
@@ -9,42 +11,27 @@ import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 
 public abstract class EquippableItems extends InventoryItem {
     private StatsAddable itemStats;
-    private String itemName;
-    //private BaseStats baseStats;
+
+    /*
+    public EquippableItems(String itemName) {
+        this.setItemName(itemName);
+    }*/
+
+    public EquippableItems(String itemName, StatsAddable itemStats){
+        this.setItemName(itemName);
+        this.itemStats = itemStats;
+    }
+
+    public abstract void addToEquipped(Equipped equipped);
+    public abstract void removeFromEquipped(Equipped equipped);
 
 
     public StatsAddable getItemStats() {
         return this.itemStats;
     }
 
-    public EquippableItems() {
-
+    public void setItemStats(StatsAddable stats){
+        this.itemStats = stats;
     }
 
-    //public EquippableItems(String itemName, BaseStats b){
-    //super(); //not needed
-    //    this.itemName = itemName;
-    //    this.itemStats = b;
-    //}
-
-    public EquippableItems(String itemName) {
-        //super(); //not needed
-        this.itemName = itemName;
-
-    }
-
-//    public void saveMe(SaveManager sv, int ws){
-//        super.saveMe(sv,ws);
-//        itemStats.saveMe(sv, ws+1);
-//    }
-//
-//    public void saveMeFromTakeable(SaveManager sm, int ws)
-//    {
-//        itemStats.saveMe(sm, ws+1);
-//        sm.writeVariableLine(ws, "itemName", itemName, true);
-//    }
-
-    public void setBaseStats(StatsAddable itemStats) {
-        this.itemStats = itemStats;
-    }
 }

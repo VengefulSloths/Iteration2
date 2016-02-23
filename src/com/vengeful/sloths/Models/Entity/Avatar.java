@@ -6,6 +6,8 @@ import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.*;
 import com.vengeful.sloths.Models.ActionCommandFactory.*;
+import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.ConsumableItems;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.EquippableItems;
 import com.vengeful.sloths.Models.Occupation.Occupation;
 import com.vengeful.sloths.Models.Occupation.Smasher;
 import com.vengeful.sloths.Models.Occupation.Sneak;
@@ -35,10 +37,10 @@ public class Avatar extends Entity{
     public void avatarInit(String occupationString, AbilityManager abilityManager, BuffManager buffManager, Stats stats){
 
         this.setInventory(new Inventory());
-        this.setEquipped(new Equipped());
         this.setAbilityManager(abilityManager);
         this.setBuffManager(buffManager);
         this.setStats(stats);
+        this.setEquipped(new Equipped(this.getStats()));
 
         switch (occupationString) {
             case "Smasher":
@@ -114,15 +116,21 @@ public class Avatar extends Entity{
 
     }
 
-    public boolean equip(InventoryItem item) {
 
-        return true;
+
+    public void equip(EquippableItems item) {
+        item.addToEquipped(this.getEquipped());
     }
 
-    public boolean unequip(InventoryItem item) {
-
-        return true;
+    public void unequip(EquippableItems item) {
+        item.removeFromEquipped(this.getEquipped());
     }
+
+
+    public void consumeItem(ConsumableItems item){
+        item.use(this.getStats());
+    }
+
 
     public boolean drop(InventoryItem item) {
 
@@ -132,6 +140,9 @@ public class Avatar extends Entity{
     public boolean pickup(){
         return false;
     }
+
+
+
 
     //called by levelUp AE
     public void levelUp() {
