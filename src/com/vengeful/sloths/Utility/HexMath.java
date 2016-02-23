@@ -36,4 +36,42 @@ public class HexMath {
         return coords.iterator();
     }
 
+    public static Iterator<Coord> sortedRing(Coord center, int radius) {
+        ArrayList<Coord> coords = new ArrayList<>();
+
+        if (radius == 0) {
+            coords.add(center);
+        } else {
+            int r = center.getR();
+            int s = center.getS();
+
+            //Top-left
+            for (int n = 0; n < radius; n++) {
+                coords.add(new Coord(r + n, s - radius));
+            }
+            //Right
+            for (int n = 0; n < radius; n++) {
+                coords.add(new Coord(r + radius, s - radius + n));
+            }
+            //Bottom-right
+            for (int n = 0; n < radius; n++) {
+                coords.add(new Coord(r + radius - n, s + n));
+            }
+            //Bottom-left
+            for (int n = 0; n < radius; n++) {
+                coords.add(new Coord(r - n, s + radius));
+            }
+            //Left
+            for (int n = 0; n < radius; n++) {
+                coords.add(new Coord(r - radius, s + radius - n));
+            }
+            //Top-right
+            for (int n = 0; n < radius; n++) {
+                coords.add(new Coord(r - radius + n, s - n));
+            }
+        }
+
+        return coords.iterator();
+    }
+
 }
