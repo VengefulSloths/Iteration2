@@ -6,6 +6,8 @@ import com.vengeful.sloths.AreaView.Observers.MovementObserver;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 import com.vengeful.sloths.AreaView.ViewTime;
+import com.vengeful.sloths.AreaView.vAlertable;
+import com.vengeful.sloths.Utility.Coord;
 
 import java.util.ArrayList;
 
@@ -62,9 +64,11 @@ public abstract class MovingViewObject extends ViewObject implements MovementObs
 
     @Override
     final public void alertMove(int r, int s, long duration) {
+        //ViewTime.getInstance().registerAlert(this, duration, new Coord(r, s));
         for (MovingVOObserver observer: observers) {
             observer.alertMove(getR(),getS(),r,s, this);
         }
+
 
         this.previousXPixel = getXPixels();
         this.previousYPixel = getYPixels();

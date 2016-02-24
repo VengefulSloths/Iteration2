@@ -54,7 +54,7 @@ public class DynamicTimedImage extends DynamicImage {
         } else if (currentState == state.POST) {
             return endImage.getImage();
         } else {
-            System.out.println((int)((ViewTime.getInstance().getCurrentTimeMilli() - startTime)*animatedImages.size()/(endTime - startTime)));
+            //System.out.println((int)((ViewTime.getInstance().getCurrentTimeMilli() - startTime)*animatedImages.size()/(endTime - startTime)));
             return animatedImages.get( (int)((ViewTime.getInstance().getCurrentTimeMilli() - startTime)*animatedImages.size()/(endTime - startTime)));
         }
     }

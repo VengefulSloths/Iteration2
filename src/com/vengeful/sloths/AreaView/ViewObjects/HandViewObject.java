@@ -154,6 +154,9 @@ public class HandViewObject extends MovingViewObject implements vAlertable {
         g.drawImage(handImage.getImage(), getXPixels() + +xd +xPixelOffset + handImage.getXOffset(), getYPixels() + +yd +yPixelOffset + handImage.getYOffset(), this);
     }
 
-
+    @Override
+    public void accept(VOVisitor v) {
+        //TODO: put something here
+    }
 
 }

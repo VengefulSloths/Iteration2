@@ -121,4 +121,9 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
         leftHand.alertMove(r, s, duration);
         rightHand.alertMove(r, s, duration);
     }
+
+    @Override
+    public void accept(VOVisitor v) {
+        v.visitEntity(this);
+    }
 }

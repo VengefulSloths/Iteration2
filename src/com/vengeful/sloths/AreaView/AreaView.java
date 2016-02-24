@@ -32,7 +32,7 @@ public class AreaView extends JPanel {
 
     public AreaView() {
         this.setBackground(Color.GRAY);
-        setPreferredSize(new Dimension(400,400));
+        setPreferredSize(new Dimension(600,600));
         setDoubleBuffered(true);
 
 
@@ -48,13 +48,15 @@ public class AreaView extends JPanel {
         testCamera = lf.getCameras().getCurrentCameraView();
         TemporaryVOCreationVisitor.getInstance().setActiveCameraView(testCamera);
 
-        TemporaryVOCreationVisitor.getInstance().visitAvatar(Avatar.getInstance());
 
         testEntity = new EntityViewObject(2, 0, cs, ls, "resources/entities/smasher/");
+        testCamera.addViewObject(testEntity);
+        testEntity.registerObserver(testCamera);
+
         final ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
 
         int count = 0;
-        Iterator<Coord> iter = HexMath.sortedRing(new Coord(3,3),3);
+        Iterator<Coord> iter = HexMath.sortedRing(new Coord(3,4),3);
         while (iter.hasNext()) {
             final Coord current = iter.next();
             final int sample = count;
@@ -81,10 +83,10 @@ public class AreaView extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
 
         testCamera.paintComponent(g2d);
-        testEntity.paintComponent(g2d);
+        //testEntity.paintComponent(g2d);
         g2d.drawString("Hello World!!!", 50, 50);
 
-        Toolkit.getDefaultToolkit().sync();
+        //Toolkit.getDefaultToolkit().sync();
 
     }
 }

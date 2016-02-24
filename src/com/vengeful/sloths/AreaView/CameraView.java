@@ -66,9 +66,10 @@ public abstract class CameraView implements MovingVOObserver{
     }
 
     public void paintComponent(Graphics2D g) {
-        for (int i=0; i<maxX; i++) {
-            for (int j = 0; j < maxY; j++) {
-                tiles[i][j].paintComponent(g);
+        int count = 0;
+        for (int i=0; i<maxY; i++) {
+            for (int j = 0; j < maxX; j++) {
+                tiles[j][i].paintComponent(g);
             }
         }
     }
@@ -77,7 +78,7 @@ public abstract class CameraView implements MovingVOObserver{
         return r;
     }
     private int findY(int r, int s) {
-        return 2*r+s;
+        return 2*s+r;
     }
     private int findR(int x, int y) {
         return x;
@@ -92,9 +93,18 @@ public abstract class CameraView implements MovingVOObserver{
                 srcY = findY(srcR,srcS),
                 destX = findX(destR,destS),
                 destY = findY(destR,destS);
+        if (destY > srcY) {
+            tiles[srcX][srcY].removeChild(subject);
+            tiles[destX][destY].addChild(subject);
+        } else {
+            ViewTime.getInstance().registerAlert(500,
+                    new vCommand() {
+                        @Override
+                        public void execute() {
 
-        tiles[srcX][srcY].removeChild(subject);
-        tiles[destX][destY].addChild(subject);
+                        }
+                    });
+        }
     }
 
 

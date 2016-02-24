@@ -1,11 +1,11 @@
 package com.vengeful.sloths.AreaView;
 
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
-import com.vengeful.sloths.AreaView.ViewObjects.GroundLevelTerrainViewObject;
+import com.vengeful.sloths.AreaView.ViewObjects.EntityViewObject;
+import com.vengeful.sloths.AreaView.ViewObjects.GrassViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
-import com.vengeful.sloths.AreaView.ViewObjects.MountainLevelTerrainViewObject;
+import com.vengeful.sloths.AreaView.ViewObjects.MountainViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.TileViewObject;
-import com.vengeful.sloths.Models.Map.Terrains.Terrain;
 
 /**
  * Created by alexs on 2/22/2016.
@@ -21,12 +21,16 @@ public abstract class PersistentViewObjectFactory {
     }
 
     public TileViewObject createTileViewObject(int r, int s) {
-        return new TileViewObject(r, s, cs, ls);
+        return new TileViewObject(r, s);
     }
 
-    public abstract GroundLevelTerrainViewObject createGrassViewObject(int r, int s);
-    public abstract GroundLevelTerrainViewObject createRoadViewObject(int r, int s);
-    public abstract MountainLevelTerrainViewObject createMountainTerrainViewObject(int r, int s);
+    public EntityViewObject createEnitityViewObject(int r, int s, String resourcePath) {
+        return new EntityViewObject(r, s, cs, ls, resourcePath);
+    }
+
+    public abstract GrassViewObject createGrassViewObject(int r, int s);
+    public abstract GrassViewObject createRoadViewObject(int r, int s);
+    public abstract MountainViewObject createMountainTerrainViewObject(int r, int s);
 
     public LocationStrategy getLocationStrategy() {
         return ls;

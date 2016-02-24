@@ -65,4 +65,5 @@ public abstract class ViewObject extends JComponent {
 
     public abstract void paintComponent(Graphics2D g);
 
+    public abstract void accept(VOVisitor v);
 }
