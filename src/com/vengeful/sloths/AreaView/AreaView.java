@@ -49,7 +49,7 @@ public class AreaView extends JPanel {
         TemporaryVOCreationVisitor.getInstance().setActiveCameraView(testCamera);
 
 
-        testEntity = new EntityViewObject(2, 0, cs, ls, "resources/entities/smasher/");
+        testEntity = new EntityViewObject(2, 1, cs, ls, "resources/entities/smasher/");
         testCamera.addViewObject(testEntity);
         testEntity.registerObserver(testCamera);
 
@@ -72,6 +72,26 @@ public class AreaView extends JPanel {
                     testEntity.alertMove(current.getR(),current.getS(),500);
                 }
             }, (++count), TimeUnit.SECONDS);
+        }
+
+        int countOffset = count;
+        count = 0;
+        Iterator<Coord> iter2 = HexMath.sortedRing(new Coord(3,4),3);
+        while (iter2.hasNext()) {
+            final Coord current = iter2.next();
+            final int sample = count;
+            executor.schedule(new Runnable() {
+                @Override
+                public void run() {
+                    if (sample == 0) testEntity.alertDirectionChange(Direction.SE);
+                    if (sample == 4) testEntity.alertDirectionChange(Direction.S);
+                    if (sample == 7) testEntity.alertDirectionChange(Direction.SW);
+                    if (sample == 10) testEntity.alertDirectionChange(Direction.NW);
+                    if (sample == 13) testEntity.alertDirectionChange(Direction.N);
+                    if (sample == 16) testEntity.alertDirectionChange(Direction.NE);
+                    testEntity.alertMove(current.getR(),current.getS(),500);
+                }
+            }, (++count) + countOffset , TimeUnit.SECONDS);
         }
 
 

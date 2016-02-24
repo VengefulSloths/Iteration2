@@ -4,5 +4,5 @@
   <height>52</height>
   <rootPath>resources/terrain/</rootPath>
   <fileName>grass_mountain.png</fileName>
-  <positioning>center</positioning>
+  <positioning xOffset="-39" yOffset="-64">custom</positioning>
 </single_frame_animation>

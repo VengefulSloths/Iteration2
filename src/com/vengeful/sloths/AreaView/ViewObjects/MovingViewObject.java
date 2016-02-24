@@ -66,7 +66,7 @@ public abstract class MovingViewObject extends ViewObject implements MovementObs
     final public void alertMove(int r, int s, long duration) {
         //ViewTime.getInstance().registerAlert(this, duration, new Coord(r, s));
         for (MovingVOObserver observer: observers) {
-            observer.alertMove(getR(),getS(),r,s, this);
+            observer.alertMove(getR(),getS(),r,s,duration, this);
         }
 
 

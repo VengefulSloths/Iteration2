@@ -66,7 +66,6 @@ public abstract class CameraView implements MovingVOObserver{
     }
 
     public void paintComponent(Graphics2D g) {
-        int count = 0;
         for (int i=0; i<maxY; i++) {
             for (int j = 0; j < maxX; j++) {
                 tiles[j][i].paintComponent(g);
@@ -88,20 +87,23 @@ public abstract class CameraView implements MovingVOObserver{
     }
 
     @Override
-    public void alertMove(int srcR, int srcS, int destR, int destS, MovingViewObject subject) {
+    public void alertMove(int srcR, int srcS, int destR, int destS, long duration, MovingViewObject subject) {
         int     srcX = findX(srcR,srcS),
                 srcY = findY(srcR,srcS),
                 destX = findX(destR,destS),
                 destY = findY(destR,destS);
         if (destY > srcY) {
+            System.out.println("moving right away");
             tiles[srcX][srcY].removeChild(subject);
             tiles[destX][destY].addChild(subject);
         } else {
-            ViewTime.getInstance().registerAlert(500,
+            System.out.println("moved after: " + duration);
+            ViewTime.getInstance().registerAlert(duration,
                     new vCommand() {
                         @Override
                         public void execute() {
-
+                            tiles[srcX][srcY].removeChild(subject);
+                            tiles[destX][destY].addChild(subject);
                         }
                     });
         }
