@@ -5,10 +5,14 @@ import com.vengeful.sloths.AreaView.CameraViewManager;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Map.Terrains.Grass;
+import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Tile;
 import com.vengeful.sloths.PlainsCameraView;
 import com.vengeful.sloths.Utility.Coord;
+import com.vengeful.sloths.Utility.HexMath;
 import com.vengeful.sloths.Utility.Location;
+
+import java.util.Iterator;
 
 /**
  * Created by alexs on 2/23/2016.
@@ -38,7 +42,16 @@ public class LevelFactory {
         MapArea area1 = new MapArea(10,10);
         for (int i=0;i<10;i++) {
             for (int j=0;j<10;j++) {
-                area1.addTile(new Coord(i,j), new Tile(new Grass()));
+                boolean mountainFlag = false;
+                Coord c = new Coord(i, j);
+                Iterator<Coord> iter = HexMath.ring(new Coord(3,4), 2);
+                while (iter.hasNext()) {
+                    if (iter.next().equals(c)) {
+                        mountainFlag = true;
+                        break;
+                    }
+                }
+                area1.addTile(new Coord(i,j), mountainFlag ? new Tile(new Mountain()) : new Tile(new Grass()));
             }
         }
         CameraView camera1 = new PlainsCameraView();

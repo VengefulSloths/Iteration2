@@ -18,6 +18,10 @@ public class Coord {
         this.s = s;
     }
 
+    public boolean equals(Coord c) {
+        return c.getR() == r && c.getS() == s;
+    }
+
     //getters and setters
 
     public int getR() {
