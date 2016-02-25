@@ -72,13 +72,14 @@ public class TileViewObject extends ViewObject{
                     this.getYPixels() + fog.getYOffset() + getLocationYOffset(),
                     this);
         } else if (visibility == Visibility.NONVISIBLE) {
+            System.out.println("drawing non vis tile");
+            for (ViewObject child: children) {
+                child.paintComponent(g);
+            }
             g.drawImage(fog.getImage(),
                     this.getXPixels() + fog.getXOffset() + getLocationXOffset(),
                     this.getYPixels() + fog.getYOffset() + getLocationYOffset(),
                     this);
-            for (ViewObject child: children) {
-                child.paintComponent(g);
-            }
         } else {
             for (ViewObject child: children) {
                 child.paintComponent(g);

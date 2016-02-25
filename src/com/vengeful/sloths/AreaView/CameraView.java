@@ -48,10 +48,10 @@ public abstract class CameraView implements MovingVOObserver{
         tiles = new TileViewObject[maxX][maxY];
         for (int i=0; i<maxX; i++) {
             for (int j=0; j<maxY; j++) {
-                tiles[i][j] = factory.createTileViewObject(
-                        findR(i,j),
-                        findS(i,j)
-                );
+//                tiles[i][j] = factory.createTileViewObject(
+//                        findR(i,j),
+//                        findS(i,j)
+//                );
             }
         }
 
@@ -88,7 +88,10 @@ public abstract class CameraView implements MovingVOObserver{
     public void paintComponent(Graphics2D g) {
         for (int i=0; i<maxY; i++) {
             for (int j = 0; j < maxX; j++) {
-                tiles[j][i].paintComponent(g);
+                if (tiles[j][i] != null) {
+                    tiles[j][i].paintComponent(g);
+
+                }
             }
         }
     }
@@ -133,6 +136,13 @@ public abstract class CameraView implements MovingVOObserver{
             int r = current.getR();
             int s = current.getS();
             tiles[findX(r, s)][findY(r,s)].setVisibility(Visibility.VISIBLE);
+        }
+        Iterator<Coord> toBeConcealed = HexMath.saftey(HexMath.ring(new Coord(destR, destS), 5), maxR, maxS);
+        while(toBeConcealed.hasNext()) {
+            Coord current = toBeConcealed.next();
+            int r = current.getR();
+            int s = current.getS();
+            tiles[findX(r, s)][findY(r,s)].setVisibility(Visibility.NONVISIBLE);
         }
     }
 
