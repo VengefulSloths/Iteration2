@@ -23,6 +23,7 @@ public abstract class CameraView implements MovingVOObserver{
     private int maxR;
     private int maxS;
 
+    private ParallaxBackground parallaxBackground;
     private ViewObjectFactory factory;
 
     public CameraView(ViewObjectFactory factory) {
@@ -70,6 +71,7 @@ public abstract class CameraView implements MovingVOObserver{
 
     public void addAvatar(AvatarViewObject avo) {
         addViewObject(avo);
+        parallaxBackground = new ParallaxBackground("resources/backgrounds/sky.xml", avo);
         for (int i=0; i<maxY; i++) {
             for (int j = 0; j < maxX; j++) {
                 //make everything either unknown or nonvisible
@@ -85,6 +87,7 @@ public abstract class CameraView implements MovingVOObserver{
     }
 
     public void paintComponent(Graphics2D g) {
+        parallaxBackground.paintComponent(g);
         for (int i=0; i<maxY; i++) {
             for (int j = 0; j < maxX; j++) {
                 if (tiles[j][i] != null) {
