@@ -54,7 +54,7 @@ public class AreaView extends JPanel {
         testPiggy = new PiggyViewObject(2, 2, cs, ls, "resources/entities/piggy/");
 
         // @TODO: Uncomment this once the PiggyViewObject works!
-//        testCamera.addViewObject(testPiggy);
+        testCamera.addViewObject(testPiggy);
 
 
         testCamera.addAvatar(testAvatar);

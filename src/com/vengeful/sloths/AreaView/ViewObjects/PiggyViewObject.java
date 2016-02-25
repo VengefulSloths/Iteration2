@@ -20,7 +20,7 @@ public class PiggyViewObject extends MovingViewObject implements EntityObserver 
 
     public PiggyViewObject(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy, String resourcePath) {
         super(r, s, coordinateStrategy, locationStrategy);
-        this.walkingSW = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "piggy_southwest_standing.png");
+        this.walkingSW = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "piggy_southwest_standing.xml");
         System.out.println("PIGYGYDFUSIFGJAIOSUFGHADOSIHADIOSFJADIOSFJADIOSFJAIOSDFJAIOSFJAOISDFJOAISDJFAIOSDFJASDOF");
         System.out.println(this.walkingSW);
         this.currentDynamicImage = this.walkingSW;
