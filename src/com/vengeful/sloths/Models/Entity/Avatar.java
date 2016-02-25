@@ -10,7 +10,8 @@ import com.vengeful.sloths.Models.ActionCommandFactory.*;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.ConsumableItems;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.EquippableItems;
-import com.vengeful.sloths.Models.Occupation.Occupation;
+import com.vengeful.sloths.Models.InventoryTakeableItemFactory;
+import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.Occupation.Smasher;
 import com.vengeful.sloths.Models.Occupation.Sneak;
 import com.vengeful.sloths.Models.Occupation.Summoner;
@@ -37,8 +38,6 @@ public class Avatar extends Entity{
 
         return avatar;
     }
-
-    private ArrayList<MovementObserver> observers;
 
 
     public void avatarInit(String occupationString, AbilityManager abilityManager, BuffManager buffManager, Stats stats){
@@ -69,66 +68,30 @@ public class Avatar extends Entity{
     }
 
 
-
-    private ActionCommandFactory commandFactory;
-
-
-    public void setCommandFactory(ActionCommandFactory acf) {
-        this.commandFactory = acf;
-    }
-
-
     public void talk(){
         //create talk command
     }
 
-    //TODO: This needs to be on the entity level!
-    public void move(Direction dir) {
+
+    public Coord move(Direction dir) {
 
         if(!isMoving) {
+            Coord dst = super.move(dir);
 
-            this.setFacingDirection(dir);
+            this.getCommandFactory().createMovementCommand(this.getLocation(), dst, dir, this, this.getStats().getMovement());
 
-            isMoving = true;
-
-            Coord dst = new Coord(this.getLocation().getR(), this.getLocation().getS());
-            switch (dir) {
-                case N:
-                    dst.setS(dst.getS() - 1);
-                    break;
-                case S:
-                    dst.setS(dst.getS() + 1);
-                    break;
-                case NE:
-                    dst.setR(dst.getR() + 1);
-                    dst.setS(dst.getS() - 1);
-                    break;
-                case NW:
-                    dst.setR(dst.getR() - 1);
-                    break;
-                case SE:
-                    dst.setR(dst.getR() + 1);
-                    break;
-                case SW:
-                    dst.setR(dst.getR() - 1);
-                    dst.setS(dst.getS() + 1);
-                    break;
-                default:
-                    break;
-            }
-            this.commandFactory.createMovementCommand(this.getLocation(), dst, dir, this, this.getStats().getMovement());
-
-            for (MovementObserver observer: observers) {
+            for (MovementObserver observer: this.getObservers()) {
                 //TODO: dont hardcode the movement time
                 observer.alertMove(dst.getR(), dst.getS(), 500);
             }
 
+            return dst;
+
         }else{
             ////System.out.Println("<<<<<<<<<<<<<<<<<<movement rejected>>>>>>>>>>>>>>>>");
+            return this.getLocation();
         }
-
     }
-
 
 
     public void equip(EquippableItems item) {
@@ -144,13 +107,12 @@ public class Avatar extends Entity{
         item.use(this.getStats());
     }
 
-    public boolean drop(InventoryItem item) {
-
-        return true;
+    public void drop(InventoryItem item) {
+        this.getCommandFactory().createDropCommand(item, this.getLocation(), this);
     }
 
-    public boolean pickup(){
-        return false;
+    public void pickup(TakeableItem item){
+        this.getCommandFactory().createPickUpCommand(this.getLocation(), this, item);
     }
 
     //called by levelUp AE
@@ -172,14 +134,12 @@ public class Avatar extends Entity{
     }
 
     public void die() {
-    }
-
-    public void registerObserver(MovementObserver observer) {
-        this.observers.add(observer);
+        this.getCommandFactory().createDieCommand(this.getLocation(), this);
     }
 
     @Override
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitAvatar(this);
     }
+
 }

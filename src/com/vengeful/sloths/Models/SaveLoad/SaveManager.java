@@ -38,7 +38,7 @@ public class SaveManager {
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }
-        map.visit(sv);
+        map.accept(sv);
     }
     public void save(Map map){
         SaveVisitor sv = null;
@@ -47,7 +47,7 @@ public class SaveManager {
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }
-        map.visit(sv);
+        map.accept(sv);
     }
     /**
      * Getter/Setters

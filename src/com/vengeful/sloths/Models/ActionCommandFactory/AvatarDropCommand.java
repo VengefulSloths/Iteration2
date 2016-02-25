@@ -1,6 +1,8 @@
 package com.vengeful.sloths.Models.ActionCommandFactory;
 
+import com.vengeful.sloths.Models.InventoryTakeableItemFactory;
 import com.vengeful.sloths.Models.Map.Map;
+import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.Map.Tile;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
@@ -20,14 +22,12 @@ public class AvatarDropCommand extends DropCommand{
 
     @Override
     public void execute() {
+        Tile tile = map.getTile(dropLocation);
+        TakeableItem takeable = InventoryTakeableItemFactory.getInstance().createTakeableRep(itemToDrop);
+        tile.addMapItem(takeable);
+        entity.getInventory().removeItem(itemToDrop);
 
-        //System.out.Println(" I am the execute() of AvatarDropCommand");
-        //System.out.Println("I am dropping item: " + itemToDrop.getItemName());
-//        Tile tile = map.getTile(dropLocation);
-//        tile.addMapItem(itemToDrop.getMapItemRep());
-//        entity.getInventory().removeItem(itemToDrop);
-//
-//
+
 //        Iterator<EntityObserver> iter = this.entity.entityObserverIterator();
 //        while (iter.hasNext()) {
 //            EntityObserver eo = iter.next();

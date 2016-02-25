@@ -1,9 +1,13 @@
 package com.vengeful.sloths.Models.Entity;
 
+import com.vengeful.sloths.AreaView.Observers.MovementObserver;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
+import com.vengeful.sloths.Models.ActionCommandFactory.ActionCommandFactory;
 import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
+import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
+import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Stats.*;
@@ -15,6 +19,8 @@ import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.View.Observers.ModelObserver;
 import org.w3c.dom.Element;
+
+import java.util.ArrayList;
 
 /**
  * Created by luluding on 2/21/16.
@@ -29,8 +35,12 @@ public abstract class Entity implements ModelVisitable {
     private Equipped equipped;
     private String name;
     private Stats stats;
+    private ActionCommandFactory commandFactory;
+
 
     protected boolean isMoving = false;
+
+    private ArrayList<MovementObserver> observers;
 
     //for avatar
     public Entity(){}
@@ -57,13 +67,52 @@ public abstract class Entity implements ModelVisitable {
         //do something
     }
 
+    public Coord move(Direction dir){
 
-    /**
-     * This visit call is only for the save visitor
-     */
-    public void visit(SaveVisitor sv, Element e, Coord c){
-        sv.visitEntity(this, e, c);
+        this.setFacingDirection(dir);
+
+        isMoving = true;
+
+        Coord dst = new Coord(this.getLocation().getR(), this.getLocation().getS());
+
+        switch (dir) {
+            case N:
+                dst.setS(dst.getS() - 1);
+                break;
+            case S:
+                dst.setS(dst.getS() + 1);
+                break;
+            case NE:
+                dst.setR(dst.getR() + 1);
+                dst.setS(dst.getS() - 1);
+                break;
+            case NW:
+                dst.setR(dst.getR() - 1);
+                break;
+            case SE:
+                dst.setR(dst.getR() + 1);
+                break;
+            case SW:
+                dst.setR(dst.getR() - 1);
+                dst.setS(dst.getS() + 1);
+                break;
+            default:
+                break;
+        }
+
+        return dst;
     }
+
+
+    public abstract void pickup(TakeableItem item);
+
+    public abstract void die();
+
+
+    public void registerObserver(MovementObserver observer) {
+        this.observers.add(observer);
+    }
+
 
     /********** Getter and Setters *************/
     public String getName(){
@@ -136,6 +185,27 @@ public abstract class Entity implements ModelVisitable {
 
     public void setStats(Stats stats){
         this.stats = stats;
+    }
+
+    protected ArrayList<MovementObserver> getObservers(){
+        return this.observers;
+    }
+
+
+    public void setCommandFactory(ActionCommandFactory acf) {
+        this.commandFactory = acf;
+    }
+
+    public ActionCommandFactory getCommandFactory(){
+        return this.commandFactory;
+    }
+
+    public boolean getMoving(){
+        return this.isMoving;
+    }
+
+    public void setMoving(boolean isMoving){
+        this.isMoving = isMoving;
     }
 
     /**

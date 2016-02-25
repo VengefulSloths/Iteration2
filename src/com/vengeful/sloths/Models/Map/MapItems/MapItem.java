@@ -34,13 +34,6 @@ public abstract class MapItem implements ViewObservable, ModelVisitable {
         return destroy;
     }
 
-    /**
-     * this visit is only for saveVisitor
-     * this visit might be changed to abstract and each of the subclasses will implement their own
-     */
-    public void visit(SaveVisitor sv, Element e, Coord c){
-        sv.visitMapItem(this, e, c);
-    }
 
     //public void setDestroyFlag(boolean flag){
     //    this.destroy = flag;

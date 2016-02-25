@@ -1,26 +1,27 @@
 package com.vengeful.sloths.Models.ActionCommandFactory;
 
-
-import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
+import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
 
 /**
- * Created by zach on 1/30/16.
+ * Created by luluding on 2/25/16.
  */
-public class AvatarActionCommandFactory extends ActionCommandFactory {
+public class PetActionCommandFactory extends ActionCommandFactory{
 
-    public AvatarActionCommandFactory(Map map) {
+
+    public PetActionCommandFactory(Map map) {
         super(map);
     }
 
 
+    /****** change it to create PET command *********/
     @Override
-    public MovementCommand createMovementCommand(Coord src, Coord dst, Direction dir, Entity avatar, int movementSpeed) {
-        MovementCommand mc = new AvatarMovementCommand(map, src, dst, dir, avatar, movementSpeed);
+    public MovementCommand createMovementCommand(Coord src, Coord dst, Direction dir, Entity pet, int movementSpeed) {
+        MovementCommand mc = new PetMovementCommand(map, src, dst, dir, pet, movementSpeed);
 
         return mc;
     }

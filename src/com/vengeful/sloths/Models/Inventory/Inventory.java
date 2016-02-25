@@ -58,8 +58,6 @@ public class Inventory{
     public void alertObserversFromLoad() {
         Iterator<InventoryObserver> iter = this.inventoryObservers.iterator();
         while (iter.hasNext()) {
-
-
             InventoryObserver io = iter.next();
             for (InventoryItem i : inventory)
             io.alertItemAdded(i);

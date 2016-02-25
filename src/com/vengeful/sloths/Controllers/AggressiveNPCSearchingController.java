@@ -23,6 +23,11 @@ public class AggressiveNPCSearchingController extends SearchingController {
     }
 
     @Override
+    public void visitMap(Map map) {
+
+    }
+
+    @Override
     public void visitAvatar(Avatar avatar) {
 
     }
@@ -48,10 +53,15 @@ public class AggressiveNPCSearchingController extends SearchingController {
     }
 
     public void visitTile(Tile tile) {
+        /*
         Iterator<Entity> iter = tile.getEntityIterator();
         while (iter.hasNext()) {
             iter.next().accept(this);
-        }
+        }*/
+
+        tile.getEntity().accept(this);
+
+
     }
 
     @Override

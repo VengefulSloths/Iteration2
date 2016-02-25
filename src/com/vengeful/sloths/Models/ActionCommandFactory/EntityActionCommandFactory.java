@@ -3,14 +3,15 @@ package com.vengeful.sloths.Models.ActionCommandFactory;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.Map.Map;
+import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Utility.Coord;
 
 /**
  * Created by zach on 1/30/16.
  */
-public abstract class EntityCommandFactory extends ActionCommandFactory {
+public abstract class EntityActionCommandFactory extends ActionCommandFactory {
 
-    public EntityCommandFactory(Map map) {
+    public EntityActionCommandFactory(Map map) {
         super(map);
     }
 
@@ -26,7 +27,7 @@ public abstract class EntityCommandFactory extends ActionCommandFactory {
     }
 
     @Override
-    public PickUpCommand createPickUpCommand(Coord dropLoc, Entity entity) {
+    public PickUpCommand createPickUpCommand(Coord dropLoc, Entity entity, TakeableItem item) {
         return null;
     }
 }

@@ -19,46 +19,15 @@ public class AvatarPickUpCommand extends PickUpCommand {
     Tile tile;
 
 
-    public AvatarPickUpCommand(Map map, Coord dropLoc, Entity entity){
-        super(map, dropLoc, entity);
+    public AvatarPickUpCommand(Map map, Coord dropLoc, Entity entity, TakeableItem item){
+        super(map, dropLoc, entity, item);
         tile = map.getTile(dropLoc);
-        ////System.out.Println("DROP LOC:" + dropLoc.getX() + " " + dropLoc.getY());
     }
-
-
-
 
     @Override
     public void execute() {
-
-        Iterator<MapItem> iter = this.tile.getMapItemIterator();
-
-        ArrayList<MapItem> toBeRemoved = new ArrayList<MapItem>();
-
-
-        while(iter.hasNext()){
-            MapItem item = iter.next();
-            if(item instanceof TakeableItem){
-                //TODO: need to check Inventory full
-
-                InventoryItem toBePickedUp = ((TakeableItem) item).getInvItemRep();
-                entity.getInventory().addItem(toBePickedUp);
-                //tile.removeMapItem(item);
-                toBeRemoved.add(item);
-            }
-        }
-
-        //Remove at the end
-        for(int i = 0; i < toBeRemoved.size(); i++){
-            ////System.out.Println("I am removing: " + toBeRemoved.get(i).getItemName());
-            tile.removeMapItem(toBeRemoved.get(i));
-        }
-
-
-        ////System.out.Println("Picking UP! ");
+        InventoryItem toBePickedUp = item.getInventorpRep();
+        this.entity.getInventory().addItem(toBePickedUp);
+        this.tile.removeMapItem(this.item);
     }
-
-
-
-
 }

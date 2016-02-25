@@ -18,4 +18,8 @@ public class NonAggressiveNPC extends NPC{
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitNonAggressiveNPC(this);
     }
+
+    public void die(){
+        //die
+    }
 }

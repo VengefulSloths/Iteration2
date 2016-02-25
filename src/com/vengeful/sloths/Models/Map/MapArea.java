@@ -19,6 +19,7 @@ public class MapArea implements ModelVisitable{
     private int maxR;
     private int maxS;
     private Tile[][] tiles;
+    private String name;
 
     /**
      * Contructors including default
@@ -33,6 +34,20 @@ public class MapArea implements ModelVisitable{
         this.maxS = tiles[0].length-1;
     }
 
+    public MapArea(Tile[][] tiles, String name){
+        this.tiles = tiles;
+        this.maxR = tiles.length-1;
+        this.maxS = tiles[0].length-1;
+        this.name = name;
+    }
+
+    public MapArea(Tile[][] tiles, int maxR, int maxS, String name){
+        this.maxR = maxR;
+        this.maxS = maxS;
+        this.tiles = tiles;
+        this.name = name;
+    }
+
     public MapArea(Tile[][] tiles, int maxR, int maxS){
         this.maxR = maxR;
         this.maxS = maxS;
@@ -45,12 +60,6 @@ public class MapArea implements ModelVisitable{
         this.tiles = new Tile[maxR][maxS];
     }
 
-    /**
-     * The following visit method is specific for the SaveVisitor (Models.SaveLoad.SaveVisitor
-     */
-    public void visit(SaveVisitor sv, Element parent){
-        sv.visitMapArea(this, parent);
-    }
 
     /**
      * Getter and Setter for single tiles
