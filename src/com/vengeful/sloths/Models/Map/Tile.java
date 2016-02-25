@@ -9,7 +9,6 @@ import com.vengeful.sloths.Models.Map.Terrains.Grass;
 import com.vengeful.sloths.Models.Map.Terrains.Terrain;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -24,6 +23,7 @@ public class Tile implements ModelVisitable{
      * add and remove MapItem should probably be updated in this fashion
      * right now it(nonCollideableEntities) just has a standard getter/setter nothing that adds or removes a specific entity
      */
+
     private Entity entity = null;
     private ArrayList<Entity> nonCollideableEntities;
     private boolean canBeMovedOn;
@@ -51,13 +51,6 @@ public class Tile implements ModelVisitable{
         this.nonCollideableEntities = new ArrayList<Entity>();
 
     }
-
-    /**
-     *This visit is only for the saveVisitor
-     */
-    //public void visit(SaveVisitor sv, Element e, Coord c){
-    //    sv.visitTile(this,e,c);
-    //}
 
     public void execute(){
 
@@ -213,8 +206,12 @@ public class Tile implements ModelVisitable{
      * I've edited teh getter so it returns an array rather than an array list
      */
     public Entity[] getNonCollideableEntities() {
-        List<Entity> nonColEnts = nonCollideableEntities;
-        Entity[] nonColE = (Entity[]) nonColEnts.toArray();
+        Entity[] nonColE = new Entity[nonCollideableEntities.size()];
+        int i = 0;
+        for(Entity e : nonCollideableEntities){
+            nonColE[i] = e;
+            ++i;
+        }
         return nonColE;
     }
 
@@ -235,8 +232,14 @@ public class Tile implements ModelVisitable{
      * I've edited the getter so it returns an array rather than an array list
      */
     public MapItem[] getMapItems() {
-        List<MapItem> mapItemList= mapItems;
-        MapItem[] mapItemArray = (MapItem[]) mapItemList.toArray();
+//        List<MapItem> mapItemList= mapItems;
+//        MapItem[] mapItemArray = (MapItem[]) mapItemList.toArray();
+        MapItem[] mapItemArray = new MapItem[mapItems.size()];
+        int i = 0;
+        for(MapItem mi : mapItems){
+            mapItemArray[i] = mi;
+            ++i;
+        }
         return mapItemArray;
     }
 

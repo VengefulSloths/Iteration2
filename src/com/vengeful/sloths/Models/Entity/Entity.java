@@ -67,7 +67,6 @@ public abstract class Entity implements ModelVisitable {
         //do something
     }
 
-
     public Coord move(Direction dir){
 
         this.setFacingDirection(dir);
@@ -109,18 +108,10 @@ public abstract class Entity implements ModelVisitable {
 
     public abstract void die();
 
-    /**
-     * This visit call is only for the save visitor
-     */
-    public void visit(SaveVisitor sv, Element e, Coord c){
-        sv.visitEntity(this, e, c);
-    }
-
 
     public void registerObserver(MovementObserver observer) {
         this.observers.add(observer);
     }
-
 
 
     /********** Getter and Setters *************/
@@ -199,6 +190,7 @@ public abstract class Entity implements ModelVisitable {
     protected ArrayList<MovementObserver> getObservers(){
         return this.observers;
     }
+
 
     public void setCommandFactory(ActionCommandFactory acf) {
         this.commandFactory = acf;

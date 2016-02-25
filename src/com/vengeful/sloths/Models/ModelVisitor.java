@@ -1,6 +1,7 @@
 package com.vengeful.sloths.Models;
 
 import com.vengeful.sloths.Models.Entity.*;
+import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
@@ -16,7 +17,7 @@ import com.vengeful.sloths.Models.Map.Tile;
 public interface ModelVisitor {
 
     //void visit(Object o);
-
+    void visitMap(Map map);
     void visitAvatar(Avatar avatar);
     void visitPiggy(Piggy piggy);
     void visitAggressiveNPC(AggressiveNPC aNPC);
