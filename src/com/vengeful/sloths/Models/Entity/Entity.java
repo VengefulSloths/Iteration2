@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Models.Entity;
 
+import com.vengeful.sloths.AreaView.Observers.MovementObserver;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.Inventory.Equipped;
@@ -16,6 +17,8 @@ import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.View.Observers.ModelObserver;
 import org.w3c.dom.Element;
 
+import java.util.ArrayList;
+
 /**
  * Created by luluding on 2/21/16.
  */
@@ -31,6 +34,8 @@ public abstract class Entity implements ModelVisitable {
     private Stats stats;
 
     protected boolean isMoving = false;
+
+    private ArrayList<MovementObserver> observers;
 
     //for avatar
     public Entity(){}
@@ -55,6 +60,50 @@ public abstract class Entity implements ModelVisitable {
 
     public void doAbility(){
         //do something
+    }
+
+    public Coord move(Direction dir){
+
+        this.setFacingDirection(dir);
+
+        isMoving = true;
+
+        Coord dst = new Coord(this.getLocation().getR(), this.getLocation().getS());
+
+        switch (dir) {
+            case N:
+                dst.setS(dst.getS() - 1);
+                break;
+            case S:
+                dst.setS(dst.getS() + 1);
+                break;
+            case NE:
+                dst.setR(dst.getR() + 1);
+                dst.setS(dst.getS() - 1);
+                break;
+            case NW:
+                dst.setR(dst.getR() - 1);
+                break;
+            case SE:
+                dst.setR(dst.getR() + 1);
+                break;
+            case SW:
+                dst.setR(dst.getR() - 1);
+                dst.setS(dst.getS() + 1);
+                break;
+            default:
+                break;
+        }
+
+        return dst;
+    }
+
+
+
+
+
+    public void registerObserver(MovementObserver observer) {
+        this.observers.add(observer);
     }
 
 
@@ -131,8 +180,8 @@ public abstract class Entity implements ModelVisitable {
         this.stats = stats;
     }
 
-    /**
-     * Handles accepting a ModelVisitor
-     */
-
+    protected ArrayList<MovementObserver> getObservers(){
+        return this.observers;
+    }
+    
 }

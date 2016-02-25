@@ -76,7 +76,6 @@ public class Tile implements ModelVisitable{
             item.interact(entity);
         }
 
-
         //Create AEs
         Iterator<AreaEffect> aeIter = this.getAreaEffectIterator();
         while(aeIter.hasNext()){
