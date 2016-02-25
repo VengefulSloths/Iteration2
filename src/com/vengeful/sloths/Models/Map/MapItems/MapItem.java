@@ -2,6 +2,8 @@ package com.vengeful.sloths.Models.Map.MapItems;
 
 import com.vengeful.sloths.Models.Entity.Entity;
 
+import com.vengeful.sloths.Models.ModelVisitable;
+import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.SaveLoad.SaveVisitor;
 import com.vengeful.sloths.Models.ViewObservable;
 import com.vengeful.sloths.Utility.Coord;
@@ -13,7 +15,7 @@ import org.w3c.dom.Element;
  * Created by John on 1/30/2016.
  * This class needs to be updated to follow black box inheritance
  */
-public abstract class MapItem implements ViewObservable {
+public abstract class MapItem implements ViewObservable, ModelVisitable {
 
     protected MapItemObserver observer;
     protected boolean destroy = false;
@@ -82,6 +84,7 @@ public abstract class MapItem implements ViewObservable {
 //        sm.writeVariableLine(ws, "itemName", itemName, false);
 //        sm.writeVariableLine(ws,"graphicFolder", graphicFolder, false);
 //    }
+    public abstract void accept(ModelVisitor vistior);
 
 
 }

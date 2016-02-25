@@ -4,6 +4,7 @@ import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
+import com.vengeful.sloths.Models.ModelVisitor;
 
 
 /**
@@ -30,6 +31,11 @@ public class TakeableItem extends MapItem {
 
     public InventoryItem getInventorpRep(){
         return this.inventorpRep;
+    }
+
+
+    public void accept(ModelVisitor visitor) {
+        visitor.visitTakeableItem(this);
     }
 
 }

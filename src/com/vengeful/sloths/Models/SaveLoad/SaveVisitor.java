@@ -13,6 +13,7 @@ import org.w3c.dom.Element;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.util.Iterator;
 
 /**
  * Created by Ian on 2/21/2016.
@@ -69,16 +70,19 @@ public class SaveVisitor extends Visitor {
         for(int r = 0; r != ma.getMaxR(); ++r){
             for(int s = 0; s != ma.getMaxS(); ++s){
                 Coord c = new Coord(r,s);
-                tiles[r][s].visit(this, parent, c);
+                // @TODO: Talk to Ian about this visiting
+//                tiles[r][s].visit(this, parent, c);
             }
         }
     }
 
     public void visitTile(Tile t, Element parent, Coord c){
-        Entity e = t.getEntity();
+        Iterator<Entity> entityIterator = t.getEntityIterator();
+        while (entityIterator.hasNext())
+            entityIterator.next().visit(this, parent, c);
+
         Entity[] nonCollide = t.getNonCollideableEntities();
         MapItem[] mapItems = t.getMapItems();
-        e.visit(this, parent, c);
         for(Entity nonColE : nonCollide){
             nonColE.visit(this, parent, c);
         }

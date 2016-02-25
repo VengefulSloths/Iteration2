@@ -49,12 +49,17 @@ public class DynamicImageFactory {
 
             return null;
     }
-    private PositioningStrategy createPositionStrategy(String positionStrategyName) {
-        switch (positionStrategyName) {
+    private PositioningStrategy createPositionStrategy(Node positionStrategy) {
+        switch (positionStrategy.getTextContent()) {
             case "center":
                 return new CenteredPositioningStrategy();
             case "occupying":
                 return new TileOccupyingPositioningStrategy();
+            case "custom":
+                return new CustomOffsetPositioningStrategy(
+                        Integer.parseInt(positionStrategy.getAttributes().getNamedItem("xOffset").getTextContent()),
+                        Integer.parseInt(positionStrategy.getAttributes().getNamedItem("yOffset").getTextContent()));
+
             default:
                 return new CenteredPositioningStrategy();
         }
@@ -63,13 +68,13 @@ public class DynamicImageFactory {
     private DynamicImage createSingleFrameAnimation(Element root) {
         Element element = root;
 
-        //System.out.println("root path: " + element.getElementsByTagName("rootPath").item(0).getTextContent()+ element.getElementsByTagName("fileName").item(0).getTextContent());
+        System.out.println("root path: " + element.getElementsByTagName("rootPath").item(0).getTextContent()+ element.getElementsByTagName("fileName").item(0).getTextContent());
         String rootPath = element.getElementsByTagName("rootPath").item(0).getTextContent();
 
         return new SingleFrameImage(rootPath + element.getElementsByTagName("fileName").item(0).getTextContent(),
                                     Integer.parseInt(element.getElementsByTagName("width").item(0).getTextContent()),
                                     Integer.parseInt(element.getElementsByTagName("height").item(0).getTextContent()),
-                                    createPositionStrategy(element.getElementsByTagName("positioning").item(0).getTextContent()));
+                                    createPositionStrategy(element.getElementsByTagName("positioning").item(0)));
     }
 
     private DynamicImage createDynamicTimedAnimation(Element root) {
@@ -92,7 +97,7 @@ public class DynamicImageFactory {
         return new DynamicTimedImage(
                 Integer.parseInt(element.getElementsByTagName("width").item(0).getTextContent()),
                 Integer.parseInt(element.getElementsByTagName("height").item(0).getTextContent()),
-                createPositionStrategy(element.getElementsByTagName("positioning").item(0).getTextContent()),
+                createPositionStrategy(element.getElementsByTagName("positioning").item(0)),
                 start,
                 end,
                 activeFilePaths

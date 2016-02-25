@@ -21,7 +21,7 @@ public abstract class ViewObject extends JComponent {
     private LocationStrategy locationStrategy;
 
 
-    public ViewObject(int r, int  s, CoordinateStrategy coordinateStrategy,LocationStrategy locationStrategy) {
+    public ViewObject(int r, int  s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy) {
         this.r = r;
         this.s = s;
         this.coordinateStrategy = coordinateStrategy;
@@ -65,4 +65,5 @@ public abstract class ViewObject extends JComponent {
 
     public abstract void paintComponent(Graphics2D g);
 
+    public abstract void accept(VOVisitor v);
 }

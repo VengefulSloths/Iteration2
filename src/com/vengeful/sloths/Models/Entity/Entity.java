@@ -1,9 +1,12 @@
 package com.vengeful.sloths.Models.Entity;
 
+import com.vengeful.sloths.AreaView.Observers.MovementObserver;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
+import com.vengeful.sloths.Models.ModelVisitable;
+import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Stats.*;
 import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Occupation;
@@ -11,12 +14,15 @@ import com.vengeful.sloths.Models.SaveLoad.SaveVisitor;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
+import com.vengeful.sloths.View.Observers.ModelObserver;
 import org.w3c.dom.Element;
+
+import java.util.ArrayList;
 
 /**
  * Created by luluding on 2/21/16.
  */
-public abstract class Entity {
+public abstract class Entity implements ModelVisitable {
     private Coord location;
     private Direction facingDirection;
     private Occupation occupation;
@@ -28,6 +34,8 @@ public abstract class Entity {
     private Stats stats;
 
     protected boolean isMoving = false;
+
+    private ArrayList<MovementObserver> observers;
 
     //for avatar
     public Entity(){}
@@ -94,21 +102,19 @@ public abstract class Entity {
 
 
 
-
-
-
-
-
-
-
-
-
     /**
-     *This visit call is only for the save visitor
+     * This visit call is only for the save visitor
      */
     public void visit(SaveVisitor sv, Element e, Coord c){
         sv.visitEntity(this, e, c);
     }
+
+
+    public void registerObserver(MovementObserver observer) {
+        this.observers.add(observer);
+    }
+
+
 
     /********** Getter and Setters *************/
     public String getName(){
@@ -182,4 +188,13 @@ public abstract class Entity {
     public void setStats(Stats stats){
         this.stats = stats;
     }
+
+    protected ArrayList<MovementObserver> getObservers(){
+        return this.observers;
+    }
+
+    /**
+     * Handles accepting a ModelVisitor
+     */
+
 }

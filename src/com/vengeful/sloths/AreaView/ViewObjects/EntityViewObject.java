@@ -13,7 +13,7 @@ import java.awt.*;
 /**
  * Created by alexs on 2/20/2016.
  */
-public class EntityViewObject extends ViewObject implements EntityObserver {
+public class EntityViewObject extends MovingViewObject implements EntityObserver {
     private DynamicImage walkingN;
     private DynamicImage walkingNE;
     private DynamicImage walkingNW;
@@ -21,12 +21,10 @@ public class EntityViewObject extends ViewObject implements EntityObserver {
     private DynamicImage walkingSE;
     private DynamicImage walkingSW;
 
-    private int previousXPixel;
-    private int previousYPixel;
+    private HandViewObject leftHand;
+    private HandViewObject rightHand;
 
-    private long startTime = 0;
-    private long duration = 0;
-    private boolean isMoving = false;
+    private Direction direction;
 
     private DynamicImage currentDynamicImage;
     public EntityViewObject(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy, String resourcePath) {
@@ -40,44 +38,58 @@ public class EntityViewObject extends ViewObject implements EntityObserver {
         this.walkingN = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "smasherNorthMoving.xml");
         this.walkingNE = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "smasherNorthEastMoving.xml");
         this.walkingNW = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "smasherNorthWestMoving.xml");
-
         this.currentDynamicImage = walkingS;
+        this.direction = Direction.S;
+
+        this.leftHand = new HandViewObject(r, s, coordinateStrategy, locationStrategy, resourcePath, 27, 18, Direction.S);
+        this.rightHand = new HandViewObject(r, s, coordinateStrategy, locationStrategy, resourcePath, -27, 18, Direction.S);
+
     }
 
-    @Override
-    public int getXPixels() {
-        if (this.isMoving) {
-            float ratio = (float)(ViewTime.getInstance().getCurrentTimeMilli() - startTime)/duration;
-            if (ratio >= 1) {
-                this.isMoving = false;
-                return super.getXPixels();
-            }
-            return (int)(ratio*super.getXPixels() + (1.0-ratio)*previousXPixel);
-        } else {
-            return super.getXPixels();
-        }
-    }
+    private void paintBody(Graphics2D g) {
+        g.drawImage(currentDynamicImage.getImage(), this.getXPixels() + currentDynamicImage.getXOffset(), this.getYPixels() + currentDynamicImage.getYOffset(), this);
 
-    @Override
-    public int getYPixels() {
-        if (this.isMoving) {
-            float ratio = (float)(ViewTime.getInstance().getCurrentTimeMilli() - startTime)/duration;
-            if (ratio >= 1) {
-                return super.getYPixels();
-            }
-            return (int)(ratio*super.getYPixels() + (1-ratio)*previousYPixel);
-        } else {
-            return super.getYPixels();
-        }
     }
 
     @Override
     public void paintComponent(Graphics2D g) {
-        g.drawImage(currentDynamicImage.getImage(), this.getXPixels() + currentDynamicImage.getXOffset(), this.getYPixels() + currentDynamicImage.getYOffset(), this);
+        switch (this.direction) {
+            case N:
+                leftHand.paintComponent(g);
+                rightHand.paintComponent(g);
+                this.paintBody(g);
+                break;
+            case S:
+                this.paintBody(g);
+                leftHand.paintComponent(g);
+                rightHand.paintComponent(g);
+                break;
+            case SW:
+                leftHand.paintComponent(g);
+                paintBody(g);
+                rightHand.paintComponent(g);
+                break;
+            case SE:
+                rightHand.paintComponent(g);
+                paintBody(g);
+                leftHand.paintComponent(g);
+                break;
+            case NW:
+                leftHand.paintComponent(g);
+                paintBody(g);
+                rightHand.paintComponent(g);
+                break;
+            case NE:
+                rightHand.paintComponent(g);
+                paintBody(g);
+                leftHand.paintComponent(g);
+                break;
+        }
     }
 
     @Override
     public void alertDirectionChange(Direction d) {
+        this.direction = d;
         switch (d) {
             case N:
                 currentDynamicImage = walkingN;
@@ -99,18 +111,19 @@ public class EntityViewObject extends ViewObject implements EntityObserver {
                 break;
 
         }
+        leftHand.changeDirection(d);
+        rightHand.changeDirection(d);
     }
 
     @Override
-    public void alertMove(int r, int s, long duration) {
-        this.previousXPixel = getXPixels();
-        this.previousYPixel = getYPixels();
-        setR(r);
-        setS(s);
-        this.startTime = ViewTime.getInstance().getCurrentTimeMilli();
-        this.duration = duration;
-        this.isMoving = true;
-
+    public void movementHook(int r, int s, long duration) {
         ((DynamicTimedImage) currentDynamicImage).start(duration);
+        leftHand.alertMove(r, s, duration);
+        rightHand.alertMove(r, s, duration);
+    }
+
+    @Override
+    public void accept(VOVisitor v) {
+        v.visitEntity(this);
     }
 }

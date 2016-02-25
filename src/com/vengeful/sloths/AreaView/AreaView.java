@@ -1,19 +1,23 @@
 package com.vengeful.sloths.AreaView;
 
 
+
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.SimpleHexCoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.EntityViewObject;
-import com.vengeful.sloths.AreaView.ViewObjects.GrassViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.CenterAvatarLocationStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.ViewObject;
+import com.vengeful.sloths.GameLaunching.LevelFactory;
+import com.vengeful.sloths.Models.Entity.Avatar;
+import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
+import com.vengeful.sloths.Utility.HexMath;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.TimerTask;
+import java.util.Iterator;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -23,143 +27,84 @@ import java.util.concurrent.TimeUnit;
 public class AreaView extends JPanel {
     ArrayList<ViewObject> testVOs;
     EntityViewObject testEntity;
+    CameraView testCamera;
+
+
     public AreaView() {
         this.setBackground(Color.GRAY);
-        setPreferredSize(new Dimension(400,400));
+        setPreferredSize(new Dimension(600,600));
         setDoubleBuffered(true);
+
 
         CoordinateStrategy cs = new SimpleHexCoordinateStrategy();
         LocationStrategy ls = new CenterAvatarLocationStrategy();
 
         testVOs = new ArrayList<>();
 
-        for (int i = 0;i<10; i++) {
-            for (int j=0; j<10; j++) {
-                testVOs.add(new GrassViewObject(i,j, cs, ls));
-            }
-        }
-        testEntity = new EntityViewObject(1, 3, cs, ls, "resources/entities/smasher/");
+        LevelFactory lf = new LevelFactory();
+        lf.init("test");
+        testCamera = lf.getCameras().getCurrentCameraView();
+        TemporaryVOCreationVisitor.getInstance().setActiveCameraView(testCamera);
+
+
+        testEntity = new EntityViewObject(2, 1, cs, ls, "resources/entities/smasher/");
+        testCamera.addViewObject(testEntity);
+        testEntity.registerObserver(testCamera);
 
         final ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
-        executor.schedule(new Runnable() {
-            @Override
-            public void run() {
-                testEntity.alertDirectionChange(Direction.SE);
-                testEntity.alertMove(2,3,1000);
-            }
-        }, 3, TimeUnit.SECONDS);
 
-        executor.schedule(new Runnable() {
-            @Override
-            public void run() {
-                testEntity.alertDirectionChange(Direction.S);
-                testEntity.alertMove(2,4,1000);
-            }
-        }, 4, TimeUnit.SECONDS);
+        int count = 0;
+        Iterator<Coord> iter = HexMath.sortedRing(new Coord(3,4),3);
+        while (iter.hasNext()) {
+            final Coord current = iter.next();
+            final int sample = count;
+            executor.schedule(new Runnable() {
+                @Override
+                public void run() {
+                    if (sample == 0) testEntity.alertDirectionChange(Direction.SE);
+                    if (sample == 4) testEntity.alertDirectionChange(Direction.S);
+                    if (sample == 7) testEntity.alertDirectionChange(Direction.SW);
+                    if (sample == 10) testEntity.alertDirectionChange(Direction.NW);
+                    if (sample == 13) testEntity.alertDirectionChange(Direction.N);
+                    if (sample == 16) testEntity.alertDirectionChange(Direction.NE);
+                    testEntity.alertMove(current.getR(),current.getS(),500);
+                }
+            }, (++count), TimeUnit.SECONDS);
+        }
 
-        executor.schedule(new Runnable() {
-            @Override
-            public void run() {
-                testEntity.alertDirectionChange(Direction.SW);
-                testEntity.alertMove(1,5,1000);
-            }
-        }, 5, TimeUnit.SECONDS);
+        int countOffset = count;
+        count = 0;
+        Iterator<Coord> iter2 = HexMath.sortedRing(new Coord(3,4),3);
+        while (iter2.hasNext()) {
+            final Coord current = iter2.next();
+            final int sample = count;
+            executor.schedule(new Runnable() {
+                @Override
+                public void run() {
+                    if (sample == 0) testEntity.alertDirectionChange(Direction.SE);
+                    if (sample == 4) testEntity.alertDirectionChange(Direction.S);
+                    if (sample == 7) testEntity.alertDirectionChange(Direction.SW);
+                    if (sample == 10) testEntity.alertDirectionChange(Direction.NW);
+                    if (sample == 13) testEntity.alertDirectionChange(Direction.N);
+                    if (sample == 16) testEntity.alertDirectionChange(Direction.NE);
+                    testEntity.alertMove(current.getR(),current.getS(),500);
+                }
+            }, (++count) + countOffset , TimeUnit.SECONDS);
+        }
 
-        executor.schedule(new Runnable() {
-            @Override
-            public void run() {
-                testEntity.alertDirectionChange(Direction.N);
-                testEntity.alertMove(1,4,1000);
-            }
-        }, 6, TimeUnit.SECONDS);
 
-        executor.schedule(new Runnable() {
-            @Override
-            public void run() {
-                testEntity.alertDirectionChange(Direction.NW);
-                testEntity.alertMove(0,4,1000);
-            }
-        }, 7, TimeUnit.SECONDS);
-
-        executor.schedule(new Runnable() {
-            @Override
-            public void run() {
-                testEntity.alertDirectionChange(Direction.NE);
-                testEntity.alertMove(1,3,1000);
-            }
-        }, 8, TimeUnit.SECONDS);
-
-        executor.schedule(new Runnable() {
-            @Override
-            public void run() {
-                testEntity.alertDirectionChange(Direction.S);
-                testEntity.alertMove(1,4,300);
-            }
-        }, 9000, TimeUnit.MILLISECONDS);
-        executor.schedule(new Runnable() {
-            @Override
-            public void run() {
-                testEntity.alertDirectionChange(Direction.S);
-                testEntity.alertMove(1,5,300);
-            }
-        }, 9300, TimeUnit.MILLISECONDS);
-        executor.schedule(new Runnable() {
-            @Override
-            public void run() {
-                testEntity.alertDirectionChange(Direction.S);
-                testEntity.alertMove(1,6,300);
-            }
-        }, 9600, TimeUnit.MILLISECONDS);
-        executor.schedule(new Runnable() {
-            @Override
-            public void run() {
-                testEntity.alertDirectionChange(Direction.S);
-                testEntity.alertMove(1,7,300);
-            }
-        }, 9900, TimeUnit.MILLISECONDS);
-        executor.schedule(new Runnable() {
-            @Override
-            public void run() {
-                testEntity.alertDirectionChange(Direction.NE);
-                testEntity.alertMove(2,6,300);
-            }
-        }, 10200, TimeUnit.MILLISECONDS);
-        executor.schedule(new Runnable() {
-            @Override
-            public void run() {
-                testEntity.alertMove(3,5,300);
-            }
-        }, 10500, TimeUnit.MILLISECONDS);
-        executor.schedule(new Runnable() {
-            @Override
-            public void run() {
-                testEntity.alertMove(4,4,300);
-            }
-        }, 10800, TimeUnit.MILLISECONDS);
-        executor.schedule(new Runnable() {
-            @Override
-            public void run() {
-                testEntity.alertMove(5,3,300);
-            }
-        }, 11100, TimeUnit.MILLISECONDS);
     }
-
-
-
-
-
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        for (ViewObject vo: testVOs) {
-            vo.paintComponent(g2d);
-        }
-        testEntity.paintComponent(g2d);
+
+        testCamera.paintComponent(g2d);
+        //testEntity.paintComponent(g2d);
         g2d.drawString("Hello World!!!", 50, 50);
 
-        Toolkit.getDefaultToolkit().sync();
+        //Toolkit.getDefaultToolkit().sync();
 
     }
 }
