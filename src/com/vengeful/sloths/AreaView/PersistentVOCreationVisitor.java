@@ -5,6 +5,7 @@ import com.vengeful.sloths.Models.Entity.AggressiveNPC;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.NonAggressiveNPC;
 import com.vengeful.sloths.Models.Entity.Piggy;
+import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
@@ -91,6 +92,11 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
     public void visitWater(Water water) {
         //TODO: create actual waterVO
         currentTile.addChild(factory.createRoadViewObject(r, s));
+    }
+
+    @Override
+    public void visitMap(Map map) {
+
     }
 
     //**********************************************************************

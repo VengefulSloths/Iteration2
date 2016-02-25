@@ -23,6 +23,11 @@ public class AggressiveNPCSearchingController extends SearchingController {
     }
 
     @Override
+    public void visitMap(Map map) {
+
+    }
+
+    @Override
     public void visitAvatar(Avatar avatar) {
 
     }

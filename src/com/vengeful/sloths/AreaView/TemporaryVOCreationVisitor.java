@@ -7,6 +7,7 @@ import com.vengeful.sloths.Models.Entity.AggressiveNPC;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.NonAggressiveNPC;
 import com.vengeful.sloths.Models.Entity.Piggy;
+import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
@@ -43,7 +44,10 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     }
 
 
+    @Override
+    public void visitMap(Map map) {
 
+    }
 
     @Override
     public void visitAvatar(Avatar avatar) {

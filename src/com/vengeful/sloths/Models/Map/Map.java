@@ -1,15 +1,16 @@
 package com.vengeful.sloths.Models.Map;
 
+import com.vengeful.sloths.Models.ModelVisitable;
+import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Location;
-import com.vengeful.sloths.Utility.Visitor;
 
 /**
  * Created by John on 2/21/2016.
  * This class now only contains the respawn point(See Utility.Location), an array of MapAreas, and the active mapArea
  * Map Area now contains all the tiles and logic for accessing them
  */
-public class Map {
+public class Map implements ModelVisitable{
     /**
     * PRIVATE VARIABLES RESPAWN POINT(UTILITY.LOCATION) AND MAPAREAS(MAPAREA)
      */
@@ -28,12 +29,6 @@ public class Map {
         this.MapAreas  = MapAreas;
     }
 
-    /**
-     * Visitor is abstract defined in Utilities.Visitor
-     */
-    public void visit(Visitor v){
-        v.visitMap(this);
-    }
 
     /**
      *Allows us to call getTile on map
@@ -70,5 +65,10 @@ public class Map {
 
     public void setActiveMapArea(MapArea activeMapArea) {
         this.activeMapArea = activeMapArea;
+    }
+
+    @Override
+    public void accept(ModelVisitor modelVisitor) {
+        modelVisitor.visitMap(this);
     }
 }

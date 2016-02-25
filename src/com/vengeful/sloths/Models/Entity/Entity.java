@@ -58,13 +58,6 @@ public abstract class Entity implements ModelVisitable {
     }
 
 
-    /**
-     * This visit call is only for the save visitor
-     */
-    public void visit(SaveVisitor sv, Element e, Coord c){
-        sv.visitEntity(this, e, c);
-    }
-
     /********** Getter and Setters *************/
     public String getName(){
         return this.name;
