@@ -30,15 +30,12 @@ public class DynamicImageFactory {
     public DynamicImage loadDynamicImage(String xmlPath) {
         try {
             File imageSpec = new File(xmlPath);
-            System.out.println("File is: " + imageSpec);
             DocumentBuilderFactory dbFactory = new DocumentBuilderFactoryImpl();
             DocumentBuilder documentBuilder = dbFactory.newDocumentBuilder();
             Document doc =  documentBuilder.parse(imageSpec);
             doc.getDocumentElement().normalize();
-            System.out.println("root element: " + doc.getDocumentElement().getNodeName());
             switch(doc.getDocumentElement().getNodeName()) {
                 case "single_frame_animation":
-                    System.out.println("Creating single frame animation for " + imageSpec);
                     return this.createSingleFrameAnimation(doc.getDocumentElement());
                 case "dynamic_timed_animation":
                     return createDynamicTimedAnimation(doc.getDocumentElement());
@@ -70,7 +67,6 @@ public class DynamicImageFactory {
     private DynamicImage createSingleFrameAnimation(Element root) {
         Element element = root;
 
-        System.out.println("root path: " + element.getElementsByTagName("rootPath").item(0).getTextContent()+ element.getElementsByTagName("fileName").item(0).getTextContent());
         String rootPath = element.getElementsByTagName("rootPath").item(0).getTextContent();
 
         return new SingleFrameImage(rootPath + element.getElementsByTagName("fileName").item(0).getTextContent(),
