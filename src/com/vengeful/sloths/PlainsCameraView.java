@@ -1,7 +1,6 @@
 package com.vengeful.sloths;
 
 import com.vengeful.sloths.AreaView.CameraView;
-import com.vengeful.sloths.AreaView.PersistentViewObjectFactory;
 import com.vengeful.sloths.AreaView.PlainsPersistantViewObjectFactory;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.SimpleHexCoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.CenterAvatarLocationStrategy;

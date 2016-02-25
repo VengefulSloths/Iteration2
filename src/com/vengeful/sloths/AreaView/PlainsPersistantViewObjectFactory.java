@@ -8,7 +8,7 @@ import com.vengeful.sloths.AreaView.ViewObjects.MountainViewObject;
 /**
  * Created by alexs on 2/22/2016.
  */
-public class PlainsPersistantViewObjectFactory extends PersistentViewObjectFactory {
+public class PlainsPersistantViewObjectFactory extends ViewObjectFactory {
     public PlainsPersistantViewObjectFactory(CoordinateStrategy cs, LocationStrategy ls) {
         super(cs, ls);
     }

@@ -29,14 +29,17 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
         }
         return instance;
     }
-    private TemporaryVOCreationVisitor() {}
+    private TemporaryVOCreationVisitor() {
+
+    }
 
 
-    private TemporaryViewObjectFactory factory = new TemporaryViewObjectFactory(new SimpleHexCoordinateStrategy(), new CenterAvatarLocationStrategy());
+    private ViewObjectFactory factory;
     private CameraView activeCameraView;
 
     public void setActiveCameraView(CameraView activeCameraView) {
         this.activeCameraView = activeCameraView;
+        this.factory = activeCameraView.getFactory();
     }
 
 
@@ -44,7 +47,7 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
     @Override
     public void visitAvatar(Avatar avatar) {
-        AvatarViewObject avo = factory.createAvatarViewObject(avatar.getLocation().getR(), avatar.getLocation().getS());
+        AvatarViewObject avo = factory.createAvatarViewObject(avatar.getLocation().getR(), avatar.getLocation().getS(), "entities/smasher/");
 
         //Let avo observe avatar
         avatar.registerObserver(avo);

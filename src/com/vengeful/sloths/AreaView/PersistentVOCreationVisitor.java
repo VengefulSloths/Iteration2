@@ -29,9 +29,9 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
     private int r;
     private int s;
 
-    private PersistentViewObjectFactory factory;
+    private ViewObjectFactory factory;
 
-    public PersistentVOCreationVisitor(PersistentViewObjectFactory factory) {
+    public PersistentVOCreationVisitor(ViewObjectFactory factory) {
         this.factory = factory;
     }
 

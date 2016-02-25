@@ -1,21 +1,18 @@
 package com.vengeful.sloths.AreaView;
 
+import com.vengeful.sloths.AreaView.ViewObjects.*;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
-import com.vengeful.sloths.AreaView.ViewObjects.EntityViewObject;
-import com.vengeful.sloths.AreaView.ViewObjects.GrassViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
-import com.vengeful.sloths.AreaView.ViewObjects.MountainViewObject;
-import com.vengeful.sloths.AreaView.ViewObjects.TileViewObject;
 
 /**
  * Created by alexs on 2/22/2016.
  */
 
-public abstract class PersistentViewObjectFactory {
+public abstract class ViewObjectFactory {
     private CoordinateStrategy cs;
     private LocationStrategy ls;
 
-    public PersistentViewObjectFactory(CoordinateStrategy cs, LocationStrategy ls) {
+    public ViewObjectFactory(CoordinateStrategy cs, LocationStrategy ls) {
         this.cs = cs;
         this.ls = ls;
     }
@@ -26,6 +23,10 @@ public abstract class PersistentViewObjectFactory {
 
     public EntityViewObject createEnitityViewObject(int r, int s, String resourcePath) {
         return new EntityViewObject(r, s, cs, ls, resourcePath);
+    }
+
+    public AvatarViewObject createAvatarViewObject(int r, int s, String resourcePath) {
+        return new AvatarViewObject(r, s, cs, ls, resourcePath);
     }
 
     public abstract GrassViewObject createGrassViewObject(int r, int s);

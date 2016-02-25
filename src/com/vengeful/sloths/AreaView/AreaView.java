@@ -39,8 +39,6 @@ public class AreaView extends JPanel {
         CoordinateStrategy cs = new SimpleHexCoordinateStrategy();
         LocationStrategy ls = new CenterAvatarLocationStrategy();
 
-        PersistentViewObjectFactory voFactory = new PlainsPersistantViewObjectFactory(cs, ls);
-
         testVOs = new ArrayList<>();
 
         LevelFactory lf = new LevelFactory();

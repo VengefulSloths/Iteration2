@@ -1,17 +1,11 @@
 package com.vengeful.sloths.AreaView;
 
-import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
-import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.MovingViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.TileViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.ViewObject;
 import com.vengeful.sloths.Models.Map.MapArea;
 
-import javax.swing.*;
 import java.awt.*;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -22,9 +16,9 @@ public abstract class CameraView implements MovingVOObserver{
     private int maxX;
     private int maxY;
 
-    private PersistentViewObjectFactory factory;
+    private ViewObjectFactory factory;
 
-    public CameraView(PersistentViewObjectFactory factory) {
+    public CameraView(ViewObjectFactory factory) {
         this.factory = factory;
     }
 
@@ -110,4 +104,7 @@ public abstract class CameraView implements MovingVOObserver{
     }
 
 
+    public ViewObjectFactory getFactory() {
+        return factory;
+    }
 }
