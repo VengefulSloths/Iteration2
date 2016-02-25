@@ -46,11 +46,11 @@ public class ParallaxBackground extends JComponent implements MovingVOObserver{
     }
 
     private int convertX(int x) {
-        return -x*10;
+        return -x*7;
     }
 
     private int convertY(int y) {
-        return -y*7;
+        return -y*6;
     }
     @Override
     public void alertMove(int srcR, int srcS, int destR, int destS, long duration, MovingViewObject subject) {
