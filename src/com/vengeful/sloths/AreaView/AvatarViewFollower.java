@@ -37,7 +37,6 @@ public class AvatarViewFollower implements MovingVOObserver, vAlertable {
 
     @Override
     public void vAlert() {
-        System.out.println("recalculating xy");
         this.xPixels = target.getXPixels();
         this.yPixels = target.getYPixels();
         if (ViewTime.getInstance().getCurrentTimeMilli() < this.movingEndTime) {

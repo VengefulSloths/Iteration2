@@ -65,45 +65,28 @@ public class TileViewObject extends ViewObject{
 
 
     public void paintComponent(Graphics2D g) {
-        for (ViewObject child: children) {
-            child.paintComponent(g);
+
+        if (visibility == Visibility.UNKNOWN) {
+            g.drawImage(fog.getImage(),
+                    this.getXPixels() + fog.getXOffset() + getLocationXOffset(),
+                    this.getYPixels() + fog.getYOffset() + getLocationYOffset(),
+                    this);
+        } else if (visibility == Visibility.NONVISIBLE) {
+            g.drawImage(fog.getImage(),
+                    this.getXPixels() + fog.getXOffset() + getLocationXOffset(),
+                    this.getYPixels() + fog.getYOffset() + getLocationYOffset(),
+                    this);
+            for (ViewObject child: children) {
+                child.paintComponent(g);
+            }
+        } else {
+            for (ViewObject child: children) {
+                child.paintComponent(g);
+            }
         }
-//        if (visibility == Visibility.UNKNOWN) {
-//            g.drawImage(fog.getImage(),
-//                    this.getXPixels() + fog.getXOffset() + getLocationXOffset(),
-//                    this.getYPixels() + fog.getYOffset() + getLocationYOffset(),
-//                    this);
-//        } else if (visibility == Visibility.NONVISIBLE) {
-//            g.drawImage(fog.getImage(),
-//                    this.getXPixels() + fog.getXOffset() + getLocationXOffset(),
-//                    this.getYPixels() + fog.getYOffset() + getLocationYOffset(),
-//                    this);
-//            for (ViewObject child: children) {
-//                child.paintComponent(g);
-//            }
-//        } else {
-//
-//        }
     }
     @Override
     public void accept(VOVisitor v) {
         v.visitTile(this);
-    }
-
-
-    public int getR() {
-        return r;
-    }
-
-    public void setR(int r) {
-        this.r = r;
-    }
-
-    public int getS() {
-        return s;
-    }
-
-    public void setS(int s) {
-        this.s = s;
     }
 }

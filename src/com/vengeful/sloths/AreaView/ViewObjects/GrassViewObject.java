@@ -22,6 +22,10 @@ public class GrassViewObject extends ViewObject {
 
     @Override
     public void paintComponent(Graphics2D g) {
+        System.out.println("painting grass");
+        System.out.println(this.getXPixels());
+        System.out.println(grassImage.getXOffset());
+        System.out.println(this.getLocationXOffset());
         g.drawImage(grassImage.getImage(),
                 this.getXPixels() + grassImage.getXOffset() + this.getLocationXOffset(),
                 this.getYPixels()+ grassImage.getYOffset() + this.getLocationYOffset(),
