@@ -24,7 +24,7 @@ public class Tile implements ModelVisitable{
      * add and remove MapItem should probably be updated in this fashion
      * right now it(nonCollideableEntities) just has a standard getter/setter nothing that adds or removes a specific entity
      */
-    private ArrayList<Entity> entities = new ArrayList<>();
+    private Entity entity = null;
     private ArrayList<Entity> nonCollideableEntities;
     private boolean canBeMovedOn;
     private ArrayList<MapItem> mapItems;
@@ -33,14 +33,13 @@ public class Tile implements ModelVisitable{
     private boolean cleaningup = false;
 
 
-
     public Tile(){
         canBeMovedOn = true;
         mapItems = new ArrayList<MapItem>();
         areaEffect = new ArrayList<AreaEffect>();
         terrain = new Grass();
         this.cleaningup = false;
-
+        this.nonCollideableEntities = new ArrayList<Entity>();
     }
 
     public Tile(Terrain terrain){
@@ -49,6 +48,7 @@ public class Tile implements ModelVisitable{
         areaEffect = new ArrayList<AreaEffect>();
         this.terrain = terrain;
         this.cleaningup = false;
+        this.nonCollideableEntities = new ArrayList<Entity>();
 
     }
 
@@ -64,7 +64,10 @@ public class Tile implements ModelVisitable{
     }
 
     public boolean canMove(){
-        if(mapItems.size() <= 0) {
+
+        if(this.entity != null){
+            return false; //if there is a collideable entity, can't move
+        }else if(mapItems.size() <= 0) {
             return terrain.canMove();
         }else{
             boolean canMove = true;
@@ -89,42 +92,33 @@ public class Tile implements ModelVisitable{
         while(aeIter.hasNext()){
             AreaEffect ae = aeIter.next();
 
-            Iterator<Entity> entityIterator = this.getEntityIterator();
-            EffectCommand effect;
-
-            while (entityIterator.hasNext()) {
-                effect = ae.createEffectCommand(entityIterator.next());
-                effect.execute();
-            }
-            //System.out.Println("AE: " + ae);
+            EffectCommand effect = ae.createEffectCommand(entity);
+            effect.execute();
         }
-
 
         cleanUp();
     }
 
     public void addEntity(Entity entity){
         //may need to check for an entity already being on the tile
-        this.entities.add(entity);
+        this.entity = entity;
 
         //For some reason check hasmapItem, and check hasAE logic can't be here
         //Have to put the checking logic in movement command or the Pickup/drop, AE commands would not work
     }
 
 
-    public boolean hasEntity() { return this.entities.size() > 0; }
-
-    public Iterator<Entity> getEntityIterator() {
-        return this.entities.iterator();
+    public boolean hasEntity() {
+        return this.entity != null;
     }
 
-    public Entity removeEntity(Entity e){
-        if (this.entities.contains(e)) {
-            this.entities.remove(e);
-        }
+    public Entity getEntity(){
+        return this.entity;
+    }
 
-//        Entity entity = this.entity;
-//        this.entity = null;
+    public Entity removeEntity(){
+        Entity entity = this.entity;
+        this.entity = null;
 
         for (Iterator<MapItem> iter = mapItems.iterator(); iter.hasNext();) {
             MapItem item = iter.next();
@@ -134,7 +128,7 @@ public class Tile implements ModelVisitable{
         }
 
 
-        return e;
+        return entity;
     }
 
     public Terrain getTerrain() { return this.terrain; }
@@ -226,6 +220,14 @@ public class Tile implements ModelVisitable{
 
     public void setNonCollideableEntities(ArrayList<Entity> nonCollideableEntities) {
         this.nonCollideableEntities = nonCollideableEntities;
+    }
+
+    public void addNonCollideableEntity(Entity entity){
+        this.nonCollideableEntities.add(entity);
+    }
+
+    public void removeNonCollideableEntity(Entity entity){
+        this.nonCollideableEntities.remove(entity);
     }
 
     /**

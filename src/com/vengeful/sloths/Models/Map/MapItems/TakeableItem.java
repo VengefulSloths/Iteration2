@@ -22,10 +22,8 @@ public class TakeableItem extends MapItem {
     //Does nothing
     public void interact(Entity entity){
         //maybe alert user he cannot move here
-        if(entity instanceof Avatar){
-            this.destroy = false;
-            ((Avatar)entity).pickup(this);
-        }
+        this.destroy = false;
+        entity.pickup(this);
     }
 
 

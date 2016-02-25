@@ -68,14 +68,6 @@ public class Avatar extends Entity{
     }
 
 
-    private ActionCommandFactory commandFactory;
-
-
-    public void setCommandFactory(ActionCommandFactory acf) {
-        this.commandFactory = acf;
-    }
-
-
     public void talk(){
         //create talk command
     }
@@ -86,7 +78,7 @@ public class Avatar extends Entity{
         if(!isMoving) {
             Coord dst = super.move(dir);
 
-            this.commandFactory.createMovementCommand(this.getLocation(), dst, dir, this, this.getStats().getMovement());
+            this.getCommandFactory().createMovementCommand(this.getLocation(), dst, dir, this, this.getStats().getMovement());
 
             for (MovementObserver observer: this.getObservers()) {
                 //TODO: dont hardcode the movement time
@@ -95,13 +87,11 @@ public class Avatar extends Entity{
 
             return dst;
 
-
         }else{
             ////System.out.Println("<<<<<<<<<<<<<<<<<<movement rejected>>>>>>>>>>>>>>>>");
             return this.getLocation();
         }
     }
-
 
 
     public void equip(EquippableItems item) {
@@ -117,14 +107,12 @@ public class Avatar extends Entity{
         item.use(this.getStats());
     }
 
-    public boolean drop(InventoryItem item) {
-        this.commandFactory.createDropCommand(item, this.getLocation(), this);
-        return true;
+    public void drop(InventoryItem item) {
+        this.getCommandFactory().createDropCommand(item, this.getLocation(), this);
     }
 
-    public boolean pickup(TakeableItem item){
-        this.commandFactory.createPickUpCommand(this.getLocation(), this, item);
-        return true;
+    public void pickup(TakeableItem item){
+        this.getCommandFactory().createPickUpCommand(this.getLocation(), this, item);
     }
 
     //called by levelUp AE
@@ -146,6 +134,7 @@ public class Avatar extends Entity{
     }
 
     public void die() {
+        this.getCommandFactory().createDieCommand(this.getLocation(), this);
     }
 
     @Override

@@ -9,9 +9,9 @@ import com.vengeful.sloths.Utility.Coord;
 /**
  * Created by zach on 1/30/16.
  */
-public abstract class EntityCommandFactory extends ActionCommandFactory {
+public abstract class EntityActionCommandFactory extends ActionCommandFactory {
 
-    public EntityCommandFactory(Map map) {
+    public EntityActionCommandFactory(Map map) {
         super(map);
     }
 
