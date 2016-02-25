@@ -141,5 +141,4 @@ public class Avatar extends Entity{
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitAvatar(this);
     }
-
 }

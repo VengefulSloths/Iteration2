@@ -290,7 +290,7 @@ public class SaveVisitor implements ModelVisitor {
         while (entityIterator.hasNext())
             entityIterator.next().accept(this);*/
 
-        t.getEntity().accept(this);
+//        t.getEntity().accept(this);
 
         Entity[] nonCollide = t.getNonCollideableEntities();
         MapItem[] mapItems = t.getMapItems();
