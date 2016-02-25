@@ -85,7 +85,6 @@ public class Tile{
             item.interact(entity);
         }
 
-
         //Create AEs
         Iterator<AreaEffect> aeIter = this.getAreaEffectIterator();
         while(aeIter.hasNext()){

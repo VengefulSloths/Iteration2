@@ -55,6 +55,54 @@ public abstract class Entity {
     }
 
 
+    public Coord move(Direction dir){
+
+        this.setFacingDirection(dir);
+
+        isMoving = true;
+
+        Coord dst = new Coord(this.getLocation().getR(), this.getLocation().getS());
+
+        switch (dir) {
+            case N:
+                dst.setS(dst.getS() - 1);
+                break;
+            case S:
+                dst.setS(dst.getS() + 1);
+                break;
+            case NE:
+                dst.setR(dst.getR() + 1);
+                dst.setS(dst.getS() - 1);
+                break;
+            case NW:
+                dst.setR(dst.getR() - 1);
+                break;
+            case SE:
+                dst.setR(dst.getR() + 1);
+                break;
+            case SW:
+                dst.setR(dst.getR() - 1);
+                dst.setS(dst.getS() + 1);
+                break;
+            default:
+                break;
+        }
+
+        return dst;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      *This visit call is only for the save visitor
      */
