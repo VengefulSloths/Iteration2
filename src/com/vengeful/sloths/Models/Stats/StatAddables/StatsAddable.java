@@ -1,9 +1,12 @@
 package com.vengeful.sloths.Models.Stats.StatAddables;
 
+import com.vengeful.sloths.Models.ModelVisitable;
+import com.vengeful.sloths.Models.ModelVisitor;
+
 /**
  * Created by John on 2/21/2016.
  */
-public abstract class StatsAddable {
+public abstract class StatsAddable implements ModelVisitable{
 
     private int strength;
     private int agility;
@@ -94,5 +97,9 @@ public abstract class StatsAddable {
 
     public void setCurrentExperience(int currentExperience) {
         this.currentExperience = currentExperience;
+    }
+
+    public void accept(ModelVisitor modelVisitor){
+        modelVisitor.visitStatsAddable(this);
     }
 }

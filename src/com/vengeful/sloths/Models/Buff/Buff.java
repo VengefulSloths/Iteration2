@@ -1,6 +1,8 @@
 package com.vengeful.sloths.Models.Buff;
 
 import com.vengeful.sloths.Models.Entity.Entity;
+import com.vengeful.sloths.Models.ModelVisitable;
+import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.StrengthAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
@@ -8,7 +10,7 @@ import com.vengeful.sloths.Models.Stats.Stats;
 /**
  * Created by luluding on 2/21/16.
  */
-public class Buff {
+public class Buff implements ModelVisitable{
 
     private StatsAddable buff;
     private int duration;
@@ -58,5 +60,10 @@ public class Buff {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void accept(ModelVisitor modelVisitor) {
+        modelVisitor.visitBuff(this);
     }
 }

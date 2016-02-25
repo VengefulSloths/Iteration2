@@ -1,6 +1,8 @@
 package com.vengeful.sloths.Models.Inventory;
 
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.*;
+import com.vengeful.sloths.Models.ModelVisitable;
+import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.ViewObservable;
 import com.vengeful.sloths.View.Observers.*;
 import com.vengeful.sloths.Models.Stats.*;
@@ -11,7 +13,7 @@ import java.util.*;
 /**
  * Created by qianwen on 1/30/16.
  */
-public class Equipped implements ViewObservable{
+public class Equipped implements ViewObservable, ModelVisitable{
 
     private Stats entityStats;
 
@@ -98,4 +100,8 @@ public class Equipped implements ViewObservable{
         this.equipmentObserver.add((EquipmentObserver) modelObserver);
     }
 
+    @Override
+    public void accept(ModelVisitor modelVisitor) {
+        modelVisitor.visitEquipped(this);
+    }
 }

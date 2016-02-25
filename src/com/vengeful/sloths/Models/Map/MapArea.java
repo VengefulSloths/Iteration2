@@ -121,4 +121,12 @@ public class MapArea implements ModelVisitable{
     public void accept(ModelVisitor v) {
         v.visitMapArea(this);
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

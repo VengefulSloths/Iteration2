@@ -1,11 +1,13 @@
 package com.vengeful.sloths.Models.Stats;
 
+import com.vengeful.sloths.Models.ModelVisitable;
+import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 
 /**
  * Created by John on 2/21/2016.
  */
-public class Stats {
+public class Stats implements ModelVisitable {
 
     private int strength;
     private int agility;
@@ -225,5 +227,10 @@ public class Stats {
         setCurrentHealth(this.currentHealth - stats.getCurrentHealth());
         setCurrentMana(this.currentMana - stats.getCurrentMana());
         setCurrentExperience(this.currentExperience - stats.getCurrentExperience());
+    }
+
+    @Override
+    public void accept(ModelVisitor modelVisitor) {
+        modelVisitor.visitStats(this);
     }
 }

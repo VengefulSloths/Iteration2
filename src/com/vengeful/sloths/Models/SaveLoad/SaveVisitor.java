@@ -1,17 +1,34 @@
 package com.vengeful.sloths.Models.SaveLoad;
 
+import com.vengeful.sloths.Models.Ability.Ability;
+import com.vengeful.sloths.Models.Ability.AbilityManager;
+import com.vengeful.sloths.Models.Buff.Buff;
+import com.vengeful.sloths.Models.Buff.BuffManager;
+import com.vengeful.sloths.Models.Buff.BuffOverTime;
 import com.vengeful.sloths.Models.Entity.*;
+import com.vengeful.sloths.Models.Inventory.Equipped;
+import com.vengeful.sloths.Models.Inventory.Inventory;
+import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Hat;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
+import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
+import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.Map.Terrains.Grass;
 import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
 import com.vengeful.sloths.Models.Map.Tile;
 import com.vengeful.sloths.Models.ModelVisitor;
+import com.vengeful.sloths.Models.Occupation.*;
+import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
+import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Coord;
+import com.vengeful.sloths.Utility.Direction;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -35,7 +52,6 @@ import java.util.Stack;
  * For this reason there is a private stack, after each doc.append there should be a currParent.push
  * at the end of each visit call, the stack should be peeked and popped for what was pushed to it
  * these parameters are for properly formatting the save file
- * THIS CLASS IS CURRENTLY UNTESTED
  */
 public class SaveVisitor implements ModelVisitor {
     /**
@@ -112,15 +128,7 @@ public class SaveVisitor implements ModelVisitor {
         Element entityElement = doc.createElement("Avatar");
         currentParent.peek().appendChild(entityElement);
         currentParent.push(entityElement);
-        String name = avatar.getName();
-        if(name == null){
-            name = "nameNotSet";
-        }
-        entityElement.setAttribute("Name", name);
-        /* ALL OTHER ENTITY ATTRIBUTES/AGGREGATE OBJECTS ASSOCIATED WITH IT*/
-        //inv/equipped visit, stats visit, occupation visit, etc...
-
-        appendCoordElement(entityElement, currCoord);
+        visitEntityAttributesAndElements(avatar, entityElement);
         if(currentParent.peek().equals(entityElement)){
             System.out.println("map area saved with stack at proper element");
             currentParent.pop();
@@ -128,7 +136,23 @@ public class SaveVisitor implements ModelVisitor {
             System.out.println("some error saving maparea, stack not at the proper element");
         }
     }
-
+    private void visitEntityAttributesAndElements(Entity e, Element entityElement){
+        String name = e.getName();
+        if(name == null){
+            name = "nameNotSet";
+        }
+        entityElement.setAttribute("Name", name);
+        /* ALL OTHER ENTITY ATTRIBUTES/AGGREGATE OBJECTS ASSOCIATED WITH IT*/
+        //inv/equipped visit, stats visit, occupation visit, etc...
+        appendDirectionAttribute(entityElement, e.getFacingDirection());
+        appendCoordElement(entityElement, currCoord);
+        e.getOccupation().accept(this);
+        e.getStats().accept(this);
+        e.getAbilityManager().accept(this);
+        e.getBuffManager().accept(this);
+        e.getInventory().accept(this);
+        e.getEquipped().accept(this);
+    }
     @Override
     public void visitPiggy(Piggy piggy) {
 
@@ -144,10 +168,107 @@ public class SaveVisitor implements ModelVisitor {
 
     }
 
+    @Override
+    public void visitStats(Stats s) {
+
+    }
+
+    @Override
+    public void visitBuffManager(BuffManager bm) {
+
+    }
+
+    @Override
+    public void visitBuff(Buff b) {
+
+    }
+
+    @Override
+    public void visitBuffOverTime(BuffOverTime buffOverTime) {
+
+    }
+
+    @Override
+    public void visitAbilityManager(AbilityManager am) {
+
+    }
+
+    @Override
+    public void visitAbility(Ability ability) {
+
+    }
+
+    @Override
+    public void visitSummoner(Summoner s) {
+        Element occElement = doc.createElement("Summoner");
+        currentParent.peek().appendChild(occElement);
+        //right now occupation doesn't hold anything add additional save logic here when it does
+    }
+
+    @Override
+    public void visitSneak(Sneak s) {
+        Element occElement = doc.createElement("Sneak");
+        currentParent.peek().appendChild(occElement);
+        //right now occupation doesn't hold anything add additional save logic here when it does
+    }
+
+    @Override
+    public void visitSmasher(Smasher s) {
+        Element occElement = doc.createElement("Sneak");
+        currentParent.peek().appendChild(occElement);
+        //right now occupation doesn't hold anything add additional save logic here when it does
+    }
+
+    @Override
+    public void visitDummyOcc(DummyOccupation dummyO) {
+
+    }
+
+    @Override
+    public void visitInventory(Inventory i) {
+
+    }
+
+    @Override
+    public void visitPotion(Potion p) {
+
+    }
+
+    @Override
+    public void vistUsableItem(UsableItems ui) {
+
+    }
+
+    @Override
+    public void visitEquipped(Equipped e) {
+
+    }
+
+    @Override
+    public void visitHat(Hat h) {
+
+    }
+
+    @Override
+    public void visitOneHandedWeapon(OneHandedWeapon ohw) {
+
+    }
+
+    @Override
+    public void visitTwoHandedWeapon(TwoHandedWeapon thw) {
+
+    }
+
+    @Override
+    public void visitStatsAddable(StatsAddable sa) {
+
+    }
+
     public void visitMapArea(MapArea ma){
         Element maElement = doc.createElement("MapArea");
         currentParent.peek().appendChild(maElement);
         currentParent.push(maElement);
+        maElement.setAttribute("Name", ma.getName());
         Tile[][] tiles= ma.getTiles();
         for(int r = 0; r != ma.getMaxR(); ++r){
             for(int s = 0; s != ma.getMaxS(); ++s){
@@ -191,7 +312,7 @@ public class SaveVisitor implements ModelVisitor {
             name = "nameNotSet";
         }
         entityElement.setAttribute("Name", name);
-        
+
         appendCoordElement(entityElement, currCoord);
         if(currentParent.peek().equals(entityElement)){
             System.out.println("map area saved with stack at proper element");
@@ -229,6 +350,11 @@ public class SaveVisitor implements ModelVisitor {
 
     }
 
+    @Override
+    public void visitOneShotItem(OneShotItem osi) {
+
+    }
+
     /**
      *Don't need to visit terrain in save visitor, the levelFactory handles all of this being recorded
      */
@@ -256,5 +382,9 @@ public class SaveVisitor implements ModelVisitor {
         parent.appendChild(coordElement);
         coordElement.setAttribute("s", "" + c.getS());
         coordElement.setAttribute("r", "" + c.getR());
+    }
+
+    private void appendDirectionAttribute(Element parent, Direction d){
+        parent.setAttribute("Direction", d + "");
     }
 }

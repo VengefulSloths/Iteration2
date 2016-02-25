@@ -183,5 +183,5 @@ public abstract class Entity implements ModelVisitable {
     protected ArrayList<MovementObserver> getObservers(){
         return this.observers;
     }
-    
+
 }

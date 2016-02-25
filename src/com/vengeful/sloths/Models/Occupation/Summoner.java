@@ -1,6 +1,7 @@
 package com.vengeful.sloths.Models.Occupation;
 
 
+import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Stats.StatAddables.BaseStatsAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.HealthManaExperienceAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
@@ -18,5 +19,9 @@ public class Summoner extends Occupation {
     @Override
     public void levelUp(Stats stats) {
         stats.add(new BaseStatsAddable(1, 1, 2, 1, 0));
+    }
+
+    public void accept(ModelVisitor mv){
+        mv.visitSummoner(this);
     }
 }

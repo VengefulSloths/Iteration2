@@ -1,6 +1,8 @@
 package com.vengeful.sloths.Models.Buff;
 
 import com.vengeful.sloths.Models.Entity.Entity;
+import com.vengeful.sloths.Models.ModelVisitable;
+import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.TimeModel.Tickable;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
 
@@ -10,7 +12,7 @@ import java.util.Iterator;
 /**
  * Created by luluding on 2/21/16.
  */
-public class BuffManager implements Tickable {
+public class BuffManager implements Tickable, ModelVisitable {
 
     private ArrayList<Buff> buffs;
     private Entity entity;
@@ -44,5 +46,10 @@ public class BuffManager implements Tickable {
             Buff buff = iterator.next();
             buff.applyOnTick(entity.getStats());
         }
+    }
+
+    @Override
+    public void accept(ModelVisitor modelVisitor) {
+        modelVisitor.visitBuffManager(this);
     }
 }

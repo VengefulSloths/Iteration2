@@ -7,6 +7,7 @@ import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Map.Tile;
 import com.vengeful.sloths.Models.Stats.Stats;
+import com.vengeful.sloths.Utility.Direction;
 
 /**
  * Created by Ian on 2/25/2016.
@@ -16,6 +17,7 @@ public class SaveTestDriver {
         Map m = new Map();
         MapArea ma1 = new MapArea(2,2);
         MapArea ma2 = new MapArea(2,2);
+        ma1.setName("ma1");
         Tile[][] tiles1 = new Tile[2][2];
         Tile[][] tiles2 = new Tile[2][2];
         for(int i = 0; i != 2; ++i){
@@ -28,6 +30,7 @@ public class SaveTestDriver {
         ma1.setTiles(tiles1);
         ma2.setTiles(tiles2);
         Avatar a = Avatar.getInstance();
+        a.setFacingDirection(Direction.N);
         AbilityManager abm = new AbilityManager();
         a.avatarInit("Sneak", abm, new Stats() );
         tiles1[1][1].addEntity(a);

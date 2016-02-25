@@ -2,6 +2,8 @@ package com.vengeful.sloths.Models.Inventory;
 
 
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
+import com.vengeful.sloths.Models.ModelVisitable;
+import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.View.Observers.InventoryObserver;
 import com.vengeful.sloths.View.Observers.ModelObserver;
 
@@ -11,7 +13,7 @@ import java.util.Iterator;
 /**
  * Created by qianwen on 1/30/16.
  */
-public class Inventory{
+public class Inventory implements ModelVisitable{
 
     private ArrayList<InventoryItem> inventory;
     private int currentSize;
@@ -103,5 +105,8 @@ public class Inventory{
     public void deregisterObserver(ModelObserver modelObserver) { this.inventoryObservers.remove(modelObserver);}
 
 
-
+    @Override
+    public void accept(ModelVisitor modelVisitor) {
+        modelVisitor.visitInventory(this);
+    }
 }
