@@ -29,12 +29,20 @@ public abstract class ViewObject extends JComponent {
         this.coordinateStrategy.adjustXY(this.r, this.s, this);
     }
 
+    public int getLocationXOffset() {
+        return this.locationStrategy.offsetXPixels();
+    }
+
+    public int getLocationYOffset() {
+        return this.locationStrategy.offsetYPixels();
+    }
+
     public int getXPixels() {
-        return locationStrategy.offsetXPixels(xPixels);
+        return xPixels;
     }
 
     public int getYPixels() {
-        return locationStrategy.offsetYPixels(yPixels);
+        return yPixels;
     }
 
     public int getR() {

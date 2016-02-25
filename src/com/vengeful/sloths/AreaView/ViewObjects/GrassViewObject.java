@@ -22,7 +22,10 @@ public class GrassViewObject extends ViewObject {
 
     @Override
     public void paintComponent(Graphics2D g) {
-        g.drawImage(grassImage.getImage(), this.getXPixels() + grassImage.getXOffset(), this.getYPixels()+ grassImage.getYOffset(), this);
+        g.drawImage(grassImage.getImage(),
+                this.getXPixels() + grassImage.getXOffset() + this.getLocationXOffset(),
+                this.getYPixels()+ grassImage.getYOffset() + this.getLocationYOffset(),
+                this);
     }
 
     @Override

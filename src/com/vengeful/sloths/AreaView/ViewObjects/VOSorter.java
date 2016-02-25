@@ -23,4 +23,9 @@ public class VOSorter implements VOVisitor {
     public void visitMountain(MountainViewObject m) {
         zLevel = 2000;
     }
+
+    @Override
+    public void visitTile(TileViewObject t) {
+        zLevel = -1;
+    }
 }

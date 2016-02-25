@@ -39,9 +39,10 @@ public class LevelFactory {
     public void createTestMap() {
         this.cameras = new CameraViewManager();
 
-        MapArea area1 = new MapArea(10,10);
-        for (int i=0;i<10;i++) {
-            for (int j=0;j<10;j++) {
+        int max = 20;
+        MapArea area1 = new MapArea(max,max);
+        for (int i=0;i<max;i++) {
+            for (int j=0;j<max;j++) {
                 boolean mountainFlag = false;
                 Coord c = new Coord(i, j);
                 Iterator<Coord> iter = HexMath.ring(new Coord(3,4), 2);

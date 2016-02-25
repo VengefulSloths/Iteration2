@@ -151,7 +151,10 @@ public class HandViewObject extends MovingViewObject implements vAlertable {
 
     @Override
     public void paintComponent(Graphics2D g) {
-        g.drawImage(handImage.getImage(), getXPixels() + +xd +xPixelOffset + handImage.getXOffset(), getYPixels() + +yd +yPixelOffset + handImage.getYOffset(), this);
+        g.drawImage(handImage.getImage(),
+                getXPixels() + +xd +xPixelOffset + handImage.getXOffset() + this.getLocationXOffset(),
+                getYPixels() + +yd +yPixelOffset + handImage.getYOffset() + this.getLocationYOffset(),
+                this);
     }
 
     @Override

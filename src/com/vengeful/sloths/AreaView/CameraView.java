@@ -1,9 +1,13 @@
 package com.vengeful.sloths.AreaView;
 
+import com.vengeful.sloths.AreaView.ViewObjects.AvatarViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.MovingViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.TileViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.ViewObject;
 import com.vengeful.sloths.Models.Map.MapArea;
+import com.vengeful.sloths.Utility.Coord;
+import com.vengeful.sloths.Utility.HexMath;
+import com.vengeful.sloths.Visibility;
 
 import java.awt.*;
 import java.util.Iterator;
@@ -15,6 +19,9 @@ public abstract class CameraView implements MovingVOObserver{
     private TileViewObject[][] tiles;
     private int maxX;
     private int maxY;
+
+    private int maxR;
+    private int maxS;
 
     private ViewObjectFactory factory;
 
@@ -31,6 +38,8 @@ public abstract class CameraView implements MovingVOObserver{
     public void init(MapArea mapArea) {
         PersistentVOCreationVisitor creator = new PersistentVOCreationVisitor(factory);
 
+        maxR = mapArea.getMaxR();
+        maxS = mapArea.getMaxS();
         maxX = findX(mapArea.getMaxR(), mapArea.getMaxS());
         maxY = findY(mapArea.getMaxR(), mapArea.getMaxS());
 
@@ -52,10 +61,27 @@ public abstract class CameraView implements MovingVOObserver{
         //add all the tiles correctly to the array
         Iterator<TileViewObject> iter = creator.getTiles();
         while (iter.hasNext()) {
+            System.out.println("adding cTile");
             TileViewObject current = iter.next();
             int i = findX(current.getR(), current.getS());
             int j = findY(current.getR(), current.getS());
             tiles[i][j] = current;
+        }
+    }
+
+    public void addAvatar(AvatarViewObject avo) {
+        addViewObject(avo);
+        for (int i=0; i<maxY; i++) {
+            for (int j = 0; j < maxX; j++) {
+                //make everything either unknown or nonvisible
+            }
+        }
+        Iterator<Coord> toReveal = HexMath.saftey(HexMath.hexagon(new Coord(avo.getR(), avo.getS()), 4), maxR, maxS);
+        while (toReveal.hasNext()) {
+            Coord current = toReveal.next();
+            int r = current.getR();
+            int s = current.getS();
+            tiles[findX(r, s)][findY(r,s)].setVisibility(Visibility.VISIBLE);
         }
     }
 
@@ -100,6 +126,13 @@ public abstract class CameraView implements MovingVOObserver{
                             tiles[destX][destY].addChild(subject);
                         }
                     });
+        }
+        Iterator<Coord> toBeRevealed = HexMath.saftey(HexMath.ring(new Coord(destR, destS), 4), maxR, maxS);
+        while(toBeRevealed.hasNext()) {
+            Coord current = toBeRevealed.next();
+            int r = current.getR();
+            int s = current.getS();
+            tiles[findX(r, s)][findY(r,s)].setVisibility(Visibility.VISIBLE);
         }
     }
 

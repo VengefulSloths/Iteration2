@@ -47,7 +47,9 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     }
 
     private void paintBody(Graphics2D g) {
-        g.drawImage(currentDynamicImage.getImage(), this.getXPixels() + currentDynamicImage.getXOffset(), this.getYPixels() + currentDynamicImage.getYOffset(), this);
+        g.drawImage(currentDynamicImage.getImage(),
+                this.getXPixels() + currentDynamicImage.getXOffset() + this.getLocationXOffset(),
+                this.getYPixels() + currentDynamicImage.getYOffset() + this.getLocationYOffset(), this);
 
     }
 
