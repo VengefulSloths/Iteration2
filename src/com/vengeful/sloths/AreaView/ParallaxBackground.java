@@ -25,6 +25,8 @@ public class ParallaxBackground extends JComponent implements MovingVOObserver{
 
     public ParallaxBackground(String resourcePath, MovingViewObject subject) {
         subject.registerObserver(this);
+        xNew = convertX(subject.getR());
+        yNew = convertY((subject.getR() + subject.getS()*2));
         background = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath);
     }
     public void paintComponent(Graphics2D g) {
