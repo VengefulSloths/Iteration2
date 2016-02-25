@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Utility;
 
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -74,4 +75,30 @@ public class HexMath {
         return coords.iterator();
     }
 
+    public static Iterator<Coord> hexagon(Coord center, int radius) {
+        ArrayList<Coord> coords = new ArrayList<>();
+        for (int r=0; r<=radius; r++) {
+            Iterator<Coord> currentRing = sortedRing(center, r);
+            while (currentRing.hasNext()) {
+                coords.add(currentRing.next());
+            }
+        }
+        return coords.iterator();
+    }
+
+    public static Iterator<Coord> saftey(Iterator<Coord> coords, int rMax, int sMax) {
+        ArrayList<Coord> safeCoords = new ArrayList<>();
+
+        while (coords.hasNext()) {
+            Coord current = coords.next();
+            if (    current.getR() < rMax &&
+                    current.getS() < sMax &&
+                    current.getS() >= 0 &&
+                    current.getR() >= 0) {
+                safeCoords.add(current);
+            }
+        }
+
+        return safeCoords.iterator();
+    }
 }

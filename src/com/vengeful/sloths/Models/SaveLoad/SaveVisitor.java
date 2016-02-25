@@ -285,9 +285,12 @@ public class SaveVisitor implements ModelVisitor {
     }
 
     public void visitTile(Tile t){
+        /*
         Iterator<Entity> entityIterator = t.getEntityIterator();
         while (entityIterator.hasNext())
-            entityIterator.next().accept(this);
+            entityIterator.next().accept(this);*/
+
+        t.getEntity().accept(this);
 
         Entity[] nonCollide = t.getNonCollideableEntities();
         MapItem[] mapItems = t.getMapItems();

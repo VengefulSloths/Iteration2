@@ -1,22 +1,18 @@
 package com.vengeful.sloths.Models.ActionCommandFactory;
 
+import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.Tile;
-import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
-import com.vengeful.sloths.View.Observers.EntityObserver;
-
-import java.util.Iterator;
 
 /**
- * Created by zach on 1/30/16.
+ * Created by luluding on 2/25/16.
  */
-public class AvatarMovementCommand extends MovementCommand {
+public class PetMovementCommand extends MovementCommand{
 
-    public AvatarMovementCommand(Map map, Coord src, Coord dst, Direction dir, Entity avatar, int movementSpeed) {
-        super(map, src, dst, dir, avatar, movementSpeed);
-        doMove(); //WHY IS THIS HERE not in execute()?
+    public PetMovementCommand(Map map, Coord src, Coord dst, Direction dir, Entity pet, int movementSpeed) {
+        super(map, src, dst, dir, pet, movementSpeed);
     }
 
     public void doMove()
@@ -27,14 +23,15 @@ public class AvatarMovementCommand extends MovementCommand {
             Tile destTile = map.getTile(this.dst);
 
             if (destTile.canMove()) {
-                sourceTile.removeEntity();
-                destTile.addEntity(entity);
+                sourceTile.removeNonCollideableEntity(this.entity);
+                destTile.addNonCollideableEntity(this.entity);
                 entity.setLocation(dst);
             }
         } catch (Exception e){
-            //not tile found
             //do something
         } finally {
+            //NEED TO ALERT VIEW
+
 //            Iterator<EntityObserver> iter = this.entity.entityObserverIterator();
 //            while (iter.hasNext()) {
 //                EntityObserver eo = iter.next();
@@ -50,8 +47,10 @@ public class AvatarMovementCommand extends MovementCommand {
 
     @Override
     public void execute() {
+        doMove();
         entity.setMoving(false);
     }
+
 
 
 }

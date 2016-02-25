@@ -18,7 +18,7 @@ public abstract class ViewObjectFactory {
     }
 
     public TileViewObject createTileViewObject(int r, int s) {
-        return new TileViewObject(r, s);
+        return new TileViewObject(r, s, cs, ls);
     }
 
     public EntityViewObject createEnitityViewObject(int r, int s, String resourcePath) {

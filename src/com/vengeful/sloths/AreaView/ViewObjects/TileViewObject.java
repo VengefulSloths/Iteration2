@@ -1,7 +1,12 @@
 package com.vengeful.sloths.AreaView.ViewObjects;
 
+import com.vengeful.sloths.AreaView.DynamicImages.DynamicImage;
+import com.vengeful.sloths.AreaView.DynamicImages.DynamicImageFactory;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
+import com.vengeful.sloths.Utility.Coord;
+import com.vengeful.sloths.Visibility;
+import org.omg.CORBA.UNKNOWN;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -12,14 +17,29 @@ import java.util.Comparator;
  */
 
 //TODO: Give tile a clean operation that will clear any VOs on it that wont persist
-public class TileViewObject {
+public class TileViewObject extends ViewObject{
     private ArrayList<ViewObject> children;
     private int r;
     private int s;
-    public TileViewObject(int r, int s) {
-        this.r = r;
-        this.s = s;
+
+    private DynamicImage fog;
+
+    public Visibility getVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(Visibility visibility) {
+        this.visibility = visibility;
+    }
+
+
+
+    private Visibility visibility = Visibility.UNKNOWN;
+    public TileViewObject(int r, int s, CoordinateStrategy cs, LocationStrategy ls) {
+        super(r, s, cs, ls);
         children = new ArrayList<>();
+
+        this.fog = DynamicImageFactory.getInstance().loadDynamicImage("resources/effects/fog_of_war.xml");
     }
 
     public void addChild(ViewObject child) {
@@ -45,24 +65,28 @@ public class TileViewObject {
 
 
     public void paintComponent(Graphics2D g) {
-        for (ViewObject child: children) {
-            child.paintComponent(g);
+
+        if (visibility == Visibility.UNKNOWN) {
+            g.drawImage(fog.getImage(),
+                    this.getXPixels() + fog.getXOffset() + getLocationXOffset(),
+                    this.getYPixels() + fog.getYOffset() + getLocationYOffset(),
+                    this);
+        } else if (visibility == Visibility.NONVISIBLE) {
+            g.drawImage(fog.getImage(),
+                    this.getXPixels() + fog.getXOffset() + getLocationXOffset(),
+                    this.getYPixels() + fog.getYOffset() + getLocationYOffset(),
+                    this);
+            for (ViewObject child: children) {
+                child.paintComponent(g);
+            }
+        } else {
+            for (ViewObject child: children) {
+                child.paintComponent(g);
+            }
         }
     }
-
-    public int getR() {
-        return r;
-    }
-
-    public void setR(int r) {
-        this.r = r;
-    }
-
-    public int getS() {
-        return s;
-    }
-
-    public void setS(int s) {
-        this.s = s;
+    @Override
+    public void accept(VOVisitor v) {
+        v.visitTile(this);
     }
 }

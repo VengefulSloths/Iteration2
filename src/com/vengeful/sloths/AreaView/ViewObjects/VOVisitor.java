@@ -7,4 +7,5 @@ public interface VOVisitor {
     void visitEntity(EntityViewObject e);
     void visitGrass(GrassViewObject g);
     void visitMountain(MountainViewObject m);
+    void visitTile(TileViewObject t);
 }

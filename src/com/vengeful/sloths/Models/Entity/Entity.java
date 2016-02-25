@@ -2,9 +2,12 @@ package com.vengeful.sloths.Models.Entity;
 
 import com.vengeful.sloths.AreaView.Observers.MovementObserver;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
+import com.vengeful.sloths.Models.ActionCommandFactory.ActionCommandFactory;
 import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
+import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
+import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Stats.*;
@@ -32,6 +35,8 @@ public abstract class Entity implements ModelVisitable {
     private Equipped equipped;
     private String name;
     private Stats stats;
+    private ActionCommandFactory commandFactory;
+
 
     protected boolean isMoving = false;
 
@@ -99,7 +104,9 @@ public abstract class Entity implements ModelVisitable {
     }
 
 
+    public abstract void pickup(TakeableItem item);
 
+    public abstract void die();
 
 
     public void registerObserver(MovementObserver observer) {
@@ -184,4 +191,20 @@ public abstract class Entity implements ModelVisitable {
         return this.observers;
     }
 
+    public void setCommandFactory(ActionCommandFactory acf) {
+        this.commandFactory = acf;
+    }
+
+    public ActionCommandFactory getCommandFactory(){
+        return this.commandFactory;
+    }
+
+    public boolean getMoving(){
+        return this.isMoving;
+    }
+
+    public void setMoving(boolean isMoving){
+        this.isMoving = isMoving;
+    }
+    
 }

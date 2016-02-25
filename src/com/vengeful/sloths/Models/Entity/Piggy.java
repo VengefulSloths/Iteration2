@@ -12,4 +12,8 @@ public class Piggy extends Pet {
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitPiggy(this);
     }
+
+    public void die(){
+        //die
+    }
 }
