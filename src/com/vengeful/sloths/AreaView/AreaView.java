@@ -51,13 +51,11 @@ public class AreaView extends JPanel {
 
 
         testAvatar = new AvatarViewObject(2, 1, cs, ls, "resources/entities/smasher/");
-        testPiggy = new PiggyViewObject(3, 1, cs, ls, "resources/entities/piggy/");
+        testPiggy = new PiggyViewObject(2, 1, cs, ls, "resources/entities/piggy/");
 
-        // @TODO: Uncomment this once the PiggyViewObject works!
         testCamera.addViewObject(testPiggy);
-
-
         testCamera.addAvatar(testAvatar);
+        testPiggy.registerObserver(testCamera);
         testAvatar.registerObserver(testCamera);
 
         AvatarViewFollower.getInstance().bindToViewObject(testAvatar);
