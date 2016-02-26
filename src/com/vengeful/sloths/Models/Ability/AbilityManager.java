@@ -21,4 +21,14 @@ public class AbilityManager implements ModelVisitable{
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitAbilityManager(this);
     }
+
+    public Ability[] getAbilities(){
+        Ability[] abArray = new Ability[abilities.size()];
+        int i = 0;
+        for(Ability ab : abilities){
+            abArray[i] = ab;
+            ++i;
+        }
+        return abArray;
+    }
 }
