@@ -11,6 +11,6 @@ public class PiggyTarget extends Target implements TargetVisitable {
 
     @Override
     public void accept(TargetVisitor targetVisitor) {
-        //do stuff
+        targetVisitor.visitPiggyTarget(this);
     }
 }

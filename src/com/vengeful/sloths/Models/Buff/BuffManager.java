@@ -36,9 +36,9 @@ public class BuffManager implements Tickable, ModelVisitable {
     public void destroy(){
         TimeModel.getInstance().removeTickable(this);
     }
-    public ArrayList<Buff> getBuffs(){
-        return buffs;
-    }
+//    public ArrayList<Buff> getBuffs(){
+//        return buffs;
+//    }
     @Override
     public void tick() {
         System.out.println("tick");
@@ -51,5 +51,15 @@ public class BuffManager implements Tickable, ModelVisitable {
     @Override
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitBuffManager(this);
+    }
+
+    public Buff[] getBuffs(){
+        Buff[] bArrary = new Buff[buffs.size()];
+        int i = 0;
+        for(Buff b : buffs){
+            bArrary[i] = b;
+            ++i;
+        }
+        return bArrary;
     }
 }

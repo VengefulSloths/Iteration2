@@ -132,6 +132,16 @@ public class Tile implements ModelVisitable {
         return e;
     }
 
+    public Entity[] getEntities(){
+        Entity[] entityArr = new Entity[entities.size()];
+        int i = 0;
+        for(Entity e : entities){
+            entityArr[i] = e;
+            ++i;
+        }
+        return entityArr;
+    }
+
     public Terrain getTerrain() { return this.terrain; }
 
     public void setTerrain(Terrain terrain) {

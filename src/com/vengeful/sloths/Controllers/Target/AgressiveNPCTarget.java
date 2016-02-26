@@ -12,7 +12,7 @@ public class AgressiveNPCTarget extends Target implements TargetVisitable {
 
     @Override
     public void accept(TargetVisitor targetVisitor) {
-        //do stuff
+        targetVisitor.visitAggressiveNPCTarget(this);
     }
 
 }

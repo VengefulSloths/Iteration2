@@ -170,32 +170,92 @@ public class SaveVisitor implements ModelVisitor {
 
     @Override
     public void visitStats(Stats s) {
-
+        Element statsElement = doc.createElement("Stats");
+        currentParent.peek().appendChild(statsElement);
+        currentParent.push(statsElement);
+        statsElement.setAttribute("strength", s.getStrength() + "");
+        statsElement.setAttribute("agility", s.getAgility() + "");
+        statsElement.setAttribute("intellect", s.getIntellect() + "");
+        statsElement.setAttribute("hardiness", s.getHardiness() + "");
+        statsElement.setAttribute("movement", s.getMovement() + "");
+        statsElement.setAttribute("level", s.getLevel() + "");
+        statsElement.setAttribute("currentHealth", s.getCurrentHealth() + "");
+        statsElement.setAttribute("currentMana", s.getCurrentMana() + "");
+        statsElement.setAttribute("currentExperience", s.getCurrentExperience() + "");
+        currentParent.pop();
     }
 
     @Override
     public void visitBuffManager(BuffManager bm) {
-
+        Element bmElement = doc.createElement("BuffManager");
+        currentParent.peek().appendChild(bmElement);
+        currentParent.push(bmElement);
+        //right now it just holds abilites so put other logic here when it gets added
+        Buff[] buffs = bm.getBuffs();
+        for(Buff b : buffs){
+            b.accept(this);
+        }
+        if(currentParent.peek().equals(bmElement)){
+            System.out.println("visited buffs successfully, stack at proper element");
+        }
+        else{
+            System.out.println("didn't visit buffs properly stack at wrong element");
+        }
+        currentParent.pop();
     }
 
     @Override
     public void visitBuff(Buff b) {
-
+        Element bElement = doc.createElement("Buff");
+        currentParent.peek().appendChild(bElement);
+        currentParent.push(bElement);
+        bElement.setAttribute("duration", b.getDuration() + "");
+        b.getBuff().accept(this);
+        if(currentParent.peek().equals(bElement)){
+            System.out.println("stack at proper element after recording buff");
+        }else{
+            System.out.println("stack not at proper element after recording buff");
+        }
+        currentParent.pop();
     }
 
     @Override
     public void visitBuffOverTime(BuffOverTime buffOverTime) {
-
+        Element bElement = doc.createElement("BuffOverTime");
+        currentParent.peek().appendChild(bElement);
+        currentParent.push(bElement);
+        bElement.setAttribute("duration", buffOverTime.getDuration() + "");
+        buffOverTime.getBuff().accept(this);
+        if(currentParent.peek().equals(bElement)){
+            System.out.println("stack at proper element after recording buffovertime");
+        }else{
+            System.out.println("stack not at proper element after recording buffovertime");
+        }
+        currentParent.pop();
     }
 
     @Override
     public void visitAbilityManager(AbilityManager am) {
-
+        Element abmElement = doc.createElement("AbilityManager");
+        currentParent.peek().appendChild(abmElement);
+        currentParent.push(abmElement);
+        //right now it just holds abilites so put other logic here when it gets added
+        Ability[] abilities = am.getAbilities();
+        for(Ability ab : abilities){
+            ab.accept(this);
+        }
+        if(currentParent.peek().equals(abmElement)){
+            System.out.println("visited abilites successfully, stack at proper element");
+        }
+        else{
+            System.out.println("didn't visit abilites properly stack at wrong element");
+        }
+        currentParent.pop();
     }
 
     @Override
     public void visitAbility(Ability ability) {
-
+        //doesn't do anything right now
     }
 
     @Override
@@ -261,7 +321,18 @@ public class SaveVisitor implements ModelVisitor {
 
     @Override
     public void visitStatsAddable(StatsAddable sa) {
-
+        Element saElement = doc.createElement("StatsAddable");
+        currentParent.peek().appendChild(saElement);
+        saElement.setAttribute("strength", sa.getStrength()+ "");
+        saElement.setAttribute("agility", sa.getAgility()+ "");
+        saElement.setAttribute("intellect", sa.getIntellect()+ "");
+        saElement.setAttribute("hardiness", sa.getHardiness()+ "");
+        saElement.setAttribute("movement", sa.getMovement()+ "");
+        saElement.setAttribute("currentHealth", sa.getCurrentHealth()+ "");
+        saElement.setAttribute("bonusHealth", sa.getBonusHealth()+ "");
+        saElement.setAttribute("currentMana", sa.getCurrentMana()+ "");
+        saElement.setAttribute("bonusMana", sa.getBonusMana()+ "");
+        saElement.setAttribute("currentExperience", sa.getCurrentExperience()+ "");
     }
 
     public void visitMapArea(MapArea ma){
@@ -289,11 +360,14 @@ public class SaveVisitor implements ModelVisitor {
         Iterator<Entity> entityIterator = t.getEntityIterator();
         while (entityIterator.hasNext())
             entityIterator.next().accept(this);*/
-
-//        t.getEntity().accept(this);
-
+        Entity[] eArr = t.getEntities();
+        //not being used anymore
         Entity[] nonCollide = t.getNonCollideableEntities();
         MapItem[] mapItems = t.getMapItems();
+        for(Entity e: eArr){
+            e.accept(this);
+        }
+        //this won't be used/ isn't being used anymore
         for(Entity nonColE : nonCollide){
             nonColE.accept(this);
         }
@@ -304,7 +378,7 @@ public class SaveVisitor implements ModelVisitor {
 
     /**
      * needs to be refactored for each type of entity
-     * this is currently unused
+     * this is currently unused and in process of being refactored
      */
     public void visitEntity(Entity e){
         Element entityElement = doc.createElement("Entity");
