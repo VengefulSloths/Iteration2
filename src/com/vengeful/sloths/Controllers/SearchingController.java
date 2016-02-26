@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Controllers;
 
+import com.vengeful.sloths.Controllers.Target.Target;
 import com.vengeful.sloths.Models.Entity.*;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.Tile;
@@ -57,7 +58,6 @@ public abstract class SearchingController implements ModelVisitor {
     }
 
     protected Tile getTile(Coord coord){
-
         Tile tile;
 
         try {
@@ -67,7 +67,6 @@ public abstract class SearchingController implements ModelVisitor {
         }
 
         return tile;
-
     }
 
     protected ArrayList<Tile> getTileRing(Coord centerCord, int ringNumber) {
@@ -82,9 +81,8 @@ public abstract class SearchingController implements ModelVisitor {
 
         // Get top right and bottom left slabs
         for (int n = 0; n < ringNumber; n++) {
-            int tmpR = r + n;
-            ringTiles.add(this.getTile(new Coord(tmpR, s)));
-            ringTiles.add(this.getTile(new Coord(tmpR * (-1), s * (-1))));
+            ringTiles.add(this.getTile(new Coord(r + n, s)));
+            ringTiles.add(this.getTile(new Coord((r + n) * (-1), s * (-1))));
         }
 
         r = centerCord.getR()+ringNumber;
@@ -103,13 +101,11 @@ public abstract class SearchingController implements ModelVisitor {
         // Get bottom right and top left slabs
         for (int n = 0; n < ringNumber; n++) {
             int tmpR = r + ringNumber - n;
-            int tmpS = s + n;
-            ringTiles.add(this.getTile(new Coord(tmpR, tmpS)));
-            ringTiles.add(this.getTile(new Coord(tmpR * (-1), tmpS * (-1))));
+            ringTiles.add(this.getTile(new Coord(tmpR, (s + n))));
+            ringTiles.add(this.getTile(new Coord(tmpR * (-1), (s + n) * (-1))));
         }
 
         return ringTiles;
-
     }
 
     /**
@@ -128,7 +124,7 @@ public abstract class SearchingController implements ModelVisitor {
 
         while (currRing <= searchRadius) {
             tiles = this.getTileRing(currCoord, currRing);
-            for (Tile tile: tiles) {
+            for (Tile tile : tiles) {
                 tile.accept(this);
             }
         }

@@ -360,12 +360,14 @@ public class SaveVisitor implements ModelVisitor {
         Iterator<Entity> entityIterator = t.getEntityIterator();
         while (entityIterator.hasNext())
             entityIterator.next().accept(this);*/
-        Entity e = t.getEntity();
-        if(e != null){
-            e.accept(this);
-        }
+        Entity[] eArr = t.getEntities();
+        //not being used anymore
         Entity[] nonCollide = t.getNonCollideableEntities();
         MapItem[] mapItems = t.getMapItems();
+        for(Entity e: eArr){
+            e.accept(this);
+        }
+        //this won't be used/ isn't being used anymore
         for(Entity nonColE : nonCollide){
             nonColE.accept(this);
         }

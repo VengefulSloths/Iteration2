@@ -1,6 +1,6 @@
 package com.vengeful.sloths.Controllers.ActionController;
 
-import com.vengeful.sloths.Controllers.Target;
+import com.vengeful.sloths.Controllers.Target.Target;
 
 /**
  * Created by zach on 2/22/16.

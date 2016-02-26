@@ -34,7 +34,6 @@ public class DynamicImageFactory {
             DocumentBuilder documentBuilder = dbFactory.newDocumentBuilder();
             Document doc =  documentBuilder.parse(imageSpec);
             doc.getDocumentElement().normalize();
-            //System.out.println("root element: " + doc.getDocumentElement().getNodeName());
             switch(doc.getDocumentElement().getNodeName()) {
                 case "single_frame_animation":
                     return this.createSingleFrameAnimation(doc.getDocumentElement());
@@ -68,7 +67,6 @@ public class DynamicImageFactory {
     private DynamicImage createSingleFrameAnimation(Element root) {
         Element element = root;
 
-        System.out.println("root path: " + element.getElementsByTagName("rootPath").item(0).getTextContent()+ element.getElementsByTagName("fileName").item(0).getTextContent());
         String rootPath = element.getElementsByTagName("rootPath").item(0).getTextContent();
 
         return new SingleFrameImage(rootPath + element.getElementsByTagName("fileName").item(0).getTextContent(),

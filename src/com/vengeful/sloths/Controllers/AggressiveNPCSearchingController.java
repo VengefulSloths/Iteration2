@@ -5,6 +5,8 @@ import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
 import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.Buff.BuffOverTime;
+import com.vengeful.sloths.Controllers.Target.AvatarTarget;
+import com.vengeful.sloths.Controllers.Target.Target;
 import com.vengeful.sloths.Models.Entity.*;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
@@ -48,7 +50,10 @@ public class AggressiveNPCSearchingController extends SearchingController {
 
     @Override
     public void visitAvatar(Avatar avatar) {
+        // set priority yadyadyayd
+        Target currTarget = new AvatarTarget(0);
 
+        this.setHighestPriorityTarget(this.getMaxTarget(currTarget, this.getHighestPriorityTarget()));
     }
 
     @Override
@@ -162,15 +167,14 @@ public class AggressiveNPCSearchingController extends SearchingController {
     }
 
     public void visitTile(Tile tile) {
-        /*
         Iterator<Entity> iter = tile.getEntityIterator();
+        Entity currEntity;
+
         while (iter.hasNext()) {
-            iter.next().accept(this);
-        }*/
+            currEntity = iter.next();
 
-        tile.getEntity().accept(this);
-
-
+            currEntity.accept(this);
+        }
     }
 
     @Override

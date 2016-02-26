@@ -191,6 +191,7 @@ public abstract class Entity implements ModelVisitable {
         return this.observers;
     }
 
+
     public void setCommandFactory(ActionCommandFactory acf) {
         this.commandFactory = acf;
     }
@@ -206,5 +207,13 @@ public abstract class Entity implements ModelVisitable {
     public void setMoving(boolean isMoving){
         this.isMoving = isMoving;
     }
-    
+
+
+    /**
+     * Handles accepting a ModelVisitor
+     */
+    public void accept(ModelVisitor modelVisitor) {
+
+    }
+
 }

@@ -32,12 +32,12 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
 
         //Logic for how to load all the images for an entity
         //Load the walking images
-        this.walkingS = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "smasherSouthMoving.xml");
-        this.walkingSE = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "smasherSouthEastMoving.xml");
-        this.walkingSW = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "smasherSouthWestMoving.xml");
-        this.walkingN = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "smasherNorthMoving.xml");
-        this.walkingNE = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "smasherNorthEastMoving.xml");
-        this.walkingNW = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "smasherNorthWestMoving.xml");
+        this.walkingS = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "south_moving.xml");
+        this.walkingSE = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "south_east_moving.xml");
+        this.walkingSW = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "south_west_moving.xml");
+        this.walkingN = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "north_moving.xml");
+        this.walkingNE = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "north_east_moving.xml");
+        this.walkingNW = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "north_west_moving.xml");
         this.currentDynamicImage = walkingS;
         this.direction = Direction.S;
 

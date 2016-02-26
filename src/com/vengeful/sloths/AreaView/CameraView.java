@@ -23,6 +23,7 @@ public abstract class CameraView implements MovingVOObserver{
     private int maxR;
     private int maxS;
 
+    private ParallaxBackground parallaxBackground;
     private ViewObjectFactory factory;
 
     public CameraView(ViewObjectFactory factory) {
@@ -48,10 +49,10 @@ public abstract class CameraView implements MovingVOObserver{
         tiles = new TileViewObject[maxX][maxY];
         for (int i=0; i<maxX; i++) {
             for (int j=0; j<maxY; j++) {
-                tiles[i][j] = factory.createTileViewObject(
-                        findR(i,j),
-                        findS(i,j)
-                );
+//                tiles[i][j] = factory.createTileViewObject(
+//                        findR(i,j),
+//                        findS(i,j)
+//                );
             }
         }
 
@@ -61,7 +62,6 @@ public abstract class CameraView implements MovingVOObserver{
         //add all the tiles correctly to the array
         Iterator<TileViewObject> iter = creator.getTiles();
         while (iter.hasNext()) {
-            System.out.println("adding cTile");
             TileViewObject current = iter.next();
             int i = findX(current.getR(), current.getS());
             int j = findY(current.getR(), current.getS());
@@ -71,12 +71,13 @@ public abstract class CameraView implements MovingVOObserver{
 
     public void addAvatar(AvatarViewObject avo) {
         addViewObject(avo);
+        parallaxBackground = new ParallaxBackground("resources/backgrounds/sky.xml", avo);
         for (int i=0; i<maxY; i++) {
             for (int j = 0; j < maxX; j++) {
                 //make everything either unknown or nonvisible
             }
         }
-        Iterator<Coord> toReveal = HexMath.saftey(HexMath.hexagon(new Coord(avo.getR(), avo.getS()), 4), maxR, maxS);
+        Iterator<Coord> toReveal = HexMath.saftey(HexMath.hexagon(new Coord(avo.getR(), avo.getS()), 5), maxR, maxS);
         while (toReveal.hasNext()) {
             Coord current = toReveal.next();
             int r = current.getR();
@@ -86,9 +87,13 @@ public abstract class CameraView implements MovingVOObserver{
     }
 
     public void paintComponent(Graphics2D g) {
+        parallaxBackground.paintComponent(g);
         for (int i=0; i<maxY; i++) {
             for (int j = 0; j < maxX; j++) {
-                tiles[j][i].paintComponent(g);
+                if (tiles[j][i] != null) {
+                    tiles[j][i].paintComponent(g);
+
+                }
             }
         }
     }
@@ -113,11 +118,9 @@ public abstract class CameraView implements MovingVOObserver{
                 destX = findX(destR,destS),
                 destY = findY(destR,destS);
         if (destY > srcY) {
-            System.out.println("moving right away");
             tiles[srcX][srcY].removeChild(subject);
             tiles[destX][destY].addChild(subject);
         } else {
-            System.out.println("moved after: " + duration);
             ViewTime.getInstance().registerAlert(duration,
                     new vCommand() {
                         @Override
@@ -127,12 +130,19 @@ public abstract class CameraView implements MovingVOObserver{
                         }
                     });
         }
-        Iterator<Coord> toBeRevealed = HexMath.saftey(HexMath.ring(new Coord(destR, destS), 4), maxR, maxS);
+        Iterator<Coord> toBeRevealed = HexMath.saftey(HexMath.ring(new Coord(destR, destS), 5), maxR, maxS);
         while(toBeRevealed.hasNext()) {
             Coord current = toBeRevealed.next();
             int r = current.getR();
             int s = current.getS();
             tiles[findX(r, s)][findY(r,s)].setVisibility(Visibility.VISIBLE);
+        }
+        Iterator<Coord> toBeConcealed = HexMath.saftey(HexMath.ring(new Coord(destR, destS), 6), maxR, maxS);
+        while(toBeConcealed.hasNext()) {
+            Coord current = toBeConcealed.next();
+            int r = current.getR();
+            int s = current.getS();
+            tiles[findX(r, s)][findY(r,s)].setVisibility(Visibility.NONVISIBLE);
         }
     }
 

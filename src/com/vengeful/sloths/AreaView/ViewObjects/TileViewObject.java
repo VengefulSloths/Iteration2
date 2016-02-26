@@ -29,7 +29,11 @@ public class TileViewObject extends ViewObject{
     }
 
     public void setVisibility(Visibility visibility) {
-        this.visibility = visibility;
+        if (this.visibility == Visibility.UNKNOWN && visibility == Visibility.NONVISIBLE) {
+            //illegal state transition
+        } else {
+            this.visibility = visibility;
+        }
     }
 
 
@@ -44,7 +48,6 @@ public class TileViewObject extends ViewObject{
 
     public void addChild(ViewObject child) {
         children.add(child);
-        System.out.println("got a child");
         children.sort(new Comparator<ViewObject>() {
             VOSorter sorter = new VOSorter();
             @Override
@@ -72,13 +75,13 @@ public class TileViewObject extends ViewObject{
                     this.getYPixels() + fog.getYOffset() + getLocationYOffset(),
                     this);
         } else if (visibility == Visibility.NONVISIBLE) {
+            for (ViewObject child: children) {
+                child.paintComponent(g);
+            }
             g.drawImage(fog.getImage(),
                     this.getXPixels() + fog.getXOffset() + getLocationXOffset(),
                     this.getYPixels() + fog.getYOffset() + getLocationYOffset(),
                     this);
-            for (ViewObject child: children) {
-                child.paintComponent(g);
-            }
         } else {
             for (ViewObject child: children) {
                 child.paintComponent(g);

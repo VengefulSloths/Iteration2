@@ -8,6 +8,7 @@ import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.SimpleHexCo
 import com.vengeful.sloths.AreaView.ViewObjects.EntityViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.CenterAvatarLocationStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
+import com.vengeful.sloths.AreaView.ViewObjects.PiggyViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.ViewObject;
 import com.vengeful.sloths.GameLaunching.LevelFactory;
 import com.vengeful.sloths.Models.Entity.Avatar;
@@ -28,6 +29,7 @@ import java.util.concurrent.TimeUnit;
 public class AreaView extends JPanel {
     ArrayList<ViewObject> testVOs;
     AvatarViewObject testAvatar;
+    PiggyViewObject testPiggy;
     CameraView testCamera;
 
 
@@ -49,6 +51,12 @@ public class AreaView extends JPanel {
 
 
         testAvatar = new AvatarViewObject(2, 1, cs, ls, "resources/entities/smasher/");
+        testPiggy = new PiggyViewObject(2, 2, cs, ls, "resources/entities/piggy/");
+
+        // @TODO: Uncomment this once the PiggyViewObject works!
+        testCamera.addViewObject(testPiggy);
+
+
         testCamera.addAvatar(testAvatar);
         testAvatar.registerObserver(testCamera);
 

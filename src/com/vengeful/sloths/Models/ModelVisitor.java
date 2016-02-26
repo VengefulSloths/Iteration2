@@ -62,7 +62,6 @@ public interface ModelVisitor {
     void visitStatsAddable(StatsAddable sa);
 
     void visitMapArea(MapArea mapArea);
-
     void visitTile(Tile tile);
 
     void visitMapItem(MapItem mapItem);

@@ -27,7 +27,7 @@ public class AvatarMovementCommand extends MovementCommand {
             Tile destTile = map.getTile(this.dst);
 
             if (destTile.canMove()) {
-                sourceTile.removeEntity();
+//                sourceTile.removeEntity();
                 destTile.addEntity(entity);
                 entity.setLocation(dst);
             }
