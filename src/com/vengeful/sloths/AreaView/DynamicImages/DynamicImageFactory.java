@@ -32,7 +32,7 @@ public class DynamicImageFactory {
             File imageSpec = new File(xmlPath);
             DocumentBuilderFactory dbFactory = new DocumentBuilderFactoryImpl();
             DocumentBuilder documentBuilder = dbFactory.newDocumentBuilder();
-            Document doc =  documentBuilder.parse(imageSpec);
+            Document doc = documentBuilder.parse(imageSpec);
             doc.getDocumentElement().normalize();
             switch(doc.getDocumentElement().getNodeName()) {
                 case "single_frame_animation":
@@ -100,6 +100,5 @@ public class DynamicImageFactory {
                 end,
                 activeFilePaths
                 );
-
     }
 }
