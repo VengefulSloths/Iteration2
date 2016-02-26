@@ -3,6 +3,7 @@ package com.vengeful.sloths.AreaView;
 import com.vengeful.sloths.AreaView.ViewObjects.AvatarViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.SimpleHexCoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.CenterAvatarLocationStrategy;
+import com.vengeful.sloths.AreaView.ViewObjects.PiggyViewObject;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
@@ -84,7 +85,10 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
     @Override
     public void visitPiggy(Piggy piggy) {
-
+        PiggyViewObject pvo = factory.createPiggyViewObject(piggy.getLocation().getR(), piggy.getLocation().getS(), "entities/piggy/");
+        piggy.registerObserver(pvo);
+        pvo.registerObserver(activeCameraView);
+        this.activeCameraView.addViewObject(pvo);
     }
 
     @Override

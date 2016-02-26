@@ -13,13 +13,13 @@ import java.awt.*;
 /**
  * Created by zach on 2/25/16.
  */
-public class PiggyViewObject extends MovingViewObject implements EntityObserver {
+public class PiggyViewObject extends EntityViewObject implements EntityObserver {
     private DynamicImage walkingSW;
     private Direction direction;
     private DynamicImage currentDynamicImage;
 
     public PiggyViewObject(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy, String resourcePath) {
-        super(r, s, coordinateStrategy, locationStrategy);
+        super(r, s, coordinateStrategy, locationStrategy, resourcePath);
         this.walkingSW = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "piggy_southwest_standing.xml");
         this.currentDynamicImage = this.walkingSW;
         this.direction = Direction.SW;
@@ -54,11 +54,6 @@ public class PiggyViewObject extends MovingViewObject implements EntityObserver 
 
                 break;
         }
-    }
-
-    @Override
-    public void accept(VOVisitor v) {
-
     }
 
     @Override

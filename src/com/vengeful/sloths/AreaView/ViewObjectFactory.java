@@ -29,6 +29,10 @@ public abstract class ViewObjectFactory {
         return new AvatarViewObject(r, s, cs, ls, resourcePath);
     }
 
+    public PiggyViewObject createPiggyViewObject(int r, int s, String resourcePath) {
+        return new PiggyViewObject(r, s, cs, ls, resourcePath);
+    }
+
     public abstract GrassViewObject createGrassViewObject(int r, int s);
     public abstract GrassViewObject createRoadViewObject(int r, int s);
     public abstract MountainViewObject createMountainTerrainViewObject(int r, int s);

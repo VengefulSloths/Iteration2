@@ -30,7 +30,6 @@ public class WeaponImageContainer {
     public WeaponImageContainer(String resourcePath, Direction dir) {
         DynamicImageFactory dif = DynamicImageFactory.getInstance();
 
-        System.out.println(resourcePath + "weapon_back_N.xml");
         this.weaponBackN = dif.loadDynamicImage(resourcePath + "weapon_back_N.xml");
         this.weaponBackS = dif.loadDynamicImage(resourcePath + "weapon_back_S.xml");
         this.weaponBackNW = dif.loadDynamicImage(resourcePath + "weapon_back_NW.xml");

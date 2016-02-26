@@ -175,11 +175,6 @@ public class HandViewObject extends MovingViewObject implements vAlertable {
                 getYPixels() + +yd +yPixelOffset + handImage.getYOffset() + this.getLocationYOffset(),
                 this);
         if(weapon != null) {
-            System.out.println("drawing weapon");
-            g.drawString("BANG BANG",
-                    getXPixels() + +xd +xPixelOffset + handImage.getXOffset() + weapon.getWeaponFront().getXOffset() + this.getLocationXOffset(),
-                    getYPixels() + +yd +yPixelOffset + handImage.getYOffset() + weapon.getWeaponFront().getYOffset() + this.getLocationYOffset()
-                    );
             g.drawImage(weapon.getWeaponFront().getImage(),
                     getXPixels() + +xd +xPixelOffset + handImage.getXOffset() + weapon.getWeaponFront().getXOffset() + this.getLocationXOffset(),
                     getYPixels() + +yd +yPixelOffset + handImage.getYOffset() + weapon.getWeaponFront().getYOffset() + this.getLocationYOffset(),
