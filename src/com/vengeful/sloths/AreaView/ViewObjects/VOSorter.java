@@ -26,6 +26,6 @@ public class VOSorter implements VOVisitor {
 
     @Override
     public void visitTile(TileViewObject t) {
-        zLevel = -1;
+        zLevel = 10000;
     }
 }

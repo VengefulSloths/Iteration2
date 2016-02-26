@@ -16,6 +16,9 @@ import java.awt.*;
 public class HandViewObject extends MovingViewObject implements vAlertable {
     private DynamicImage handImage;
 
+    private WeaponImageContainer weapon = null;
+
+
     //Constant trig functions pre-calculated to ease the processor
     private final double COS_34 = 0.829;
     private final double SIN_34 = 0.559;
@@ -113,9 +116,19 @@ public class HandViewObject extends MovingViewObject implements vAlertable {
                 handMovingYOffset = -(int)(SIN_34_x_COS_45 * handMovingRadius);
                 break;
         }
+
+        if (weapon != null) {
+            weapon.alertDirectionChange(dir);
+        }
     }
 
+    public void hold(WeaponImageContainer weapon) {
+        this.weapon = weapon;
+    }
 
+    public void drop() {
+        this.weapon = null;
+    }
 
     @Override
     protected void movementHook(int r, int s, long duration) {
@@ -151,10 +164,27 @@ public class HandViewObject extends MovingViewObject implements vAlertable {
 
     @Override
     public void paintComponent(Graphics2D g) {
+        if(weapon != null) {
+            g.drawImage(weapon.getWeaponBack().getImage(),
+                    getXPixels() + +xd +xPixelOffset + handImage.getXOffset() + weapon.getWeaponBack().getXOffset() + this.getLocationXOffset(),
+                    getYPixels() + +yd +yPixelOffset + handImage.getYOffset() + weapon.getWeaponBack().getYOffset() + this.getLocationYOffset(),
+                    this);
+        }
         g.drawImage(handImage.getImage(),
                 getXPixels() + +xd +xPixelOffset + handImage.getXOffset() + this.getLocationXOffset(),
                 getYPixels() + +yd +yPixelOffset + handImage.getYOffset() + this.getLocationYOffset(),
                 this);
+        if(weapon != null) {
+            System.out.println("drawing weapon");
+            g.drawString("BANG BANG",
+                    getXPixels() + +xd +xPixelOffset + handImage.getXOffset() + weapon.getWeaponFront().getXOffset() + this.getLocationXOffset(),
+                    getYPixels() + +yd +yPixelOffset + handImage.getYOffset() + weapon.getWeaponFront().getYOffset() + this.getLocationYOffset()
+                    );
+            g.drawImage(weapon.getWeaponFront().getImage(),
+                    getXPixels() + +xd +xPixelOffset + handImage.getXOffset() + weapon.getWeaponFront().getXOffset() + this.getLocationXOffset(),
+                    getYPixels() + +yd +yPixelOffset + handImage.getYOffset() + weapon.getWeaponFront().getYOffset() + this.getLocationYOffset(),
+                    this);
+        }
     }
 
     @Override

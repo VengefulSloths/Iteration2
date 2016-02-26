@@ -8,6 +8,7 @@ import com.vengeful.sloths.AreaView.DynamicImages.SingleFrameImage;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -26,6 +27,7 @@ public class GrassViewObject extends ViewObject {
                 this.getXPixels() + grassImage.getXOffset() + this.getLocationXOffset(),
                 this.getYPixels()+ grassImage.getYOffset() + this.getLocationYOffset(),
                 this);
+
     }
 
     @Override

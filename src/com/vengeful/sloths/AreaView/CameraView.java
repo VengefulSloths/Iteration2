@@ -26,6 +26,8 @@ public abstract class CameraView implements MovingVOObserver{
     private ParallaxBackground parallaxBackground;
     private ViewObjectFactory factory;
 
+    private MovingViewObject avatar;
+
     public CameraView(ViewObjectFactory factory) {
         this.factory = factory;
     }
@@ -71,6 +73,7 @@ public abstract class CameraView implements MovingVOObserver{
 
     public void addAvatar(AvatarViewObject avo) {
         addViewObject(avo);
+        this.avatar = avo;
         parallaxBackground = new ParallaxBackground("resources/backgrounds/sky.xml", avo);
         for (int i=0; i<maxY; i++) {
             for (int j = 0; j < maxX; j++) {
@@ -130,19 +133,21 @@ public abstract class CameraView implements MovingVOObserver{
                         }
                     });
         }
-        Iterator<Coord> toBeRevealed = HexMath.saftey(HexMath.ring(new Coord(destR, destS), 5), maxR, maxS);
-        while(toBeRevealed.hasNext()) {
-            Coord current = toBeRevealed.next();
-            int r = current.getR();
-            int s = current.getS();
-            tiles[findX(r, s)][findY(r,s)].setVisibility(Visibility.VISIBLE);
-        }
-        Iterator<Coord> toBeConcealed = HexMath.saftey(HexMath.ring(new Coord(destR, destS), 6), maxR, maxS);
-        while(toBeConcealed.hasNext()) {
-            Coord current = toBeConcealed.next();
-            int r = current.getR();
-            int s = current.getS();
-            tiles[findX(r, s)][findY(r,s)].setVisibility(Visibility.NONVISIBLE);
+        if (subject == this.avatar) {
+            Iterator<Coord> toBeRevealed = HexMath.saftey(HexMath.ring(new Coord(destR, destS), 5), maxR, maxS);
+            while(toBeRevealed.hasNext()) {
+                Coord current = toBeRevealed.next();
+                int r = current.getR();
+                int s = current.getS();
+                tiles[findX(r, s)][findY(r,s)].setVisibility(Visibility.VISIBLE);
+            }
+            Iterator<Coord> toBeConcealed = HexMath.saftey(HexMath.ring(new Coord(destR, destS), 6), maxR, maxS);
+            while(toBeConcealed.hasNext()) {
+                Coord current = toBeConcealed.next();
+                int r = current.getR();
+                int s = current.getS();
+                tiles[findX(r, s)][findY(r,s)].setVisibility(Visibility.NONVISIBLE);
+            }
         }
     }
 

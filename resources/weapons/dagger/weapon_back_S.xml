@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<single_frame_animation>
+  <width>20</width>
+  <height>20</height>
+  <rootPath>resources/weapons/dagger/</rootPath>
+  <fileName>null.png</fileName>
+  <positioning xOffset="-11" yOffset="-12">custom</positioning>
+</single_frame_animation>

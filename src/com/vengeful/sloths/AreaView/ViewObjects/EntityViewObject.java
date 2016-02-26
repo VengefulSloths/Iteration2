@@ -44,6 +44,8 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
         this.leftHand = new HandViewObject(r, s, coordinateStrategy, locationStrategy, resourcePath, 27, 18, Direction.S);
         this.rightHand = new HandViewObject(r, s, coordinateStrategy, locationStrategy, resourcePath, -27, 18, Direction.S);
 
+        //TODO: delete this testing code
+        this.rightHand.hold(new WeaponImageContainer("resources/weapons/dagger/", Direction.S));
     }
 
     private void paintBody(Graphics2D g) {

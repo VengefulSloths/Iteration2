@@ -31,6 +31,9 @@ public class TileViewObject extends ViewObject{
     public void setVisibility(Visibility visibility) {
         if (this.visibility == Visibility.UNKNOWN && visibility == Visibility.NONVISIBLE) {
             //illegal state transition
+        } else if (this.visibility == Visibility.VISIBLE && visibility == Visibility.NONVISIBLE) {
+            //children.get(0).
+            this.visibility = visibility;
         } else {
             this.visibility = visibility;
         }
