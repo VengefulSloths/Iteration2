@@ -2,6 +2,7 @@ package com.vengeful.sloths.AreaView.ViewObjects;
 
 import com.vengeful.sloths.AreaView.DynamicImages.DynamicImage;
 import com.vengeful.sloths.AreaView.DynamicImages.DynamicImageFactory;
+import com.vengeful.sloths.AreaView.DynamicImages.DynamicTimedImage;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 import com.vengeful.sloths.Utility.Coord;
@@ -19,6 +20,7 @@ import java.util.Comparator;
 //TODO: Give tile a clean operation that will clear any VOs on it that wont persist
 public class TileViewObject extends ViewObject{
     private ArrayList<ViewObject> children;
+    private DynamicImage unknownImage = DynamicImageFactory.getInstance().loadDynamicImage("resources/terrain/disapearing_cloud.xml");
     private int r;
     private int s;
 
@@ -34,8 +36,13 @@ public class TileViewObject extends ViewObject{
         } else if (this.visibility == Visibility.VISIBLE && visibility == Visibility.NONVISIBLE) {
             //children.get(0).
             this.visibility = visibility;
+        } else if (this.visibility == Visibility.UNKNOWN && visibility == Visibility.VISIBLE){
+            System.out.println("clouds disapearing");
+            this.visibility = Visibility.VISIBLE;
+            ((DynamicTimedImage) unknownImage).start(300);
         } else {
             this.visibility = visibility;
+
         }
     }
 
@@ -73,9 +80,9 @@ public class TileViewObject extends ViewObject{
     public void paintComponent(Graphics2D g) {
 
         if (visibility == Visibility.UNKNOWN) {
-            g.drawImage(fog.getImage(),
-                    this.getXPixels() + fog.getXOffset() + getLocationXOffset(),
-                    this.getYPixels() + fog.getYOffset() + getLocationYOffset(),
+            g.drawImage(unknownImage.getImage(),
+                    this.getXPixels() + unknownImage.getXOffset() + getLocationXOffset(),
+                    this.getYPixels() + unknownImage.getYOffset() + getLocationYOffset(),
                     this);
         } else if (visibility == Visibility.NONVISIBLE) {
             for (ViewObject child: children) {
@@ -86,9 +93,14 @@ public class TileViewObject extends ViewObject{
                     this.getYPixels() + fog.getYOffset() + getLocationYOffset(),
                     this);
         } else {
+
             for (ViewObject child: children) {
                 child.paintComponent(g);
             }
+            g.drawImage(unknownImage.getImage(),
+                    this.getXPixels() + unknownImage.getXOffset() + getLocationXOffset(),
+                    this.getYPixels() + unknownImage.getYOffset() + getLocationYOffset(),
+                    this);
         }
     }
     @Override

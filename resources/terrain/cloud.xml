@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<single_frame_animation>
+  <width>78</width>
+  <height>72</height>
+  <rootPath>resources/terrain/</rootPath>
+  <fileName>cloud.png</fileName>
+  <positioning>center</positioning>
+</single_frame_animation>

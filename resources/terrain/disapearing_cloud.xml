@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<dynamic_timed_animation>
+  <width>78</width>
+  <height>72</height>
+  <rootPath>resources/terrain/</rootPath>
+  <startConfig>cloud.xml</startConfig>
+  <endConfig>null.xml</endConfig>
+  <fileName>cloud2.png</fileName>
+  <fileName>cloud3.png</fileName>
+  <fileName>cloud4.png</fileName>
+  <fileName>cloud5.png</fileName>
+  <fileName>cloud6.png</fileName>
+  <positioning>center</positioning>
+</dynamic_timed_animation>
