@@ -21,6 +21,7 @@ import com.vengeful.sloths.View.Observers.EntityObserver;
 import com.vengeful.sloths.View.Observers.ModelObserver;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by luluding on 2/21/16.
@@ -109,6 +110,19 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     }
 
 
+    public Direction getFacingDirection() {
+        return facingDirection;
+    }
+
+    public void setFacingDirection(Direction facingDirection) {
+        this.facingDirection = facingDirection;
+
+        Iterator<EntityObserver> entityObserverIterator = observers.iterator();
+        while (entityObserverIterator.hasNext()) {
+            entityObserverIterator.next().alertDirectionChange(facingDirection);
+        }
+    }
+
     /********** Getter and Setters *************/
     public String getName(){
         return this.name;
@@ -126,13 +140,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         this.location = loc;
     }
 
-    public Direction getFacingDirection() {
-        return facingDirection;
-    }
 
-    public void setFacingDirection(Direction facingDirection) {
-        this.facingDirection = facingDirection;
-    }
 
     public Inventory getInventory(){
         return this.inventory;
@@ -187,10 +195,12 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     }
 
 
+    @Deprecated
     public boolean getMoving(){
         return this.isActive;
     }
 
+    @Deprecated
     public void setMoving(boolean isMoving){
         this.isActive = isMoving;
     }

@@ -68,12 +68,15 @@ public class EntityMovementCommand implements Alertable{
     public int execute() {
         System.out.println("moving now");
         if (subject.isActive()) return 0;
-        System.out.println("moving now");
+        System.out.println("entity is not active");
 
         map.getActiveMapArea().getTile(dst).accept(canMoveVisitor);
         if (canMoveVisitor.canMove()) {
+            System.out.println("entity can move");
+
             map.getActiveMapArea().getTile(src).removeEntity(subject);
             map.getActiveMapArea().getTile(dst).addEntity(subject);
+            subject.setLocation(dst);
             subject.setActive(true);
 
             int moveTicks = MAX_MOVESPEED - movementSpeed;
@@ -86,6 +89,8 @@ public class EntityMovementCommand implements Alertable{
             return moveTicks;
 
         } else {
+            System.out.println("entity cannot move");
+
             return 0;
         }
 

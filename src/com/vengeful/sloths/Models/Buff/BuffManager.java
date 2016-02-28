@@ -41,7 +41,7 @@ public class BuffManager implements Tickable, ModelVisitable {
 //    }
     @Override
     public void tick() {
-        System.out.println("tick");
+        //System.out.println("tick"); //THIS LINE WAS TOO HARD TO FIND
         for (Iterator<Buff> iterator = buffs.iterator(); iterator.hasNext();) {
             Buff buff = iterator.next();
             buff.applyOnTick(entity.getStats());

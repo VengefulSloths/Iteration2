@@ -22,6 +22,11 @@ public class LevelFactory {
     private Map map;
     private CameraViewManager cameras;
 
+    public Coord getSpawnPoint() {
+        return spawnPoint;
+    }
+
+    private Coord spawnPoint;
     public Map getMap() {
         return map;
     }
@@ -78,5 +83,7 @@ public class LevelFactory {
         areas[0] = area1;
         this.map = new Map(new Location(area1, new Coord(3,3)),areas);
         this.map.setActiveMapArea(area1);
+
+        this.spawnPoint = new Coord(2,1);
     }
 }

@@ -30,60 +30,65 @@ import java.util.concurrent.TimeUnit;
  * Created by alexs on 2/20/2016.
  */
 public class AreaView extends JPanel {
-    ArrayList<ViewObject> testVOs;
-    AvatarViewObject testAvatar;
-    PiggyViewObject testPiggy;
-    CameraView testCamera;
-    Map testMap;
+    private CameraView activeCamera;
+    private CameraViewManager cameraViewManager;
 
+    private void setActiveCamera(CameraView cameraView) {
+        TemporaryVOCreationVisitor.getInstance().setActiveCameraView(cameraView);
+        this.activeCamera = cameraView;
+    }
 
-    public AreaView() {
+    public AreaView(CameraViewManager cvm) {
         this.setBackground(Color.GRAY);
         setPreferredSize(new Dimension(600,600));
         setDoubleBuffered(true);
 
-
-        CoordinateStrategy cs = new SimpleHexCoordinateStrategy();
-        LocationStrategy ls = new CenterAvatarLocationStrategy();
-
-        testVOs = new ArrayList<>();
-
-        LevelFactory lf = new LevelFactory();
-        lf.init("test");
-        testCamera = lf.getCameras().getCurrentCameraView();
-        testMap = lf.getMap();
-        TemporaryVOCreationVisitor.getInstance().setActiveCameraView(testCamera);
+        this.cameraViewManager = cvm;
+        setActiveCamera(cvm.getCurrentCameraView());
 
 
 
-        testAvatar = new AvatarViewObject(2, 1, cs, ls, "resources/entities/smasher/");
-        testPiggy = new PiggyViewObject(2, 1, cs, ls, "resources/entities/piggy/");
+        //CoordinateStrategy cs = new SimpleHexCoordinateStrategy();
+        //LocationStrategy ls = new CenterAvatarLocationStrategy();
+
+        //testVOs = new ArrayList<>();
+
+        //LevelFactory lf = new LevelFactory();
+       // lf.init("test");
+        //testCamera = lf.getCameras().getCurrentCameraView();
+        //testMap = lf.getMap();
+        //TemporaryVOCreationVisitor.getInstance().setActiveCameraView(testCamera);
 
 
-        testCamera.addViewObject(testPiggy);
-        testCamera.addAvatar(testAvatar);
-        testPiggy.registerObserver(testCamera);
-        testAvatar.registerObserver(testCamera);
 
-        EntityViewObject testEntity = new EntityViewObject(6,6,cs,ls,"resources/entities/smasher/");
-        testEntity.registerObserver(testCamera);
-        testCamera.addViewObject(testEntity);
+        //testAvatar = new AvatarViewObject(2, 1, cs, ls, "resources/entities/smasher/");
+        //testPiggy = new PiggyViewObject(2, 1, cs, ls, "resources/entities/piggy/");
 
-        AvatarViewFollower.getInstance().bindToViewObject(testAvatar);
 
-        Avatar avatar = Avatar.getInstance();
-        avatar.setStats(new Stats());
-        testMap.addEntity(new Coord(2,1), avatar);
+        //testCamera.addViewObject(testPiggy);
+        //testCamera.addAvatar(testAvatar);
+        //testPiggy.registerObserver(testCamera);
+        //testAvatar.registerObserver(testCamera);
 
-        avatar.registerObserver(new ProxyEntityObserver(testAvatar, avatar));
+        //EntityViewObject testEntity = new EntityViewObject(6,6,cs,ls,"resources/entities/smasher/");
+        //testEntity.registerObserver(testCamera);
+        //testCamera.addViewObject(testEntity);
 
-        EntityMapInteractionFactory.getInstance().init(testMap);
+        //AvatarViewFollower.getInstance().bindToViewObject(testAvatar);
 
-        ViewTime.getInstance().registerAlert(1000, () -> avatar.move(Direction.S));
+        //Avatar avatar = Avatar.getInstance();
+        //avatar.setStats(new Stats());
+        //testMap.addEntity(new Coord(2,1), avatar);
+
+        //avatar.registerObserver(new ProxyEntityObserver(testAvatar, avatar));
+
+        //EntityMapInteractionFactory.getInstance().init(testMap);
+
+        //ViewTime.getInstance().registerAlert(1000, () -> avatar.move(Direction.S));
         //ViewTime.getInstance().registerAlert(5000, () -> avatar.move(Direction.N));
 
 
-        final ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
+
 
 //        int count = 0;
 //        Iterator<Coord> iter = HexMath.sortedRing(new Coord(3,4),3);
@@ -151,7 +156,7 @@ public class AreaView extends JPanel {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
-        testCamera.paintComponent(g2d);
+        activeCamera.paintComponent(g2d);
         //testEntity.paintComponent(g2d);
         g2d.drawString("Hello World!!!", 50, 50);
 

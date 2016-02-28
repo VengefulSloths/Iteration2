@@ -23,10 +23,8 @@ public class TimeModel {
     public void tick(){
         for (Iterator<TimedObject> iterator = alertables.iterator(); iterator.hasNext();){
             TimedObject object = iterator.next();
-            ////System.out.Println(object.toString());
             if(object.decrement()){// if its time to execute the object
                 object.execute();
-                ////System.out.Println("executing");
                 alertables.remove(object);
             }
         }

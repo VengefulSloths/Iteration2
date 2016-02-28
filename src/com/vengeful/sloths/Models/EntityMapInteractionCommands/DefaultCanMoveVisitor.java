@@ -39,15 +39,18 @@ public class DefaultCanMoveVisitor extends CanMoveVisitor {
 
     @Override
     public void visitAvatar(Avatar avatar) {
+        System.out.println("cant move because Avatar");
         setCanMove(false);
     }
     @Override
     public void visitAggressiveNPC(AggressiveNPC aNPC) {
+        System.out.println("cant move because aNPC");
         setCanMove(false);
     }
 
     @Override
     public void visitNonAggressiveNPC(NonAggressiveNPC nonANPC) {
+        System.out.println("cant move because nonaNPC");
         setCanMove(false);
     }
     @Override
@@ -56,10 +59,14 @@ public class DefaultCanMoveVisitor extends CanMoveVisitor {
     }
     @Override
     public void visitTile(Tile tile) {
+        //First assume we can move their ( AND logic )
+        setCanMove(true);
+
 
         //Visit all the entities
         Iterator<Entity> entityIterator = tile.getEntityIterator();
         while (entityIterator.hasNext()) {
+            System.out.println("    visiting entity");
             entityIterator.next().accept(this);
         }
 
@@ -73,6 +80,8 @@ public class DefaultCanMoveVisitor extends CanMoveVisitor {
     }
     @Override
     public void visitObstacle(Obstacle obstacle) {
+        System.out.println("cant move because Obstacle");
+
         setCanMove(false);
 
     }
@@ -84,12 +93,15 @@ public class DefaultCanMoveVisitor extends CanMoveVisitor {
 
     @Override
     public void visitMountain(Mountain mountain) {
+        System.out.println("cant move because Mountain");
         setCanMove(false);
 
     }
 
     @Override
     public void visitWater(Water water) {
+        System.out.println("cant move because Water");
+
         setCanMove(false);
 
     }

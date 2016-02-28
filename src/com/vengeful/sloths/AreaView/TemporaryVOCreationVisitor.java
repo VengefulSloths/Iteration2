@@ -38,6 +38,7 @@ import com.vengeful.sloths.Models.Occupation.Summoner;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.View.Observers.ModelObserver;
+import com.vengeful.sloths.View.Observers.ProxyEntityObserver;
 
 /**
  * Created by alexs on 2/23/2016.
@@ -71,13 +72,21 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
     @Override
     public void visitAvatar(Avatar avatar) {
-        AvatarViewObject avo = factory.createAvatarViewObject(avatar.getLocation().getR(), avatar.getLocation().getS(), "entities/smasher/");
+        AvatarViewObject avo = factory.createAvatarViewObject(avatar.getLocation().getR(),
+                avatar.getLocation().getS(),
+                "resources/entities/smasher/");
 
-        //Let avo observe avatar
-        avatar.registerObserver(avo);
+        //Let avo observe avatar through a proxy
+        avatar.registerObserver(new ProxyEntityObserver(avo, avatar));
 
         //let the cameraView watch avatar for movement
         avo.registerObserver(activeCameraView);
+
+        //Let the AvatarViewFollower follow the avo
+        AvatarViewFollower.getInstance().bindToViewObject(avo);
+
+        //Set the camera views avatar to this
+        activeCameraView.addAvatar(avo);
 
         //Add vo to the camera view
         this.activeCameraView.addViewObject(avo);
