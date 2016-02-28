@@ -77,7 +77,7 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
                 "resources/entities/smasher/");
 
         //Let avo observe avatar through a proxy
-        avatar.registerObserver(new ProxyEntityObserver(avo, avatar));
+        new ProxyEntityObserver(avo, avatar);
 
         //let the cameraView watch avatar for movement
         avo.registerObserver(activeCameraView);
@@ -88,8 +88,6 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
         //Set the camera views avatar to this
         activeCameraView.addAvatar(avo);
 
-        //Add vo to the camera view
-        this.activeCameraView.addViewObject(avo);
     }
 
     @Override

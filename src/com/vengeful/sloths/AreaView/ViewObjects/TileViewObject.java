@@ -10,6 +10,7 @@ import com.vengeful.sloths.Visibility;
 import org.omg.CORBA.UNKNOWN;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -21,6 +22,8 @@ import java.util.Comparator;
 public class TileViewObject extends ViewObject{
     private ArrayList<ViewObject> children;
     private DynamicImage unknownImage = DynamicImageFactory.getInstance().loadDynamicImage("resources/terrain/disapearing_cloud.xml");
+
+    private BufferedImage nonVisibleImage;
     private int r;
     private int s;
 
@@ -34,10 +37,11 @@ public class TileViewObject extends ViewObject{
         if (this.visibility == Visibility.UNKNOWN && visibility == Visibility.NONVISIBLE) {
             //illegal state transition
         } else if (this.visibility == Visibility.VISIBLE && visibility == Visibility.NONVISIBLE) {
-            //children.get(0).
-            this.visibility = visibility;
+
+
+
+            this.visibility = Visibility.NONVISIBLE;
         } else if (this.visibility == Visibility.UNKNOWN && visibility == Visibility.VISIBLE){
-            System.out.println("clouds disapearing");
             this.visibility = Visibility.VISIBLE;
             ((DynamicTimedImage) unknownImage).start(300);
         } else {

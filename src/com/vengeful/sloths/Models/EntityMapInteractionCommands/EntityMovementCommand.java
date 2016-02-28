@@ -61,18 +61,15 @@ public class EntityMovementCommand implements Alertable{
                 break;
         }
 
-        System.out.println("Going to move from " + src.toString() + " to " + dst.toString());
+        System.out.println("Model: Going to move from " + src.toString() + " to " + dst.toString());
 
     }
 
     public int execute() {
-        System.out.println("moving now");
         if (subject.isActive()) return 0;
-        System.out.println("entity is not active");
 
         map.getActiveMapArea().getTile(dst).accept(canMoveVisitor);
         if (canMoveVisitor.canMove()) {
-            System.out.println("entity can move");
 
             map.getActiveMapArea().getTile(src).removeEntity(subject);
             map.getActiveMapArea().getTile(dst).addEntity(subject);
@@ -82,15 +79,16 @@ public class EntityMovementCommand implements Alertable{
             int moveTicks = MAX_MOVESPEED - movementSpeed;
             TimeModel.getInstance().registerAlertable(this, moveTicks);
 
+            System.out.println("about to alert observers");
+
             while (entityObserverIterator.hasNext()) {
+
                 entityObserverIterator.next().alertMove(dst.getR(), dst.getS(), moveTicks* TimeController.MODEL_TICK);
             }
 
             return moveTicks;
 
         } else {
-            System.out.println("entity cannot move");
-
             return 0;
         }
 
