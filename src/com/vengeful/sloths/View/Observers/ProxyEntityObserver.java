@@ -1,5 +1,7 @@
 package com.vengeful.sloths.View.Observers;
 
+import com.vengeful.sloths.AreaView.ViewTime;
+import com.vengeful.sloths.AreaView.vCommand;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.ViewObservable;
 import com.vengeful.sloths.Utility.Direction;
@@ -11,6 +13,7 @@ public class ProxyEntityObserver extends ProxyObserver
         implements EntityObserver {
 
     private EntityObserver target;
+
     public ProxyEntityObserver(EntityObserver entityObserver, ViewObservable subject) {
         this.subject = subject;
         this.subject.registerObserver(this);
@@ -24,6 +27,7 @@ public class ProxyEntityObserver extends ProxyObserver
     @Override
     public void alertDirectionChange(Direction d) {
         if (!deleteFlag) {
+            ViewTime.getInstance().registerAlert(0, () -> target.alertDirectionChange(d));
             target.alertDirectionChange(d);
         }
     }

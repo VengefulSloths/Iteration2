@@ -1,31 +1,29 @@
 package com.vengeful.sloths.Models.Entity;
 
-import com.vengeful.sloths.AreaView.Observers.MovementObserver;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.ActionCommandFactory.ActionCommandFactory;
+import com.vengeful.sloths.Models.ActionCommandFactory.AvatarActionCommandFactory;
 import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
-import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
-import com.vengeful.sloths.Models.Stats.*;
 import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Occupation;
-import com.vengeful.sloths.Models.SaveLoad.SaveVisitor;
 import com.vengeful.sloths.Models.Stats.Stats;
+import com.vengeful.sloths.Models.ViewObservable;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
+import com.vengeful.sloths.View.Observers.EntityObserver;
 import com.vengeful.sloths.View.Observers.ModelObserver;
-import org.w3c.dom.Element;
 
 import java.util.ArrayList;
 
 /**
  * Created by luluding on 2/21/16.
  */
-public abstract class Entity implements ModelVisitable {
+public abstract class Entity implements ModelVisitable, ViewObservable {
     private Coord location;
     private Direction facingDirection;
     private Occupation occupation;
@@ -40,7 +38,7 @@ public abstract class Entity implements ModelVisitable {
 
     protected boolean isMoving = false;
 
-    private ArrayList<MovementObserver> observers;
+    private ArrayList<EntityObserver> observers = new ArrayList<>();
 
     //for avatar
     public Entity(){}
@@ -59,7 +57,8 @@ public abstract class Entity implements ModelVisitable {
         this.buffManager = new BuffManager(this);
         this.occupation = new DummyOccupation(stats);
 
-        this.location = new Coord(0,0);
+
+        this.location = new Coord(1,2);
         this.facingDirection = Direction.N;
     }
 
@@ -67,40 +66,49 @@ public abstract class Entity implements ModelVisitable {
         //do something
     }
 
-    public Coord move(Direction dir){
+    public int move(Direction dir){
+        if(!isMoving) {
+            this.setFacingDirection(dir);
+            isMoving = true;
+            Coord dst = new Coord(location.getR(), location.getS());
+            switch (dir) {
+                case N:
+                    dst.setS(dst.getS() - 1);
+                    break;
+                case S:
+                    dst.setS(dst.getS() + 1);
+                    break;
+                case NE:
+                    dst.setR(dst.getR() + 1);
+                    dst.setS(dst.getS() - 1);
+                    break;
+                case NW:
+                    dst.setR(dst.getR() - 1);
+                    break;
+                case SE:
+                    dst.setR(dst.getR() + 1);
+                    break;
+                case SW:
+                    dst.setR(dst.getR() - 1);
+                    dst.setS(dst.getS() + 1);
+                    break;
+                default:
+                    break;
+            }
 
-        this.setFacingDirection(dir);
 
-        isMoving = true;
+            this.getCommandFactory().createMovementCommand(this.getLocation(), dst, dir, this, this.getStats().getMovement());
 
-        Coord dst = new Coord(this.getLocation().getR(), this.getLocation().getS());
+            for (EntityObserver observer: this.getObservers()) {
+                //TODO: dont hardcode the movement time
+                observer.alertMove(dst.getR(), dst.getS(), 500);
+            }
 
-        switch (dir) {
-            case N:
-                dst.setS(dst.getS() - 1);
-                break;
-            case S:
-                dst.setS(dst.getS() + 1);
-                break;
-            case NE:
-                dst.setR(dst.getR() + 1);
-                dst.setS(dst.getS() - 1);
-                break;
-            case NW:
-                dst.setR(dst.getR() - 1);
-                break;
-            case SE:
-                dst.setR(dst.getR() + 1);
-                break;
-            case SW:
-                dst.setR(dst.getR() - 1);
-                dst.setS(dst.getS() + 1);
-                break;
-            default:
-                break;
         }
 
-        return dst;
+        //TODO: return number of miliseconds till the movement completes
+        return 0;
+
     }
 
 
@@ -109,8 +117,8 @@ public abstract class Entity implements ModelVisitable {
     public abstract void die();
 
 
-    public void registerObserver(MovementObserver observer) {
-        this.observers.add(observer);
+    public void registerObserver(ModelObserver observer) {
+        this.observers.add((EntityObserver) observer);
     }
 
 
@@ -187,7 +195,7 @@ public abstract class Entity implements ModelVisitable {
         this.stats = stats;
     }
 
-    protected ArrayList<MovementObserver> getObservers(){
+    protected ArrayList<EntityObserver> getObservers(){
         return this.observers;
     }
 
@@ -208,12 +216,16 @@ public abstract class Entity implements ModelVisitable {
         this.isMoving = isMoving;
     }
 
+    @Override
+    public void deregisterObserver(ModelObserver modelObserver) {
+        this.observers.remove((EntityObserver) modelObserver);
+    }
 
     /**
      * Handles accepting a ModelVisitor
      */
     public void accept(ModelVisitor modelVisitor) {
-
+        //TODO: delete this, it will cause bugs when people forget to give entities subclasses visit statements
     }
 
 }

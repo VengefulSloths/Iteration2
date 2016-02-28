@@ -39,10 +39,16 @@ public class DynamicImageFactory {
                     return this.createSingleFrameAnimation(doc.getDocumentElement());
                 case "dynamic_timed_animation":
                     return createDynamicTimedAnimation(doc.getDocumentElement());
+                case "repeating_animation":
+                    return createRepeatingAnimation(doc.getDocumentElement());
+                default:
+                    System.out.println("Could not find dynamic image for: " + doc.getDocumentElement().getNodeName());
 
             }
 
         } catch (Exception e ) {
+            System.out.println("WUT");
+
             //e.printStackTrace();
         }
 
@@ -62,6 +68,29 @@ public class DynamicImageFactory {
             default:
                 return new CenteredPositioningStrategy();
         }
+    }
+
+    private DynamicImage createRepeatingAnimation(Element root) {
+        Element element = root;
+        String rootPath = element.getElementsByTagName("rootPath").item(0).getTextContent();
+
+        long duration = Long.parseLong(element.getElementsByTagName("duration").item(0).getTextContent());
+
+        ArrayList<String> activeFilePaths = new ArrayList<>();
+        NodeList nList = element.getElementsByTagName("fileName");
+        for (int i=0; i<nList.getLength(); i++) {
+            activeFilePaths.add(rootPath + nList.item(i).getTextContent());
+        }
+
+
+
+        return new RepeatingImage(
+                Integer.parseInt(element.getElementsByTagName("width").item(0).getTextContent()),
+                Integer.parseInt(element.getElementsByTagName("height").item(0).getTextContent()),
+                createPositionStrategy(element.getElementsByTagName("positioning").item(0)),
+                duration,
+                activeFilePaths
+        );
     }
 
     private DynamicImage createSingleFrameAnimation(Element root) {

@@ -1,13 +1,10 @@
 package com.vengeful.sloths.AreaView.ViewObjects;
 
-import com.vengeful.sloths.AreaView.DynamicImages.DynamicTimedImage;
 import com.vengeful.sloths.AreaView.MovingVOObserver;
-import com.vengeful.sloths.AreaView.Observers.MovementObserver;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 import com.vengeful.sloths.AreaView.ViewTime;
-import com.vengeful.sloths.AreaView.vAlertable;
-import com.vengeful.sloths.Utility.Coord;
+import com.vengeful.sloths.View.Observers.MovementObserver;
 
 import java.util.ArrayList;
 

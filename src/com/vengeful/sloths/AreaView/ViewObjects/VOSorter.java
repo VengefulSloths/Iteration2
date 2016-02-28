@@ -25,6 +25,9 @@ public class VOSorter implements VOVisitor {
     }
 
     @Override
+    public void visitWater(WaterViewObject w) { zLevel = 190; }
+
+    @Override
     public void visitTile(TileViewObject t) {
         zLevel = 10000;
     }

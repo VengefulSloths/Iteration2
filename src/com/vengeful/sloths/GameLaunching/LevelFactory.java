@@ -6,6 +6,7 @@ import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Map.Terrains.Grass;
 import com.vengeful.sloths.Models.Map.Terrains.Mountain;
+import com.vengeful.sloths.Models.Map.Terrains.Water;
 import com.vengeful.sloths.Models.Map.Tile;
 import com.vengeful.sloths.PlainsCameraView;
 import com.vengeful.sloths.Utility.Coord;
@@ -44,6 +45,7 @@ public class LevelFactory {
         for (int i=0;i<max;i++) {
             for (int j=0;j<max;j++) {
                 boolean mountainFlag = false;
+                boolean waterFlag = false;
                 Coord c = new Coord(i, j);
                 Iterator<Coord> iter = HexMath.ring(new Coord(3,4), 2);
                 while (iter.hasNext()) {
@@ -52,7 +54,19 @@ public class LevelFactory {
                         break;
                     }
                 }
-                area1.addTile(new Coord(i,j), mountainFlag ? new Tile(new Mountain()) : new Tile(new Grass()));
+                Iterator<Coord> iter2 = HexMath.ring(new Coord(5,6), 1);
+                while (iter2.hasNext()) {
+                    if (iter2.next().equals(c)) {
+                        waterFlag = true;
+                        break;
+                    }
+                }
+                if (waterFlag) {
+                    area1.addTile(new Coord(i,j), new Tile(new Water()));
+
+                } else {
+                    area1.addTile(new Coord(i, j), mountainFlag ? new Tile(new Mountain()) : new Tile(new Grass()));
+                }
             }
         }
         CameraView camera1 = new PlainsCameraView();
@@ -63,5 +77,6 @@ public class LevelFactory {
         MapArea[] areas = new MapArea[1];
         areas[0] = area1;
         this.map = new Map(new Location(area1, new Coord(3,3)),areas);
+        this.map.setActiveMapArea(area1);
     }
 }

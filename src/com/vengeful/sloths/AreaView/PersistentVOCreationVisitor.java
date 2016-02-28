@@ -114,8 +114,7 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
 
     @Override
     public void visitWater(Water water) {
-        //TODO: create actual waterVO
-        currentTile.addChild(factory.createRoadViewObject(r, s));
+        currentTile.addChild(factory.createWaterTerrainViewObject(r, s));
     }
 
     @Override

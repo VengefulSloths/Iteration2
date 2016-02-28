@@ -9,9 +9,12 @@ import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.CenterAvatarL
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 import com.vengeful.sloths.GameLaunching.LevelFactory;
 import com.vengeful.sloths.Models.Entity.Avatar;
+import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Utility.HexMath;
+import com.vengeful.sloths.View.Observers.ProxyEntityObserver;
+import com.vengeful.sloths.View.Observers.ProxyObserver;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,6 +31,7 @@ public class AreaView extends JPanel {
     AvatarViewObject testAvatar;
     PiggyViewObject testPiggy;
     CameraView testCamera;
+    Map testMap;
 
 
     public AreaView() {
@@ -44,6 +48,7 @@ public class AreaView extends JPanel {
         LevelFactory lf = new LevelFactory();
         lf.init("test");
         testCamera = lf.getCameras().getCurrentCameraView();
+        testMap = lf.getMap();
         TemporaryVOCreationVisitor.getInstance().setActiveCameraView(testCamera);
 
 
@@ -63,6 +68,12 @@ public class AreaView extends JPanel {
 
         AvatarViewFollower.getInstance().bindToViewObject(testAvatar);
 
+        Avatar avatar = Avatar.getInstance();
+        testMap.getTile(new Coord(2,1)).addEntity(avatar);
+
+        avatar.registerObserver(new ProxyEntityObserver(testAvatar, avatar));
+
+        //ViewTime.getInstance().registerAlert(50, () -> avatar.move(Direction.S));
 
         final ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
 
