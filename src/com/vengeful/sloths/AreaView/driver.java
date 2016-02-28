@@ -16,6 +16,6 @@ public class driver {
         AreaView av = new AreaView();
         ViewEngine viewEngine = new ViewEngine(av);
         viewEngine.start();
-        System.out.print("Finished with driver");
+        System.out.println("Finished with driver");
     }
 }

@@ -28,14 +28,13 @@ public class ProxyEntityObserver extends ProxyObserver
     public void alertDirectionChange(Direction d) {
         if (!deleteFlag) {
             ViewTime.getInstance().registerAlert(0, () -> target.alertDirectionChange(d));
-            target.alertDirectionChange(d);
         }
     }
 
     @Override
-    public void alertMove(int x, int y, long animationTime) {
+    public void alertMove(int r, int s, long animationTime) {
         if (!deleteFlag) {
-            target.alertMove(x,y,animationTime);
+            ViewTime.getInstance().registerAlert(0, () -> target.alertMove(r, s, animationTime));
         }
     }
 

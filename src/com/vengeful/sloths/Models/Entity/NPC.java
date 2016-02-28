@@ -20,8 +20,5 @@ public abstract class NPC extends Entity{
         //create talk command
     }
 
-    @Override
-    public void pickup(TakeableItem item) {
-        //create pick up command
-    }
+    
 }

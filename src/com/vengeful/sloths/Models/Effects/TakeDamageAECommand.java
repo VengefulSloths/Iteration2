@@ -24,7 +24,9 @@ public class TakeDamageAECommand extends EffectCommand{
         this.entity = entity;
         this.damage = damage;
         this.currentLoc = currentLoc;
-        TimeModel.getInstance().registerAlertable(this, ticks);
+
+        //TODO: get this working again
+        //TimeModel.getInstance().registerAlertable(this, ticks);
     }
 
 

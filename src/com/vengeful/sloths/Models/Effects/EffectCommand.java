@@ -7,7 +7,7 @@ import com.vengeful.sloths.Utility.Coord;
 /**
  * Created by John on 1/30/2016.
  */
-public abstract class EffectCommand implements Alertable {
+public abstract class EffectCommand {
     protected Entity entity;
 
     //Used to check if entity is still on the same tile without the need for AE to know the tile

@@ -12,9 +12,6 @@ public abstract class Pet extends Entity{
 
 
 
-    @Override
-    public void pickup(TakeableItem item) {
-        //create pick up command
-    }
+
 
 }

@@ -101,7 +101,6 @@ public class Tile implements ModelVisitable {
     public void addEntity(Entity entity){
         //may need to check for an entity already being on the tile
         this.entities.add(entity);
-
         //For some reason check hasmapItem, and check hasAE logic can't be here
         //Have to put the checking logic in movement command or the Pickup/drop, AE commands would not work
     }

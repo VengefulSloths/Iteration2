@@ -54,7 +54,7 @@ public class LevelFactory {
                         break;
                     }
                 }
-                Iterator<Coord> iter2 = HexMath.ring(new Coord(5,6), 1);
+                Iterator<Coord> iter2 = HexMath.ring(new Coord(3,3), 1);
                 while (iter2.hasNext()) {
                     if (iter2.next().equals(c)) {
                         waterFlag = true;

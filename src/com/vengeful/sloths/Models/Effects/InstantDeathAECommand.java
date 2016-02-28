@@ -21,7 +21,8 @@ public class InstantDeathAECommand extends EffectCommand{
         if(this.entity instanceof Avatar){
 //            this.entity.getEntityStats().setCurrentHealth(-this.entity.getEntityStats().getCurrentHealth());
 //            this.entity.getEntityStats().updateLivesLeft(-this.entity.getEntityStats().getLivesLeft());
-            ((Avatar)this.entity).die();
+            System.out.println("The entity should of died, but I deleted that code portion because I dont want to impl die");
+            //((Avatar)this.entity).die();
         }
 
     }

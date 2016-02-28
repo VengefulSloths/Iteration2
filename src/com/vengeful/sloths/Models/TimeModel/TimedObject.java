@@ -21,7 +21,7 @@ public class TimedObject {
     }
 
     public void execute(){
-        alertable.execute();
+        alertable.mAlert();
     }
 
 }

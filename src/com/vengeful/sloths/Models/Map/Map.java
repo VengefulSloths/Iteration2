@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Models.Map;
 
+import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Utility.Coord;
@@ -34,6 +35,11 @@ public class Map implements ModelVisitable{
      *Allows us to call getTile on map
      * The request is forwarded to active maparea
      */
+    public void addEntity(Coord c, Entity entity) {
+        getTile(c).addEntity(entity);
+        entity.setLocation(c);
+    }
+
     public Tile getTile(Coord c){
         return activeMapArea.getTile(c);
     }

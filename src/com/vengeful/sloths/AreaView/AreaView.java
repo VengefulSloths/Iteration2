@@ -9,7 +9,10 @@ import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.CenterAvatarL
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 import com.vengeful.sloths.GameLaunching.LevelFactory;
 import com.vengeful.sloths.Models.Entity.Avatar;
+import com.vengeful.sloths.Models.Entity.Entity;
+import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteractionFactory;
 import com.vengeful.sloths.Models.Map.Map;
+import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Utility.HexMath;
@@ -69,71 +72,76 @@ public class AreaView extends JPanel {
         AvatarViewFollower.getInstance().bindToViewObject(testAvatar);
 
         Avatar avatar = Avatar.getInstance();
-        testMap.getTile(new Coord(2,1)).addEntity(avatar);
+        avatar.setStats(new Stats());
+        testMap.addEntity(new Coord(2,1), avatar);
 
         avatar.registerObserver(new ProxyEntityObserver(testAvatar, avatar));
 
-        //ViewTime.getInstance().registerAlert(50, () -> avatar.move(Direction.S));
+        EntityMapInteractionFactory.getInstance().init(testMap);
+
+        ViewTime.getInstance().registerAlert(1000, () -> avatar.move(Direction.S));
+        //ViewTime.getInstance().registerAlert(5000, () -> avatar.move(Direction.N));
+
 
         final ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
 
-        int count = 0;
-        Iterator<Coord> iter = HexMath.sortedRing(new Coord(3,4),3);
-        while (iter.hasNext()) {
-            final Coord current = iter.next();
-            final int sample = count;
-            executor.schedule(new Runnable() {
-                @Override
-                public void run() {
-                    if (sample == 0) testAvatar.alertDirectionChange(Direction.SE);
-                    if (sample == 4) testAvatar.alertDirectionChange(Direction.S);
-                    if (sample == 7) testAvatar.alertDirectionChange(Direction.SW);
-                    if (sample == 10) testAvatar.alertDirectionChange(Direction.NW);
-                    if (sample == 13) testAvatar.alertDirectionChange(Direction.N);
-                    if (sample == 16) testAvatar.alertDirectionChange(Direction.NE);
-                    testAvatar.alertMove(current.getR(),current.getS(),500);
-                }
-            }, (++count), TimeUnit.SECONDS);
-        }
-
-        int countOffset = count;
-        count = 0;
-        Iterator<Coord> iter2 = HexMath.sortedRing(new Coord(3,4),3);
-        while (iter2.hasNext()) {
-            final Coord current = iter2.next();
-            final int sample = count;
-            executor.schedule(new Runnable() {
-                @Override
-                public void run() {
-                    if (sample == 0) testAvatar.alertDirectionChange(Direction.SE);
-                    if (sample == 4) testAvatar.alertDirectionChange(Direction.S);
-                    if (sample == 7) testAvatar.alertDirectionChange(Direction.SW);
-                    if (sample == 10) testAvatar.alertDirectionChange(Direction.NW);
-                    if (sample == 13) testAvatar.alertDirectionChange(Direction.N);
-                    if (sample == 16) testAvatar.alertDirectionChange(Direction.NE);
-                    testAvatar.alertMove(current.getR(),current.getS(),500);
-                }
-            }, (++count) + countOffset , TimeUnit.SECONDS);
-        }
-
-        count = 0;
-        Iterator<Coord> iter3 = HexMath.sortedRing(new Coord(4,6),3);
-        while (iter3.hasNext()) {
-            final Coord current = iter3.next();
-            final int sample = count;
-            executor.schedule(new Runnable() {
-                @Override
-                public void run() {
-                    if (sample == 0) testEntity.alertDirectionChange(Direction.SE);
-                    if (sample == 4) testEntity.alertDirectionChange(Direction.S);
-                    if (sample == 7) testEntity.alertDirectionChange(Direction.SW);
-                    if (sample == 10) testEntity.alertDirectionChange(Direction.NW);
-                    if (sample == 13) testEntity.alertDirectionChange(Direction.N);
-                    if (sample == 16) testEntity.alertDirectionChange(Direction.NE);
-                    testEntity.alertMove(current.getR(),current.getS(),500);
-                }
-            }, (++count) , TimeUnit.SECONDS);
-        }
+//        int count = 0;
+//        Iterator<Coord> iter = HexMath.sortedRing(new Coord(3,4),3);
+//        while (iter.hasNext()) {
+//            final Coord current = iter.next();
+//            final int sample = count;
+//            executor.schedule(new Runnable() {
+//                @Override
+//                public void run() {
+//                    if (sample == 0) testAvatar.alertDirectionChange(Direction.SE);
+//                    if (sample == 4) testAvatar.alertDirectionChange(Direction.S);
+//                    if (sample == 7) testAvatar.alertDirectionChange(Direction.SW);
+//                    if (sample == 10) testAvatar.alertDirectionChange(Direction.NW);
+//                    if (sample == 13) testAvatar.alertDirectionChange(Direction.N);
+//                    if (sample == 16) testAvatar.alertDirectionChange(Direction.NE);
+//                    testAvatar.alertMove(current.getR(),current.getS(),500);
+//                }
+//            }, (++count), TimeUnit.SECONDS);
+//        }
+//
+//        int countOffset = count;
+//        count = 0;
+//        Iterator<Coord> iter2 = HexMath.sortedRing(new Coord(3,4),3);
+//        while (iter2.hasNext()) {
+//            final Coord current = iter2.next();
+//            final int sample = count;
+//            executor.schedule(new Runnable() {
+//                @Override
+//                public void run() {
+//                    if (sample == 0) testAvatar.alertDirectionChange(Direction.SE);
+//                    if (sample == 4) testAvatar.alertDirectionChange(Direction.S);
+//                    if (sample == 7) testAvatar.alertDirectionChange(Direction.SW);
+//                    if (sample == 10) testAvatar.alertDirectionChange(Direction.NW);
+//                    if (sample == 13) testAvatar.alertDirectionChange(Direction.N);
+//                    if (sample == 16) testAvatar.alertDirectionChange(Direction.NE);
+//                    testAvatar.alertMove(current.getR(),current.getS(),500);
+//                }
+//            }, (++count) + countOffset , TimeUnit.SECONDS);
+//        }
+//
+//        count = 0;
+//        Iterator<Coord> iter3 = HexMath.sortedRing(new Coord(4,6),3);
+//        while (iter3.hasNext()) {
+//            final Coord current = iter3.next();
+//            final int sample = count;
+//            executor.schedule(new Runnable() {
+//                @Override
+//                public void run() {
+//                    if (sample == 0) testEntity.alertDirectionChange(Direction.SE);
+//                    if (sample == 4) testEntity.alertDirectionChange(Direction.S);
+//                    if (sample == 7) testEntity.alertDirectionChange(Direction.SW);
+//                    if (sample == 10) testEntity.alertDirectionChange(Direction.NW);
+//                    if (sample == 13) testEntity.alertDirectionChange(Direction.N);
+//                    if (sample == 16) testEntity.alertDirectionChange(Direction.NE);
+//                    testEntity.alertMove(current.getR(),current.getS(),500);
+//                }
+//            }, (++count) , TimeUnit.SECONDS);
+//        }
 
 
     }

@@ -83,13 +83,7 @@ public class Avatar extends Entity{
         item.use(this.getStats());
     }
 
-    public void drop(InventoryItem item) {
-        this.getCommandFactory().createDropCommand(item, this.getLocation(), this);
-    }
 
-    public void pickup(TakeableItem item){
-        this.getCommandFactory().createPickUpCommand(this.getLocation(), this, item);
-    }
 
     //called by levelUp AE
     public void levelUp() {
@@ -107,10 +101,6 @@ public class Avatar extends Entity{
 
     public void takeDamage(int damage) {
         this.getStats().subtract(new HealthManaExperienceAddable(damage, 0, 0, 0, 0));
-    }
-
-    public void die() {
-        this.getCommandFactory().createDieCommand(this.getLocation(), this);
     }
 
     @Override

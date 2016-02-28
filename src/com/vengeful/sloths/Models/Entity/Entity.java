@@ -1,9 +1,11 @@
 package com.vengeful.sloths.Models.Entity;
 
 import com.vengeful.sloths.Models.Ability.AbilityManager;
-import com.vengeful.sloths.Models.ActionCommandFactory.ActionCommandFactory;
-import com.vengeful.sloths.Models.ActionCommandFactory.AvatarActionCommandFactory;
 import com.vengeful.sloths.Models.Buff.BuffManager;
+import com.vengeful.sloths.Models.EntityMapInteractionCommands.CanMoveVisitor;
+import com.vengeful.sloths.Models.EntityMapInteractionCommands.DefaultCanMoveVisitor;
+import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteractionFactory;
+import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMovementCommand;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
@@ -33,10 +35,19 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     private Equipped equipped;
     private String name;
     private Stats stats;
-    private ActionCommandFactory commandFactory;
+
+    private CanMoveVisitor movementValidator;
 
 
-    protected boolean isMoving = false;
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    private boolean isActive = false;
 
     private ArrayList<EntityObserver> observers = new ArrayList<>();
 
@@ -46,6 +57,11 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     public Entity(String name, BuffManager buffManager, Stats stats){
         this(name, stats);
         this.setBuffManager(buffManager);
+
+    }
+
+    public void setMovementValidator(CanMoveVisitor canMoveVisitor) {
+        this.movementValidator = canMoveVisitor;
     }
 
     public Entity(String name, Stats stats){
@@ -56,9 +72,9 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         this.abilityManager = new AbilityManager();
         this.buffManager = new BuffManager(this);
         this.occupation = new DummyOccupation(stats);
+        this.movementValidator = new DefaultCanMoveVisitor();
 
-
-        this.location = new Coord(1,2);
+        //this.location = new Coord(1,2);
         this.facingDirection = Direction.N;
     }
 
@@ -66,55 +82,26 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         //do something
     }
 
-    public int move(Direction dir){
-        if(!isMoving) {
+    public final int move(Direction dir){
+        System.out.println("in enetity move");
+        if(!isActive) {
             this.setFacingDirection(dir);
-            isMoving = true;
-            Coord dst = new Coord(location.getR(), location.getS());
-            switch (dir) {
-                case N:
-                    dst.setS(dst.getS() - 1);
-                    break;
-                case S:
-                    dst.setS(dst.getS() + 1);
-                    break;
-                case NE:
-                    dst.setR(dst.getR() + 1);
-                    dst.setS(dst.getS() - 1);
-                    break;
-                case NW:
-                    dst.setR(dst.getR() - 1);
-                    break;
-                case SE:
-                    dst.setR(dst.getR() + 1);
-                    break;
-                case SW:
-                    dst.setR(dst.getR() - 1);
-                    dst.setS(dst.getS() + 1);
-                    break;
-                default:
-                    break;
-            }
 
+            EntityMovementCommand emc = EntityMapInteractionFactory.getInstance().createMovementCommand(
+                    this.getLocation(),
+                    dir,
+                    getStats().getMovement(),
+                    this,
+                    movementValidator,
+                    observers.iterator());
 
-            this.getCommandFactory().createMovementCommand(this.getLocation(), dst, dir, this, this.getStats().getMovement());
+            return emc.execute();
 
-            for (EntityObserver observer: this.getObservers()) {
-                //TODO: dont hardcode the movement time
-                observer.alertMove(dst.getR(), dst.getS(), 500);
-            }
 
         }
-
-        //TODO: return number of miliseconds till the movement completes
         return 0;
 
     }
-
-
-    public abstract void pickup(TakeableItem item);
-
-    public abstract void die();
 
 
     public void registerObserver(ModelObserver observer) {
@@ -200,20 +187,12 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     }
 
 
-    public void setCommandFactory(ActionCommandFactory acf) {
-        this.commandFactory = acf;
-    }
-
-    public ActionCommandFactory getCommandFactory(){
-        return this.commandFactory;
-    }
-
     public boolean getMoving(){
-        return this.isMoving;
+        return this.isActive;
     }
 
     public void setMoving(boolean isMoving){
-        this.isMoving = isMoving;
+        this.isActive = isMoving;
     }
 
     @Override

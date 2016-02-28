@@ -23,7 +23,9 @@ public class HealDamageAECommand extends EffectCommand{
         this.entity = entity;
         this.health = health;
         this.currentLoc = currentLoc;
-        TimeModel.getInstance().registerAlertable(this, ticks);
+
+        //TODO: get this working again
+        //TimeModel.getInstance().registerAlertable(this, ticks);
     }
 
 

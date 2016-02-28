@@ -37,7 +37,7 @@ public class Stats implements ModelVisitable {
         this.agility = 1;
         this.intellect = 1;
         this.hardiness = 1;
-        this.movement = 1;//might need to modify this
+        this.movement = 45;//might need to modify this (done)
         this.level = 1;
         calculateStats();
 

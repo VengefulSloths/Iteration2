@@ -6,6 +6,8 @@ package com.vengeful.sloths.Models.TimeModel;
 public class TimeController {
 
     private TimeModel timeModel = TimeModel.getInstance();
+    public static final long MODEL_TICK = 33L;
+
 
     public void tick(){
         Long startTime = System.currentTimeMillis();
@@ -15,7 +17,7 @@ public class TimeController {
 
         //delay to get 30 ticks per seconds
         Long deltaTime = System.currentTimeMillis() - startTime;
-        deltaTime = 33L - deltaTime;
+        deltaTime = MODEL_TICK - deltaTime;
         if(deltaTime < 0L)deltaTime = 0L;
 
         try {

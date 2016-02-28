@@ -23,7 +23,9 @@ public class TakeableItem extends MapItem {
     public void interact(Entity entity){
         //maybe alert user he cannot move here
         this.destroy = false;
-        entity.pickup(this);
+
+        //TODO:put this back
+        //entity.pickup(this);
     }
 
 

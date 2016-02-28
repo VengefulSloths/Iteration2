@@ -20,7 +20,7 @@ public class ObserverManager implements Alertable {
     static public ObserverManager instance() {
         if (instance == null) {
             instance = new ObserverManager();
-            instance.execute();
+            instance.mAlert();
         }
         return instance;
     }
@@ -50,7 +50,7 @@ public class ObserverManager implements Alertable {
             return true;
         } else return false;
     }
-    public void execute() {
+    public void mAlert() {
 
         cleanUp();
     }
