@@ -2,10 +2,7 @@ package com.vengeful.sloths.Models.Entity;
 
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.BuffManager;
-import com.vengeful.sloths.Models.EntityMapInteractionCommands.CanMoveVisitor;
-import com.vengeful.sloths.Models.EntityMapInteractionCommands.DefaultCanMoveVisitor;
-import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteractionFactory;
-import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMovementCommand;
+import com.vengeful.sloths.Models.EntityMapInteractionCommands.*;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
@@ -13,6 +10,7 @@ import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Occupation;
+import com.vengeful.sloths.Models.Stats.StatAddables.CurrentHealthAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Models.ViewObservable;
 import com.vengeful.sloths.Utility.Coord;
@@ -104,6 +102,26 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
 
     }
 
+    public final int attack(Direction dir){
+        if(!isActive) {
+            this.setFacingDirection(dir);
+
+            EntityAttackCommand eac = EntityMapInteractionFactory.getInstance().createAttackCommand(
+                    this.getLocation(),
+                    dir,
+                    30,//attackspeed
+                    30,//attack dmg
+                    this,
+                    movementValidator,
+                    observers.iterator());
+
+            return eac.execute();
+
+
+        }
+        return 0;
+    }
+
 
     public void registerObserver(ModelObserver observer) {
         (new Exception()).printStackTrace();
@@ -122,6 +140,11 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         while (entityObserverIterator.hasNext()) {
             entityObserverIterator.next().alertDirectionChange(facingDirection);
         }
+    }
+
+    public void takeDamage(int attackDamage){
+        //do dmg calculations here (like lessening it for defense)
+        getStats().subtract(new CurrentHealthAddable(attackDamage));
     }
 
     /********** Getter and Setters *************/

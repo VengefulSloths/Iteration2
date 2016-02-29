@@ -43,6 +43,19 @@ public class EntityMapInteractionFactory {
         return emc;
     }
 
+    public EntityAttackCommand createAttackCommand(Coord src,
+                                                       Direction dir,
+                                                       int attackSpeed,
+                                                       int attackDamage,
+                                                       Entity entity,
+                                                       CanMoveVisitor canMoveVisitor,
+                                                       Iterator<EntityObserver> entityObserverIterator) {
+
+        EntityAttackCommand eac = new EntityAttackCommand(src, dir, attackSpeed, attackDamage, map, entity, canMoveVisitor, entityObserverIterator);
+
+
+        return eac;
+    }
     //TODO: Refactor the bellow commands
 //    public DropCommand createDropCommand(InventoryItem itemToDrop, Coord dropLoc, Entity entity) { //Called in Avatar
 //        return null;

@@ -2,6 +2,7 @@ package com.vengeful.sloths.Models.EntityMapInteractionCommands;
 
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Map.Map;
+import com.vengeful.sloths.Models.Stats.StatAddables.HealthManaExperienceAddable;
 import com.vengeful.sloths.Models.TimeModel.Alertable;
 import com.vengeful.sloths.Models.TimeModel.TimeController;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
@@ -22,14 +23,16 @@ public class EntityAttackCommand implements Alertable {
     private CanMoveVisitor canMoveVisitor;
     private Iterator<EntityObserver> entityObserverIterator;
     private int attackSpeed;
+    private int attackDamage;
 
     public static final int MAX_ATTACKSPEED = 60;
 
-    public EntityAttackCommand(Coord src, Direction dir, int attackSpeed, Map map, Entity entity, CanMoveVisitor canMoveVisitor, Iterator<EntityObserver> entityObserverIterator) {
+    public EntityAttackCommand(Coord src, Direction dir, int attackSpeed, int attackDamage, Map map, Entity entity, CanMoveVisitor canMoveVisitor, Iterator<EntityObserver> entityObserverIterator) {
         this.src = src;
         this.subject = entity;
         this.map = map;
-        this.canMoveVisitor = canMoveVisitor; //yeah look at this again lol
+        //this.canMoveVisitor = canMoveVisitor; //yeah look at this again lol
+        this.attackDamage = attackDamage;
         this.entityObserverIterator = entityObserverIterator;
         this.attackSpeed = attackSpeed;
 
@@ -69,7 +72,9 @@ public class EntityAttackCommand implements Alertable {
             int attackTicks = MAX_ATTACKSPEED - attackSpeed;
             TimeModel.getInstance().registerAlertable(this, attackTicks);
             //do the attack... create an ae of dmg on dst tile?
-            
+            for(Entity entity : map.getTile(dst).getEntities()){
+                entity.takeDamage(attackDamage);
+            }
 
             System.out.println("about to alert observers");
 
