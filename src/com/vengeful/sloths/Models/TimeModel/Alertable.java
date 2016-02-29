@@ -6,5 +6,4 @@ package com.vengeful.sloths.Models.TimeModel;
 public interface Alertable {
     void mAlert();
 
-
 }

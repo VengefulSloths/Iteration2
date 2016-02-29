@@ -30,5 +30,13 @@ public abstract class Target implements TargetVisitable {
         }
     }
 
+    public Coord getCoord() {
+        return coord;
+    }
+
+    public void setCoord(Coord coord) {
+        this.coord = coord;
+    }
+
     public abstract void accept(TargetVisitor targetVisitor);
 }

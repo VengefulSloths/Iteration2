@@ -21,7 +21,7 @@ public class AggressiveNPCControllerManager extends NPCControllerManager{
     public AggressiveNPCControllerManager(Map map, Entity entity){
         this.setEntity(entity);
         this.setSearchingController(new AggressiveNPCSearchingController(map, entity));
-        this.setActionController(new AggressiveNPCActionController());
+        this.setActionController(new AggressiveNPCActionController(entity));
         this.setMovementController(new LandMovementController());
 
 

@@ -1,19 +1,22 @@
 package com.vengeful.sloths.Controllers.ActionController;
 
 import com.vengeful.sloths.Controllers.Target.*;
+import com.vengeful.sloths.Models.Entity.Entity;
 
 /**
  * Created by zach on 2/22/16.
  */
 public abstract class ActionController implements TargetVisitor {
-    private ActionController currentActionController;
 
+    private Entity entity;
+
+    public ActionController(){}
+    public ActionController(Entity entity){
+        this.setEntity(entity);
+    }
 
     public abstract void action(Target target);
 
-    public void setNextActionController(ActionController actionController) {
-        this.currentActionController = actionController;
-    }
 
     @Override
     public abstract void visitAvatarTarget(AvatarTarget avatar);
@@ -26,4 +29,23 @@ public abstract class ActionController implements TargetVisitor {
 
     @Override
     public abstract void visitNonAggressiveNPCTarget(NonAgressiveNPCTarget nonANPC);
+
+    public Entity getEntity() {
+        return entity;
+    }
+
+    public void setEntity(Entity entity) {
+        this.entity = entity;
+    }
+
+    protected boolean checkLocation(Target target, int distance){
+        if((Math.abs(target.getCoord().getR()) - Math.abs(entity.getLocation().getR())) > distance){
+            return false;
+        }
+        if((Math.abs(target.getCoord().getS()) - Math.abs(entity.getLocation().getS())) > distance){
+            return false;
+        }
+        //will only get here to return true if the target is in desired location
+        return true;
+    }
 }
