@@ -106,6 +106,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
 
 
     public void registerObserver(ModelObserver observer) {
+        (new Exception()).printStackTrace();
         this.observers.add((EntityObserver) observer);
     }
 

@@ -1,6 +1,7 @@
 package com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies;
 
 
+import com.vengeful.sloths.AreaView.AreaView;
 import com.vengeful.sloths.AreaView.AvatarViewFollower;
 
 /**
@@ -14,11 +15,11 @@ public class CenterAvatarLocationStrategy implements LocationStrategy {
     }
     @Override
     public int offsetXPixels() {
-        return -target.getXPixels()+300;
+        return -target.getXPixels()+ AreaView.WIDTH/2;
     }
 
     @Override
     public int offsetYPixels() {
-        return -target.getYPixels()+300;
+        return -target.getYPixels()+AreaView.HEIGHT/2;
     }
 }

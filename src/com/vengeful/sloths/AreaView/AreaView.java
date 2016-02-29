@@ -33,6 +33,9 @@ public class AreaView extends JPanel {
     private CameraView activeCamera;
     private CameraViewManager cameraViewManager;
 
+    public static final int WIDTH = 1000;
+    public static final int HEIGHT = 1000;
+
     private void setActiveCamera(CameraView cameraView) {
         TemporaryVOCreationVisitor.getInstance().setActiveCameraView(cameraView);
         this.activeCamera = cameraView;
@@ -40,7 +43,7 @@ public class AreaView extends JPanel {
 
     public AreaView(CameraViewManager cvm) {
         this.setBackground(Color.GRAY);
-        setPreferredSize(new Dimension(600,600));
+        setPreferredSize(new Dimension(WIDTH,HEIGHT));
         setDoubleBuffered(true);
 
         this.cameraViewManager = cvm;
