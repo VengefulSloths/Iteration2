@@ -1,5 +1,6 @@
-package com.vengeful.sloths.Controllers;
+package com.vengeful.sloths.Controllers.SearchingController;
 
+import com.vengeful.sloths.Controllers.SearchingController.SearchingController;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
@@ -39,8 +40,13 @@ import java.util.Iterator;
  */
 public class AggressiveNPCSearchingController extends SearchingController {
 
-    public AggressiveNPCSearchingController(Map map, Entity entity, boolean isSearching) {
-        super(map, entity, isSearching);
+    public AggressiveNPCSearchingController(Map map, Entity entity) {
+        super(map, entity);
+    }
+
+    @Override
+    protected void doneSearching() {
+
     }
 
     @Override
@@ -52,23 +58,25 @@ public class AggressiveNPCSearchingController extends SearchingController {
     public void visitAvatar(Avatar avatar) {
         // set priority yadyadyayd
         Target currTarget = new AvatarTarget(0);
-
         this.setHighestPriorityTarget(this.getMaxTarget(currTarget, this.getHighestPriorityTarget()));
     }
 
     @Override
     public void visitPiggy(Piggy piggy) {
+        Target currTarget = new AvatarTarget(1);
+        this.setHighestPriorityTarget(this.getMaxTarget(currTarget, this.getHighestPriorityTarget()));
 
     }
 
     @Override
     public void visitAggressiveNPC(AggressiveNPC aNPC) {
+        //do nada
 
     }
 
     @Override
     public void visitNonAggressiveNPC(NonAggressiveNPC nonANPC) {
-
+        //do nada
     }
 
     @Override

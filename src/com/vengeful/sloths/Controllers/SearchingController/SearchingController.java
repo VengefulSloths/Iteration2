@@ -1,4 +1,4 @@
-package com.vengeful.sloths.Controllers;
+package com.vengeful.sloths.Controllers.SearchingController;
 
 import com.vengeful.sloths.Controllers.Target.Target;
 import com.vengeful.sloths.Models.Entity.*;
@@ -15,13 +15,12 @@ import java.util.ArrayList;
  */
 public abstract class SearchingController implements ModelVisitor {
     private Map map;
-    private boolean isSearching;
+    private boolean isSearching = true;
     private Entity entity;
     private Target highestPriorityTarget;
 
-    public SearchingController(Map map, Entity entity, boolean isSearching) {
+    public SearchingController(Map map, Entity entity) {
         this.map = map;
-        this.isSearching = isSearching;
         this.entity = entity;
     }
 
@@ -116,6 +115,7 @@ public abstract class SearchingController implements ModelVisitor {
      *  etc.
      */
     public void search(int searchRadius) {
+        this.highestPriorityTarget = null;//set it null at the beginning of each search so it doesnt keep seeing old searches
         int currRing = 0;
 
         Coord currCoord = entity.getLocation();
@@ -128,7 +128,10 @@ public abstract class SearchingController implements ModelVisitor {
                 tile.accept(this);
             }
         }
+        doneSearching();
     }
+
+    protected abstract void doneSearching();
 
     protected Target getMaxTarget(Target target1, Target target2){
         if (target1 == null && target2 == null) {

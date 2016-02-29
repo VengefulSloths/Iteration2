@@ -16,22 +16,14 @@ public abstract class ActionController implements TargetVisitor {
     }
 
     @Override
-    public void visitAvatarTarget(AvatarTarget avatar) {
-
-    }
+    public abstract void visitAvatarTarget(AvatarTarget avatar);
 
     @Override
-    public void visitPiggyTarget(PiggyTarget piggy) {
-
-    }
+    public abstract void visitPiggyTarget(PiggyTarget piggy);
 
     @Override
-    public void visitAggressiveNPCTarget(AgressiveNPCTarget aNPC) {
-
-    }
+    public abstract void visitAggressiveNPCTarget(AgressiveNPCTarget aNPC);
 
     @Override
-    public void visitNonAggressiveNPCTarget(NonAgressiveNPCTarget nonANPC) {
-
-    }
+    public abstract void visitNonAggressiveNPCTarget(NonAgressiveNPCTarget nonANPC);
 }
