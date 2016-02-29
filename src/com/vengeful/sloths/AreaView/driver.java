@@ -39,11 +39,11 @@ public class driver {
                 @Override
                 public void run() {
                     if (sample == 0) testAvatar.setFacingDirection(Direction.SE);
-                    if (sample == 4) testAvatar.setFacingDirection(Direction.S);
-                    if (sample == 7) testAvatar.setFacingDirection(Direction.SW);
-                    if (sample == 10) testAvatar.setFacingDirection(Direction.NW);
-                    if (sample == 13) testAvatar.setFacingDirection(Direction.N);
-                    if (sample == 16) testAvatar.setFacingDirection(Direction.NE);
+                    if (sample == 5) testAvatar.setFacingDirection(Direction.S);
+                    if (sample == 9) testAvatar.setFacingDirection(Direction.SW);
+                    if (sample == 12) testAvatar.setFacingDirection(Direction.NW);
+                    if (sample == 15) testAvatar.setFacingDirection(Direction.N);
+                    if (sample == 17) testAvatar.setFacingDirection(Direction.NE);
                     testAvatar.move(testAvatar.getFacingDirection());
                 }
             }, (++count), TimeUnit.SECONDS);

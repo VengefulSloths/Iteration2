@@ -1,5 +1,6 @@
 package com.vengeful.sloths.AreaView.ViewObjects;
 
+import com.vengeful.sloths.AreaView.AreaView;
 import com.vengeful.sloths.AreaView.DynamicImages.DynamicImage;
 import com.vengeful.sloths.AreaView.DynamicImages.DynamicImageFactory;
 import com.vengeful.sloths.AreaView.DynamicImages.DynamicTimedImage;
@@ -11,6 +12,7 @@ import org.omg.CORBA.UNKNOWN;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.RescaleOp;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -24,10 +26,14 @@ public class TileViewObject extends ViewObject{
     private DynamicImage unknownImage = DynamicImageFactory.getInstance().loadDynamicImage("resources/terrain/disapearing_cloud.xml");
 
     private BufferedImage nonVisibleImage;
-    private int r;
-    private int s;
+
+
+    private int weirdXOffset;
+    private int weirdYOffset;
 
     private DynamicImage fog;
+
+
 
     public Visibility getVisibility() {
         return visibility;
@@ -37,6 +43,9 @@ public class TileViewObject extends ViewObject{
         if (this.visibility == Visibility.UNKNOWN && visibility == Visibility.NONVISIBLE) {
             //illegal state transition
         } else if (this.visibility == Visibility.VISIBLE && visibility == Visibility.NONVISIBLE) {
+
+
+            preCalcNonVisibleImage();
 
 
 
@@ -50,7 +59,20 @@ public class TileViewObject extends ViewObject{
         }
     }
 
+    public void preCalcNonVisibleImage() {
+        nonVisibleImage = new BufferedImage(AreaView.WIDTH, AreaView.HEIGHT, BufferedImage.TYPE_4BYTE_ABGR_PRE);
+        Graphics2D g2d = nonVisibleImage.createGraphics();
+        for (ViewObject child: children) {
+            child.paintComponent(g2d);
+        }
+        this.weirdXOffset = getLocationXOffset();
+        this.weirdYOffset = getLocationYOffset();
 
+        RescaleOp rescaleOp = new RescaleOp(0.5f, 0, null);
+
+        rescaleOp.filter(nonVisibleImage, nonVisibleImage);
+
+    }
 
     private Visibility visibility = Visibility.UNKNOWN;
     public TileViewObject(int r, int s, CoordinateStrategy cs, LocationStrategy ls) {
@@ -89,13 +111,10 @@ public class TileViewObject extends ViewObject{
                     this.getYPixels() + unknownImage.getYOffset() + getLocationYOffset(),
                     this);
         } else if (visibility == Visibility.NONVISIBLE) {
-            for (ViewObject child: children) {
-                child.paintComponent(g);
-            }
-            g.drawImage(fog.getImage(),
-                    this.getXPixels() + fog.getXOffset() + getLocationXOffset(),
-                    this.getYPixels() + fog.getYOffset() + getLocationYOffset(),
-                    this);
+           g.drawImage(nonVisibleImage,
+                   this.getLocationXOffset() - weirdXOffset,
+                   this.getLocationYOffset() - weirdYOffset,
+                   this);
         } else {
 
             for (ViewObject child: children) {
