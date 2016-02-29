@@ -33,7 +33,7 @@ public class AreaView extends JPanel {
     private CameraView activeCamera;
     private CameraViewManager cameraViewManager;
 
-    public static final int WIDTH = 1000;
+    public static final int WIDTH = 1200;
     public static final int HEIGHT = 1000;
 
     private void setActiveCamera(CameraView cameraView) {

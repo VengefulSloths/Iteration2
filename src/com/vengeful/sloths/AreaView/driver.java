@@ -32,18 +32,13 @@ public class driver {
 
         int count = 0;
         Iterator<Coord> iter = HexMath.sortedRing(new Coord(3,4),3);
+        testAvatar.setFacingDirection(Direction.SE);
         while (iter.hasNext()) {
             final Coord current = iter.next();
             final int sample = count;
             executor.schedule(new Runnable() {
                 @Override
                 public void run() {
-                    if (sample == 0) testAvatar.setFacingDirection(Direction.SE);
-                    if (sample == 5) testAvatar.setFacingDirection(Direction.S);
-                    if (sample == 9) testAvatar.setFacingDirection(Direction.SW);
-                    if (sample == 12) testAvatar.setFacingDirection(Direction.NW);
-                    if (sample == 15) testAvatar.setFacingDirection(Direction.N);
-                    if (sample == 17) testAvatar.setFacingDirection(Direction.NE);
                     testAvatar.move(testAvatar.getFacingDirection());
                 }
             }, (++count), TimeUnit.SECONDS);

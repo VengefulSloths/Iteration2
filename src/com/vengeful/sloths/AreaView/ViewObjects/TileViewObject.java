@@ -11,8 +11,7 @@ import com.vengeful.sloths.Visibility;
 import org.omg.CORBA.UNKNOWN;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.awt.image.RescaleOp;
+import java.awt.image.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -27,11 +26,33 @@ public class TileViewObject extends ViewObject{
 
     private BufferedImage nonVisibleImage;
 
+    private static LookupOp darkenOp;
+    
 
-    private int weirdXOffset;
-    private int weirdYOffset;
+    public TileViewObject(int r, int s, CoordinateStrategy cs, LocationStrategy ls) {
+        super(r, s, cs, ls);
+        children = new ArrayList<>();
 
-    private DynamicImage fog;
+        short[] data = new short[256];
+        for (short i = 0; i < 256; i++) {
+            data[(int)i] = (short)(i/2);
+        }
+
+        LookupTable lookupTable = new ShortLookupTable(0, data);
+
+        TileViewObject.darkenOp = new LookupOp(lookupTable, null);
+
+        nonVisibleImage = new BufferedImage(78, 128, BufferedImage.TYPE_4BYTE_ABGR_PRE);
+
+    }
+
+    private int getWeirdXOffset() {
+        return this.getXPixels() + this.getLocationXOffset() -39;
+    }
+    private int getWeirdYOffset() {
+        return this.getYPixels() + this.getLocationYOffset() -100;
+    }
+
 
 
 
@@ -60,27 +81,21 @@ public class TileViewObject extends ViewObject{
     }
 
     public void preCalcNonVisibleImage() {
-        nonVisibleImage = new BufferedImage(AreaView.WIDTH, AreaView.HEIGHT, BufferedImage.TYPE_4BYTE_ABGR_PRE);
-        Graphics2D g2d = nonVisibleImage.createGraphics();
+        BufferedImage temp = new BufferedImage(AreaView.WIDTH, AreaView.HEIGHT, BufferedImage.TYPE_4BYTE_ABGR_PRE);
+        Graphics2D g2d = temp.createGraphics();
         for (ViewObject child: children) {
             child.paintComponent(g2d);
         }
-        this.weirdXOffset = getLocationXOffset();
-        this.weirdYOffset = getLocationYOffset();
 
-        RescaleOp rescaleOp = new RescaleOp(0.5f, 0, null);
+        temp = temp.getSubimage(getWeirdXOffset(), getWeirdYOffset(), 78, 128);
 
-        rescaleOp.filter(nonVisibleImage, nonVisibleImage);
+
+        nonVisibleImage = darkenOp.filter(temp, temp);
 
     }
 
     private Visibility visibility = Visibility.UNKNOWN;
-    public TileViewObject(int r, int s, CoordinateStrategy cs, LocationStrategy ls) {
-        super(r, s, cs, ls);
-        children = new ArrayList<>();
 
-        this.fog = DynamicImageFactory.getInstance().loadDynamicImage("resources/effects/fog_of_war.xml");
-    }
 
     public void addChild(ViewObject child) {
         children.add(child);
@@ -112,8 +127,8 @@ public class TileViewObject extends ViewObject{
                     this);
         } else if (visibility == Visibility.NONVISIBLE) {
            g.drawImage(nonVisibleImage,
-                   this.getLocationXOffset() - weirdXOffset,
-                   this.getLocationYOffset() - weirdYOffset,
+                   getWeirdXOffset(),
+                   getWeirdYOffset(),
                    this);
         } else {
 
