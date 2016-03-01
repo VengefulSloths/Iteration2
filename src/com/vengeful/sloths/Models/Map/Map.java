@@ -21,11 +21,15 @@ public class Map implements ModelVisitable{
     /**
     *CONSTRUCTORS INCLUDING THE DEFAULT CONSTRUCTOR
      */
-    public Map(){
+
+    private static Map ourInstance = new Map();
+    public static Map getInstance(){return ourInstance;}
+
+    private Map(){
 
     }
 
-    public Map(Location respawnPoint, MapArea[] MapAreas){
+    private Map(Location respawnPoint, MapArea[] MapAreas){
         this.respawnPoint = respawnPoint;
         this.MapAreas  = MapAreas;
     }

@@ -81,7 +81,10 @@ public class LevelFactory {
 
         MapArea[] areas = new MapArea[1];
         areas[0] = area1;
-        this.map = new Map(new Location(area1, new Coord(3,3)),areas);
+        //this.map = new Map(new Location(area1, new Coord(3,3)),areas);
+        this.map = Map.getInstance();
+        this.map.setMapAreas(areas);
+        this.map.setRespawnPoint(new Location(area1, new Coord(3,3)));
         this.map.setActiveMapArea(area1);
 
         this.spawnPoint = new Coord(2,1);

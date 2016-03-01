@@ -14,7 +14,8 @@ import com.vengeful.sloths.Utility.Direction;
  */
 public class SaveTestDriver {
     public static void main(String[] args){
-        Map m = new Map();
+        //Map m = new Map();
+        Map m = Map.getInstance();
         MapArea ma1 = new MapArea(2,2);
         MapArea ma2 = new MapArea(2,2);
         ma1.setName("ma1");
