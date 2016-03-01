@@ -6,12 +6,19 @@ import javax.swing.*;
  */
 public class ViewEngine extends JFrame implements Runnable{
 
-    public ViewEngine(JPanel jpanel) {
-        this.target = jpanel;
-        initUI();
-    }
+
 
     private JPanel target;
+
+    private static ViewEngine ourInstance = new ViewEngine();
+    public static ViewEngine getInstance(){return ourInstance;}
+
+    private ViewEngine(){}
+
+//    private ViewEngine(JPanel jpanel) {
+//        this.target = jpanel;
+//        initUI();
+//    }
 
     private void initUI() {
         add(target);

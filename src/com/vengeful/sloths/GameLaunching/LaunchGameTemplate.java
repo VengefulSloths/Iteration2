@@ -1,6 +1,7 @@
 package com.vengeful.sloths.GameLaunching;
 
 import com.vengeful.sloths.AreaView.*;
+import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteractionFactory;
 import com.vengeful.sloths.Models.Map.Map;
@@ -29,8 +30,12 @@ public class LaunchGameTemplate {
         AreaView areaView = new AreaView(cameras);
         initSingletons();
 
-        ViewEngine viewEngine = new ViewEngine(areaView);
-        ModelEngine modelEngine = new ModelEngine();
+        //ViewEngine viewEngine = new ViewEngine(areaView);
+        ViewEngine viewEngine = ViewEngine.getInstance();
+        viewEngine.registerView(areaView);
+        //ModelEngine modelEngine = new ModelEngine();
+        ModelEngine modelEngine = ModelEngine.getInstance();
+        MainController controller = MainController.getInstance();
 
         modelEngine.start();
         viewEngine.start();

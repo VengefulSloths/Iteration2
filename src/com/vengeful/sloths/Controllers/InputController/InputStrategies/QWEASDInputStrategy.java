@@ -11,6 +11,9 @@ public class QWEASDInputStrategy extends InputStrategy {
 
     @Override
     public void interpretPressedKey(int key, InputControllerState state) {
+        System.out.println("in here");
+        System.out.println(key);
+        System.out.println(KeyEvent.VK_S);
         switch (key) {
             case KeyEvent.VK_Q:
                 state.handle7Key();
@@ -25,6 +28,7 @@ public class QWEASDInputStrategy extends InputStrategy {
                 state.handle1Key();
                 break;
             case KeyEvent.VK_S:
+                System.out.println("should be handling 2 key");
                 state.handle2Key();
                 break;
             case KeyEvent.VK_D:

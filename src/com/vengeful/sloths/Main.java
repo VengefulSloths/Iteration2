@@ -21,7 +21,7 @@ public class Main {
 	// write your code here
 
         //highly dank test code
-        ModelEngine engine = new ModelEngine();
+        ModelEngine engine = ModelEngine.getInstance();
         StrengthAddable cat = new StrengthAddable(5);
         System.out.println("this is the str: " + cat.getStrength());
         Stats stats = new Stats();

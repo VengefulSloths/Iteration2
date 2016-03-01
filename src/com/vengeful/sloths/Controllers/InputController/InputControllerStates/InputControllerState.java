@@ -4,7 +4,10 @@ package com.vengeful.sloths.Controllers.InputController.InputControllerStates;
  * Created by John on 2/29/2016.
  */
 public abstract class InputControllerState {
-    public void continuousFunction(){};
+
+    public abstract void continuousFunction();
+    public abstract void onDeregister();
+    public abstract void onRegister();
 
     public abstract boolean handleIKey();
     public abstract boolean handleEKey();

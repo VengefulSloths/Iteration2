@@ -9,7 +9,10 @@ public class ModelEngine implements Runnable {
     //private MainController controller;
     private TimeController timeController;
 
-    public ModelEngine(){
+    private static ModelEngine ourInstance = new ModelEngine();
+    public static ModelEngine getInstance(){return ourInstance;}
+
+    private ModelEngine(){
         timeController = new TimeController();
     }
 

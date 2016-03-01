@@ -1,6 +1,7 @@
 package com.vengeful.sloths.AreaView;
 
 import com.vengeful.sloths.AreaView.DynamicImages.DynamicImageFactory;
+import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.GameLaunching.LaunchGameTemplate;
 import com.vengeful.sloths.GameLaunching.LaunchNewGame;
 import com.vengeful.sloths.Models.Entity.Avatar;
@@ -30,47 +31,47 @@ public class driver {
 
         final ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
         Avatar testAvatar = Avatar.getInstance();
-
+        //MainController cat = MainController.getInstance();
         Stats moveQuickly = new Stats();
-        moveQuickly.setMovement(58);
+        moveQuickly.setMovement(36);
         Avatar.getInstance().setStats(moveQuickly);
         int count = 0;
         testAvatar.setFacingDirection(Direction.SE);
-        while (count < 120) {
-            executor.schedule(new Runnable() {
-                @Override
-                public void run() {
-                    testAvatar.move(testAvatar.getFacingDirection());
-                }
-            }, (++count)*100, TimeUnit.MILLISECONDS);
-            System.out.println(count);
-            executor.schedule(new Runnable() {
-                @Override
-                public void run() {
-                    testAvatar.setFacingDirection(Direction.NW);
-                }
-            }, 10000, TimeUnit.MILLISECONDS);
-        }
-
-        int countOffset = count;
-        count = 0;
-        Iterator<Coord> iter2 = HexMath.sortedRing(new Coord(3,4),3);
-        while (iter2.hasNext()) {
-            final Coord current = iter2.next();
-            final int sample = count;
-            executor.schedule(new Runnable() {
-                @Override
-                public void run() {
-                    if (sample == 0) testAvatar.setFacingDirection(Direction.SE);
-                    if (sample == 4) testAvatar.setFacingDirection(Direction.S);
-                    if (sample == 7) testAvatar.setFacingDirection(Direction.SW);
-                    if (sample == 10) testAvatar.setFacingDirection(Direction.NW);
-                    if (sample == 13) testAvatar.setFacingDirection(Direction.N);
-                    if (sample == 16) testAvatar.setFacingDirection(Direction.NE);
-                    testAvatar.move(testAvatar.getFacingDirection());
-                }
-            }, (++count) + countOffset , TimeUnit.SECONDS);
-        }
+//        while (count < 120) {
+//            executor.schedule(new Runnable() {
+//                @Override
+//                public void run() {
+//                    testAvatar.move(testAvatar.getFacingDirection());
+//                }
+//            }, (++count)*100, TimeUnit.MILLISECONDS);
+//            System.out.println(count);
+//            executor.schedule(new Runnable() {
+//                @Override
+//                public void run() {
+//                    testAvatar.setFacingDirection(Direction.NW);
+//                }
+//            }, 10000, TimeUnit.MILLISECONDS);
+//        }
+//
+//        int countOffset = count;
+//        count = 0;
+//        Iterator<Coord> iter2 = HexMath.sortedRing(new Coord(3,4),3);
+//        while (iter2.hasNext()) {
+//            final Coord current = iter2.next();
+//            final int sample = count;
+//            executor.schedule(new Runnable() {
+//                @Override
+//                public void run() {
+//                    if (sample == 0) testAvatar.setFacingDirection(Direction.SE);
+//                    if (sample == 4) testAvatar.setFacingDirection(Direction.S);
+//                    if (sample == 7) testAvatar.setFacingDirection(Direction.SW);
+//                    if (sample == 10) testAvatar.setFacingDirection(Direction.NW);
+//                    if (sample == 13) testAvatar.setFacingDirection(Direction.N);
+//                    if (sample == 16) testAvatar.setFacingDirection(Direction.NE);
+//                    testAvatar.move(testAvatar.getFacingDirection());
+//                }
+//            }, (++count) + countOffset , TimeUnit.SECONDS);
+//        }
 
         System.out.println("Finished with driver");
     }

@@ -7,7 +7,11 @@ import java.awt.event.KeyListener;
  */
 public class InputHandler implements KeyListener{
 
-    private MainController mainController = MainController.getInstance();
+    private MainController mainController;
+
+    public InputHandler(MainController mainController){
+        this.mainController = mainController;
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
