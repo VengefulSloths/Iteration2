@@ -4,6 +4,7 @@ import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateS
 import com.vengeful.sloths.AreaView.ViewObjects.GrassViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.MountainViewObject;
+import com.vengeful.sloths.AreaView.ViewObjects.OneShotViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.WaterViewObject;
 
 /**
@@ -33,5 +34,10 @@ public class PlainsPersistantViewObjectFactory extends ViewObjectFactory {
     @Override
     public WaterViewObject createWaterTerrainViewObject(int r, int s) {
         return new WaterViewObject(r, s, getCoordinateStrategy(), getLocationStrategy(), "resources/terrain/water.xml");
+    }
+
+    @Override
+    public OneShotViewObject createOneShotViewObject(int r, int s) {
+        return new OneShotViewObject(r, s, getCoordinateStrategy(), getLocationStrategy(), "resources/items/box/box_full.xml", "resources/audio/break.wav");
     }
 }

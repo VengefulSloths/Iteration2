@@ -82,7 +82,6 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     }
 
     public final int move(Direction dir){
-        System.out.println("in enetity move");
         if(!isActive) {
             this.setFacingDirection(dir);
 
@@ -124,7 +123,6 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
 
 
     public void registerObserver(ModelObserver observer) {
-        (new Exception()).printStackTrace();
         this.observers.add((EntityObserver) observer);
     }
 

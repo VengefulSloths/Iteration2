@@ -4,6 +4,7 @@ import com.vengeful.sloths.AreaView.DynamicImages.DynamicImageFactory;
 import com.vengeful.sloths.GameLaunching.LaunchGameTemplate;
 import com.vengeful.sloths.GameLaunching.LaunchNewGame;
 import com.vengeful.sloths.Models.Entity.Avatar;
+import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Utility.HexMath;
@@ -30,18 +31,25 @@ public class driver {
         final ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
         Avatar testAvatar = Avatar.getInstance();
 
+        Stats moveQuickly = new Stats();
+        moveQuickly.setMovement(58);
+        Avatar.getInstance().setStats(moveQuickly);
         int count = 0;
-        Iterator<Coord> iter = HexMath.sortedRing(new Coord(3,4),3);
         testAvatar.setFacingDirection(Direction.SE);
-        while (iter.hasNext()) {
-            final Coord current = iter.next();
-            final int sample = count;
+        while (count < 120) {
             executor.schedule(new Runnable() {
                 @Override
                 public void run() {
                     testAvatar.move(testAvatar.getFacingDirection());
                 }
-            }, (++count), TimeUnit.SECONDS);
+            }, (++count)*100, TimeUnit.MILLISECONDS);
+            System.out.println(count);
+            executor.schedule(new Runnable() {
+                @Override
+                public void run() {
+                    testAvatar.setFacingDirection(Direction.NW);
+                }
+            }, 10000, TimeUnit.MILLISECONDS);
         }
 
         int countOffset = count;

@@ -64,6 +64,7 @@ public interface ModelVisitor {
     void visitMapArea(MapArea mapArea);
     void visitTile(Tile tile);
 
+    @Deprecated
     void visitMapItem(MapItem mapItem);
     void visitTakeableItem(TakeableItem takeableItem);
     void visitObstacle(Obstacle obstacle);

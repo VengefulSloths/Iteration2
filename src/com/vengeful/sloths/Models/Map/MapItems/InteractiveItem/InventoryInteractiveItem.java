@@ -22,7 +22,6 @@ public class InventoryInteractiveItem extends InteractiveItem{
     public void interact(Entity entity) {
         //System.out.Println("INTERACTIVEITEM OBSERVER" + this.observer);
 
-        this.observer.alertActivated();
         try{
             //Todo: i deleted some of this for compile
 //        if(entity.getInventory().hasItem(requiredItemName) || entity.getEquipped().getSword().getItemName().equals(requiredItemName) || entity.getEquipped().getHat().getItemName().equals(requiredItemName)) {

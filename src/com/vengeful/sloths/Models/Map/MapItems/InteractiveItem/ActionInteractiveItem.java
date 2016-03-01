@@ -22,7 +22,8 @@ public class ActionInteractiveItem extends InteractiveItem{
 
     @Override
     public void interact(Entity entity) {
-        this.observer.alertActivated();
+
+        //TODO: create an observer just for this guy
         //System.out.Println("IS QUEST FINISHED: " + quest.finished());
 
         if(quest.finished()){
