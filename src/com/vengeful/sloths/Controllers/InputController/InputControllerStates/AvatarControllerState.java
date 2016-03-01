@@ -49,7 +49,9 @@ public class AvatarControllerState extends InputControllerState {
 
     @Override
     public boolean handle1Key() {
-        avatar.setFacingDirection(Direction.SW);
+        if(avatar.getFacingDirection() != Direction.SW) {
+            avatar.changeDirection(Direction.SW);
+        }
         this.currentMovementDirection = Direction.SW;
         return true;
     }
@@ -57,14 +59,18 @@ public class AvatarControllerState extends InputControllerState {
     @Override
     public boolean handle2Key() {
         System.out.println("handling 2 key");
-        avatar.setFacingDirection(Direction.S);
+        if(avatar.getFacingDirection() != Direction.S) {
+            avatar.changeDirection(Direction.S);
+        }
         this.currentMovementDirection = Direction.S;
         return true;
     }
 
     @Override
     public boolean handle3Key() {
-        avatar.setFacingDirection(Direction.SE);
+        if(avatar.getFacingDirection() != Direction.SE) {
+            avatar.changeDirection(Direction.SE);
+        }
         this.currentMovementDirection = Direction.SE;
         return true;
     }
@@ -81,21 +87,27 @@ public class AvatarControllerState extends InputControllerState {
 
     @Override
     public boolean handle7Key() {
-        avatar.setFacingDirection(Direction.NW);
+        if(avatar.getFacingDirection() != Direction.NW) {
+            avatar.changeDirection(Direction.NW);
+        }
         this.currentMovementDirection = Direction.NW;
         return true;
     }
 
     @Override
     public boolean handle8Key() {
-        avatar.setFacingDirection(Direction.N);
+        if(avatar.getFacingDirection() != Direction.N) {
+            avatar.changeDirection(Direction.N);
+        }
         this.currentMovementDirection = Direction.N;
         return true;
     }
 
     @Override
     public boolean handle9Key() {
-        avatar.setFacingDirection(Direction.NE);
+        if(avatar.getFacingDirection() != Direction.NE) {
+            avatar.changeDirection(Direction.NE);
+        }
         this.currentMovementDirection = Direction.NE;
         return true;
     }

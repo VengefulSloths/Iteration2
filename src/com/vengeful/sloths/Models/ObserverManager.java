@@ -50,6 +50,12 @@ public class ObserverManager implements Alertable {
             return true;
         } else return false;
     }
+
+    @Override
+    public int execute() {
+        return 0;
+    }
+
     public void mAlert() {
 
         cleanUp();

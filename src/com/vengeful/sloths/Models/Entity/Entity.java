@@ -131,13 +131,29 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         return facingDirection;
     }
 
-    public void setFacingDirection(Direction facingDirection) {
-        this.facingDirection = facingDirection;
+    public void changeDirection(Direction direction){
+        if(!isActive) {
+            EntityWaitCommand ewc = EntityMapInteractionFactory.getInstance().createEntityWaitCommand(this);
+            ewc.execute();
+            this.facingDirection = direction;
 
-        Iterator<EntityObserver> entityObserverIterator = observers.iterator();
-        while (entityObserverIterator.hasNext()) {
-            entityObserverIterator.next().alertDirectionChange(facingDirection);
+            Iterator<EntityObserver> entityObserverIterator = observers.iterator();
+            while (entityObserverIterator.hasNext()) {
+                entityObserverIterator.next().alertDirectionChange(direction);
+            }
+        }else{
+            //suck a dick
         }
+    }
+
+    public void setFacingDirection(Direction facingDirection) {
+            this.facingDirection = facingDirection;
+
+            Iterator<EntityObserver> entityObserverIterator = observers.iterator();
+            while (entityObserverIterator.hasNext()) {
+                entityObserverIterator.next().alertDirectionChange(facingDirection);
+            }
+
     }
 
     public void takeDamage(int attackDamage){
