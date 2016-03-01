@@ -37,6 +37,7 @@ public abstract class ViewObjectFactory {
     public abstract GrassViewObject createRoadViewObject(int r, int s);
     public abstract MountainViewObject createMountainTerrainViewObject(int r, int s);
     public abstract WaterViewObject createWaterTerrainViewObject(int r, int s);
+    public abstract OneShotViewObject createOneShotViewObject(int r, int s);
 
     public LocationStrategy getLocationStrategy() {
         return ls;

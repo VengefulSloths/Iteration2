@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<dynamic_timed_animation>
+  <width>78</width>
+  <height>52</height>
+  <rootPath>resources/items/box/</rootPath>
+  <fileName>box.png</fileName>
+
+  <startConfig>box.xml</startConfig>
+  <endConfig>box_destroyed.xml</endConfig>
+  <fileName>box_broken_1.png</fileName>
+  <fileName>box_broken_2.png</fileName>
+  <fileName>box_broken_3.png</fileName>
+  <fileName>box_broken_4.png</fileName>
+
+
+  <positioning xOffset="-39" yOffset="-64">custom</positioning>
+
+</dynamic_timed_animation>

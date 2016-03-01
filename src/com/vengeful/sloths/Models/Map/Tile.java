@@ -56,29 +56,14 @@ public class Tile implements ModelVisitable {
 
     }
 
-    public boolean canMove(){
-
-        if(this.entities.size() > 0){
-            return false; //if there is a collideable entity, can't move
-        }else if(mapItems.size() <= 0) {
-            return terrain.canMove();
-        }else{
-            boolean canMove = true;
-
-            for (Iterator<MapItem> iter = mapItems.iterator(); iter.hasNext();) {
-                MapItem item = iter.next();
-                canMove = canMove && item.canMove();
-            }
-            return (canMove && terrain.canMove());
-        }
-    }
-
     public void interact(Entity entity)
     {
         for (Iterator<MapItem> iter = mapItems.iterator(); iter.hasNext();) {
-            MapItem item = iter.next();
-            item.interact(entity);
+            System.out.println("interacting w/ a map item");
+            iter.next().interact(entity);
         }
+
+
 
         //Create AEs
         Iterator<AreaEffect> aeIter = this.getAreaEffectIterator();
@@ -95,11 +80,15 @@ public class Tile implements ModelVisitable {
             //System.out.Println("AE: " + ae);
         }
 
+
         cleanUp();
+
     }
 
     public void addEntity(Entity entity){
         //may need to check for an entity already being on the tile
+        this.interact(entity);
+
         this.entities.add(entity);
         //For some reason check hasmapItem, and check hasAE logic can't be here
         //Have to put the checking logic in movement command or the Pickup/drop, AE commands would not work
@@ -123,8 +112,10 @@ public class Tile implements ModelVisitable {
         for (Iterator<MapItem> iter = mapItems.iterator(); iter.hasNext();) {
             MapItem item = iter.next();
             //item.interact(entity);
-            if(item instanceof InteractiveItem)
-                item.getObserver().alertDeactivated();
+
+            //TODO: this is really weird code
+//            if(item instanceof InteractiveItem)
+//                item.getObserver().alertDeactivated();
         }
 
 

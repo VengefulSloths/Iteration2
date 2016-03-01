@@ -27,7 +27,7 @@ public class TileViewObject extends ViewObject{
     private BufferedImage nonVisibleImage;
 
     private static LookupOp darkenOp;
-    
+
 
     public TileViewObject(int r, int s, CoordinateStrategy cs, LocationStrategy ls) {
         super(r, s, cs, ls);

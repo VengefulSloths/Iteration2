@@ -4,6 +4,7 @@ import com.vengeful.sloths.AreaView.CameraView;
 import com.vengeful.sloths.AreaView.CameraViewManager;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
+import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
 import com.vengeful.sloths.Models.Map.Terrains.Grass;
 import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
@@ -74,6 +75,14 @@ public class LevelFactory {
                 }
             }
         }
+
+        area1.getTile(new Coord(5,5)).addMapItem(new OneShotItem());
+        area1.getTile(new Coord(6,4)).addMapItem(new OneShotItem());
+        area1.getTile(new Coord(7,3)).addMapItem(new OneShotItem());
+        area1.getTile(new Coord(8,2)).addMapItem(new OneShotItem());
+        area1.getTile(new Coord(9,1)).addMapItem(new OneShotItem());
+        area1.getTile(new Coord(11,1)).addMapItem(new OneShotItem());
+
         CameraView camera1 = new PlainsCameraView();
         camera1.init(area1);
 

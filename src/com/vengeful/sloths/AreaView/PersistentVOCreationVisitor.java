@@ -1,5 +1,6 @@
 package com.vengeful.sloths.AreaView;
 
+import com.vengeful.sloths.AreaView.ViewObjects.OneShotViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.TileViewObject;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
@@ -35,6 +36,8 @@ import com.vengeful.sloths.Models.Occupation.Summoner;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Coord;
+import com.vengeful.sloths.View.Observers.ProxyDestoyableObserver;
+import com.vengeful.sloths.View.Observers.ProxyObserver;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -99,7 +102,9 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
 
     @Override
     public void visitOneShotItem(OneShotItem osi) {
-
+        OneShotViewObject oneShotViewObject = factory.createOneShotViewObject(r, s);
+        new ProxyDestoyableObserver(oneShotViewObject, osi);
+        currentTile.addChild(oneShotViewObject);
     }
 
     @Override

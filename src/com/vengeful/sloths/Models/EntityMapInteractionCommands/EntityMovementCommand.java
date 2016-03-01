@@ -70,16 +70,16 @@ public class EntityMovementCommand implements Alertable{
 
         map.getActiveMapArea().getTile(dst).accept(canMoveVisitor);
         if (canMoveVisitor.canMove()) {
-
             map.getActiveMapArea().getTile(src).removeEntity(subject);
+
             map.getActiveMapArea().getTile(dst).addEntity(subject);
+
             subject.setLocation(dst);
             subject.setActive(true);
 
             int moveTicks = MAX_MOVESPEED - movementSpeed;
             TimeModel.getInstance().registerAlertable(this, moveTicks);
 
-            System.out.println("about to alert observers");
 
             while (entityObserverIterator.hasNext()) {
 
