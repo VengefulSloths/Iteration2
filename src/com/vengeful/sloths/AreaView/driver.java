@@ -33,7 +33,7 @@ public class driver {
         Avatar testAvatar = Avatar.getInstance();
         //MainController cat = MainController.getInstance();
         Stats moveQuickly = new Stats();
-        moveQuickly.setMovement(36);
+        moveQuickly.setMovement(42);
         Avatar.getInstance().setStats(moveQuickly);
         int count = 0;
         testAvatar.setFacingDirection(Direction.SE);
