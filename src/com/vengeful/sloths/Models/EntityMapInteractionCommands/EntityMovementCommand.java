@@ -83,7 +83,6 @@ public class EntityMovementCommand implements Alertable{
 
 
             while (entityObserverIterator.hasNext()) {
-
                 entityObserverIterator.next().alertMove(dst.getR(), dst.getS(), moveTicks* TimeController.MODEL_TICK);
             }
 

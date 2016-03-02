@@ -47,7 +47,7 @@ public class LaunchGameTemplate {
 
         //TemporaryVOCreationVisitor.getInstance().setActiveCameraView(cameras.getCurrentCameraView());
 
-        //This got moved to MapArea.setActiveCameraView
+        //This got moved to MapAReasetActiveCameraView
         //TemporaryVOCreationVisitor.getInstance().visitAvatar(avatar);
 
         EntityMapInteractionFactory.getInstance().init(map);

@@ -4,6 +4,7 @@ import com.vengeful.sloths.AreaView.MovingVOObserver;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 import com.vengeful.sloths.AreaView.ViewTime;
+import com.vengeful.sloths.Sound.SoundEffect;
 import com.vengeful.sloths.View.Observers.MovementObserver;
 
 import java.util.ArrayList;
@@ -60,6 +61,11 @@ public abstract class MovingViewObject extends ViewObject implements MovementObs
     }
     public void deregisterObserver(MovingVOObserver observer) {observers.remove(observer); }
 
+    public void setIsMoving(boolean isMoving) {
+        this.isMoving = isMoving;
+    }
+
+
     @Override
     final public void alertMove(int r, int s, long duration) {
         //ViewTime.getInstance().registerAlert(this, duration, new Coord(r, s));
@@ -77,5 +83,6 @@ public abstract class MovingViewObject extends ViewObject implements MovementObs
         this.isMoving = true;
 
         movementHook(r, s, duration);
+
     }
 }

@@ -14,6 +14,7 @@ import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteract
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Stats.Stats;
+import com.vengeful.sloths.Sound.SoundEffect;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Utility.HexMath;
@@ -72,5 +73,6 @@ public class AreaView extends JPanel implements MapObserver{
     public void alertMapAreaChange(MapArea m) {
         activeCamera.cleanUp();
         setActiveCamera(cameraViewManager.getCurrentCameraView());
+        (new SoundEffect("resources/audio/teleport.wav")).play();
     }
 }

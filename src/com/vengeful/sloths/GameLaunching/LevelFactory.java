@@ -100,7 +100,7 @@ public class LevelFactory {
         area1.addTile(d1.getLocation(), d1);
         area2.addTile(new Coord(0,0), s1);
 
-        TeleportDestinationTile d2 = new TeleportDestinationTile(new Coord(4,4));
+        TeleportDestinationTile d2 = new TeleportDestinationTile(new Coord(2,1));
         TeleportSenderTile s2 = new TeleportSenderTile(area2, d2);
         area2.addTile(d2.getLocation(), d2);
         area1.addTile(new Coord(0,0), s2);
