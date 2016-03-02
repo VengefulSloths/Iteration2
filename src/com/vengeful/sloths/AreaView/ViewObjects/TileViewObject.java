@@ -89,8 +89,10 @@ public class TileViewObject extends ViewObject{
 
         temp = temp.getSubimage(getWeirdXOffset(), getWeirdYOffset(), 78, 128);
 
-
         nonVisibleImage = darkenOp.filter(temp, temp);
+
+
+        //nonVisibleImage = darkenOp.filter(temp, temp);
 
     }
 
