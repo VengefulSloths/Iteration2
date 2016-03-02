@@ -116,7 +116,9 @@ public class TileViewObject extends ViewObject{
     }
 
     public void removeChild(ViewObject child) {
-        children.remove(child);
+        if (children.contains(child)) {
+            children.remove(child);
+        }
     }
 
 

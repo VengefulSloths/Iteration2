@@ -32,6 +32,8 @@ public class TeleportSenderTile extends Tile {
         Map.getInstance().setActiveMapArea(destinationMapArea);
     }
 
+
+
     @Override
     public void accept(ModelVisitor v) {
         v.visitTeleportSenderTile(this);

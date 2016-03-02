@@ -83,10 +83,8 @@ public class LevelFactory {
         area1.getTile(new Coord(9,1)).addMapItem(new OneShotItem());
         area1.getTile(new Coord(11,1)).addMapItem(new OneShotItem());
 
-        CameraView camera1 = new PlainsCameraView();
-        camera1.init(area1);
 
-        cameras.addCameraView(area1, camera1);
+
 
 
         //Area 2
@@ -99,15 +97,26 @@ public class LevelFactory {
 
         TeleportDestinationTile d1 = new TeleportDestinationTile(new Coord(1,2));
         TeleportSenderTile s1 = new TeleportSenderTile(area1, d1);
-
         area1.addTile(d1.getLocation(), d1);
         area2.addTile(new Coord(0,0), s1);
 
+        TeleportDestinationTile d2 = new TeleportDestinationTile(new Coord(4,4));
+        TeleportSenderTile s2 = new TeleportSenderTile(area2, d2);
+        area2.addTile(d2.getLocation(), d2);
+        area1.addTile(new Coord(0,0), s2);
+
+
 
         CameraView camera2 = new PlainsCameraView();
+        CameraView camera1 = new PlainsCameraView();
+
+
         camera2.init(area2);
+        camera1.init(area1);
+
 
         cameras.addCameraView(area2, camera2);
+        cameras.addCameraView(area1, camera1);
 
 
         MapArea[] areas = new MapArea[2];
