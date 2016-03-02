@@ -71,25 +71,21 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
     private boolean firstAvatarFlag = true;
     private AvatarViewObject avo;
+    private ProxyEntityObserver peo;
     @Override
     public void visitAvatar(Avatar avatar) {
-        if (firstAvatarFlag) {
-            this.avo = factory.createAvatarViewObject(avatar.getLocation().getR(),
-                    avatar.getLocation().getS(),
-                    "resources/entities/smasher/");
-
-            //Let avo observe avatar through a proxy
-            new ProxyEntityObserver(avo, avatar);
-
-            //Let the AvatarViewFollower follow the avo
-            AvatarViewFollower.getInstance().bindToViewObject(avo);
-
-            firstAvatarFlag = false;
-        } else {
-            avo.setIsMoving(false);
-            avo.setLocation(avatar.getLocation().getR(), avatar.getLocation().getS());
+        if (peo != null) {
+            peo.deregister();
         }
+        this.avo = factory.createAvatarViewObject(avatar.getLocation().getR(),
+                avatar.getLocation().getS(),
+                "resources/entities/smasher/");
 
+        //Let avo observe avatar through a proxy
+        peo = new ProxyEntityObserver(avo, avatar);
+
+        //Let the AvatarViewFollower follow the avo
+        AvatarViewFollower.getInstance().bindToViewObject(avo);
 
         //let the cameraView watch avatar for movement
         avo.registerObserver(activeCameraView);
