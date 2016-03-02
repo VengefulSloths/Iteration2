@@ -153,7 +153,9 @@ public abstract class CameraView implements MovingVOObserver{
             }
         }
     }
-
+    public void cleanUp() {
+        this.avatar.deregisterObserver(this);
+    }
 
     public ViewObjectFactory getFactory() {
         return factory;

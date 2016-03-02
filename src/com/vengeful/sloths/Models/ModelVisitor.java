@@ -15,10 +15,12 @@ import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
+import com.vengeful.sloths.Models.Map.TeleportSenderTile;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
 import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
+import com.vengeful.sloths.Models.Map.TeleportDestinationTile;
 import com.vengeful.sloths.Models.Map.Terrains.Grass;
 import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
@@ -66,6 +68,11 @@ public interface ModelVisitor {
 
     @Deprecated
     void visitMapItem(MapItem mapItem);
+
+    void visitTeleportSenderTile(TeleportSenderTile t);
+
+    void visitTeleportDestinationTile(TeleportDestinationTile t);
+
     void visitTakeableItem(TakeableItem takeableItem);
     void visitObstacle(Obstacle obstacle);
     void visitOneShotItem(OneShotItem osi);

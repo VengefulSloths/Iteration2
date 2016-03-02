@@ -17,30 +17,7 @@ import java.awt.*;
 public class EntityViewObject extends MovingViewObject implements EntityObserver {
     private DynamicImage walkingN;
 
-    @Override
-    public void alertDrop(int x, int y, MapItem itemToDrop) {
 
-    }
-
-    @Override
-    public void alertEquipWeapon(String name) {
-
-    }
-
-    @Override
-    public void alertEquipHat(String name) {
-
-    }
-
-    @Override
-    public void alertLevelUp() {
-
-    }
-
-    @Override
-    public void alertDeath() {
-
-    }
 
     private DynamicImage walkingNE;
     private DynamicImage walkingNW;
@@ -156,5 +133,31 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     @Override
     public void accept(VOVisitor v) {
         v.visitEntity(this);
+    }
+
+
+    @Override
+    public void alertDrop(int x, int y, MapItem itemToDrop) {
+
+    }
+
+    @Override
+    public void alertEquipWeapon(String name) {
+
+    }
+
+    @Override
+    public void alertEquipHat(String name) {
+
+    }
+
+    @Override
+    public void alertLevelUp() {
+
+    }
+
+    @Override
+    public void alertDeath() {
+
     }
 }

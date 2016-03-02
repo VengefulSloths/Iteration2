@@ -2,13 +2,11 @@ package com.vengeful.sloths.GameLaunching;
 
 import com.vengeful.sloths.AreaView.CameraView;
 import com.vengeful.sloths.AreaView.CameraViewManager;
-import com.vengeful.sloths.Models.Map.Map;
-import com.vengeful.sloths.Models.Map.MapArea;
+import com.vengeful.sloths.Models.Map.*;
 import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
 import com.vengeful.sloths.Models.Map.Terrains.Grass;
 import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
-import com.vengeful.sloths.Models.Map.Tile;
 import com.vengeful.sloths.PlainsCameraView;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.HexMath;
@@ -46,6 +44,8 @@ public class LevelFactory {
     public void createTestMap() {
         this.cameras = new CameraViewManager();
 
+
+        //Area 1
         int max = 20;
         MapArea area1 = new MapArea(max,max);
         for (int i=0;i<max;i++) {
@@ -86,15 +86,38 @@ public class LevelFactory {
         CameraView camera1 = new PlainsCameraView();
         camera1.init(area1);
 
-        cameras.addCameraView(camera1);
+        cameras.addCameraView(area1, camera1);
 
-        MapArea[] areas = new MapArea[1];
+
+        //Area 2
+        MapArea area2 = new MapArea(10,10);
+        for (int i=0;i<10;i++) {
+            for (int j = 0; j < 10; j++) {
+                area2.addTile(new Coord(i,j), new  Tile( j > 6 ? new Water() : new Grass()));
+            }
+        }
+
+        TeleportDestinationTile d1 = new TeleportDestinationTile(new Coord(1,2));
+        TeleportSenderTile s1 = new TeleportSenderTile(area1, d1);
+
+        area1.addTile(d1.getLocation(), d1);
+        area2.addTile(new Coord(0,0), s1);
+
+
+        CameraView camera2 = new PlainsCameraView();
+        camera2.init(area2);
+
+        cameras.addCameraView(area2, camera2);
+
+
+        MapArea[] areas = new MapArea[2];
         areas[0] = area1;
-        //this.map = new Map(new Location(area1, new Coord(3,3)),areas);
+        areas[1] = area2;
+
         this.map = Map.getInstance();
         this.map.setMapAreas(areas);
         this.map.setRespawnPoint(new Location(area1, new Coord(3,3)));
-        this.map.setActiveMapArea(area1);
+        this.map.setActiveMapArea(area2);
 
         this.spawnPoint = new Coord(2,1);
     }

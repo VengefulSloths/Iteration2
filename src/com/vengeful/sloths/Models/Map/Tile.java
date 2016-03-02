@@ -223,18 +223,6 @@ public class Tile implements ModelVisitable {
         return nonColE;
     }
 
-    public void setNonCollideableEntities(ArrayList<Entity> nonCollideableEntities) {
-        this.nonCollideableEntities = nonCollideableEntities;
-    }
-
-    public void addNonCollideableEntity(Entity entity){
-        this.nonCollideableEntities.add(entity);
-    }
-
-    public void removeNonCollideableEntity(Entity entity){
-        this.nonCollideableEntities.remove(entity);
-    }
-
     /**
      *Below are getter/setters for the MapItems ( not individual mapItem accessors)
      * I've edited the getter so it returns an array rather than an array list

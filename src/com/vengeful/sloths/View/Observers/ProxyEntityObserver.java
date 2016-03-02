@@ -38,6 +38,7 @@ public class ProxyEntityObserver extends ProxyObserver
         }
     }
 
+
     @Override
     public void alertEquipWeapon(String name) {
         if (!deleteFlag) {

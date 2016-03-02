@@ -58,6 +58,7 @@ public abstract class MovingViewObject extends ViewObject implements MovementObs
     public void registerObserver(MovingVOObserver observer) {
         observers.add(observer);
     }
+    public void deregisterObserver(MovingVOObserver observer) {observers.remove(observer); }
 
     @Override
     final public void alertMove(int r, int s, long duration) {

@@ -20,8 +20,7 @@ import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Hat;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
-import com.vengeful.sloths.Models.Map.Map;
-import com.vengeful.sloths.Models.Map.MapArea;
+import com.vengeful.sloths.Models.Map.*;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
 import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
@@ -29,7 +28,6 @@ import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.Map.Terrains.Grass;
 import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
-import com.vengeful.sloths.Models.Map.Tile;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Smasher;
@@ -213,6 +211,16 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     @Override
     public void visitMapItem(MapItem mapItem) {
 
+    }
+
+    @Override
+    public void visitTeleportSenderTile(TeleportSenderTile t) {
+        visitTile(t);
+    }
+
+    @Override
+    public void visitTeleportDestinationTile(TeleportDestinationTile t) {
+        visitTile(t);
     }
 
     @Override
