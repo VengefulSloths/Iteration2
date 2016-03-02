@@ -93,6 +93,7 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
     @Override
     public void visitTeleportSenderTile(TeleportSenderTile t) {
         visitTile(t);
+        this.currentTile.addChild(factory.createDecalViewObject(r, s, "resources/effects/teleporting/teleport.xml"));
     }
 
     @Override

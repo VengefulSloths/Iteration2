@@ -33,6 +33,10 @@ public abstract class ViewObjectFactory {
         return new PiggyViewObject(r, s, cs, ls, resourcePath);
     }
 
+    public DecalViewObject createDecalViewObject(int r, int s, String resourcePath) {
+        return new DecalViewObject(r, s, cs, ls, resourcePath);
+    }
+
     public abstract GrassViewObject createGrassViewObject(int r, int s);
     public abstract GrassViewObject createRoadViewObject(int r, int s);
     public abstract MountainViewObject createMountainTerrainViewObject(int r, int s);
