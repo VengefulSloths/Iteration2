@@ -56,6 +56,11 @@ public class EntityMapInteractionFactory {
 
         return eac;
     }
+
+    public EntityWaitCommand createEntityWaitCommand(Entity entity){
+        EntityWaitCommand ewc = new EntityWaitCommand(entity);
+        return ewc;
+    }
     //TODO: Refactor the bellow commands
 //    public DropCommand createDropCommand(InventoryItem itemToDrop, Coord dropLoc, Entity entity) { //Called in Avatar
 //        return null;
