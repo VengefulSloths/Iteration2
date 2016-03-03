@@ -4,8 +4,13 @@ import com.vengeful.sloths.AreaView.*;
 import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteractionFactory;
+import com.vengeful.sloths.Models.Inventory.Inventory;
+import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
+import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.ModelEngine;
+import com.vengeful.sloths.Models.Stats.StatAddables.BaseStatsAddable;
+import com.vengeful.sloths.Models.Stats.StatAddables.HealthManaExperienceAddable;
 
 /**
  * Created by alexs on 2/28/2016.
@@ -29,6 +34,11 @@ public class LaunchGameTemplate {
 
         AreaView areaView = new AreaView(cameras);
         initSingletons();
+
+        /*****Test avatar drop******/
+        avatar.getInventory().addItem(new Potion("redPotion", new HealthManaExperienceAddable(5,0,0,0,0)));
+        avatar.getInventory().addItem(new Potion("bluePotion", new HealthManaExperienceAddable(0,0,5,0,0)));
+        /**************************/
 
         //ViewEngine viewEngine = new ViewEngine(areaView);
         ViewEngine viewEngine = ViewEngine.getInstance();

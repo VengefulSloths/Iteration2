@@ -4,6 +4,7 @@ import com.vengeful.sloths.AreaView.ViewObjects.AvatarViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.SimpleHexCoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.CenterAvatarLocationStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.PiggyViewObject;
+import com.vengeful.sloths.AreaView.ViewObjects.TakeableViewObject;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
@@ -38,6 +39,7 @@ import com.vengeful.sloths.Models.Occupation.Summoner;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.View.Observers.ModelObserver;
+import com.vengeful.sloths.View.Observers.ProxyDestoyableObserver;
 import com.vengeful.sloths.View.Observers.ProxyEntityObserver;
 
 /**
@@ -217,7 +219,12 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
     @Override
     public void visitTakeableItem(TakeableItem takeableItem) {
-
+        //used for dropping
+        String imagePath = "resources/items/"+takeableItem.getItemName()+"/"+takeableItem.getItemName()+".xml";
+        TakeableViewObject tvo = factory.createTakeableViewObject(takeableItem.getLocation().getR(), takeableItem.getLocation().getS(), imagePath);
+        new ProxyDestoyableObserver(tvo, takeableItem);
+        tvo.registerObserver(this.activeCameraView.getTileVO(tvo));
+        this.activeCameraView.addViewObject(tvo);
     }
 
     @Override

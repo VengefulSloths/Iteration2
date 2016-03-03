@@ -4,6 +4,7 @@ import com.vengeful.sloths.Models.Entity.Entity;
 
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
+import com.vengeful.sloths.Utility.Coord;
 
 /**
  * Created by John on 1/30/2016.
@@ -15,6 +16,9 @@ public abstract class MapItem implements  ModelVisitable {
 
     private String itemName;
     protected String graphicFolder;
+
+    private Coord location;
+
 
     public abstract void interact(Entity entity);
 
@@ -49,6 +53,14 @@ public abstract class MapItem implements  ModelVisitable {
         //observer.alertDestroyed();
         this.destroy = true;
         //System.out.Println("This is map object, my observer is: " + observer);
+    }
+
+    public void setLocation(Coord loc){
+        this.location = loc;
+    }
+
+    public Coord getLocation(){
+        return this.location;
     }
 
 

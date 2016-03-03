@@ -36,4 +36,9 @@ public class VOSorter implements VOVisitor {
     public void visitOneShot(OneShotViewObject o) {
         zLevel = 400;
     }
+
+    @Override
+    public void visitTakeable(TakeableViewObject t) {
+        zLevel = 400;
+    }
 }

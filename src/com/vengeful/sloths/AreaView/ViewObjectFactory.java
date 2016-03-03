@@ -39,6 +39,10 @@ public abstract class ViewObjectFactory {
     public abstract WaterViewObject createWaterTerrainViewObject(int r, int s);
     public abstract OneShotViewObject createOneShotViewObject(int r, int s);
 
+    public TakeableViewObject createTakeableViewObject(int r, int s, String resourcePath){
+        return new TakeableViewObject(r, s, cs, ls, resourcePath);
+    }
+
     public LocationStrategy getLocationStrategy() {
         return ls;
     }

@@ -3,6 +3,7 @@ package com.vengeful.sloths.Models.Map.MapItems.InteractiveItem;
 import com.vengeful.sloths.Models.Effects.EffectCommand;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.ModelVisitor;
+import com.vengeful.sloths.Utility.Coord;
 
 /**
  * Created by qianwen on 2/6/16.
@@ -11,12 +12,10 @@ public class InventoryInteractiveItem extends InteractiveItem{
 
     private String requiredItemName;
 
-    public InventoryInteractiveItem(EffectCommand command, String requiredItemName){
-        super(command);
+    public InventoryInteractiveItem(EffectCommand command, String requiredItemName, Coord location){
+        super(command, location);
         this.requiredItemName = requiredItemName;
     }
-
-    public InventoryInteractiveItem(){}
 
     @Override
     public void interact(Entity entity) {

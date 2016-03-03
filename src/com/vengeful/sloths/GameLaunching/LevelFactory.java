@@ -2,13 +2,20 @@ package com.vengeful.sloths.GameLaunching;
 
 import com.vengeful.sloths.AreaView.CameraView;
 import com.vengeful.sloths.AreaView.CameraViewManager;
+import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.ConsumableItems;
+import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
+import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
+import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.Map.Terrains.Grass;
 import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
 import com.vengeful.sloths.Models.Map.Tile;
+import com.vengeful.sloths.Models.Stats.StatAddables.BaseStatsAddable;
+import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
+import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.PlainsCameraView;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.HexMath;
@@ -76,12 +83,17 @@ public class LevelFactory {
             }
         }
 
-        area1.getTile(new Coord(5,5)).addMapItem(new OneShotItem());
-        area1.getTile(new Coord(6,4)).addMapItem(new OneShotItem());
-        area1.getTile(new Coord(7,3)).addMapItem(new OneShotItem());
-        area1.getTile(new Coord(8,2)).addMapItem(new OneShotItem());
-        area1.getTile(new Coord(9,1)).addMapItem(new OneShotItem());
-        area1.getTile(new Coord(11,1)).addMapItem(new OneShotItem());
+        area1.getTile(new Coord(5,5)).addMapItem(new OneShotItem(new Coord(5,5)));
+        area1.getTile(new Coord(6,4)).addMapItem(new OneShotItem(new Coord(6,4)));
+        area1.getTile(new Coord(7,3)).addMapItem(new OneShotItem(new Coord(7,3)));
+        area1.getTile(new Coord(8,2)).addMapItem(new OneShotItem(new Coord(8,2)));
+        area1.getTile(new Coord(9,1)).addMapItem(new OneShotItem(new Coord(9,1)));
+        area1.getTile(new Coord(11,1)).addMapItem(new OneShotItem(new Coord(11,1)));
+
+
+        area1.getTile(new Coord(1,2)).addMapItem(new TakeableItem("redPotion", new Potion("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(1,2)));
+        area1.getTile(new Coord(11,10)).addMapItem(new TakeableItem("bluePotion", new Potion("bluePotion",new BaseStatsAddable(0,0,5,0,0)), new Coord(11,10)));
+
 
         CameraView camera1 = new PlainsCameraView();
         camera1.init(area1);

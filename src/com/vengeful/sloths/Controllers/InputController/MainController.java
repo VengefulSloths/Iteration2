@@ -3,6 +3,7 @@ package com.vengeful.sloths.Controllers.InputController;
 import com.vengeful.sloths.AreaView.ViewEngine;
 import com.vengeful.sloths.Controllers.InputController.InputControllerStates.AvatarControllerState;
 import com.vengeful.sloths.Controllers.InputController.InputControllerStates.InputControllerState;
+import com.vengeful.sloths.Controllers.InputController.InputControllerStates.InventoryControllerState;
 import com.vengeful.sloths.Controllers.InputController.InputStrategies.InputStrategy;
 import com.vengeful.sloths.Controllers.InputController.InputStrategies.QWEASDInputStrategy;
 import com.vengeful.sloths.Models.Entity.Avatar;
@@ -25,6 +26,11 @@ public class MainController implements Tickable{
     private InputStrategy inputStrategy;
     private InputHandler inputHandler;
 
+    //states
+    private AvatarControllerState avatarControllerState;
+    private InventoryControllerState inventoryControllerState;
+
+
     private static MainController ourInstance = new MainController();
 
     public static MainController getInstance() {
@@ -34,7 +40,12 @@ public class MainController implements Tickable{
     private MainController() {
         player = Avatar.getInstance();
         inventory = player.getInventory();
-        state = new AvatarControllerState();
+
+        avatarControllerState = new AvatarControllerState();
+        inventoryControllerState = new InventoryControllerState();
+
+        state = avatarControllerState;
+
         map = Map.getInstance();
         inputStrategy = new QWEASDInputStrategy();//for testing
         inputHandler = new InputHandler(this);
@@ -49,6 +60,25 @@ public class MainController implements Tickable{
 
     public void dispatchReleasedKey(int key){
         inputStrategy.interpretReleasedKey(key, state);
+    }
+
+
+    public void setAvatarControllerState(){
+        this.state = this.avatarControllerState;
+        System.out.println("Switching to avatar state");
+    }
+
+    public void setInventoryControllerState(){
+        this.state = this.inventoryControllerState;
+        System.out.println("Switching to inventory state");
+    }
+
+    public Inventory getInventory(){
+        return this.inventory;
+    }
+
+    public Avatar getPlayer(){
+        return this.player;
     }
 
     @Override

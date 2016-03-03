@@ -1,6 +1,7 @@
 package com.vengeful.sloths.AreaView.ViewObjects;
 
 import com.vengeful.sloths.AreaView.AreaView;
+import com.vengeful.sloths.AreaView.DestroyVOObserver;
 import com.vengeful.sloths.AreaView.DynamicImages.DynamicImage;
 import com.vengeful.sloths.AreaView.DynamicImages.DynamicImageFactory;
 import com.vengeful.sloths.AreaView.DynamicImages.DynamicTimedImage;
@@ -14,13 +15,14 @@ import java.awt.*;
 import java.awt.image.*;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
 
 /**
  * Created by alexs on 2/23/2016.
  */
 
 //TODO: Give tile a clean operation that will clear any VOs on it that wont persist
-public class TileViewObject extends ViewObject{
+public class TileViewObject extends ViewObject implements DestroyVOObserver{
     private ArrayList<ViewObject> children;
     private DynamicImage unknownImage = DynamicImageFactory.getInstance().loadDynamicImage("resources/terrain/disapearing_cloud.xml");
 
@@ -141,8 +143,15 @@ public class TileViewObject extends ViewObject{
                     this);
         }
     }
+
+    @Override
+    public void alertDestroyVO(ViewObject vo) {
+        this.removeChild(vo);
+    }
+
     @Override
     public void accept(VOVisitor v) {
         v.visitTile(this);
     }
+
 }

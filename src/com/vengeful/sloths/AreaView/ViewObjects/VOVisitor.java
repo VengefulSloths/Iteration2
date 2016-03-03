@@ -10,4 +10,5 @@ public interface VOVisitor {
     void visitWater(WaterViewObject w);
     void visitTile(TileViewObject t);
     void visitOneShot(OneShotViewObject o);
+    void visitTakeable(TakeableViewObject t);
 }

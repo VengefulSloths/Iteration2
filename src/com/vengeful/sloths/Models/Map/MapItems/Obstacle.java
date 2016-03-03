@@ -2,11 +2,16 @@ package com.vengeful.sloths.Models.Map.MapItems;
 
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.ModelVisitor;
+import com.vengeful.sloths.Utility.Coord;
 
 /**
  * Created by John on 1/30/2016.
  */
 public class Obstacle extends MapItem{
+
+    public Obstacle(Coord location){
+        this.setLocation(location);
+    }
 
     @Override
     public boolean canMove(){
