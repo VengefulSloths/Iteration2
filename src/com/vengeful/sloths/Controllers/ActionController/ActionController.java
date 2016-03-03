@@ -2,7 +2,11 @@ package com.vengeful.sloths.Controllers.ActionController;
 
 import com.vengeful.sloths.Controllers.Target.*;
 import com.vengeful.sloths.Models.Entity.Entity;
+import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
+import com.vengeful.sloths.Utility.HexMath;
+
+import java.util.*;
 
 /**
  * Created by zach on 2/22/16.
@@ -39,39 +43,89 @@ public abstract class ActionController implements TargetVisitor {
         this.entity = entity;
     }
 
-    protected Direction getTargetDirection(Target target){
-        int Rmag = entity.getLocation().getR() - target.getCoord().getR();
-        int Smag = entity.getLocation().getS() - target.getCoord().getS();
-        double angle = Math.atan(Smag/Rmag);
-        angle *= 57.3; //wtf am i doing, i dont even know math
-        //int direction = (int)angle % 60;
-        angle %= 360;
-        if(angle > 330 || angle <= 30){
-            return Direction.N;
-        }else if (angle > 30 && angle <= 90){
-            return Direction.NE;
-        }else if (angle > 90 && angle <= 150){
-            return Direction.SE;
-        }else if (angle > 150 && angle <= 210){
-            return Direction.S;
-        }else if (angle > 210 && angle <= 270){
-            return Direction.SW;
-        }else if (angle > 270 && angle <= 330){
-            return Direction.NW;
-        }
 
-        System.out.println("johns shitty directional code is breaking");
-        return Direction.N; //should not happen
+    protected Direction getTargetDirection(Target target, int distance){
+
+        Iterator<Coord> iter;
+        ArrayList<Coord> marked = new ArrayList<>();
+        marked.add(target.getCoord());
+        Queue<Coord> queue = new LinkedList<>();
+        //int currRing = 0;
+        //while(currRing <= distance) {
+
+        int dir = 0;
+        queue.add(entity.getLocation());
+
+        while(!queue.isEmpty()){
+            Coord tmp = queue.remove();
+            if (!marked.contains(tmp)) {
+                iter = HexMath.sortedRing(tmp, 1);
+                //this while loop checks for solution
+                dir = 0;
+                while (iter.hasNext()) {
+                    Coord current = iter.next();
+
+                    //System.out.println("iter: " + current + " == " + target.getCoord());
+                    if (current.equals(target.getCoord())) {
+                        System.out.println("dir is: " + dir);
+                        switch (dir) {
+                            case 0:
+                                return Direction.N;
+                            case 1:
+                                return Direction.NE;
+                            case 2:
+                                return Direction.SE;
+                            case 3:
+                                return Direction.S;
+                            case 4:
+                                return Direction.SW;
+                            case 5:
+                                return Direction.NW;
+                            default:
+                                System.out.println("not directioning rigt");
+                        }
+
+                    }
+                    ++dir;
+                    if (!marked.contains(current)) {
+                        queue.add(current);
+                    }
+                }
+            }
+            marked.add(tmp);
+        }
+        System.out.println("defaulting");
+        return Direction.N;
+
     }
 
     protected boolean checkLocation(Target target, int distance){
-        if((Math.abs(target.getCoord().getR()) - Math.abs(entity.getLocation().getR())) > distance){
+        if(target != null) {
+//            System.out.println("entity is: " + entity);
+//            System.out.println("target is: " + target);
+//            System.out.println((target.getCoord().getR()));
+//            System.out.println(Math.abs(entity.getLocation().getR()));
+//
+//            if ((Math.abs(target.getCoord().getR()) - Math.abs(entity.getLocation().getR())) > distance  &&  (Math.abs(target.getCoord().getS()) - Math.abs(entity.getLocation().getS())) > distance) {
+//                System.out.println("R dist is : " + (Math.abs(target.getCoord().getR()) - Math.abs(entity.getLocation().getR())));
+//                return false;
+//            }
+//            if ((Math.abs(target.getCoord().getS()) - Math.abs(entity.getLocation().getS())) > distance) {
+//                System.out.println("S dist is : " + (Math.abs(target.getCoord().getS()) - Math.abs(entity.getLocation().getS())));
+//                return false;
+//            }
+            int currRing = 0;
+            while(currRing <= distance) {
+                Iterator<Coord> iter = HexMath.ring(entity.getLocation(), currRing);
+                while(iter.hasNext()){
+                    if(iter.next() == target.getCoord()){
+                        return true;
+                    }
+                }
+                ++currRing;
+            }
+            //will only get here to return true if the target is in desired location
             return false;
-        }
-        if((Math.abs(target.getCoord().getS()) - Math.abs(entity.getLocation().getS())) > distance){
-            return false;
-        }
-        //will only get here to return true if the target is in desired location
-        return true;
+        }else{return false;}
     }
 }

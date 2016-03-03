@@ -28,6 +28,9 @@ public abstract class ViewObjectFactory {
     public AvatarViewObject createAvatarViewObject(int r, int s, String resourcePath) {
         return new AvatarViewObject(r, s, cs, ls, resourcePath);
     }
+    public EvilBlobViewObject createEvilBlobViewObject(int r, int s, String resourcePath){
+        return new EvilBlobViewObject(r,s,cs,ls,resourcePath);
+    }
 
     public PiggyViewObject createPiggyViewObject(int r, int s, String resourcePath) {
         return new PiggyViewObject(r, s, cs, ls, resourcePath);
