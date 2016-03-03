@@ -7,6 +7,8 @@ import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Utility.HexMath;
 
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * Created by zach on 2/22/16.
@@ -43,31 +45,48 @@ public abstract class ActionController implements TargetVisitor {
         this.entity = entity;
     }
 
-    protected Direction getTargetDirection(Target target){
-        int Rmag = entity.getLocation().getR() - target.getCoord().getR();
-        int Smag = entity.getLocation().getS() - target.getCoord().getS();
-        if(Smag == 0) return Direction.N;
-        if(Rmag == 0) return Direction.N;
-        double angle = Math.atan(Smag/Rmag);
-        angle *= 57.3; //wtf am i doing, i dont even know math
-        //int direction = (int)angle % 60;
-        angle %= 360;
-        if(angle > 330 || angle <= 30){
-            return Direction.N;
-        }else if (angle > 30 && angle <= 90){
-            return Direction.NE;
-        }else if (angle > 90 && angle <= 150){
-            return Direction.SE;
-        }else if (angle > 150 && angle <= 210){
-            return Direction.S;
-        }else if (angle > 210 && angle <= 270){
-            return Direction.SW;
-        }else if (angle > 270 && angle <= 330){
-            return Direction.NW;
-        }
+    protected Direction getTargetDirection(Target target, int distance){
 
-        System.out.println("johns shitty directional code is breaking");
-        return Direction.N; //should not happen
+        Iterator<Coord> iter;
+        int currRing = 0;
+        while(currRing <= distance) {
+            iter = HexMath.ring(entity.getLocation(), currRing);
+            int dir = 0;
+            while(iter.hasNext()){
+                Coord current = iter.next();
+                //System.out.println("iter: " + current + " == " + target.getCoord());
+                if(current.equals(target.getCoord())) {
+                    if (currRing <= 1) {
+                        System.out.println("dir is: " + dir);
+                        switch (dir) {
+                            case 0:
+                                return Direction.N;
+                            case 1:
+                                return Direction.S;
+                            case 2:
+                                return Direction.NE;
+                            case 3:
+                                return Direction.SW;
+                            case 4:
+                                return Direction.SE;
+                            case 5:
+                                return Direction.NW;
+                            default:
+                                System.out.println("not directioning rigt");
+                        }
+                    }else{
+                        
+                    }
+
+                }
+                ++dir;
+            }
+            ++currRing;
+        }
+        //find directions using sorted ring
+        System.out.println("defaulting");
+        return Direction.N;
+
     }
 
     protected boolean checkLocation(Target target, int distance){
