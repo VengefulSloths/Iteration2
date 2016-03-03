@@ -13,19 +13,21 @@ import java.awt.*;
  * Created by John on 3/3/2016.
  */
 public class HealthBarViewObject extends MovingViewObject implements StatsObserver {
-    private int currentHealth = 0;
-    private int maxHealth = 0;
+    private int currentHealth = 50;
+    private int maxHealth = 100;
 
     public HealthBarViewObject(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy){
         super(r,s,coordinateStrategy,locationStrategy);
     }
     @Override
     public void paintComponent(Graphics2D g) {
-        int offset = (currentHealth/maxHealth) * 32;
-        g.setColor(Color.green);
-        g.drawRect(100,100, offset,4);
+        double offset = ((double)currentHealth/(double)maxHealth) * 32;
         g.setColor(Color.red);
-        g.drawRect(100 + offset,100, 32-offset, 4);
+        g.fillRect(this.getXPixels() + getLocationXOffset() - 16,this.getYPixels() + getLocationYOffset() + - 100, 32, 6);
+        g.setColor(Color.green);
+        g.fillRect(this.getXPixels() + getLocationXOffset() - 16,this.getYPixels() + getLocationYOffset() + - 100,(int)offset,6);
+        g.setColor(Color.BLACK);
+        g.drawRect(this.getXPixels() + getLocationXOffset() - 16,this.getYPixels() + getLocationYOffset() + - 100,32,6);
     }
 
     @Override

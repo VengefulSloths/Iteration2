@@ -28,6 +28,7 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
 
     private HandViewObject leftHand;
     private HandViewObject rightHand;
+    private HealthBarViewObject healthBar;
 
     private Direction direction;
 
@@ -49,6 +50,8 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
         this.leftHand = new HandViewObject(r, s, coordinateStrategy, locationStrategy, resourcePath, 27, 18, Direction.S);
         this.rightHand = new HandViewObject(r, s, coordinateStrategy, locationStrategy, resourcePath, -27, 18, Direction.S);
 
+        this.healthBar = new HealthBarViewObject(r,s,coordinateStrategy,locationStrategy);
+
         //TODO: delete this testing code
         this.rightHand.hold(new WeaponImageContainer("resources/weapons/dagger/", Direction.S));
     }
@@ -62,6 +65,7 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
 
     @Override
     public void paintComponent(Graphics2D g) {
+        healthBar.paintComponent(g);
         switch (this.direction) {
             case N:
                 leftHand.paintComponent(g);
@@ -125,11 +129,15 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     }
 
     public void setLocation(int r, int s) {
+        System.out.println("bleeeeeeeep");
         leftHand.setR(r);
         leftHand.setS(s);
 
         rightHand.setR(r);
         rightHand.setS(s);
+
+        healthBar.setR(r);
+        healthBar.setS(s);
 
         setR(r);
         setS(s);
@@ -140,6 +148,7 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
         super.setIsMoving(isMoving);
         leftHand.setIsMoving(isMoving);
         rightHand.setIsMoving(isMoving);
+        healthBar.setIsMoving(isMoving);
         ((DynamicTimedImage) currentDynamicImage).end();
     }
 
@@ -148,6 +157,7 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
         ((DynamicTimedImage) currentDynamicImage).start(duration);
         leftHand.alertMove(r, s, duration);
         rightHand.alertMove(r, s, duration);
+        healthBar.alertMove(r,s,duration);
         System.out.println("entity move hook activated");
         (new SoundEffect("resources/audio/grass_step.wav")).play();
 
@@ -182,5 +192,13 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     @Override
     public void alertDeath() {
 
+    }
+
+    public HealthBarViewObject getHealthBar() {
+        return healthBar;
+    }
+
+    public void setHealthBar(HealthBarViewObject healthBar) {
+        this.healthBar = healthBar;
     }
 }
