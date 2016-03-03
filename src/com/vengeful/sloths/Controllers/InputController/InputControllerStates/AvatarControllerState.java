@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Controllers.InputController.InputControllerStates;
 
+import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.AreaView.AvatarViewFollower;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Utility.CartesionDirection;
@@ -41,7 +42,8 @@ public class AvatarControllerState extends InputControllerState {
     ///////////////////////handle key presses
     @Override
     public boolean handleIKey() {
-        return false;
+        MainController.getInstance().setInventoryControllerState();
+        return true;
     }
 
     @Override

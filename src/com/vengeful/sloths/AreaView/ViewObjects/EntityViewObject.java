@@ -3,8 +3,9 @@ package com.vengeful.sloths.AreaView.ViewObjects;
 
 import com.vengeful.sloths.AreaView.DynamicImages.*;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
+import com.vengeful.sloths.AreaView.ViewObjects.Hands.HandViewObject;
+import com.vengeful.sloths.AreaView.ViewObjects.Hands.HandsCoordinator;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
-import com.vengeful.sloths.AreaView.ViewTime;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Sound.SoundEffect;
 import com.vengeful.sloths.Utility.Direction;
@@ -26,9 +27,12 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     private DynamicImage walkingSE;
     private DynamicImage walkingSW;
 
+
     private HandViewObject leftHand;
     private HandViewObject rightHand;
     private HealthBarViewObject healthBar;
+
+    private HandsCoordinator hands;
 
     private Direction direction;
 
@@ -47,13 +51,12 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
         this.currentDynamicImage = walkingS;
         this.direction = Direction.S;
 
-        this.leftHand = new HandViewObject(r, s, coordinateStrategy, locationStrategy, resourcePath, 27, 18, Direction.S);
-        this.rightHand = new HandViewObject(r, s, coordinateStrategy, locationStrategy, resourcePath, -27, 18, Direction.S);
+        hands = new HandsCoordinator(r, s, coordinateStrategy, locationStrategy, resourcePath, direction);
 
         this.healthBar = new HealthBarViewObject(r,s,coordinateStrategy,locationStrategy);
 
         //TODO: delete this testing code
-        this.rightHand.hold(new WeaponImageContainer("resources/weapons/dagger/", Direction.S));
+        //this.rightHand.hold(new WeaponImageContainer("resources/weapons/dagger/", Direction.S));
     }
 
     private void paintBody(Graphics2D g) {
@@ -66,38 +69,9 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     @Override
     public void paintComponent(Graphics2D g) {
         healthBar.paintComponent(g);
-        switch (this.direction) {
-            case N:
-                leftHand.paintComponent(g);
-                rightHand.paintComponent(g);
-                this.paintBody(g);
-                break;
-            case S:
-                this.paintBody(g);
-                leftHand.paintComponent(g);
-                rightHand.paintComponent(g);
-                break;
-            case SW:
-                leftHand.paintComponent(g);
-                paintBody(g);
-                rightHand.paintComponent(g);
-                break;
-            case SE:
-                rightHand.paintComponent(g);
-                paintBody(g);
-                leftHand.paintComponent(g);
-                break;
-            case NW:
-                leftHand.paintComponent(g);
-                paintBody(g);
-                rightHand.paintComponent(g);
-                break;
-            case NE:
-                rightHand.paintComponent(g);
-                paintBody(g);
-                leftHand.paintComponent(g);
-                break;
-        }
+        hands.paintBack(g);
+        paintBody(g);
+        hands.paintFront(g);
     }
 
     @Override
@@ -124,8 +98,7 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
                 break;
 
         }
-        leftHand.changeDirection(d);
-        rightHand.changeDirection(d);
+        hands.changeDirection(d);
     }
 
     public void setLocation(int r, int s) {
@@ -139,25 +112,34 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
         healthBar.setR(r);
         healthBar.setS(s);
 
+        hands.setLocation(r, s);
+        healthBar.setR(r);
+        healthBar.setS(s);
+
         setR(r);
         setS(s);
     }
 
-    @Override
-    public void setIsMoving(boolean isMoving) {
-        super.setIsMoving(isMoving);
-        leftHand.setIsMoving(isMoving);
-        rightHand.setIsMoving(isMoving);
-        healthBar.setIsMoving(isMoving);
-        ((DynamicTimedImage) currentDynamicImage).end();
-    }
+
+    //TODO: do we need this?
+//    @Override
+//    public void setIsMoving(boolean isMoving) {
+//        super.setIsMoving(isMoving);
+//        leftHand.setIsMoving(isMoving);
+//        rightHand.setIsMoving(isMoving);
+//        ((DynamicTimedImage) currentDynamicImage).end();
+//    }
+
 
     @Override
     public void movementHook(int r, int s, long duration) {
         ((DynamicTimedImage) currentDynamicImage).start(duration);
-        leftHand.alertMove(r, s, duration);
-        rightHand.alertMove(r, s, duration);
+
+        //leftHand.alertMove(r, s, duration);
+        //rightHand.alertMove(r, s, duration);
         healthBar.alertMove(r,s,duration);
+
+        hands.alertMove(r, s, duration);
         System.out.println("entity move hook activated");
         (new SoundEffect("resources/audio/grass_step.wav")).play();
 

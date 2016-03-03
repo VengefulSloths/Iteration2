@@ -40,6 +40,11 @@ public class VOSorter implements VOVisitor {
     }
 
     @Override
+    public void visitTakeable(TakeableViewObject t) {
+        zLevel = 400;
+    }
+
+    @Override
     public void visitDecal(DecalViewObject d) {
         zLevel = 300;
     }

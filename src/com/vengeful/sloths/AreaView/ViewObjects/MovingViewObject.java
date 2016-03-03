@@ -61,9 +61,9 @@ public abstract class MovingViewObject extends ViewObject implements MovementObs
     }
     public void deregisterObserver(MovingVOObserver observer) {observers.remove(observer); }
 
-    public void setIsMoving(boolean isMoving) {
-        this.isMoving = isMoving;
-    }
+//    public void setIsMoving(boolean isMoving) {
+//        this.isMoving = isMoving;
+//    }
 
 
     @Override

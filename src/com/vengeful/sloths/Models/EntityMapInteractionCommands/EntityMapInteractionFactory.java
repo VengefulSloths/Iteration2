@@ -2,6 +2,7 @@ package com.vengeful.sloths.Models.EntityMapInteractionCommands;
 
 
 import com.vengeful.sloths.Models.Entity.Entity;
+import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
@@ -61,13 +62,15 @@ public class EntityMapInteractionFactory {
         return ewc;
     }
     //TODO: Refactor the bellow commands
-//    public DropCommand createDropCommand(InventoryItem itemToDrop, Coord dropLoc, Entity entity) { //Called in Avatar
-//        return null;
-//    }
-//
-//    public PickUpCommand createPickUpCommand(Coord dropLoc, Entity entity, TakeableItem item) {
-//       return null;
-//    }
+    public EntityDropCommand createDropCommand(InventoryItem itemToDrop, Coord dropLoc, Entity entity) { //Called in Avatar
+        EntityDropCommand edc = new EntityDropCommand(itemToDrop, dropLoc, entity, this.map);
+        return edc;
+    }
+
+    public EntityPickupCommand createPickUpCommand(Entity entity, Inventory inv, TakeableItem itemToPickup) {
+        EntityPickupCommand epc = new EntityPickupCommand(entity, inv, itemToPickup);
+        return epc;
+    }
 //
 //    public DieCommand createDieCommand(Coord location, Entity entity){
 //        return null;

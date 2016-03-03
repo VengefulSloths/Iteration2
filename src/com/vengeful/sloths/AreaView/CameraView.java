@@ -176,8 +176,12 @@ public abstract class CameraView implements MovingVOObserver{
             int s = current.getS();
             tiles[findX(r, s)][findY(r,s)].setVisibility(Visibility.NONVISIBLE);
         }
+    }
 
-
+    public TileViewObject getTileVO(ViewObject vo) {
+        int     x = findX(vo.getR(), vo.getS()),
+                y = findY(vo.getR(), vo.getS());
+        return tiles[x][y];
     }
 
     public ViewObjectFactory getFactory() {

@@ -1,6 +1,7 @@
 package com.vengeful.sloths.AreaView;
 
 import com.vengeful.sloths.AreaView.ViewObjects.OneShotViewObject;
+import com.vengeful.sloths.AreaView.ViewObjects.TakeableViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.TileViewObject;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
@@ -103,8 +104,14 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
 
     @Override
     public void visitTakeableItem(TakeableItem takeableItem) {
-
+        //used to populate map with takeable item when game starts
+        String imagePath = "resources/items/"+takeableItem.getItemName()+"/"+takeableItem.getItemName()+".xml";
+        TakeableViewObject takeableViewObject = factory.createTakeableViewObject(r, s, imagePath);
+        new ProxyDestoyableObserver(takeableViewObject, takeableItem);
+        takeableViewObject.registerObserver(currentTile); //tileViewObject listen for takeable vo destroy
+        currentTile.addChild(takeableViewObject);
     }
+
     @Override
     public void visitObstacle(Obstacle obstacle) {
 

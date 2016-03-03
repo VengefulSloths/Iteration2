@@ -5,6 +5,8 @@ import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.*;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
+import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
+import com.vengeful.sloths.Models.InventoryTakeableItemFactory;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
@@ -160,7 +162,18 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         getStats().subtract(new CurrentHealthAddable(attackDamage));
     }
 
-    /********** Getter and Setters *************/
+    public void pickup(TakeableItem item){
+        EntityPickupCommand epc = EntityMapInteractionFactory.getInstance().createPickUpCommand(this, this.getInventory(), item);
+        epc.execute();
+    }
+
+    public void drop(InventoryItem item){
+        EntityDropCommand edc = EntityMapInteractionFactory.getInstance().createDropCommand(item, this.getLocation(), this);
+        edc.execute();
+    }
+
+
+    /********** Getters and Setters *************/
     public String getName(){
         return this.name;
     }
@@ -176,8 +189,6 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     public void setLocation(Coord loc){
         this.location = loc;
     }
-
-
 
     public Inventory getInventory(){
         return this.inventory;

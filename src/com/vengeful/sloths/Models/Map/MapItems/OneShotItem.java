@@ -4,8 +4,10 @@ import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.ViewObservable;
+import com.vengeful.sloths.Utility.Location;
 import com.vengeful.sloths.View.Observers.DestroyableObserver;
 import com.vengeful.sloths.View.Observers.ModelObserver;
+import com.vengeful.sloths.Utility.Coord;
 
 /**
  * Created by John on 1/30/2016.
@@ -13,6 +15,10 @@ import com.vengeful.sloths.View.Observers.ModelObserver;
 public class OneShotItem extends MapItem implements ModelVisitable, ViewObservable{
 
     private DestroyableObserver observer;
+
+    public OneShotItem(Coord location){
+        this.setLocation(location);
+    }
 
     public void interact(Entity entity){
         observer.alertDestroyed();
