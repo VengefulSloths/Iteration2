@@ -6,9 +6,7 @@ import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Utility.HexMath;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * Created by zach on 2/22/16.
@@ -45,45 +43,57 @@ public abstract class ActionController implements TargetVisitor {
         this.entity = entity;
     }
 
+
     protected Direction getTargetDirection(Target target, int distance){
 
         Iterator<Coord> iter;
-        int currRing = 0;
-        while(currRing <= distance) {
-            iter = HexMath.ring(entity.getLocation(), currRing);
-            int dir = 0;
-            while(iter.hasNext()){
-                Coord current = iter.next();
-                //System.out.println("iter: " + current + " == " + target.getCoord());
-                if(current.equals(target.getCoord())) {
-                    if (currRing <= 1) {
+        ArrayList<Coord> marked = new ArrayList<>();
+        marked.add(target.getCoord());
+        Queue<Coord> queue = new LinkedList<>();
+        //int currRing = 0;
+        //while(currRing <= distance) {
+
+        int dir = 0;
+        queue.add(entity.getLocation());
+
+        while(!queue.isEmpty()){
+            Coord tmp = queue.remove();
+            if (!marked.contains(tmp)) {
+                iter = HexMath.sortedRing(tmp, 1);
+                //this while loop checks for solution
+                dir = 0;
+                while (iter.hasNext()) {
+                    Coord current = iter.next();
+
+                    //System.out.println("iter: " + current + " == " + target.getCoord());
+                    if (current.equals(target.getCoord())) {
                         System.out.println("dir is: " + dir);
                         switch (dir) {
                             case 0:
                                 return Direction.N;
                             case 1:
-                                return Direction.S;
-                            case 2:
                                 return Direction.NE;
-                            case 3:
-                                return Direction.SW;
-                            case 4:
+                            case 2:
                                 return Direction.SE;
+                            case 3:
+                                return Direction.S;
+                            case 4:
+                                return Direction.SW;
                             case 5:
                                 return Direction.NW;
                             default:
                                 System.out.println("not directioning rigt");
                         }
-                    }else{
-                        
-                    }
 
+                    }
+                    ++dir;
+                    if (!marked.contains(current)) {
+                        queue.add(current);
+                    }
                 }
-                ++dir;
             }
-            ++currRing;
+            marked.add(tmp);
         }
-        //find directions using sorted ring
         System.out.println("defaulting");
         return Direction.N;
 
