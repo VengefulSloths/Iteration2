@@ -38,6 +38,6 @@ public class HealthBarViewObject extends MovingViewObject implements StatsObserv
     @Override
     public void alertStatChanged(Stats stat) {
         this.currentHealth = stat.getCurrentHealth();
-        this.maxHealth = stat.getCurrentHealth();
+        this.maxHealth = stat.getMaxHealth();
     }
 }

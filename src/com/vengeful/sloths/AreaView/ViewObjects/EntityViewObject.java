@@ -28,8 +28,8 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     private DynamicImage walkingSW;
 
 
-    private HandViewObject leftHand;
-    private HandViewObject rightHand;
+    //private HandViewObject leftHand;
+    //private HandViewObject rightHand;
     private HealthBarViewObject healthBar;
 
     private HandsCoordinator hands;
@@ -102,15 +102,6 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     }
 
     public void setLocation(int r, int s) {
-        System.out.println("bleeeeeeeep");
-        leftHand.setR(r);
-        leftHand.setS(s);
-
-        rightHand.setR(r);
-        rightHand.setS(s);
-
-        healthBar.setR(r);
-        healthBar.setS(s);
 
         hands.setLocation(r, s);
         healthBar.setR(r);

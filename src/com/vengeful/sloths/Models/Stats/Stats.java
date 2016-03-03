@@ -207,6 +207,38 @@ public class Stats implements ModelVisitable, ViewObservable {
         return this.maxExperience;
     }
 
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    public int getMaxMana() {
+        return maxMana;
+    }
+
+    public int getOffensiveRating() {
+        return offensiveRating;
+    }
+
+    public int getDefensiveRating() {
+        return defensiveRating;
+    }
+
+    public int getArmorRating() {
+        return armorRating;
+    }
+
+    public int getBonusHealth() {
+        return bonusHealth;
+    }
+
+    public int getBonusMana() {
+        return bonusMana;
+    }
+
+    public ArrayList<StatsObserver> getObservers() {
+        return observers;
+    }
+
     /////////////////////////// public api ////////////////////////////////////
     public void add(StatsAddable stats){
         setStrength(this.strength + stats.getStrength());

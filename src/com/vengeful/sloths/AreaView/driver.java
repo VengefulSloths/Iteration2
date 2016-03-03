@@ -9,6 +9,8 @@ import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.Entity.AggressiveNPC;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Map.Map;
+import com.vengeful.sloths.Models.Stats.StatAddables.CurrentHealthAddable;
+import com.vengeful.sloths.Models.Stats.StatAddables.HealthManaExperienceAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.MovementAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Coord;
@@ -37,18 +39,22 @@ public class driver {
        // final ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
         Avatar testAvatar = Avatar.getInstance();
         //MainController cat = MainController.getInstance();
-        Stats moveQuickly = new Stats();
+       // Stats moveQuickly = new Stats();
 
-        moveQuickly.setMovement(45);
+        //moveQuickly.setMovement(45);
 
-        Avatar.getInstance().setStats(moveQuickly);
+        //Avatar.getInstance().setStats(moveQuickly);
+        Avatar.getInstance().getStats().setMovement(45);
         int count = 0;
         testAvatar.setFacingDirection(Direction.SE);
+        testAvatar.getStats().subtract(new CurrentHealthAddable(2));
         //stuff to test enemy controllers
         AggressiveNPC testEnemy =  new AggressiveNPC("xXOG_SwaG_LorD_BlazE_MasteR_420_Xx", new Stats(new MovementAddable(30)));
         Map.getInstance().addEntity(new Coord(3, 3), testEnemy);
         testEnemy.accept(TemporaryVOCreationVisitor.getInstance());
         new AggressiveNPCControllerManager(Map.getInstance(), testEnemy);
+
+        testEnemy.getStats().subtract(new CurrentHealthAddable(1));
 
 
 //        while (count < 120) {
