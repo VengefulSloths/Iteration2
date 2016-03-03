@@ -55,13 +55,16 @@ public class AggressiveNPCSearchingController extends SearchingController {
     @Override
     public void visitAvatar(Avatar avatar) {
         // set priority yadyadyayd
+        System.out.println("agressive npc sees the avatar :o");
         Target currTarget = new AvatarTarget(0);
+        currTarget.setCoord(this.getCurrentCoord());
         this.setHighestPriorityTarget(this.getMaxTarget(currTarget, this.getHighestPriorityTarget()));
     }
 
     @Override
     public void visitPiggy(Piggy piggy) {
         Target currTarget = new AvatarTarget(1);
+        currTarget.setCoord(this.getCurrentCoord());
         this.setHighestPriorityTarget(this.getMaxTarget(currTarget, this.getHighestPriorityTarget()));
 
     }
@@ -173,14 +176,19 @@ public class AggressiveNPCSearchingController extends SearchingController {
     }
 
     public void visitTile(Tile tile) {
-        Iterator<Entity> iter = tile.getEntityIterator();
-        Entity currEntity;
 
-        while (iter.hasNext()) {
-            currEntity = iter.next();
+        //System.out.println("okay checkinga  tile");
+        if(tile != null) {
+            Iterator<Entity> iter = tile.getEntityIterator();
+            Entity currEntity;
+            while (iter.hasNext()) {
+                currEntity = iter.next();
 
-            currEntity.accept(this);
+                System.out.println(currEntity);
+                currEntity.accept(this);
+            }
         }
+        System.out.println("SEARCHING TILE");
     }
 
     @Override
@@ -188,13 +196,33 @@ public class AggressiveNPCSearchingController extends SearchingController {
     }
 
     @Override
-    public void visitTeleportSenderTile(TeleportSenderTile t) {
-        //TODO: dont move here
+    public void visitTeleportSenderTile(TeleportSenderTile tile) {
+        if(tile != null) {
+            Iterator<Entity> iter = tile.getEntityIterator();
+            Entity currEntity;
+            while (iter.hasNext()) {
+                currEntity = iter.next();
+
+                System.out.println(currEntity);
+                currEntity.accept(this);
+            }
+        }
+        System.out.println("SEARCHING TILE");
     }
 
     @Override
-    public void visitTeleportDestinationTile(TeleportDestinationTile t) {
-        //TODO: dont move here
+    public void visitTeleportDestinationTile(TeleportDestinationTile tile) {
+        if(tile != null) {
+            Iterator<Entity> iter = tile.getEntityIterator();
+            Entity currEntity;
+            while (iter.hasNext()) {
+                currEntity = iter.next();
+
+                System.out.println(currEntity);
+                currEntity.accept(this);
+            }
+        }
+        System.out.println("SEARCHING TILE");
     }
 
     @Override

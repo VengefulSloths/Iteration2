@@ -14,7 +14,11 @@ public class AggressiveNPCActionController extends ActionController {
 
     @Override
     public void action(Target target) {
-        target.accept(this);
+        if(target != null) {
+            target.accept(this);
+        }else{
+            System.out.println("idle");
+        }
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.vengeful.sloths.AreaView;
 
 import com.vengeful.sloths.AreaView.ViewObjects.AvatarViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.SimpleHexCoordinateStrategy;
+import com.vengeful.sloths.AreaView.ViewObjects.EvilBlobViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.CenterAvatarLocationStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.PiggyViewObject;
 import com.vengeful.sloths.Models.Ability.Ability;
@@ -105,7 +106,10 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
     @Override
     public void visitAggressiveNPC(AggressiveNPC aNPC) {
-
+        EvilBlobViewObject ebvo = factory.createEvilBlobViewObject(aNPC.getLocation().getR(), aNPC.getLocation().getS(), "resources/entities/smasher/");
+        aNPC.registerObserver(ebvo);
+        ebvo.registerObserver(activeCameraView);
+        this.activeCameraView.addViewObject(ebvo);
     }
 
     @Override

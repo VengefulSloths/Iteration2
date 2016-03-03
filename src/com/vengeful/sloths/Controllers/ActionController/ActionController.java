@@ -2,7 +2,11 @@ package com.vengeful.sloths.Controllers.ActionController;
 
 import com.vengeful.sloths.Controllers.Target.*;
 import com.vengeful.sloths.Models.Entity.Entity;
+import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
+import com.vengeful.sloths.Utility.HexMath;
+
+import java.util.Iterator;
 
 /**
  * Created by zach on 2/22/16.
@@ -42,6 +46,8 @@ public abstract class ActionController implements TargetVisitor {
     protected Direction getTargetDirection(Target target){
         int Rmag = entity.getLocation().getR() - target.getCoord().getR();
         int Smag = entity.getLocation().getS() - target.getCoord().getS();
+        if(Smag == 0) return Direction.N;
+        if(Rmag == 0) return Direction.N;
         double angle = Math.atan(Smag/Rmag);
         angle *= 57.3; //wtf am i doing, i dont even know math
         //int direction = (int)angle % 60;
@@ -65,13 +71,32 @@ public abstract class ActionController implements TargetVisitor {
     }
 
     protected boolean checkLocation(Target target, int distance){
-        if((Math.abs(target.getCoord().getR()) - Math.abs(entity.getLocation().getR())) > distance){
+        if(target != null) {
+//            System.out.println("entity is: " + entity);
+//            System.out.println("target is: " + target);
+//            System.out.println((target.getCoord().getR()));
+//            System.out.println(Math.abs(entity.getLocation().getR()));
+//
+//            if ((Math.abs(target.getCoord().getR()) - Math.abs(entity.getLocation().getR())) > distance  &&  (Math.abs(target.getCoord().getS()) - Math.abs(entity.getLocation().getS())) > distance) {
+//                System.out.println("R dist is : " + (Math.abs(target.getCoord().getR()) - Math.abs(entity.getLocation().getR())));
+//                return false;
+//            }
+//            if ((Math.abs(target.getCoord().getS()) - Math.abs(entity.getLocation().getS())) > distance) {
+//                System.out.println("S dist is : " + (Math.abs(target.getCoord().getS()) - Math.abs(entity.getLocation().getS())));
+//                return false;
+//            }
+            int currRing = 0;
+            while(currRing <= distance) {
+                Iterator<Coord> iter = HexMath.ring(entity.getLocation(), currRing);
+                while(iter.hasNext()){
+                    if(iter.next() == target.getCoord()){
+                        return true;
+                    }
+                }
+                ++currRing;
+            }
+            //will only get here to return true if the target is in desired location
             return false;
-        }
-        if((Math.abs(target.getCoord().getS()) - Math.abs(entity.getLocation().getS())) > distance){
-            return false;
-        }
-        //will only get here to return true if the target is in desired location
-        return true;
+        }else{return false;}
     }
 }
