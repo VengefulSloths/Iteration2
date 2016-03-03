@@ -1,9 +1,12 @@
-package com.vengeful.sloths.AreaView.ViewObjects;
+package com.vengeful.sloths.AreaView.ViewObjects.Hands;
 
 import com.vengeful.sloths.AreaView.DynamicImages.DynamicImage;
 import com.vengeful.sloths.AreaView.DynamicImages.DynamicImageFactory;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
+import com.vengeful.sloths.AreaView.ViewObjects.MovingViewObject;
+import com.vengeful.sloths.AreaView.ViewObjects.VOVisitor;
+import com.vengeful.sloths.AreaView.ViewObjects.WeaponImageContainer;
 import com.vengeful.sloths.AreaView.ViewTime;
 import com.vengeful.sloths.AreaView.vAlertable;
 import com.vengeful.sloths.Utility.Direction;
