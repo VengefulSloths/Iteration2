@@ -69,23 +69,23 @@ public class EntityAttackCommand implements Alertable {
     public int execute() {
         if (subject.isActive()) return 0;
 
-            int attackTicks = MAX_ATTACKSPEED - attackSpeed;
-            TimeModel.getInstance().registerAlertable(this, attackTicks);
-            //do the attack... create an ae of dmg on dst tile?
-            for(Entity entity : map.getTile(dst).getEntities()){
-                entity.takeDamage(attackDamage);
-            }
+        int attackTicks = MAX_ATTACKSPEED - attackSpeed;
+        TimeModel.getInstance().registerAlertable(this, attackTicks);
+        //do the attack... create an ae of dmg on dst tile?
+        for(Entity entity : map.getTile(dst).getEntities()){
+            entity.takeDamage(attackDamage);
+        }
 
-            System.out.println("about to alert observers");
+        System.out.println("about to alert observers");
 
-            //while (entityObserverIterator.hasNext()) {
+        while (entityObserverIterator.hasNext()) {
 
 
-               //entityObserverIterator.next().alertAttack(dst.getR(), dst.getS(), attackTicks* TimeController.MODEL_TICK);
-                //the commented line above can work if that method is added and the animations are put in place
-           // }
+           entityObserverIterator.next().alertAttack(dst.getR(), dst.getS(), attackTicks* TimeController.MODEL_TICK);
+            //the commented line above can work if that method is added and the animations are put in place
+        }
 
-            return attackTicks;
+        return attackTicks;
 
     }
 

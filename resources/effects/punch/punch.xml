@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<dynamic_timed_animation>
+  <width>78</width>
+  <height>126</height>
+  <rootPath>resources/effects/punch/</rootPath>
+  <startConfig>null.xml</startConfig>
+  <endConfig>null.xml</endConfig>
+  <fileName>punch1.png</fileName>
+  <fileName>punch2.png</fileName>
+  <fileName>punch3.png</fileName>
+  <fileName>punch3_1.png</fileName>
+  <fileName>punch3_2.png</fileName>
+  <fileName>punch3_1.png</fileName>
+  <fileName>punch4.png</fileName>
+  <fileName>punch5.png</fileName>
+  <positioning xOffset="-18" yOffset="-50">custom</positioning>
+</dynamic_timed_animation>

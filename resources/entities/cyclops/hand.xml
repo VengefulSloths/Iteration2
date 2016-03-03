@@ -2,7 +2,7 @@
 <single_frame_animation>
   <width>18</width>
   <height>18</height>
-  <rootPath>resources/entities/hands/human/</rootPath>
+  <rootPath>resources/entities/hands/cyclops/</rootPath>
   <fileName>hand.png</fileName>
   <positioning>center</positioning>
 </single_frame_animation>

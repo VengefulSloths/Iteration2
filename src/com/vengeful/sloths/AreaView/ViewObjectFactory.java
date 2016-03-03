@@ -50,6 +50,10 @@ public abstract class ViewObjectFactory {
         return new TakeableViewObject(r, s, cs, ls, resourcePath);
     }
 
+    public AttackViewObject createAttackViewObject(int r, int s, String resourcePath, long duration) {
+        return new AttackViewObject(r, s, cs, ls, resourcePath, duration);
+    }
+
     public LocationStrategy getLocationStrategy() {
         return ls;
     }

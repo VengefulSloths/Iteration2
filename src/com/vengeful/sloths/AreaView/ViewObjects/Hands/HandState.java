@@ -13,4 +13,5 @@ public interface HandState {
     void setLocation(int r, int s);
     void changeDirection(Direction d);
     void alertMove(int r, int s, long duration);
+    void attack(int r, int s, long duration);
 }

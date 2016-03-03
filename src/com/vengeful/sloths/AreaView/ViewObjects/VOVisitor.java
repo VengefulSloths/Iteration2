@@ -14,4 +14,5 @@ public interface VOVisitor {
     void visitOneShot(OneShotViewObject o);
     void visitTakeable(TakeableViewObject t);
     void visitDecal(DecalViewObject d);
+    void visitAttack(AttackViewObject a);
 }

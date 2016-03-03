@@ -30,11 +30,15 @@ public class HandsCoordinator {
         this.resourcePath = resourcePath;
         this.direction = direction;
 
-        this.state = new OneHandState(r, s, coordinateStrategy, locationStrategy, resourcePath, direction);
+        this.state = new UnarmedState(r, s, coordinateStrategy, locationStrategy, resourcePath, direction);
     }
 
     public void alertMove(int r, int s, long duration) {
         state.alertMove(r, s, duration);
+    }
+
+    public void attack(int r, int s, long duration) {
+        state.attack(r, s, duration);
     }
 
     public void setLocation(int r, int s) {
