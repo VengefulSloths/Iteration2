@@ -106,7 +106,7 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
     @Override
     public void visitAggressiveNPC(AggressiveNPC aNPC) {
-        EvilBlobViewObject ebvo = factory.createEvilBlobViewObject(aNPC.getLocation().getR(), aNPC.getLocation().getS(), "resources/entities/smasher/");
+        EvilBlobViewObject ebvo = factory.createEvilBlobViewObject(aNPC.getLocation().getR(), aNPC.getLocation().getS(), "resources/entities/cyclops/");
         aNPC.registerObserver(ebvo);
         ebvo.registerObserver(activeCameraView);
         this.activeCameraView.addViewObject(ebvo);
