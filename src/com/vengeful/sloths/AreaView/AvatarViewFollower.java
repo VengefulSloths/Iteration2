@@ -54,8 +54,8 @@ public class AvatarViewFollower implements MovingVOObserver, vAlertable {
                 this.xOffset -= sqrt2over2*freeMoveSpeed;
                 break;
         }
-        this.xOffset /= snapBackFactor;
-        this.yOffset /= snapBackFactor;
+        this.xOffset *= snapBackFactor;
+        this.yOffset *= snapBackFactor;
 
     }
 
@@ -69,7 +69,7 @@ public class AvatarViewFollower implements MovingVOObserver, vAlertable {
     @Override
     public void alertMove(int srcR, int srcS, int destR, int destS, long duration, MovingViewObject subject) {
         this.movingEndTime = ViewTime.getInstance().getCurrentTimeMilli() + duration;
-        this.snapBackFactor = 2;
+        this.snapBackFactor = 0.9;
         this.freeMoveSpeed = 0;
         ViewTime.getInstance().registerAlert(this, 0);
     }

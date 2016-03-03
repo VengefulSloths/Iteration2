@@ -125,7 +125,6 @@ public abstract class CameraView implements MovingVOObserver{
                 destY = findY(destR,destS);
 
         System.out.println("View: Going from (" + srcR +", " + srcS + ") to (" + destR + ", " + destS + ")");
-
         if (destY > srcY) {
             tiles[srcX][srcY].removeChild(subject);
             tiles[destX][destY].addChild(subject);
@@ -134,8 +133,9 @@ public abstract class CameraView implements MovingVOObserver{
                     new vCommand() {
                         @Override
                         public void execute() {
+
                             tiles[srcX][srcY].removeChild(subject);
-                            if (!dontMoveAvatarFlag) {
+                            if (subject != avatar || !dontMoveAvatarFlag) {
                                 tiles[destX][destY].addChild(subject);
                             }
                         }
