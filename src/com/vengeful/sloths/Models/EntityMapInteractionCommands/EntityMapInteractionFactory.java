@@ -48,10 +48,9 @@ public class EntityMapInteractionFactory {
                                                        int attackSpeed,
                                                        int attackDamage,
                                                        Entity entity,
-                                                       CanMoveVisitor canMoveVisitor,
                                                        Iterator<EntityObserver> entityObserverIterator) {
 
-        EntityAttackCommand eac = new EntityAttackCommand(src, dir, attackSpeed, attackDamage, map, entity, canMoveVisitor, entityObserverIterator);
+        EntityAttackCommand eac = new EntityAttackCommand(src, dir, attackSpeed, attackDamage, map, entity, entityObserverIterator);
 
 
         return eac;

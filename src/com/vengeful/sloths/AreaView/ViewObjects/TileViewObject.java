@@ -67,7 +67,7 @@ public class TileViewObject extends ViewObject{
 
 
             //TODO: got to zachs method
-            //preCalcNonVisibleImage();
+            preCalcNonVisibleImage();
 
 
 

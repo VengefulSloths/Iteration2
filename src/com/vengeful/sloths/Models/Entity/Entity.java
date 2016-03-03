@@ -111,7 +111,6 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
                     30,//attackspeed
                     30,//attack dmg
                     this,
-                    movementValidator,
                     observers.iterator());
 
             return eac.execute();

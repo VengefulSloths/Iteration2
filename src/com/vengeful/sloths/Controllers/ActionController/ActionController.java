@@ -114,11 +114,12 @@ public abstract class ActionController implements TargetVisitor {
 //                System.out.println("S dist is : " + (Math.abs(target.getCoord().getS()) - Math.abs(entity.getLocation().getS())));
 //                return false;
 //            }
+
             int currRing = 0;
             while(currRing <= distance) {
                 Iterator<Coord> iter = HexMath.ring(entity.getLocation(), currRing);
                 while(iter.hasNext()){
-                    if(iter.next() == target.getCoord()){
+                    if(iter.next().equals(target.getCoord())){
                         return true;
                     }
                 }

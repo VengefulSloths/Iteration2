@@ -24,8 +24,10 @@ public class AggressiveNPCActionController extends ActionController {
     @Override
     public void visitAvatarTarget(AvatarTarget avatar) {
         //attack the avatar
+
         if(this.checkLocation(avatar, 1)) { //1 meaning he can attack an adjacent square
             //make attack command
+            System.out.println("attacking!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             this.getEntity().attack(this.getTargetDirection(avatar,1)); //tweak a bit later
 
         }else{

@@ -27,7 +27,7 @@ public class EntityAttackCommand implements Alertable {
 
     public static final int MAX_ATTACKSPEED = 60;
 
-    public EntityAttackCommand(Coord src, Direction dir, int attackSpeed, int attackDamage, Map map, Entity entity, CanMoveVisitor canMoveVisitor, Iterator<EntityObserver> entityObserverIterator) {
+    public EntityAttackCommand(Coord src, Direction dir, int attackSpeed, int attackDamage, Map map, Entity entity, Iterator<EntityObserver> entityObserverIterator) {
         this.src = src;
         this.subject = entity;
         this.map = map;
@@ -78,11 +78,12 @@ public class EntityAttackCommand implements Alertable {
 
             System.out.println("about to alert observers");
 
-            while (entityObserverIterator.hasNext()) {
+            //while (entityObserverIterator.hasNext()) {
+
 
                //entityObserverIterator.next().alertAttack(dst.getR(), dst.getS(), attackTicks* TimeController.MODEL_TICK);
                 //the commented line above can work if that method is added and the animations are put in place
-            }
+           // }
 
             return attackTicks;
 
@@ -90,6 +91,7 @@ public class EntityAttackCommand implements Alertable {
 
     @Override
     public void mAlert() {
+        System.out.println("okay attack done");
         subject.setActive(false);
     }
 }
