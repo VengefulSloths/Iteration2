@@ -20,10 +20,10 @@ public class HandViewObject extends MovingViewObject implements vAlertable {
 
 
     //Constant trig functions pre-calculated to ease the processor
-    private final double COS_34 = 0.829;
-    private final double SIN_34 = 0.559;
-    private final double COS_45 = 0.707;
-    private final double SIN_34_x_COS_45 = SIN_34 * COS_45;
+    private static double COS_34 = 0.829;
+    private static double SIN_34 = 0.559;
+    private static final double COS_45 = 0.707;
+    private static final double SIN_34_x_COS_45 = SIN_34 * COS_45;
 
     //Height is how far above the ground the hand rests
     private int height;
