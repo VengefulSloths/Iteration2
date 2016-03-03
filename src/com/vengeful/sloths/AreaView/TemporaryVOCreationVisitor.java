@@ -1,11 +1,8 @@
 package com.vengeful.sloths.AreaView;
 
-import com.vengeful.sloths.AreaView.ViewObjects.AvatarViewObject;
+import com.vengeful.sloths.AreaView.ViewObjects.*;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.SimpleHexCoordinateStrategy;
-import com.vengeful.sloths.AreaView.ViewObjects.EvilBlobViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.CenterAvatarLocationStrategy;
-import com.vengeful.sloths.AreaView.ViewObjects.PiggyViewObject;
-import com.vengeful.sloths.AreaView.ViewObjects.TakeableViewObject;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
@@ -60,6 +57,10 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     private ViewObjectFactory factory;
     private CameraView activeCameraView;
 
+    public CameraView getActiveCameraView() {
+        return activeCameraView;
+    }
+
     public void setActiveCameraView(CameraView activeCameraView) {
         this.activeCameraView = activeCameraView;
         this.factory = activeCameraView.getFactory();
@@ -71,6 +72,13 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
     }
 
+
+
+    public AttackViewObject createAttack(int r, int s, String resourcePath, long duration) {
+        AttackViewObject attack =  factory.createAttackViewObject(r, s, resourcePath, duration);
+        activeCameraView.addViewObject(attack);
+        return attack;
+    }
 
     private boolean firstAvatarFlag = true;
     private AvatarViewObject avo;

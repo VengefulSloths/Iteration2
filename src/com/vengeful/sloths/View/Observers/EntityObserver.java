@@ -6,6 +6,7 @@ import com.vengeful.sloths.Utility.Direction;
 public interface EntityObserver extends ModelObserver {
 	void alertDirectionChange(Direction d);
 	void alertMove(int r, int s, long animationTime);
+	void alertAttack(int r, int s, long animationTime);
 
 	@Deprecated
 	void alertDrop(int x, int y, MapItem itemToDrop);

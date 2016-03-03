@@ -56,6 +56,8 @@ public class HandViewObject extends MovingViewObject implements vAlertable {
     //How long a walking motion will take
     private long duration = 0;
 
+
+
     private Direction direction;
 
 
@@ -70,6 +72,50 @@ public class HandViewObject extends MovingViewObject implements vAlertable {
         this.handMovingRadius = (int)(SIN_34/2*Math.abs(radius)*radius/Math.abs(radius));
 
         changeDirection(dir);
+    }
+
+    //Move the hand forward a smidge
+    public void forward(int steps, long duration) {
+        int xMag = 0, yMag = 0;
+        switch (direction) {
+            case N:
+            case S:
+                xMag = 0;
+                yMag = 2*handMovingYOffset;
+                break;
+            case SW:
+            case NE:
+                xMag = 2*handMovingXOffset;
+                yMag = 4*handMovingYOffset;
+                break;
+            case SE:
+            case NW:
+                xMag = 3*handMovingXOffset;
+                yMag = 2*handMovingYOffset;
+                break;
+        }
+
+        xPixelOffset += -xMag/steps;
+        yPixelOffset += -yMag/steps;
+        if (steps > 1)
+        ViewTime.getInstance().registerAlert(duration/steps, () -> {
+                    forward(steps - 1, duration - duration/steps);
+                });
+    }
+
+    public void reset() {
+        xPixelOffset = 0;
+        yPixelOffset = 0;
+    }
+
+    //pull the hand into the chest
+    public void in(int steps, long duration) {
+        xPixelOffset += -handMovingYOffset/2;
+        yPixelOffset += handMovingXOffset/3;
+        if (steps > 1)
+            ViewTime.getInstance().registerAlert(duration/steps, () -> {
+                in(steps - 1, duration - duration/steps);
+            });
     }
 
     //Change all the direction offsets when direction changes

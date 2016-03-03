@@ -118,6 +118,11 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     }
 
     @Override
+    public void alertAttack(int r, int s, long duration) {
+        hands.attack(r, s, duration);
+    }
+
+    @Override
     public void accept(VOVisitor v) {
         v.visitEntity(this);
     }

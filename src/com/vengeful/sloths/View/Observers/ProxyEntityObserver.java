@@ -38,6 +38,12 @@ public class ProxyEntityObserver extends ProxyObserver
         }
     }
 
+    @Override
+    public void alertAttack(int r, int s, long animationTime) {
+        if (!deleteFlag) {
+            ViewTime.getInstance().registerAlert(0, () -> target.alertAttack(r, s, animationTime));
+        }
+    }
 
     @Override
     public void alertEquipWeapon(String name) {
