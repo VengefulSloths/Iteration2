@@ -4,11 +4,12 @@ import com.vengeful.sloths.Controllers.ActionController.ActionController;
 import com.vengeful.sloths.Controllers.MovementController.MovementController;
 import com.vengeful.sloths.Controllers.SearchingController.SearchingController;
 import com.vengeful.sloths.Models.Entity.Entity;
+import com.vengeful.sloths.Models.TimeModel.Tickable;
 
 /**
  * Created by John on 2/28/2016.
  */
-public abstract class NPCControllerManager {
+public abstract class NPCControllerManager implements Tickable{
 
     //make a constructor that makes new ones of these and sets them for the implementations
     private Entity entity;
@@ -29,4 +30,6 @@ public abstract class NPCControllerManager {
     public void setEntity(Entity entity) {
         this.entity = entity;
     }
+
+
 }
