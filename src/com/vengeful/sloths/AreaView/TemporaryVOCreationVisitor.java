@@ -100,6 +100,8 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
         //let the cameraView watch avatar for movement
         avo.registerObserver(activeCameraView);
+        avatar.getStats().registerObserver(avo.getHealthBar());
+        avatar.getStats().updateObservers();
 
         //Set the camera views avatar to this
         activeCameraView.addAvatar(avo);
@@ -119,6 +121,8 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
         EvilBlobViewObject ebvo = factory.createEvilBlobViewObject(aNPC.getLocation().getR(), aNPC.getLocation().getS(), "resources/entities/cyclops/");
         aNPC.registerObserver(ebvo);
         ebvo.registerObserver(activeCameraView);
+        aNPC.getStats().registerObserver(ebvo.getHealthBar());
+        aNPC.getStats().updateObservers();
         this.activeCameraView.addViewObject(ebvo);
     }
 

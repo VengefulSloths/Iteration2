@@ -111,7 +111,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
                     this.getLocation(),
                     dir,
                     30,//attackspeed
-                    30,//attack dmg
+                    1,//attack dmg
                     this,
                     observers.iterator());
 

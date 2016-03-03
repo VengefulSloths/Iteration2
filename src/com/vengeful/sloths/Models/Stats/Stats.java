@@ -3,11 +3,18 @@ package com.vengeful.sloths.Models.Stats;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
+import com.vengeful.sloths.Models.ViewObservable;
+import com.vengeful.sloths.View.Observers.EntityObserver;
+import com.vengeful.sloths.View.Observers.ModelObserver;
+import com.vengeful.sloths.View.Observers.StatsObserver;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by John on 2/21/2016.
  */
-public class Stats implements ModelVisitable {
+public class Stats implements ModelVisitable, ViewObservable {
 
     private int strength;
     private int agility;
@@ -31,6 +38,8 @@ public class Stats implements ModelVisitable {
 
     private int bonusHealth = 0;
     private int bonusMana = 0;
+
+    private ArrayList<StatsObserver> observers = new ArrayList<>();
 
     public Stats(){
         this.strength = 1;
@@ -212,6 +221,7 @@ public class Stats implements ModelVisitable {
         setCurrentHealth(this.currentHealth + stats.getCurrentHealth());
         setCurrentMana(this.currentMana + stats.getCurrentMana());
         setCurrentExperience(this.currentExperience + stats.getCurrentExperience());
+        updateObservers();
     }
 
     public void subtract(StatsAddable stats){
@@ -227,6 +237,23 @@ public class Stats implements ModelVisitable {
         setCurrentHealth(this.currentHealth - stats.getCurrentHealth());
         setCurrentMana(this.currentMana - stats.getCurrentMana());
         setCurrentExperience(this.currentExperience - stats.getCurrentExperience());
+        updateObservers();
+    }
+
+    @Override
+    public void registerObserver(ModelObserver observer) {
+            this.observers.add((StatsObserver) observer);
+    }
+
+    @Override
+    public void deregisterObserver(ModelObserver observer) {
+        this.observers.remove(observer);
+    }
+    public void updateObservers(){
+        Iterator<StatsObserver> statsObserverIterator = observers.iterator();
+        while (statsObserverIterator.hasNext()) {
+            statsObserverIterator.next().alertStatChanged(this);
+        }
     }
 
     @Override
