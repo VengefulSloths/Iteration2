@@ -79,7 +79,7 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
         }
         this.avo = factory.createAvatarViewObject(avatar.getLocation().getR(),
                 avatar.getLocation().getS(),
-                "resources/entities/smasher/");
+                "resources/entities/cyclops/");
 
         //Let avo observe avatar through a proxy
         peo = new ProxyEntityObserver(avo, avatar);

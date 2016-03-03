@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<dynamic_timed_animation>
+  <width>78</width>
+  <height>126</height>
+  <rootPath>resources/entities/cyclops/</rootPath>
+  <startConfig>smasherNorthWestStanding.xml</startConfig>
+  <endConfig>smasherNorthWestStanding.xml</endConfig>
+  <fileName>smasher_northwest_standing.png</fileName>
+  <fileName>smasher_northwest_right.png</fileName>
+  <fileName>smasher_northwest_standing.png</fileName>
+  <fileName>smasher_northwest_left.png</fileName>
+  <fileName>smasher_northwest_standing.png</fileName>
+  <positioning>occupying</positioning>
+</dynamic_timed_animation>
