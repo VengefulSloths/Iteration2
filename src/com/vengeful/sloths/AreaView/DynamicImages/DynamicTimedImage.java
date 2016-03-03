@@ -37,6 +37,10 @@ public class DynamicTimedImage extends DynamicImage {
         this.currentState = state.ACTIVE;
     }
 
+    public void end() {
+        this.currentState = state.POST;
+    }
+
     private void resolveState() {
         long time = ViewTime.getInstance().getCurrentTimeMilli();
         if (time >= endTime) {

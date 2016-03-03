@@ -1,10 +1,15 @@
 package com.vengeful.sloths.AreaView;
 
 import com.vengeful.sloths.AreaView.DynamicImages.DynamicImageFactory;
+import com.vengeful.sloths.Controllers.ControllerManagers.AggressiveNPCControllerManager;
 import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.GameLaunching.LaunchGameTemplate;
 import com.vengeful.sloths.GameLaunching.LaunchNewGame;
+import com.vengeful.sloths.Models.Buff.BuffManager;
+import com.vengeful.sloths.Models.Entity.AggressiveNPC;
 import com.vengeful.sloths.Models.Entity.Avatar;
+import com.vengeful.sloths.Models.Map.Map;
+import com.vengeful.sloths.Models.Stats.StatAddables.MovementAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
@@ -29,14 +34,23 @@ public class driver {
 
         //Below here is test code
 
-        final ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
+       // final ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
         Avatar testAvatar = Avatar.getInstance();
         //MainController cat = MainController.getInstance();
         Stats moveQuickly = new Stats();
-        moveQuickly.setMovement(42);
+
+        moveQuickly.setMovement(45);
+
         Avatar.getInstance().setStats(moveQuickly);
         int count = 0;
         testAvatar.setFacingDirection(Direction.SE);
+        //stuff to test enemy controllers
+        AggressiveNPC testEnemy =  new AggressiveNPC("xXOG_SwaG_LorD_BlazE_MasteR_420_Xx", new Stats(new MovementAddable(30)));
+        Map.getInstance().addEntity(new Coord(3, 3), testEnemy);
+        testEnemy.accept(TemporaryVOCreationVisitor.getInstance());
+        new AggressiveNPCControllerManager(Map.getInstance(), testEnemy);
+
+
 //        while (count < 120) {
 //            executor.schedule(new Runnable() {
 //                @Override

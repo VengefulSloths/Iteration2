@@ -54,7 +54,6 @@ public class MainController implements Tickable{
     }
 
     public void dispatchPressedKey(int key){
-        System.out.println("key was pressed");
         inputStrategy.interpretPressedKey(key, state);
     }
 

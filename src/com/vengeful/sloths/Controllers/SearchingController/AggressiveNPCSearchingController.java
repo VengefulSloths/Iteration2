@@ -16,8 +16,7 @@ import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Hat;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
-import com.vengeful.sloths.Models.Map.Map;
-import com.vengeful.sloths.Models.Map.MapArea;
+import com.vengeful.sloths.Models.Map.*;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
 import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
@@ -25,7 +24,6 @@ import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.Map.Terrains.Grass;
 import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
-import com.vengeful.sloths.Models.Map.Tile;
 import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Smasher;
 import com.vengeful.sloths.Models.Occupation.Sneak;
@@ -57,13 +55,16 @@ public class AggressiveNPCSearchingController extends SearchingController {
     @Override
     public void visitAvatar(Avatar avatar) {
         // set priority yadyadyayd
+        System.out.println("agressive npc sees the avatar :o");
         Target currTarget = new AvatarTarget(0);
+        currTarget.setCoord(this.getCurrentCoord());
         this.setHighestPriorityTarget(this.getMaxTarget(currTarget, this.getHighestPriorityTarget()));
     }
 
     @Override
     public void visitPiggy(Piggy piggy) {
         Target currTarget = new AvatarTarget(1);
+        currTarget.setCoord(this.getCurrentCoord());
         this.setHighestPriorityTarget(this.getMaxTarget(currTarget, this.getHighestPriorityTarget()));
 
     }
@@ -175,18 +176,53 @@ public class AggressiveNPCSearchingController extends SearchingController {
     }
 
     public void visitTile(Tile tile) {
-        Iterator<Entity> iter = tile.getEntityIterator();
-        Entity currEntity;
 
-        while (iter.hasNext()) {
-            currEntity = iter.next();
+        //System.out.println("okay checkinga  tile");
+        if(tile != null) {
+            Iterator<Entity> iter = tile.getEntityIterator();
+            Entity currEntity;
+            while (iter.hasNext()) {
+                currEntity = iter.next();
 
-            currEntity.accept(this);
+                System.out.println(currEntity);
+                currEntity.accept(this);
+            }
         }
+        System.out.println("SEARCHING TILE");
     }
 
     @Override
     public void visitMapItem(MapItem mapItem) {
+    }
+
+    @Override
+    public void visitTeleportSenderTile(TeleportSenderTile tile) {
+        if(tile != null) {
+            Iterator<Entity> iter = tile.getEntityIterator();
+            Entity currEntity;
+            while (iter.hasNext()) {
+                currEntity = iter.next();
+
+                System.out.println(currEntity);
+                currEntity.accept(this);
+            }
+        }
+        System.out.println("SEARCHING TILE");
+    }
+
+    @Override
+    public void visitTeleportDestinationTile(TeleportDestinationTile tile) {
+        if(tile != null) {
+            Iterator<Entity> iter = tile.getEntityIterator();
+            Entity currEntity;
+            while (iter.hasNext()) {
+                currEntity = iter.next();
+
+                System.out.println(currEntity);
+                currEntity.accept(this);
+            }
+        }
+        System.out.println("SEARCHING TILE");
     }
 
     @Override

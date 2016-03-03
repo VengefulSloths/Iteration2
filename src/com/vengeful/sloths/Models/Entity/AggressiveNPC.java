@@ -9,8 +9,8 @@ import com.vengeful.sloths.Models.Stats.Stats;
  */
 public class AggressiveNPC extends NPC{
 
-    public AggressiveNPC(String name, BuffManager buffManager, Stats stats){
-        super(name, buffManager, stats);
+    public AggressiveNPC(String name, Stats stats){
+        super(name, stats);
     }
 
     @Override

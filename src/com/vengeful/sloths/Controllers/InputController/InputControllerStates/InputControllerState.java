@@ -22,6 +22,10 @@ public abstract class InputControllerState {
     public abstract boolean handle9Key();
     public abstract boolean handle5Key();
     public abstract boolean handleDKey();
+    public abstract boolean handleLeftKey();
+    public abstract boolean handleRightKey();
+    public abstract boolean handleDownKey();
+    public abstract boolean handleUpKey();
 
 
     public abstract void handleRelease1Key();
@@ -33,4 +37,10 @@ public abstract class InputControllerState {
     public abstract void handleRelease8Key();
     public abstract void handleRelease9Key();
     public abstract void handleRelease5Key();
+    public abstract boolean handleReleaseLeftKey();
+    public abstract boolean handleReleaseRightKey();
+    public abstract boolean handleReleaseDownKey();
+    public abstract boolean handleReleaseUpKey();
+
+
 }

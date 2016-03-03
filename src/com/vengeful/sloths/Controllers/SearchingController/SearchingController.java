@@ -6,7 +6,10 @@ import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.Tile;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Utility.Coord;
+import com.vengeful.sloths.Utility.HexMath;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by zach on 2/22/16.
@@ -18,6 +21,7 @@ public abstract class SearchingController implements ModelVisitor {
     private boolean isSearching = true;
     private Entity entity;
     private Target highestPriorityTarget;
+    private Coord currentCoord;
 
     public SearchingController(Map map, Entity entity) {
         this.map = map;
@@ -54,6 +58,14 @@ public abstract class SearchingController implements ModelVisitor {
 
     public void setHighestPriorityTarget(Target highestPriorityTarget) {
         this.highestPriorityTarget = highestPriorityTarget;
+    }
+
+    public Coord getCurrentCoord() {
+        return currentCoord;
+    }
+
+    public void setCurrentCoord(Coord currentCoord) {
+        this.currentCoord = currentCoord;
     }
 
     protected Tile getTile(Coord coord){
@@ -120,13 +132,38 @@ public abstract class SearchingController implements ModelVisitor {
 
         Coord currCoord = entity.getLocation();
 
-        ArrayList<Tile> tiles;
-
+        //ArrayList<Tile> tiles;
+        Iterator<Coord> iter;
+        System.out.println("serach is called");
         while (currRing <= searchRadius) {
-            tiles = this.getTileRing(currCoord, currRing);
-            for (Tile tile : tiles) {
-                tile.accept(this);
+            //tiles = this.getTileRing(currCoord, currRing);
+            iter = HexMath.ring(currCoord, currRing);
+            System.out.println("getting ring " + currRing);
+
+            while(iter.hasNext()){
+                Coord current = iter.next();
+                this.setCurrentCoord(current);
+                //Tile currTile = null;
+                try {
+                    Tile currTile = Map.getInstance().getTile(current);
+                    currTile.accept(this);
+                }catch(Exception e){
+                    //whoops tried to lok outside the map probably
+                }
+
             }
+//            for (Tile tile : tiles) {
+//                System.out.println("checking tile");
+//                try {
+//                    tile.accept(this);
+//                }catch (Exception e){
+//                    //System.out.println("failed search");
+//                    System.out.println(e);
+//                    //this is because hes looking outside the map
+//                }
+//            }
+
+            ++currRing;
         }
         doneSearching();
     }

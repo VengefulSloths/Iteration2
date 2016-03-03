@@ -6,6 +6,7 @@ import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateS
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 import com.vengeful.sloths.AreaView.ViewTime;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
+import com.vengeful.sloths.Sound.SoundEffect;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.View.Observers.EntityObserver;
 
@@ -17,30 +18,7 @@ import java.awt.*;
 public class EntityViewObject extends MovingViewObject implements EntityObserver {
     private DynamicImage walkingN;
 
-    @Override
-    public void alertDrop(int x, int y, MapItem itemToDrop) {
 
-    }
-
-    @Override
-    public void alertEquipWeapon(String name) {
-
-    }
-
-    @Override
-    public void alertEquipHat(String name) {
-
-    }
-
-    @Override
-    public void alertLevelUp() {
-
-    }
-
-    @Override
-    public void alertDeath() {
-
-    }
 
     private DynamicImage walkingNE;
     private DynamicImage walkingNW;
@@ -146,15 +124,63 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
         rightHand.changeDirection(d);
     }
 
+    public void setLocation(int r, int s) {
+        leftHand.setR(r);
+        leftHand.setS(s);
+
+        rightHand.setR(r);
+        rightHand.setS(s);
+
+        setR(r);
+        setS(s);
+    }
+
+    @Override
+    public void setIsMoving(boolean isMoving) {
+        super.setIsMoving(isMoving);
+        leftHand.setIsMoving(isMoving);
+        rightHand.setIsMoving(isMoving);
+        ((DynamicTimedImage) currentDynamicImage).end();
+    }
+
     @Override
     public void movementHook(int r, int s, long duration) {
         ((DynamicTimedImage) currentDynamicImage).start(duration);
         leftHand.alertMove(r, s, duration);
         rightHand.alertMove(r, s, duration);
+        System.out.println("entity move hook activated");
+        (new SoundEffect("resources/audio/grass_step.wav")).play();
+
     }
 
     @Override
     public void accept(VOVisitor v) {
         v.visitEntity(this);
+    }
+
+
+    @Override
+    public void alertDrop(int x, int y, MapItem itemToDrop) {
+
+    }
+
+    @Override
+    public void alertEquipWeapon(String name) {
+
+    }
+
+    @Override
+    public void alertEquipHat(String name) {
+
+    }
+
+    @Override
+    public void alertLevelUp() {
+
+    }
+
+    @Override
+    public void alertDeath() {
+
     }
 }

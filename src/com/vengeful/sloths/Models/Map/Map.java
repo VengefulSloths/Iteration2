@@ -3,21 +3,31 @@ package com.vengeful.sloths.Models.Map;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
+import com.vengeful.sloths.Models.ViewObservable;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Location;
+import com.vengeful.sloths.View.Observers.MapObserver;
+import com.vengeful.sloths.View.Observers.ModelObserver;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by John on 2/21/2016.
  * This class now only contains the respawn point(See Utility.Location), an array of MapAreas, and the active mapArea
  * Map Area now contains all the tiles and logic for accessing them
  */
-public class Map implements ModelVisitable{
+public class Map implements ModelVisitable, ViewObservable{
     /**
     * PRIVATE VARIABLES RESPAWN POINT(UTILITY.LOCATION) AND MAPAREAS(MAPAREA)
      */
     private Location respawnPoint;
     private MapArea[] MapAreas;
     private MapArea activeMapArea;
+
+
+    private ArrayList<MapObserver> observers = new ArrayList<>();
+
     /**
     *CONSTRUCTORS INCLUDING THE DEFAULT CONSTRUCTOR
      */
@@ -75,10 +85,24 @@ public class Map implements ModelVisitable{
 
     public void setActiveMapArea(MapArea activeMapArea) {
         this.activeMapArea = activeMapArea;
+        Iterator<MapObserver> iter = observers.iterator();
+        while (iter.hasNext()) {
+            iter.next().alertMapAreaChange(activeMapArea);
+        }
     }
 
     @Override
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitMap(this);
+    }
+
+    @Override
+    public void registerObserver(ModelObserver modelObserver) {
+        observers.add((MapObserver) modelObserver);
+    }
+
+    @Override
+    public void deregisterObserver(ModelObserver modelObserver) {
+        observers.remove((MapObserver) modelObserver);
     }
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<repeating_animation>
+  <width>78</width>
+  <height>72</height>
+  <duration>1200</duration>
+  <rootPath>resources/effects/teleporting/</rootPath>
+  <fileName>teleport_1.png</fileName>
+  <fileName>teleport_2.png</fileName>
+  <fileName>teleport_3.png</fileName>
+  <fileName>teleport_4.png</fileName>
+  <fileName>teleport_5.png</fileName>
+  <fileName>teleport_6.png</fileName>
+  <fileName>teleport_7.png</fileName>
+  <fileName>teleport_8.png</fileName>
+  <positioning>center</positioning>
+</repeating_animation>

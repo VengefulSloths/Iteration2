@@ -28,6 +28,8 @@ public abstract class CameraView implements MovingVOObserver{
 
     private MovingViewObject avatar;
 
+    private boolean dontMoveAvatarFlag = true;
+
     public CameraView(ViewObjectFactory factory) {
         this.factory = factory;
     }
@@ -72,6 +74,7 @@ public abstract class CameraView implements MovingVOObserver{
     }
 
     public void addAvatar(AvatarViewObject avo) {
+        this.dontMoveAvatarFlag = false;
         addViewObject(avo);
         this.avatar = avo;
         parallaxBackground = new ParallaxBackground("resources/backgrounds/sky.xml", avo);
@@ -122,7 +125,6 @@ public abstract class CameraView implements MovingVOObserver{
                 destY = findY(destR,destS);
 
         System.out.println("View: Going from (" + srcR +", " + srcS + ") to (" + destR + ", " + destS + ")");
-
         if (destY > srcY) {
             tiles[srcX][srcY].removeChild(subject);
             tiles[destX][destY].addChild(subject);
@@ -131,8 +133,11 @@ public abstract class CameraView implements MovingVOObserver{
                     new vCommand() {
                         @Override
                         public void execute() {
+
                             tiles[srcX][srcY].removeChild(subject);
-                            tiles[destX][destY].addChild(subject);
+                            if (subject != avatar || !dontMoveAvatarFlag) {
+                                tiles[destX][destY].addChild(subject);
+                            }
                         }
                     });
         }
@@ -151,6 +156,25 @@ public abstract class CameraView implements MovingVOObserver{
                 int s = current.getS();
                 tiles[findX(r, s)][findY(r,s)].setVisibility(Visibility.NONVISIBLE);
             }
+        }
+    }
+    public void cleanUp() {
+        for (int i=0; i<maxX; i++) {
+            for (int j = 0; j < maxY; j++) {
+                if (tiles[i][j] != null) {
+                    tiles[i][j].removeChild(avatar);
+                }
+            }
+        }
+        this.dontMoveAvatarFlag = true;
+        this.avatar.deregisterObserver(this);
+
+        Iterator<Coord> toBeConcealed = HexMath.saftey(HexMath.hexagon(new Coord(avatar.getR(), avatar.getS()), 6), maxR, maxS);
+        while(toBeConcealed.hasNext()) {
+            Coord current = toBeConcealed.next();
+            int r = current.getR();
+            int s = current.getS();
+            tiles[findX(r, s)][findY(r,s)].setVisibility(Visibility.NONVISIBLE);
         }
     }
 

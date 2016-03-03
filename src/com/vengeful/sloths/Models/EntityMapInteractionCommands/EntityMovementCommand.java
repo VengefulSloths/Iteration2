@@ -72,20 +72,22 @@ public class EntityMovementCommand implements Alertable{
         if (canMoveVisitor.canMove()) {
             map.getActiveMapArea().getTile(src).removeEntity(subject);
 
-            map.getActiveMapArea().getTile(dst).addEntity(subject);
 
             subject.setLocation(dst);
             subject.setActive(true);
+
+
 
             int moveTicks = MAX_MOVESPEED - movementSpeed;
             TimeModel.getInstance().registerAlertable(this, moveTicks);
 
 
             while (entityObserverIterator.hasNext()) {
-
                 entityObserverIterator.next().alertMove(dst.getR(), dst.getS(), moveTicks* TimeController.MODEL_TICK);
             }
 
+            //This needs to be last for teleporting, bad connasence
+            map.getActiveMapArea().getTile(dst).addEntity(subject);
             return moveTicks;
 
         } else {

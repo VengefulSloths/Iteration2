@@ -7,6 +7,7 @@ import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
+import com.vengeful.sloths.Models.Map.*;
 import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.Map.Terrains.Grass;
@@ -53,6 +54,8 @@ public class LevelFactory {
     public void createTestMap() {
         this.cameras = new CameraViewManager();
 
+
+        //Area 1
         int max = 20;
         MapArea area1 = new MapArea(max,max);
         for (int i=0;i<max;i++) {
@@ -91,22 +94,54 @@ public class LevelFactory {
         area1.getTile(new Coord(11,1)).addMapItem(new OneShotItem(new Coord(11,1)));
 
 
-        area1.getTile(new Coord(1,2)).addMapItem(new TakeableItem("redPotion", new Potion("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(1,2)));
+        area1.getTile(new Coord(2,2)).addMapItem(new TakeableItem("redPotion", new Potion("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(1,2)));
         area1.getTile(new Coord(11,10)).addMapItem(new TakeableItem("bluePotion", new Potion("bluePotion",new BaseStatsAddable(0,0,5,0,0)), new Coord(11,10)));
 
 
+
+
+
+
+        //Area 2
+        MapArea area2 = new MapArea(10,10);
+        for (int i=0;i<10;i++) {
+            for (int j = 0; j < 10; j++) {
+                area2.addTile(new Coord(i,j), new  Tile( j > 6 ? new Water() : new Grass()));
+            }
+        }
+
+        TeleportDestinationTile d1 = new TeleportDestinationTile(new Coord(1,2));
+        TeleportSenderTile s1 = new TeleportSenderTile(area1, d1);
+        area1.addTile(d1.getLocation(), d1);
+        area2.addTile(new Coord(0,0), s1);
+
+        TeleportDestinationTile d2 = new TeleportDestinationTile(new Coord(2,1));
+        TeleportSenderTile s2 = new TeleportSenderTile(area2, d2);
+        area2.addTile(d2.getLocation(), d2);
+        area1.addTile(new Coord(0,0), s2);
+
+
+
+        CameraView camera2 = new PlainsCameraView();
         CameraView camera1 = new PlainsCameraView();
+
+
+        camera2.init(area2);
         camera1.init(area1);
 
-        cameras.addCameraView(camera1);
 
-        MapArea[] areas = new MapArea[1];
+        cameras.addCameraView(area2, camera2);
+        cameras.addCameraView(area1, camera1);
+
+
+        MapArea[] areas = new MapArea[2];
         areas[0] = area1;
-        //this.map = new Map(new Location(area1, new Coord(3,3)),areas);
+        areas[1] = area2;
+
         this.map = Map.getInstance();
         this.map.setMapAreas(areas);
         this.map.setRespawnPoint(new Location(area1, new Coord(3,3)));
-        this.map.setActiveMapArea(area1);
+        this.map.setActiveMapArea(area2);
 
         this.spawnPoint = new Coord(2,1);
     }

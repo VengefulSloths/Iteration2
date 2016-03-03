@@ -87,9 +87,10 @@ public class Tile implements ModelVisitable {
 
     public void addEntity(Entity entity){
         //may need to check for an entity already being on the tile
-        this.interact(entity);
 
         this.entities.add(entity);
+        this.interact(entity);
+
         //For some reason check hasmapItem, and check hasAE logic can't be here
         //Have to put the checking logic in movement command or the Pickup/drop, AE commands would not work
     }
@@ -221,18 +222,6 @@ public class Tile implements ModelVisitable {
             ++i;
         }
         return nonColE;
-    }
-
-    public void setNonCollideableEntities(ArrayList<Entity> nonCollideableEntities) {
-        this.nonCollideableEntities = nonCollideableEntities;
-    }
-
-    public void addNonCollideableEntity(Entity entity){
-        this.nonCollideableEntities.add(entity);
-    }
-
-    public void removeNonCollideableEntity(Entity entity){
-        this.nonCollideableEntities.remove(entity);
     }
 
     /**

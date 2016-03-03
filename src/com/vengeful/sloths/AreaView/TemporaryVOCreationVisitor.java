@@ -2,6 +2,7 @@ package com.vengeful.sloths.AreaView;
 
 import com.vengeful.sloths.AreaView.ViewObjects.AvatarViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.SimpleHexCoordinateStrategy;
+import com.vengeful.sloths.AreaView.ViewObjects.EvilBlobViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.CenterAvatarLocationStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.PiggyViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.TakeableViewObject;
@@ -21,8 +22,7 @@ import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Hat;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
-import com.vengeful.sloths.Models.Map.Map;
-import com.vengeful.sloths.Models.Map.MapArea;
+import com.vengeful.sloths.Models.Map.*;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
 import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
@@ -30,7 +30,6 @@ import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.Map.Terrains.Grass;
 import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
-import com.vengeful.sloths.Models.Map.Tile;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Smasher;
@@ -72,20 +71,27 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
     }
 
+
+    private boolean firstAvatarFlag = true;
+    private AvatarViewObject avo;
+    private ProxyEntityObserver peo;
     @Override
     public void visitAvatar(Avatar avatar) {
-        AvatarViewObject avo = factory.createAvatarViewObject(avatar.getLocation().getR(),
+        if (peo != null) {
+            peo.deregister();
+        }
+        this.avo = factory.createAvatarViewObject(avatar.getLocation().getR(),
                 avatar.getLocation().getS(),
                 "resources/entities/smasher/");
 
         //Let avo observe avatar through a proxy
-        new ProxyEntityObserver(avo, avatar);
-
-        //let the cameraView watch avatar for movement
-        avo.registerObserver(activeCameraView);
+        peo = new ProxyEntityObserver(avo, avatar);
 
         //Let the AvatarViewFollower follow the avo
         AvatarViewFollower.getInstance().bindToViewObject(avo);
+
+        //let the cameraView watch avatar for movement
+        avo.registerObserver(activeCameraView);
 
         //Set the camera views avatar to this
         activeCameraView.addAvatar(avo);
@@ -102,7 +108,10 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
     @Override
     public void visitAggressiveNPC(AggressiveNPC aNPC) {
-
+        EvilBlobViewObject ebvo = factory.createEvilBlobViewObject(aNPC.getLocation().getR(), aNPC.getLocation().getS(), "resources/entities/cyclops/");
+        aNPC.registerObserver(ebvo);
+        ebvo.registerObserver(activeCameraView);
+        this.activeCameraView.addViewObject(ebvo);
     }
 
     @Override
@@ -215,6 +224,16 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     @Override
     public void visitMapItem(MapItem mapItem) {
 
+    }
+
+    @Override
+    public void visitTeleportSenderTile(TeleportSenderTile t) {
+        visitTile(t);
+    }
+
+    @Override
+    public void visitTeleportDestinationTile(TeleportDestinationTile t) {
+        visitTile(t);
     }
 
     @Override

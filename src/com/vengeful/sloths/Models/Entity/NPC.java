@@ -12,8 +12,8 @@ import com.vengeful.sloths.Utility.Direction;
 public abstract class NPC extends Entity{
 
     //pass in stats
-    public NPC(String name, BuffManager buffManager, Stats stats){
-        super(name, buffManager, stats);
+    public NPC(String name, Stats stats){
+        super(name, stats);
     }
 
     public void talk(){

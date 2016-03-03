@@ -68,6 +68,7 @@ public class TileViewObject extends ViewObject implements DestroyVOObserver{
         } else if (this.visibility == Visibility.VISIBLE && visibility == Visibility.NONVISIBLE) {
 
 
+            //TODO: got to zachs method
             preCalcNonVisibleImage();
 
 
@@ -91,8 +92,10 @@ public class TileViewObject extends ViewObject implements DestroyVOObserver{
 
         temp = temp.getSubimage(getWeirdXOffset(), getWeirdYOffset(), 78, 128);
 
-
         nonVisibleImage = darkenOp.filter(temp, temp);
+
+
+        //nonVisibleImage = darkenOp.filter(temp, temp);
 
     }
 
@@ -116,7 +119,9 @@ public class TileViewObject extends ViewObject implements DestroyVOObserver{
     }
 
     public void removeChild(ViewObject child) {
-        children.remove(child);
+        if (children.contains(child)) {
+            children.remove(child);
+        }
     }
 
 

@@ -1,5 +1,7 @@
 package com.vengeful.sloths.AreaView.ViewObjects;
 
+import com.vengeful.sloths.AreaView.DecalViewObject;
+
 /**
  * Created by alexs on 2/23/2016.
  */
@@ -40,5 +42,10 @@ public class VOSorter implements VOVisitor {
     @Override
     public void visitTakeable(TakeableViewObject t) {
         zLevel = 400;
+    }
+
+    @Override
+    public void visitDecal(DecalViewObject d) {
+        zLevel = 300;
     }
 }

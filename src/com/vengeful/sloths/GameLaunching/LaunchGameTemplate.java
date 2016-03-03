@@ -56,7 +56,9 @@ public class LaunchGameTemplate {
         //Make sure that area view is created before this
 
         //TemporaryVOCreationVisitor.getInstance().setActiveCameraView(cameras.getCurrentCameraView());
-        TemporaryVOCreationVisitor.getInstance().visitAvatar(avatar);
+
+        //This got moved to MapAReasetActiveCameraView
+        //TemporaryVOCreationVisitor.getInstance().visitAvatar(avatar);
 
         EntityMapInteractionFactory.getInstance().init(map);
     }

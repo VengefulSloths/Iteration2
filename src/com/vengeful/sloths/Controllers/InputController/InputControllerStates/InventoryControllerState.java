@@ -101,6 +101,26 @@ public class InventoryControllerState extends InputControllerState{
     }
 
     @Override
+    public boolean handleLeftKey() {
+        return false;
+    }
+
+    @Override
+    public boolean handleRightKey() {
+        return false;
+    }
+
+    @Override
+    public boolean handleDownKey() {
+        return false;
+    }
+
+    @Override
+    public boolean handleUpKey() {
+        return false;
+    }
+
+    @Override
     public void handleRelease1Key() {
 
     }
@@ -143,5 +163,25 @@ public class InventoryControllerState extends InputControllerState{
     @Override
     public void handleRelease5Key() {
 
+    }
+
+    @Override
+    public boolean handleReleaseLeftKey() {
+        return false;
+    }
+
+    @Override
+    public boolean handleReleaseRightKey() {
+        return false;
+    }
+
+    @Override
+    public boolean handleReleaseDownKey() {
+        return false;
+    }
+
+    @Override
+    public boolean handleReleaseUpKey() {
+        return false;
     }
 }
