@@ -66,7 +66,8 @@ public class TileViewObject extends ViewObject{
         } else if (this.visibility == Visibility.VISIBLE && visibility == Visibility.NONVISIBLE) {
 
 
-            preCalcNonVisibleImage();
+            //TODO: got to zachs method
+            //preCalcNonVisibleImage();
 
 
 

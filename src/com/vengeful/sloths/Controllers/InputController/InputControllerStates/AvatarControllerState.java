@@ -1,6 +1,8 @@
 package com.vengeful.sloths.Controllers.InputController.InputControllerStates;
 
+import com.vengeful.sloths.AreaView.AvatarViewFollower;
 import com.vengeful.sloths.Models.Entity.Avatar;
+import com.vengeful.sloths.Utility.CartesionDirection;
 import com.vengeful.sloths.Utility.Direction;
 
 /**
@@ -9,13 +11,18 @@ import com.vengeful.sloths.Utility.Direction;
 public class AvatarControllerState extends InputControllerState {
 
     private Avatar avatar = Avatar.getInstance();
+    private AvatarViewFollower follower = AvatarViewFollower.getInstance();
     private Direction currentMovementDirection = null;
+    private CartesionDirection currentFollowerDirection = new CartesionDirection();
 
     @Override
     public void continuousFunction() {
         //do something continuously
+
+        follower.move(currentFollowerDirection.getDirection());
+
+
         if(currentMovementDirection != null){
-            System.out.println("moving");
             avatar.move(currentMovementDirection);
         }
     }
@@ -123,7 +130,29 @@ public class AvatarControllerState extends InputControllerState {
         return false;
     }
 
+    @Override
+    public boolean handleLeftKey() {
+        this.currentFollowerDirection.addDirection(CartesionDirection.Direction.W);
+        return true;
+    }
 
+    @Override
+    public boolean handleRightKey() {
+        this.currentFollowerDirection.addDirection(CartesionDirection.Direction.E);
+        return true;
+    }
+
+    @Override
+    public boolean handleDownKey() {
+        this.currentFollowerDirection.addDirection(CartesionDirection.Direction.S);
+        return true;
+    }
+
+    @Override
+    public boolean handleUpKey() {
+        this.currentFollowerDirection.addDirection(CartesionDirection.Direction.N);
+        return true;
+    }
 
 
     /////////////////////////handle key releases/////////////////////////
@@ -182,5 +211,30 @@ public class AvatarControllerState extends InputControllerState {
     @Override
     public void handleRelease5Key() {
 
+    }
+
+    @Override
+    public boolean handleReleaseLeftKey() {
+        this.currentFollowerDirection.addDirection(CartesionDirection.Direction.E);
+        return true;
+    }
+
+    @Override
+    public boolean handleReleaseRightKey() {
+        this.currentFollowerDirection.addDirection(CartesionDirection.Direction.W);
+        return true;
+    }
+
+    @Override
+    public boolean handleReleaseDownKey() {
+        this.currentFollowerDirection.addDirection(CartesionDirection.Direction.N);
+        return true;
+    }
+
+    @Override
+    public boolean handleReleaseUpKey() {
+        System.out.println("realased up");
+        this.currentFollowerDirection.addDirection(CartesionDirection.Direction.S);
+        return true;
     }
 }

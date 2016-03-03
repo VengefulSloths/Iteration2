@@ -43,7 +43,18 @@ public class QWEASDInputStrategy extends InputStrategy {
             case KeyEvent.VK_ESCAPE:
                 state.handleESCKey();
                 break;
-
+            case KeyEvent.VK_UP:
+                state.handleUpKey();
+                break;
+            case KeyEvent.VK_DOWN:
+                state.handleDownKey();
+                break;
+            case KeyEvent.VK_RIGHT:
+                state.handleRightKey();
+                break;
+            case KeyEvent.VK_LEFT:
+                state.handleLeftKey();
+                break;
         }
     }
 
@@ -67,6 +78,18 @@ public class QWEASDInputStrategy extends InputStrategy {
                 break;
             case KeyEvent.VK_D:
                 state.handleRelease3Key();
+                break;
+            case KeyEvent.VK_UP:
+                state.handleReleaseUpKey();
+                break;
+            case KeyEvent.VK_DOWN:
+                state.handleReleaseDownKey();
+                break;
+            case KeyEvent.VK_RIGHT:
+                state.handleReleaseRightKey();
+                break;
+            case KeyEvent.VK_LEFT:
+                state.handleReleaseLeftKey();
                 break;
 
 
