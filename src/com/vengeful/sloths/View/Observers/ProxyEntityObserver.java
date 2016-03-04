@@ -48,7 +48,14 @@ public class ProxyEntityObserver extends ProxyObserver
     @Override
     public void alertEquipWeapon(String name) {
         if (!deleteFlag) {
-            target.alertEquipWeapon(name);
+            ViewTime.getInstance().registerAlert(0, () -> target.alertEquipWeapon(name));
+        }
+    }
+
+    @Override
+    public void alertUnequipWeapon() {
+        if (!deleteFlag) {
+            ViewTime.getInstance().registerAlert(0, () -> target.alertUnequipWeapon());
         }
     }
 
@@ -64,7 +71,14 @@ public class ProxyEntityObserver extends ProxyObserver
     @Override
     public void alertEquipHat(String name) {
         if (!deleteFlag) {
-            target.alertEquipHat(name);
+            ViewTime.getInstance().registerAlert(0, () -> target.alertEquipHat(name));
+        }
+    }
+
+    @Override
+    public void alertUnequipHat() {
+        if (!deleteFlag) {
+            ViewTime.getInstance().registerAlert(0, () -> target.alertUnequipHat());
         }
     }
 

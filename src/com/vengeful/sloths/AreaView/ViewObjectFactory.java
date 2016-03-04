@@ -3,6 +3,7 @@ package com.vengeful.sloths.AreaView;
 import com.vengeful.sloths.AreaView.ViewObjects.*;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
+import com.vengeful.sloths.Utility.Direction;
 
 /**
  * Created by alexs on 2/22/2016.
@@ -52,6 +53,10 @@ public abstract class ViewObjectFactory {
 
     public AttackViewObject createAttackViewObject(int r, int s, String resourcePath, long duration) {
         return new AttackViewObject(r, s, cs, ls, resourcePath, duration);
+    }
+
+    public HatViewObject createHatViewObject(int r, int s, String resourcePath, Direction d) {
+        return new HatViewObject(r, s, cs, ls, resourcePath, d);
     }
 
     public LocationStrategy getLocationStrategy() {

@@ -34,6 +34,7 @@ import com.vengeful.sloths.Models.Occupation.Sneak;
 import com.vengeful.sloths.Models.Occupation.Summoner;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
+import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.View.Observers.ModelObserver;
 import com.vengeful.sloths.View.Observers.ProxyDestoyableObserver;
 import com.vengeful.sloths.View.Observers.ProxyEntityObserver;
@@ -79,6 +80,11 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
         activeCameraView.addViewObject(attack);
         return attack;
     }
+
+    public HatViewObject createHat(int r, int s, String resourcePath, Direction direction) {
+        return factory.createHatViewObject(r, s, resourcePath, direction);
+    }
+
 
     private boolean firstAvatarFlag = true;
     private AvatarViewObject avo;

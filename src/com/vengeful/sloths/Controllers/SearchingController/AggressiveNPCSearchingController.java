@@ -188,7 +188,7 @@ public class AggressiveNPCSearchingController extends SearchingController {
                 currEntity.accept(this);
             }
         }
-        System.out.println("SEARCHING TILE");
+        //System.out.println("SEARCHING TILE");
     }
 
     @Override
@@ -207,7 +207,7 @@ public class AggressiveNPCSearchingController extends SearchingController {
                 currEntity.accept(this);
             }
         }
-        System.out.println("SEARCHING TILE");
+        //System.out.println("SEARCHING TILE");
     }
 
     @Override
@@ -222,7 +222,7 @@ public class AggressiveNPCSearchingController extends SearchingController {
                 currEntity.accept(this);
             }
         }
-        System.out.println("SEARCHING TILE");
+        //System.out.println("SEARCHING TILE");
     }
 
     @Override

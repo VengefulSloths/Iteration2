@@ -18,6 +18,8 @@ import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.View.Observers.EntityObserver;
 
+import java.util.Iterator;
+
 /**
  * Created by luluding on 2/21/16.
  */
@@ -71,11 +73,27 @@ public class Avatar extends Entity{
 
 
     public void equip(EquippableItems item) {
-        item.addToEquipped(this.getEquipped());
+        //Alex wrote this for testing delete whenever
+        if (item == null) {
+            Iterator<EntityObserver> iter = getObservers().iterator();
+            while (iter.hasNext()) {
+                iter.next().alertEquipHat("tophat");
+            }
+        } else {
+            item.addToEquipped(this.getEquipped());
+        }
     }
 
     public void unequip(EquippableItems item) {
-        item.removeFromEquipped(this.getEquipped());
+        //Same as above
+        if (item == null) {
+            Iterator<EntityObserver> iter = getObservers().iterator();
+            while (iter.hasNext()) {
+                iter.next().alertUnequipHat();
+            }
+        } else {
+            item.removeFromEquipped(this.getEquipped());
+        }
     }
 
 
