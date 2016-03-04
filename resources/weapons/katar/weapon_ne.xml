@@ -4,5 +4,5 @@
   <height>40</height>
   <rootPath>resources/weapons/katar/</rootPath>
   <fileName>weapon_ne.png</fileName>
-  <positioning xOffset="-10" yOffset="-10">custom</positioning>
+  <positioning xOffset="-20" yOffset="-20">custom</positioning>
 </single_frame_animation>

@@ -18,26 +18,33 @@ import java.util.ArrayList;
  */
 public class UnarmedState implements HandState{
 
-    private HandViewObject leftHand;
-    private HandViewObject rightHand;
+    //private HandViewObject leftHand;
+    //private HandViewObject rightHand;
 
-    private ArrayList<HandViewObject> foreground = new ArrayList<>();
-    private ArrayList<HandViewObject> background = new ArrayList<>();
+    private ArrayList<SmartHandViewObject> foreground = new ArrayList<>();
+    private ArrayList<SmartHandViewObject> background = new ArrayList<>();
+
+    private SmartHandViewObject leftHand;
+    private SmartHandViewObject rightHand;
+
+    private WalkingStrategy  walkingStrategy;
 
     private final int radius = 27;
-    private final int height = 18;
+    private final int height = 42;
 
     private Direction direction;
 
     public UnarmedState(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy,
                         String resourcePath, Direction direction) {
 
-        //- radius
-        leftHand = new HandViewObject(r, s, coordinateStrategy, locationStrategy,
-                resourcePath, -radius, height, direction );
+        this.walkingStrategy = new SimpleWalkingStrategy(10);
 
-        rightHand = new HandViewObject(r, s, coordinateStrategy, locationStrategy,
-                resourcePath, radius, height, direction );
+        //- radius
+        leftHand = new SmartHandViewObject(r, s, coordinateStrategy, locationStrategy,
+                resourcePath, radius, height, Math.PI/2, 0,  direction );
+
+        rightHand = new SmartHandViewObject(r, s, coordinateStrategy, locationStrategy,
+                resourcePath, radius, height, -Math.PI/2, 0, direction );
 
         changeDirection(direction);
 
@@ -98,33 +105,35 @@ public class UnarmedState implements HandState{
     public void alertMove(int r, int s, long duration) {
         leftHand.alertMove(r, s, duration);
         rightHand.alertMove(r, s, duration);
+        walkingStrategy.startWalking(leftHand, duration);
+        walkingStrategy.startWalking(rightHand, duration);
     }
 
     @Override
     public void attack(int r, int s, long duration) {
-        rightHand.forward(5, duration/2);
-        leftHand.in(5, duration/2);
-        ViewTime.getInstance().registerAlert(duration*8/9, () -> {
-            rightHand.reset();
-            leftHand.reset();
-        });
-
-        AttackViewObject attack = TemporaryVOCreationVisitor.getInstance().createAttack(r, s, "resources/effects/punch/punch.xml", duration);
-        ViewTime.getInstance().registerAlert(duration*3/7, () ->attack.start());
+//        rightHand.forward(5, duration/2);
+//        leftHand.in(5, duration/2);
+//        ViewTime.getInstance().registerAlert(duration*8/9, () -> {
+//            rightHand.reset();
+//            leftHand.reset();
+//        });
+//
+//        AttackViewObject attack = TemporaryVOCreationVisitor.getInstance().createAttack(r, s, "resources/effects/punch/punch.xml", duration);
+//        ViewTime.getInstance().registerAlert(duration*3/7, () ->attack.start());
 
 
     }
 
     @Override
     public void paintFront(Graphics2D g) {
-        for (HandViewObject hand: foreground) {
+        for (SmartHandViewObject hand: foreground) {
             hand.paintComponent(g);
         }
     }
 
     @Override
     public void paintBack(Graphics2D g) {
-        for (HandViewObject hand: background) {
+        for (SmartHandViewObject hand: background) {
             hand.paintComponent(g);
         }
     }
