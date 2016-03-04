@@ -9,6 +9,6 @@ import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrat
 public class AvatarViewObject extends EntityViewObject{
 
     public AvatarViewObject(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy, String resourcePath) {
-        super(r, s, coordinateStrategy, locationStrategy, resourcePath);
+        super(r, s, coordinateStrategy, locationStrategy, resourcePath, "bald");
     }
 }

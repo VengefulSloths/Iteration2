@@ -56,6 +56,8 @@ public class driver {
 
         testEnemy.getStats().subtract(new CurrentHealthAddable(1));
 
+        ViewTime.getInstance().registerAlert(3000, () -> testAvatar.equip(null));
+        ViewTime.getInstance().registerAlert(6000, () -> testAvatar.unequip(null));
 
 //        while (count < 120) {
 //            executor.schedule(new Runnable() {

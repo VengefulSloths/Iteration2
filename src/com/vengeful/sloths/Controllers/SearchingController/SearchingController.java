@@ -134,7 +134,6 @@ public abstract class SearchingController implements ModelVisitor {
 
         //ArrayList<Tile> tiles;
         Iterator<Coord> iter;
-        System.out.println("serach is called");
         while (currRing <= searchRadius) {
             //tiles = this.getTileRing(currCoord, currRing);
             iter = HexMath.ring(currCoord, currRing);

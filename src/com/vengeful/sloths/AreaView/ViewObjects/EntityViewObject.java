@@ -1,7 +1,10 @@
 package com.vengeful.sloths.AreaView.ViewObjects;
 
 
+import com.sun.xml.internal.stream.Entity;
 import com.vengeful.sloths.AreaView.DynamicImages.*;
+import com.vengeful.sloths.AreaView.PlainsPersistantViewObjectFactory;
+import com.vengeful.sloths.AreaView.TemporaryVOCreationVisitor;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.Hands.HandViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.Hands.HandsCoordinator;
@@ -27,6 +30,8 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     private DynamicImage walkingSE;
     private DynamicImage walkingSW;
 
+
+    private HatViewObject hat;
 
     //private HandViewObject leftHand;
     //private HandViewObject rightHand;
@@ -55,8 +60,15 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
 
         this.healthBar = new HealthBarViewObject(r,s,coordinateStrategy,locationStrategy);
 
+        this.hat = new HatViewObject(r, s, coordinateStrategy, locationStrategy, direction);
+
         //TODO: delete this testing code
         //this.rightHand.hold(new WeaponImageContainer("resources/weapons/dagger/", Direction.S));
+    }
+
+    public EntityViewObject(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy, String resourcePath, String defaultHatName) {
+        this(r, s, coordinateStrategy, locationStrategy, resourcePath);
+        this.hat.setDefaultHatPath("resources/equipment/" + defaultHatName + "/");
     }
 
     private void paintBody(Graphics2D g) {
@@ -71,6 +83,7 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
         healthBar.paintComponent(g);
         hands.paintBack(g);
         paintBody(g);
+        hat.paintComponent(g);
         hands.paintFront(g);
     }
 
@@ -99,11 +112,13 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
 
         }
         hands.changeDirection(d);
+        hat.changeDirection(d);
     }
 
     public void setLocation(int r, int s) {
 
         hands.setLocation(r, s);
+        hat.setLocation(r, s);
         healthBar.setR(r);
         healthBar.setS(s);
 
@@ -129,9 +144,8 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
         //leftHand.alertMove(r, s, duration);
         //rightHand.alertMove(r, s, duration);
         healthBar.alertMove(r,s,duration);
-
         hands.alertMove(r, s, duration);
-        System.out.println("entity move hook activated");
+        hat.alertMove(r, s, duration);
         (new SoundEffect("resources/audio/grass_step.wav")).play();
 
     }
@@ -158,8 +172,18 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     }
 
     @Override
-    public void alertEquipHat(String name) {
+    public void alertUnequipWeapon() {
 
+    }
+
+    @Override
+    public void alertEquipHat(String name) {
+        this.hat.equip("resources/equipment/" + name + "/");
+    }
+
+    @Override
+    public void alertUnequipHat() {
+        this.hat.unequip();
     }
 
     @Override
