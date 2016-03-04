@@ -16,6 +16,7 @@ import com.vengeful.sloths.Models.Stats.StatAddables.HealthManaExperienceAddable
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
+import com.vengeful.sloths.Utility.WeaponClass;
 import com.vengeful.sloths.View.Observers.EntityObserver;
 
 import java.util.Iterator;
@@ -72,29 +73,7 @@ public class Avatar extends Entity{
     }
 
 
-    public void equip(EquippableItems item) {
-        //Alex wrote this for testing delete whenever
-        if (item == null) {
-            Iterator<EntityObserver> iter = getObservers().iterator();
-            while (iter.hasNext()) {
-                iter.next().alertEquipHat("tophat");
-            }
-        } else {
-            item.addToEquipped(this.getEquipped());
-        }
-    }
 
-    public void unequip(EquippableItems item) {
-        //Same as above
-        if (item == null) {
-            Iterator<EntityObserver> iter = getObservers().iterator();
-            while (iter.hasNext()) {
-                iter.next().alertUnequipHat();
-            }
-        } else {
-            item.removeFromEquipped(this.getEquipped());
-        }
-    }
 
 
     public void consumeItem(ConsumableItems item){

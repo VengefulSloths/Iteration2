@@ -8,41 +8,27 @@ import com.vengeful.sloths.Utility.Direction;
  * Created by alexs on 2/25/2016.
  */
 public class WeaponImageContainer {
-    private DynamicImage weaponFrontN;
-    private DynamicImage weaponFrontNE;
-    private DynamicImage weaponFrontNW;
-    private DynamicImage weaponFrontSE;
-    private DynamicImage weaponFrontSW;
-    private DynamicImage weaponFrontS;
+
+    private DynamicImage weaponN;
+    private DynamicImage weaponNE;
+    private DynamicImage weaponNW;
+    private DynamicImage weaponSE;
+    private DynamicImage weaponSW;
+    private DynamicImage weaponS;
 
 
-    private DynamicImage weaponBackN;
-    private DynamicImage weaponBackNE;
-    private DynamicImage weaponBackNW;
-    private DynamicImage weaponBackSE;
-    private DynamicImage weaponBackSW;
-    private DynamicImage weaponBackS;
 
-    private DynamicImage currentBack;
-    private DynamicImage currentFront;
-
+    private DynamicImage currentImage;
 
     public WeaponImageContainer(String resourcePath, Direction dir) {
         DynamicImageFactory dif = DynamicImageFactory.getInstance();
 
-        this.weaponBackN = dif.loadDynamicImage(resourcePath + "weapon_back_N.xml");
-        this.weaponBackS = dif.loadDynamicImage(resourcePath + "weapon_back_S.xml");
-        this.weaponBackNW = dif.loadDynamicImage(resourcePath + "weapon_back_NW.xml");
-        this.weaponBackNE = dif.loadDynamicImage(resourcePath + "weapon_back_NE.xml");
-        this.weaponBackSW = dif.loadDynamicImage(resourcePath + "weapon_back_SW.xml");
-        this.weaponBackSE = dif.loadDynamicImage(resourcePath + "weapon_back_SE.xml");
-
-        this.weaponFrontN = dif.loadDynamicImage(resourcePath + "weapon_front_N.xml");
-        this.weaponFrontS = dif.loadDynamicImage(resourcePath + "weapon_front_S.xml");
-        this.weaponFrontNW = dif.loadDynamicImage(resourcePath + "weapon_front_NW.xml");
-        this.weaponFrontNE = dif.loadDynamicImage(resourcePath + "weapon_front_NE.xml");
-        this.weaponFrontSW = dif.loadDynamicImage(resourcePath + "weapon_front_SW.xml");
-        this.weaponFrontSE = dif.loadDynamicImage(resourcePath + "weapon_front_SE.xml");
+        this.weaponN = dif.loadDynamicImage(resourcePath + "weapon_n.xml");
+        this.weaponS = dif.loadDynamicImage(resourcePath + "weapon_s.xml");
+        this.weaponNW = dif.loadDynamicImage(resourcePath + "weapon_nw.xml");
+        this.weaponNE = dif.loadDynamicImage(resourcePath + "weapon_ne.xml");
+        this.weaponSW = dif.loadDynamicImage(resourcePath + "weapon_sw.xml");
+        this.weaponSE = dif.loadDynamicImage(resourcePath + "weapon_se.xml");
 
         this.alertDirectionChange(dir);
     }
@@ -50,38 +36,28 @@ public class WeaponImageContainer {
     public void alertDirectionChange(Direction direction) {
         switch (direction) {
             case N:
-                this.currentFront = weaponFrontN;
-                this.currentBack = weaponBackN;
+                this.currentImage = weaponN;
                 break;
             case S:
-                this.currentFront = weaponFrontS;
-                this.currentBack = weaponBackS;
+                this.currentImage = weaponS;
                 break;
             case NE:
-                this.currentFront = weaponFrontNE;
-                this.currentBack = weaponBackNE;
+                this.currentImage = weaponNE;
                 break;
             case NW:
-                this.currentFront = weaponFrontNW;
-                this.currentBack = weaponBackNW;
+                this.currentImage = weaponNW;
                 break;
             case SE:
-                this.currentFront = weaponFrontSE;
-                this.currentBack = weaponBackSE;
+                this.currentImage = weaponSE;
                 break;
             case SW:
-                this.currentFront = weaponFrontSW;
-                this.currentBack = weaponBackSW;
+                this.currentImage = weaponSW;
                 break;
         }
     }
 
-    public DynamicImage getWeaponBack() {
-        return this.currentBack;
-    }
 
-
-    public DynamicImage getWeaponFront() {
-        return this.currentFront;
+    public DynamicImage getCurrentDynamicImage() {
+        return this.currentImage;
     }
 }

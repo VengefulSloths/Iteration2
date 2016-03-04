@@ -5,6 +5,7 @@ import com.vengeful.sloths.AreaView.vCommand;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.ViewObservable;
 import com.vengeful.sloths.Utility.Direction;
+import com.vengeful.sloths.Utility.WeaponClass;
 
 /**
  * Created by alexs on 1/31/2016.
@@ -46,9 +47,9 @@ public class ProxyEntityObserver extends ProxyObserver
     }
 
     @Override
-    public void alertEquipWeapon(String name) {
+    public void alertEquipWeapon(String name, WeaponClass weaponClass) {
         if (!deleteFlag) {
-            ViewTime.getInstance().registerAlert(0, () -> target.alertEquipWeapon(name));
+            ViewTime.getInstance().registerAlert(0, () -> target.alertEquipWeapon(name, weaponClass));
         }
     }
 

@@ -5,8 +5,10 @@ import com.vengeful.sloths.AreaView.TemporaryVOCreationVisitor;
 import com.vengeful.sloths.AreaView.ViewObjects.AttackViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
+import com.vengeful.sloths.AreaView.ViewObjects.WeaponImageContainer;
 import com.vengeful.sloths.AreaView.ViewTime;
 import com.vengeful.sloths.Utility.Direction;
+import com.vengeful.sloths.Utility.WeaponClass;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -85,6 +87,11 @@ public class UnarmedState implements HandState{
                 break;
         }
 
+    }
+    @Override
+    public void addWeapon(WeaponImageContainer weapon) {
+        rightHand.hold(weapon);
+        leftHand.hold(weapon);
     }
 
     @Override

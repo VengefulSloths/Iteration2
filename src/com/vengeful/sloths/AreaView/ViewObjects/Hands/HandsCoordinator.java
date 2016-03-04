@@ -3,7 +3,9 @@ package com.vengeful.sloths.AreaView.ViewObjects.Hands;
 
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
+import com.vengeful.sloths.AreaView.ViewObjects.WeaponImageContainer;
 import com.vengeful.sloths.Utility.Direction;
+import com.vengeful.sloths.Utility.WeaponClass;
 
 import java.awt.*;
 
@@ -15,12 +17,14 @@ public class HandsCoordinator {
 
     private HandState state;
 
-    private int r;
-    private int s;
+
     private CoordinateStrategy coordinateStrategy;
     private LocationStrategy locationStrategy;
     private String resourcePath;
     private Direction direction;
+
+    private int r;
+    private int s;
 
     public HandsCoordinator(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy, String resourcePath, Direction direction) {
         this.r = r;
@@ -33,7 +37,18 @@ public class HandsCoordinator {
         this.state = new UnarmedState(r, s, coordinateStrategy, locationStrategy, resourcePath, direction);
     }
 
+    public void equipWeapon(WeaponImageContainer weapon, WeaponClass weaponClass) {
+        switch (weaponClass) {
+            case FISTS:
+                this.state = new UnarmedState(r, s, coordinateStrategy, locationStrategy, resourcePath, direction);
+                break;
+        }
+        state.addWeapon(weapon);
+    }
+
     public void alertMove(int r, int s, long duration) {
+        this.r = r;
+        this.s = s;
         state.alertMove(r, s, duration);
     }
 
@@ -46,6 +61,7 @@ public class HandsCoordinator {
     }
 
     public void changeDirection(Direction d) {
+        this.direction = d;
         state.changeDirection(d);
     }
 

@@ -1,6 +1,8 @@
 package com.vengeful.sloths.AreaView.ViewObjects.Hands;
 
+import com.vengeful.sloths.AreaView.ViewObjects.WeaponImageContainer;
 import com.vengeful.sloths.Utility.Direction;
+import com.vengeful.sloths.Utility.WeaponClass;
 
 import java.awt.*;
 
@@ -14,4 +16,5 @@ public interface HandState {
     void changeDirection(Direction d);
     void alertMove(int r, int s, long duration);
     void attack(int r, int s, long duration);
+    void addWeapon(WeaponImageContainer weapon);
 }

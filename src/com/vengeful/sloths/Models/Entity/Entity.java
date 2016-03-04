@@ -5,6 +5,7 @@ import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.*;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.EquippableItems;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.InventoryTakeableItemFactory;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
@@ -17,6 +18,7 @@ import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Models.ViewObservable;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
+import com.vengeful.sloths.Utility.WeaponClass;
 import com.vengeful.sloths.View.Observers.EntityObserver;
 import com.vengeful.sloths.View.Observers.ModelObserver;
 
@@ -121,7 +123,31 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         }
         return 0;
     }
+    public void equip(EquippableItems item) {
+        //Alex wrote this for testing delete whenever
+        if (item == null) {
+            Iterator<EntityObserver> iter = getObservers().iterator();
+            while (iter.hasNext()) {
+                EntityObserver eo = iter.next();
+                eo.alertEquipHat("tophat");
+                eo.alertEquipWeapon("katar", WeaponClass.FISTS);
+            }
+        } else {
+            item.addToEquipped(this.getEquipped());
+        }
+    }
 
+    public void unequip(EquippableItems item) {
+        //Same as above
+        if (item == null) {
+            Iterator<EntityObserver> iter = getObservers().iterator();
+            while (iter.hasNext()) {
+                iter.next().alertUnequipHat();
+            }
+        } else {
+            item.removeFromEquipped(this.getEquipped());
+        }
+    }
 
     public void registerObserver(ModelObserver observer) {
         this.observers.add((EntityObserver) observer);

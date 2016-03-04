@@ -58,6 +58,7 @@ public class driver {
         new AggressiveNPCControllerManager(Map.getInstance().getActiveMapArea(), testEnemy);
 
         testEnemy.getStats().subtract(new CurrentHealthAddable(1));
+        testEnemy.equip(null);
 
         ViewTime.getInstance().registerAlert(3000, () -> testAvatar.equip(null));
         ViewTime.getInstance().registerAlert(6000, () -> testAvatar.unequip(null));

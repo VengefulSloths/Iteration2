@@ -213,27 +213,21 @@ public class HandViewObject extends MovingViewObject implements vAlertable {
 
     @Override
     public void paintComponent(Graphics2D g) {
-        if(weapon != null) {
-            g.drawImage(weapon.getWeaponBack().getImage(),
-                    getXPixels() + +xd +xPixelOffset + handImage.getXOffset() + weapon.getWeaponBack().getXOffset() + this.getLocationXOffset(),
-                    getYPixels() + +yd +yPixelOffset + handImage.getYOffset() + weapon.getWeaponBack().getYOffset() + this.getLocationYOffset(),
-                    this);
-        }
         g.drawImage(handImage.getImage(),
                 getXPixels() + +xd +xPixelOffset + handImage.getXOffset() + this.getLocationXOffset(),
                 getYPixels() + +yd +yPixelOffset + handImage.getYOffset() + this.getLocationYOffset(),
                 this);
         if(weapon != null) {
-            g.drawImage(weapon.getWeaponFront().getImage(),
-                    getXPixels() + +xd +xPixelOffset + handImage.getXOffset() + weapon.getWeaponFront().getXOffset() + this.getLocationXOffset(),
-                    getYPixels() + +yd +yPixelOffset + handImage.getYOffset() + weapon.getWeaponFront().getYOffset() + this.getLocationYOffset(),
+            g.drawImage(weapon.getCurrentDynamicImage().getImage(),
+                    getXPixels() + +xd +xPixelOffset + handImage.getXOffset() + weapon.getCurrentDynamicImage().getXOffset() + this.getLocationXOffset(),
+                    getYPixels() + +yd +yPixelOffset + handImage.getYOffset() + weapon.getCurrentDynamicImage().getYOffset() + this.getLocationYOffset(),
                     this);
         }
     }
 
     @Override
     public void accept(VOVisitor v) {
-        //TODO: put something here
+        System.out.println("You just visited hands, something may be wrong with you");
     }
 
 }
