@@ -45,6 +45,9 @@ public class driver {
 
         //Avatar.getInstance().setStats(moveQuickly);
         Avatar.getInstance().getStats().setMovement(45);
+        Avatar.getInstance().getStats().setHardiness(10);
+        Avatar.getInstance().getStats().setCurrentHealth(60);
+
         int count = 0;
         testAvatar.setFacingDirection(Direction.SE);
         testAvatar.getStats().subtract(new CurrentHealthAddable(2));
@@ -52,7 +55,7 @@ public class driver {
         AggressiveNPC testEnemy =  new AggressiveNPC("xXOG_SwaG_LorD_BlazE_MasteR_420_Xx", new Stats(new MovementAddable(30)));
         Map.getInstance().addEntity(new Coord(3, 3), testEnemy);
         testEnemy.accept(TemporaryVOCreationVisitor.getInstance());
-        new AggressiveNPCControllerManager(Map.getInstance(), testEnemy);
+        new AggressiveNPCControllerManager(Map.getInstance().getActiveMapArea(), testEnemy);
 
         testEnemy.getStats().subtract(new CurrentHealthAddable(1));
 

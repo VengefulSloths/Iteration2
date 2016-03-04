@@ -27,14 +27,14 @@ public class AggressiveNPCActionController extends ActionController {
 
         if(this.checkLocation(avatar, 1)) { //1 meaning he can attack an adjacent square
             //make attack command
-            System.out.println("attacking!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            this.getEntity().attack(this.getTargetDirection(avatar,1)); //tweak a bit later
+            //System.out.println("attacking!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            this.getEntity().attack(this.getTargetDirection(avatar)); //tweak a bit later
 
         }else{
             //move towards it
             //bfs here
             //actually gonna try shitty directional code to not do bfs kek
-            this.getEntity().move(this.getTargetDirection(avatar,2));
+            this.getEntity().move(this.getTargetDirection(avatar));
         }
     }
 

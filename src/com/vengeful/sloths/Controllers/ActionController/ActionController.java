@@ -44,7 +44,7 @@ public abstract class ActionController implements TargetVisitor {
     }
 
 
-    protected Direction getTargetDirection(Target target, int distance){
+    protected Direction getTargetDirection(Target target){
 
         Iterator<Coord> iter;
         ArrayList<Coord> marked = new ArrayList<>();
@@ -101,20 +101,6 @@ public abstract class ActionController implements TargetVisitor {
 
     protected boolean checkLocation(Target target, int distance){
         if(target != null) {
-//            System.out.println("entity is: " + entity);
-//            System.out.println("target is: " + target);
-//            System.out.println((target.getCoord().getR()));
-//            System.out.println(Math.abs(entity.getLocation().getR()));
-//
-//            if ((Math.abs(target.getCoord().getR()) - Math.abs(entity.getLocation().getR())) > distance  &&  (Math.abs(target.getCoord().getS()) - Math.abs(entity.getLocation().getS())) > distance) {
-//                System.out.println("R dist is : " + (Math.abs(target.getCoord().getR()) - Math.abs(entity.getLocation().getR())));
-//                return false;
-//            }
-//            if ((Math.abs(target.getCoord().getS()) - Math.abs(entity.getLocation().getS())) > distance) {
-//                System.out.println("S dist is : " + (Math.abs(target.getCoord().getS()) - Math.abs(entity.getLocation().getS())));
-//                return false;
-//            }
-
             int currRing = 0;
             while(currRing <= distance) {
                 Iterator<Coord> iter = HexMath.ring(entity.getLocation(), currRing);

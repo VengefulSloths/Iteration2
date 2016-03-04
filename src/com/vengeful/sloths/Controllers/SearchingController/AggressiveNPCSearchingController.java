@@ -38,8 +38,8 @@ import java.util.Iterator;
  */
 public class AggressiveNPCSearchingController extends SearchingController {
 
-    public AggressiveNPCSearchingController(Map map, Entity entity) {
-        super(map, entity);
+    public AggressiveNPCSearchingController(MapArea mapArea, Entity entity) {
+        super(mapArea, entity);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class AggressiveNPCSearchingController extends SearchingController {
     @Override
     public void visitAvatar(Avatar avatar) {
         // set priority yadyadyayd
-        System.out.println("agressive npc sees the avatar :o");
+        //System.out.println("agressive npc sees the avatar :o");
         Target currTarget = new AvatarTarget(0);
         currTarget.setCoord(this.getCurrentCoord());
         this.setHighestPriorityTarget(this.getMaxTarget(currTarget, this.getHighestPriorityTarget()));

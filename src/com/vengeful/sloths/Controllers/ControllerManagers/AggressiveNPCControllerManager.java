@@ -8,6 +8,7 @@ import com.vengeful.sloths.Controllers.SearchingController.AggressiveNPCSearchin
 import com.vengeful.sloths.Controllers.SearchingController.SearchingController;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Map.Map;
+import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
 
 /**
@@ -18,15 +19,25 @@ public class AggressiveNPCControllerManager extends NPCControllerManager{
     private SearchingController searchingController;
     private MovementController movementController;
     private ActionController actionController;
+    private MapArea mapArea;
     private int ticks = 0;
 
-    public AggressiveNPCControllerManager(Map map, Entity entity){
+    public AggressiveNPCControllerManager(MapArea mapArea, Entity entity){
+        this.setMapArea(mapArea);
         this.setEntity(entity);
-        this.setSearchingController(new AggressiveNPCSearchingController(map, entity));
+        this.setSearchingController(new AggressiveNPCSearchingController(mapArea, entity));
         this.setActionController(new AggressiveNPCActionController(entity));
         this.setMovementController(new LandMovementController());
         TimeModel.getInstance().registerTickable(this);
 
+    }
+
+    public MapArea getMapArea() {
+        return mapArea;
+    }
+
+    public void setMapArea(MapArea mapArea) {
+        this.mapArea = mapArea;
     }
 
     @Override
@@ -46,12 +57,16 @@ public class AggressiveNPCControllerManager extends NPCControllerManager{
 
     @Override
     public void tick() {
-        if(ticks % 30 == 0) {
-            System.out.println("beginning of tick");
-            searchingController.search(2);//hardcoded to 2 right now
-            System.out.println("highest priority target is :" + searchingController.getHighestPriorityTarget());
-            actionController.action(searchingController.getHighestPriorityTarget());
-            //movementController
+        if(ticks % 15 == 0) {
+            if(mapArea.equals(Map.getInstance().getActiveMapArea())) {
+                //System.out.println("beginning of tick");
+                searchingController.search(2);//hardcoded to 2 right now
+                System.out.println("highest priority target is :" + searchingController.getHighestPriorityTarget());
+                actionController.action(searchingController.getHighestPriorityTarget());
+                //movementController
+            }else{
+                //you could put reset the npc logic here
+            }
         }
         ++ticks;
 

@@ -66,6 +66,14 @@ public class MapArea implements ModelVisitable{
      * both of these accept a Coord object, and can throw an OutOfBoundsException
      */
 
+    public boolean equals(MapArea m){
+        if(m.getTiles().equals(this.getTiles())){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public void addTile(Coord coord, Tile t) throws IndexOutOfBoundsException {
         if (coord.getR() < 0 ||
                 coord.getS() < 0 ||

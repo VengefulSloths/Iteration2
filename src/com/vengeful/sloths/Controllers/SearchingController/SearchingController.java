@@ -3,6 +3,7 @@ package com.vengeful.sloths.Controllers.SearchingController;
 import com.vengeful.sloths.Controllers.Target.Target;
 import com.vengeful.sloths.Models.Entity.*;
 import com.vengeful.sloths.Models.Map.Map;
+import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Map.Tile;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Utility.Coord;
@@ -17,23 +18,23 @@ import java.util.Iterator;
  * desc: Aids in searching for various targets
  */
 public abstract class SearchingController implements ModelVisitor {
-    private Map map;
+    private MapArea mapArea;
     private boolean isSearching = true;
     private Entity entity;
     private Target highestPriorityTarget;
     private Coord currentCoord;
 
-    public SearchingController(Map map, Entity entity) {
-        this.map = map;
+    public SearchingController(MapArea mapArea, Entity entity) {
+        this.mapArea = mapArea;
         this.entity = entity;
     }
 
-    public Map getMap() {
-        return this.map;
+    public MapArea getMapArea() {
+        return this.mapArea;
     }
 
-    public void setMap(Map map) {
-        this.map = map;
+    public void setMapArea(MapArea mapArea) {
+        this.mapArea = mapArea;
     }
 
     public boolean isSearching() {
@@ -72,7 +73,7 @@ public abstract class SearchingController implements ModelVisitor {
         Tile tile;
 
         try {
-            tile = map.getTile(coord);
+            tile = mapArea.getTile(coord);
         } catch (IndexOutOfBoundsException e) {
             return null;
         }
@@ -80,44 +81,7 @@ public abstract class SearchingController implements ModelVisitor {
         return tile;
     }
 
-    protected ArrayList<Tile> getTileRing(Coord centerCord, int ringNumber) {
-        ArrayList<Tile> ringTiles = new ArrayList<>();
 
-        if (ringNumber == 0) {
-            ringTiles.add(this.getTile(centerCord));
-            return ringTiles;
-        }
-
-        int r = centerCord.getR(), s = centerCord.getS() - ringNumber;
-
-        // Get top right and bottom left slabs
-        for (int n = 0; n < ringNumber; n++) {
-            ringTiles.add(this.getTile(new Coord(r + n, s)));
-            ringTiles.add(this.getTile(new Coord((r + n) * (-1), s * (-1))));
-        }
-
-        r = centerCord.getR()+ringNumber;
-        s = centerCord.getS();
-
-        // Get right and left slabs
-        for (int n = 0; n < ringNumber; n++) {
-            int tmpS = s - ringNumber + n;
-            ringTiles.add(this.getTile(new Coord(r, tmpS)));
-            ringTiles.add(this.getTile(new Coord(r * (-1), tmpS * (-1))));
-        }
-
-        r = centerCord.getR() + ringNumber;
-        s = centerCord.getS();
-
-        // Get bottom right and top left slabs
-        for (int n = 0; n < ringNumber; n++) {
-            int tmpR = r + ringNumber - n;
-            ringTiles.add(this.getTile(new Coord(tmpR, (s + n))));
-            ringTiles.add(this.getTile(new Coord(tmpR * (-1), (s + n) * (-1))));
-        }
-
-        return ringTiles;
-    }
 
     /**
      * Get target result of search
@@ -145,24 +109,13 @@ public abstract class SearchingController implements ModelVisitor {
                 this.setCurrentCoord(current);
                 //Tile currTile = null;
                 try {
-                    Tile currTile = Map.getInstance().getTile(current);
+                    Tile currTile = this.getTile(current);
                     currTile.accept(this);
                 }catch(Exception e){
                     //whoops tried to lok outside the map probably
                 }
 
             }
-//            for (Tile tile : tiles) {
-//                System.out.println("checking tile");
-//                try {
-//                    tile.accept(this);
-//                }catch (Exception e){
-//                    //System.out.println("failed search");
-//                    System.out.println(e);
-//                    //this is because hes looking outside the map
-//                }
-//            }
-
             ++currRing;
         }
         doneSearching();
