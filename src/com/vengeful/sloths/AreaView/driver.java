@@ -2,12 +2,14 @@ package com.vengeful.sloths.AreaView;
 
 import com.vengeful.sloths.AreaView.DynamicImages.DynamicImageFactory;
 import com.vengeful.sloths.Controllers.ControllerManagers.AggressiveNPCControllerManager;
+import com.vengeful.sloths.Controllers.ControllerManagers.PiggyControllerManager;
 import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.GameLaunching.LaunchGameTemplate;
 import com.vengeful.sloths.GameLaunching.LaunchNewGame;
 import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.Entity.AggressiveNPC;
 import com.vengeful.sloths.Models.Entity.Avatar;
+import com.vengeful.sloths.Models.Entity.Piggy;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Stats.StatAddables.CurrentHealthAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.HealthManaExperienceAddable;
@@ -18,7 +20,11 @@ import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Utility.HexMath;
 
 import java.util.Iterator;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -36,6 +42,7 @@ public class driver {
 
         //Below here is test code
 
+
        // final ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
         Avatar testAvatar = Avatar.getInstance();
         //MainController cat = MainController.getInstance();
@@ -49,6 +56,31 @@ public class driver {
         Avatar.getInstance().getStats().setCurrentHealth(60);
 
         int count = 0;
+
+
+
+//        new java.util.Timer().schedule(
+//                new java.util.TimerTask() {
+//                    @Override
+//                    public void run() {
+//                        testPiggy.move(Direction.S);
+//                        testPiggy.move(Direction.S);
+//                        testPiggy.move(Direction.S);
+//                        testPiggy.move(Direction.S);
+//                        testPiggy.move(Direction.S);
+//                        testPiggy.move(Direction.S);
+//                    }
+//                },
+//                4000
+//        );
+
+        Piggy testPiggy = new Piggy("Bart",new Stats(new MovementAddable(30)));
+        testPiggy.setFacingDirection(Direction.S);
+        Map.getInstance().addEntity(new Coord(3,5), testPiggy);
+        testPiggy.accept(TemporaryVOCreationVisitor.getInstance());
+        new PiggyControllerManager(Map.getInstance().getActiveMapArea(), testPiggy);
+
+
         testAvatar.setFacingDirection(Direction.SE);
         testAvatar.getStats().subtract(new CurrentHealthAddable(2));
         //stuff to test enemy controllers
@@ -63,21 +95,6 @@ public class driver {
         ViewTime.getInstance().registerAlert(3000, () -> testAvatar.equip(null));
         ViewTime.getInstance().registerAlert(6000, () -> testAvatar.unequip(null));
 
-//        while (count < 120) {
-//            executor.schedule(new Runnable() {
-//                @Override
-//                public void run() {
-//                    testAvatar.move(testAvatar.getFacingDirection());
-//                }
-//            }, (++count)*100, TimeUnit.MILLISECONDS);
-//            System.out.println(count);
-//            executor.schedule(new Runnable() {
-//                @Override
-//                public void run() {
-//                    testAvatar.setFacingDirection(Direction.NW);
-//                }
-//            }, 10000, TimeUnit.MILLISECONDS);
-//        }
 //
 //        int countOffset = count;
 //        count = 0;
