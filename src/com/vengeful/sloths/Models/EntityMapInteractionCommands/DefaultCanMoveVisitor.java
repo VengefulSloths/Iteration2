@@ -53,7 +53,7 @@ public class DefaultCanMoveVisitor extends CanMoveVisitor {
     }
     @Override
     public void visitPiggy(Piggy piggy) {
-
+        setCanMove(true);
     }
     @Override
     public void visitTile(Tile tile) {

@@ -101,7 +101,7 @@ public abstract class SearchingController implements ModelVisitor {
         while (currRing <= searchRadius) {
             //tiles = this.getTileRing(currCoord, currRing);
             iter = HexMath.ring(currCoord, currRing);
-            System.out.println("getting ring " + currRing);
+            //System.out.println("getting ring " + currRing);
 
             while(iter.hasNext()){
                 Coord current = iter.next();

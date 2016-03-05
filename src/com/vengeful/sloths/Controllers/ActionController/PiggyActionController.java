@@ -1,6 +1,7 @@
 package com.vengeful.sloths.Controllers.ActionController;
 
 import com.vengeful.sloths.Controllers.Target.*;
+import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.Entity;
 
 /**
@@ -17,6 +18,11 @@ public class PiggyActionController extends ActionController {
         if(target != null) {
             target.accept(this);
         }else{
+            //always return to avatar even if you can technically see him
+            //might need to do something here with teleporting
+            Target idleTarget = new AvatarTarget(2);
+            idleTarget.setCoord(Avatar.getInstance().getLocation());
+            idleTarget.accept(this);
             System.out.println("idle");
         }
     }
