@@ -173,7 +173,7 @@ public abstract class CameraView implements MovingVOObserver{
         this.dontMoveAvatarFlag = true;
         this.avatar.deregisterObserver(this);
 
-        this.piggy.deregisterObserver(this);
+        //this.piggy.deregisterObserver(this);
 
         Iterator<Coord> toBeConcealed = HexMath.saftey(HexMath.hexagon(new Coord(avatar.getR(), avatar.getS()), 6), maxR, maxS);
         while(toBeConcealed.hasNext()) {

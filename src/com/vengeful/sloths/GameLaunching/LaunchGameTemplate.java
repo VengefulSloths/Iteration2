@@ -34,8 +34,8 @@ public class LaunchGameTemplate {
         avatar = helper.createAvatar();
         map.addEntity(helper.spawnPoint(), avatar);
 
-        Coord newSpawn = helper.spawnPoint();
-        newSpawn.setR(newSpawn.getR()+1);
+        //Coord newSpawn = helper.spawnPoint();
+        //newSpawn.setR(newSpawn.getR()+1);
 //        map.addEntity(newSpawn,new Piggy());
 
         AreaView areaView = new AreaView(cameras);
