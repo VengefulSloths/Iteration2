@@ -61,7 +61,7 @@ public class AggressiveNPCControllerManager extends NPCControllerManager{
             if(mapArea.equals(Map.getInstance().getActiveMapArea())) {
                 //System.out.println("beginning of tick");
                 searchingController.search(2);//hardcoded to 2 right now
-                System.out.println("highest priority target is :" + searchingController.getHighestPriorityTarget());
+                //System.out.println("highest priority target is :" + searchingController.getHighestPriorityTarget());
                 actionController.action(searchingController.getHighestPriorityTarget());
                 //movementController
             }else{

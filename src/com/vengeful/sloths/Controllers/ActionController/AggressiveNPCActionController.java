@@ -17,7 +17,7 @@ public class AggressiveNPCActionController extends ActionController {
         if(target != null) {
             target.accept(this);
         }else{
-            System.out.println("idle");
+            //System.out.println("idle");
         }
     }
 
