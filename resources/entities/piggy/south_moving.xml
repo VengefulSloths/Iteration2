@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<dynamic_timed_animation>
+    <width>78</width>
+    <height>126</height>
+    <rootPath>resources/entities/piggy/</rootPath>
+    <startConfig>piggySouthStanding.xml</startConfig>
+    <endConfig>piggySouthStanding.xml</endConfig>
+    <fileName>piggy_south_standing.png</fileName>
+    <fileName>piggy_south_right.png</fileName>
+    <fileName>piggy_south_standing.png</fileName>
+    <fileName>piggy_south_left.png</fileName>
+    <fileName>piggy_south_standing.png</fileName>
+    <positioning>occupying</positioning>
+</dynamic_timed_animation>

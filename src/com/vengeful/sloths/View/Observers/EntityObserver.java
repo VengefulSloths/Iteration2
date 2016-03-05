@@ -7,7 +7,7 @@ import com.vengeful.sloths.Utility.WeaponClass;
 public interface EntityObserver extends ModelObserver {
 	void alertDirectionChange(Direction d);
 	void alertMove(int r, int s, long animationTime);
-	void alertAttack(int r, int s, long animationTime);
+	void alertAttack(int r, int s, long windUpTime, long coolDownTime);
 
 	@Deprecated
 	void alertDrop(int x, int y, MapItem itemToDrop);

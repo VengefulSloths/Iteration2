@@ -3,6 +3,7 @@ package com.vengeful.sloths.GameLaunching;
 import com.vengeful.sloths.AreaView.*;
 import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.Models.Entity.Avatar;
+import com.vengeful.sloths.Models.Entity.Piggy;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteractionFactory;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
@@ -11,6 +12,7 @@ import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.ModelEngine;
 import com.vengeful.sloths.Models.Stats.StatAddables.BaseStatsAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.HealthManaExperienceAddable;
+import com.vengeful.sloths.Utility.Coord;
 
 /**
  * Created by alexs on 2/28/2016.
@@ -31,6 +33,10 @@ public class LaunchGameTemplate {
         cameras = helper.createCameras();
         avatar = helper.createAvatar();
         map.addEntity(helper.spawnPoint(), avatar);
+
+        Coord newSpawn = helper.spawnPoint();
+        newSpawn.setR(newSpawn.getR()+1);
+//        map.addEntity(newSpawn,new Piggy());
 
         AreaView areaView = new AreaView(cameras);
         initSingletons();

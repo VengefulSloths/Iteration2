@@ -116,7 +116,7 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
     @Override
     public void visitPiggy(Piggy piggy) {
-        PiggyViewObject pvo = factory.createPiggyViewObject(piggy.getLocation().getR(), piggy.getLocation().getS(), "entities/piggy/");
+        PiggyViewObject pvo = factory.createPiggyViewObject(piggy.getLocation().getR(), piggy.getLocation().getS(), "resources/entities/piggy/");
         piggy.registerObserver(pvo);
         pvo.registerObserver(activeCameraView);
         this.activeCameraView.addViewObject(pvo);

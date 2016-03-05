@@ -1,9 +1,6 @@
 package com.vengeful.sloths.AreaView;
 
-import com.vengeful.sloths.AreaView.ViewObjects.AvatarViewObject;
-import com.vengeful.sloths.AreaView.ViewObjects.MovingViewObject;
-import com.vengeful.sloths.AreaView.ViewObjects.TileViewObject;
-import com.vengeful.sloths.AreaView.ViewObjects.ViewObject;
+import com.vengeful.sloths.AreaView.ViewObjects.*;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.HexMath;
@@ -27,6 +24,7 @@ public abstract class CameraView implements MovingVOObserver{
     private ViewObjectFactory factory;
 
     private MovingViewObject avatar;
+    private MovingViewObject piggy;
 
     private boolean dontMoveAvatarFlag = true;
 
@@ -90,6 +88,11 @@ public abstract class CameraView implements MovingVOObserver{
             int s = current.getS();
             tiles[findX(r, s)][findY(r,s)].setVisibility(Visibility.VISIBLE);
         }
+    }
+
+    public void addPiggy(PiggyViewObject pvo) {
+        addViewObject(pvo);
+        this.piggy = pvo;
     }
 
     public void paintComponent(Graphics2D g) {
@@ -163,11 +166,14 @@ public abstract class CameraView implements MovingVOObserver{
             for (int j = 0; j < maxY; j++) {
                 if (tiles[i][j] != null) {
                     tiles[i][j].removeChild(avatar);
+                    tiles[i][j].removeChild(piggy);
                 }
             }
         }
         this.dontMoveAvatarFlag = true;
         this.avatar.deregisterObserver(this);
+
+        this.piggy.deregisterObserver(this);
 
         Iterator<Coord> toBeConcealed = HexMath.saftey(HexMath.hexagon(new Coord(avatar.getR(), avatar.getS()), 6), maxR, maxS);
         while(toBeConcealed.hasNext()) {

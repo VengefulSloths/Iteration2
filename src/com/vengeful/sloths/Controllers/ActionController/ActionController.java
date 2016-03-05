@@ -30,7 +30,7 @@ public abstract class ActionController implements TargetVisitor {
     public abstract void visitPiggyTarget(PiggyTarget piggy);
 
     @Override
-    public abstract void visitAggressiveNPCTarget(AgressiveNPCTarget aNPC);
+    public abstract void visitAggressiveNPCTarget(AggressiveNPCTarget aNPC);
 
     @Override
     public abstract void visitNonAggressiveNPCTarget(NonAgressiveNPCTarget nonANPC);

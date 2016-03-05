@@ -15,14 +15,16 @@ import java.awt.*;
  */
 public class PiggyViewObject extends EntityViewObject implements EntityObserver {
     private DynamicImage walkingSW;
+    private DynamicImage walkingS;
     private Direction direction;
     private DynamicImage currentDynamicImage;
 
     public PiggyViewObject(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy, String resourcePath) {
         super(r, s, coordinateStrategy, locationStrategy, resourcePath);
-        this.walkingSW = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "piggy_southwest_standing.xml");
-        this.currentDynamicImage = this.walkingSW;
-        this.direction = Direction.SW;
+        this.walkingSW = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "south_southwest_standing.xml");
+        this.walkingS = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "south_moving.xml");
+        this.direction = Direction.S;
+        this.currentDynamicImage = walkingS;
     }
 
     private void paintBody(Graphics2D g) {
@@ -39,7 +41,7 @@ public class PiggyViewObject extends EntityViewObject implements EntityObserver 
 
                 break;
             case S:
-
+                paintBody(g);
                 break;
             case SW:
                 paintBody(g);
@@ -70,7 +72,7 @@ public class PiggyViewObject extends EntityViewObject implements EntityObserver 
 //                currentDynamicImage = walkingNE;
                 break;
             case S:
-//                currentDynamicImage = walkingS;
+                currentDynamicImage = walkingS;
                 break;
             case SW:
                 currentDynamicImage = walkingSW;
