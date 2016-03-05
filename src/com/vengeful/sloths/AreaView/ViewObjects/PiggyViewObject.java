@@ -14,15 +14,23 @@ import java.awt.*;
  * Created by zach on 2/25/16.
  */
 public class PiggyViewObject extends EntityViewObject implements EntityObserver {
-    private DynamicImage walkingSW;
+    private DynamicImage walkingN;
+    private DynamicImage walkingNE;
+    private DynamicImage walkingNW;
     private DynamicImage walkingS;
+    private DynamicImage walkingSW;
+    private DynamicImage walkingSE;
     private Direction direction;
     private DynamicImage currentDynamicImage;
 
     public PiggyViewObject(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy, String resourcePath) {
         super(r, s, coordinateStrategy, locationStrategy, resourcePath);
-        this.walkingSW = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "south_southwest_standing.xml");
+        this.walkingN = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "north_moving.xml");
+        this.walkingNE = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "north_east_moving.xml");
+        this.walkingNW = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "north_west_moving.xml");
         this.walkingS = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "south_moving.xml");
+        this.walkingSE = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "south_east_moving.xml");
+        this.walkingSW = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "south_west_moving.xml");
         this.direction = Direction.S;
         this.currentDynamicImage = walkingS;
     }
@@ -38,7 +46,7 @@ public class PiggyViewObject extends EntityViewObject implements EntityObserver 
     public void paintComponent(Graphics2D g) {
         switch (this.direction) {
             case N:
-
+                paintBody(g);
                 break;
             case S:
                 paintBody(g);
@@ -47,13 +55,13 @@ public class PiggyViewObject extends EntityViewObject implements EntityObserver 
                 paintBody(g);
                 break;
             case SE:
-
+                paintBody(g);
                 break;
             case NW:
-
+                paintBody(g);
                 break;
             case NE:
-
+                paintBody(g);
                 break;
         }
     }
@@ -63,13 +71,13 @@ public class PiggyViewObject extends EntityViewObject implements EntityObserver 
         this.direction = d;
         switch (d) {
             case N:
-//                currentDynamicImage = walkingN;
+                currentDynamicImage = walkingN;
                 break;
             case NW:
-//                currentDynamicImage = walkingNW;
+                currentDynamicImage = walkingNW;
                 break;
             case NE:
-//                currentDynamicImage = walkingNE;
+                currentDynamicImage = walkingNE;
                 break;
             case S:
                 currentDynamicImage = walkingS;
@@ -78,7 +86,7 @@ public class PiggyViewObject extends EntityViewObject implements EntityObserver 
                 currentDynamicImage = walkingSW;
                 break;
             case SE:
-//                currentDynamicImage = walkingSE;
+                currentDynamicImage = walkingSE;
                 break;
 
         }

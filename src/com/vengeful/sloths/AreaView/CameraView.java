@@ -166,7 +166,7 @@ public abstract class CameraView implements MovingVOObserver{
             for (int j = 0; j < maxY; j++) {
                 if (tiles[i][j] != null) {
                     tiles[i][j].removeChild(avatar);
-//                    tiles[i][j].removeChild(piggy);
+                    tiles[i][j].removeChild(piggy);
                 }
             }
         }
