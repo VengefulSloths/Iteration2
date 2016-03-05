@@ -81,11 +81,12 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
 
     @Override
     public void paintComponent(Graphics2D g) {
-        healthBar.paintComponent(g);
+
         hands.paintBack(g);
         paintBody(g);
         hat.paintComponent(g);
         hands.paintFront(g);
+        healthBar.paintComponent(g);
     }
 
     @Override
