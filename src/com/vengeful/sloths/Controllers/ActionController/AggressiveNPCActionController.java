@@ -49,7 +49,7 @@ public class AggressiveNPCActionController extends ActionController {
     }
 
     @Override
-    public void visitAggressiveNPCTarget(AgressiveNPCTarget aNPC) {
+    public void visitAggressiveNPCTarget(AggressiveNPCTarget aNPC) {
         //probably do nothing
     }
 
@@ -57,4 +57,7 @@ public class AggressiveNPCActionController extends ActionController {
     public void visitNonAggressiveNPCTarget(NonAgressiveNPCTarget nonANPC) {
         //maybe attack
     }
+
+    @Override
+    public void visitMapItemTarget(MapItemTarget mapItemTarget) {}
 }

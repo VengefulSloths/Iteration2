@@ -1,13 +1,14 @@
 package com.vengeful.sloths.Controllers.SearchingController;
 
-import com.vengeful.sloths.Controllers.SearchingController.SearchingController;
+import com.vengeful.sloths.Controllers.Target.AvatarTarget;
+import com.vengeful.sloths.Controllers.Target.MapItemTarget;
+import com.vengeful.sloths.Controllers.Target.AggressiveNPCTarget;
+import com.vengeful.sloths.Controllers.Target.Target;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
 import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.Buff.BuffOverTime;
-import com.vengeful.sloths.Controllers.Target.AvatarTarget;
-import com.vengeful.sloths.Controllers.Target.Target;
 import com.vengeful.sloths.Models.Entity.*;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
@@ -34,11 +35,10 @@ import com.vengeful.sloths.Models.Stats.Stats;
 import java.util.Iterator;
 
 /**
- * Created by zach on 2/22/16.
+ * Created by zach on 3/4/16.
  */
-public class AggressiveNPCSearchingController extends SearchingController {
-
-    public AggressiveNPCSearchingController(MapArea mapArea, Entity entity) {
+public class PiggySearchingController extends SearchingController {
+    public PiggySearchingController(MapArea mapArea, Entity entity) {
         super(mapArea, entity);
     }
 
@@ -54,24 +54,24 @@ public class AggressiveNPCSearchingController extends SearchingController {
 
     @Override
     public void visitAvatar(Avatar avatar) {
-        // set priority yadyadyayd
-        //System.out.println("agressive npc sees the avatar :o");
-        Target currTarget = new AvatarTarget(0);
+        // Avatar is third-most important to Piggy
+        Target currTarget = new AvatarTarget(2);
         currTarget.setCoord(this.getCurrentCoord());
         this.setHighestPriorityTarget(this.getMaxTarget(currTarget, this.getHighestPriorityTarget()));
     }
 
     @Override
     public void visitPiggy(Piggy piggy) {
-        Target currTarget = new AvatarTarget(1);
-        currTarget.setCoord(this.getCurrentCoord());
-        this.setHighestPriorityTarget(this.getMaxTarget(currTarget, this.getHighestPriorityTarget()));
+        // Do nada!
 
     }
 
     @Override
     public void visitAggressiveNPC(AggressiveNPC aNPC) {
-        //do nada
+        // Attack?
+        Target currTarget = new AggressiveNPCTarget(1);
+        currTarget.setCoord(this.getCurrentCoord());
+        this.setHighestPriorityTarget(this.getMaxTarget(currTarget, this.getHighestPriorityTarget()));
 
     }
 
@@ -188,10 +188,15 @@ public class AggressiveNPCSearchingController extends SearchingController {
                 currEntity.accept(this);
             }
         }
+        //System.out.println("SEARCHING TILE");
     }
 
     @Override
     public void visitMapItem(MapItem mapItem) {
+        // MapItems are priority 0 for piggy!
+        Target currTarget = new MapItemTarget(0);
+        currTarget.setCoord(this.getCurrentCoord());
+        this.setHighestPriorityTarget(this.getMaxTarget(currTarget, this.getHighestPriorityTarget()));
     }
 
     @Override
@@ -206,6 +211,7 @@ public class AggressiveNPCSearchingController extends SearchingController {
                 currEntity.accept(this);
             }
         }
+        //System.out.println("SEARCHING TILE");
     }
 
     @Override
@@ -220,6 +226,7 @@ public class AggressiveNPCSearchingController extends SearchingController {
                 currEntity.accept(this);
             }
         }
+        //System.out.println("SEARCHING TILE");
     }
 
     @Override
@@ -250,5 +257,4 @@ public class AggressiveNPCSearchingController extends SearchingController {
     public void visitWater(Water water) {
 
     }
-
 }
