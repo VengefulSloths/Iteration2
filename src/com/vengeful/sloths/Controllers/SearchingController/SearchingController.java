@@ -135,7 +135,7 @@ public abstract class SearchingController implements ModelVisitor {
             return target1;
         }
 
-        if (target1.getPriority() > target2.getPriority()) {
+        if (target1.getPriority() < target2.getPriority()) {
             return target1;
         } else {
             return target2;
