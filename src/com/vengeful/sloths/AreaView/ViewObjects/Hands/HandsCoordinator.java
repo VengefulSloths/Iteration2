@@ -42,6 +42,9 @@ public class HandsCoordinator {
             case FISTS:
                 this.state = new UnarmedState(r, s, coordinateStrategy, locationStrategy, resourcePath, direction);
                 break;
+            case ONE_HAND:
+                this.state = new OneHandState(r, s, coordinateStrategy, locationStrategy, resourcePath, direction);
+                break;
         }
         state.addWeapon(weapon);
     }

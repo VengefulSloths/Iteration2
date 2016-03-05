@@ -130,7 +130,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
             while (iter.hasNext()) {
                 EntityObserver eo = iter.next();
                 eo.alertEquipHat("tophat");
-                eo.alertEquipWeapon("katar", WeaponClass.FISTS);
+                eo.alertEquipWeapon("dagger", WeaponClass.ONE_HAND);
             }
         } else {
             item.addToEquipped(this.getEquipped());

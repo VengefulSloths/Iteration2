@@ -29,12 +29,15 @@ public class UnarmedState implements HandState{
 
     private SmartHandViewObject attackingHand;
 
+
+
+
+    private int punchDistance = 30;
+
     private WalkingStrategy  walkingStrategy;
 
     private final int radius = 27;
     private final int height = 42;
-
-    private int punchDistance = 30;
 
     private Direction direction;
 
@@ -55,6 +58,7 @@ public class UnarmedState implements HandState{
         changeDirection(direction);
 
     }
+
 
     @Override
     public void setLocation(int r, int s) {

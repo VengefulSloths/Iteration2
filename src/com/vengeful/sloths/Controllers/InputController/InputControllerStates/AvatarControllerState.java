@@ -85,6 +85,12 @@ public class AvatarControllerState extends InputControllerState {
     }
 
     @Override
+    public boolean handleSpaceKey() {
+        avatar.attack(avatar.getFacingDirection());
+        return true;
+    }
+
+    @Override
     public boolean handle4Key() {
         return false;
     }

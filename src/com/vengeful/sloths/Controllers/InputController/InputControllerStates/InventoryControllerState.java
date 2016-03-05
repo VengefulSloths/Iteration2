@@ -121,6 +121,11 @@ public class InventoryControllerState extends InputControllerState{
     }
 
     @Override
+    public boolean handleSpaceKey() {
+        return false;
+    }
+
+    @Override
     public void handleRelease1Key() {
 
     }
