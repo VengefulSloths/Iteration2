@@ -32,6 +32,8 @@ public class UnarmedState implements HandState{
     private final int radius = 27;
     private final int height = 42;
 
+    private int punchDistance = 25;
+
     private Direction direction;
 
     public UnarmedState(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy,
@@ -110,18 +112,28 @@ public class UnarmedState implements HandState{
     }
 
     @Override
-    public void attack(int r, int s, long duration) {
-//        rightHand.forward(5, duration/2);
-//        leftHand.in(5, duration/2);
-//        ViewTime.getInstance().registerAlert(duration*8/9, () -> {
-//            rightHand.reset();
-//            leftHand.reset();
-//        });
-//
-//        AttackViewObject attack = TemporaryVOCreationVisitor.getInstance().createAttack(r, s, "resources/effects/punch/punch.xml", duration);
-//        ViewTime.getInstance().registerAlert(duration*3/7, () ->attack.start());
+    public void attack(int r, int s, long windUpTime, long coolDownTime) {
+        double v = -0.1;
+        double a = (2d*(punchDistance-v*windUpTime)/Math.pow(windUpTime, 2));
+        System.out.println("Starting attack: " + a);
+        long startTime = ViewTime.getInstance().getCurrentTimeMilli();
+        positionHandForAttack(rightHand, a, v, startTime, startTime + windUpTime);
 
 
+        AttackViewObject attack = TemporaryVOCreationVisitor.getInstance().createAttack(r, s, "resources/effects/punch/punch.xml", windUpTime);
+        ViewTime.getInstance().registerAlert(windUpTime, () ->attack.start());
+
+        ViewTime.getInstance().registerAlert(coolDownTime, ()->rightHand.setOffset(0));
+
+
+    }
+
+    private void positionHandForAttack(SmartHandViewObject hand, double a, double v, long startTime, long endTime) {
+        long t = ViewTime.getInstance().getCurrentTimeMilli();
+        if (t <= endTime) {
+            hand.setOffset((int)(a/2*Math.pow(t- startTime, 2) + v*(t-startTime)));
+            ViewTime.getInstance().registerAlert(0, () -> positionHandForAttack(hand, a, v, startTime, endTime));
+        }
     }
 
     @Override

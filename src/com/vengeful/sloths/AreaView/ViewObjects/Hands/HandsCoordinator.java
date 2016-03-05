@@ -52,8 +52,8 @@ public class HandsCoordinator {
         state.alertMove(r, s, duration);
     }
 
-    public void attack(int r, int s, long duration) {
-        state.attack(r, s, duration);
+    public void attack(int r, int s, long windUpTime, long coolDownTime) {
+        state.attack(r, s, windUpTime, coolDownTime);
     }
 
     public void setLocation(int r, int s) {

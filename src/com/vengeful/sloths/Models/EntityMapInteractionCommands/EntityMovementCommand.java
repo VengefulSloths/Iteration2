@@ -67,30 +67,35 @@ public class EntityMovementCommand implements Alertable{
 
     public int execute() {
         if (subject.isActive()) return 0;
+        try {
+            if (canMoveVisitor.canMove()) {
 
-        map.getActiveMapArea().getTile(dst).accept(canMoveVisitor);
-        if (canMoveVisitor.canMove()) {
-            map.getActiveMapArea().getTile(src).removeEntity(subject);
+                //this will throw if no tile exists
+                map.getActiveMapArea().getTile(dst);
 
-
-            subject.setLocation(dst);
-            subject.setActive(true);
-
+                map.getActiveMapArea().getTile(src).removeEntity(subject);
 
 
-            int moveTicks = MAX_MOVESPEED - movementSpeed;
-            TimeModel.getInstance().registerAlertable(this, moveTicks);
+                subject.setLocation(dst);
+                subject.setActive(true);
 
 
-            while (entityObserverIterator.hasNext()) {
-                entityObserverIterator.next().alertMove(dst.getR(), dst.getS(), moveTicks* TimeController.MODEL_TICK);
+                int moveTicks = MAX_MOVESPEED - movementSpeed;
+                TimeModel.getInstance().registerAlertable(this, moveTicks);
+
+
+                while (entityObserverIterator.hasNext()) {
+                    entityObserverIterator.next().alertMove(dst.getR(), dst.getS(), moveTicks * TimeController.MODEL_TICK);
+                }
+
+                //This needs to be last for teleporting, bad connasence
+                map.getActiveMapArea().getTile(dst).addEntity(subject);
+                return moveTicks;
+
+            } else {
+                return 0;
             }
-
-            //This needs to be last for teleporting, bad connasence
-            map.getActiveMapArea().getTile(dst).addEntity(subject);
-            return moveTicks;
-
-        } else {
+        } catch (Exception e) {
             return 0;
         }
 
