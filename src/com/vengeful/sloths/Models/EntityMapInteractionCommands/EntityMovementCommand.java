@@ -70,7 +70,7 @@ public class EntityMovementCommand implements Alertable{
         try {
             map.getActiveMapArea().getTile(dst).accept(canMoveVisitor);
             if (canMoveVisitor.canMove()) {
-                System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+canMoveVisitor.canMove());
+                //System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+canMoveVisitor.canMove());
 
                 //this will throw if no tile exists
                 map.getActiveMapArea().getTile(dst);

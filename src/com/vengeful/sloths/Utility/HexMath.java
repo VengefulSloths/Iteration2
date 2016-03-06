@@ -37,6 +37,7 @@ public class HexMath {
         return coords.iterator();
     }
 
+    //make one that returns tiles.
     public static Iterator<Coord> sortedRing(Coord center, int radius) {
         ArrayList<Coord> coords = new ArrayList<>();
 
@@ -100,5 +101,36 @@ public class HexMath {
         }
 
         return safeCoords.iterator();
+    }
+
+    public static Direction getCoordDirection(Coord src, Coord dst){
+        int rDiff = src.getR() - dst.getR();
+        int sDiff = src.getS() - dst.getS();
+        System.out.println( rDiff + "  " + sDiff +"  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
+
+        if(rDiff <= -1 && sDiff == 0 ){
+            return Direction.SE;
+        }
+        else if(rDiff <= -1 && sDiff >= 1){
+            return Direction.NE;
+        }
+        else if(rDiff == 0  && sDiff >= 1){
+            return Direction.N;
+        }
+        else if(rDiff == 0 && sDiff <= -1){
+            return Direction.S;
+        }
+        else if (rDiff >= 1 && sDiff <= -1){
+            return Direction.SW;
+        }else if(rDiff >= 1 && sDiff == 0){
+            return Direction.NW;
+        }else {
+            //System.out.println( rDiff + "  " + sDiff +"  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+            System.out.println("fail");
+            return Direction.N;
+
+            //error
+        }
     }
 }

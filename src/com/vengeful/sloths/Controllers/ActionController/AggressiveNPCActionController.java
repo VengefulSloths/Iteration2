@@ -2,6 +2,8 @@ package com.vengeful.sloths.Controllers.ActionController;
 
 import com.vengeful.sloths.Controllers.Target.*;
 import com.vengeful.sloths.Models.Entity.Entity;
+import com.vengeful.sloths.Models.Map.Map;
+import com.vengeful.sloths.Utility.Direction;
 
 /**
  * Created by John on 2/29/2016.
@@ -33,8 +35,7 @@ public class AggressiveNPCActionController extends ActionController {
         }else{
             //move towards it
             //bfs here
-            //actually gonna try shitty directional code to not do bfs kek
-            this.getEntity().move(this.getTargetDirection(avatar));
+            this.moveToTarget(avatar);
         }
     }
 
@@ -43,8 +44,10 @@ public class AggressiveNPCActionController extends ActionController {
         //attack the piggy
         if(this.checkLocation(piggy, 1)){
             //make attack command
+            this.getEntity().attack(this.getTargetDirection(piggy));
         }else{
             //move towards it, bfs
+            this.moveToTarget(piggy);
         }
     }
 

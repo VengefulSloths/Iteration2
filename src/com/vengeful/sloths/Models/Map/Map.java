@@ -58,6 +58,8 @@ public class Map implements ModelVisitable, ViewObservable{
         return activeMapArea.getTile(c);
     }
 
+    public Coord getCoord(Tile t){return activeMapArea.getCoord(t);}
+
     /**
     *GETTER AND SETTERS FOR ALL PRIVATE VARIABLES
      */
