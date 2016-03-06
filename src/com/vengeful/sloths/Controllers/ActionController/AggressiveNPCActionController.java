@@ -44,8 +44,10 @@ public class AggressiveNPCActionController extends ActionController {
         //attack the piggy
         if(this.checkLocation(piggy, 1)){
             //make attack command
+            this.getEntity().attack(this.getTargetDirection(piggy));
         }else{
             //move towards it, bfs
+            this.moveToTarget(piggy);
         }
     }
 
