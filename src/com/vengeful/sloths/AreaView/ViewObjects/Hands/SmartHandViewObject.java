@@ -72,6 +72,9 @@ public class SmartHandViewObject extends MovingViewObject{
     public void hold(WeaponImageContainer weapon) {
         this.weapon = weapon;
     }
+    public void drop() {
+        this.weapon = null;
+    }
 
     public void calculatePixelOffsets() {
         xPixelOffset = (int)(radius*Math.cos(angle+angle0+directional_angle) + offset*Math.cos(angle+angle0+directional_angle + Math.PI/2));

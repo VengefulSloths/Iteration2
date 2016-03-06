@@ -176,7 +176,6 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
 
     @Override
     public void alertUnequipWeapon() {
-        System.out.println("HERHEH REH REHR JAF FSDASA");
         hands.unequip();
     }
 
