@@ -49,6 +49,10 @@ public class HandsCoordinator {
         state.addWeapon(weapon);
     }
 
+    public void unequip() {
+        this.state = new UnarmedState(r, s, coordinateStrategy, locationStrategy, resourcePath, direction);
+    }
+
     public void alertMove(int r, int s, long duration) {
         this.r = r;
         this.s = s;

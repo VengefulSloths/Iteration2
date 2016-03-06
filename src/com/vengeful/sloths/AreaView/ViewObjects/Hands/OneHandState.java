@@ -110,8 +110,6 @@ public class OneHandState implements HandState {
         {
             double omega = sweepAngle/(coolDownTime-windUpTime)*2;
             double vr = (double)radiusChange/(coolDownTime - windUpTime)*2;
-            System.out.println("vr: " + vr);
-            System.out.println("omega: " + omega);
 
             ViewTime.getInstance().registerAlert(windUpTime, () ->withdrawHandFromAttack(rightHand, sweepAngle, radius - radiusChange, omega, vr, startTime + windUpTime, (coolDownTime + windUpTime)/2 + startTime));
         }
@@ -122,11 +120,8 @@ public class OneHandState implements HandState {
 
     private void positionHandForAttack(SmartHandViewObject hand, double sweepAngle, int radius, double alpha, double omega, double vr, long startTime, long endTime) {
         long t = ViewTime.getInstance().getCurrentTimeMilli();
-        System.out.println("positioning for attack: " + (alpha/2*Math.pow(t- startTime, 2) + omega*(t-startTime)));
 
         if (direction == Direction.SW && t > (startTime - endTime)/3 + startTime) {
-            System.out.println("ATTACL: DIRECTION SW, ADDING TO FOREGROUND");
-
             foreground.add(rightHand);
             background.clear();
         } else if (direction == Direction.NE && t > (startTime - endTime)/3 + startTime) {
@@ -134,7 +129,6 @@ public class OneHandState implements HandState {
             background.add(rightHand);
         }
         if (t <= endTime) {
-            System.out.println((int)(radius-vr*(t-startTime)));
             hand.setRadius((int)(radius-vr*(t-startTime)));
             hand.setAngle((alpha/2*Math.pow(t- startTime, 2) + omega*(t-startTime)));
             ViewTime.getInstance().registerAlert(0, () -> positionHandForAttack(hand, sweepAngle,radius, alpha, omega, vr, startTime, endTime));
@@ -154,7 +148,6 @@ public class OneHandState implements HandState {
 //        }
 
         if (t <= endTime) {
-            System.out.println("radius: " + (int)(startRadius+vr*(t-startTime)));
             hand.setRadius((int)(startRadius+vr*(t-startTime)));
             hand.setAngle((startAngle - omega*(t-startTime)));
             ViewTime.getInstance().registerAlert(0, () -> withdrawHandFromAttack(hand, startAngle, startRadius, omega, vr, startTime, endTime));

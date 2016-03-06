@@ -142,7 +142,9 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         if (item == null) {
             Iterator<EntityObserver> iter = getObservers().iterator();
             while (iter.hasNext()) {
-                iter.next().alertUnequipHat();
+                EntityObserver current = iter.next();
+                current.alertUnequipHat();
+                current.alertUnequipWeapon();
             }
         } else {
             item.removeFromEquipped(this.getEquipped());
