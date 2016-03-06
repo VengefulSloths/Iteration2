@@ -35,11 +35,6 @@ public class AggressiveNPCActionController extends ActionController {
         }else{
             //move towards it
             //bfs here
-            //actually gonna try shitty directional code to not do bfs kek
-
-            //Direction desiredDirection = this.getTargetDirection(avatar);
-
-            //this.getEntity().move(desiredDirection);
             this.moveToTarget(avatar);
         }
     }
