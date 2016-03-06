@@ -1,5 +1,7 @@
 package com.vengeful.sloths.AreaView.ViewObjects.Hands;
 
+import com.vengeful.sloths.AreaView.TemporaryVOCreationVisitor;
+import com.vengeful.sloths.AreaView.ViewObjects.AttackViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.WeaponImageContainer;
@@ -113,6 +115,9 @@ public class OneHandState implements HandState {
 
             ViewTime.getInstance().registerAlert(windUpTime, () ->withdrawHandFromAttack(rightHand, sweepAngle, radius - radiusChange, omega, vr, startTime + windUpTime, (coolDownTime + windUpTime)/2 + startTime));
         }
+
+        AttackViewObject attack = TemporaryVOCreationVisitor.getInstance().createAttack(r, s, "resources/effects/slash/slash.xml", windUpTime);
+        ViewTime.getInstance().registerAlert(0, () ->attack.start());
     }
 
     private void positionHandForAttack(SmartHandViewObject hand, double sweepAngle, int radius, double alpha, double omega, double vr, long startTime, long endTime) {
