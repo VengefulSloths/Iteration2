@@ -37,7 +37,7 @@ public class PiggyActionController extends ActionController {
         }else{
             // find and walk towards avatar
 
-            this.getEntity().move(this.getTargetDirection(avatar));
+            this.moveToTarget(avatar);
         }
     }
 
@@ -61,7 +61,7 @@ public class PiggyActionController extends ActionController {
             //actually gonna try shitty directional code to not do bfs kek
             System.out.println("PIGGY IS finding an aggressive NPC!!!");
 
-            this.getEntity().move(this.getTargetDirection(aNPC));
+            this.moveToTarget(aNPC);
         }
     }
 
@@ -83,7 +83,7 @@ public class PiggyActionController extends ActionController {
             //actually gonna try shitty directional code to not do bfs kek
             System.out.println("PIGGY IS finding a mapItem!");
 
-            this.getEntity().move(this.getTargetDirection(mapItemTarget));
+            this.moveToTarget(mapItemTarget);
         }
 
     }
