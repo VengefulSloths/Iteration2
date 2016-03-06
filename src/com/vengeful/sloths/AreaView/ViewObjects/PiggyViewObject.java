@@ -97,5 +97,10 @@ public class PiggyViewObject extends EntityViewObject implements EntityObserver 
     public void movementHook(int r, int s, long duration) {
         ((DynamicTimedImage) currentDynamicImage).start(duration);
     }
+
+    @Override
+    public void accept(VOVisitor v) {
+        v.visitPiggy(this);
+    }
 }
 

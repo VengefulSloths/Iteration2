@@ -17,6 +17,9 @@ public class VOSorter implements VOVisitor {
     }
 
     @Override
+    public void visitPiggy(PiggyViewObject p) { zLevel = 1050; }
+
+    @Override
     public void visitGrass(GrassViewObject g) {
         zLevel = 200;
     }

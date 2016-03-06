@@ -7,10 +7,13 @@ import com.vengeful.sloths.AreaView.ViewObjects.MountainViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.OneShotViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.WaterViewObject;
 
+import java.util.Random;
+
 /**
  * Created by alexs on 2/22/2016.
  */
 public class PlainsPersistantViewObjectFactory extends ViewObjectFactory {
+    private Random randHeight = new Random(80085);
     public PlainsPersistantViewObjectFactory(CoordinateStrategy cs, LocationStrategy ls) {
         super(cs, ls);
     }
@@ -28,7 +31,17 @@ public class PlainsPersistantViewObjectFactory extends ViewObjectFactory {
 
     @Override
     public MountainViewObject createMountainTerrainViewObject(int r, int s) {
-        return new MountainViewObject(r, s, getCoordinateStrategy(), getLocationStrategy(), "resources/terrain/grass_mountain.xml");
+        String mountianString = "resources/terrain/grass_mountain";
+        switch (randHeight.nextInt(3)) {
+            case 0: mountianString += ".xml";
+                break;
+            case 1: mountianString += "_low.xml";
+                break;
+            case 2: mountianString += "_high.xml";
+                break;
+        }
+
+        return new MountainViewObject(r, s, getCoordinateStrategy(), getLocationStrategy(), mountianString);
     }
 
     @Override

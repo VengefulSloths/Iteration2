@@ -7,6 +7,7 @@ import com.vengeful.sloths.AreaView.DecalViewObject;
  */
 public interface VOVisitor {
     void visitEntity(EntityViewObject e);
+    void visitPiggy(PiggyViewObject p);
     void visitGrass(GrassViewObject g);
     void visitMountain(MountainViewObject m);
     void visitWater(WaterViewObject w);
