@@ -48,71 +48,54 @@ public abstract class ActionController implements TargetVisitor {
         this.entity = entity;
     }
 
-
-    protected  Direction getPathDirection(Target target){
-
-        Iterator<Coord> iter;
-        ArrayList<Coord> marked = new ArrayList<>();
-        marked.add(target.getCoord());
-        Queue<Coord> queue = new LinkedList<>();
-        Stack<Coord> path = new Stack<>();
-        //int currRing = 0;
-        //while(currRing <= distance) {
-
-        int dir = 0;
-        //queue.add(entity.getLocation());
-        path.push(entity.getLocation());
-        while(!path.isEmpty()){
-            System.out.println("llooping");
-            Coord tmp = path.pop();//queue.remove();
-            //path.push(tmp);
-
-            if (!marked.contains(tmp)) {
-                iter = HexMath.sortedRing(tmp, 1);
-                //this while loop checks for solution
-                marked.add(tmp);
-                System.out.println("tmp is : " + tmp.getR() + ", " + tmp.getS());
-                dir = 0;
-                while (iter.hasNext()) {
-                    Coord current = iter.next();
-
-                    if (current.equals(target.getCoord())) {
-                        System.out.println("dir is: " + dir);
-                        Coord tmpSol = null;
-                        Coord curSol = null;
-                        while(!path.empty()){
-                            tmpSol = curSol;
-                            curSol = path.pop();
-                        }
-
-                        return HexMath.getCoordDirection(entity.getLocation(), tmpSol);
-                    }
-                    ++dir;
-                    if (!marked.contains(current) && !path.contains(current)) {
-                        try {
-                            System.out.println("bloop");
-                            Map.getInstance().getActiveMapArea().getTile(current).accept(canMoveVisitor);
-                            if (canMoveVisitor.canMove()) {
-                                path.push(current);
-                                System.out.println(path.contains(current));
-                                System.out.println("adding " + current.getR() + ", " + current.getS());
-                            }else{
-                                System.out.println("#########################################################################################################################################################################################");
-                            }
-                        }catch (Exception e){}
-                    }else{
-                        System.out.println("already added");
-                    }
-                }
-            }
-            //path.remove(tmp);
-           //marked.add(tmp);
+    protected boolean moveToTarget(Target target){
+        Direction dir = getTargetDirection(target);
+        if(entity.move(dir) > 0){
+            return true;
+        }else if(entity.move(getAlternativeDirection(dir)) > 0){
+            return true;
+        }else if( entity.move(getUnblockedDirection()) > 0){
+            return true;
+        }else{
+            return false;
         }
-        System.out.println("defaulting");
-        return Direction.N;
-
     }
 
+    protected Direction getUnblockedDirection(){
+        Iterator<Coord> iter = HexMath.sortedRing(entity.getLocation(), 1);
+        while(iter.hasNext()){
+            try {
+                Coord current = iter.next();
+                Map.getInstance().getTile(current).accept(canMoveVisitor);
+                if (canMoveVisitor.canMove()) {
+                    return HexMath.getCoordDirection(entity.getLocation(), current);
+                }
+            }catch(Exception e){
+
+            }
+        }
+
+        //default
+        return null;
+    }
+
+    protected Direction getAlternativeDirection(Direction dir){
+        switch(dir){
+            case NE:
+                return Direction.N;
+            case SE:
+                return Direction.NE;
+            case S:
+                return Direction.SE;
+            case SW:
+                return Direction.S;
+            case NW:
+                return Direction.SW;
+            case N:
+                return Direction.NW;
+            default: return null;
+        }
+    }
     protected Direction getTargetDirection(Target target){
 
         Iterator<Coord> iter;
@@ -160,7 +143,7 @@ public abstract class ActionController implements TargetVisitor {
                     }
                     ++dir;
                     if (!marked.contains(current)) {
-                        queue.add(current);
+                            queue.add(current);
                     }
                 }
             }
@@ -168,7 +151,7 @@ public abstract class ActionController implements TargetVisitor {
             marked.add(tmp);
         }
         System.out.println("defaulting");
-        return Direction.N;
+        return null;
 
     }
 
