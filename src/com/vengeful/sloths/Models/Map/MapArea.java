@@ -96,6 +96,18 @@ public class MapArea implements ModelVisitable{
         return tile;
     }
 
+    public Coord getCoord(Tile tile){
+        for(int i = 0; i < tiles.length; ++i){
+            for(int j = 0; j < tiles[0].length; ++j){
+                if(tiles[i][j] == tile){
+                    return new Coord(i,j);
+                }
+            }
+        }
+        System.out.println("failure");
+        return new Coord(0,0);
+    }
+
     /**
      *Standard Getter/Setters for: maxS, maxR, tiles
      */

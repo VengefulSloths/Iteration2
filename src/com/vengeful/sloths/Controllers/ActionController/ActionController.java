@@ -2,6 +2,10 @@ package com.vengeful.sloths.Controllers.ActionController;
 
 import com.vengeful.sloths.Controllers.Target.*;
 import com.vengeful.sloths.Models.Entity.Entity;
+import com.vengeful.sloths.Models.EntityMapInteractionCommands.CanMoveVisitor;
+import com.vengeful.sloths.Models.EntityMapInteractionCommands.DefaultCanMoveVisitor;
+import com.vengeful.sloths.Models.Map.*;
+import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Utility.HexMath;
@@ -14,6 +18,7 @@ import java.util.*;
 public abstract class ActionController implements TargetVisitor {
 
     private Entity entity;
+    private CanMoveVisitor canMoveVisitor= new DefaultCanMoveVisitor();
 
     public ActionController(){}
     public ActionController(Entity entity){
@@ -44,12 +49,77 @@ public abstract class ActionController implements TargetVisitor {
     }
 
 
+    protected  Direction getPathDirection(Target target){
+
+        Iterator<Coord> iter;
+        ArrayList<Coord> marked = new ArrayList<>();
+        marked.add(target.getCoord());
+        Queue<Coord> queue = new LinkedList<>();
+        Stack<Coord> path = new Stack<>();
+        //int currRing = 0;
+        //while(currRing <= distance) {
+
+        int dir = 0;
+        //queue.add(entity.getLocation());
+        path.push(entity.getLocation());
+        while(!path.isEmpty()){
+            System.out.println("llooping");
+            Coord tmp = path.pop();//queue.remove();
+            //path.push(tmp);
+
+            if (!marked.contains(tmp)) {
+                iter = HexMath.sortedRing(tmp, 1);
+                //this while loop checks for solution
+                marked.add(tmp);
+                System.out.println("tmp is : " + tmp.getR() + ", " + tmp.getS());
+                dir = 0;
+                while (iter.hasNext()) {
+                    Coord current = iter.next();
+
+                    if (current.equals(target.getCoord())) {
+                        System.out.println("dir is: " + dir);
+                        Coord tmpSol = null;
+                        Coord curSol = null;
+                        while(!path.empty()){
+                            tmpSol = curSol;
+                            curSol = path.pop();
+                        }
+
+                        return HexMath.getCoordDirection(entity.getLocation(), tmpSol);
+                    }
+                    ++dir;
+                    if (!marked.contains(current) && !path.contains(current)) {
+                        try {
+                            System.out.println("bloop");
+                            Map.getInstance().getActiveMapArea().getTile(current).accept(canMoveVisitor);
+                            if (canMoveVisitor.canMove()) {
+                                path.push(current);
+                                System.out.println(path.contains(current));
+                                System.out.println("adding " + current.getR() + ", " + current.getS());
+                            }else{
+                                System.out.println("#########################################################################################################################################################################################");
+                            }
+                        }catch (Exception e){}
+                    }else{
+                        System.out.println("already added");
+                    }
+                }
+            }
+            //path.remove(tmp);
+           //marked.add(tmp);
+        }
+        System.out.println("defaulting");
+        return Direction.N;
+
+    }
+
     protected Direction getTargetDirection(Target target){
 
         Iterator<Coord> iter;
         ArrayList<Coord> marked = new ArrayList<>();
         marked.add(target.getCoord());
         Queue<Coord> queue = new LinkedList<>();
+        //Queue<Coord> path = new LinkedList<>();
         //int currRing = 0;
         //while(currRing <= distance) {
 
@@ -58,6 +128,7 @@ public abstract class ActionController implements TargetVisitor {
 
         while(!queue.isEmpty()){
             Coord tmp = queue.remove();
+            //path.add(tmp);
             if (!marked.contains(tmp)) {
                 iter = HexMath.sortedRing(tmp, 1);
                 //this while loop checks for solution
@@ -67,7 +138,7 @@ public abstract class ActionController implements TargetVisitor {
 
                     //System.out.println("iter: " + current + " == " + target.getCoord());
                     if (current.equals(target.getCoord())) {
-                        System.out.println("dir is: " + dir);
+                        //System.out.println("dir is: " + dir);
                         switch (dir) {
                             case 0:
                                 return Direction.N;
@@ -85,6 +156,7 @@ public abstract class ActionController implements TargetVisitor {
                                 System.out.println("not directioning rigt");
                         }
 
+
                     }
                     ++dir;
                     if (!marked.contains(current)) {
@@ -92,6 +164,7 @@ public abstract class ActionController implements TargetVisitor {
                     }
                 }
             }
+            //path.remove(tmp);
             marked.add(tmp);
         }
         System.out.println("defaulting");
