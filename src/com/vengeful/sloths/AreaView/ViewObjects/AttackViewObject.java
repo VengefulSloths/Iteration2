@@ -15,6 +15,8 @@ import java.awt.*;
  */
 public class AttackViewObject extends ViewObject {
     private DynamicImage animation;
+    private boolean isInFront;
+
 
     private long duration;
 
@@ -22,12 +24,21 @@ public class AttackViewObject extends ViewObject {
         super(r, s, coordinateStrategy, locationStrategy);
         this.duration = duration;
         this.animation = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath);
+        this.isInFront = true;
+    }
+
+    public AttackViewObject(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy, String resourcePath, long duration, boolean isInFront) {
+        this(r, s, coordinateStrategy, locationStrategy, resourcePath, duration);
+        this.isInFront = isInFront;
     }
 
     public void start() {
         ((DynamicTimedImage) animation).start(duration);
     }
 
+    public boolean isInFront() {
+        return isInFront;
+    }
 
     @Override
     public void paintComponent(Graphics2D g) {
