@@ -80,6 +80,11 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
         activeCameraView.addViewObject(attack);
         return attack;
     }
+    public AttackViewObject createAttack(int r, int s, String resourcePath, long duration, boolean isInFront) {
+        AttackViewObject attack =  factory.createAttackViewObject(r, s, resourcePath, duration, isInFront);
+        activeCameraView.addViewObject(attack);
+        return attack;
+    }
 
     public HatViewObject createHat(int r, int s, String resourcePath, Direction direction) {
         return factory.createHatViewObject(r, s, resourcePath, direction);
