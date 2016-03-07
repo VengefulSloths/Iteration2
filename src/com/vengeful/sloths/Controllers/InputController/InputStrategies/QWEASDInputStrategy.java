@@ -54,6 +54,9 @@ public class QWEASDInputStrategy extends InputStrategy {
             case KeyEvent.VK_SPACE:
                 state.handleSpaceKey();
                 break;
+            case KeyEvent.VK_ENTER:
+                state.handle5Key();
+                break;
         }
     }
 

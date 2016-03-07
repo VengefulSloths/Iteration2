@@ -51,7 +51,7 @@ public class Inventory implements ModelVisitable{
         Iterator<InventoryObserver> iter = this.inventoryObservers.iterator();
         while (iter.hasNext()) {
             InventoryObserver io = iter.next();
-            for (InventoryItem i : inventory)
+            for (MainMenuItem i : inventory)
             io.alertItemAdded(i);
         }
     }*/

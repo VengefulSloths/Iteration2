@@ -7,11 +7,11 @@ import java.util.Iterator;
 /**
  * Created by John on 2/16/2016.
  */
-public class ScrollableMenu extends JPanel{
+public abstract class ScrollableMenu extends JPanel{
 
     protected int itemHeight;
     protected ScrollableMenuList list;
-    protected int padding = 10;
+    protected int padding = 300;
 
 
     public ScrollableMenu(int height){
@@ -25,26 +25,26 @@ public class ScrollableMenu extends JPanel{
 
     @Override
     protected void paintComponent(Graphics g){
-        System.out.println("painting");
+        //System.out.println("painting");
         super.paintComponent(g);
-        int offset = padding;
-        int index = 0;
-        Graphics2D g2d = (Graphics2D) g;
-        Iterator iter = list.getIterator();
-        while (iter.hasNext()) {
-            if(index == list.getCurrentIndex()){
-                System.out.println(list.getCurrentIndex());
-            ScrollableMenuItem current = (ScrollableMenuItem) iter.next();
-            g2d.setColor(new Color(255, 0, 255, 80));
-            g2d.fillRect(padding/2, offset , this.getWidth() - padding, itemHeight);
-            current.paintComponent(g2d, padding , offset + itemHeight/2, this.getWidth(), itemHeight);
-            }else{
-                ScrollableMenuItem current = (ScrollableMenuItem) iter.next();
-                current.paintComponent(g2d, padding, offset + itemHeight/2, this.getWidth(), itemHeight);
-            }
-            offset += itemHeight;
-            index++;
-        }
+//        int offset = padding;
+//        int index = 0;
+//        Graphics2D g2d = (Graphics2D) g;
+//        Iterator iter = list.getIterator();
+//        while (iter.hasNext()) {
+//            if(index == list.getCurrentIndex()){
+//                System.out.println(list.getCurrentIndex());
+//            ScrollableMenuItem current = (ScrollableMenuItem) iter.next();
+//            g2d.setColor(new Color(255, 0, 255, 80));
+//            g2d.fillRect(padding/2, offset , this.getWidth() - padding, itemHeight);
+//            current.paintComponent(g2d, padding , offset + itemHeight/2, this.getWidth(), itemHeight);
+//            }else{
+//                ScrollableMenuItem current = (ScrollableMenuItem) iter.next();
+//                current.paintComponent(g2d, padding, offset + itemHeight/2, this.getWidth(), itemHeight);
+//            }
+//            offset += itemHeight;
+//            index++;
+//        }
         Toolkit.getDefaultToolkit().sync();
     }
 
@@ -67,6 +67,7 @@ public class ScrollableMenu extends JPanel{
     }
 
     public void up(){
+        this.list.setCurrentIndex(this.list.getCurrentIndex() - 1);
         //move visual up
         //moce list p
     }
@@ -74,4 +75,11 @@ public class ScrollableMenu extends JPanel{
         list.select(command);
     }
 
+    public int getPadding() {
+        return padding;
+    }
+
+    public void setPadding(int padding) {
+        this.padding = padding;
+    }
 }

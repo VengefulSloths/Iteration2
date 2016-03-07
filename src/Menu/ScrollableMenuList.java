@@ -46,6 +46,9 @@ public class ScrollableMenuList {
     }
 
     public void setCurrentIndex(int currentIndex) {
+        if (currentIndex < 0) return;
+        if (currentIndex >= list.size()) return;
+        
         this.currentIndex = currentIndex;
     }
 }
