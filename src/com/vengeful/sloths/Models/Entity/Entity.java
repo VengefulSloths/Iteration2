@@ -188,7 +188,9 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
 
             Iterator<EntityObserver> entityObserverIterator = observers.iterator();
             while (entityObserverIterator.hasNext()) {
-                entityObserverIterator.next().alertDirectionChange(facingDirection);
+                try {
+                    entityObserverIterator.next().alertDirectionChange(facingDirection);
+                }catch(Exception e){}
             }
     }
 

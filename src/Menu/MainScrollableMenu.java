@@ -9,7 +9,7 @@ public class MainScrollableMenu extends ScrollableMenu {
         super(height);
         //create list here for main menu
         ScrollableMenuList list = new ScrollableMenuList();
-        list.addItem(new MainMenuItem("New Game"));
+        list.addItem(new NewGameMenuItem());
         list.addItem(new MainMenuItem("Load Game"));
         list.addItem(new MainMenuItem("Exit"));
         this.setList(list);

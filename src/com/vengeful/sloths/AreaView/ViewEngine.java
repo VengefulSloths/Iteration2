@@ -39,9 +39,9 @@ public class ViewEngine extends JFrame implements Runnable{
             this.repaint();
 
             long delta = System.currentTimeMillis() - lastTime;
-            if (delta < 50) {
+            if (delta < 30) {
                 try {
-                    Thread.sleep((50 - delta));
+                    Thread.sleep((30 - delta));
                 } catch (Exception e) {
                     //dont care
                 }
@@ -55,6 +55,8 @@ public class ViewEngine extends JFrame implements Runnable{
     public void start() {
         new Thread(this).start();
     }
+
+
 
     public void registerView(JPanel jpanel){
         this.target = jpanel;

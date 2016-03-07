@@ -90,6 +90,7 @@ public class MenuControllerState extends InputControllerState {
 
     @Override
     public boolean handle5Key() {
+        menu.select(null);
         return false;
     }
 

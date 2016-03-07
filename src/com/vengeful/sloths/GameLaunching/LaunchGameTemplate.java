@@ -32,6 +32,9 @@ public class LaunchGameTemplate {
         map = helper.createMap();
         cameras = helper.createCameras();
         avatar = helper.createAvatar();
+        avatar.getStats().setMovement(45);
+//        avatar.getInstance().getStats().setHardiness(10);
+//        Avatar.getInstance().getStats().setCurrentHealth(60);
         map.addEntity(helper.spawnPoint(), avatar);
 
         //Coord newSpawn = helper.spawnPoint();
@@ -44,17 +47,24 @@ public class LaunchGameTemplate {
         /*****Test avatar drop******/
         avatar.getInventory().addItem(new Potion("redPotion", new HealthManaExperienceAddable(5,0,0,0,0)));
         avatar.getInventory().addItem(new Potion("bluePotion", new HealthManaExperienceAddable(0,0,5,0,0)));
+
+
         /**************************/
+
+
 
         //ViewEngine viewEngine = new ViewEngine(areaView);
         ViewEngine viewEngine = ViewEngine.getInstance();
+        viewEngine.killOldView();
         viewEngine.registerView(areaView);
         //ModelEngine modelEngine = new ModelEngine();
         ModelEngine modelEngine = ModelEngine.getInstance();
         MainController controller = MainController.getInstance();
+        controller.setAvatarControllerState();
 
         modelEngine.start();
-        viewEngine.start();
+
+//       viewEngine.start();
 
     }
 
