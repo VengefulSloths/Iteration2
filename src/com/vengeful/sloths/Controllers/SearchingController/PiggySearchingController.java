@@ -14,6 +14,7 @@ import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Hat;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Knuckle;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
@@ -162,6 +163,11 @@ public class PiggySearchingController extends SearchingController {
 
     @Override
     public void visitTwoHandedWeapon(TwoHandedWeapon thw) {
+
+    }
+
+    @Override
+    public void visitKnuckle(Knuckle thw) {
 
     }
 

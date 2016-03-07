@@ -1,10 +1,12 @@
 package com.vengeful.sloths.Models.Occupation;
 
 
+import com.vengeful.sloths.Models.Ability.AbilityManager;
+import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.ModelVisitor;
+import com.vengeful.sloths.Models.Skills.Skill;
+import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.BaseStatsAddable;
-import com.vengeful.sloths.Models.Stats.StatAddables.HealthManaExperienceAddable;
-import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
 
 /**
@@ -12,8 +14,15 @@ import com.vengeful.sloths.Models.Stats.Stats;
  */
 public class Summoner extends Occupation {
 
-    public Summoner(Stats stats){
+    public Summoner(Stats stats, SkillManager skillManager, AbilityManager abilityManager, Entity entity){
         stats.add(new BaseStatsAddable(0, 0, 10, 0, 0));
+        this.addSharedSkills(skillManager);
+        skillManager.addSkill(new Skill("enchantment"));
+        skillManager.addSkill(new Skill("boon"));
+        skillManager.addSkill(new Skill("bane"));
+        skillManager.addSkill(new Skill("staff"));
+
+        this.addSharedAbility(abilityManager, entity);
     }
 
     @Override
