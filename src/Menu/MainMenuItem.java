@@ -5,11 +5,11 @@ import java.awt.*;
 /**
  * Created by John on 2/18/2016.
  */
-public class InventoryItem implements ScrollableMenuItem {
+public class MainMenuItem implements ScrollableMenuItem {
 
     private String name;
 
-    public InventoryItem(String name){
+    public MainMenuItem(String name){
         this.name = name;
     }
 
