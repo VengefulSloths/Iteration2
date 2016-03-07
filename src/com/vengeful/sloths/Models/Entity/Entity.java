@@ -115,6 +115,8 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         if(!isActive) {
             this.setFacingDirection(dir);
 
+
+
             EntityAttackCommand eac = EntityMapInteractionFactory.getInstance().createAttackCommand(
                     this.getLocation(),
                     dir,
@@ -135,8 +137,8 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
             Iterator<EntityObserver> iter = getObservers().iterator();
             while (iter.hasNext()) {
                 EntityObserver eo = iter.next();
-                eo.alertEquipHat("tophat");
-                eo.alertEquipWeapon("dagger", WeaponClass.ONE_HAND);
+                //eo.alertEquipHat("tophat");
+                eo.alertEquipWeapon("cleaver", WeaponClass.TWO_HAND);
             }
         } else {
             item.addToEquipped(this.getEquipped());
@@ -148,7 +150,9 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         if (item == null) {
             Iterator<EntityObserver> iter = getObservers().iterator();
             while (iter.hasNext()) {
-                iter.next().alertUnequipHat();
+                EntityObserver current = iter.next();
+                current.alertUnequipHat();
+                //current.alertUnequipWeapon();
             }
         } else {
             item.removeFromEquipped(this.getEquipped());

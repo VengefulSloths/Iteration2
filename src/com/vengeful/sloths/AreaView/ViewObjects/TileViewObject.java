@@ -69,7 +69,7 @@ public class TileViewObject extends ViewObject implements DestroyVOObserver{
 
 
             //TODO: got to zachs method
-            preCalcNonVisibleImage();
+            //preCalcNonVisibleImage();
 
 
 

@@ -176,7 +176,7 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
 
     @Override
     public void alertUnequipWeapon() {
-
+        hands.unequip();
     }
 
     @Override
