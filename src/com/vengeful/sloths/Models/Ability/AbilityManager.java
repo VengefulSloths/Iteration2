@@ -1,10 +1,15 @@
 package com.vengeful.sloths.Models.Ability;
 
+import com.vengeful.sloths.AreaView.vAlertable;
+import com.vengeful.sloths.AreaView.vCommand;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
+import com.vengeful.sloths.Models.TimeModel.Alertable;
+import com.vengeful.sloths.Utility.Tuple;
 
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 
 /**
  * Created by luluding on 2/21/16.
@@ -17,8 +22,10 @@ public class AbilityManager implements ModelVisitable{
     //TODO: give it a default: punchAbility
 
 
+
+
     public AbilityManager(){
-        this.abilities = new ArrayList<Ability>();
+        this.abilities = new ArrayList<>();
         this.activeAbilities = new Ability[4]; //3 for occupation specific, 1 for common ability
     }
 

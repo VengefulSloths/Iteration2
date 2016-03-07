@@ -32,7 +32,7 @@ public class Stats implements ModelVisitable, ViewObservable {
     private int currentMana;
     private int maxMana;
 
-    private int offensiveRating;
+    private int offensiveRating = 0;
     private int defensiveRating;
     private int armorRating;
 
@@ -73,7 +73,6 @@ public class Stats implements ModelVisitable, ViewObservable {
         calculateMaxMana();
         calculateMaxHealth();
         calculateMaxExperience();
-        calculateOffensiveRating();
         calculateDefensiveRating();
         calculateArmorRating();
     }
@@ -86,8 +85,8 @@ public class Stats implements ModelVisitable, ViewObservable {
     private void calculateMaxExperience(){
         this.maxExperience = (int)Math.pow(((double)this.level), 2); //calculates experience to next level as level^2
     }
-    private void calculateOffensiveRating(){
-        this.offensiveRating = (1 + 2*this.level + (3*this.strength));
+    public void setOffensiveRating(int offensiveRating){
+        this.offensiveRating = offensiveRating;
     }
     private void calculateDefensiveRating(){
         this.defensiveRating = (1 + 2*this.level + (3*this.agility));

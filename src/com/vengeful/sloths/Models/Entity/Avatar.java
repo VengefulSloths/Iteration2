@@ -42,7 +42,7 @@ public class Avatar extends Entity{
         this.setBuffManager(buffManager);
         this.setSkillManager(skillManager);
         this.setStats(stats);
-        this.setEquipped(new Equipped(this.getStats()));
+        this.setEquipped(new Equipped(this));
 
         switch (occupationString) {
             case "Smasher":

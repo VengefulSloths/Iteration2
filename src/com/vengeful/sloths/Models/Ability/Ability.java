@@ -8,9 +8,10 @@ import com.vengeful.sloths.Models.ModelVisitor;
  */
 public abstract class Ability implements ModelVisitable {
 
-    public abstract void execute();
+    public abstract int execute();
 
 
+    //TODO: put this at a lower level for saving
     @Override
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitAbility(this);
