@@ -15,6 +15,8 @@ import com.vengeful.sloths.Models.Stats.StatAddables.StrengthAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Models.Map.*;
 
+import java.util.*;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -26,9 +28,7 @@ public class Main {
         System.out.println("this is the str: " + cat.getStrength());
         Stats stats = new Stats();
         Avatar blob = Avatar.getInstance();
-        blob.avatarInit("Summoner", new AbilityManager(), stats);
-
-
+        blob.avatarInit("Summoner", stats);
 
 
         engine.start();

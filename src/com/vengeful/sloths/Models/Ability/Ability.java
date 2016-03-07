@@ -6,7 +6,11 @@ import com.vengeful.sloths.Models.ModelVisitor;
 /**
  * Created by luluding on 2/21/16.
  */
-public class Ability implements ModelVisitable {
+public abstract class Ability implements ModelVisitable {
+
+    public abstract void execute();
+
+
     @Override
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitAbility(this);

@@ -13,7 +13,10 @@ import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Occupation;
+import com.vengeful.sloths.Models.Skills.Skill;
+import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.CurrentHealthAddable;
+import com.vengeful.sloths.Models.Stats.StatAddables.HealthManaExperienceAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Models.ViewObservable;
 import com.vengeful.sloths.Utility.Coord;
@@ -38,6 +41,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     private Equipped equipped;
     private String name;
     private Stats stats;
+    private SkillManager skillManager;
 
     private CanMoveVisitor movementValidator;
 
@@ -60,6 +64,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     public Entity(String name, BuffManager buffManager, Stats stats){
         this(name, stats);
         this.setBuffManager(buffManager);
+        //no argument for Ability, Occupaiton, and SkillManager - they are avatar only (for now)
 
     }
 
@@ -74,15 +79,16 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         this.equipped = new Equipped(stats);
         this.abilityManager = new AbilityManager();
         this.buffManager = new BuffManager(this);
-        this.occupation = new DummyOccupation(stats);
+        this.skillManager = new SkillManager();
+        this.occupation = new DummyOccupation(stats, skillManager, abilityManager, this);
         this.movementValidator = new DefaultCanMoveVisitor();
 
         //this.location = new Coord(1,2);
         this.facingDirection = Direction.N;
     }
 
-    public void doAbility(){
-        //do something
+    public void doAbility(int index){
+        this.abilityManager.doAbility(index);
     }
 
     public final int move(Direction dir){
@@ -184,12 +190,15 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
             while (entityObserverIterator.hasNext()) {
                 entityObserverIterator.next().alertDirectionChange(facingDirection);
             }
-
     }
 
     public void takeDamage(int attackDamage){
         //do dmg calculations here (like lessening it for defense)
         getStats().subtract(new CurrentHealthAddable(attackDamage));
+    }
+
+    public void gainHealth(int health) {
+        this.getStats().add(new HealthManaExperienceAddable(health, 0, 0, 0, 0));
     }
 
     public void pickup(TakeableItem item){
@@ -266,6 +275,14 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
 
     public void setStats(Stats stats){
         this.stats = stats;
+    }
+
+    public SkillManager getSkillManager(){
+        return this.skillManager;
+    }
+
+    public void setSkillManager(SkillManager skillManager){
+        this.skillManager = skillManager;
     }
 
     protected ArrayList<EntityObserver> getObservers(){

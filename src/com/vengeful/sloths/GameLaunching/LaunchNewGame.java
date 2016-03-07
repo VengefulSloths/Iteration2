@@ -31,7 +31,7 @@ public class LaunchNewGame implements LaunchGameHelper {
     }
     @Override
     public Avatar createAvatar() {
-        Avatar.getInstance().avatarInit("Smasher" , new AbilityManager(), new Stats());
+        Avatar.getInstance().avatarInit("Smasher", new Stats());
         return Avatar.getInstance();
     }
 }
