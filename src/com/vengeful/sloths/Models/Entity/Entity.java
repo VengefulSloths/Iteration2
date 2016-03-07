@@ -109,6 +109,8 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         if(!isActive) {
             this.setFacingDirection(dir);
 
+
+
             EntityAttackCommand eac = EntityMapInteractionFactory.getInstance().createAttackCommand(
                     this.getLocation(),
                     dir,
