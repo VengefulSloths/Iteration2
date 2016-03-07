@@ -24,7 +24,7 @@ public class MenuTester {
 
         menu.setPreferredSize(new Dimension(80, 600));
         //menu.setBackground(Color.green);
-        menu.setBorder(BorderFactory.createBevelBorder(1, Color.ORANGE, Color.ORANGE));
+        //menu.setBorder(BorderFactory.createBevelBorder(1, Color.ORANGE, Color.ORANGE));
         window.registerView(menu);
         window.setSize(1200, 1000);
 

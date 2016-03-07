@@ -1,6 +1,9 @@
 package Menu;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.Iterator;
 
 /**
@@ -8,15 +11,20 @@ import java.util.Iterator;
  */
 public class MainScrollableMenu extends ScrollableMenu {
 
+    private BufferedImage bg;
+
     public MainScrollableMenu(int height){
         super(height);
         //create list here for main menu
+        try {
+            bg = ImageIO.read(new File("resources\\backgrounds\\mainMenuBg.png"));
+        }catch (Exception e){}
         ScrollableMenuList list = new ScrollableMenuList();
         list.addItem(new NewGameMenuItem());
         list.addItem(new MainMenuItem("Load Game"));
         list.addItem(new ExitGameMenuItem());
         this.setList(list);
-        this.setBackground(Color.GRAY);
+        //this.setBackground(Color.GRAY);
         this.setPadding(600);
 
     }
@@ -25,10 +33,12 @@ public class MainScrollableMenu extends ScrollableMenu {
     protected void paintComponent(Graphics g) {
         System.out.println("painting");
         super.paintComponent(g);
+
         g.setFont(new Font("Helvetica",1,50));
         int offset = padding/2;
         int index = 0;
         Graphics2D g2d = (Graphics2D) g;
+        g2d.drawImage(bg,0,0,1200,1000, null);
         Iterator iter = list.getIterator();
         while (iter.hasNext()) {
             if(index == list.getCurrentIndex()){
