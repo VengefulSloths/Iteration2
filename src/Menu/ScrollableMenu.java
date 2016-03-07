@@ -67,6 +67,7 @@ public class ScrollableMenu extends JPanel{
     }
 
     public void up(){
+        this.list.setCurrentIndex(this.list.getCurrentIndex() - 1);
         //move visual up
         //moce list p
     }

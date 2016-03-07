@@ -1,9 +1,17 @@
 package com.vengeful.sloths.Controllers.InputController.InputControllerStates;
 
+import Menu.ScrollableMenu;
+
 /**
  * Created by John on 3/7/2016.
  */
 public class MenuControllerState extends InputControllerState {
+    ScrollableMenu menu;
+
+    public void setScrollableMenu(ScrollableMenu menu) {
+        this.menu = menu;
+    }
+
     @Override
     public void continuousFunction() {
 
@@ -41,7 +49,10 @@ public class MenuControllerState extends InputControllerState {
 
     @Override
     public boolean handle2Key() {
-        return false;
+
+        menu.down();
+
+        return true;
     }
 
     @Override
@@ -66,7 +77,10 @@ public class MenuControllerState extends InputControllerState {
 
     @Override
     public boolean handle8Key() {
-        return false;
+
+        menu.up();
+
+        return true;
     }
 
     @Override
