@@ -31,6 +31,6 @@ public class MainMenuItem implements ScrollableMenuItem {
     public void paintComponent(Graphics2D g2d, int xPos, int yPos, int width, int height) {
         g2d.setColor(Color.BLACK);
         FontMetrics metrics = g2d.getFontMetrics(g2d.getFont());
-        g2d.drawString(this.name, width / 2 - metrics.stringWidth(this.name)/2, yPos);
+        g2d.drawString(this.name, width / 2 - metrics.stringWidth(this.name)/2, yPos + height/2 + metrics.getAscent()/2);
     }
 }

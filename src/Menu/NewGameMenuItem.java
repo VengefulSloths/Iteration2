@@ -17,7 +17,7 @@ public class NewGameMenuItem extends MainMenuItem {
         this.startGame();
     }
 
-    private void startGame(){
+    private void startGame() {
         System.out.println("launch new game !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         LaunchGameTemplate launcher = new LaunchGameTemplate(new LaunchNewGame());
         launcher.launch();

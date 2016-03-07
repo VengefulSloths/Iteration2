@@ -18,12 +18,12 @@ public class MenuTester {
         //ScrollableMenuList list = new ScrollableMenuList();
 
 
-        ScrollableMenu menu = new MainScrollableMenu(50);
+        ScrollableMenu menu = new MainScrollableMenu(120);
 
 
 
         menu.setPreferredSize(new Dimension(80, 600));
-        menu.setBackground(Color.green);
+        //menu.setBackground(Color.green);
         menu.setBorder(BorderFactory.createBevelBorder(1, Color.ORANGE, Color.ORANGE));
         window.registerView(menu);
         window.setSize(1200, 1000);
