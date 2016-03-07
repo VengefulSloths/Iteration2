@@ -26,7 +26,7 @@ public class MenuTester {
         //menu.setBackground(Color.green);
         //menu.setBorder(BorderFactory.createBevelBorder(1, Color.ORANGE, Color.ORANGE));
         window.registerView(menu);
-        window.setSize(1200, 1000);
+        //window.setSize(1200, 1000);
 
         MainController mainController = MainController.getInstance();
 

@@ -25,6 +25,7 @@ public class MainScrollableMenu extends ScrollableMenu {
         list.addItem(new ExitGameMenuItem());
         this.setList(list);
         //this.setBackground(Color.GRAY);
+        this.setPreferredSize(new Dimension(1200,1000));
         this.setPadding(600);
 
     }
