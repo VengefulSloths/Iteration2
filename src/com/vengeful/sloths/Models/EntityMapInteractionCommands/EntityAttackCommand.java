@@ -74,10 +74,13 @@ public class EntityAttackCommand implements Alertable {
 
         //TODO: have take damage occur at end of startup time
         //do the attack... create an ae of dmg on dst tile?
-        for(Entity entity : map.getTile(dst).getEntities()){
-            entity.takeDamage(attackDamage);
+        try {
+            for (Entity entity : map.getTile(dst).getEntities()) {
+                entity.takeDamage(attackDamage);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
         System.out.println("about to alert observers @" + System.currentTimeMillis());
 
         while (entityObserverIterator.hasNext()) {
