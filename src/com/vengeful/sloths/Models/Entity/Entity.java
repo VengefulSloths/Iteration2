@@ -63,7 +63,8 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     private ArrayList<EntityObserver> observers = new ArrayList<>();
 
     //for avatar
-    public Entity(){}
+//    public Entity(){
+//    }
 
     public Entity(String name, BuffManager buffManager, Stats stats){
         this(name, stats);
@@ -272,10 +273,11 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     }
 
     public Stats getStats(){
+
         return this.stats;
     }
 
-    public void setStats(Stats stats){
+    public void setStats(Stats stats) throws Exception{
         this.stats = stats;
     }
 
