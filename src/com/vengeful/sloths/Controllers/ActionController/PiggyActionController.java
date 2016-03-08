@@ -32,7 +32,7 @@ public class PiggyActionController extends ActionController {
 
         if(this.checkLocation(avatar, 1)) { // 1 meaning he can follow an adjacent square
             // adjacent from Avatar, just idle
-            System.out.println("PIGGY IS standing by the avatar!");
+            //System.out.println("PIGGY IS standing by the avatar!");
 
         }else{
             // find and walk towards avatar
@@ -52,14 +52,14 @@ public class PiggyActionController extends ActionController {
         // maybe attack
         if(this.checkLocation(aNPC, 1)) { //1 meaning he can attack an adjacent square
             //make attack command
-            System.out.println("PIGGY IS attacking an aggressive nPC");
+            //System.out.println("PIGGY IS attacking an aggressive nPC");
             this.getEntity().attack(this.getTargetDirection(aNPC)); //tweak a bit later
 
         }else{
             //move towards it
             //bfs here
             //actually gonna try shitty directional code to not do bfs kek
-            System.out.println("PIGGY IS finding an aggressive NPC!!!");
+            //System.out.println("PIGGY IS finding an aggressive NPC!!!");
 
             this.moveToTarget(aNPC);
         }
@@ -81,7 +81,7 @@ public class PiggyActionController extends ActionController {
             //move towards it
             //bfs here
             //actually gonna try shitty directional code to not do bfs kek
-            System.out.println("PIGGY IS finding a mapItem!");
+            //System.out.println("PIGGY IS finding a mapItem!");
 
             this.moveToTarget(mapItemTarget);
         }

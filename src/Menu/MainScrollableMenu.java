@@ -17,8 +17,11 @@ public class MainScrollableMenu extends ScrollableMenu {
         super(height);
         //create list here for main menu
         try {
-            bg = ImageIO.read(new File("resources\\backgrounds\\mainMenuBg.png"));
-        }catch (Exception e){}
+            bg = ImageIO.read(new File("resources/backgrounds/mainMenuBg.png"));
+        }catch (Exception e){
+            System.out.println("EXCEPTION");
+            System.out.println(e);
+        }
         ScrollableMenuList list = new ScrollableMenuList();
         list.addItem(new NewGameMenuItem());
         list.addItem(new MainMenuItem("Load Game"));
