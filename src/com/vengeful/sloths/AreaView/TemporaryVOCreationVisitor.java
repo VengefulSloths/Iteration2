@@ -137,7 +137,6 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     public void visitAggressiveNPC(AggressiveNPC aNPC) {
         EvilBlobViewObject ebvo = factory.createEvilBlobViewObject(aNPC.getLocation().getR(), aNPC.getLocation().getS(), "resources/entities/cyclops/");
 
-        aNPC.registerObserver(ebvo);
         new ProxyEntityObserver(ebvo, aNPC);
         ebvo.registerObserver(activeCameraView);
         new ProxyStatsObserver(ebvo.getHealthBar(), aNPC.getStats());
