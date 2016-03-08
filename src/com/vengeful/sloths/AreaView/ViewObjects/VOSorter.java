@@ -58,6 +58,11 @@ public class VOSorter implements VOVisitor {
     }
 
     @Override
+    public void visitDamageNumber(DamageNumberViewObject d) {
+        zLevel = 3000;
+    }
+
+    @Override
     public void visitDecal(DecalViewObject d) {
         zLevel = 300;
     }

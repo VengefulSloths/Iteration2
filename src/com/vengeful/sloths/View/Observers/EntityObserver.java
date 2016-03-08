@@ -12,7 +12,7 @@ public interface EntityObserver extends ModelObserver {
 	@Deprecated
 	void alertDrop(int x, int y, MapItem itemToDrop);
 
-
+	void alertTakeDamage(int damage);
 	void alertEquipWeapon(String name, WeaponClass weaponClass);
 	void alertUnequipWeapon();
 	void alertEquipHat(String name);

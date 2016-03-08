@@ -74,7 +74,11 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
     }
 
-
+    public DamageNumberViewObject createDamageNumber(int r, int s, int damage) {
+        DamageNumberViewObject number = factory.createDamageNumberViewObject(r, s, damage);
+        activeCameraView.addViewObject(number);
+        return number;
+    }
 
     public AttackViewObject createAttack(int r, int s, String resourcePath, long duration) {
         AttackViewObject attack =  factory.createAttackViewObject(r, s, resourcePath, duration);

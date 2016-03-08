@@ -66,7 +66,8 @@ public class ViewEngine extends JFrame implements Runnable{
         initUI();
     }
     public void killOldView(){
-        remove(this.target);
+        if (target != null)
+            remove(this.target);
     }
 }
 

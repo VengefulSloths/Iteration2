@@ -105,10 +105,6 @@ public class Avatar extends Entity{
         this.getStats().add(new HealthManaExperienceAddable(0, 0, 0, 0, xp));
     }
 
-    public void takeDamage(int damage) {
-        this.getStats().subtract(new HealthManaExperienceAddable(damage, 0, 0, 0, 0));
-    }
-
     @Override
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitAvatar(this);

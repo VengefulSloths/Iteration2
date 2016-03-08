@@ -62,6 +62,10 @@ public abstract class ViewObjectFactory {
         return new HatViewObject(r, s, cs, ls, resourcePath, d);
     }
 
+    public DamageNumberViewObject createDamageNumberViewObject(int r, int s, int damage) {
+        return new DamageNumberViewObject(r, s, cs, ls, damage);
+    }
+
     public LocationStrategy getLocationStrategy() {
         return ls;
     }
