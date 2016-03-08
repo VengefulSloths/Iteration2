@@ -74,7 +74,6 @@ public class PiggyActionController extends ActionController {
 
     @Override
     public void visitMapItemTarget(MapItemTarget mapItemTarget) {
-        System.out.println("stuffffffffffffffffffffffffffffffffffff");
         if(this.checkLocation(mapItemTarget, 0)) { //1 meaning he can attack an adjacent square
             // @TODO
 //            this.getEntity().pickup(this.getTargetDirection(mapItemTarget));

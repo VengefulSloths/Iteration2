@@ -92,14 +92,14 @@ public class DefaultCanMoveVisitor extends CanMoveVisitor {
 
     @Override
     public void visitMountain(Mountain mountain) {
-        System.out.println("cant move because Mountain");
+        //System.out.println("cant move because Mountain");
         setCanMove(false);
 
     }
 
     @Override
     public void visitWater(Water water) {
-        System.out.println("cant move because Water");
+        //System.out.println("cant move because Water");
 
         setCanMove(false);
 
