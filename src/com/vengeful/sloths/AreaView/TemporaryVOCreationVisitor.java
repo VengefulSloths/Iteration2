@@ -39,6 +39,7 @@ import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.View.Observers.ModelObserver;
 import com.vengeful.sloths.View.Observers.ProxyDestoyableObserver;
 import com.vengeful.sloths.View.Observers.ProxyEntityObserver;
+import com.vengeful.sloths.View.Observers.ProxyStatsObserver;
 
 /**
  * Created by alexs on 2/23/2016.
@@ -116,7 +117,7 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
         //let the cameraView watch avatar for movement
         avo.registerObserver(activeCameraView);
-        avatar.getStats().registerObserver(avo.getHealthBar());
+        new ProxyStatsObserver(avo.getHealthBar(), avatar.getStats());
         avatar.getStats().updateObservers();
 
         //Set the camera views avatar to this
@@ -127,7 +128,7 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     @Override
     public void visitPiggy(Piggy piggy) {
         PiggyViewObject pvo = factory.createPiggyViewObject(piggy.getLocation().getR(), piggy.getLocation().getS(), "resources/entities/piggy/");
-        piggy.registerObserver(pvo);
+        new ProxyEntityObserver(pvo, piggy);
         pvo.registerObserver(activeCameraView);
         this.activeCameraView.addViewObject(pvo);
     }
@@ -135,9 +136,11 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     @Override
     public void visitAggressiveNPC(AggressiveNPC aNPC) {
         EvilBlobViewObject ebvo = factory.createEvilBlobViewObject(aNPC.getLocation().getR(), aNPC.getLocation().getS(), "resources/entities/cyclops/");
+
         aNPC.registerObserver(ebvo);
+        new ProxyEntityObserver(ebvo, aNPC);
         ebvo.registerObserver(activeCameraView);
-        aNPC.getStats().registerObserver(ebvo.getHealthBar());
+        new ProxyStatsObserver(ebvo.getHealthBar(), aNPC.getStats());
         aNPC.getStats().updateObservers();
         this.activeCameraView.addViewObject(ebvo);
     }
