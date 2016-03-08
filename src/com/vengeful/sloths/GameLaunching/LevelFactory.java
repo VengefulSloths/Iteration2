@@ -2,9 +2,7 @@ package com.vengeful.sloths.GameLaunching;
 
 import com.vengeful.sloths.AreaView.CameraView;
 import com.vengeful.sloths.AreaView.CameraViewManager;
-import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.ConsumableItems;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
-import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Map.*;
@@ -15,9 +13,7 @@ import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
 import com.vengeful.sloths.Models.Map.Tile;
 import com.vengeful.sloths.Models.Stats.StatAddables.BaseStatsAddable;
-import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
-import com.vengeful.sloths.Models.Stats.Stats;
-import com.vengeful.sloths.PlainsCameraView;
+import com.vengeful.sloths.AreaView.PlainsCameraView;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.HexMath;
 import com.vengeful.sloths.Utility.Location;
@@ -86,7 +82,7 @@ public class LevelFactory {
                     }
                 }
                 if (waterFlag) {
-                    area1.addTile(new Coord(i,j), new Tile(new Water()));
+                    area1.addTile(new Coord(i,j), new Tile(new Grass()));
 
                 } else {
                     area1.addTile(new Coord(i, j), mountainFlag ? new Tile(new Mountain()) : new Tile(new Grass()));

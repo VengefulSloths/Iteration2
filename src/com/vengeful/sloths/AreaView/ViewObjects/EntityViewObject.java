@@ -13,7 +13,7 @@ import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Sound.SoundEffect;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Utility.WeaponClass;
-import com.vengeful.sloths.View.Observers.EntityObserver;
+import com.vengeful.sloths.Models.Observers.EntityObserver;
 
 import java.awt.*;
 
@@ -141,6 +141,7 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
 
     @Override
     public void movementHook(int r, int s, long duration) {
+        System.out.println("e.movehook: " + duration);
         ((DynamicTimedImage) currentDynamicImage).start(duration);
 
         //leftHand.alertMove(r, s, duration);

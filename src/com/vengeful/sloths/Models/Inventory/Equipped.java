@@ -9,7 +9,7 @@ import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.StrengthAddable;
 import com.vengeful.sloths.Models.ViewObservable;
-import com.vengeful.sloths.View.Observers.*;
+import com.vengeful.sloths.Models.Observers.*;
 import com.vengeful.sloths.Models.Stats.*;
 
 import java.util.Iterator;

@@ -4,8 +4,8 @@ import com.vengeful.sloths.Models.Effects.EffectCommand;
 import com.vengeful.sloths.Models.Effects.EffectCommandFactory;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.ViewObservable;
-import com.vengeful.sloths.View.Observers.AreaEffectObserver;
-import com.vengeful.sloths.View.Observers.ModelObserver;
+import com.vengeful.sloths.Models.Observers.AreaEffectObserver;
+import com.vengeful.sloths.Models.Observers.ModelObserver;
 
 /**
  * Created by John on 1/30/2016.

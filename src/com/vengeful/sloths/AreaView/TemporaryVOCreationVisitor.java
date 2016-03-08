@@ -36,10 +36,10 @@ import com.vengeful.sloths.Models.Occupation.Summoner;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Direction;
-import com.vengeful.sloths.View.Observers.ModelObserver;
-import com.vengeful.sloths.View.Observers.ProxyDestoyableObserver;
-import com.vengeful.sloths.View.Observers.ProxyEntityObserver;
-import com.vengeful.sloths.View.Observers.ProxyStatsObserver;
+
+import com.vengeful.sloths.Models.Observers.ProxyDestoyableObserver;
+import com.vengeful.sloths.Models.Observers.ProxyEntityObserver;
+import com.vengeful.sloths.Models.Observers.ProxyStatsObserver;
 
 /**
  * Created by alexs on 2/23/2016.

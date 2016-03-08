@@ -18,10 +18,10 @@ import com.vengeful.sloths.Sound.SoundEffect;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Utility.HexMath;
-import com.vengeful.sloths.View.Observers.MapObserver;
-import com.vengeful.sloths.View.Observers.ProxyEntityObserver;
-import com.vengeful.sloths.View.Observers.ProxyMapObserver;
-import com.vengeful.sloths.View.Observers.ProxyObserver;
+import com.vengeful.sloths.Models.Observers.MapObserver;
+import com.vengeful.sloths.Models.Observers.ProxyEntityObserver;
+import com.vengeful.sloths.Models.Observers.ProxyMapObserver;
+import com.vengeful.sloths.Models.Observers.ProxyObserver;
 
 import javax.swing.*;
 import java.awt.*;

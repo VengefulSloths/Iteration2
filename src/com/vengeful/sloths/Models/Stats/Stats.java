@@ -4,9 +4,9 @@ import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.ViewObservable;
-import com.vengeful.sloths.View.Observers.EntityObserver;
-import com.vengeful.sloths.View.Observers.ModelObserver;
-import com.vengeful.sloths.View.Observers.StatsObserver;
+import com.vengeful.sloths.Models.Observers.EntityObserver;
+import com.vengeful.sloths.Models.Observers.ModelObserver;
+import com.vengeful.sloths.Models.Observers.StatsObserver;
 
 import java.util.ArrayList;
 import java.util.Iterator;

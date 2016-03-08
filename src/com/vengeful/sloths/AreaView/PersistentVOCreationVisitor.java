@@ -36,8 +36,8 @@ import com.vengeful.sloths.Models.Occupation.Summoner;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Coord;
-import com.vengeful.sloths.View.Observers.ProxyDestoyableObserver;
-import com.vengeful.sloths.View.Observers.ProxyObserver;
+import com.vengeful.sloths.Models.Observers.ProxyDestoyableObserver;
+import com.vengeful.sloths.Models.Observers.ProxyObserver;
 
 import java.util.ArrayList;
 import java.util.Iterator;

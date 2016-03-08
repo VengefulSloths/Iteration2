@@ -5,7 +5,7 @@ import com.vengeful.sloths.AreaView.DynamicImages.DynamicTimedImage;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 import com.vengeful.sloths.Sound.SoundEffect;
-import com.vengeful.sloths.View.Observers.DestroyableObserver;
+import com.vengeful.sloths.Models.Observers.DestroyableObserver;
 
 import java.awt.*;
 
