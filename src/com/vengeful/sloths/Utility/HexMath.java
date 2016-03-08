@@ -106,7 +106,6 @@ public class HexMath {
     public static Direction getCoordDirection(Coord src, Coord dst){
         int rDiff = src.getR() - dst.getR();
         int sDiff = src.getS() - dst.getS();
-        System.out.println( rDiff + "  " + sDiff +"  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
 
         if(rDiff <= -1 && sDiff == 0 ){
@@ -126,9 +125,8 @@ public class HexMath {
         }else if(rDiff >= 1 && sDiff == 0){
             return Direction.NW;
         }else {
-            //System.out.println( rDiff + "  " + sDiff +"  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-            System.out.println("fail");
-            return Direction.N;
+            //System.out.println("fail");
+            return null;
 
             //error
         }

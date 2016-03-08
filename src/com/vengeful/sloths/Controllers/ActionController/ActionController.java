@@ -71,7 +71,6 @@ public abstract class ActionController implements TargetVisitor {
         while(!queue.isEmpty()){
             Coord currCoord = queue.remove();
             visited.add(currCoord);
-            //System.out.println("the queue's size is:" + queue.size());
             //System.out.println("Comparing R's: " + currCoord.getR() + "=" + targetCoord.getR() + " and S's: " + currCoord.getS() + "=" + targetCoord.getS());
             if(currCoord.equals(targetCoord)){
                 //we found the thing
@@ -79,12 +78,9 @@ public abstract class ActionController implements TargetVisitor {
                 Coord curr = currCoord;
 
                 while(!curr.equals(entity.getLocation())) {
-                    //System.out.println("bloop");
                     prev = curr;
                     curr = parentMap.get(curr);
-                    System.out.println(curr);
                 }
-                //System.out.println("fjsdkfjdsfd");
                 return HexMath.getCoordDirection(entity.getLocation(), prev);
             }
             iter = HexMath.sortedRing(currCoord,1);
@@ -102,9 +98,6 @@ public abstract class ActionController implements TargetVisitor {
                     //System.out.println("out of map bounds");
                 }
             }
-        }
-        for(Coord c: visited){
-            System.out.println(c);
         }
         return null;
     }

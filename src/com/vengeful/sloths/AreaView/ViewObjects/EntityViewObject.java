@@ -201,7 +201,7 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
 
     @Override
     public void alertTakeDamage(int damage) {
-        System.out.println("takingdamage");
+        //System.out.println("takingdamage");
         TemporaryVOCreationVisitor.getInstance().createDamageNumber(getR(), getS(), damage);
     }
 
