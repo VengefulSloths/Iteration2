@@ -1,4 +1,4 @@
-package Menu;
+package com.vengeful.sloths.Menu;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

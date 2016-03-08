@@ -38,6 +38,7 @@ public class HexMath {
     }
 
     //make one that returns tiles.
+    //the order that this returns rings in is N->NE->SE->S->SW->NW
     public static Iterator<Coord> sortedRing(Coord center, int radius) {
         ArrayList<Coord> coords = new ArrayList<>();
 
@@ -103,10 +104,10 @@ public class HexMath {
         return safeCoords.iterator();
     }
 
+    //this will compare 2 coords and return the best direction (of the 6 immediate directions)
     public static Direction getCoordDirection(Coord src, Coord dst){
         int rDiff = src.getR() - dst.getR();
         int sDiff = src.getS() - dst.getS();
-        System.out.println( rDiff + "  " + sDiff +"  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
 
         if(rDiff <= -1 && sDiff == 0 ){
@@ -126,9 +127,8 @@ public class HexMath {
         }else if(rDiff >= 1 && sDiff == 0){
             return Direction.NW;
         }else {
-            //System.out.println( rDiff + "  " + sDiff +"  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-            System.out.println("fail");
-            return Direction.N;
+            //System.out.println("fail");
+            return null;
 
             //error
         }

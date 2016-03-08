@@ -1,6 +1,6 @@
 package com.vengeful.sloths.Controllers.InputController;
 
-import Menu.ScrollableMenu;
+import com.vengeful.sloths.Menu.ScrollableMenu;
 import com.vengeful.sloths.AreaView.ViewEngine;
 import com.vengeful.sloths.Controllers.InputController.InputControllerStates.AvatarControllerState;
 import com.vengeful.sloths.Controllers.InputController.InputControllerStates.InputControllerState;
@@ -13,8 +13,6 @@ import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.TimeModel.Tickable;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
-
-import javax.swing.*;
 
 /**
  * Created by John on 2/29/2016.

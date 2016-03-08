@@ -193,6 +193,14 @@ public class PiggySearchingController extends SearchingController {
                 //System.out.println(currEntity);
                 currEntity.accept(this);
             }
+            Iterator<MapItem> iterator = tile.getMapItemIterator();
+            MapItem item;
+            while (iterator.hasNext()) {
+                item = iterator.next();
+
+                //System.out.println(currEntity);
+                item.accept(this);
+            }
         }
         //System.out.println("SEARCHING TILE");
     }
@@ -200,9 +208,7 @@ public class PiggySearchingController extends SearchingController {
     @Override
     public void visitMapItem(MapItem mapItem) {
         // MapItems are priority 0 for piggy!
-        Target currTarget = new MapItemTarget(0);
-        currTarget.setCoord(this.getCurrentCoord());
-        this.setHighestPriorityTarget(this.getMaxTarget(currTarget, this.getHighestPriorityTarget()));
+
     }
 
     @Override
@@ -237,6 +243,10 @@ public class PiggySearchingController extends SearchingController {
 
     @Override
     public void visitTakeableItem(TakeableItem takeableItem) {
+
+        Target currTarget = new MapItemTarget(0);
+        currTarget.setCoord(this.getCurrentCoord());
+        this.setHighestPriorityTarget(this.getMaxTarget(currTarget, this.getHighestPriorityTarget()));
     }
 
     @Override

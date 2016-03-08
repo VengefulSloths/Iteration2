@@ -37,6 +37,7 @@ import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Direction;
 
+import com.vengeful.sloths.Models.Observers.ModelObserver;
 import com.vengeful.sloths.Models.Observers.ProxyDestoyableObserver;
 import com.vengeful.sloths.Models.Observers.ProxyEntityObserver;
 import com.vengeful.sloths.Models.Observers.ProxyStatsObserver;

@@ -1,26 +1,11 @@
 package com.vengeful.sloths;
 
-import Menu.MainScrollableMenu;
-import Menu.ScrollableMenu;
+import com.vengeful.sloths.Menu.MainScrollableMenu;
+import com.vengeful.sloths.Menu.ScrollableMenu;
 import com.vengeful.sloths.AreaView.ViewEngine;
 import com.vengeful.sloths.Controllers.InputController.MainController;
-import com.vengeful.sloths.Models.Ability.AbilityManager;
-import com.vengeful.sloths.Models.Buff.BuffManager;
-import com.vengeful.sloths.Models.Entity.Avatar;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.EquippableItems;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.*;
-import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
-import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
-import com.vengeful.sloths.Models.Map.Terrains.Mountain;
-import com.vengeful.sloths.Models.ModelEngine;
-import com.vengeful.sloths.Models.Stats.StatAddables.BaseStatsAddable;
-import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
-import com.vengeful.sloths.Models.Stats.StatAddables.StrengthAddable;
-import com.vengeful.sloths.Models.Stats.Stats;
-import com.vengeful.sloths.Models.Map.*;
 
 import java.awt.*;
-import java.util.*;
 
 public class Main {
 

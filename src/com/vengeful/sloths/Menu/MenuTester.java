@@ -1,10 +1,9 @@
-package Menu;
+package com.vengeful.sloths.Menu;
 
 
 import com.vengeful.sloths.AreaView.ViewEngine;
 import com.vengeful.sloths.Controllers.InputController.MainController;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class MenuTester {

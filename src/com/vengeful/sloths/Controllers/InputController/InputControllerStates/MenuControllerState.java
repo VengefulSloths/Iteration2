@@ -1,6 +1,6 @@
 package com.vengeful.sloths.Controllers.InputController.InputControllerStates;
 
-import Menu.ScrollableMenu;
+import com.vengeful.sloths.Menu.ScrollableMenu;
 
 /**
  * Created by John on 3/7/2016.

@@ -1,8 +1,7 @@
-package Menu;
+package com.vengeful.sloths.Menu;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Iterator;
 
 /**
  * Created by John on 2/16/2016.

@@ -281,6 +281,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
      * Handles accepting a ModelVisitor
      */
     public void accept(ModelVisitor modelVisitor) {
+
         //TODO: delete this, it will cause bugs when people forget to give entities subclasses visit statements
     }
 
