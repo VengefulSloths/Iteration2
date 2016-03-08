@@ -3,11 +3,13 @@ package com.vengeful.sloths.Models.SaveLoad;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.Entity.Avatar;
+import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Map.Tile;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.Stats;
+import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
 
 /**
@@ -38,5 +40,28 @@ public class SaveTestDriver {
         tiles1[1][1].addEntity(a);
         SaveManager sm = new SaveManager(m);
         sm.save("testSave");
+        Tile[][] tiles3 = new Tile[2][2];
+        Tile[][] tiles4 = new Tile[2][2];
+        for(int i = 0; i != 2; ++i){
+            for(int j = 0; j != 2; ++j){
+                tiles3[i][j] = new Tile();
+                tiles4[i][j] = new Tile();
+            }
+        }
+        MapArea ma3 = new MapArea(tiles3);
+        MapArea ma4 = new MapArea(tiles4);
+        Loader l = null;
+        try{
+            l = new Loader("testSave.xml");
+        }
+        catch(Exception e){
+            System.out.println("error loading save data");
+        }
+        ma3.setName("ma1");
+        ma3.setMaxR(2);
+        ma3.setMaxS(2);
+        ma4.setName("ma2");
+        l.loadAreas(new MapArea[] {ma3,ma4});
+        Entity[] e = ma3.getTile(new Coord(1,1)).getEntities();
     }
 }

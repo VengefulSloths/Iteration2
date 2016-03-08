@@ -69,7 +69,7 @@ public class Stats implements ModelVisitable, ViewObservable {
         setCurrentExperience(0);
     }
 
-    private void calculateStats(){
+    public void calculateStats(){
         calculateMaxMana();
         calculateMaxHealth();
         calculateMaxExperience();
