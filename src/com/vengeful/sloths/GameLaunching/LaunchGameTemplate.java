@@ -55,7 +55,7 @@ public class LaunchGameTemplate {
 
         //ViewEngine viewEngine = new ViewEngine(areaView);
         ViewEngine viewEngine = ViewEngine.getInstance();
-        viewEngine.killOldView();
+        //viewEngine.killOldView();
         viewEngine.registerView(areaView);
         //ModelEngine modelEngine = new ModelEngine();
         ModelEngine modelEngine = ModelEngine.getInstance();
@@ -64,7 +64,7 @@ public class LaunchGameTemplate {
 
         modelEngine.start();
 
-//       viewEngine.start();
+       viewEngine.start();
 
     }
 
