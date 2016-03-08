@@ -96,7 +96,10 @@ public abstract class ActionController implements TargetVisitor {
             default: return null;
         }
     }
-    
+
+
+    protected Direction getDirectionBFS
+
     protected Direction getTargetDirection(Target target){
 
         Iterator<Coord> iter;

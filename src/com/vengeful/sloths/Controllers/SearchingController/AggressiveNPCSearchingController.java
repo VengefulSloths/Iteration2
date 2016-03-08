@@ -190,7 +190,7 @@ public class AggressiveNPCSearchingController extends SearchingController {
             while (iter.hasNext()) {
                 currEntity = iter.next();
 
-                System.out.println(currEntity);
+                //System.out.println(currEntity);
                 currEntity.accept(this);
             }
         }
@@ -208,7 +208,7 @@ public class AggressiveNPCSearchingController extends SearchingController {
             while (iter.hasNext()) {
                 currEntity = iter.next();
 
-                System.out.println(currEntity);
+                //System.out.println(currEntity);
                 currEntity.accept(this);
             }
         }
@@ -222,7 +222,7 @@ public class AggressiveNPCSearchingController extends SearchingController {
             while (iter.hasNext()) {
                 currEntity = iter.next();
 
-                System.out.println(currEntity);
+                //System.out.println(currEntity);
                 currEntity.accept(this);
             }
         }
