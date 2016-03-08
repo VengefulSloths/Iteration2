@@ -63,7 +63,7 @@ public class AreaView extends JPanel implements MapObserver{
 
         activeCamera.paintComponent(g2d);
         //testEntity.paintComponent(g2d);
-        g2d.drawString("Hello World!!!", 50, 50);
+        //g2d.drawString("Hello World!!!", 50, 50);
 
         //Toolkit.getDefaultToolkit().sync();
 

@@ -54,9 +54,16 @@ public abstract class ViewObjectFactory {
     public AttackViewObject createAttackViewObject(int r, int s, String resourcePath, long duration) {
         return new AttackViewObject(r, s, cs, ls, resourcePath, duration);
     }
+    public AttackViewObject createAttackViewObject(int r, int s, String resourcePath, long duration, boolean isInFront) {
+        return new AttackViewObject(r, s, cs, ls, resourcePath, duration, isInFront);
+    }
 
     public HatViewObject createHatViewObject(int r, int s, String resourcePath, Direction d) {
         return new HatViewObject(r, s, cs, ls, resourcePath, d);
+    }
+
+    public DamageNumberViewObject createDamageNumberViewObject(int r, int s, int damage) {
+        return new DamageNumberViewObject(r, s, cs, ls, damage);
     }
 
     public LocationStrategy getLocationStrategy() {

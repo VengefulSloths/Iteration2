@@ -113,8 +113,9 @@ public class TwoHandState implements  HandState {
         ViewTime.getInstance().registerAlert((windUpTime + coolDownTime)/2, () -> resetAttack(leftHand, rightHand));
         ViewTime.getInstance().registerAlert(windUpTime, () -> doAttack(leftHand, rightHand));
 
-        AttackViewObject attack = TemporaryVOCreationVisitor.getInstance().createAttack(r, s, "resources/effects/bash/bash.xml", coolDownTime - windUpTime);
-        ViewTime.getInstance().registerAlert(windUpTime, () ->attack.start());
+        AttackViewObject attackBack = TemporaryVOCreationVisitor.getInstance().createAttack(r, s, "resources/effects/bash/bash_back.xml", coolDownTime - windUpTime, false);
+        AttackViewObject attackFront = TemporaryVOCreationVisitor.getInstance().createAttack(r, s, "resources/effects/bash/bash_front.xml", coolDownTime - windUpTime, true);
+        ViewTime.getInstance().registerAlert(windUpTime, () -> {attackFront.start(); attackBack.start(); });
     }
 
     private void windUpAttack(SmartHandViewObject handLower, SmartHandViewObject handUpper, double alpha, double omega, double ah, double vh, long startTime, long endTime) {

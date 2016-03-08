@@ -16,6 +16,7 @@ import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Hat;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Knuckle;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
@@ -73,10 +74,19 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
     }
 
-
+    public DamageNumberViewObject createDamageNumber(int r, int s, int damage) {
+        DamageNumberViewObject number = factory.createDamageNumberViewObject(r, s, damage);
+        activeCameraView.addViewObject(number);
+        return number;
+    }
 
     public AttackViewObject createAttack(int r, int s, String resourcePath, long duration) {
         AttackViewObject attack =  factory.createAttackViewObject(r, s, resourcePath, duration);
+        activeCameraView.addViewObject(attack);
+        return attack;
+    }
+    public AttackViewObject createAttack(int r, int s, String resourcePath, long duration, boolean isInFront) {
+        AttackViewObject attack =  factory.createAttackViewObject(r, s, resourcePath, duration, isInFront);
         activeCameraView.addViewObject(attack);
         return attack;
     }
@@ -219,6 +229,11 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
     @Override
     public void visitTwoHandedWeapon(TwoHandedWeapon thw) {
+
+    }
+
+    @Override
+    public void visitKnuckle(Knuckle thw) {
 
     }
 

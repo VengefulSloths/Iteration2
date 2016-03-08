@@ -95,4 +95,11 @@ public class ProxyEntityObserver extends ProxyObserver
             target.alertDeath();
         }
     }
+
+    @Override
+    public void alertTakeDamage(int damage) {
+        if (!deleteFlag) {
+            ViewTime.getInstance().registerAlert(0, () -> target.alertTakeDamage(damage));
+        }
+    }
 }

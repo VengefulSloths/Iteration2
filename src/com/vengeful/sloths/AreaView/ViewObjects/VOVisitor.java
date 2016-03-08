@@ -16,4 +16,5 @@ public interface VOVisitor {
     void visitTakeable(TakeableViewObject t);
     void visitDecal(DecalViewObject d);
     void visitAttack(AttackViewObject a);
+    void visitDamageNumber(DamageNumberViewObject d);
 }

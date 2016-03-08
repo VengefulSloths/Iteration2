@@ -6,6 +6,7 @@ import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Map.Tile;
+import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Direction;
 
@@ -33,7 +34,7 @@ public class SaveTestDriver {
         Avatar a = Avatar.getInstance();
         a.setFacingDirection(Direction.N);
         AbilityManager abm = new AbilityManager();
-        a.avatarInit("Sneak", abm, new BuffManager(a), new Stats() );
+        a.avatarInit("Sneak", abm, new BuffManager(a), new Stats(), new SkillManager(5));
         tiles1[1][1].addEntity(a);
         SaveManager sm = new SaveManager(m);
         sm.save("testSave");

@@ -49,7 +49,17 @@ public class VOSorter implements VOVisitor {
 
     @Override
     public void visitAttack(AttackViewObject a) {
-        zLevel = 1200;
+        if (a.isInFront()) {
+            zLevel = 1200;
+        } else {
+            zLevel = 300;
+        }
+
+    }
+
+    @Override
+    public void visitDamageNumber(DamageNumberViewObject d) {
+        zLevel = 3000;
     }
 
     @Override

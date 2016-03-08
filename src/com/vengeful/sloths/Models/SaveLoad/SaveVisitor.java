@@ -10,6 +10,7 @@ import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Hat;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Knuckle;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
@@ -424,6 +425,11 @@ public class SaveVisitor implements ModelVisitor {
         }else{
             System.out.println("some error saving TwoHandedWeap, stack not at the proper element");
         }
+    }
+
+    @Override
+    public void visitKnuckle(Knuckle thw) {
+
     }
 
     @Override

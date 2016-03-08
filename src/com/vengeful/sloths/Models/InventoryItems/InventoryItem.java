@@ -8,6 +8,7 @@ import com.vengeful.sloths.Models.ModelVisitor;
  */
 public abstract class InventoryItem {
     private String itemName;
+    private int value; //for trade
 
 
     public String getItemName(){
@@ -19,6 +20,14 @@ public abstract class InventoryItem {
     }
 
     public abstract void accept(ModelVisitor mv);
+    public int getValue(){
+        return this.value;
+    }
+
+    public void setValue(int value){
+        this.value = value;
+    }
+
 
 
 }

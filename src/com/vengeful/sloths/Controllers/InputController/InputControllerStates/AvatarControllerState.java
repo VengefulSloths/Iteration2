@@ -48,7 +48,10 @@ public class AvatarControllerState extends InputControllerState {
 
     @Override
     public boolean handleEKey() {
-        return false;
+        //TODO: test ability. Remove
+        System.out.println("R PRESSED");
+        avatar.doAbility(1);
+        return true;
     }
 
     @Override
@@ -129,7 +132,6 @@ public class AvatarControllerState extends InputControllerState {
 
     @Override
     public boolean handle5Key() {
-
         return false;
     }
 
