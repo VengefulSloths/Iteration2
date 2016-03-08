@@ -98,7 +98,58 @@ public abstract class ActionController implements TargetVisitor {
     }
 
 
-    protected Direction getDirectionBFS
+    protected Direction getDirectionBFS(Target target){
+        Queue<Coord> queue = new LinkedList<>();
+        List<Coord> visited = new LinkedList<>();
+        java.util.Map<Coord, Coord> parentMap = new HashMap<>();
+        Coord targetCoord = target.getCoord();
+        Iterator<Coord> iter;
+        CanMoveVisitor canMoveVisitor = new DefaultCanMoveVisitor();
+        Map map = Map.getInstance();
+
+        queue.add(entity.getLocation());
+        parentMap.put(entity.getLocation(), null);
+
+        while(!queue.isEmpty()){
+            Coord currCoord = queue.remove();
+            visited.add(currCoord);
+            //System.out.println("the queue's size is:" + queue.size());
+            System.out.println("Comparing R's: " + currCoord.getR() + "=" + targetCoord.getR() + " and S's: " + currCoord.getS() + "=" + targetCoord.getS());
+            if(currCoord.equals(targetCoord)){
+                //we found the thing
+                Coord prev = null;
+                Coord curr = currCoord;
+
+                while(!curr.equals(entity.getLocation())) {
+                    //System.out.println("bloop");
+                    prev = curr;
+                    curr = parentMap.get(curr);
+                    System.out.println(curr);
+                }
+                System.out.println("fjsdkfjdsfd");
+                return HexMath.getCoordDirection(entity.getLocation(), prev);
+            }
+            iter = HexMath.sortedRing(currCoord,1);
+            while(iter.hasNext()){
+                Coord tmpCoord = iter.next();
+                try {
+                    map.getTile(tmpCoord).accept(canMoveVisitor);
+                    if ((canMoveVisitor.canMove() && !visited.contains(tmpCoord)) || tmpCoord.equals(targetCoord)) {
+                        if(!parentMap.containsKey(tmpCoord)) {
+                            parentMap.put(tmpCoord, currCoord);
+                        }
+                        queue.add(tmpCoord);
+                    }
+                }catch(Exception e){
+                    System.out.println("out of map bounds");
+                }
+            }
+        }
+        for(Coord c: visited){
+            System.out.println(c);
+        }
+        return null;
+    }
 
     protected Direction getTargetDirection(Target target){
 
