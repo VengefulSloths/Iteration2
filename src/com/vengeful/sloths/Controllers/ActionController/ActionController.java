@@ -121,10 +121,12 @@ public abstract class ActionController implements TargetVisitor {
                 Coord curr = currCoord;
 
                 while(!curr.equals(entity.getLocation())) {
+                    //System.out.println("bloop");
                     prev = curr;
-                    curr = parentMap.get(currCoord);
+                    curr = parentMap.get(curr);
+                    System.out.println(curr);
                 }
-
+                System.out.println("fjsdkfjdsfd");
                 return HexMath.getCoordDirection(entity.getLocation(), prev);
             }
             iter = HexMath.sortedRing(currCoord,1);
@@ -132,14 +134,19 @@ public abstract class ActionController implements TargetVisitor {
                 Coord tmpCoord = iter.next();
                 try {
                     map.getTile(tmpCoord).accept(canMoveVisitor);
-                    if (canMoveVisitor.canMove() && !visited.contains(tmpCoord)) {
-                        parentMap.put(tmpCoord, currCoord);
+                    if ((canMoveVisitor.canMove() && !visited.contains(tmpCoord)) || tmpCoord.equals(targetCoord)) {
+                        if(!parentMap.containsKey(tmpCoord)) {
+                            parentMap.put(tmpCoord, currCoord);
+                        }
                         queue.add(tmpCoord);
                     }
                 }catch(Exception e){
                     System.out.println("out of map bounds");
                 }
             }
+        }
+        for(Coord c: visited){
+            System.out.println(c);
         }
         return null;
     }
