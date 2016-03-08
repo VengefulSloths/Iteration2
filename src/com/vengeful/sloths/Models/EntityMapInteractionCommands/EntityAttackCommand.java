@@ -84,8 +84,6 @@ public class EntityAttackCommand implements Alertable {
         System.out.println("about to alert observers @" + System.currentTimeMillis());
 
         while (entityObserverIterator.hasNext()) {
-
-
            entityObserverIterator.next().alertAttack(dst.getR(), dst.getS(), attackTicks/2* TimeController.MODEL_TICK, attackTicks*TimeController.MODEL_TICK);
             //the commented line above can work if that method is added and the animations are put in place
         }

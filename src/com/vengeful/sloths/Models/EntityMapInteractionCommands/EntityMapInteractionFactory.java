@@ -30,6 +30,10 @@ public class EntityMapInteractionFactory {
         this.map = map;
     }
 
+    public EntityDieCommand createDeathCommand(Entity entity, int timeToRespawn, Iterator<EntityObserver> entityObserverIterator){
+        EntityDieCommand edc = new EntityDieCommand(entity, timeToRespawn, entityObserverIterator);
+        return edc;
+    }
 
     public EntityMovementCommand createMovementCommand(Coord src,
                                                        Direction dir,
