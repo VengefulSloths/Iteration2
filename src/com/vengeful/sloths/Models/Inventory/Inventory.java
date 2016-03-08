@@ -4,8 +4,8 @@ package com.vengeful.sloths.Models.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
-import com.vengeful.sloths.View.Observers.InventoryObserver;
-import com.vengeful.sloths.View.Observers.ModelObserver;
+import com.vengeful.sloths.Models.Observers.InventoryObserver;
+import com.vengeful.sloths.Models.Observers.ModelObserver;
 
 import java.util.ArrayList;
 import java.util.Iterator;

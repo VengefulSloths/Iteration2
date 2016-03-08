@@ -13,7 +13,7 @@ import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Sound.SoundEffect;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Utility.WeaponClass;
-import com.vengeful.sloths.View.Observers.EntityObserver;
+import com.vengeful.sloths.Models.Observers.EntityObserver;
 
 import java.awt.*;
 

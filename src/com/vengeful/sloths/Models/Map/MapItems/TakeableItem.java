@@ -7,8 +7,8 @@ import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.ViewObservable;
-import com.vengeful.sloths.View.Observers.DestroyableObserver;
-import com.vengeful.sloths.View.Observers.ModelObserver;
+import com.vengeful.sloths.Models.Observers.DestroyableObserver;
+import com.vengeful.sloths.Models.Observers.ModelObserver;
 import com.vengeful.sloths.Utility.Coord;
 
 

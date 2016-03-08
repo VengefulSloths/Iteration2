@@ -126,7 +126,7 @@ public abstract class ActionController implements TargetVisitor {
                     curr = parentMap.get(curr);
                     System.out.println(curr);
                 }
-                System.out.println("fjsdkfjdsfd");
+                //System.out.println("fjsdkfjdsfd");
                 return HexMath.getCoordDirection(entity.getLocation(), prev);
             }
             iter = HexMath.sortedRing(currCoord,1);
@@ -141,7 +141,7 @@ public abstract class ActionController implements TargetVisitor {
                         queue.add(tmpCoord);
                     }
                 }catch(Exception e){
-                    System.out.println("out of map bounds");
+                    //System.out.println("out of map bounds");
                 }
             }
         }

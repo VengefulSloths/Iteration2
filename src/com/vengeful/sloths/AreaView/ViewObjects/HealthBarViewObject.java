@@ -4,8 +4,8 @@ import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateS
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 import com.vengeful.sloths.AreaView.vAlertable;
 import com.vengeful.sloths.Models.Stats.Stats;
-import com.vengeful.sloths.View.Observers.EntityObserver;
-import com.vengeful.sloths.View.Observers.StatsObserver;
+import com.vengeful.sloths.Models.Observers.EntityObserver;
+import com.vengeful.sloths.Models.Observers.StatsObserver;
 
 import java.awt.*;
 

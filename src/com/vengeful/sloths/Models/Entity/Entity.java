@@ -22,8 +22,8 @@ import com.vengeful.sloths.Models.ViewObservable;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Utility.WeaponClass;
-import com.vengeful.sloths.View.Observers.EntityObserver;
-import com.vengeful.sloths.View.Observers.ModelObserver;
+import com.vengeful.sloths.Models.Observers.EntityObserver;
+import com.vengeful.sloths.Models.Observers.ModelObserver;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -281,6 +281,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
      * Handles accepting a ModelVisitor
      */
     public void accept(ModelVisitor modelVisitor) {
+
         //TODO: delete this, it will cause bugs when people forget to give entities subclasses visit statements
     }
 
