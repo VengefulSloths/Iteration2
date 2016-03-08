@@ -1,22 +1,18 @@
 package com.vengeful.sloths.GameLaunching;
 
 import com.vengeful.sloths.AreaView.CameraViewManager;
-import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Map.Map;
-import com.vengeful.sloths.Models.Stats.Stats;
-import com.vengeful.sloths.Models.TimeModel.Alertable;
 import com.vengeful.sloths.Utility.Coord;
 
 /**
- * Created by alexs on 2/28/2016.
+ * Created by Ian on 3/7/2016.
  */
-public class LaunchNewGame implements LaunchGameHelper {
+public class LaunchSavedGame implements LaunchGameHelper {
     private LevelFactory levelFactory;
-    public LaunchNewGame() {
+    public LaunchSavedGame() {
         this.levelFactory = new LevelFactory();
         levelFactory.init("test");
-        levelFactory.populate("test");
     }
     @Override
     public Map createMap() {
@@ -32,7 +28,6 @@ public class LaunchNewGame implements LaunchGameHelper {
     }
     @Override
     public Avatar createAvatar() {
-        Avatar.getInstance().avatarInit("Smasher" , new AbilityManager(), new Stats());
-        return Avatar.getInstance();
+        return null;
     }
 }

@@ -51,6 +51,13 @@ public class LevelFactory {
         }
     }
 
+    public void populate(String levelName){
+        switch (levelName) {
+            case "test":
+                populateTestMap();
+        }
+    }
+
     public void createTestMap() {
         this.cameras = new CameraViewManager();
 
@@ -58,6 +65,7 @@ public class LevelFactory {
         //Area 1
         int max = 20;
         MapArea area1 = new MapArea(max,max);
+        area1.setName("area1");
         for (int i=0;i<max;i++) {
             for (int j=0;j<max;j++) {
                 boolean mountainFlag = false;
@@ -86,24 +94,9 @@ public class LevelFactory {
             }
         }
 
-        area1.getTile(new Coord(5,5)).addMapItem(new OneShotItem(new Coord(5,5)));
-        area1.getTile(new Coord(6,4)).addMapItem(new OneShotItem(new Coord(6,4)));
-        area1.getTile(new Coord(7,3)).addMapItem(new OneShotItem(new Coord(7,3)));
-        area1.getTile(new Coord(8,2)).addMapItem(new OneShotItem(new Coord(8,2)));
-        area1.getTile(new Coord(9,1)).addMapItem(new OneShotItem(new Coord(9,1)));
-        area1.getTile(new Coord(11,1)).addMapItem(new OneShotItem(new Coord(11,1)));
-
-
-        area1.getTile(new Coord(2,2)).addMapItem(new TakeableItem("redPotion", new Potion("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(1,2)));
-        area1.getTile(new Coord(11,10)).addMapItem(new TakeableItem("bluePotion", new Potion("bluePotion",new BaseStatsAddable(0,0,5,0,0)), new Coord(11,10)));
-
-
-
-
-
-
         //Area 2
         MapArea area2 = new MapArea(10,10);
+        area2.setName("area2");
         for (int i=0;i<10;i++) {
             for (int j = 0; j < 10; j++) {
                 area2.addTile(new Coord(i,j), new  Tile( j > 6 ? new Water() : new Grass()));
@@ -121,19 +114,6 @@ public class LevelFactory {
         area1.addTile(new Coord(0,0), s2);
 
 
-
-        CameraView camera2 = new PlainsCameraView();
-        CameraView camera1 = new PlainsCameraView();
-
-
-        camera2.init(area2);
-        camera1.init(area1);
-
-
-        cameras.addCameraView(area2, camera2);
-        cameras.addCameraView(area1, camera1);
-
-
         MapArea[] areas = new MapArea[2];
         areas[0] = area1;
         areas[1] = area2;
@@ -144,5 +124,31 @@ public class LevelFactory {
         this.map.setActiveMapArea(area2);
 
         this.spawnPoint = new Coord(2,1);
+    }
+
+    public void populateTestMap() {
+        MapArea[] areas = Map.getInstance().getMapAreas();
+        MapArea area1 = areas[0];
+        MapArea area2 = areas[1];
+        area1.getTile(new Coord(5,5)).addMapItem(new OneShotItem(new Coord(5,5)));
+        area1.getTile(new Coord(6,4)).addMapItem(new OneShotItem(new Coord(6,4)));
+        area1.getTile(new Coord(7,3)).addMapItem(new OneShotItem(new Coord(7,3)));
+        area1.getTile(new Coord(8,2)).addMapItem(new OneShotItem(new Coord(8,2)));
+        area1.getTile(new Coord(9,1)).addMapItem(new OneShotItem(new Coord(9,1)));
+        area1.getTile(new Coord(11,1)).addMapItem(new OneShotItem(new Coord(11,1)));
+
+
+        area1.getTile(new Coord(2,2)).addMapItem(new TakeableItem("redPotion", new Potion("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(1,2)));
+        area1.getTile(new Coord(11,10)).addMapItem(new TakeableItem("bluePotion", new Potion("bluePotion",new BaseStatsAddable(0,0,5,0,0)), new Coord(11,10)));
+        CameraView camera2 = new PlainsCameraView();
+        CameraView camera1 = new PlainsCameraView();
+
+
+        camera2.init(area2);
+        camera1.init(area1);
+
+
+        cameras.addCameraView(area2, camera2);
+        cameras.addCameraView(area1, camera1);
     }
 }

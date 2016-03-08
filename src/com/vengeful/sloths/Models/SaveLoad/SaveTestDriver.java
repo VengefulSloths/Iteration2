@@ -33,7 +33,7 @@ public class SaveTestDriver {
         Avatar a = Avatar.getInstance();
         a.setFacingDirection(Direction.N);
         AbilityManager abm = new AbilityManager();
-        a.avatarInit("Sneak", abm, new Stats() );
+        a.avatarInit("Sneak", abm, new BuffManager(a), new Stats() );
         tiles1[1][1].addEntity(a);
         SaveManager sm = new SaveManager(m);
         sm.save("testSave");

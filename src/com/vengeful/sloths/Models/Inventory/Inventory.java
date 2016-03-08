@@ -81,9 +81,10 @@ public class Inventory implements ModelVisitable{
         if(inventory.remove(item)){
             --this.currentSize;
 
-            if (this.currentSize <= 0)
+            if (this.currentSize <= 0){
+                System.out.println("Inventory size went below 0");
                 this.currentSize = 0;
-
+            }
             return true;
         }else{
             return false;
@@ -128,5 +129,14 @@ public class Inventory implements ModelVisitable{
     @Override
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitInventory(this);
+    }
+
+    public InventoryItem[] getArrayofItems(){
+        InventoryItem[] arrItem = new InventoryItem[getCurrentSize()];
+        int i = 0;
+        for(InventoryItem ii : inventory){
+            arrItem[i++] = ii;
+        }
+        return arrItem;
     }
 }

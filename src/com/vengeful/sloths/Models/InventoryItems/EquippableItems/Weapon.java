@@ -24,4 +24,8 @@ public abstract class Weapon extends EquippableItems {
     public void removeFromEquipped(Equipped equipped) {
         equipped.removeWeapon(this);
     }
+
+    public int getBaseDamage(){
+        return baseDamage;
+    }
 }

@@ -11,6 +11,7 @@ import com.vengeful.sloths.Models.Entity.AggressiveNPC;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.Piggy;
 import com.vengeful.sloths.Models.Map.Map;
+import com.vengeful.sloths.Models.SaveLoad.SaveManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.CurrentHealthAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.HealthManaExperienceAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.MovementAddable;
@@ -36,10 +37,6 @@ public class driver {
 
         LaunchGameTemplate launcher = new LaunchGameTemplate(new LaunchNewGame());
         launcher.launch();
-
-
-
-
         //Below here is test code
 
 
@@ -64,7 +61,6 @@ public class driver {
         testPiggy.accept(TemporaryVOCreationVisitor.getInstance());
         new PiggyControllerManager(Map.getInstance().getActiveMapArea(), testPiggy);
 
-
         testAvatar.setFacingDirection(Direction.SE);
         testAvatar.getStats().subtract(new CurrentHealthAddable(2));
         //stuff to test enemy controllers
@@ -75,9 +71,10 @@ public class driver {
 
         testEnemy.getStats().subtract(new CurrentHealthAddable(1));
         testEnemy.equip(null);
-
         ViewTime.getInstance().registerAlert(3000, () -> testAvatar.equip(null));
         ViewTime.getInstance().registerAlert(6000, () -> testAvatar.unequip(null));
+//        SaveManager sm = new SaveManager(Map.getInstance());
+//        sm.save("bigSave");
 
 //
 //        int countOffset = count;
