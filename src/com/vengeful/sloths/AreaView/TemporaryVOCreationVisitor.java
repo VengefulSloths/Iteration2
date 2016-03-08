@@ -117,7 +117,7 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
         //let the cameraView watch avatar for movement
         avo.registerObserver(activeCameraView);
-        avatar.getStats().registerObserver(avo.getHealthBar());
+        new ProxyStatsObserver(avo.getHealthBar(), avatar.getStats());
         avatar.getStats().updateObservers();
 
         //Set the camera views avatar to this
