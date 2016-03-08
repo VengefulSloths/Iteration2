@@ -1,8 +1,7 @@
-package com.vengeful.sloths.View.Observers;
+package com.vengeful.sloths.Models.Observers;
 
 import com.vengeful.sloths.AreaView.ViewTime;
 import com.vengeful.sloths.Models.ViewObservable;
-import sun.security.krb5.internal.crypto.Des;
 
 /**
  * Created by alexs on 2/29/2016.

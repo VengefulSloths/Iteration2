@@ -1,7 +1,6 @@
-package com.vengeful.sloths.View.Observers;
+package com.vengeful.sloths.Models.Observers;
 
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.EquippableItems;
-import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 
 /**
  * Created by luluding on 2/22/16.

@@ -4,7 +4,6 @@ import com.vengeful.sloths.AreaView.ViewObjects.*;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.HexMath;
-import com.vengeful.sloths.Visibility;
 
 import java.awt.*;
 import java.util.Iterator;
@@ -133,16 +132,14 @@ public abstract class CameraView implements MovingVOObserver{
             tiles[destX][destY].addChild(subject);
         } else {
             ViewTime.getInstance().registerAlert(duration,
-                    new vCommand() {
-                        @Override
-                        public void execute() {
+                    ()-> {
 
                             tiles[srcX][srcY].removeChild(subject);
                             if (subject != avatar || !dontMoveAvatarFlag) {
                                 tiles[destX][destY].addChild(subject);
                             }
                         }
-                    });
+                    );
         }
         if (subject == this.avatar) {
             Iterator<Coord> toBeRevealed = HexMath.saftey(HexMath.ring(new Coord(destR, destS), 5), maxR, maxS);

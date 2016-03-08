@@ -1,4 +1,4 @@
-package com.vengeful.sloths.View.Observers;
+package com.vengeful.sloths.Models.Observers;
 
 /**
  * Created by alexs on 2/26/2016.

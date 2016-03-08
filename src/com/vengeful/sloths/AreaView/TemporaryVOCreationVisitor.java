@@ -36,10 +36,11 @@ import com.vengeful.sloths.Models.Occupation.Summoner;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Direction;
-import com.vengeful.sloths.View.Observers.ModelObserver;
-import com.vengeful.sloths.View.Observers.ProxyDestoyableObserver;
-import com.vengeful.sloths.View.Observers.ProxyEntityObserver;
-import com.vengeful.sloths.View.Observers.ProxyStatsObserver;
+
+import com.vengeful.sloths.Models.Observers.ModelObserver;
+import com.vengeful.sloths.Models.Observers.ProxyDestoyableObserver;
+import com.vengeful.sloths.Models.Observers.ProxyEntityObserver;
+import com.vengeful.sloths.Models.Observers.ProxyStatsObserver;
 
 /**
  * Created by alexs on 2/23/2016.
@@ -137,7 +138,6 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     public void visitAggressiveNPC(AggressiveNPC aNPC) {
         EvilBlobViewObject ebvo = factory.createEvilBlobViewObject(aNPC.getLocation().getR(), aNPC.getLocation().getS(), "resources/entities/cyclops/");
 
-        aNPC.registerObserver(ebvo);
         new ProxyEntityObserver(ebvo, aNPC);
         ebvo.registerObserver(activeCameraView);
         new ProxyStatsObserver(ebvo.getHealthBar(), aNPC.getStats());

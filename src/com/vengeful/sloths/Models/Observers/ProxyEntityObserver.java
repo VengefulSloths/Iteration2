@@ -1,7 +1,6 @@
-package com.vengeful.sloths.View.Observers;
+package com.vengeful.sloths.Models.Observers;
 
 import com.vengeful.sloths.AreaView.ViewTime;
-import com.vengeful.sloths.AreaView.vCommand;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.ViewObservable;
 import com.vengeful.sloths.Utility.Direction;

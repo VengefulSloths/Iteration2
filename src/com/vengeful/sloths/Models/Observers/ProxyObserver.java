@@ -1,4 +1,4 @@
-package com.vengeful.sloths.View.Observers;
+package com.vengeful.sloths.Models.Observers;
 
 import com.vengeful.sloths.Models.ViewObservable;
 

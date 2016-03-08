@@ -70,7 +70,6 @@ public class AvatarControllerState extends InputControllerState {
 
     @Override
     public boolean handle2Key() {
-        System.out.println("handling 2 key");
         if(avatar.getFacingDirection() != Direction.S) {
             avatar.changeDirection(Direction.S);
         }
@@ -243,7 +242,6 @@ public class AvatarControllerState extends InputControllerState {
 
     @Override
     public boolean handleReleaseUpKey() {
-        System.out.println("realased up");
         this.currentFollowerDirection.addDirection(CartesionDirection.Direction.S);
         return true;
     }

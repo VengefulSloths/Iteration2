@@ -1,4 +1,4 @@
-package com.vengeful.sloths;
+package com.vengeful.sloths.AreaView;
 
 import com.vengeful.sloths.AreaView.CameraView;
 import com.vengeful.sloths.AreaView.PlainsPersistantViewObjectFactory;

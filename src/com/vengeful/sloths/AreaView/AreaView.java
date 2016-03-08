@@ -18,9 +18,10 @@ import com.vengeful.sloths.Sound.SoundEffect;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Utility.HexMath;
-import com.vengeful.sloths.View.Observers.MapObserver;
-import com.vengeful.sloths.View.Observers.ProxyEntityObserver;
-import com.vengeful.sloths.View.Observers.ProxyObserver;
+import com.vengeful.sloths.Models.Observers.MapObserver;
+import com.vengeful.sloths.Models.Observers.ProxyEntityObserver;
+import com.vengeful.sloths.Models.Observers.ProxyMapObserver;
+import com.vengeful.sloths.Models.Observers.ProxyObserver;
 
 import javax.swing.*;
 import java.awt.*;
@@ -50,7 +51,7 @@ public class AreaView extends JPanel implements MapObserver{
         setPreferredSize(new Dimension(WIDTH,HEIGHT));
         setDoubleBuffered(true);
 
-        Map.getInstance().registerObserver(this);
+        new ProxyMapObserver(this, Map.getInstance());
 
         this.cameraViewManager = cvm;
         setActiveCamera(cvm.getCurrentCameraView());
