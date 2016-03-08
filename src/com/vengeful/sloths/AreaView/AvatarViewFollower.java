@@ -6,7 +6,7 @@ import com.vengeful.sloths.Utility.CartesionDirection;
 /**
  * Created by Alex on 2/25/2016.
  */
-public class AvatarViewFollower implements MovingVOObserver, vAlertable {
+public class AvatarViewFollower implements MovingVOObserver {
     private static final double sqrt2over2 = Math.sqrt(2)/2;
 
     private static AvatarViewFollower ourInstance = new AvatarViewFollower();
@@ -71,15 +71,15 @@ public class AvatarViewFollower implements MovingVOObserver, vAlertable {
         this.movingEndTime = ViewTime.getInstance().getCurrentTimeMilli() + duration;
         this.snapBackFactor = 0.9;
         this.freeMoveSpeed = 0;
-        ViewTime.getInstance().registerAlert(this, 0);
+        ViewTime.getInstance().registerAlert(0, () -> doAlert());
     }
 
-    @Override
-    public void vAlert() {
+
+    public void doAlert() {
         this.xPixels = target.getXPixels();
         this.yPixels = target.getYPixels();
         if (ViewTime.getInstance().getCurrentTimeMilli() < this.movingEndTime) {
-            ViewTime.getInstance().registerAlert(this, 0);
+            ViewTime.getInstance().registerAlert(0, () -> doAlert());
         } else {
             this.snapBackFactor = 1;
             this.freeMoveSpeed = 15;
