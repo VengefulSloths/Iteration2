@@ -75,11 +75,11 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     public Entity(String name, Stats stats){
         this.name = name;
         this.stats = stats;
-        this.inventory = new Inventory();
-        this.equipped = new Equipped(stats);
-        this.abilityManager = new AbilityManager();
-        this.buffManager = new BuffManager(this);
         this.skillManager = new SkillManager();
+        this.abilityManager = new AbilityManager();
+        this.inventory = new Inventory();
+        this.equipped = new Equipped(this);
+        this.buffManager = new BuffManager(this);
         this.occupation = new DummyOccupation(stats, skillManager, abilityManager, this);
         this.movementValidator = new DefaultCanMoveVisitor();
 
@@ -114,49 +114,16 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     public final int attack(Direction dir){
         if(!isActive) {
             this.setFacingDirection(dir);
-
-
-
-            EntityAttackCommand eac = EntityMapInteractionFactory.getInstance().createAttackCommand(
-                    this.getLocation(),
-                    dir,
-                    30,//attackspeed
-                    1,//attack dmg
-                    this,
-                    observers.iterator());
-
-            return eac.execute();
-
-
+            abilityManager.getWeaponAbility().execute();
         }
         return 0;
     }
     public void equip(EquippableItems item) {
-        //Alex wrote this for testing delete whenever
-        if (item == null) {
-            Iterator<EntityObserver> iter = getObservers().iterator();
-            while (iter.hasNext()) {
-                EntityObserver eo = iter.next();
-                //eo.alertEquipHat("tophat");
-                eo.alertEquipWeapon("cleaver", WeaponClass.TWO_HAND);
-            }
-        } else {
-            item.addToEquipped(this.getEquipped());
-        }
+        item.addToEquipped(this.getEquipped());
     }
 
     public void unequip(EquippableItems item) {
-        //Same as above
-        if (item == null) {
-            Iterator<EntityObserver> iter = getObservers().iterator();
-            while (iter.hasNext()) {
-                EntityObserver current = iter.next();
-                current.alertUnequipHat();
-                //current.alertUnequipWeapon();
-            }
-        } else {
-            item.removeFromEquipped(this.getEquipped());
-        }
+        item.removeFromEquipped(this.getEquipped());
     }
 
     public void registerObserver(ModelObserver observer) {
@@ -287,7 +254,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         this.skillManager = skillManager;
     }
 
-    protected ArrayList<EntityObserver> getObservers(){
+    public ArrayList<EntityObserver> getObservers(){
         return this.observers;
     }
 

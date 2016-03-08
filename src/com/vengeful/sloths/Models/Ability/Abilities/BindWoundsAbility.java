@@ -20,7 +20,7 @@ public class BindWoundsAbility extends Ability {
 
 
     @Override
-    public void execute() {
+    public int execute() {
         System.out.println("DOING BINDWOUNDS ABILITY");
 
         int skillLevel = this.skillManager.getBindWoundsLevel();
@@ -35,5 +35,7 @@ public class BindWoundsAbility extends Ability {
         System.out.println("HEAL " + health + " HP");
         System.out.println("YOUR HEALTH NOW: " + this.entity.getStats().getCurrentHealth());
 
+        //This is however long it will take to bind wounds
+        return 30;
     }
 }

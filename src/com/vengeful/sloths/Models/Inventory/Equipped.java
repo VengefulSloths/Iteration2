@@ -1,8 +1,13 @@
 package com.vengeful.sloths.Models.Inventory;
 
+import com.vengeful.sloths.Models.Ability.AbilityManager;
+import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.*;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
+import com.vengeful.sloths.Models.Skills.SkillManager;
+import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
+import com.vengeful.sloths.Models.Stats.StatAddables.StrengthAddable;
 import com.vengeful.sloths.Models.ViewObservable;
 import com.vengeful.sloths.View.Observers.*;
 import com.vengeful.sloths.Models.Stats.*;
@@ -15,19 +20,29 @@ import java.util.*;
  */
 public class Equipped implements ViewObservable, ModelVisitable{
 
+    private Entity entity;
     private Stats entityStats;
+    private SkillManager skills;
+    private AbilityManager abilityManager;
 
-    private EquippableItems hat;
-    private EquippableItems weapon;
+    private Hat hat;
+    private final Weapon fists = new Knuckle("hands", new StrengthAddable(0), 0);
+
+    private Weapon weapon = fists;
+
     //private EquippableItems mount;
 
     protected ArrayList<EquipmentObserver> equipmentObserver;
 
-    public Equipped(Stats entityStats){
+    public Equipped(Entity entity){
         this.hat = null;
-        this.weapon = null;
-        this.entityStats = entityStats;
-        this.equipmentObserver = new ArrayList<EquipmentObserver>();
+        this.entity = entity;
+        this.entityStats = entity.getStats();
+        this.skills = entity.getSkillManager();
+        this.abilityManager = entity.getAbilityManager();
+        this.equipmentObserver = new ArrayList<>();
+        addWeapon(fists);
+
     }
 
 
@@ -35,29 +50,55 @@ public class Equipped implements ViewObservable, ModelVisitable{
         if(this.hat != null)
             removeHat(this.hat);
 
-        this.hat = hat;
+        this.hat = (Hat) hat;
         this.entityStats.add(this.hat.getItemStats());
+
+        for (EntityObserver observer: entity.getObservers()) {
+            observer.alertEquipHat(hat.getItemName());
+        }
         alertEquipped(hat);
     }
 
     public void addWeapon(EquippableItems weapon){
-        if(this.weapon != null)
-            removeWeapon(this.weapon);
-
-        this.weapon = weapon;
+        this.entityStats.subtract(weapon.getItemStats());
+        this.weapon = (Weapon) weapon;
         this.entityStats.add(this.weapon.getItemStats());
+        this.entityStats.setOffensiveRating(getOffensiveRating());
+
+        abilityManager.setWeaponAbility(this.weapon.getAttackAbility(entity));
+
+
+        for (EntityObserver observer: entity.getObservers()) {
+            observer.alertEquipWeapon(this.weapon.getItemName(), this.weapon.getWeaponClassification());
+        }
         alertEquipped(weapon);
     }
+
+    public int getOffensiveRating() {
+        return weapon.calculateOffsensiveRating(entityStats, skills);
+    }
+
 
     public void removeHat(EquippableItems hat){
         this.hat = null;
         this.entityStats.subtract(hat.getItemStats());
+
+        for (EntityObserver observer: entity.getObservers()) {
+            observer.alertUnequipHat();
+        }
         alertUnEquipped(hat);
     }
 
     public void removeWeapon(EquippableItems weapon){
-        this.weapon = null;
+        this.weapon = fists;
         this.entityStats.subtract(weapon.getItemStats());
+        this.entityStats.setOffensiveRating(getOffensiveRating());
+
+        abilityManager.setWeaponAbility(this.weapon.getAttackAbility(entity));
+
+        for (EntityObserver observer: entity.getObservers()) {
+            observer.alertUnequipWeapon();
+        }
         alertUnEquipped(weapon);
     }
 
