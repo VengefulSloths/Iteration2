@@ -11,6 +11,7 @@ import com.vengeful.sloths.Models.Entity.AggressiveNPC;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.Piggy;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Knuckle;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.SaveLoad.SaveManager;
@@ -73,13 +74,10 @@ public class driver {
         new AggressiveNPCControllerManager(Map.getInstance().getActiveMapArea(), testEnemy);
 
         testEnemy.getStats().subtract(new CurrentHealthAddable(1));
-        testEnemy.equip(null);
-        ViewTime.getInstance().registerAlert(3000, () -> testAvatar.equip(null));
-        ViewTime.getInstance().registerAlert(6000, () -> testAvatar.unequip(null));
 //        SaveManager sm = new SaveManager(Map.getInstance());
 //        sm.save("bigSave");
 
-        ViewTime.getInstance().registerAlert(3000, () -> testAvatar.equip(new Knuckle("katar", new StrengthAddable(5), 10)));
+        ViewTime.getInstance().registerAlert(3000, () -> testAvatar.equip(new OneHandedWeapon("dagger", new StrengthAddable(5), 10)));
         //ViewTime.getInstance().registerAlert(6000, () -> testAvatar.unequip(null));
 
 //

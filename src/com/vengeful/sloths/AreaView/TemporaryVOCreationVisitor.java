@@ -127,7 +127,7 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     @Override
     public void visitPiggy(Piggy piggy) {
         PiggyViewObject pvo = factory.createPiggyViewObject(piggy.getLocation().getR(), piggy.getLocation().getS(), "resources/entities/piggy/");
-        piggy.registerObserver(pvo);
+        new ProxyEntityObserver(pvo, piggy);
         pvo.registerObserver(activeCameraView);
         this.activeCameraView.addViewObject(pvo);
     }
@@ -135,7 +135,9 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     @Override
     public void visitAggressiveNPC(AggressiveNPC aNPC) {
         EvilBlobViewObject ebvo = factory.createEvilBlobViewObject(aNPC.getLocation().getR(), aNPC.getLocation().getS(), "resources/entities/cyclops/");
+
         aNPC.registerObserver(ebvo);
+        new ProxyEntityObserver(ebvo, aNPC);
         ebvo.registerObserver(activeCameraView);
         aNPC.getStats().registerObserver(ebvo.getHealthBar());
         aNPC.getStats().updateObservers();

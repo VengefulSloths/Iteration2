@@ -3,8 +3,10 @@ package com.vengeful.sloths.AreaView;
 import com.vengeful.sloths.Utility.RealTuple;
 import com.vengeful.sloths.Utility.Tuple;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;
+import java.util.Set;
 
 /**
  * Created by Alex on 2/21/2016.
@@ -20,6 +22,8 @@ public class ViewTime {
         }
     };
 
+
+    private ArrayList<RealTuple<Long, vCommand>> staging = new ArrayList<>();
     private PriorityQueue<RealTuple<Long, vCommand>> waitingList = new PriorityQueue<>(10, comparator);
     private ViewTime() {
         this.currentTimeMilli = System.currentTimeMillis();
@@ -35,6 +39,10 @@ public class ViewTime {
     public void tick() {
         this.currentTimeMilli = System.currentTimeMillis();
 
+        //Move staging to waiting list
+        while (!staging.isEmpty())
+            waitingList.add(staging.remove(0));
+
         while (!waitingList.isEmpty() && waitingList.peek().x < this.currentTimeMilli) {
             RealTuple<Long, vCommand> current = waitingList.poll();
             current.y.execute();
@@ -45,7 +53,7 @@ public class ViewTime {
     }
 
     public void registerAlert(long timeTillAlert, vCommand command) {
-        waitingList.add(new RealTuple<>(timeTillAlert + this.currentTimeMilli, command));
+        staging.add(new RealTuple<>(timeTillAlert + this.currentTimeMilli, command));
 
     }
 }
