@@ -1,4 +1,4 @@
-package Menu;
+package com.vengeful.sloths.Menu;
 
 import com.vengeful.sloths.GameLaunching.LaunchGameTemplate;
 import com.vengeful.sloths.GameLaunching.LaunchNewGame;

@@ -1,8 +1,4 @@
-package Menu;
-
-import com.vengeful.sloths.AreaView.ViewEngine;
-import com.vengeful.sloths.GameLaunching.LaunchGameTemplate;
-import com.vengeful.sloths.GameLaunching.LaunchNewGame;
+package com.vengeful.sloths.Menu;
 
 /**
  * Created by zach on 3/7/16.

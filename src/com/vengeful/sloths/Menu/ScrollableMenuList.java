@@ -1,4 +1,4 @@
-package Menu;
+package com.vengeful.sloths.Menu;
 
 import java.util.Iterator;
 import java.util.LinkedList;
