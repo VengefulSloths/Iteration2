@@ -75,7 +75,7 @@ public class PiggyActionController extends ActionController {
     @Override
     public void visitMapItemTarget(MapItemTarget mapItemTarget) {
         if(this.checkLocation(mapItemTarget, 0)) { //1 meaning he can attack an adjacent square
-            // @TODO
+            // @TODO: its weird that we dont have to have a pickup command
 //            this.getEntity().pickup(this.getTargetDirection(mapItemTarget));
             // WE NEED TO IMPLEMENT THE PICKUP(DIRECTION) command!
 
