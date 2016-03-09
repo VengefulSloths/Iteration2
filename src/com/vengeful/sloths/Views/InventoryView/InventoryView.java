@@ -3,9 +3,11 @@ package com.vengeful.sloths.Views.InventoryView;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.ObserverManager;
-import com.vengeful.sloths.View.Observers.InventoryObserver;
-import com.vengeful.sloths.View.Observers.ProxyInventoryObserver;
-import com.vengeful.sloths.View.Observers.ProxyObserver;
+import com.vengeful.sloths.Models.Observers.InventoryObserver;
+import com.vengeful.sloths.Models.Observers.ProxyInventoryObserver;
+import com.vengeful.sloths.Models.Observers.ProxyObserver;
+
+
 import com.vengeful.sloths.Views.View;
 import com.vengeful.sloths.Views.ViewFactory.ItemViewObjectFactory;
 

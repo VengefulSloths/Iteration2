@@ -17,6 +17,9 @@ public class VOSorter implements VOVisitor {
     }
 
     @Override
+    public void visitPiggy(PiggyViewObject p) { zLevel = 1050; }
+
+    @Override
     public void visitGrass(GrassViewObject g) {
         zLevel = 200;
     }
@@ -46,7 +49,17 @@ public class VOSorter implements VOVisitor {
 
     @Override
     public void visitAttack(AttackViewObject a) {
-        zLevel = 1200;
+        if (a.isInFront()) {
+            zLevel = 1200;
+        } else {
+            zLevel = 300;
+        }
+
+    }
+
+    @Override
+    public void visitDamageNumber(DamageNumberViewObject d) {
+        zLevel = 3000;
     }
 
     @Override

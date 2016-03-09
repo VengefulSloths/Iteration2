@@ -3,6 +3,7 @@ package com.vengeful.sloths.AreaView;
 import com.vengeful.sloths.AreaView.ViewObjects.*;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
+import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.NullTile;
 import com.vengeful.sloths.Utility.Direction;
 
 /**
@@ -21,6 +22,8 @@ public abstract class ViewObjectFactory {
     public TileViewObject createTileViewObject(int r, int s) {
         return new TileViewObject(r, s, cs, ls);
     }
+
+    public TileViewObject createNullTileViewObject(int r, int s) { return new NullTile(r, s, cs, ls); }
 
     public EntityViewObject createEnitityViewObject(int r, int s, String resourcePath) {
         return new EntityViewObject(r, s, cs, ls, resourcePath);
@@ -54,9 +57,16 @@ public abstract class ViewObjectFactory {
     public AttackViewObject createAttackViewObject(int r, int s, String resourcePath, long duration) {
         return new AttackViewObject(r, s, cs, ls, resourcePath, duration);
     }
+    public AttackViewObject createAttackViewObject(int r, int s, String resourcePath, long duration, boolean isInFront) {
+        return new AttackViewObject(r, s, cs, ls, resourcePath, duration, isInFront);
+    }
 
     public HatViewObject createHatViewObject(int r, int s, String resourcePath, Direction d) {
         return new HatViewObject(r, s, cs, ls, resourcePath, d);
+    }
+
+    public DamageNumberViewObject createDamageNumberViewObject(int r, int s, int damage) {
+        return new DamageNumberViewObject(r, s, cs, ls, damage);
     }
 
     public LocationStrategy getLocationStrategy() {

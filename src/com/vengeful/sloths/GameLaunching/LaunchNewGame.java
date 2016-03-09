@@ -18,6 +18,10 @@ public class LaunchNewGame implements LaunchGameHelper {
         levelFactory.init("test");
     }
     @Override
+    public void populateMap() {
+        levelFactory.populate();
+    }
+    @Override
     public Map createMap() {
         return levelFactory.getMap();
     }
@@ -31,7 +35,7 @@ public class LaunchNewGame implements LaunchGameHelper {
     }
     @Override
     public Avatar createAvatar() {
-        Avatar.getInstance().avatarInit("Smasher" , new AbilityManager(), new Stats());
+        Avatar.getInstance().avatarInit("Smasher", new Stats());
         return Avatar.getInstance();
     }
 }

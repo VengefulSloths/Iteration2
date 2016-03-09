@@ -8,7 +8,7 @@ import com.vengeful.sloths.Models.TimeModel.TimeController;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
-import com.vengeful.sloths.View.Observers.EntityObserver;
+import com.vengeful.sloths.Models.Observers.EntityObserver;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -70,7 +70,7 @@ public class EntityMovementCommand implements Alertable{
         try {
             map.getActiveMapArea().getTile(dst).accept(canMoveVisitor);
             if (canMoveVisitor.canMove()) {
-                System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+canMoveVisitor.canMove());
+                //System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+canMoveVisitor.canMove());
 
                 //this will throw if no tile exists
                 map.getActiveMapArea().getTile(dst);

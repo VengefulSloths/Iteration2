@@ -27,6 +27,7 @@ public abstract class InputControllerState {
     public abstract boolean handleDownKey();
     public abstract boolean handleUpKey();
 
+    public abstract boolean handleSpaceKey();
 
     public abstract void handleRelease1Key();
     public abstract void handleRelease2Key();

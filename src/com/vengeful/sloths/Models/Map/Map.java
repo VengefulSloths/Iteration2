@@ -6,8 +6,8 @@ import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.ViewObservable;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Location;
-import com.vengeful.sloths.View.Observers.MapObserver;
-import com.vengeful.sloths.View.Observers.ModelObserver;
+import com.vengeful.sloths.Models.Observers.MapObserver;
+import com.vengeful.sloths.Models.Observers.ModelObserver;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -57,6 +57,8 @@ public class Map implements ModelVisitable, ViewObservable{
     public Tile getTile(Coord c){
         return activeMapArea.getTile(c);
     }
+
+    public Coord getCoord(Tile t){return activeMapArea.getCoord(t);}
 
     /**
     *GETTER AND SETTERS FOR ALL PRIVATE VARIABLES

@@ -18,7 +18,4 @@ public class AggressiveNPC extends NPC{
         modelVisitor.visitAggressiveNPC(this);
     }
 
-    public void die(){
-        //die
-    }
 }

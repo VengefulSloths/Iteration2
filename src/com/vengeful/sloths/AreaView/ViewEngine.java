@@ -1,5 +1,6 @@
 package com.vengeful.sloths.AreaView;
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Created by alexs on 2/20/2016.
@@ -20,9 +21,11 @@ public class ViewEngine extends JFrame implements Runnable{
 
     private void initUI() {
         add(target);
-        setTitle("A game");
+        setTitle("Divergent Skies");
         setResizable(false);
         pack();
+        this.setPreferredSize(new Dimension(1200, 1000));
+        this.setSize(1200, 1000);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
@@ -37,9 +40,9 @@ public class ViewEngine extends JFrame implements Runnable{
             this.repaint();
 
             long delta = System.currentTimeMillis() - lastTime;
-            if (delta < 50) {
+            if (delta < 30) {
                 try {
-                    Thread.sleep((50 - delta));
+                    Thread.sleep((30 - delta));
                 } catch (Exception e) {
                     //dont care
                 }
@@ -54,12 +57,15 @@ public class ViewEngine extends JFrame implements Runnable{
         new Thread(this).start();
     }
 
+
+
     public void registerView(JPanel jpanel){
         this.target = jpanel;
         initUI();
     }
     public void killOldView(){
-        remove(this.target);
+        if (target != null)
+            remove(this.target);
     }
 
 

@@ -22,6 +22,7 @@ public class SmartHandViewObject extends MovingViewObject{
 
     private int radius;
     private int height;
+    private double angle0;
     private double angle;
     private double directional_angle;
     private int offset;
@@ -31,7 +32,7 @@ public class SmartHandViewObject extends MovingViewObject{
 
     private DynamicImage handImage;
 
-    public SmartHandViewObject(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy, String handPath, int radius, int height, double angle, int offset, Direction direction) {
+    public SmartHandViewObject(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy, String handPath, int radius, int height, double angle0, int offset, Direction direction) {
         super(r, s, coordinateStrategy, locationStrategy);
 
         System.out.println(CAMERA_TILT_FACTOR);
@@ -39,7 +40,8 @@ public class SmartHandViewObject extends MovingViewObject{
 
         this.radius = radius;
         this.height = height;
-        this.angle = angle;
+        this.angle0 = angle0;
+        this.angle = 0;
         this.offset = offset;
         changeDirection(direction);
         calculatePixelOffsets();
@@ -70,10 +72,13 @@ public class SmartHandViewObject extends MovingViewObject{
     public void hold(WeaponImageContainer weapon) {
         this.weapon = weapon;
     }
+    public void drop() {
+        this.weapon = null;
+    }
 
     public void calculatePixelOffsets() {
-        xPixelOffset = (int)(radius*Math.cos(angle+directional_angle) + offset*Math.cos(angle+directional_angle + Math.PI/2));
-        yPixelOffset = -(int)((radius*Math.sin(angle+directional_angle) + offset*Math.sin(angle+directional_angle + Math.PI/2)+ height)*(CAMERA_TILT_FACTOR) );
+        xPixelOffset = (int)(radius*Math.cos(angle+angle0+directional_angle) + offset*Math.cos(angle+angle0+directional_angle + Math.PI/2));
+        yPixelOffset = -(int)((radius*Math.sin(angle + angle0+directional_angle) + offset*Math.sin(angle+ angle0+directional_angle + Math.PI/2)+ height)*(CAMERA_TILT_FACTOR) );
     }
 
     @Override

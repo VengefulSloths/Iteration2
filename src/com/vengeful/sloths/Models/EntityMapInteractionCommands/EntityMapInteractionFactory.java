@@ -8,7 +8,7 @@ import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
-import com.vengeful.sloths.View.Observers.EntityObserver;
+import com.vengeful.sloths.Models.Observers.EntityObserver;
 
 import java.util.Iterator;
 
@@ -30,6 +30,10 @@ public class EntityMapInteractionFactory {
         this.map = map;
     }
 
+    public EntityDieCommand createDeathCommand(Entity entity, int timeToRespawn, Iterator<EntityObserver> entityObserverIterator){
+        EntityDieCommand edc = new EntityDieCommand(entity, timeToRespawn, entityObserverIterator);
+        return edc;
+    }
 
     public EntityMovementCommand createMovementCommand(Coord src,
                                                        Direction dir,
@@ -71,8 +75,10 @@ public class EntityMapInteractionFactory {
         EntityPickupCommand epc = new EntityPickupCommand(entity, inv, itemToPickup);
         return epc;
     }
-//
-//    public DieCommand createDieCommand(Coord location, Entity entity){
-//        return null;
-//    }
+
+    public EntityRespawnCommand createRespawnCommand(Entity entity, Coord respawnTile, int timeToRespawn) {
+        EntityRespawnCommand erc = new EntityRespawnCommand(entity, respawnTile, timeToRespawn);
+        return erc;
+    }
+
 }

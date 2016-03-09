@@ -2,6 +2,9 @@ package com.vengeful.sloths.Controllers.ActionController;
 
 import com.vengeful.sloths.Controllers.Target.*;
 import com.vengeful.sloths.Models.Entity.Entity;
+import com.vengeful.sloths.Models.EntityMapInteractionCommands.CanMoveVisitor;
+import com.vengeful.sloths.Models.EntityMapInteractionCommands.DefaultCanMoveVisitor;
+import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Utility.HexMath;
@@ -14,6 +17,7 @@ import java.util.*;
 public abstract class ActionController implements TargetVisitor {
 
     private Entity entity;
+    private CanMoveVisitor canMoveVisitor= new DefaultCanMoveVisitor();
 
     public ActionController(){}
     public ActionController(Entity entity){
@@ -43,60 +47,63 @@ public abstract class ActionController implements TargetVisitor {
         this.entity = entity;
     }
 
+    protected boolean moveToTarget(Target target){
+        Direction dir = getNextStepInPathBFS(target);
+        if(entity.move(dir) > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
-    protected Direction getTargetDirection(Target target){
-
-        Iterator<Coord> iter;
-        ArrayList<Coord> marked = new ArrayList<>();
-        marked.add(target.getCoord());
+    protected Direction getNextStepInPathBFS(Target target){
         Queue<Coord> queue = new LinkedList<>();
-        //int currRing = 0;
-        //while(currRing <= distance) {
+        List<Coord> visited = new LinkedList<>();
+        java.util.Map<Coord, Coord> parentMap = new HashMap<>();
+        Coord targetCoord = target.getCoord();
+        Iterator<Coord> iter;
+        CanMoveVisitor canMoveVisitor = new DefaultCanMoveVisitor();
+        Map map = Map.getInstance();
 
-        int dir = 0;
         queue.add(entity.getLocation());
+        parentMap.put(entity.getLocation(), null);
 
         while(!queue.isEmpty()){
-            Coord tmp = queue.remove();
-            if (!marked.contains(tmp)) {
-                iter = HexMath.sortedRing(tmp, 1);
-                //this while loop checks for solution
-                dir = 0;
-                while (iter.hasNext()) {
-                    Coord current = iter.next();
+            Coord currCoord = queue.remove();
+            visited.add(currCoord);
+            //System.out.println("Comparing R's: " + currCoord.getR() + "=" + targetCoord.getR() + " and S's: " + currCoord.getS() + "=" + targetCoord.getS());
+            if(currCoord.equals(targetCoord)){
+                //we found the thing
+                Coord prev = null;
+                Coord curr = currCoord;
 
-                    //System.out.println("iter: " + current + " == " + target.getCoord());
-                    if (current.equals(target.getCoord())) {
-                        System.out.println("dir is: " + dir);
-                        switch (dir) {
-                            case 0:
-                                return Direction.N;
-                            case 1:
-                                return Direction.NE;
-                            case 2:
-                                return Direction.SE;
-                            case 3:
-                                return Direction.S;
-                            case 4:
-                                return Direction.SW;
-                            case 5:
-                                return Direction.NW;
-                            default:
-                                System.out.println("not directioning rigt");
+                while(!curr.equals(entity.getLocation())) {
+                    prev = curr;
+                    curr = parentMap.get(curr);
+                }
+                return HexMath.getCoordDirection(entity.getLocation(), prev);
+            }
+            iter = HexMath.sortedRing(currCoord,1);
+            while(iter.hasNext()){
+                Coord tmpCoord = iter.next();
+                try {
+                    map.getTile(tmpCoord).accept(canMoveVisitor);
+                    if ((canMoveVisitor.canMove() && !visited.contains(tmpCoord)) || tmpCoord.equals(targetCoord)) {
+                        if(!parentMap.containsKey(tmpCoord)) {
+                            parentMap.put(tmpCoord, currCoord);
                         }
-
+                        queue.add(tmpCoord);
                     }
-                    ++dir;
-                    if (!marked.contains(current)) {
-                        queue.add(current);
-                    }
+                }catch(Exception e){
+                    //System.out.println("out of map bounds");
                 }
             }
-            marked.add(tmp);
         }
-        System.out.println("defaulting");
-        return Direction.N;
+        return null;
+    }
 
+    protected Direction getTargetDirection(Target target){
+        return HexMath.getCoordDirection(entity.getLocation(), target.getCoord());
     }
 
     protected boolean checkLocation(Target target, int distance){

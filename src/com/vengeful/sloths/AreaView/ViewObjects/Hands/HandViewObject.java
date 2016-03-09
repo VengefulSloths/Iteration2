@@ -16,7 +16,7 @@ import java.awt.*;
 /**
  * Created by Alex on 2/22/2016.
  */
-public class HandViewObject extends MovingViewObject implements vAlertable {
+public class HandViewObject extends MovingViewObject {
     private DynamicImage handImage;
 
     private WeaponImageContainer weapon = null;
@@ -182,26 +182,26 @@ public class HandViewObject extends MovingViewObject implements vAlertable {
     @Override
     protected void movementHook(int r, int s, long duration) {
         this.duration = duration;
-        ViewTime.getInstance().registerAlert(this, duration/5);
+        ViewTime.getInstance().registerAlert(duration/5, () -> doAlert());
     }
 
-    @Override
-    public void vAlert() {
+
+    public void doAlert() {
         switch (step++) {
             case 0:
                 xPixelOffset = handMovingXOffset;
                 yPixelOffset = handMovingYOffset;
-                ViewTime.getInstance().registerAlert(this, duration/5);
+                ViewTime.getInstance().registerAlert(duration/5, () -> doAlert());
                 break;
             case 1:
                 xPixelOffset = 0;
                 yPixelOffset = 0;
-                ViewTime.getInstance().registerAlert(this, duration/5);
+                ViewTime.getInstance().registerAlert(duration/5, () -> doAlert());
                 break;
             case 2:
                 xPixelOffset = -handMovingXOffset;
                 yPixelOffset = -handMovingYOffset;
-                ViewTime.getInstance().registerAlert(this, duration/5);
+                ViewTime.getInstance().registerAlert(duration/5, () -> doAlert());
                 break;
             case 3:
                 xPixelOffset = 0;

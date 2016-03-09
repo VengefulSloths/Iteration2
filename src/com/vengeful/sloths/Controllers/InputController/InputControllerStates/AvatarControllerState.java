@@ -48,7 +48,10 @@ public class AvatarControllerState extends InputControllerState {
 
     @Override
     public boolean handleEKey() {
-        return false;
+        //TODO: test ability. Remove
+        System.out.println("R PRESSED");
+        avatar.doAbility(1);
+        return true;
     }
 
     @Override
@@ -67,7 +70,6 @@ public class AvatarControllerState extends InputControllerState {
 
     @Override
     public boolean handle2Key() {
-        System.out.println("handling 2 key");
         if(avatar.getFacingDirection() != Direction.S) {
             avatar.changeDirection(Direction.S);
         }
@@ -81,6 +83,12 @@ public class AvatarControllerState extends InputControllerState {
             avatar.changeDirection(Direction.SE);
         }
         this.currentMovementDirection = Direction.SE;
+        return true;
+    }
+
+    @Override
+    public boolean handleSpaceKey() {
+        avatar.attack(avatar.getFacingDirection());
         return true;
     }
 
@@ -123,7 +131,6 @@ public class AvatarControllerState extends InputControllerState {
 
     @Override
     public boolean handle5Key() {
-
         return false;
     }
 
@@ -235,7 +242,6 @@ public class AvatarControllerState extends InputControllerState {
 
     @Override
     public boolean handleReleaseUpKey() {
-        System.out.println("realased up");
         this.currentFollowerDirection.addDirection(CartesionDirection.Direction.S);
         return true;
     }

@@ -33,8 +33,8 @@ public class AggressiveNPCActionController extends ActionController {
         }else{
             //move towards it
             //bfs here
-            //actually gonna try shitty directional code to not do bfs kek
-            this.getEntity().move(this.getTargetDirection(avatar));
+            //this.moveToTarget(avatar);
+            this.getEntity().move(this.getNextStepInPathBFS(avatar));
         }
     }
 
@@ -43,8 +43,10 @@ public class AggressiveNPCActionController extends ActionController {
         //attack the piggy
         if(this.checkLocation(piggy, 1)){
             //make attack command
+            this.getEntity().attack(this.getTargetDirection(piggy));
         }else{
             //move towards it, bfs
+            this.getEntity().move(this.getNextStepInPathBFS(piggy));
         }
     }
 

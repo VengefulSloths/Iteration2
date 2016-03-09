@@ -1,9 +1,11 @@
 package com.vengeful.sloths.Controllers.InputController;
 
+import com.vengeful.sloths.Menu.ScrollableMenu;
 import com.vengeful.sloths.AreaView.ViewEngine;
 import com.vengeful.sloths.Controllers.InputController.InputControllerStates.AvatarControllerState;
 import com.vengeful.sloths.Controllers.InputController.InputControllerStates.InputControllerState;
 import com.vengeful.sloths.Controllers.InputController.InputControllerStates.InventoryControllerState;
+import com.vengeful.sloths.Controllers.InputController.InputControllerStates.MenuControllerState;
 import com.vengeful.sloths.Controllers.InputController.InputStrategies.InputStrategy;
 import com.vengeful.sloths.Controllers.InputController.InputStrategies.QWEASDInputStrategy;
 import com.vengeful.sloths.Models.Entity.Avatar;
@@ -11,8 +13,6 @@ import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.TimeModel.Tickable;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
-
-import javax.swing.*;
 
 /**
  * Created by John on 2/29/2016.
@@ -29,6 +29,7 @@ public class MainController implements Tickable{
     //states
     private AvatarControllerState avatarControllerState;
     private InventoryControllerState inventoryControllerState;
+    private MenuControllerState menuControllerState;
 
 
     private static MainController ourInstance = new MainController();
@@ -43,6 +44,7 @@ public class MainController implements Tickable{
 
         avatarControllerState = new AvatarControllerState();
         inventoryControllerState = new InventoryControllerState();
+        menuControllerState = new MenuControllerState();
 
         state = avatarControllerState;
 
@@ -70,6 +72,12 @@ public class MainController implements Tickable{
     public void setInventoryControllerState(){
         this.state = this.inventoryControllerState;
         System.out.println("Switching to inventory state");
+    }
+
+    public void setMenuControllerState(ScrollableMenu menu) {
+        this.menuControllerState.setScrollableMenu(menu);
+        this.state = this.menuControllerState;
+
     }
 
     public Inventory getInventory(){

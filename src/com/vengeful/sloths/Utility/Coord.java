@@ -17,9 +17,14 @@ public class Coord {
         this.r = r;
         this.s = s;
     }
-
-    public boolean equals(Coord c) {
-        return c.getR() == r && c.getS() == s;
+    @Override
+    public boolean equals(Object c) {
+        Integer r1 = new Integer(r);
+        Integer r2 = new Integer(((Coord) c).getR());
+        Integer s2 = new Integer(((Coord) c).getS());
+        Integer s1 = new Integer(s);
+        //System.out.println("doing equals");
+        return (r1.equals(r2) && s1.equals(s2));
     }
 
     //getters and setters

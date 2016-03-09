@@ -2,7 +2,7 @@ package com.vengeful.sloths.Views.InventoryView;
 
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
-import com.vengeful.sloths.View.Observers.InventoryObserver;
+import com.vengeful.sloths.Models.Observers.InventoryObserver;
 
 import java.awt.*;
 import java.util.ArrayList;

@@ -13,6 +13,7 @@ import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Hat;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Knuckle;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
@@ -28,7 +29,9 @@ import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Smasher;
 import com.vengeful.sloths.Models.Occupation.Sneak;
 import com.vengeful.sloths.Models.Occupation.Summoner;
-import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
+import com.vengeful.sloths.Models.Skills.Skill;
+import com.vengeful.sloths.Models.Skills.SkillManager;
+import com.vengeful.sloths.Models.Stats.StatAddables.*;
 import com.vengeful.sloths.Models.Stats.Stats;
 
 import java.util.Iterator;
@@ -166,6 +169,11 @@ public class AggressiveNPCSearchingController extends SearchingController {
     }
 
     @Override
+    public void visitKnuckle(Knuckle thw) {
+
+    }
+
+    @Override
     public void visitStatsAddable(StatsAddable sa) {
 
     }
@@ -184,7 +192,7 @@ public class AggressiveNPCSearchingController extends SearchingController {
             while (iter.hasNext()) {
                 currEntity = iter.next();
 
-                System.out.println(currEntity);
+                //System.out.println(currEntity);
                 currEntity.accept(this);
             }
         }
@@ -202,7 +210,7 @@ public class AggressiveNPCSearchingController extends SearchingController {
             while (iter.hasNext()) {
                 currEntity = iter.next();
 
-                System.out.println(currEntity);
+                //System.out.println(currEntity);
                 currEntity.accept(this);
             }
         }
@@ -216,7 +224,7 @@ public class AggressiveNPCSearchingController extends SearchingController {
             while (iter.hasNext()) {
                 currEntity = iter.next();
 
-                System.out.println(currEntity);
+                //System.out.println(currEntity);
                 currEntity.accept(this);
             }
         }
@@ -250,5 +258,65 @@ public class AggressiveNPCSearchingController extends SearchingController {
     public void visitWater(Water water) {
 
     }
+
+    @Override
+    public void visitSkillManager(SkillManager skillManager) {
+
+    }
+
+    @Override
+    public void visitSkill(Skill skill) {
+
+    }
+
+//    @Override
+//    public void visitCurrentHealthAddable(CurrentHealthAddable currentHealthAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitBonusHealthAddable(BonusHealthAddable bonusHealthAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitGenericStatsAddable(GenericStatsAddable genericStatsAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitHardinessAddable(HardinessAddable hardinessAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitBaseStatsAddable(BaseStatsAddable baseStatsAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitHealthManaExperienceAddable(HealthManaExperienceAddable healthManaExperienceAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitIntellectAddable(IntellectAddable intellectAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitMovementAddable(MovementAddable movementAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitStrengthAddable(StrengthAddable strengthAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitAgilityAddable(AgilityAddable agilityAddable) {
+//
+//    }
 
 }

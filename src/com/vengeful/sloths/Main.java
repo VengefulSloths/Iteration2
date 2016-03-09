@@ -1,35 +1,40 @@
 package com.vengeful.sloths;
 
-import com.vengeful.sloths.Models.Ability.AbilityManager;
-import com.vengeful.sloths.Models.Buff.BuffManager;
-import com.vengeful.sloths.Models.Entity.Avatar;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.EquippableItems;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.*;
-import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
-import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
-import com.vengeful.sloths.Models.Map.Terrains.Mountain;
-import com.vengeful.sloths.Models.ModelEngine;
-import com.vengeful.sloths.Models.Stats.StatAddables.BaseStatsAddable;
-import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
-import com.vengeful.sloths.Models.Stats.StatAddables.StrengthAddable;
-import com.vengeful.sloths.Models.Stats.Stats;
-import com.vengeful.sloths.Models.Map.*;
+import com.vengeful.sloths.Menu.MainScrollableMenu;
+import com.vengeful.sloths.Menu.ScrollableMenu;
+import com.vengeful.sloths.AreaView.ViewEngine;
+import com.vengeful.sloths.Controllers.InputController.MainController;
+
+import java.awt.*;
 
 public class Main {
 
     public static void main(String[] args) {
 	// write your code here
+        ViewEngine window = ViewEngine.getInstance();
 
-        //highly dank test code
-        ModelEngine engine = ModelEngine.getInstance();
-        StrengthAddable cat = new StrengthAddable(5);
-        System.out.println("this is the str: " + cat.getStrength());
-        Stats stats = new Stats();
-        Avatar blob = Avatar.getInstance();
-        blob.avatarInit("Summoner", new AbilityManager(), stats);
+        //make test list
+        //ScrollableMenuList list = new ScrollableMenuList();
 
 
-        engine.start();
+        ScrollableMenu menu = new MainScrollableMenu(120);
+
+
+
+        menu.setPreferredSize(new Dimension(80, 600));
+        //menu.setBackground(Color.green);
+        //menu.setBorder(BorderFactory.createBevelBorder(1, Color.ORANGE, Color.ORANGE));
+        window.registerView(menu);
+        //window.setSize(1200, 1000);
+
+        //engine.start();
+
+        MainController mainController = MainController.getInstance();
+
+        mainController.setMenuControllerState(menu);
+
+        window.start();
+
 
     }
 }

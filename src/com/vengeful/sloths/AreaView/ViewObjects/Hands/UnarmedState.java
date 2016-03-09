@@ -29,12 +29,15 @@ public class UnarmedState implements HandState{
 
     private SmartHandViewObject attackingHand;
 
+
+
+
+    private int punchDistance = 30;
+
     private WalkingStrategy  walkingStrategy;
 
     private final int radius = 27;
     private final int height = 42;
-
-    private int punchDistance = 30;
 
     private Direction direction;
 
@@ -55,6 +58,7 @@ public class UnarmedState implements HandState{
         changeDirection(direction);
 
     }
+
 
     @Override
     public void setLocation(int r, int s) {
@@ -138,10 +142,6 @@ public class UnarmedState implements HandState{
 
 
         }
-        System.out.println("Starting attack: " + a);
-        System.out.println("will retact in: " + (windUpTime+coolDownTime)/2);
-
-
 
         AttackViewObject attack = TemporaryVOCreationVisitor.getInstance().createAttack(r, s, "resources/effects/punch/punch.xml", windUpTime);
         ViewTime.getInstance().registerAlert(windUpTime, () ->attack.start());
@@ -157,7 +157,6 @@ public class UnarmedState implements HandState{
 
     private void positionHandForAttack(SmartHandViewObject hand, int punchDistance, double a, double v, long startTime, long endTime) {
         long t = ViewTime.getInstance().getCurrentTimeMilli();
-        System.out.println("positioning for attack: " + (int)(a/2*Math.pow(t- startTime, 2) + v*(t-startTime)));
 
         if (t <= endTime) {
             hand.setOffset((int)(a/2*Math.pow(t- startTime, 2) + v*(t-startTime)));
@@ -170,7 +169,6 @@ public class UnarmedState implements HandState{
         long duration = endTime - startTime;
 
         long t = ViewTime.getInstance().getCurrentTimeMilli();
-        System.out.println("retracting: " + (int) (punchDistance * (double)(endTime - t) / duration));
 
         if (t <= endTime) {
             hand.setOffset((int) (punchDistance * (double)(endTime - t) / duration));

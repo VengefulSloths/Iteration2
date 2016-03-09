@@ -1,7 +1,7 @@
 package com.vengeful.sloths.Views.StatsView;
 
 import com.vengeful.sloths.Models.Stats.Stats;
-import com.vengeful.sloths.View.Observers.StatsObserver;
+import com.vengeful.sloths.Models.Observers.StatsObserver;
 import com.vengeful.sloths.Views.InventoryView.ItemViewObject;
 import com.vengeful.sloths.Views.View;
 

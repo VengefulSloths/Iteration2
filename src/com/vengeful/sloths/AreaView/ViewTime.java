@@ -1,9 +1,12 @@
 package com.vengeful.sloths.AreaView;
 
+import com.vengeful.sloths.Utility.RealTuple;
 import com.vengeful.sloths.Utility.Tuple;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;
+import java.util.Set;
 
 /**
  * Created by Alex on 2/21/2016.
@@ -11,13 +14,17 @@ import java.util.PriorityQueue;
 public class ViewTime {
     private long currentTimeMilli;
     private static ViewTime instance = null;
-    private Comparator<Tuple<Long, vAlertable, vCommand>> comparator = new Comparator<Tuple<Long, vAlertable, vCommand>>() {
+    private Comparator<RealTuple<Long, vCommand>> comparator = new Comparator<RealTuple<Long,vCommand>>() {
         @Override
-        public int compare(Tuple<Long, vAlertable, vCommand> o1, Tuple<Long, vAlertable, vCommand> o2) {
+        public int compare(RealTuple<Long, vCommand> o1, RealTuple<Long, vCommand> o2) {
+            if (o1 == o2) return 0;
             return o1.x < o2.x ? -1: 1;
         }
     };
-    private PriorityQueue<Tuple<Long, vAlertable, vCommand>> waitingList = new PriorityQueue<>(10, comparator);
+
+
+    private ArrayList<RealTuple<Long, vCommand>> staging = new ArrayList<>();
+    private PriorityQueue<RealTuple<Long, vCommand>> waitingList = new PriorityQueue<>(10, comparator);
     private ViewTime() {
         this.currentTimeMilli = System.currentTimeMillis();
     }
@@ -31,10 +38,14 @@ public class ViewTime {
 
     public void tick() {
         this.currentTimeMilli = System.currentTimeMillis();
+
+        //Move staging to waiting list
+        while (!staging.isEmpty())
+            waitingList.add(staging.remove(0));
+
         while (!waitingList.isEmpty() && waitingList.peek().x < this.currentTimeMilli) {
-            Tuple<Long, vAlertable, vCommand> current = waitingList.poll();
-            current.z.execute();
-            current.y.vAlert();
+            RealTuple<Long, vCommand> current = waitingList.poll();
+            current.y.execute();
         }
     }
     public long getCurrentTimeMilli() {
@@ -42,28 +53,7 @@ public class ViewTime {
     }
 
     public void registerAlert(long timeTillAlert, vCommand command) {
-        waitingList.add(new Tuple<>(timeTillAlert + this.currentTimeMilli,
-                new vAlertable() {
-                    @Override
-                    public void vAlert() {
+        staging.add(new RealTuple<>(timeTillAlert + this.currentTimeMilli, command));
 
-                    }
-                },
-                command));
-
-    }
-
-    public void registerAlert(vAlertable alertable, long timeTillAlert, vCommand command) {
-        waitingList.add(new Tuple<>(timeTillAlert + this.currentTimeMilli, alertable, command));
-    }
-    public void registerAlert(vAlertable alertable, long timeTillAlert) {
-        waitingList.add(new Tuple<>(timeTillAlert + this.currentTimeMilli,
-                alertable,
-                new vCommand() {
-                    @Override
-                    public void execute() {
-                        //do nothing
-                    }
-                }));
     }
 }

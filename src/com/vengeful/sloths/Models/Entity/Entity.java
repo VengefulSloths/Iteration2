@@ -8,19 +8,24 @@ import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.EquippableItems;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.InventoryTakeableItemFactory;
+import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
+import com.vengeful.sloths.Models.Observers.StatsObserver;
 import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Occupation;
+import com.vengeful.sloths.Models.Skills.Skill;
+import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.CurrentHealthAddable;
+import com.vengeful.sloths.Models.Stats.StatAddables.HealthManaExperienceAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Models.ViewObservable;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Utility.WeaponClass;
-import com.vengeful.sloths.View.Observers.EntityObserver;
-import com.vengeful.sloths.View.Observers.ModelObserver;
+import com.vengeful.sloths.Models.Observers.EntityObserver;
+import com.vengeful.sloths.Models.Observers.ModelObserver;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -38,6 +43,9 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     private Equipped equipped;
     private String name;
     private Stats stats;
+    private SkillManager skillManager;
+    private int timeToRespawn = 0;
+    private boolean dead = false;
 
     private CanMoveVisitor movementValidator;
 
@@ -47,7 +55,9 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     }
 
     public void setActive(boolean active) {
-        isActive = active;
+        if(!dead) {
+            isActive = active;
+        }else{isActive = true;}
     }
 
     private boolean isActive = false;
@@ -55,11 +65,13 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     private ArrayList<EntityObserver> observers = new ArrayList<>();
 
     //for avatar
-    public Entity(){}
+//    public Entity(){
+//    }
 
     public Entity(String name, BuffManager buffManager, Stats stats){
         this(name, stats);
         this.setBuffManager(buffManager);
+        //no argument for Ability, Occupaiton, and SkillManager - they are avatar only (for now)
 
     }
 
@@ -70,19 +82,22 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     public Entity(String name, Stats stats){
         this.name = name;
         this.stats = stats;
-        this.inventory = new Inventory();
-        this.equipped = new Equipped(stats);
+        stats.setEntity(this);
+        this.skillManager = new SkillManager();
         this.abilityManager = new AbilityManager();
+        this.inventory = new Inventory();
+        this.equipped = new Equipped(this);
         this.buffManager = new BuffManager(this);
-        this.occupation = new DummyOccupation(stats);
         this.movementValidator = new DefaultCanMoveVisitor();
 
         //this.location = new Coord(1,2);
         this.facingDirection = Direction.N;
+
+        this.occupation = new DummyOccupation(stats, skillManager, abilityManager, this);
     }
 
-    public void doAbility(){
-        //do something
+    public void doAbility(int index){
+        this.abilityManager.doAbility(index);
     }
 
     public final int move(Direction dir){
@@ -105,48 +120,30 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
 
     }
 
+    public final int die(){
+        if(!this.dead) {
+            this.setDead(true);
+            System.out.println("dying");
+
+            EntityDieCommand edc = EntityMapInteractionFactory.getInstance().createDeathCommand(this, timeToRespawn, observers.iterator());
+            return edc.execute();
+        }
+        return 0;
+    }
+
     public final int attack(Direction dir){
         if(!isActive) {
             this.setFacingDirection(dir);
-
-            EntityAttackCommand eac = EntityMapInteractionFactory.getInstance().createAttackCommand(
-                    this.getLocation(),
-                    dir,
-                    30,//attackspeed
-                    1,//attack dmg
-                    this,
-                    observers.iterator());
-
-            return eac.execute();
-
-
+            return abilityManager.getWeaponAbility().execute();
         }
         return 0;
     }
     public void equip(EquippableItems item) {
-        //Alex wrote this for testing delete whenever
-        if (item == null) {
-            Iterator<EntityObserver> iter = getObservers().iterator();
-            while (iter.hasNext()) {
-                EntityObserver eo = iter.next();
-                eo.alertEquipHat("tophat");
-                eo.alertEquipWeapon("katar", WeaponClass.FISTS);
-            }
-        } else {
-            item.addToEquipped(this.getEquipped());
-        }
+        item.addToEquipped(this.getEquipped());
     }
 
     public void unequip(EquippableItems item) {
-        //Same as above
-        if (item == null) {
-            Iterator<EntityObserver> iter = getObservers().iterator();
-            while (iter.hasNext()) {
-                iter.next().alertUnequipHat();
-            }
-        } else {
-            item.removeFromEquipped(this.getEquipped());
-        }
+        item.removeFromEquipped(this.getEquipped());
     }
 
     public void registerObserver(ModelObserver observer) {
@@ -178,14 +175,30 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
 
             Iterator<EntityObserver> entityObserverIterator = observers.iterator();
             while (entityObserverIterator.hasNext()) {
-                entityObserverIterator.next().alertDirectionChange(facingDirection);
+                try {
+                    entityObserverIterator.next().alertDirectionChange(facingDirection);
+                }catch(Exception e){}
             }
-
     }
 
     public void takeDamage(int attackDamage){
         //do dmg calculations here (like lessening it for defense)
         getStats().subtract(new CurrentHealthAddable(attackDamage));
+        for (EntityObserver observer: observers) {
+            observer.alertTakeDamage(attackDamage);
+        }
+    }
+
+    public void gainHealth(int health) {
+        this.getStats().add(new HealthManaExperienceAddable(health, 0, 0, 0, 0));
+    }
+
+    public void decMana(int mana){
+        this.getStats().subtract(new HealthManaExperienceAddable(0,0,mana,0,0));
+    }
+
+    public void gainMana(int mana){
+        this.getStats().add(new HealthManaExperienceAddable(0,0,mana,0,0));
     }
 
     public void pickup(TakeableItem item){
@@ -199,7 +212,26 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     }
 
 
+    public boolean isDead() {
+        return dead;
+    }
+
+    public void setDead(boolean dead) {
+        this.dead = dead;
+    }
+
     /********** Getters and Setters *************/
+
+
+    public int getTimeToRespawn() {
+        return timeToRespawn;
+    }
+
+    public void setTimeToRespawn(int timeToRespawn) {
+        this.timeToRespawn = timeToRespawn;
+    }
+
+
     public String getName(){
         return this.name;
     }
@@ -216,11 +248,19 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         this.location = loc;
     }
 
+    public void locationChange(){
+        Iterator<EntityObserver> entityObserverIterator = observers.iterator();
+        while (entityObserverIterator.hasNext()) {
+            entityObserverIterator.next().alertDirectionChange(Direction.S);
+        }
+        Map.getInstance().setActiveMapArea(Map.getInstance().getActiveMapArea());
+    }
+
     public Inventory getInventory(){
         return this.inventory;
     }
 
-    protected void setInventory(Inventory inventory){
+    public void setInventory(Inventory inventory){
         this.inventory = inventory;
     }
 
@@ -228,7 +268,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         return this.equipped;
     }
 
-    protected void setEquipped(Equipped equipped){
+    public void setEquipped(Equipped equipped){
         this.equipped = equipped;
     }
 
@@ -236,7 +276,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         return this.abilityManager;
     }
 
-    protected void setAbilityManager(AbilityManager abilityManager){
+    public void setAbilityManager(AbilityManager abilityManager){
         this.abilityManager = abilityManager;
     }
 
@@ -244,7 +284,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         return this.buffManager;
     }
 
-    protected void setBuffManager(BuffManager buffManager){
+    public void setBuffManager(BuffManager buffManager){
         this.buffManager = buffManager;
     }
 
@@ -252,7 +292,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         return this.occupation;
     }
 
-    protected void setOccupation(Occupation occupation){
+    public void setOccupation(Occupation occupation){
         this.occupation = occupation;
     }
 
@@ -261,10 +301,25 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     }
 
     public void setStats(Stats stats){
+        Iterator<StatsObserver> iterator = this.stats.getObservers().iterator();
+        stats.setEntity(this);
         this.stats = stats;
+
+        while(iterator.hasNext()){
+            StatsObserver current = iterator.next();
+            this.stats.registerObserver(current);
+        }
     }
 
-    protected ArrayList<EntityObserver> getObservers(){
+    public SkillManager getSkillManager(){
+        return this.skillManager;
+    }
+
+    public void setSkillManager(SkillManager skillManager){
+        this.skillManager = skillManager;
+    }
+
+    public ArrayList<EntityObserver> getObservers(){
         return this.observers;
     }
 
@@ -288,6 +343,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
      * Handles accepting a ModelVisitor
      */
     public void accept(ModelVisitor modelVisitor) {
+
         //TODO: delete this, it will cause bugs when people forget to give entities subclasses visit statements
     }
 

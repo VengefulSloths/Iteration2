@@ -16,6 +16,8 @@ public abstract class ConsumableItems extends InventoryItem{
 
     }
 
+    public  ConsumableItems(){}
+
     public abstract void use(Stats stats);
 
 

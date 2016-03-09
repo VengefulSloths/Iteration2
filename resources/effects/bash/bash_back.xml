@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<dynamic_timed_animation>
+  <width>78</width>
+  <height>126</height>
+  <rootPath>resources/effects/bash/</rootPath>
+  <startConfig>null.xml</startConfig>
+  <endConfig>null.xml</endConfig>
+  <fileName>bash_back.png</fileName>
+  <positioning>occupying</positioning>
+</dynamic_timed_animation>

@@ -12,6 +12,7 @@ import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Hat;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Knuckle;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
@@ -26,7 +27,9 @@ import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
 import com.vengeful.sloths.Models.Map.Tile;
 import com.vengeful.sloths.Models.Occupation.*;
-import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
+import com.vengeful.sloths.Models.Skills.Skill;
+import com.vengeful.sloths.Models.Skills.SkillManager;
+import com.vengeful.sloths.Models.Stats.StatAddables.*;
 import com.vengeful.sloths.Models.Stats.Stats;
 
 /**
@@ -61,6 +64,7 @@ public interface ModelVisitor {
     void visitHat(Hat h);
     void visitOneHandedWeapon(OneHandedWeapon ohw);
     void visitTwoHandedWeapon(TwoHandedWeapon thw);
+    void visitKnuckle(Knuckle thw);
     void visitStatsAddable(StatsAddable sa);
 
     void visitMapArea(MapArea mapArea);
@@ -81,4 +85,7 @@ public interface ModelVisitor {
     void visitMountain(Mountain mountain);
     void visitWater(Water water);
 
+    void visitSkillManager(SkillManager skillManager);
+
+    void visitSkill(Skill skill);
 }

@@ -13,7 +13,7 @@ import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Sound.SoundEffect;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Utility.WeaponClass;
-import com.vengeful.sloths.View.Observers.EntityObserver;
+import com.vengeful.sloths.Models.Observers.EntityObserver;
 
 import java.awt.*;
 
@@ -141,6 +141,7 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
 
     @Override
     public void movementHook(int r, int s, long duration) {
+        System.out.println("e.movehook: " + duration);
         ((DynamicTimedImage) currentDynamicImage).start(duration);
 
         //leftHand.alertMove(r, s, duration);
@@ -176,7 +177,7 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
 
     @Override
     public void alertUnequipWeapon() {
-
+        hands.unequip();
     }
 
     @Override
@@ -197,6 +198,12 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     @Override
     public void alertDeath() {
 
+    }
+
+    @Override
+    public void alertTakeDamage(int damage) {
+        //System.out.println("takingdamage");
+        TemporaryVOCreationVisitor.getInstance().createDamageNumber(getR(), getS(), damage);
     }
 
     public HealthBarViewObject getHealthBar() {

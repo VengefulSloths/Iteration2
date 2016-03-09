@@ -10,10 +10,15 @@ import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.Entity.AggressiveNPC;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.Piggy;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Knuckle;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
 import com.vengeful.sloths.Models.Map.Map;
+import com.vengeful.sloths.Models.SaveLoad.SaveManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.CurrentHealthAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.HealthManaExperienceAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.MovementAddable;
+import com.vengeful.sloths.Models.Stats.StatAddables.*;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
@@ -89,6 +94,20 @@ public class driver {
 
         ViewTime.getInstance().registerAlert(3000, () -> testAvatar.equip(null));
         ViewTime.getInstance().registerAlert(6000, () -> testAvatar.unequip(null));
+
+
+//        Piggy testPiggy = new Piggy("Bart", new Stats(new MovementAddable(30)));
+//        testPiggy.setFacingDirection(Direction.S);
+//        Map.getInstance().addEntity(new Coord(3,5), testPiggy);
+//        testPiggy.accept(TemporaryVOCreationVisitor.getInstance());
+//        new PiggyControllerManager(Map.getInstance().getActiveMapArea(), testPiggy);
+
+
+//        SaveManager sm = new SaveManager(Map.getInstance());
+//        sm.save("bigSave");
+
+        ViewTime.getInstance().registerAlert(3000, () -> Avatar.getInstance().equip(new OneHandedWeapon("dagger", new StrengthAddable(5), 10)));
+        //ViewTime.getInstance().registerAlert(6000, () -> testAvatar.unequip(null));
 
 //
 //        int countOffset = count;
