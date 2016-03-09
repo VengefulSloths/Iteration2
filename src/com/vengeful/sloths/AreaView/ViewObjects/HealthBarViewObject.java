@@ -22,12 +22,13 @@ public class HealthBarViewObject extends MovingViewObject implements StatsObserv
     @Override
     public void paintComponent(Graphics2D g) {
         double offset = ((double)currentHealth/(double)maxHealth) * 32;
+        g.setColor(Color.BLACK);
+        g.fillRect(this.getXPixels() + getLocationXOffset() - 18,this.getYPixels() + getLocationYOffset() + - 102,36,10);
         g.setColor(Color.red);
         g.fillRect(this.getXPixels() + getLocationXOffset() - 16,this.getYPixels() + getLocationYOffset() + - 100, 32, 6);
         g.setColor(Color.green);
         g.fillRect(this.getXPixels() + getLocationXOffset() - 16,this.getYPixels() + getLocationYOffset() + - 100,(int)offset,6);
-        g.setColor(Color.BLACK);
-        g.drawRect(this.getXPixels() + getLocationXOffset() - 16,this.getYPixels() + getLocationYOffset() + - 100,32,6);
+
     }
 
     @Override
