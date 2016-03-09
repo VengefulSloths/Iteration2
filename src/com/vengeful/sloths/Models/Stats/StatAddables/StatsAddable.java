@@ -102,4 +102,5 @@ public abstract class StatsAddable implements ModelVisitable{
     public void accept(ModelVisitor modelVisitor){
         modelVisitor.visitStatsAddable(this);
     }
+
 }

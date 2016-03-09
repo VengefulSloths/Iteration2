@@ -27,7 +27,7 @@ import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
 import com.vengeful.sloths.Models.Map.Tile;
 import com.vengeful.sloths.Models.Occupation.*;
-import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
+import com.vengeful.sloths.Models.Stats.StatAddables.*;
 import com.vengeful.sloths.Models.Stats.Stats;
 
 /**
@@ -82,5 +82,4 @@ public interface ModelVisitor {
     void visitGrass(Grass grass);
     void visitMountain(Mountain mountain);
     void visitWater(Water water);
-
 }

@@ -432,7 +432,6 @@ public class SaveVisitor implements ModelVisitor {
 
     }
 
-    @Override
     public void visitStatsAddable(StatsAddable sa) {
         Element saElement = doc.createElement("StatsAddable");
         currentParent.peek().appendChild(saElement);
@@ -448,6 +447,27 @@ public class SaveVisitor implements ModelVisitor {
         saElement.setAttribute("currentExperience", sa.getCurrentExperience()+ "");
     }
 
+//    public void visitAgilityAddable(StatsAddable sa){
+//        Element saElement = doc.createElement("AgilityStatsAddable");
+//        currentParent.peek().appendChild(saElement);
+//        saElement.setAttribute("agility", sa.getAgility()+ "");
+//    }
+//
+//    public void visitBaseStatsAddable(StatsAddable sa){
+//        Element saElement = doc.createElement("GenericStatsAddable");
+//        currentParent.peek().appendChild(saElement);
+//        saElement.setAttribute("strength", sa.getStrength()+ "");
+//        saElement.setAttribute("agility", sa.getAgility()+ "");
+//        saElement.setAttribute("intellect", sa.getIntellect()+ "");
+//        saElement.setAttribute("hardiness", sa.getHardiness()+ "");
+//        saElement.setAttribute("movement", sa.getMovement()+ "");
+//    }
+//
+//    public void visitCurrentHealthAddable(StatsAddable sa){
+//        Element saElement = doc.createElement("CurrentHealthAddable");
+//        currentParent.peek().appendChild(saElement);
+//        saElement.setAttribute("strength", sa.getStrength()+ "");
+//    }
     public void visitMapArea(MapArea ma){
         Element maElement = doc.createElement("MapArea");
         currentParent.peek().appendChild(maElement);
