@@ -16,7 +16,8 @@ public abstract class ProxyObserver implements ModelObserver {
     public boolean getDeleteFlag() {
         return this.deleteFlag;
     }
-    public void deregister() {
+    public final void deregister() {
+        System.out.println("deregistering");
         subject.deregisterObserver(this);
     }
 

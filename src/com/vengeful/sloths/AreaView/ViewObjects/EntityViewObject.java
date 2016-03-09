@@ -10,6 +10,7 @@ import com.vengeful.sloths.AreaView.ViewObjects.Hands.HandViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.Hands.HandsCoordinator;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
+import com.vengeful.sloths.Models.ObserverManager;
 import com.vengeful.sloths.Sound.SoundEffect;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Utility.WeaponClass;
@@ -43,6 +44,9 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     private Direction direction;
 
     private DynamicImage currentDynamicImage;
+
+    private boolean dead = false;
+
     public EntityViewObject(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy, String resourcePath) {
         super(r, s, coordinateStrategy, locationStrategy);
 
@@ -197,6 +201,8 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
 
     @Override
     public void alertDeath() {
+        ObserverManager.instance().deregister(this);
+        this.dead = true;
 
     }
 

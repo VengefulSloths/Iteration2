@@ -29,6 +29,7 @@ import com.vengeful.sloths.Models.Map.Terrains.Grass;
 import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
 import com.vengeful.sloths.Models.ModelVisitor;
+import com.vengeful.sloths.Models.ObserverManager;
 import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Smasher;
 import com.vengeful.sloths.Models.Occupation.Sneak;
@@ -112,13 +113,13 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
         //Let avo observe avatar through a proxy
         peo = new ProxyEntityObserver(avo, avatar);
-
+        ObserverManager.instance().addProxyObserver(peo);
         //Let the AvatarViewFollower follow the avo
         AvatarViewFollower.getInstance().bindToViewObject(avo);
 
         //let the cameraView watch avatar for movement
         avo.registerObserver(activeCameraView);
-        new ProxyStatsObserver(avo.getHealthBar(), avatar.getStats());
+        ObserverManager.instance().addProxyObserver(new ProxyStatsObserver(avo.getHealthBar(), avatar.getStats()));
         avatar.getStats().updateObservers();
 
         //Set the camera views avatar to this
@@ -137,10 +138,10 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     @Override
     public void visitAggressiveNPC(AggressiveNPC aNPC) {
         EvilBlobViewObject ebvo = factory.createEvilBlobViewObject(aNPC.getLocation().getR(), aNPC.getLocation().getS(), "resources/entities/cyclops/");
-
-        new ProxyEntityObserver(ebvo, aNPC);
+        ObserverManager.instance().addProxyObserver(new ProxyEntityObserver(ebvo, aNPC));
+        //new ProxyEntityObserver(ebvo, aNPC);
         ebvo.registerObserver(activeCameraView);
-        new ProxyStatsObserver(ebvo.getHealthBar(), aNPC.getStats());
+        ObserverManager.instance().addProxyObserver(new ProxyStatsObserver(ebvo.getHealthBar(), aNPC.getStats()));
         aNPC.getStats().updateObservers();
         this.activeCameraView.addViewObject(ebvo);
     }

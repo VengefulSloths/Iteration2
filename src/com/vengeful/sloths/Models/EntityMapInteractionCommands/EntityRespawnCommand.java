@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Models.EntityMapInteractionCommands;
 
+import com.vengeful.sloths.AreaView.TemporaryVOCreationVisitor;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Observers.EntityObserver;
@@ -33,16 +34,18 @@ public class EntityRespawnCommand implements Alertable {
 
     @Override
     public void mAlert() {
+
+        System.out.println("executing the respawn command");
         entity.getStats().resetStats();
         entity.setDead(false);  // Bring entity back to life
         entity.setActive(false); // Even more back to life
 
-        //Coord respawnCoordCopy = new Coord(respawnCoord.getR(), respawnCoord.getS());
         Coord resCoord = HexMath.getClosestMovableTile(respawnCoord); // get closest tile to respawnCoord (may be respawnCoord) to respawn at
         Map.getInstance().getTile(resCoord).addEntity(entity);
+        entity.accept(TemporaryVOCreationVisitor.getInstance());
 
-        entity.setLocation(resCoord);
-        entity.locationChange();
+
+        //entity.locationChange();
 
 
 

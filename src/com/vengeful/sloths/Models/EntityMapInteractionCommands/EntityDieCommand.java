@@ -35,7 +35,10 @@ public class EntityDieCommand implements Alertable {
         EntityMapInteractionFactory emif = EntityMapInteractionFactory.getInstance();
 
         //@TODO: NEED RESPAWN TILE
-        EntityRespawnCommand erc = emif.createRespawnCommand(entity, Map.getInstance().getRespawnPoint().getCoord(), timeToRespawn);
+        if(timeToRespawn >= 0) {
+            System.out.println("making respawn command");
+            EntityRespawnCommand erc = emif.createRespawnCommand(entity, Map.getInstance().getRespawnPoint().getCoord(), timeToRespawn);
+        }
 
         return 0;
     }

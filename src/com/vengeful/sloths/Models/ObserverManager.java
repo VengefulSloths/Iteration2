@@ -51,6 +51,12 @@ public class ObserverManager implements Alertable {
         } else return false;
     }
 
+    public void deregister(ModelObserver modelObserver){
+        if(observers.containsKey(modelObserver)){
+            observers.get(modelObserver).deregister();
+        }
+    }
+
     @Override
     public int execute() {
         return 0;
