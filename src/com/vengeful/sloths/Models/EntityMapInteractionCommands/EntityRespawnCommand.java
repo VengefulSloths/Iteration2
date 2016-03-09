@@ -33,8 +33,9 @@ public class EntityRespawnCommand implements Alertable {
 
     @Override
     public void mAlert() {
+        entity.getStats().resetStats();
         entity.setDead(false);  // Bring entity back to life
-        entity.setActive(true); // Even more back to life
+        entity.setActive(false); // Even more back to life
 
 
         //Coord respawnCoordCopy = new Coord(respawnCoord.getR(), respawnCoord.getS());
@@ -43,8 +44,13 @@ public class EntityRespawnCommand implements Alertable {
 
         entity.setLocation(resCoord);
 
+        System.out.println("entity location is :" + entity.getLocation());
+        System.out.println("entity dead is : " + entity.isDead());
+        System.out.println("entity is active: " + entity.isActive());
+        entity.locationChange();
 
-        entity.getStats().resetStats();
+
+
 
     }
 }

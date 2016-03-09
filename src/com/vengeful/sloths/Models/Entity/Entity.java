@@ -8,6 +8,7 @@ import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.EquippableItems;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.InventoryTakeableItemFactory;
+import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
@@ -236,6 +237,14 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
 
     public void setLocation(Coord loc){
         this.location = loc;
+    }
+
+    public void locationChange(){
+        Iterator<EntityObserver> entityObserverIterator = observers.iterator();
+        while (entityObserverIterator.hasNext()) {
+            entityObserverIterator.next().alertDirectionChange(Direction.S);
+        }
+        Map.getInstance().setActiveMapArea(Map.getInstance().getActiveMapArea());
     }
 
     public Inventory getInventory(){
