@@ -19,7 +19,4 @@ public class Piggy extends Pet {
         modelVisitor.visitPiggy(this);
     }
 
-    public void die(){
-        //die
-    }
 }

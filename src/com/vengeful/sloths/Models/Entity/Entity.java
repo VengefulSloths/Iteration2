@@ -11,6 +11,7 @@ import com.vengeful.sloths.Models.InventoryTakeableItemFactory;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
+import com.vengeful.sloths.Models.Observers.StatsObserver;
 import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Occupation;
 import com.vengeful.sloths.Models.Skills.Skill;
@@ -42,6 +43,8 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     private String name;
     private Stats stats;
     private SkillManager skillManager;
+    private int timeToRespawn = 0;
+    private boolean dead = false;
 
     private CanMoveVisitor movementValidator;
 
@@ -51,7 +54,9 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     }
 
     public void setActive(boolean active) {
-        isActive = active;
+        if(!dead) {
+            isActive = active;
+        }else{isActive = true;}
     }
 
     private boolean isActive = false;
@@ -59,7 +64,8 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     private ArrayList<EntityObserver> observers = new ArrayList<>();
 
     //for avatar
-    public Entity(){}
+//    public Entity(){
+//    }
 
     public Entity(String name, BuffManager buffManager, Stats stats){
         this(name, stats);
@@ -75,6 +81,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     public Entity(String name, Stats stats){
         this.name = name;
         this.stats = stats;
+        stats.setEntity(this);
         this.skillManager = new SkillManager();
         this.abilityManager = new AbilityManager();
         this.inventory = new Inventory();
@@ -109,6 +116,12 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         }
         return 0;
 
+    }
+
+    public final int die(){
+        System.out.println("dying");
+        EntityDieCommand edc = EntityMapInteractionFactory.getInstance().createDeathCommand(this, timeToRespawn, observers.iterator());
+        return edc.execute();
     }
 
     public final int attack(Direction dir){
@@ -184,7 +197,26 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     }
 
 
+    public boolean isDead() {
+        return dead;
+    }
+
+    public void setDead(boolean dead) {
+        this.dead = dead;
+    }
+
     /********** Getters and Setters *************/
+
+
+    public int getTimeToRespawn() {
+        return timeToRespawn;
+    }
+
+    public void setTimeToRespawn(int timeToRespawn) {
+        this.timeToRespawn = timeToRespawn;
+    }
+
+
     public String getName(){
         return this.name;
     }
@@ -242,11 +274,19 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     }
 
     public Stats getStats(){
+
         return this.stats;
     }
 
     public void setStats(Stats stats){
+        Iterator<StatsObserver> iterator = this.stats.getObservers().iterator();
+        stats.setEntity(this);
         this.stats = stats;
+
+        while(iterator.hasNext()){
+            StatsObserver current = iterator.next();
+            this.stats.registerObserver(current);
+        }
     }
 
     public SkillManager getSkillManager(){

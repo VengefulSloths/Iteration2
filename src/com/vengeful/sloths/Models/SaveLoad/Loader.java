@@ -1,8 +1,11 @@
 package com.vengeful.sloths.Models.SaveLoad;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.util.InternalError;
 import com.sun.org.apache.xalan.internal.xsltc.compiler.util.NodeType;
 import com.vengeful.sloths.Models.Entity.Avatar;
+import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.Map.MapArea;
+import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
 import org.w3c.dom.*;
@@ -36,14 +39,14 @@ public class Loader {
 
     public void loadAreas(MapArea[] areas){
         Node root = doc.getDocumentElement();
-        NodeList mapAreas = doc.getChildNodes();
-        if(doc.hasChildNodes()){
+        NodeList mapAreas = root.getChildNodes();
+        if(root.hasChildNodes()){
             for(int i = 0; i != mapAreas.getLength(); ++i){
                 Node currMA = mapAreas.item(i);
                 if(currMA.getNodeType() == Node.ELEMENT_NODE && currMA.getNodeName().equals("MapArea")){
                     if(currMA.hasChildNodes()){
                         String maName = currMA.getAttributes().item(0).getNodeValue();
-                        MapArea loading;
+                        MapArea loading = null;
                         for(MapArea ma : areas){
                             if(ma.getName().equals(maName)){
                                 loading = ma;
@@ -59,6 +62,7 @@ public class Loader {
                             switch (currObject.getNodeName()){
                                 case "Avatar":
                                     Avatar a = processAvatar(currObject);
+                                    loading.getTile(a.getLocation()).addEntity(a);
                                     break;
 
                                 default: System.out.println(currObject.getNodeName() + " doesn't have a case to handle it");
@@ -118,7 +122,7 @@ public class Loader {
         NodeList avatarObjects = currObject.getChildNodes();
         for(int i = 0; i != avatarObjects.getLength(); ++i){
             Node avatarObject = avatarObjects.item(i);
-            if(avatarObject != NodeType.Element){
+            if(avatarObject.getNodeType() != Node.ELEMENT_NODE){
                 System.out.println("Avatar object isn't an element type");
                 continue;
             }
@@ -135,12 +139,15 @@ public class Loader {
                 case "Summoner" :
                     break;
                 case "Stats" :
+                    Stats s = processStats(avatarObject);
+                    a.setStats(s);
                     break;
                 case "AbilityManager" :
                     break;
                 case "BuffManager" :
                     break;
                 case "Inventory" :
+                    Inventory inv = processInventory(avatarObject);
                     break;
                 case "Equipped" :
                     break;
@@ -153,11 +160,65 @@ public class Loader {
         return a;
     }
 
-    Coord processLocation(Node object){
+    private Inventory processInventory(Node avatarObject) {
+        Inventory inv = new Inventory();
+        if(avatarObject.getNodeType() == Node.ELEMENT_NODE){
+            Element invElement = (Element) avatarObject;
+            inv.setCurrentSize(Integer.valueOf(invElement.getAttribute("currentSize")));
+            inv.setMaxSize(Integer.valueOf(invElement.getAttribute("maxSize")));
+            if(avatarObject.hasChildNodes()){
+                NodeList invItems = avatarObject.getChildNodes();
+                for(int i = 0; i != invItems.getLength();++i){
+                    Node invItem = invItems.item(i);
+                    if(invItem.getNodeType() == Node.ELEMENT_NODE){
+                        Element invItemElement = (Element) invItem;
+                        String invItemName = invItemElement.getNodeName();
+                        switch(invItemName){
+                            default:
+                                System.out.println(invItemName + "isn't a supported inventory item element");
+                        }
+                    }
+                    else{
+                        System.out.println("the invItem node isn't an element");
+                    }
+                }
+            }
+            else{
+                System.out.println("Inventory element has no child nodes- its empty");
+            }
+        }
+        else{
+            System.out.println("Node passed to processInventory isn't an element");
+        }
+        return inv;
+    }
+
+    private Stats processStats(Node avatarObject) {
+        Stats s = new Stats();
+        if(avatarObject.getNodeType() == Node.ELEMENT_NODE){
+            Element sElement = (Element) avatarObject;
+            s.setAgility(Integer.valueOf(sElement.getAttribute("agility")));
+            s.setCurrentExperience(Integer.valueOf(sElement.getAttribute("currentExperience")));
+            s.setCurrentHealth(Integer.valueOf(sElement.getAttribute("currentHealth")));
+            s.setCurrentMana(Integer.valueOf(sElement.getAttribute("currentMana")));
+            s.setHardiness(Integer.valueOf(sElement.getAttribute("hardiness")));
+            s.setIntellect(Integer.valueOf(sElement.getAttribute("intellect")));
+            s.setLevel(Integer.valueOf(sElement.getAttribute("level")));
+            s.setMovement(Integer.valueOf(sElement.getAttribute("movement")));
+            s.setStrength(Integer.valueOf(sElement.getAttribute("strength")));
+            s.calculateStats();
+        }
+        else{
+            System.out.println("Node passed to process processStats isn't an element");
+        }
+        return s;
+    }
+
+    private Coord processLocation(Node object){
         int s;
         int r;
         Coord c = new Coord();
-        if(object == NodeType.Element){
+        if(object.getNodeType() == Node.ELEMENT_NODE){
             Element locElement = (Element) object;
             s = Integer.valueOf(locElement.getAttribute("s"));
             r = Integer.valueOf(locElement.getAttribute("r"));
