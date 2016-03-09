@@ -21,6 +21,7 @@ import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
 import com.vengeful.sloths.Models.Map.*;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
 import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
@@ -291,6 +292,11 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
     @Override
     public void visitOneShotItem(OneShotItem osi) {
+
+    }
+
+    @Override
+    public void visitInteractiveItem(InteractiveItem item) {
 
     }
 
