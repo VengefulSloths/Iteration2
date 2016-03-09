@@ -57,6 +57,14 @@ public class SkillManager {
             return this.skills.get(skillName).getLevel();
         }
     }
+
+    private int getMaxSkillLevel(String skillName){
+        if(!this.skills.containsKey(skillName))
+            return 0; //you dont have that skill
+        else{
+            return this.skills.get(skillName).getMaxSkillLevel();
+        }
+    }
     /*************************************/
 
 
@@ -120,6 +128,65 @@ public class SkillManager {
 
     public int getRangedWeaponLevel(){
         return this.getSkillLevel("ranged weapon");
+    }
+
+
+    //looks pretty bad... maybe reconstruct later.. But I don't want to pass skill name around
+
+    public int getMaxBindWoundsLevel(){
+        return this.getMaxSkillLevel("bind wounds");
+    }
+
+    public int getMaxBargainLevel(){
+        return this.getMaxSkillLevel("bargain");
+    }
+
+    public int getMaxObservationLevel(){
+        return this.getMaxSkillLevel("observation");
+    }
+
+    public int getMaxOneHandedLevel(){
+        return this.getMaxSkillLevel("one-handed weapon");
+    }
+
+    public int getMaxTwoHandedLevel(){
+        return this.getMaxSkillLevel("two-handed weapon");
+    }
+
+    public int getMaxBrawling(){
+        return this.getMaxSkillLevel("brawling");
+    }
+
+    public int getMaxEnchantment(){
+        return this.getMaxSkillLevel("enchantment");
+    }
+
+    public int getMaxBoonLevel(){
+        return this.getMaxSkillLevel("boon");
+    }
+
+    public int getMaxBaneLevel(){
+        return this.getMaxSkillLevel("bane");
+    }
+
+    public int getMaxStaffLevel(){
+        return this.getMaxSkillLevel("staff");
+    }
+
+    public int getMaxPickPocketLevel(){
+        return this.getMaxSkillLevel("pick pocket");
+    }
+
+    public int getMaxRemoveTrapLevel(){
+        return this.getMaxSkillLevel("remove trap");
+    }
+
+    public int getMaxCreepLevel(){
+        return this.getMaxSkillLevel("creep");
+    }
+
+    public int getMaxRangedWeaponLevel(){
+        return this.getMaxSkillLevel("ranged weapon");
     }
     /*************************************/
 

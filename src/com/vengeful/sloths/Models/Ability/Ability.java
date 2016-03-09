@@ -10,6 +10,20 @@ public abstract class Ability implements ModelVisitable {
 
     public abstract int execute();
 
+    protected boolean shouldDoAbility(int skillLevel, int maxSkillLevel){
+
+        int accuracy = (int)Math.round(((double)skillLevel / maxSkillLevel) * 100);
+        int randomNum = 1 + (int)(Math.random() * 101); //[1-100]
+        if(randomNum <= accuracy){
+            System.out.println("ATTEMPT TO DO ABILITY SUCCESSFUL!" + " skillLevel: " + skillLevel + " accu: " + accuracy);
+            return true;
+        }
+
+        System.out.println("ATTEMPT TO DO ABILITY FAILED! " + " skillLevel: " + skillLevel + " accu: " + accuracy);
+        return false;
+    }
+
+
 
     //TODO: put this at a lower level for saving
     @Override

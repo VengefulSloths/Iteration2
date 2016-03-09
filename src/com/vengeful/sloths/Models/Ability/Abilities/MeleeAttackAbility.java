@@ -83,7 +83,6 @@ public class MeleeAttackAbility extends Ability {
     }
 
 
-
     @Override
     public void accept(ModelVisitor modelVisitor) {
         super.accept(modelVisitor);
