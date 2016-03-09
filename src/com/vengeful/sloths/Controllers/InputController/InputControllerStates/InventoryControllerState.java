@@ -26,6 +26,7 @@ public class InventoryControllerState extends InputControllerState{
     @Override
     public boolean handleIKey() {
         MainController.getInstance().setAvatarControllerState();
+        //MainController.getInstance().setInventoryControllerState();
         return true;
     }
 

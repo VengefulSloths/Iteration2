@@ -54,15 +54,6 @@ public class ViewManager extends JPanel {
     }
 
     //public ViewManager(AreaView av, HUDView hv) {
-    public ViewManager() throws InterruptedException{
-        initializeViewManager();
-    }
-
-    public ViewManager(AreaView av, HUDView hv)  {
-        this.areaview = av;
-        this.hudView = hv;
-       initializeViewManager();
-    }
 
     public ViewManager(AreaView av, HUDView hv, CharacterView cv)  {
         this.areaview = av;
@@ -90,22 +81,42 @@ public class ViewManager extends JPanel {
         this.areaview.setLayout(new BorderLayout());
         this.sidePanel.setLayout(new BorderLayout());
 
+        setComponentZOrder(areaview, 0);
+        setComponentZOrder(characterView, 1);
         sidePanel.add(hudView, BorderLayout.NORTH);
         areaview.add(sidePanel, BorderLayout.WEST); /* we add the sidePanel to the areaview because it needs to be transparent to
-        show the areaview/gameplay behind it since the only real component in it is the hudview at the top*/
+        //show the areaview/gameplay behind it since the only real component in it is the hudview at the top*/
         this.add(areaview);
         this.hudView.setBackground(new Color(0f,0f,0f,0.1f));
         this.areaview.setBackground(Color.blue);
 
     }
 
+    public void openCharacterView() {
+        addView(characterView);
+    }
+
+    public void closeAllViews() {
+        //TODO: close everything but HUD
+    }
+    public void closeCharacterView() {
+        this.remove(characterView);
+        this.revalidate();
+        this.repaint();
+    }
+
     public void removeView(JComponent component) {
         this.remove(component);
+        this.revalidate();
+        this.repaint();
     }
 
     public void addView(JComponent component) {
-        this.add(component);
+        this.add(component,0);
+        this.revalidate();
+        this.repaint();
     }
+
 
     public void resizeComponent(JComponent component, int width, int height) {
         component.setPreferredSize(new Dimension(width, height));

@@ -102,11 +102,6 @@ public class TileViewObject extends ViewObject implements DestroyVOObserver{
 
 
     public void addChild(ViewObject child) {
-
-        System.out.println("adding " +child);
-        System.out.println(child.getR() + ", " + child.getS());
-
-
         children.add(child);
         children.sort(new Comparator<ViewObject>() {
             VOSorter sorter = new VOSorter();
@@ -123,16 +118,12 @@ public class TileViewObject extends ViewObject implements DestroyVOObserver{
     }
 
     public void removeChild(ViewObject child) {
-
-        System.out.println("removing " + child);
-
         if (children.contains(child)) {
             children.remove(child);
         }
     }
 
     public void reallyRemoveChild(ViewObject child) {
-        System.out.println("really removing  " + child);
         if (children.contains(child)) {
             children.remove(child);
         } else {

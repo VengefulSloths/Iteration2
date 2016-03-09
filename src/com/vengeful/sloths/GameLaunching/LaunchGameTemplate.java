@@ -73,6 +73,8 @@ public class LaunchGameTemplate {
         //ViewEngine viewEngine = new ViewEngine(areaView);
         ViewEngine viewEngine = ViewEngine.getInstance();
         viewEngine.registerView(vm);
+
+
         //viewEngine.registerView(cv);
 
 
@@ -84,6 +86,7 @@ public class LaunchGameTemplate {
         //ModelEngine modelEngine = new ModelEngine();
         ModelEngine modelEngine = ModelEngine.getInstance();
         MainController controller = MainController.getInstance();
+        controller.init(vm);
         controller.setAvatarControllerState();
 
         modelEngine.start();
