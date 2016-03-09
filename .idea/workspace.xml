@@ -2,25 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="09c95b10-07d7-4b83-93ed-893d50332560" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Iteration2/Main.class" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Iteration2/com/vengeful/sloths/Views/AreaView/AreaView.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/AreaView/AreaView.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/Main.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Iteration2/com/vengeful/sloths/AreaView/CameraView.class" afterPath="$PROJECT_DIR$/out/production/Iteration2/com/vengeful/sloths/AreaView/CameraView.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Iteration2/com/vengeful/sloths/AreaView/ViewObjects/TileViewObject$1.class" afterPath="$PROJECT_DIR$/out/production/Iteration2/com/vengeful/sloths/AreaView/ViewObjects/TileViewObject$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Iteration2/com/vengeful/sloths/AreaView/ViewObjects/TileViewObject.class" afterPath="$PROJECT_DIR$/out/production/Iteration2/com/vengeful/sloths/AreaView/ViewObjects/TileViewObject.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Iteration2/com/vengeful/sloths/Controllers/InputController/InputControllerStates/InventoryControllerState.class" afterPath="$PROJECT_DIR$/out/production/Iteration2/com/vengeful/sloths/Controllers/InputController/InputControllerStates/InventoryControllerState.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Iteration2/com/vengeful/sloths/Controllers/InputController/MainController.class" afterPath="$PROJECT_DIR$/out/production/Iteration2/com/vengeful/sloths/Controllers/InputController/MainController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Iteration2/com/vengeful/sloths/GameLaunching/LaunchGameTemplate.class" afterPath="$PROJECT_DIR$/out/production/Iteration2/com/vengeful/sloths/GameLaunching/LaunchGameTemplate.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Iteration2/com/vengeful/sloths/Views/ViewManager/ViewManager.class" afterPath="$PROJECT_DIR$/out/production/Iteration2/com/vengeful/sloths/Views/ViewManager/ViewManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/AreaView/ViewObjects/TileViewObject.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/AreaView/ViewObjects/TileViewObject.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/AreaView/driver.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/AreaView/driver.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/Controllers/InputController/InputControllerStates/InventoryControllerState.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Controllers/InputController/InputControllerStates/InventoryControllerState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/Controllers/InputController/MainController.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Controllers/InputController/MainController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/GameLaunching/LaunchGameTemplate.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/GameLaunching/LaunchGameTemplate.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/ViewManager/ViewManager.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/ViewManager/ViewManager.java" />
     </list>
     <ignored path="Iteration2.iws" />
     <ignored path=".idea/workspace.xml" />
