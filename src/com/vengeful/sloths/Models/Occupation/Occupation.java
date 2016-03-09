@@ -27,7 +27,7 @@ public abstract class Occupation implements ModelVisitable{
         skillManager.addSkill(new Skill("observation"));
 
         //TODO: test!!! remove!
-        skillManager.addSkill(new Skill("bane", 5, 10));
+        skillManager.addSkill(new Skill("bane", 10, 10));
     }
 
     protected void addSharedAbility(AbilityManager abilityManager, Entity entity){

@@ -38,15 +38,27 @@ public class HitBox {
         if(!shouldTakeDmg())
             return false;
 
-        Iterator<Entity> iterator = Map.getInstance().getActiveMapArea().getTile(this.location).getEntityIterator();
 
         boolean foundTarget = false;
 
+        try {
+            for (Entity entity : Map.getInstance().getActiveMapArea().getTile(this.location).getEntities()) {
+                System.out.println("HITBOX FOUND AN ENTITY!!" + entity.getName());
+                entity.takeDamage(this.damage);
+                foundTarget = true;
+            }
+        } catch (Exception e) {
+            //do nothing its fine
+        }
+
+
+        /* throws java.util.ConcurrentModificationException
+        Iterator<Entity> iterator = Map.getInstance().getActiveMapArea().getTile(this.location).getEntityIterator();
         while(iterator.hasNext()){
                 System.out.println("TAKING DAMAGE BY FIREBALL");
                 iterator.next().takeDamage(this.damage);
                 foundTarget = true;
-        }
+        }*/
 
         return foundTarget;
     }
