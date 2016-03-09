@@ -1,11 +1,14 @@
 package com.vengeful.sloths.Models.Skills;
 
+import com.vengeful.sloths.Models.ModelVisitable;
+import com.vengeful.sloths.Models.ModelVisitor;
+
 import javax.lang.model.element.NestingKind;
 
 /**
  * Created by luluding on 3/6/16.
  */
-public class Skill {
+public class Skill implements ModelVisitable{
     private String name;
     private int level;
 
@@ -38,5 +41,10 @@ public class Skill {
 
     public void setName(String name){
         this.name = name;
+    }
+
+    @Override
+    public void accept(ModelVisitor modelVisitor) {
+        modelVisitor.visitSkill(this);
     }
 }

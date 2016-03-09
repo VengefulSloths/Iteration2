@@ -26,6 +26,8 @@ import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Occupation.*;
+import com.vengeful.sloths.Models.Skills.Skill;
+import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Coord;
@@ -632,6 +634,16 @@ public class SaveVisitor implements ModelVisitor {
 
     @Override
     public void visitWater(Water water) {
+
+    }
+
+    @Override
+    public void visitSkillManager(SkillManager skillManager) {
+        
+    }
+
+    @Override
+    public void visitSkill(Skill skill) {
 
     }
 

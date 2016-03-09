@@ -29,6 +29,8 @@ import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Smasher;
 import com.vengeful.sloths.Models.Occupation.Sneak;
 import com.vengeful.sloths.Models.Occupation.Summoner;
+import com.vengeful.sloths.Models.Skills.Skill;
+import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.*;
 import com.vengeful.sloths.Models.Stats.Stats;
 
@@ -254,6 +256,16 @@ public class AggressiveNPCSearchingController extends SearchingController {
 
     @Override
     public void visitWater(Water water) {
+
+    }
+
+    @Override
+    public void visitSkillManager(SkillManager skillManager) {
+
+    }
+
+    @Override
+    public void visitSkill(Skill skill) {
 
     }
 
