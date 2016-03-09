@@ -37,16 +37,11 @@ public class EntityRespawnCommand implements Alertable {
         entity.setDead(false);  // Bring entity back to life
         entity.setActive(false); // Even more back to life
 
-
         //Coord respawnCoordCopy = new Coord(respawnCoord.getR(), respawnCoord.getS());
         Coord resCoord = HexMath.getClosestMovableTile(respawnCoord); // get closest tile to respawnCoord (may be respawnCoord) to respawn at
         Map.getInstance().getTile(resCoord).addEntity(entity);
 
         entity.setLocation(resCoord);
-
-        System.out.println("entity location is :" + entity.getLocation());
-        System.out.println("entity dead is : " + entity.isDead());
-        System.out.println("entity is active: " + entity.isActive());
         entity.locationChange();
 
 
