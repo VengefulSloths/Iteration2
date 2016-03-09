@@ -68,7 +68,11 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
             for (int j=0; j<mapArea.getMaxS(); j++) {
                 r = i;
                 s = j;
-                mapArea.getTile(new Coord(r, s)).accept(this);
+                try {
+                    mapArea.getTile(new Coord(r, s)).accept(this);
+                } catch (Exception e) {
+                    //do nothing its fine
+                }
             }
         }
     }

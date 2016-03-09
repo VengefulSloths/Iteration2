@@ -71,11 +71,16 @@ public class MeleeAttackAbility extends Ability {
         }
 
 
-        TimeModel.getInstance().registerAlertable(() -> {
-            for(Entity entity : Map.getInstance().getTile(dst).getEntities()){
-                entity.takeDamage(stats.getOffensiveRating());
-            }
-        }, windTicks);
+
+            TimeModel.getInstance().registerAlertable(() -> {
+                try {
+                    for (Entity entity : Map.getInstance().getTile(dst).getEntities()) {
+                        entity.takeDamage(stats.getOffensiveRating());
+                    }
+                } catch (Exception e) {
+                        //do nothing its fine
+                }
+            }, windTicks);
 
         TimeModel.getInstance().registerAlertable(() -> entity.setActive(false), coolTicks);
 

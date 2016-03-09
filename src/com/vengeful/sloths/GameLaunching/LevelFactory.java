@@ -62,8 +62,8 @@ public class LevelFactory {
         int max = 20;
         MapArea area1 = new MapArea(max,max);
         area1.setName("area1");
-        for (int i=0;i<max;i++) {
-            for (int j=0;j<max;j++) {
+        for (int i=1;i<max-1;i++) {
+            for (int j=1;j<max-1;j++) {
                 boolean mountainFlag = false;
                 boolean waterFlag = false;
                 Coord c = new Coord(i, j);
@@ -93,8 +93,8 @@ public class LevelFactory {
         //Area 2
         MapArea area2 = new MapArea(10,10);
         area2.setName("area2");
-        for (int i=0;i<10;i++) {
-            for (int j = 0; j < 10; j++) {
+        for (int i=1;i<9;i++) {
+            for (int j = 1; j < 9; j++) {
                 area2.addTile(new Coord(i,j), new  Tile( j > 6 ? new Water() : new Grass()));
             }
         }
@@ -102,12 +102,12 @@ public class LevelFactory {
         TeleportDestinationTile d1 = new TeleportDestinationTile(new Coord(1,2));
         TeleportSenderTile s1 = new TeleportSenderTile(area1, d1);
         area1.addTile(d1.getLocation(), d1);
-        area2.addTile(new Coord(0,0), s1);
+        area2.addTile(new Coord(1,1), s1);
 
         TeleportDestinationTile d2 = new TeleportDestinationTile(new Coord(2,1));
         TeleportSenderTile s2 = new TeleportSenderTile(area2, d2);
         area2.addTile(d2.getLocation(), d2);
-        area1.addTile(new Coord(0,0), s2);
+        area1.addTile(new Coord(1,1), s2);
 
 
         MapArea[] areas = new MapArea[2];
