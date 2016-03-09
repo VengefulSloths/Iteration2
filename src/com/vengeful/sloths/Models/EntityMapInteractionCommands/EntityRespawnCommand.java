@@ -41,7 +41,10 @@ public class EntityRespawnCommand implements Alertable {
         entity.setActive(false); // Even more back to life
 
         Coord resCoord = HexMath.getClosestMovableTile(respawnCoord); // get closest tile to respawnCoord (may be respawnCoord) to respawn at
-        Map.getInstance().getTile(resCoord).addEntity(entity);
+        Map.getInstance().addEntity(resCoord, entity);
+        System.out.println("avatars/entitites location is :" +entity.getLocation());
+
+        System.out.println("ResCoord is: " + resCoord);
         entity.accept(TemporaryVOCreationVisitor.getInstance());
 
 

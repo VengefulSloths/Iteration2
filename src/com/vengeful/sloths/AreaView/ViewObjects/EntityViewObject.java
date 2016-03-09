@@ -93,7 +93,7 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
             hands.paintFront(g);
             healthBar.paintComponent(g);
         } else {
-            System.out.println("Dead dont show me!");
+            //System.out.println("Dead dont show me!");
         }
     }
 
