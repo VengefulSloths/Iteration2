@@ -277,7 +277,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         return this.stats;
     }
 
-    public void setStats(Stats stats) throws Exception{
+    public void setStats(Stats stats){
         this.stats = stats;
     }
 
