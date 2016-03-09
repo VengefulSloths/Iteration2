@@ -33,7 +33,7 @@ import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Smasher;
 import com.vengeful.sloths.Models.Occupation.Sneak;
 import com.vengeful.sloths.Models.Occupation.Summoner;
-import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
+import com.vengeful.sloths.Models.Stats.StatAddables.*;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Models.Observers.ProxyDestoyableObserver;
@@ -143,6 +143,56 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
     public void visitWater(Water water) {
         currentTile.addChild(factory.createWaterTerrainViewObject(r, s));
     }
+
+//    @Override
+//    public void visitCurrentHealthAddable(CurrentHealthAddable currentHealthAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitBonusHealthAddable(BonusHealthAddable bonusHealthAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitGenericStatsAddable(GenericStatsAddable genericStatsAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitHardinessAddable(HardinessAddable hardinessAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitBaseStatsAddable(BaseStatsAddable baseStatsAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitHealthManaExperienceAddable(HealthManaExperienceAddable healthManaExperienceAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitIntellectAddable(IntellectAddable intellectAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitMovementAddable(MovementAddable movementAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitStrengthAddable(StrengthAddable strengthAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitAgilityAddable(AgilityAddable agilityAddable) {
+//
+//    }
 
     @Override
     public void visitMap(Map map) {

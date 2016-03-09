@@ -2,9 +2,13 @@ package com.vengeful.sloths.Models.SaveLoad;
 
 import com.sun.org.apache.xalan.internal.xsltc.compiler.util.InternalError;
 import com.sun.org.apache.xalan.internal.xsltc.compiler.util.NodeType;
+import com.sun.org.apache.xml.internal.serializer.ElemDesc;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Inventory.Inventory;
+import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
 import com.vengeful.sloths.Models.Map.MapArea;
+import com.vengeful.sloths.Models.Stats.StatAddables.GenericStatsAddable;
+import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
@@ -174,6 +178,9 @@ public class Loader {
                         Element invItemElement = (Element) invItem;
                         String invItemName = invItemElement.getNodeName();
                         switch(invItemName){
+                            case "Potion" :
+                                Potion p = processPotion(invItemElement);
+                                break;
                             default:
                                 System.out.println(invItemName + "isn't a supported inventory item element");
                         }
@@ -191,6 +198,33 @@ public class Loader {
             System.out.println("Node passed to processInventory isn't an element");
         }
         return inv;
+    }
+
+    private Potion processPotion(Element invItemElement) {
+        Potion p  = new Potion();
+        p.setItemName(invItemElement.getAttribute("itemName"));
+        Node statsAddNode = invItemElement.getChildNodes().item(0);
+        StatsAddable sa = processStatsAddable(statsAddNode);
+        p.setItemStats(sa);
+        return p;
+    }
+
+    private StatsAddable processStatsAddable(Node statsAddNode) {
+        StatsAddable sa = new GenericStatsAddable();
+        if(statsAddNode.getNodeType() == Node.ELEMENT_NODE){
+            Element statsAddElement = (Element) statsAddNode;
+            sa.setAgility(Integer.valueOf(statsAddElement.getAttribute("agility")));
+            sa.setBonusHealth(Integer.valueOf(statsAddElement.getAttribute("bonusHealth")));
+            sa.setBonusMana(Integer.valueOf(statsAddElement.getAttribute("bounusMana")));
+            sa.setCurrentExperience(Integer.valueOf(statsAddElement.getAttribute("currentExperience")));
+            sa.setCurrentHealth(Integer.valueOf(statsAddElement.getAttribute("currentHealth")));
+            sa.setCurrentMana(Integer.valueOf(statsAddElement.getAttribute("currentMana")));
+            sa.setHardiness(Integer.valueOf(statsAddElement.getAttribute("hardiness")));
+            sa.setIntellect(Integer.valueOf(statsAddElement.getAttribute("intellect")));
+            sa.setStrength(Integer.valueOf(statsAddElement.getAttribute("strength")));
+            sa.setMovement(Integer.valueOf(statsAddElement.getAttribute("movement")));
+        }
+        return sa;
     }
 
     private Stats processStats(Node avatarObject) {

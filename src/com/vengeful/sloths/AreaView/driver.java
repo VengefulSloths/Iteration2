@@ -59,6 +59,14 @@ public class driver {
         int count = 0;
 
 
+<<<<<<< HEAD
+=======
+//        Piggy testPiggy = new Piggy("Bart", new Stats(new MovementAddable(30)));
+//        testPiggy.setFacingDirection(Direction.S);
+//        Map.getInstance().addEntity(new Coord(3,5), testPiggy);
+//        testPiggy.accept(TemporaryVOCreationVisitor.getInstance());
+//        new PiggyControllerManager(Map.getInstance().getActiveMapArea(), testPiggy);
+>>>>>>> 33cc99b2666e7cbf9ff508543925bff0168fa1fa
 
 //        SaveManager sm = new SaveManager(Map.getInstance());
 //        sm.save("bigSave");
