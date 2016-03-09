@@ -1,7 +1,5 @@
 package com.vengeful.sloths.AreaView;
 
-
-
 import com.vengeful.sloths.AreaView.ViewObjects.*;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.SimpleHexCoordinateStrategy;
@@ -15,6 +13,7 @@ import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Sound.SoundEffect;
+import com.vengeful.sloths.Utility.Config;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Utility.HexMath;
@@ -36,8 +35,10 @@ public class AreaView extends JPanel implements MapObserver{
     private CameraView activeCamera;
     private CameraViewManager cameraViewManager;
 
-    public static final int WIDTH = 1200;
-    public static final int HEIGHT = 1000;
+    //public static final int WIDTH = 1200;
+    //public static final int HEIGHT = 1000;
+    public static final int WIDTH = Config.instance().getAreaViewWidth();
+    public static final int HEIGHT = Config.instance().getAreaViewHeight();
 
     private void setActiveCamera(CameraView cameraView) {
         TemporaryVOCreationVisitor.getInstance().setActiveCameraView(cameraView);

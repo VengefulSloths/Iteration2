@@ -4,6 +4,7 @@ package com.vengeful.sloths.Models.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
+import com.vengeful.sloths.Models.ViewObservable;
 import com.vengeful.sloths.View.Observers.InventoryObserver;
 import com.vengeful.sloths.View.Observers.ModelObserver;
 
@@ -13,7 +14,7 @@ import java.util.Iterator;
 /**
  * Created by qianwen on 1/30/16.
  */
-public class Inventory implements ModelVisitable{
+public class Inventory implements ModelVisitable, ViewObservable {
 
     //leave it as an arrayList so that items can move over when previous one removed from inventory
     private ArrayList<InventoryItem> inventory;

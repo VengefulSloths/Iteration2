@@ -97,11 +97,6 @@ public class LevelFactory {
         area1.getTile(new Coord(2,2)).addMapItem(new TakeableItem("redPotion", new Potion("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(1,2)));
         area1.getTile(new Coord(11,10)).addMapItem(new TakeableItem("bluePotion", new Potion("bluePotion",new BaseStatsAddable(0,0,5,0,0)), new Coord(11,10)));
 
-
-
-
-
-
         //Area 2
         MapArea area2 = new MapArea(10,10);
         for (int i=0;i<10;i++) {

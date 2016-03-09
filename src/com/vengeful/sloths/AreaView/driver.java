@@ -37,9 +37,6 @@ public class driver {
         LaunchGameTemplate launcher = new LaunchGameTemplate(new LaunchNewGame());
         launcher.launch();
 
-
-
-
         //Below here is test code
 
 
@@ -56,8 +53,6 @@ public class driver {
         Avatar.getInstance().getStats().setCurrentHealth(60);
 
         int count = 0;
-
-
 
 //        new java.util.Timer().schedule(
 //                new java.util.TimerTask() {

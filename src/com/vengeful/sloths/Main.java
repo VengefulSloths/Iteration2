@@ -29,8 +29,6 @@ public class Main {
         blob.avatarInit("Summoner", new AbilityManager(), stats);
 
 
-
-
         engine.start();
 
     }

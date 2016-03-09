@@ -22,7 +22,6 @@ public class ProxyInventoryObserver extends ProxyObserver
         return (ModelObserver) target;
     }
 
-
     @Override
     public void alertItemAdded(InventoryItem item) {
 

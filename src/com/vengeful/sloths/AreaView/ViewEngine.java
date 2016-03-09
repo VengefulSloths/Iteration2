@@ -6,8 +6,6 @@ import javax.swing.*;
  */
 public class ViewEngine extends JFrame implements Runnable{
 
-
-
     private JPanel target;
 
     private static ViewEngine ourInstance = new ViewEngine();
@@ -63,5 +61,8 @@ public class ViewEngine extends JFrame implements Runnable{
     public void killOldView(){
         remove(this.target);
     }
+
+
+
 }
 
