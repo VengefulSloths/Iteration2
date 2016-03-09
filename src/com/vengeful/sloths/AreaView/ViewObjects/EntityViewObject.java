@@ -201,7 +201,10 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
 
     @Override
     public void alertDeath() {
+        System.out.println("this is getting called, to delte the view object");
         ObserverManager.instance().deregister(this);
+        ObserverManager.instance().deregister(this.getHealthBar());
+
         this.dead = true;
 
     }
