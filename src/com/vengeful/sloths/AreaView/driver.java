@@ -11,8 +11,13 @@ import com.vengeful.sloths.Models.Entity.AggressiveNPC;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.Piggy;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Knuckle;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
 import com.vengeful.sloths.Models.Map.Map;
+import com.vengeful.sloths.Models.SaveLoad.SaveManager;
+import com.vengeful.sloths.Models.Stats.StatAddables.CurrentHealthAddable;
+import com.vengeful.sloths.Models.Stats.StatAddables.HealthManaExperienceAddable;
+import com.vengeful.sloths.Models.Stats.StatAddables.MovementAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.*;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Coord;
@@ -36,10 +41,6 @@ public class driver {
 
         LaunchGameTemplate launcher = new LaunchGameTemplate(new LaunchNewGame());
         launcher.launch();
-
-
-
-
         //Below here is test code
 
 
@@ -58,24 +59,18 @@ public class driver {
         int count = 0;
 
 
-        Piggy testPiggy = new Piggy("Bart", new Stats(new MovementAddable(30)));
-        testPiggy.setFacingDirection(Direction.S);
-        Map.getInstance().addEntity(new Coord(3,5), testPiggy);
-        testPiggy.accept(TemporaryVOCreationVisitor.getInstance());
-        new PiggyControllerManager(Map.getInstance().getActiveMapArea(), testPiggy);
+
+//        Piggy testPiggy = new Piggy("Bart", new Stats(new MovementAddable(30)));
+//        testPiggy.setFacingDirection(Direction.S);
+//        Map.getInstance().addEntity(new Coord(3,5), testPiggy);
+//        testPiggy.accept(TemporaryVOCreationVisitor.getInstance());
+//        new PiggyControllerManager(Map.getInstance().getActiveMapArea(), testPiggy);
 
 
-        testAvatar.setFacingDirection(Direction.SE);
-        testAvatar.getStats().subtract(new CurrentHealthAddable(2));
-        //stuff to test enemy controllers
-        AggressiveNPC testEnemy =  new AggressiveNPC("xXOG_SwaG_LorD_BlazE_MasteR_420_Xx", new Stats(new BaseStatsAddable(5,5,5,5,30)));
-        Map.getInstance().addEntity(new Coord(3, 3), testEnemy);
-        testEnemy.accept(TemporaryVOCreationVisitor.getInstance());
-        new AggressiveNPCControllerManager(Map.getInstance().getActiveMapArea(), testEnemy);
+//        SaveManager sm = new SaveManager(Map.getInstance());
+//        sm.save("bigSave");
 
-        testEnemy.getStats().subtract(new CurrentHealthAddable(1));
-
-        ViewTime.getInstance().registerAlert(3000, () -> testAvatar.equip(new Knuckle("katar", new StrengthAddable(5), 10)));
+        ViewTime.getInstance().registerAlert(3000, () -> Avatar.getInstance().equip(new OneHandedWeapon("dagger", new StrengthAddable(5), 10)));
         //ViewTime.getInstance().registerAlert(6000, () -> testAvatar.unequip(null));
 
 //

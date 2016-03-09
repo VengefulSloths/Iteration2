@@ -1,6 +1,8 @@
 package com.vengeful.sloths.Models.InventoryItems;
 
 
+import com.vengeful.sloths.Models.ModelVisitor;
+
 /**
  * Created by qianwen on 1/30/16.
  */
@@ -17,6 +19,7 @@ public abstract class InventoryItem {
         this.itemName = name;
     }
 
+    public abstract void accept(ModelVisitor mv);
     public int getValue(){
         return this.value;
     }

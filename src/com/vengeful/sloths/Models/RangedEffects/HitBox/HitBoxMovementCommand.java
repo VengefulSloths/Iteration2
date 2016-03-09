@@ -11,7 +11,7 @@ import com.vengeful.sloths.Models.TimeModel.TimeModel;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Utility.HexMath;
-import com.vengeful.sloths.View.Observers.EntityObserver;
+import com.vengeful.sloths.Models.Observers.EntityObserver;
 import javafx.scene.control.Alert;
 
 import java.util.Iterator;

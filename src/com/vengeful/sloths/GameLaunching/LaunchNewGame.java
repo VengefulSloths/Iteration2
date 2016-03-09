@@ -18,6 +18,10 @@ public class LaunchNewGame implements LaunchGameHelper {
         levelFactory.init("test");
     }
     @Override
+    public void populateMap() {
+        levelFactory.populate();
+    }
+    @Override
     public Map createMap() {
         return levelFactory.getMap();
     }

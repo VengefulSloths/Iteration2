@@ -11,7 +11,7 @@ import com.vengeful.sloths.Models.TimeModel.Alertable;
 import com.vengeful.sloths.Models.TimeModel.TimeController;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
 import com.vengeful.sloths.Utility.Coord;
-import com.vengeful.sloths.View.Observers.EntityObserver;
+import com.vengeful.sloths.Models.Observers.EntityObserver;
 
 import java.util.Iterator;
 
@@ -71,11 +71,15 @@ public class MeleeAttackAbility extends Ability {
         }
 
 
-        TimeModel.getInstance().registerAlertable(() -> {
-            for(Entity entity : Map.getInstance().getTile(dst).getEntities()){
-                entity.takeDamage(stats.getOffensiveRating());
-            }
-        }, windTicks);
+            TimeModel.getInstance().registerAlertable(() -> {
+                try {
+                    for (Entity entity : Map.getInstance().getTile(dst).getEntities()) {
+                        entity.takeDamage(stats.getOffensiveRating());
+                    }
+                } catch (Exception e) {
+                        //do nothing its fine
+                }
+            }, windTicks);
 
         TimeModel.getInstance().registerAlertable(() -> entity.setActive(false), coolTicks);
 

@@ -19,6 +19,7 @@ public class OneHandedWeapon extends Weapon implements ModelVisitable {
     public OneHandedWeapon(String name, StatsAddable stats, int baseDamage){
         super(name, stats, baseDamage);
     }
+    public OneHandedWeapon(){}
 
     @Override
     public WeaponClass getWeaponClassification() {

@@ -1,6 +1,10 @@
 package com.vengeful.sloths.Utility;
 
 
+import com.vengeful.sloths.Models.EntityMapInteractionCommands.CanMoveVisitor;
+import com.vengeful.sloths.Models.EntityMapInteractionCommands.DefaultCanMoveVisitor;
+import com.vengeful.sloths.Models.Map.Map;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -38,6 +42,7 @@ public class HexMath {
     }
 
     //make one that returns tiles.
+    //the order that this returns rings in is N->NE->SE->S->SW->NW
     public static Iterator<Coord> sortedRing(Coord center, int radius) {
         ArrayList<Coord> coords = new ArrayList<>();
 
@@ -103,10 +108,10 @@ public class HexMath {
         return safeCoords.iterator();
     }
 
+    //this will compare 2 coords and return the best direction (of the 6 immediate directions)
     public static Direction getCoordDirection(Coord src, Coord dst){
         int rDiff = src.getR() - dst.getR();
         int sDiff = src.getS() - dst.getS();
-        System.out.println( rDiff + "  " + sDiff +"  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
 
         if(rDiff <= -1 && sDiff == 0 ){
@@ -126,18 +131,53 @@ public class HexMath {
         }else if(rDiff >= 1 && sDiff == 0){
             return Direction.NW;
         }else {
-            //System.out.println( rDiff + "  " + sDiff +"  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-            System.out.println("fail");
-            return Direction.N;
+            //System.out.println("fail");
+            return null;
 
             //error
         }
     }
 
-    public static boolean isValidTile(Coord coord, int maxR, int maxS){
-        if(coord.getR() < maxR && coord.getS() < maxS && coord.getR() >= 0 && coord.getS() >= 0)
+
+    public static boolean isValidTile(Coord coord, int maxR, int maxS) {
+        if (coord.getR() < maxR && coord.getS() < maxS && coord.getR() >= 0 && coord.getS() >= 0)
             return true;
 
         return false;
+    }
+
+    /**
+     * desc: Searches expanding sorted rings to find the closest movable coordinate
+     * params: Coord - src coordinate to search
+     * return: Coord - closest coordinate found, or null
+     */
+    public static Coord getClosestMovableTile(Coord src) {
+        CanMoveVisitor canMoveVisitor = new DefaultCanMoveVisitor();
+        Map map = Map.getInstance();
+        int currRadius = 1;
+        boolean foundCoord = false;
+
+        // First check if source coordinate is ok to move on
+        map.getTile(src).accept(canMoveVisitor);
+        if (canMoveVisitor.canMove()) return new Coord(src.getR(), src.getS());
+
+        Iterator<Coord> coordRingIter = sortedRing(src, currRadius);;
+
+        Coord currCoord = null;
+        while (!foundCoord && coordRingIter.hasNext()) {
+            currCoord = coordRingIter.next();
+
+            map.getTile(currCoord).accept(canMoveVisitor);
+            if (canMoveVisitor.canMove()) {
+                foundCoord = true;
+                break;
+            }
+
+            if (!coordRingIter.hasNext() ) {
+                coordRingIter = sortedRing(src, ++currRadius);
+            }
+        }
+
+        return currCoord;
     }
 }

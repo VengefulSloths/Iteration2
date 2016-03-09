@@ -33,12 +33,16 @@ import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Smasher;
 import com.vengeful.sloths.Models.Occupation.Sneak;
 import com.vengeful.sloths.Models.Occupation.Summoner;
-import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
+import com.vengeful.sloths.Models.Skills.Skill;
+import com.vengeful.sloths.Models.Skills.SkillManager;
+import com.vengeful.sloths.Models.Stats.StatAddables.*;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Direction;
-import com.vengeful.sloths.View.Observers.ModelObserver;
-import com.vengeful.sloths.View.Observers.ProxyDestoyableObserver;
-import com.vengeful.sloths.View.Observers.ProxyEntityObserver;
+
+import com.vengeful.sloths.Models.Observers.ModelObserver;
+import com.vengeful.sloths.Models.Observers.ProxyDestoyableObserver;
+import com.vengeful.sloths.Models.Observers.ProxyEntityObserver;
+import com.vengeful.sloths.Models.Observers.ProxyStatsObserver;
 
 /**
  * Created by alexs on 2/23/2016.
@@ -116,7 +120,7 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
         //let the cameraView watch avatar for movement
         avo.registerObserver(activeCameraView);
-        avatar.getStats().registerObserver(avo.getHealthBar());
+        new ProxyStatsObserver(avo.getHealthBar(), avatar.getStats());
         avatar.getStats().updateObservers();
 
         //Set the camera views avatar to this
@@ -127,7 +131,7 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     @Override
     public void visitPiggy(Piggy piggy) {
         PiggyViewObject pvo = factory.createPiggyViewObject(piggy.getLocation().getR(), piggy.getLocation().getS(), "resources/entities/piggy/");
-        piggy.registerObserver(pvo);
+        new ProxyEntityObserver(pvo, piggy);
         pvo.registerObserver(activeCameraView);
         this.activeCameraView.addViewObject(pvo);
     }
@@ -135,9 +139,10 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     @Override
     public void visitAggressiveNPC(AggressiveNPC aNPC) {
         EvilBlobViewObject ebvo = factory.createEvilBlobViewObject(aNPC.getLocation().getR(), aNPC.getLocation().getS(), "resources/entities/cyclops/");
-        aNPC.registerObserver(ebvo);
+
+        new ProxyEntityObserver(ebvo, aNPC);
         ebvo.registerObserver(activeCameraView);
-        aNPC.getStats().registerObserver(ebvo.getHealthBar());
+        new ProxyStatsObserver(ebvo.getHealthBar(), aNPC.getStats());
         aNPC.getStats().updateObservers();
         this.activeCameraView.addViewObject(ebvo);
     }
@@ -303,4 +308,64 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     public void visitWater(Water water) {
 
     }
+
+    @Override
+    public void visitSkillManager(SkillManager skillManager) {
+
+    }
+
+    @Override
+    public void visitSkill(Skill skill) {
+
+    }
+
+//    @Override
+//    public void visitCurrentHealthAddable(CurrentHealthAddable currentHealthAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitBonusHealthAddable(BonusHealthAddable bonusHealthAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitGenericStatsAddable(GenericStatsAddable genericStatsAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitHardinessAddable(HardinessAddable hardinessAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitBaseStatsAddable(BaseStatsAddable baseStatsAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitHealthManaExperienceAddable(HealthManaExperienceAddable healthManaExperienceAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitIntellectAddable(IntellectAddable intellectAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitMovementAddable(MovementAddable movementAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitStrengthAddable(StrengthAddable strengthAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitAgilityAddable(AgilityAddable agilityAddable) {
+//
+//    }
 }

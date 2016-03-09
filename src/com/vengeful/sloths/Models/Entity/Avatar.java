@@ -35,13 +35,13 @@ public class Avatar extends Entity{
     }
 
 
-    public void avatarInit(String occupationString, AbilityManager abilityManager, BuffManager buffManager, Stats stats, SkillManager skillManager){
+    public void avatarInit(String occupationString, AbilityManager abilityManager, BuffManager buffManager, SkillManager skillManager){
 
         this.setInventory(new Inventory());
         this.setAbilityManager(abilityManager);
         this.setBuffManager(buffManager);
         this.setSkillManager(skillManager);
-        this.setStats(stats);
+        //this.setStats(stats);
         this.setEquipped(new Equipped(this));
 
         switch (occupationString) {
@@ -75,7 +75,7 @@ public class Avatar extends Entity{
     }
 
     public void avatarInit(String occupationString, Stats stats){
-        this.avatarInit(occupationString, new AbilityManager(), new BuffManager(this), stats, new SkillManager());
+        this.avatarInit(occupationString, new AbilityManager(), new BuffManager(this), new SkillManager());
     }
 
 

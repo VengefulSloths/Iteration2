@@ -9,7 +9,7 @@ import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.StrengthAddable;
 import com.vengeful.sloths.Models.ViewObservable;
-import com.vengeful.sloths.View.Observers.*;
+import com.vengeful.sloths.Models.Observers.*;
 import com.vengeful.sloths.Models.Stats.*;
 
 import java.util.Iterator;
@@ -43,6 +43,16 @@ public class Equipped implements ViewObservable, ModelVisitable{
         this.equipmentObserver = new ArrayList<>();
         addWeapon(fists);
 
+    }
+
+    public Equipped(){}
+    public void init(Entity e){
+        this.entity = e;
+        this.entityStats = entity.getStats();
+        this.skills = entity.getSkillManager();
+        this.abilityManager = entity.getAbilityManager();
+        this.equipmentObserver = new ArrayList<>();
+        addWeapon(fists);
     }
 
 

@@ -7,9 +7,8 @@ import com.vengeful.sloths.AreaView.DynamicImages.DynamicImageFactory;
 import com.vengeful.sloths.AreaView.DynamicImages.DynamicTimedImage;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
-import com.vengeful.sloths.Utility.Coord;
-import com.vengeful.sloths.Visibility;
-import org.omg.CORBA.UNKNOWN;
+import com.vengeful.sloths.AreaView.ViewTime;
+import com.vengeful.sloths.AreaView.Visibility;
 
 import java.awt.*;
 import java.awt.image.*;
@@ -103,6 +102,9 @@ public class TileViewObject extends ViewObject implements DestroyVOObserver{
 
 
     public void addChild(ViewObject child) {
+
+        System.out.println("adding " +child);
+
         children.add(child);
         children.sort(new Comparator<ViewObject>() {
             VOSorter sorter = new VOSorter();
@@ -119,11 +121,21 @@ public class TileViewObject extends ViewObject implements DestroyVOObserver{
     }
 
     public void removeChild(ViewObject child) {
+
+        System.out.println("removing " + child);
+
         if (children.contains(child)) {
             children.remove(child);
         }
     }
 
+    public void reallyRemoveChild(ViewObject child) {
+        if (children.contains(child)) {
+            children.remove(child);
+        } else {
+            ViewTime.getInstance().registerAlert(0, () -> reallyRemoveChild(child));
+        }
+    }
 
     public void paintComponent(Graphics2D g) {
 

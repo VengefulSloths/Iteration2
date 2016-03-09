@@ -30,7 +30,9 @@ import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Smasher;
 import com.vengeful.sloths.Models.Occupation.Sneak;
 import com.vengeful.sloths.Models.Occupation.Summoner;
-import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
+import com.vengeful.sloths.Models.Skills.Skill;
+import com.vengeful.sloths.Models.Skills.SkillManager;
+import com.vengeful.sloths.Models.Stats.StatAddables.*;
 import com.vengeful.sloths.Models.Stats.Stats;
 
 import java.util.Iterator;
@@ -193,6 +195,14 @@ public class PiggySearchingController extends SearchingController {
                 //System.out.println(currEntity);
                 currEntity.accept(this);
             }
+            Iterator<MapItem> iterator = tile.getMapItemIterator();
+            MapItem item;
+            while (iterator.hasNext()) {
+                item = iterator.next();
+
+                //System.out.println(currEntity);
+                item.accept(this);
+            }
         }
         //System.out.println("SEARCHING TILE");
     }
@@ -200,9 +210,7 @@ public class PiggySearchingController extends SearchingController {
     @Override
     public void visitMapItem(MapItem mapItem) {
         // MapItems are priority 0 for piggy!
-        Target currTarget = new MapItemTarget(0);
-        currTarget.setCoord(this.getCurrentCoord());
-        this.setHighestPriorityTarget(this.getMaxTarget(currTarget, this.getHighestPriorityTarget()));
+
     }
 
     @Override
@@ -237,6 +245,10 @@ public class PiggySearchingController extends SearchingController {
 
     @Override
     public void visitTakeableItem(TakeableItem takeableItem) {
+
+        Target currTarget = new MapItemTarget(0);
+        currTarget.setCoord(this.getCurrentCoord());
+        this.setHighestPriorityTarget(this.getMaxTarget(currTarget, this.getHighestPriorityTarget()));
     }
 
     @Override
@@ -263,4 +275,64 @@ public class PiggySearchingController extends SearchingController {
     public void visitWater(Water water) {
 
     }
+
+    @Override
+    public void visitSkillManager(SkillManager skillManager) {
+
+    }
+
+    @Override
+    public void visitSkill(Skill skill) {
+
+    }
+
+//    @Override
+//    public void visitCurrentHealthAddable(CurrentHealthAddable currentHealthAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitBonusHealthAddable(BonusHealthAddable bonusHealthAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitGenericStatsAddable(GenericStatsAddable genericStatsAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitHardinessAddable(HardinessAddable hardinessAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitBaseStatsAddable(BaseStatsAddable baseStatsAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitHealthManaExperienceAddable(HealthManaExperienceAddable healthManaExperienceAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitIntellectAddable(IntellectAddable intellectAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitMovementAddable(MovementAddable movementAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitStrengthAddable(StrengthAddable strengthAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitAgilityAddable(AgilityAddable agilityAddable) {
+//
+//    }
 }

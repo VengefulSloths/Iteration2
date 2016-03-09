@@ -1,8 +1,8 @@
 package com.vengeful.sloths.Models;
 
 import com.vengeful.sloths.Models.TimeModel.Alertable;
-import com.vengeful.sloths.View.Observers.ModelObserver;
-import com.vengeful.sloths.View.Observers.ProxyObserver;
+import com.vengeful.sloths.Models.Observers.ModelObserver;
+import com.vengeful.sloths.Models.Observers.ProxyObserver;
 
 import java.util.ArrayList;
 import java.util.HashMap;

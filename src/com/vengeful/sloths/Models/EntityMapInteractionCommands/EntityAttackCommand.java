@@ -8,7 +8,7 @@ import com.vengeful.sloths.Models.TimeModel.TimeController;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
-import com.vengeful.sloths.View.Observers.EntityObserver;
+import com.vengeful.sloths.Models.Observers.EntityObserver;
 
 import java.util.Iterator;
 
@@ -74,15 +74,16 @@ public class EntityAttackCommand implements Alertable {
 
         //TODO: have take damage occur at end of startup time
         //do the attack... create an ae of dmg on dst tile?
-        for(Entity entity : map.getTile(dst).getEntities()){
-            entity.takeDamage(attackDamage);
+        try {
+            for (Entity entity : map.getTile(dst).getEntities()) {
+                entity.takeDamage(attackDamage);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
         System.out.println("about to alert observers @" + System.currentTimeMillis());
 
         while (entityObserverIterator.hasNext()) {
-
-
            entityObserverIterator.next().alertAttack(dst.getR(), dst.getS(), attackTicks/2* TimeController.MODEL_TICK, attackTicks*TimeController.MODEL_TICK);
             //the commented line above can work if that method is added and the animations are put in place
         }

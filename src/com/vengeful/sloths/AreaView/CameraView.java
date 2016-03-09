@@ -4,7 +4,6 @@ import com.vengeful.sloths.AreaView.ViewObjects.*;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.HexMath;
-import com.vengeful.sloths.Visibility;
 
 import java.awt.*;
 import java.util.Iterator;
@@ -51,10 +50,12 @@ public abstract class CameraView implements MovingVOObserver{
         tiles = new TileViewObject[maxX][maxY];
         for (int i=0; i<maxX; i++) {
             for (int j=0; j<maxY; j++) {
-//                tiles[i][j] = factory.createTileViewObject(
-//                        findR(i,j),
-//                        findS(i,j)
-//                );
+                if ((j-i)%2 == 0) {
+                    tiles[i][j] = factory.createNullTileViewObject(
+                            findR(i, j),
+                            findS(i, j)
+                    );
+                }
             }
         }
 
@@ -129,20 +130,18 @@ public abstract class CameraView implements MovingVOObserver{
 
         System.out.println("View: Going from (" + srcR +", " + srcS + ") to (" + destR + ", " + destS + ")");
         if (destY > srcY) {
-            tiles[srcX][srcY].removeChild(subject);
+            tiles[srcX][srcY].reallyRemoveChild(subject);
             tiles[destX][destY].addChild(subject);
         } else {
             ViewTime.getInstance().registerAlert(duration,
-                    new vCommand() {
-                        @Override
-                        public void execute() {
+                    ()-> {
 
                             tiles[srcX][srcY].removeChild(subject);
                             if (subject != avatar || !dontMoveAvatarFlag) {
                                 tiles[destX][destY].addChild(subject);
                             }
                         }
-                    });
+                    );
         }
         if (subject == this.avatar) {
             Iterator<Coord> toBeRevealed = HexMath.saftey(HexMath.ring(new Coord(destR, destS), 5), maxR, maxS);

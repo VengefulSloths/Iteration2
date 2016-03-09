@@ -3,6 +3,7 @@ package com.vengeful.sloths.AreaView;
 import com.vengeful.sloths.AreaView.ViewObjects.*;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
+import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.NullTile;
 import com.vengeful.sloths.Utility.Direction;
 
 /**
@@ -21,6 +22,8 @@ public abstract class ViewObjectFactory {
     public TileViewObject createTileViewObject(int r, int s) {
         return new TileViewObject(r, s, cs, ls);
     }
+
+    public TileViewObject createNullTileViewObject(int r, int s) { return new NullTile(r, s, cs, ls); }
 
     public EntityViewObject createEnitityViewObject(int r, int s, String resourcePath) {
         return new EntityViewObject(r, s, cs, ls, resourcePath);

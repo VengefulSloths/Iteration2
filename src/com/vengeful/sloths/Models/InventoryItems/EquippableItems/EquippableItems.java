@@ -22,6 +22,8 @@ public abstract class EquippableItems extends InventoryItem {
         this.itemStats = itemStats;
     }
 
+    public EquippableItems(){}
+
     public abstract void addToEquipped(Equipped equipped);
     public abstract void removeFromEquipped(Equipped equipped);
 

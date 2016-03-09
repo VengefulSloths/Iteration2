@@ -5,7 +5,7 @@ import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateS
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 import com.vengeful.sloths.AreaView.ViewTime;
 import com.vengeful.sloths.Sound.SoundEffect;
-import com.vengeful.sloths.View.Observers.MovementObserver;
+import com.vengeful.sloths.Models.Observers.MovementObserver;
 
 import java.util.ArrayList;
 

@@ -4,8 +4,8 @@ package com.vengeful.sloths.Models.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
-import com.vengeful.sloths.View.Observers.InventoryObserver;
-import com.vengeful.sloths.View.Observers.ModelObserver;
+import com.vengeful.sloths.Models.Observers.InventoryObserver;
+import com.vengeful.sloths.Models.Observers.ModelObserver;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -81,9 +81,10 @@ public class Inventory implements ModelVisitable{
         if(inventory.remove(item)){
             --this.currentSize;
 
-            if (this.currentSize <= 0)
+            if (this.currentSize <= 0){
+                System.out.println("Inventory size went below 0");
                 this.currentSize = 0;
-
+            }
             return true;
         }else{
             return false;
@@ -128,5 +129,14 @@ public class Inventory implements ModelVisitable{
     @Override
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitInventory(this);
+    }
+
+    public InventoryItem[] getArrayofItems(){
+        InventoryItem[] arrItem = new InventoryItem[getCurrentSize()];
+        int i = 0;
+        for(InventoryItem ii : inventory){
+            arrItem[i++] = ii;
+        }
+        return arrItem;
     }
 }

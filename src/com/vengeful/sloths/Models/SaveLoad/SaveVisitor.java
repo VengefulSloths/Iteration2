@@ -13,7 +13,9 @@ import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Hat;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Knuckle;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
+import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
+import com.vengeful.sloths.Models.InventoryTakeableItemFactory;
 import com.vengeful.sloths.Models.Map.*;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
@@ -24,6 +26,8 @@ import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Occupation.*;
+import com.vengeful.sloths.Models.Skills.Skill;
+import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Coord;
@@ -129,10 +133,10 @@ public class SaveVisitor implements ModelVisitor {
         currentParent.push(entityElement);
         visitEntityAttributesAndElements(avatar, entityElement);
         if(currentParent.peek().equals(entityElement)){
-            System.out.println("map area saved with stack at proper element");
+            System.out.println("Avatar saved with stack at proper element");
             currentParent.pop();
         }else{
-            System.out.println("some error saving maparea, stack not at the proper element");
+            System.out.println("some error saving Avatar, stack not at the proper element");
         }
     }
     private void visitEntityAttributesAndElements(Entity e, Element entityElement){
@@ -154,17 +158,44 @@ public class SaveVisitor implements ModelVisitor {
     }
     @Override
     public void visitPiggy(Piggy piggy) {
-
+        Element npcElement = doc.createElement("Piggy");
+        currentParent.peek().appendChild(npcElement);
+        currentParent.push(npcElement);
+        visitEntityAttributesAndElements(piggy, npcElement);
+        if(currentParent.peek().equals(npcElement)){
+            System.out.println("piggy saved with stack at proper element");
+            currentParent.pop();
+        }else{
+            System.out.println("some error saving piggy, stack not at the proper element");
+        }
     }
 
     @Override
     public void visitAggressiveNPC(AggressiveNPC aNPC) {
-
+        Element npcElement = doc.createElement("AggressiveNPC");
+        currentParent.peek().appendChild(npcElement);
+        currentParent.push(npcElement);
+        visitEntityAttributesAndElements(aNPC, npcElement);
+        if(currentParent.peek().equals(npcElement)){
+            System.out.println("aggressiveNPC saved with stack at proper element");
+            currentParent.pop();
+        }else{
+            System.out.println("some error saving aggressiveNPC, stack not at the proper element");
+        }
     }
 
     @Override
     public void visitNonAggressiveNPC(NonAggressiveNPC nonANPC) {
-
+        Element npcElement = doc.createElement("NonAggressiveNPC");
+        currentParent.peek().appendChild(npcElement);
+        currentParent.push(npcElement);
+        visitEntityAttributesAndElements(nonANPC, npcElement);
+        if(currentParent.peek().equals(npcElement)){
+            System.out.println("nonaggressiveNPC saved with stack at proper element");
+            currentParent.pop();
+        }else{
+            System.out.println("some error saving nonaggressiveNPC, stack not at the proper element");
+        }
     }
 
     @Override
@@ -285,45 +316,135 @@ public class SaveVisitor implements ModelVisitor {
 
     @Override
     public void visitInventory(Inventory i) {
-
+        Element iElement = doc.createElement("Inventory");
+        currentParent.peek().appendChild(iElement);
+        currentParent.push(iElement);
+        iElement.setAttribute("maxSize", i.getMaxSize() +"");
+        iElement.setAttribute("currentSize", i.getCurrentSize() +"");
+        InventoryItem[] arr = i.getArrayofItems();
+        for(InventoryItem ii : arr){
+            ii.accept(this);
+        }
+        if(currentParent.peek().equals(iElement)){
+            System.out.println("Inventory saved with stack at proper element");
+            currentParent.pop();
+        }else{
+            System.out.println("some error saving Inventory, stack not at the proper element");
+        }
     }
 
     @Override
     public void visitPotion(Potion p) {
-
+        Element eElement = doc.createElement("Potion");
+        currentParent.peek().appendChild(eElement);
+        currentParent.push(eElement);
+        eElement.setAttribute("itemName", p.getItemName());
+        p.getItemStats().accept(this);
+        if(currentParent.peek().equals(eElement)){
+            System.out.println("Potion saved with stack at proper element");
+            currentParent.pop();
+        }else{
+            System.out.println("some error saving UsableItem, stack not at the proper element");
+        }
     }
 
     @Override
     public void vistUsableItem(UsableItems ui) {
-
+        Element eElement = doc.createElement("UsableItem");
+        currentParent.peek().appendChild(eElement);
+        currentParent.push(eElement);
+        eElement.setAttribute("itemName", ui.getItemName());
+        if(currentParent.peek().equals(eElement)){
+            System.out.println("UsableItem saved with stack at proper element");
+            currentParent.pop();
+        }else{
+            System.out.println("some error saving UsableItem, stack not at the proper element");
+        }
     }
 
     @Override
     public void visitEquipped(Equipped e) {
-
+        Element eElement = doc.createElement("Equipped");
+        currentParent.peek().appendChild(eElement);
+        currentParent.push(eElement);
+        if(e.getHat() != null){
+            e.getHat().accept(this);
+        }
+        if(e.getWeapon() != null){
+            e.getWeapon().accept(this);
+        }
+        //not saving entity stats here...will be passed to it in load
+        if(currentParent.peek().equals(eElement)){
+            System.out.println("Equipped saved with stack at proper element");
+            currentParent.pop();
+        }else{
+            System.out.println("some error saving Equipped, stack not at the proper element");
+        }
     }
 
     @Override
     public void visitHat(Hat h) {
-
+        Element hElement = doc.createElement("Hat");
+        currentParent.peek().appendChild(hElement);
+        currentParent.push(hElement);
+        hElement.setAttribute("itemName", h.getItemName());
+        h.getItemStats().accept(this);
+        if(currentParent.peek().equals(hElement)){
+            System.out.println("Hat saved with stack at proper element");
+            currentParent.pop();
+        }else{
+            System.out.println("some error saving Hat, stack not at the proper element");
+        }
     }
 
     @Override
     public void visitOneHandedWeapon(OneHandedWeapon ohw) {
-
+        Element ohwElement = doc.createElement("OneHandedWeapon");
+        currentParent.peek().appendChild(ohwElement);
+        currentParent.push(ohwElement);
+        ohwElement.setAttribute("itemName", ohw.getItemName());
+        ohwElement.setAttribute("baseDamage", ohw.getBaseDamage() +"");
+        ohw.getItemStats().accept(this);
+        if(currentParent.peek().equals(ohwElement)){
+            System.out.println("OneHandedWeap saved with stack at proper element");
+            currentParent.pop();
+        }else{
+            System.out.println("some error saving OneHandedWeap, stack not at the proper element");
+        }
     }
 
     @Override
     public void visitTwoHandedWeapon(TwoHandedWeapon thw) {
-
+        Element thwElement = doc.createElement("TwoHandedWeapon");
+        currentParent.peek().appendChild(thwElement);
+        currentParent.push(thwElement);
+        thwElement.setAttribute("itemName", thw.getItemName());
+        thwElement.setAttribute("baseDamage", thw.getBaseDamage() +"");
+        thw.getItemStats().accept(this);
+        if(currentParent.peek().equals(thwElement)){
+            System.out.println("TwoHandedWeap saved with stack at proper element");
+            currentParent.pop();
+        }else{
+            System.out.println("some error saving TwoHandedWeap, stack not at the proper element");
+        }
     }
 
     @Override
     public void visitKnuckle(Knuckle thw) {
-
+        Element thwElement = doc.createElement("Knuckle");
+        currentParent.peek().appendChild(thwElement);
+        currentParent.push(thwElement);
+        thwElement.setAttribute("itemName", thw.getItemName());
+        thwElement.setAttribute("baseDamage", thw.getBaseDamage() +"");
+        thw.getItemStats().accept(this);
+        if(currentParent.peek().equals(thwElement)){
+            System.out.println("Knuckle saved with stack at proper element");
+            currentParent.pop();
+        }else{
+            System.out.println("some error saving Knuckle, stack not at the proper element");
+        }
     }
 
-    @Override
     public void visitStatsAddable(StatsAddable sa) {
         Element saElement = doc.createElement("StatsAddable");
         currentParent.peek().appendChild(saElement);
@@ -339,6 +460,27 @@ public class SaveVisitor implements ModelVisitor {
         saElement.setAttribute("currentExperience", sa.getCurrentExperience()+ "");
     }
 
+//    public void visitAgilityAddable(StatsAddable sa){
+//        Element saElement = doc.createElement("AgilityStatsAddable");
+//        currentParent.peek().appendChild(saElement);
+//        saElement.setAttribute("agility", sa.getAgility()+ "");
+//    }
+//
+//    public void visitBaseStatsAddable(StatsAddable sa){
+//        Element saElement = doc.createElement("GenericStatsAddable");
+//        currentParent.peek().appendChild(saElement);
+//        saElement.setAttribute("strength", sa.getStrength()+ "");
+//        saElement.setAttribute("agility", sa.getAgility()+ "");
+//        saElement.setAttribute("intellect", sa.getIntellect()+ "");
+//        saElement.setAttribute("hardiness", sa.getHardiness()+ "");
+//        saElement.setAttribute("movement", sa.getMovement()+ "");
+//    }
+//
+//    public void visitCurrentHealthAddable(StatsAddable sa){
+//        Element saElement = doc.createElement("CurrentHealthAddable");
+//        currentParent.peek().appendChild(saElement);
+//        saElement.setAttribute("strength", sa.getStrength()+ "");
+//    }
     public void visitMapArea(MapArea ma){
         Element maElement = doc.createElement("MapArea");
         currentParent.peek().appendChild(maElement);
@@ -365,15 +507,16 @@ public class SaveVisitor implements ModelVisitor {
         while (entityIterator.hasNext())
             entityIterator.next().accept(this);*/
         Entity[] eArr = t.getEntities();
+        if(eArr.length > 0){
+            System.out.println("Entity Found");
+        }
         //not being used anymore
-        Entity[] nonCollide = t.getNonCollideableEntities();
         MapItem[] mapItems = t.getMapItems();
+        if(mapItems.length > 0){
+            System.out.println("MapItems Found");
+        }
         for(Entity e: eArr){
             e.accept(this);
-        }
-        //this won't be used/ isn't being used anymore
-        for(Entity nonColE : nonCollide){
-            nonColE.accept(this);
         }
         for(MapItem ma : mapItems){
             ma.accept(this);
@@ -433,17 +576,48 @@ public class SaveVisitor implements ModelVisitor {
 
     @Override
     public void visitTakeableItem(TakeableItem takeableItem) {
-
+        Element tiElement = doc.createElement("TakeableItem");
+        currentParent.peek().appendChild(tiElement);
+        currentParent.push(tiElement);
+        tiElement.setAttribute("Name", takeableItem.getItemName());
+        appendCoordElement(tiElement, currCoord);
+        takeableItem.getInventorpRep().accept(this);
+        if(currentParent.peek().equals(tiElement)){
+            System.out.println("takeable saved with stack at proper element");
+            currentParent.pop();
+        }else{
+            System.out.println("some error saving takeable, stack not at the proper element");
+        }
     }
 
     @Override
     public void visitObstacle(Obstacle obstacle) {
-
+        Element tiElement = doc.createElement("OneShotItem");
+        currentParent.peek().appendChild(tiElement);
+        currentParent.push(tiElement);
+        tiElement.setAttribute("Name", obstacle.getItemName());
+        appendCoordElement(tiElement, currCoord);
+        if(currentParent.peek().equals(tiElement)){
+            System.out.println("Obstacle saved with stack at proper element");
+            currentParent.pop();
+        }else{
+            System.out.println("some error saving Obstacle, stack not at the proper element");
+        }
     }
 
     @Override
     public void visitOneShotItem(OneShotItem osi) {
-
+        Element tiElement = doc.createElement("OneShotItem");
+        currentParent.peek().appendChild(tiElement);
+        currentParent.push(tiElement);
+        tiElement.setAttribute("Name", osi.getItemName());
+        appendCoordElement(tiElement, currCoord);
+        if(currentParent.peek().equals(tiElement)){
+            System.out.println("OneShot saved with stack at proper element");
+            currentParent.pop();
+        }else{
+            System.out.println("some error saving OneShot, stack not at the proper element");
+        }
     }
 
     /**
@@ -460,6 +634,16 @@ public class SaveVisitor implements ModelVisitor {
 
     @Override
     public void visitWater(Water water) {
+
+    }
+
+    @Override
+    public void visitSkillManager(SkillManager skillManager) {
+        
+    }
+
+    @Override
+    public void visitSkill(Skill skill) {
 
     }
 

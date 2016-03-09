@@ -1,12 +1,13 @@
 package com.vengeful.sloths.Models.Stats;
 
+import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.ViewObservable;
-import com.vengeful.sloths.View.Observers.EntityObserver;
-import com.vengeful.sloths.View.Observers.ModelObserver;
-import com.vengeful.sloths.View.Observers.StatsObserver;
+import com.vengeful.sloths.Models.Observers.EntityObserver;
+import com.vengeful.sloths.Models.Observers.ModelObserver;
+import com.vengeful.sloths.Models.Observers.StatsObserver;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -39,6 +40,8 @@ public class Stats implements ModelVisitable, ViewObservable {
     private int bonusHealth = 0;
     private int bonusMana = 0;
 
+    private Entity entity;
+
     private ArrayList<StatsObserver> observers = new ArrayList<>();
 
     public Stats(){
@@ -48,6 +51,7 @@ public class Stats implements ModelVisitable, ViewObservable {
         this.hardiness = 1;
         this.movement = 45;//might need to modify this (done)
         this.level = 1;
+        this.currentHealth = 1;
         calculateStats();
 
         this.currentHealth = this.maxHealth;
@@ -69,12 +73,13 @@ public class Stats implements ModelVisitable, ViewObservable {
         setCurrentExperience(0);
     }
 
-    private void calculateStats(){
+    public void calculateStats(){
         calculateMaxMana();
         calculateMaxHealth();
         calculateMaxExperience();
         calculateDefensiveRating();
         calculateArmorRating();
+        checkIfDead();
     }
     private void calculateMaxMana(){
         this.maxMana = (1 + this.level + (3*this.intellect)) + bonusMana;
@@ -95,8 +100,28 @@ public class Stats implements ModelVisitable, ViewObservable {
         this.armorRating = (1 + 2*this.level + (3*this.hardiness));
     }
 
+    private void checkIfDead(){
+        if(this.entity != null) {
+            if (currentHealth <= 0) {
+                this.entity.die();
+            }
+        }
+    }
     ////////////////////////////// public getters/setters //////////////////////////////
 
+
+    public Entity getEntity() {
+        return entity;
+    }
+
+    public void setEntity(Entity entity) {
+        this.entity = entity;
+    }
+
+    public void resetStats() {
+        setCurrentHealth(maxHealth);
+        setCurrentMana(maxMana);
+    }
 
     public int getStrength() {
         return strength;
@@ -252,6 +277,8 @@ public class Stats implements ModelVisitable, ViewObservable {
         setCurrentHealth(this.currentHealth + stats.getCurrentHealth());
         setCurrentMana(this.currentMana + stats.getCurrentMana());
         setCurrentExperience(this.currentExperience + stats.getCurrentExperience());
+
+        calculateStats();
         updateObservers();
     }
 
@@ -268,6 +295,8 @@ public class Stats implements ModelVisitable, ViewObservable {
         setCurrentHealth(this.currentHealth - stats.getCurrentHealth());
         setCurrentMana(this.currentMana - stats.getCurrentMana());
         setCurrentExperience(this.currentExperience - stats.getCurrentExperience());
+
+        calculateStats();
         updateObservers();
     }
 

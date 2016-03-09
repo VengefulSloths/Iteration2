@@ -1,11 +1,14 @@
 package com.vengeful.sloths.Models.Skills;
 
+import com.vengeful.sloths.Models.ModelVisitable;
+import com.vengeful.sloths.Models.ModelVisitor;
+
 import java.util.*;
 
 /**
  * Created by luluding on 3/6/16.
  */
-public class SkillManager {
+public class SkillManager implements ModelVisitable{
 
     //<skill name, skill>
     private Map<String, Skill> skills;
@@ -132,7 +135,6 @@ public class SkillManager {
 
 
     //looks pretty bad... maybe reconstruct later.. But I don't want to pass skill name around
-
     public int getMaxBindWoundsLevel(){
         return this.getMaxSkillLevel("bind wounds");
     }
@@ -185,8 +187,13 @@ public class SkillManager {
         return this.getMaxSkillLevel("creep");
     }
 
-    public int getMaxRangedWeaponLevel(){
+    public int getMaxRangedWeaponLevel() {
         return this.getMaxSkillLevel("ranged weapon");
+    }
+
+    @Override
+    public void accept(ModelVisitor modelVisitor) {
+        modelVisitor.visitSkillManager(this);
     }
     /*************************************/
 

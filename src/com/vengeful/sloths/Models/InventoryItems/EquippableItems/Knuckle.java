@@ -19,6 +19,8 @@ public class Knuckle extends Weapon implements ModelVisitable{
         super(name, stats, baseDamage);
     }
 
+    public Knuckle(){}
+
     @Override
     public WeaponClass getWeaponClassification() {
         return WeaponClass.FISTS;
