@@ -2,100 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c50d1df4-65fe-4f25-9a54-245b1e10fa3f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/Iteration2 Assest/button.xcf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/desert.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/inventoryBackground.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/items/button/Button.xcf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/items/button/Button_Activated.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/items/button/button.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/lives.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/redPotion.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/redPotion2.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/sneakImage.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/statsBackground.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/items/button/button.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/AreaView/ViewObjects/InteractiveItemViewObject.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Ability/Abilities/FireBallAbility.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Observers/InteractiveItemObserver.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Observers/ProxyInteractiveItemObserver.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/RangedEffects/AngularEffectGenerator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/RangedEffects/EntityBlockLineEffectGenerator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/RangedEffects/EntityPassThroughLineEffectGenerator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/RangedEffects/HitBox/HitBox.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/RangedEffects/HitBox/HitBoxMovementCommand.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/RangedEffects/LinearEffectGenerator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/RangedEffects/RadialEffectGenerator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/RangedEffects/RangedEffectGenerator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Utility/Config.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/CharacterView/CharacterView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/EquipmentView/EquipmentView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/EquipmentView/EquipmentViewObject.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/EquipmentView/EquipmentViewObjectManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/HUDView/HUDView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/InventoryView/GridInventoryView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/InventoryView/GridItemViewObject.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/InventoryView/InventoryItemViewObjectManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/InventoryView/InventoryView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/InventoryView/ItemViewObject.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/InventoryView/ListInventoryItemViewObjectManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/InventoryView/ListInventoryView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/InventoryView/ListItemViewObject.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/MainView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/StatsView/StatsView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/StatsView/StatsViewObject.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/StatsView/StatsViewObjectFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/StatsView/StatsViewObjectManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/View.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/ViewFactory/GridItemViewObjectFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/ViewFactory/ImageFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/ViewFactory/ItemImageFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/ViewFactory/ItemNameLabelFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/ViewFactory/ItemViewObjectFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/ViewFactory/TextLabelFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/ViewFactory/ViewObjectFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/ViewManager/DefaultViewComposite.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/ViewManager/ViewComposite.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/ViewManager/ViewManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Views/ViewManager/ViewObjectManager.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/dictionaries/alexs.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Iteration2.iml" afterPath="$PROJECT_DIR$/Iteration2.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/AreaView/AreaView.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/AreaView/AreaView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/AreaView/PersistentVOCreationVisitor.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/AreaView/PersistentVOCreationVisitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/AreaView/TemporaryVOCreationVisitor.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/AreaView/TemporaryVOCreationVisitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/AreaView/ViewEngine.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/AreaView/ViewEngine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/AreaView/ViewObjectFactory.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/AreaView/ViewObjectFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/AreaView/ViewObjects/EntityViewObject.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/AreaView/ViewObjects/EntityViewObject.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/AreaView/ViewObjects/TileViewObject.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/AreaView/ViewObjects/TileViewObject.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/AreaView/ViewObjects/VOSorter.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/AreaView/ViewObjects/VOSorter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/AreaView/ViewObjects/VOVisitor.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/AreaView/ViewObjects/VOVisitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/AreaView/driver.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/AreaView/driver.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/Controllers/InputController/InputControllerStates/InventoryControllerState.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Controllers/InputController/InputControllerStates/InventoryControllerState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/Controllers/InputController/MainController.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Controllers/InputController/MainController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/Controllers/SearchingController/AggressiveNPCSearchingController.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Controllers/SearchingController/AggressiveNPCSearchingController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/Controllers/SearchingController/PiggySearchingController.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Controllers/SearchingController/PiggySearchingController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/GameLaunching/LaunchGameTemplate.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/GameLaunching/LaunchGameTemplate.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/GameLaunching/LevelFactory.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/GameLaunching/LevelFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/Main.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Ability/Abilities/BindWoundsAbility.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Ability/Abilities/BindWoundsAbility.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Ability/Abilities/MeleeAttackAbility.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Ability/Abilities/MeleeAttackAbility.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Ability/Ability.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Ability/Ability.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Ability/AbilityFactory.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Ability/AbilityFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Ability/AbilityManager.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Ability/AbilityManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Entity/Entity.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Entity/Entity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/EntityMapInteractionCommands/DefaultCanMoveVisitor.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/EntityMapInteractionCommands/DefaultCanMoveVisitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Inventory/Inventory.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Inventory/Inventory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Map/MapItems/InteractiveItem/InteractiveItem.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Map/MapItems/InteractiveItem/InteractiveItem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/ModelVisitor.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/ModelVisitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Observers/ProxyEntityObserver.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Observers/ProxyEntityObserver.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Observers/ProxyInventoryObserver.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Observers/ProxyInventoryObserver.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Occupation/Occupation.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Occupation/Occupation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/SaveLoad/SaveVisitor.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/SaveLoad/SaveVisitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Skills/Skill.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Skills/Skill.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Skills/SkillManager.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Skills/SkillManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/Utility/HexMath.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Utility/HexMath.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Ability/Abilities/FireBallAbility.java" afterPath="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Ability/Abilities/FireBallAbility.java" />
     </list>
     <ignored path="Iteration2.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -149,59 +57,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MeleeAttackAbility.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/vengeful/sloths/Models/Ability/Abilities/MeleeAttackAbility.java">
+      <file leaf-file-name="FireBallAbility.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/vengeful/sloths/Models/Ability/Abilities/FireBallAbility.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.21136767">
-              <caret line="95" column="0" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Smasher.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/vengeful/sloths/Models/Occupation/Smasher.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="25" column="21" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="21" />
+            <state vertical-scroll-proportion="0.9218472">
+              <caret line="69" column="33" selection-start-line="69" selection-start-column="33" selection-end-line="69" selection-end-column="33" />
               <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#1107#1108#0" expanded="false" />
-                <element signature="e#1169#1170#0" expanded="false" />
-                <element signature="e#1211#1212#0" expanded="false" />
-                <element signature="e#1248#1249#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Sneak.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/vengeful/sloths/Models/Occupation/Sneak.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="26" column="20" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#1071#1072#0" expanded="false" />
-                <element signature="e#1133#1134#0" expanded="false" />
-                <element signature="e#1175#1176#0" expanded="false" />
-                <element signature="e#1210#1211#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Summoner.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/vengeful/sloths/Models/Occupation/Summoner.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="26" column="22" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#1062#1063#0" expanded="false" />
-                <element signature="e#1124#1125#0" expanded="false" />
-                <element signature="e#1166#1167#0" expanded="false" />
-                <element signature="e#1204#1205#0" expanded="false" />
+                <element signature="e#2274#2275#0" expanded="true" />
+                <element signature="e#2314#2315#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -241,7 +104,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Map/MapItems/OneShotItem.java" />
         <option value="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Buff/BuffManager.java" />
         <option value="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Map/Tile.java" />
         <option value="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Inventory/Inventory.java" />
@@ -292,6 +154,7 @@
         <option value="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Occupation/Summoner.java" />
         <option value="$PROJECT_DIR$/src/com/vengeful/sloths/Models/SaveLoad/Loader.java" />
         <option value="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Ability/Abilities/MeleeAttackAbility.java" />
+        <option value="$PROJECT_DIR$/src/com/vengeful/sloths/Models/Ability/Abilities/FireBallAbility.java" />
       </list>
     </option>
   </component>
@@ -977,22 +840,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/vengeful/sloths/Utility/Coord.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding>
-            <element signature="e#684#685#0" expanded="false" />
-            <element signature="e#715#716#0" expanded="false" />
-            <element signature="e#741#742#0" expanded="false" />
-            <element signature="e#766#767#0" expanded="false" />
-            <element signature="e#790#791#0" expanded="false" />
-            <element signature="e#821#822#0" expanded="false" />
-            <element signature="e#847#848#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/vengeful/sloths/Models/Map/Tile.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="6.044405">
@@ -1494,6 +1341,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/vengeful/sloths/Models/Ability/Abilities/MeleeAttackAbility.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="3.12611">
+          <caret line="95" column="0" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/vengeful/sloths/Models/SaveLoad/Loader.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1502,11 +1357,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/vengeful/sloths/Models/Ability/Abilities/MeleeAttackAbility.java">
+    <entry file="file://$PROJECT_DIR$/src/com/vengeful/sloths/Models/Ability/Abilities/FireBallAbility.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.21136767">
-          <caret line="95" column="0" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
-          <folding />
+        <state vertical-scroll-proportion="0.9218472">
+          <caret line="69" column="33" selection-start-line="69" selection-start-column="33" selection-end-line="69" selection-end-column="33" />
+          <folding>
+            <element signature="e#2274#2275#0" expanded="true" />
+            <element signature="e#2314#2315#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
