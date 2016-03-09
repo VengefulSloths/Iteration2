@@ -15,6 +15,10 @@ public class LaunchSavedGame implements LaunchGameHelper {
         levelFactory.init("test");
     }
     @Override
+    public void populateMap() {
+        //load saved data
+    }
+    @Override
     public Map createMap() {
         return levelFactory.getMap();
     }
