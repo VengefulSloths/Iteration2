@@ -4,6 +4,7 @@ import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Observers.EntityObserver;
 import com.vengeful.sloths.Models.TimeModel.Alertable;
+import com.vengeful.sloths.Models.TimeModel.TimeModel;
 
 import java.util.Iterator;
 
@@ -30,11 +31,18 @@ public class EntityDieCommand implements Alertable {
         while (entityObserverIterator.hasNext()) {
             entityObserverIterator.next().alertDeath();
         }
+
+        EntityMapInteractionFactory emif = EntityMapInteractionFactory.getInstance();
+
+        //@TODO: NEED RESPAWN TILE
+        EntityRespawnCommand erc = emif.createRespawnCommand(entity, Map.getInstance().getRespawnPoint().getCoord(), timeToRespawn);
+
         return 0;
     }
 
     @Override
     public void mAlert() {
         //create a respawn command with ticks equal to the ammount passed in
+
     }
 }

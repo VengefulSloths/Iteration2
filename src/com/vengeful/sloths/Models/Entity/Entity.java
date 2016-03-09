@@ -119,9 +119,14 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     }
 
     public final int die(){
-        System.out.println("dying");
-        EntityDieCommand edc = EntityMapInteractionFactory.getInstance().createDeathCommand(this, timeToRespawn, observers.iterator());
-        return edc.execute();
+        if(!this.dead) {
+            this.setDead(true);
+            System.out.println("dying");
+
+            EntityDieCommand edc = EntityMapInteractionFactory.getInstance().createDeathCommand(this, timeToRespawn, observers.iterator());
+            return edc.execute();
+        }
+        return 0;
     }
 
     public final int attack(Direction dir){
@@ -274,7 +279,6 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     }
 
     public Stats getStats(){
-
         return this.stats;
     }
 
