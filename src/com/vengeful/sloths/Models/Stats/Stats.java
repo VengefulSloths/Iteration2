@@ -118,6 +118,11 @@ public class Stats implements ModelVisitable, ViewObservable {
         this.entity = entity;
     }
 
+    public void resetStats() {
+        setCurrentHealth(maxHealth);
+        setCurrentMana(maxMana);
+    }
+
     public int getStrength() {
         return strength;
     }

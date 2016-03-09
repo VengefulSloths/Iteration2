@@ -50,10 +50,12 @@ public abstract class CameraView implements MovingVOObserver{
         tiles = new TileViewObject[maxX][maxY];
         for (int i=0; i<maxX; i++) {
             for (int j=0; j<maxY; j++) {
-//                tiles[i][j] = factory.createTileViewObject(
-//                        findR(i,j),
-//                        findS(i,j)
-//                );
+                if ((j-i)%2 == 0) {
+                    tiles[i][j] = factory.createNullTileViewObject(
+                            findR(i, j),
+                            findS(i, j)
+                    );
+                }
             }
         }
 
@@ -128,7 +130,7 @@ public abstract class CameraView implements MovingVOObserver{
 
         System.out.println("View: Going from (" + srcR +", " + srcS + ") to (" + destR + ", " + destS + ")");
         if (destY > srcY) {
-            tiles[srcX][srcY].removeChild(subject);
+            tiles[srcX][srcY].reallyRemoveChild(subject);
             tiles[destX][destY].addChild(subject);
         } else {
             ViewTime.getInstance().registerAlert(duration,
