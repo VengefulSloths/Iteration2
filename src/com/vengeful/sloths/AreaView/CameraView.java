@@ -128,7 +128,7 @@ public abstract class CameraView implements MovingVOObserver{
 
         System.out.println("View: Going from (" + srcR +", " + srcS + ") to (" + destR + ", " + destS + ")");
         if (destY > srcY) {
-            tiles[srcX][srcY].removeChild(subject);
+            tiles[srcX][srcY].reallyRemoveChild(subject);
             tiles[destX][destY].addChild(subject);
         } else {
             ViewTime.getInstance().registerAlert(duration,
