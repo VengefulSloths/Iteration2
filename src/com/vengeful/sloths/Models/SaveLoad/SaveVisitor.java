@@ -152,6 +152,7 @@ public class SaveVisitor implements ModelVisitor {
         e.getOccupation().accept(this);
         e.getStats().accept(this);
         e.getAbilityManager().accept(this);
+        e.getSkillManager().accept(this);
         e.getBuffManager().accept(this);
         e.getInventory().accept(this);
         e.getEquipped().accept(this);
@@ -639,12 +640,30 @@ public class SaveVisitor implements ModelVisitor {
 
     @Override
     public void visitSkillManager(SkillManager skillManager) {
-        
+        Element tiElement = doc.createElement("SkillManager");
+        currentParent.peek().appendChild(tiElement);
+        currentParent.push(tiElement);
+        tiElement.setAttribute("availableSkillPoints", skillManager.getAvailableSkillPoints() +"");
+        Iterator<Skill> skills = skillManager.getSkillsIter();
+        while(skills.hasNext()){
+            Skill curr = skills.next();
+            curr.accept(this);
+        }
+        if(currentParent.peek().equals(tiElement)){
+            System.out.println("SkillManager saved with stack at proper element");
+            currentParent.pop();
+        }else{
+            System.out.println("some error saving SkillManager, stack not at the proper element");
+        }
+
     }
 
     @Override
     public void visitSkill(Skill skill) {
-
+        Element tiElement = doc.createElement("Skill");
+        currentParent.peek().appendChild(tiElement);
+        tiElement.setAttribute("name", skill.getName());
+        tiElement.setAttribute("level", skill.getLevel() +"");
     }
 
     /**

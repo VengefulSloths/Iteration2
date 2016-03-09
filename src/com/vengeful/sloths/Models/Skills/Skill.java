@@ -16,6 +16,9 @@ public class Skill implements ModelVisitable{
         this.name = name;
         this.level = 0;
     }
+    public Skill(){
+
+    }
 
     public Skill(String name, int level){
         this.name = name;
@@ -24,6 +27,10 @@ public class Skill implements ModelVisitable{
 
     public int getLevel(){
         return this.level;
+    }
+
+    public void setLevel(int level){
+        this.level = level;
     }
 
     public boolean addLevel(int level, int availableSkillPoints){

@@ -3,7 +3,8 @@ package com.vengeful.sloths.Models.SaveLoad;
 import com.sun.org.apache.xalan.internal.xsltc.compiler.util.InternalError;
 import com.sun.org.apache.xalan.internal.xsltc.compiler.util.NodeType;
 import com.sun.org.apache.xml.internal.serializer.ElemDesc;
-import com.vengeful.sloths.Models.Entity.Avatar;
+import com.vengeful.sloths.Models.Entity.*;
+import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
@@ -12,6 +13,8 @@ import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Knuckle;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
 import com.vengeful.sloths.Models.Map.MapArea;
+import com.vengeful.sloths.Models.Skills.Skill;
+import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.GenericStatsAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
@@ -160,11 +163,12 @@ public class Loader {
                     a.setInventory(inv);
                     break;
                 case "Equipped" :
-                    Equipped eq = processEquipped(avatarObject);
+                    Equipped eq = processEquipped(avatarObject,a);
                     a.setEquipped(eq);
-                    eq.init(a);
+//                    eq.init(a);
                     break;
                 case "SkillManager" :
+                    SkillManager sk = processSkillManager(avatarObject);
                     break;
                 default:
                     System.out.println(objectName + "is not a supported avatar object");
@@ -173,8 +177,31 @@ public class Loader {
         return a;
     }
 
-    private Equipped processEquipped(Node avatarObject) {
+    private SkillManager processSkillManager(Node avatarObject) {
+        SkillManager sk = new SkillManager();
+        if(avatarObject.getNodeType() == Node.ELEMENT_NODE) {
+            Element skElement = (Element) avatarObject;
+            sk.setAvailableSkillPoint(Integer.valueOf(skElement.getAttribute("availableSkillPoints")));
+            NodeList skillNodes = skElement.getChildNodes();
+            if(skillNodes.getLength() == 0){
+                System.out.println("no skills in skill manager");
+            }
+            for(int i = 0; i != skillNodes.getLength(); ++i){
+                if(skillNodes.item(i).getNodeType() == Node.ELEMENT_NODE){
+                    Skill skill = new Skill();
+                    Element skillElement = (Element) skillNodes.item(i);
+                    skill.setName(skillElement.getAttribute("name"));
+                    skill.setLevel(Integer.valueOf(skillElement.getAttribute("level")));
+                    sk.addSkill(skill);
+                }
+            }
+        }
+        return sk;
+    }
+
+    private Equipped processEquipped(Node avatarObject, Entity e) {
         Equipped eq = new Equipped();
+        eq.init(e);
         if(avatarObject.getNodeType() == Node.ELEMENT_NODE) {
             Element eqElement = (Element) avatarObject;
             if(avatarObject.hasChildNodes()){
@@ -190,8 +217,9 @@ public class Loader {
                                 eq.addHat(h);
                                 break;
                             case "Knuckle" :
-                                Knuckle k = processKnuckle(eqItemElement);
-                                eq.addWeapon(k);
+                                //do nothing for knuckle equipped makes its own on creation
+//                                Knuckle k = processKnuckle(eqItemElement);
+//                                eq.addWeapon(k);
                                 break;
                             case "OneHandedWeapon" :
                                 OneHandedWeapon ohw = processOneHandedWeapon(eqItemElement);
@@ -315,7 +343,7 @@ public class Loader {
             Element statsAddElement = (Element) statsAddNode;
             sa.setAgility(Integer.valueOf(statsAddElement.getAttribute("agility")));
             sa.setBonusHealth(Integer.valueOf(statsAddElement.getAttribute("bonusHealth")));
-            sa.setBonusMana(Integer.valueOf(statsAddElement.getAttribute("bounusMana")));
+            sa.setBonusMana(Integer.valueOf(statsAddElement.getAttribute("bonusMana")));
             sa.setCurrentExperience(Integer.valueOf(statsAddElement.getAttribute("currentExperience")));
             sa.setCurrentHealth(Integer.valueOf(statsAddElement.getAttribute("currentHealth")));
             sa.setCurrentMana(Integer.valueOf(statsAddElement.getAttribute("currentMana")));
