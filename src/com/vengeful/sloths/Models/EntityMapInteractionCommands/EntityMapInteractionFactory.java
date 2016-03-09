@@ -75,8 +75,10 @@ public class EntityMapInteractionFactory {
         EntityPickupCommand epc = new EntityPickupCommand(entity, inv, itemToPickup);
         return epc;
     }
-//
-//    public DieCommand createDieCommand(Coord location, Entity entity){
-//        return null;
-//    }
+
+    public EntityRespawnCommand createRespawnCommand(Entity entity, Coord respawnTile, int timeToRespawn) {
+        EntityRespawnCommand erc = new EntityRespawnCommand(entity, respawnTile, timeToRespawn);
+        return erc;
+    }
+
 }

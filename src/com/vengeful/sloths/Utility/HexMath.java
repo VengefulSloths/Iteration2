@@ -1,6 +1,10 @@
 package com.vengeful.sloths.Utility;
 
 
+import com.vengeful.sloths.Models.EntityMapInteractionCommands.CanMoveVisitor;
+import com.vengeful.sloths.Models.EntityMapInteractionCommands.DefaultCanMoveVisitor;
+import com.vengeful.sloths.Models.Map.Map;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -132,5 +136,40 @@ public class HexMath {
 
             //error
         }
+    }
+
+    /**
+     * desc: Searches expanding sorted rings to find the closest movable coordinate
+     * params: Coord - src coordinate to search
+     * return: Coord - closest coordinate found, or null
+     */
+    public static Coord getClosestMovableTile(Coord src) {
+        CanMoveVisitor canMoveVisitor = new DefaultCanMoveVisitor();
+        Map map = Map.getInstance();
+        int currRadius = 1;
+        boolean foundCoord = false;
+
+        // First check if source coordinate is ok to move on
+        map.getTile(src).accept(canMoveVisitor);
+        if (canMoveVisitor.canMove()) return new Coord(src.getR(), src.getS());
+
+        Iterator<Coord> coordRingIter = sortedRing(src, currRadius);;
+
+        Coord currCoord = null;
+        while (!foundCoord && coordRingIter.hasNext()) {
+            currCoord = coordRingIter.next();
+
+            map.getTile(currCoord).accept(canMoveVisitor);
+            if (canMoveVisitor.canMove()) {
+                foundCoord = true;
+                break;
+            }
+
+            if (!coordRingIter.hasNext() ) {
+                coordRingIter = sortedRing(src, ++currRadius);
+            }
+        }
+
+        return currCoord;
     }
 }

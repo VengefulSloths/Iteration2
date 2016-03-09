@@ -8,6 +8,7 @@ import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.EquippableItems;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.InventoryTakeableItemFactory;
+import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
@@ -119,9 +120,14 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     }
 
     public final int die(){
-        System.out.println("dying");
-        EntityDieCommand edc = EntityMapInteractionFactory.getInstance().createDeathCommand(this, timeToRespawn, observers.iterator());
-        return edc.execute();
+        if(!this.dead) {
+            this.setDead(true);
+            System.out.println("dying");
+
+            EntityDieCommand edc = EntityMapInteractionFactory.getInstance().createDeathCommand(this, timeToRespawn, observers.iterator());
+            return edc.execute();
+        }
+        return 0;
     }
 
     public final int attack(Direction dir){
@@ -233,6 +239,14 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         this.location = loc;
     }
 
+    public void locationChange(){
+        Iterator<EntityObserver> entityObserverIterator = observers.iterator();
+        while (entityObserverIterator.hasNext()) {
+            entityObserverIterator.next().alertDirectionChange(Direction.S);
+        }
+        Map.getInstance().setActiveMapArea(Map.getInstance().getActiveMapArea());
+    }
+
     public Inventory getInventory(){
         return this.inventory;
     }
@@ -274,7 +288,6 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     }
 
     public Stats getStats(){
-
         return this.stats;
     }
 

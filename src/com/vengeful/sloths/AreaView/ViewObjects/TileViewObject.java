@@ -14,6 +14,7 @@ import java.awt.*;
 import java.awt.image.*;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
 
 /**
  * Created by alexs on 2/23/2016.
@@ -101,7 +102,6 @@ public class TileViewObject extends ViewObject implements DestroyVOObserver{
 
 
     public void addChild(ViewObject child) {
-        System.out.println("have child " + getR() + ", " + getS());
         children.add(child);
         children.sort(new Comparator<ViewObject>() {
             VOSorter sorter = new VOSorter();
@@ -118,8 +118,6 @@ public class TileViewObject extends ViewObject implements DestroyVOObserver{
     }
 
     public void removeChild(ViewObject child) {
-        System.out.println("lost child " + getR()+ ", " +getS());
-
         if (children.contains(child)) {
             children.remove(child);
         }
