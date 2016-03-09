@@ -9,6 +9,8 @@ import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateS
 import com.vengeful.sloths.AreaView.ViewObjects.Hands.HandViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.Hands.HandsCoordinator;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
+import com.vengeful.sloths.AreaView.ViewTime;
+import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.ObserverManager;
 import com.vengeful.sloths.Sound.SoundEffect;
@@ -23,8 +25,6 @@ import java.awt.*;
  */
 public class EntityViewObject extends MovingViewObject implements EntityObserver {
     private DynamicImage walkingN;
-
-
 
     private DynamicImage walkingNE;
     private DynamicImage walkingNW;
@@ -86,11 +86,15 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     @Override
     public void paintComponent(Graphics2D g) {
 
-        hands.paintBack(g);
-        paintBody(g);
-        hat.paintComponent(g);
-        hands.paintFront(g);
-        healthBar.paintComponent(g);
+        if (!dead) {
+            hands.paintBack(g);
+            paintBody(g);
+            hat.paintComponent(g);
+            hands.paintFront(g);
+            healthBar.paintComponent(g);
+        } else {
+            System.out.println("Dead dont show me!");
+        }
     }
 
     @Override
@@ -206,6 +210,11 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
         ObserverManager.instance().deregister(this.getHealthBar());
 
         this.dead = true;
+
+//        this.currentDynamicImage = null;
+//        AttackViewObject attack = TemporaryVOCreationVisitor.getInstance().createAttack(this.getR(), this.getS(), "resources/effects/slash/slash.xml", 60);
+//        ViewTime.getInstance().registerAlert(0, () ->attack.start());
+
 
     }
 
