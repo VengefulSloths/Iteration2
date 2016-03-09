@@ -11,6 +11,7 @@ import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Map.*;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.Map.Terrains.Grass;
@@ -131,6 +132,7 @@ public class LevelFactory {
         TeleportSenderTile s2 = new TeleportSenderTile(area2, d2);
         area2.addTile(d2.getLocation(), d2);
         area1.addTile(new Coord(1,1), s2);
+        area1.getTile(new Coord(2,2)).addMapItem(new InteractiveItem(null, new Coord(2,2)));
 
 
         MapArea[] areas = new MapArea[2];

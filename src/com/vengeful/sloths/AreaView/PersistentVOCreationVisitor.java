@@ -1,5 +1,6 @@
 package com.vengeful.sloths.AreaView;
 
+import com.vengeful.sloths.AreaView.ViewObjects.InteractiveItemViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.OneShotViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.TakeableViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.TileViewObject;
@@ -30,6 +31,7 @@ import com.vengeful.sloths.Models.Map.Terrains.Grass;
 import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
 import com.vengeful.sloths.Models.ModelVisitor;
+import com.vengeful.sloths.Models.Observers.ProxyInteractiveItemObserver;
 import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Smasher;
 import com.vengeful.sloths.Models.Occupation.Sneak;
@@ -97,7 +99,13 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
 
     @Override
     public void visitInteractiveItem(InteractiveItem item) {
-
+        System.out.println("creating interactive view object ******************************");
+        InteractiveItemViewObject interactiveItemViewObject = factory.createInteractiveItemViewObject(r, s, "resources/items/button/button.xml", "resources/items/button/button.xml");
+        System.out.println("step 1          ******************************");
+        new ProxyInteractiveItemObserver(interactiveItemViewObject, item);
+        System.out.println("step 2          ******************************");
+        currentTile.addChild(interactiveItemViewObject);
+        System.out.println("done with interactive view object ******************************");
     }
 
     @Override

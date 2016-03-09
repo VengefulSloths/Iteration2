@@ -4,13 +4,14 @@ import com.vengeful.sloths.AreaView.DynamicImages.DynamicImage;
 import com.vengeful.sloths.AreaView.DynamicImages.DynamicImageFactory;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
+import com.vengeful.sloths.Models.Observers.InteractiveItemObserver;
 
 import java.awt.*;
 
 /**
  * Created by Alex on 3/9/2016.
  */
-public class InteractiveItemViewObject extends ViewObject {
+public class InteractiveItemViewObject extends ViewObject implements InteractiveItemObserver{
 
     private DynamicImage inactiveImage;
     private DynamicImage activeImage;
@@ -41,5 +42,15 @@ public class InteractiveItemViewObject extends ViewObject {
     @Override
     public void accept(VOVisitor v) {
         v.visitInteractiveItem(this);
+    }
+
+    @Override
+    public void alertActivate() {
+
+    }
+
+    @Override
+    public void alertDeactivate() {
+
     }
 }

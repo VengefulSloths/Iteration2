@@ -141,7 +141,6 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
 
     @Override
     public void movementHook(int r, int s, long duration) {
-        System.out.println("e.movehook: " + duration);
         ((DynamicTimedImage) currentDynamicImage).start(duration);
 
         //leftHand.alertMove(r, s, duration);
