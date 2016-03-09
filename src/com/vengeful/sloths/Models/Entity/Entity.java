@@ -11,6 +11,7 @@ import com.vengeful.sloths.Models.InventoryTakeableItemFactory;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
+import com.vengeful.sloths.Models.Observers.StatsObserver;
 import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Occupation;
 import com.vengeful.sloths.Models.Skills.Skill;
@@ -277,8 +278,15 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         return this.stats;
     }
 
-    public void setStats(Stats stats) throws Exception{
+    public void setStats(Stats stats){
+        Iterator<StatsObserver> iterator = this.stats.getObservers().iterator();
+        stats.setEntity(this);
         this.stats = stats;
+
+        while(iterator.hasNext()){
+            StatsObserver current = iterator.next();
+            this.stats.registerObserver(current);
+        }
     }
 
     public SkillManager getSkillManager(){
