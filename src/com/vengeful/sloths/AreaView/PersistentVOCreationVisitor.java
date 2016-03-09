@@ -158,7 +158,9 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
     }
 
     @Override
-    public void visitPiggy(Piggy piggy) {}
+    public void visitPiggy(Piggy piggy) {
+
+    }
 
     @Override
     public void visitAggressiveNPC(AggressiveNPC aNPC) {}

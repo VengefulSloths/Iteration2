@@ -16,7 +16,10 @@ public class LaunchNewGame implements LaunchGameHelper {
     public LaunchNewGame() {
         this.levelFactory = new LevelFactory();
         levelFactory.init("test");
-        levelFactory.populate("test");
+    }
+    @Override
+    public void populateMap() {
+        levelFactory.populate();
     }
     @Override
     public Map createMap() {

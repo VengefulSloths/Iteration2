@@ -31,6 +31,7 @@ public class LaunchGameTemplate {
     public void launch() {
         map = helper.createMap();
         cameras = helper.createCameras();
+        helper.populateMap();
         avatar = helper.createAvatar();
         avatar.getStats().setMovement(45);
 //        avatar.getInstance().getStats().setHardiness(10);
