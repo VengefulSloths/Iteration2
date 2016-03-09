@@ -33,35 +33,25 @@ public class SaveTestDriver {
         m.setMapAreas( new MapArea[] {ma1, ma2});
         ma1.setTiles(tiles1);
         ma2.setTiles(tiles2);
-//        Avatar a = Avatar.getInstance();
-//        a.setFacingDirection(Direction.N);
-//        AbilityManager abm = new AbilityManager();
-//        a.avatarInit("Sneak", abm, new BuffManager(a), new SkillManager(5));
-//        tiles1[1][1].addEntity(a);
-//        SaveManager sm = new SaveManager(m);
-//        sm.save("testSave");
-//        Tile[][] tiles3 = new Tile[2][2];
-//        Tile[][] tiles4 = new Tile[2][2];
-//        for(int i = 0; i != 2; ++i){
-//            for(int j = 0; j != 2; ++j){
-//                tiles3[i][j] = new Tile();
-//                tiles4[i][j] = new Tile();
-//            }
+
+        Avatar a = Avatar.getInstance();
+        a.setFacingDirection(Direction.N);
+        AbilityManager abm = new AbilityManager();
+        a.avatarInit("Sneak", abm, new BuffManager(a), new SkillManager(5));
+        tiles1[1][1].addEntity(a);
+        SaveManager sm = new SaveManager(m);
+        sm.save("testSave");
+
+//        Loader l = null;
+//        try{
+//            l = new Loader("testSave.xml");
 //        }
-//        MapArea ma3 = new MapArea(tiles3);
-//        MapArea ma4 = new MapArea(tiles4);
-        Loader l = null;
-        try{
-            l = new Loader("testSave.xml");
-        }
-        catch(Exception e){
-            System.out.println("error loading save data");
-        }
-        ma1.setName("ma1");
-//        ma1.setMaxR(2);
-//        ma1.setMaxS(2);
-        ma2.setName("ma2");
-        l.loadAreas(new MapArea[] {ma1,ma2});
-        Entity[] e = ma1.getTile(new Coord(1,1)).getEntities();
+//        catch(Exception e){
+//            System.out.println("error loading save data");
+//        }
+//        ma1.setName("ma1");
+//        ma2.setName("ma2");
+//        l.loadAreas(new MapArea[] {ma1,ma2});
+//        Entity[] e = ma1.getTile(new Coord(1,1)).getEntities();
     }
 }

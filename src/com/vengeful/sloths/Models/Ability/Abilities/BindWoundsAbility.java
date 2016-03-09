@@ -2,6 +2,8 @@ package com.vengeful.sloths.Models.Ability.Abilities;
 
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Entity.Entity;
+import com.vengeful.sloths.Models.SaveLoad.SaveManager;
+import com.vengeful.sloths.Models.SaveLoad.SaveVisitor;
 import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.HealthManaExperienceAddable;
@@ -18,6 +20,7 @@ public class BindWoundsAbility extends Ability {
         this.skillManager = skillManager; //to avoid lod
     }
 
+    public BindWoundsAbility(){}
 
     @Override
     public int execute() {
@@ -37,5 +40,19 @@ public class BindWoundsAbility extends Ability {
 
         //This is however long it will take to bind wounds
         return 30;
+    }
+
+    public void accept(SaveVisitor sv){
+        sv.visitBindWounds(this);
+    }
+    public void setEntity(Entity entity) {
+        this.entity = entity;
+    }
+
+    public void setSkillManager(SkillManager skillManager) {
+        this.skillManager = skillManager;
+    }
+    public String toString(){
+        return "BindWoundsAbility";
     }
 }

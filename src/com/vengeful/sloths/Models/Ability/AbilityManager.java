@@ -74,4 +74,16 @@ public class AbilityManager implements ModelVisitable{
         }
         return abArray;
     }
+    public Ability getAbility(String abilityName){
+        for(Ability ab : abilities){
+            if(ab.toString().equals(abilityName)){
+                return ab;
+            }
+        }
+        //didnt find the ability
+        return null;
+    }
+    public Ability[] getActiveAbilities(){
+        return activeAbilities;
+    }
 }

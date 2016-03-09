@@ -1,5 +1,7 @@
 package com.vengeful.sloths.Models.SaveLoad;
 
+import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
@@ -151,8 +153,8 @@ public class SaveVisitor implements ModelVisitor {
         appendCoordElement(entityElement, currCoord);
         e.getOccupation().accept(this);
         e.getStats().accept(this);
-        e.getAbilityManager().accept(this);
         e.getSkillManager().accept(this);
+        e.getAbilityManager().accept(this);
         e.getBuffManager().accept(this);
         e.getInventory().accept(this);
         e.getEquipped().accept(this);
@@ -270,11 +272,24 @@ public class SaveVisitor implements ModelVisitor {
         Element abmElement = doc.createElement("AbilityManager");
         currentParent.peek().appendChild(abmElement);
         currentParent.push(abmElement);
-        //right now it just holds abilites so put other logic here when it gets added
+        Element absElement = doc.createElement("Abilities");
+        currentParent.peek().appendChild(absElement);
+        currentParent.push(absElement);
         Ability[] abilities = am.getAbilities();
         for(Ability ab : abilities){
             ab.accept(this);
         }
+        currentParent.pop();
+        Element actAbsElement = doc.createElement("ActiveAbilities");
+        currentParent.peek().appendChild(actAbsElement);
+        currentParent.push(actAbsElement);
+        Ability[] activeAbilities = am.getActiveAbilities();
+        for(Ability ab : activeAbilities){
+            if(ab != null){
+                ab.accept(this);
+            }
+        }
+        currentParent.pop();
         if(currentParent.peek().equals(abmElement)){
             System.out.println("visited abilites successfully, stack at proper element");
         }
@@ -286,7 +301,20 @@ public class SaveVisitor implements ModelVisitor {
 
     @Override
     public void visitAbility(Ability ability) {
-        //doesn't do anything right now
+        //this high ofa lelve doesnt do anything
+    }
+    public void visitMeleeAttackAbility(MeleeAttackAbility meleeAttackAbility) {
+        //will get stats and entity when loading
+        Element abElement = doc.createElement("MeleeAttackAbility");
+        currentParent.peek().appendChild(abElement);
+        abElement.setAttribute("windTicks", meleeAttackAbility.getWindTicks() +"");
+        abElement.setAttribute("coolTicks", meleeAttackAbility.getCoolTicks() +"");
+    }
+
+    public void visitBindWounds(BindWoundsAbility bindWoundsAbility) {
+        //will entity and skillmanager when loading
+        Element abElement = doc.createElement("BindWoundsAbility");
+        currentParent.peek().appendChild(abElement);
     }
 
     @Override
@@ -374,7 +402,7 @@ public class SaveVisitor implements ModelVisitor {
         if(e.getWeapon() != null){
             e.getWeapon().accept(this);
         }
-        //not saving entity stats here...will be passed to it in load
+        //gets stats, ability and skill manager from entity in load
         if(currentParent.peek().equals(eElement)){
             System.out.println("Equipped saved with stack at proper element");
             currentParent.pop();

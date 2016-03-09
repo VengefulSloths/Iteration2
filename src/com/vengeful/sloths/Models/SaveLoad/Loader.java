@@ -3,6 +3,10 @@ package com.vengeful.sloths.Models.SaveLoad;
 import com.sun.org.apache.xalan.internal.xsltc.compiler.util.InternalError;
 import com.sun.org.apache.xalan.internal.xsltc.compiler.util.NodeType;
 import com.sun.org.apache.xml.internal.serializer.ElemDesc;
+import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
+import com.vengeful.sloths.Models.Ability.Ability;
+import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Entity.*;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Inventory.Equipped;
@@ -13,6 +17,10 @@ import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Knuckle;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
 import com.vengeful.sloths.Models.Map.MapArea;
+import com.vengeful.sloths.Models.Occupation.Occupation;
+import com.vengeful.sloths.Models.Occupation.Smasher;
+import com.vengeful.sloths.Models.Occupation.Sneak;
+import com.vengeful.sloths.Models.Occupation.Summoner;
 import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.GenericStatsAddable;
@@ -145,16 +153,24 @@ public class Loader {
                     a.setLocation(c);
                     break;
                 case "Sneak" :
+                    Sneak sn = new Sneak();
+                    a.setOccupation(sn);
                     break;
                 case "Smasher" :
+                    Smasher sm = new Smasher();
+                    a.setOccupation(sm);
                     break;
                 case "Summoner" :
+                    Summoner sr = new Summoner();
+                    a.setOccupation(sr);
                     break;
                 case "Stats" :
                     Stats s = processStats(avatarObject);
                     a.setStats(s);
                     break;
                 case "AbilityManager" :
+                    AbilityManager abm = processAbilityManager(avatarObject,a);
+                    a.setAbilityManager(abm);
                     break;
                 case "BuffManager" :
                     break;
@@ -169,12 +185,53 @@ public class Loader {
                     break;
                 case "SkillManager" :
                     SkillManager sk = processSkillManager(avatarObject);
+                    a.setSkillManager(sk);
                     break;
                 default:
                     System.out.println(objectName + "is not a supported avatar object");
             }
         }
         return a;
+    }
+    //untested
+    private AbilityManager processAbilityManager(Node avatarObject, Entity e) {
+        AbilityManager abm = new AbilityManager();
+        if(avatarObject.getNodeType() == Node.ELEMENT_NODE){
+            NodeList abilityContainerNodes = avatarObject.getChildNodes();
+            Element abilitiesElement = (Element) abilityContainerNodes.item(0);
+            NodeList allAbilityNodes = abilitiesElement.getChildNodes();
+            for(int i = 0; i != allAbilityNodes.getLength(); ++i){
+                Element currAbility = (Element)allAbilityNodes.item(i);
+                switch (currAbility.getNodeName()){
+                    case "BindWoundsAbility" :
+                        BindWoundsAbility bwa = new BindWoundsAbility();
+                        bwa.setEntity(e);
+                        bwa.setSkillManager(e.getSkillManager());
+                        abm.addAbility(bwa);
+                        break;
+                    case "MeleeAttackAbility" :
+                        int wind = Integer.valueOf(currAbility.getAttribute("windTicks"));
+                        int cool = Integer.valueOf(currAbility.getAttribute("coolTicks"));
+                        MeleeAttackAbility maa = new MeleeAttackAbility(wind,cool);
+                        maa.setEntity(e);
+                        maa.setStats(e.getStats());
+                        abm.addAbility(maa);
+                        break;
+                    default:
+                        System.out.println(currAbility.getNodeName() + "isn't a supported ability to load");
+                }
+            }
+            Element activeAbilitiesElement = (Element) abilityContainerNodes.item(1);
+            NodeList activeAbilityNodes = activeAbilitiesElement.getChildNodes();
+            for(int i = 0; i != activeAbilityNodes.getLength(); ++i){
+                Element currAbility = (Element)activeAbilityNodes.item(i);
+                Ability ab = abm.getAbility(currAbility.getNodeName());
+                if(ab != null){
+                    abm.equipAbility(ab, i);
+                }
+            }
+        }
+        return abm;
     }
 
     private SkillManager processSkillManager(Node avatarObject) {

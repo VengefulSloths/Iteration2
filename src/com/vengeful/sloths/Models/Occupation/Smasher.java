@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Models.Occupation;
 
+import com.vengeful.sloths.AreaView.ViewObjects.Hands.SmartHandViewObject;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.ModelVisitor;
@@ -22,6 +23,7 @@ public class Smasher extends Occupation {
 
         this.addSharedAbility(abilityManager, entity);
     }
+    public Smasher(){}
 
     @Override
     public void levelUp(Stats stats) {
