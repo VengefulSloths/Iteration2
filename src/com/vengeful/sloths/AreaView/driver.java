@@ -41,6 +41,7 @@ public class driver {
 
         LaunchGameTemplate launcher = new LaunchGameTemplate(new LaunchNewGame());
         launcher.launch();
+
         //Below here is test code
 
 
@@ -52,11 +53,23 @@ public class driver {
         //moveQuickly.setMovement(45);
 
         //Avatar.getInstance().setStats(moveQuickly);
-        Avatar.getInstance().getStats().setMovement(45);
-        Avatar.getInstance().getStats().setHardiness(10);
-        Avatar.getInstance().getStats().setCurrentHealth(60);
 
         int count = 0;
+
+//        new java.util.Timer().schedule(
+//                new java.util.TimerTask() {
+//                    @Override
+//                    public void run() {
+//                        testPiggy.move(Direction.S);
+//                        testPiggy.move(Direction.S);
+//                        testPiggy.move(Direction.S);
+//                        testPiggy.move(Direction.S);
+//                        testPiggy.move(Direction.S);
+//                        testPiggy.move(Direction.S);
+//                    }
+//                },
+//                4000
+//        );
 
 
 

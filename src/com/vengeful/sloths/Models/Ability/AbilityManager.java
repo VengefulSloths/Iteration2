@@ -22,8 +22,6 @@ public class AbilityManager implements ModelVisitable{
     //TODO: give it a default: punchAbility
 
 
-
-
     public AbilityManager(){
         this.abilities = new ArrayList<>();
         this.activeAbilities = new Ability[4]; //3 for occupation specific, 1 for common ability

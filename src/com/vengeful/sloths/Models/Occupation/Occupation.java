@@ -1,6 +1,7 @@
 package com.vengeful.sloths.Models.Occupation;
 
 
+import com.vengeful.sloths.Models.Ability.Abilities.FireBallAbility;
 import com.vengeful.sloths.Models.Ability.AbilityFactory;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
@@ -24,11 +25,20 @@ public abstract class Occupation implements ModelVisitable{
         skillManager.addSkill(new Skill("bind wounds"));
         skillManager.addSkill(new Skill("bargain"));
         skillManager.addSkill(new Skill("observation"));
+
+        //TODO: test!!! remove!
+        skillManager.addSkill(new Skill("bane", 10, 10));
     }
 
     protected void addSharedAbility(AbilityManager abilityManager, Entity entity){
-        BindWoundsAbility bwa = AbilityFactory.getInstance().createBindWoundsAbility(entity, entity.getSkillManager());
+        BindWoundsAbility bwa = AbilityFactory.getInstance().createBindWoundsAbility(entity, entity.getSkillManager(), 2, 5);
         abilityManager.addAbility(bwa);
-        abilityManager.equipAbility(bwa, 1);
+        //abilityManager.equipAbility(bwa, 1);
+
+        //TODO: test, remove
+        FireBallAbility fba = new FireBallAbility(entity, 5, 3, 5, 5);
+        abilityManager.addAbility(fba);
+        abilityManager.equipAbility(fba, 1);
+
     }
 }

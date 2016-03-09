@@ -138,6 +138,14 @@ public class HexMath {
         }
     }
 
+
+    public static boolean isValidTile(Coord coord, int maxR, int maxS) {
+        if (coord.getR() < maxR && coord.getS() < maxS && coord.getR() >= 0 && coord.getS() >= 0)
+            return true;
+
+        return false;
+    }
+
     /**
      * desc: Searches expanding sorted rings to find the closest movable coordinate
      * params: Coord - src coordinate to search

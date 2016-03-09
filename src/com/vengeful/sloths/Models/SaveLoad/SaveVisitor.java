@@ -19,6 +19,7 @@ import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
 import com.vengeful.sloths.Models.InventoryTakeableItemFactory;
 import com.vengeful.sloths.Models.Map.*;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
 import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
@@ -647,6 +648,11 @@ public class SaveVisitor implements ModelVisitor {
         }else{
             System.out.println("some error saving OneShot, stack not at the proper element");
         }
+    }
+
+    @Override
+    public void visitInteractiveItem(InteractiveItem item) {
+
     }
 
     /**

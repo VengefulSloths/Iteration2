@@ -88,11 +88,12 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         this.inventory = new Inventory();
         this.equipped = new Equipped(this);
         this.buffManager = new BuffManager(this);
-        this.occupation = new DummyOccupation(stats, skillManager, abilityManager, this);
         this.movementValidator = new DefaultCanMoveVisitor();
 
         //this.location = new Coord(1,2);
         this.facingDirection = Direction.N;
+
+        this.occupation = new DummyOccupation(stats, skillManager, abilityManager, this);
     }
 
     public void doAbility(int index){
@@ -133,7 +134,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     public final int attack(Direction dir){
         if(!isActive) {
             this.setFacingDirection(dir);
-            abilityManager.getWeaponAbility().execute();
+            return abilityManager.getWeaponAbility().execute();
         }
         return 0;
     }
@@ -190,6 +191,14 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
 
     public void gainHealth(int health) {
         this.getStats().add(new HealthManaExperienceAddable(health, 0, 0, 0, 0));
+    }
+
+    public void decMana(int mana){
+        this.getStats().subtract(new HealthManaExperienceAddable(0,0,mana,0,0));
+    }
+
+    public void gainMana(int mana){
+        this.getStats().add(new HealthManaExperienceAddable(0,0,mana,0,0));
     }
 
     public void pickup(TakeableItem item){

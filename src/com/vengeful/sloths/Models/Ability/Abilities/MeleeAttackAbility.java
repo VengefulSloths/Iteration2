@@ -78,7 +78,6 @@ public class MeleeAttackAbility extends Ability {
         }
 
 
-
             TimeModel.getInstance().registerAlertable(() -> {
                 try {
                     for (Entity entity : Map.getInstance().getTile(dst).getEntities()) {
@@ -93,7 +92,6 @@ public class MeleeAttackAbility extends Ability {
 
         return coolTicks;
     }
-
 
 
 //    @Override
@@ -128,7 +126,11 @@ public class MeleeAttackAbility extends Ability {
         this.stats = stats;
     }
 
-    public String toString(){
+    public String toString() {
         return "MeleeAttackAbility";
     }
+//    @Override
+//    public void accept(ModelVisitor modelVisitor) {
+//        super.accept(modelVisitor);
+//    }
 }
