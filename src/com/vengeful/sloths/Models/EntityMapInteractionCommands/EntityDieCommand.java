@@ -24,17 +24,21 @@ public class EntityDieCommand implements Alertable {
     }
     @Override
     public int execute() {
+        System.out.println("starting execute");
         entity.setDead(true);
         entity.setActive(true); //make it so that the entity cant do anything
         Map.getInstance().getTile(entity.getLocation()).removeEntity(entity); //unregister him from the tile
 
         while (entityObserverIterator.hasNext()) {
+            System.out.println("spoooooky af");
             entityObserverIterator.next().alertDeath();
         }
+        System.out.println("whjkdsahfkjsdhfjkdsf");
 
         EntityMapInteractionFactory emif = EntityMapInteractionFactory.getInstance();
 
         //@TODO: NEED RESPAWN TILE
+        System.out.println(timeToRespawn);
         if(timeToRespawn >= 0) {
             System.out.println("making respawn command");
             EntityRespawnCommand erc = emif.createRespawnCommand(entity, Map.getInstance().getRespawnPoint().getCoord(), timeToRespawn);
