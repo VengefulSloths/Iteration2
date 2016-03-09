@@ -1,8 +1,6 @@
 package com.vengeful.sloths.AreaView;
 
 import com.vengeful.sloths.AreaView.ViewObjects.*;
-import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.SimpleHexCoordinateStrategy;
-import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.CenterAvatarLocationStrategy;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
@@ -38,7 +36,6 @@ import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Direction;
 
-import com.vengeful.sloths.Models.Observers.ModelObserver;
 import com.vengeful.sloths.Models.Observers.ProxyDestoyableObserver;
 import com.vengeful.sloths.Models.Observers.ProxyEntityObserver;
 import com.vengeful.sloths.Models.Observers.ProxyStatsObserver;
@@ -116,13 +113,13 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
         //Let avo observe avatar through a proxy
         peo = new ProxyEntityObserver(avo, avatar);
-        ObserverManager.instance().addProxyObserver(peo);
+        ObserverManager.getInstance().addProxyObserver(peo);
         //Let the AvatarViewFollower follow the avo
         AvatarViewFollower.getInstance().bindToViewObject(avo);
 
         //let the cameraView watch avatar for movement
         avo.registerObserver(activeCameraView);
-        ObserverManager.instance().addProxyObserver(new ProxyStatsObserver(avo.getHealthBar(), avatar.getStats()));
+        ObserverManager.getInstance().addProxyObserver(new ProxyStatsObserver(avo.getHealthBar(), avatar.getStats()));
         avatar.getStats().updateObservers();
 
         //Set the camera views avatar to this
@@ -133,7 +130,7 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     @Override
     public void visitPiggy(Piggy piggy) {
         PiggyViewObject pvo = factory.createPiggyViewObject(piggy.getLocation().getR(), piggy.getLocation().getS(), "resources/entities/piggy/");
-        new ProxyEntityObserver(pvo, piggy);
+        ObserverManager.getInstance().addProxyObserver( new ProxyEntityObserver(pvo, piggy));
         pvo.registerObserver(activeCameraView);
         this.activeCameraView.addViewObject(pvo);
     }
@@ -141,10 +138,10 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     @Override
     public void visitAggressiveNPC(AggressiveNPC aNPC) {
         EvilBlobViewObject ebvo = factory.createEvilBlobViewObject(aNPC.getLocation().getR(), aNPC.getLocation().getS(), "resources/entities/cyclops/");
-        ObserverManager.instance().addProxyObserver(new ProxyEntityObserver(ebvo, aNPC));
+        ObserverManager.getInstance().addProxyObserver(new ProxyEntityObserver(ebvo, aNPC));
         //new ProxyEntityObserver(ebvo, aNPC);
         ebvo.registerObserver(activeCameraView);
-        ObserverManager.instance().addProxyObserver(new ProxyStatsObserver(ebvo.getHealthBar(), aNPC.getStats()));
+        ObserverManager.getInstance().addProxyObserver(new ProxyStatsObserver(ebvo.getHealthBar(), aNPC.getStats()));
         aNPC.getStats().updateObservers();
         this.activeCameraView.addViewObject(ebvo);
     }

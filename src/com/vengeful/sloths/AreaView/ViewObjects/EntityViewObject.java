@@ -1,16 +1,11 @@
 package com.vengeful.sloths.AreaView.ViewObjects;
 
 
-import com.sun.xml.internal.stream.Entity;
 import com.vengeful.sloths.AreaView.DynamicImages.*;
-import com.vengeful.sloths.AreaView.PlainsPersistantViewObjectFactory;
 import com.vengeful.sloths.AreaView.TemporaryVOCreationVisitor;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
-import com.vengeful.sloths.AreaView.ViewObjects.Hands.HandViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.Hands.HandsCoordinator;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
-import com.vengeful.sloths.AreaView.ViewTime;
-import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.ObserverManager;
 import com.vengeful.sloths.Sound.SoundEffect;
@@ -206,8 +201,8 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     @Override
     public void alertDeath() {
         System.out.println("this is getting called, to delte the view object");
-        ObserverManager.instance().deregister(this);
-        ObserverManager.instance().deregister(this.getHealthBar());
+        ObserverManager.getInstance().deregister(this);
+        ObserverManager.getInstance().deregister(this.getHealthBar());
 
         this.dead = true;
 

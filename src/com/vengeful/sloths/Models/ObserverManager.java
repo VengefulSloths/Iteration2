@@ -17,7 +17,7 @@ public class ObserverManager implements Alertable {
     private ObserverManager() {
         observers = new HashMap<ModelObserver, ProxyObserver>();
     }
-    static public ObserverManager instance() {
+    static public ObserverManager getInstance() {
         if (instance == null) {
             instance = new ObserverManager();
             instance.mAlert();

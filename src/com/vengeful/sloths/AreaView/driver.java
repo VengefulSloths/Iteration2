@@ -59,11 +59,12 @@ public class driver {
         int count = 0;
 
 
-//        Piggy testPiggy = new Piggy("Bart", new Stats(new MovementAddable(30)));
-//        testPiggy.setFacingDirection(Direction.S);
-//        Map.getInstance().addEntity(new Coord(3,5), testPiggy);
-//        testPiggy.accept(TemporaryVOCreationVisitor.getInstance());
-//        new PiggyControllerManager(Map.getInstance().getActiveMapArea(), testPiggy);
+        Piggy testPiggy = new Piggy("Bart", new Stats(new MovementAddable(30)));
+        testPiggy.setFacingDirection(Direction.S);
+        Map.getInstance().addEntity(new Coord(3,5), testPiggy);
+        testPiggy.accept(TemporaryVOCreationVisitor.getInstance());
+        testPiggy.getStats().setHardiness(10);
+        new PiggyControllerManager(Map.getInstance().getActiveMapArea(), testPiggy);
 
         testAvatar.setFacingDirection(Direction.SE);
         testAvatar.getStats().subtract(new CurrentHealthAddable(2));
