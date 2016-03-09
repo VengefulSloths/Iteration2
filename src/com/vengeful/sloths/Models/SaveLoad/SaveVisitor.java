@@ -429,7 +429,18 @@ public class SaveVisitor implements ModelVisitor {
 
     @Override
     public void visitKnuckle(Knuckle thw) {
-
+        Element thwElement = doc.createElement("Knuckle");
+        currentParent.peek().appendChild(thwElement);
+        currentParent.push(thwElement);
+        thwElement.setAttribute("itemName", thw.getItemName());
+        thwElement.setAttribute("baseDamage", thw.getBaseDamage() +"");
+        thw.getItemStats().accept(this);
+        if(currentParent.peek().equals(thwElement)){
+            System.out.println("Knuckle saved with stack at proper element");
+            currentParent.pop();
+        }else{
+            System.out.println("some error saving Knuckle, stack not at the proper element");
+        }
     }
 
     public void visitStatsAddable(StatsAddable sa) {

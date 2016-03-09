@@ -21,6 +21,8 @@ public abstract class Weapon extends EquippableItems {
         this.baseDamage = baseDamage;
     }
 
+    public Weapon(){}
+
     public abstract WeaponClass getWeaponClassification();
 
     public abstract int calculateOffsensiveRating(Stats stats, SkillManager skills);

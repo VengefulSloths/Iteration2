@@ -15,6 +15,7 @@ public class Hat extends EquippableItems implements ModelVisitable {
     public Hat(String name, StatsAddable stats){
         super(name, stats);
     }
+    public Hat () {}
 
     @Override
     public void addToEquipped(Equipped equipped) {

@@ -45,6 +45,16 @@ public class Equipped implements ViewObservable, ModelVisitable{
 
     }
 
+    public Equipped(){}
+    public void init(Entity e){
+        this.entity = e;
+        this.entityStats = entity.getStats();
+        this.skills = entity.getSkillManager();
+        this.abilityManager = entity.getAbilityManager();
+        this.equipmentObserver = new ArrayList<>();
+        addWeapon(fists);
+    }
+
 
     public void addHat(EquippableItems hat){
         if(this.hat != null)

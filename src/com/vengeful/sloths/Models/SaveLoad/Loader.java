@@ -4,8 +4,13 @@ import com.sun.org.apache.xalan.internal.xsltc.compiler.util.InternalError;
 import com.sun.org.apache.xalan.internal.xsltc.compiler.util.NodeType;
 import com.sun.org.apache.xml.internal.serializer.ElemDesc;
 import com.vengeful.sloths.Models.Entity.Avatar;
+import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Hat;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Knuckle;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Stats.StatAddables.GenericStatsAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
@@ -152,8 +157,12 @@ public class Loader {
                     break;
                 case "Inventory" :
                     Inventory inv = processInventory(avatarObject);
+                    a.setInventory(inv);
                     break;
                 case "Equipped" :
+                    Equipped eq = processEquipped(avatarObject);
+                    a.setEquipped(eq);
+                    eq.init(a);
                     break;
                 case "SkillManager" :
                     break;
@@ -162,6 +171,49 @@ public class Loader {
             }
         }
         return a;
+    }
+
+    private Equipped processEquipped(Node avatarObject) {
+        Equipped eq = new Equipped();
+        if(avatarObject.getNodeType() == Node.ELEMENT_NODE) {
+            Element eqElement = (Element) avatarObject;
+            if(avatarObject.hasChildNodes()){
+                NodeList eqItems = avatarObject.getChildNodes();
+                for(int i = 0; i != eqItems.getLength();++i){
+                    Node eqItem = eqItems.item(i);
+                    if(eqItem.getNodeType() == Node.ELEMENT_NODE){
+                        Element eqItemElement = (Element) eqItem;
+                        String eqItemName = eqItemElement.getNodeName();
+                        switch(eqItemName){
+                            case "Hat":
+                                Hat h = processHat(eqItemElement);
+                                eq.addHat(h);
+                                break;
+                            case "Knuckle" :
+                                Knuckle k = processKnuckle(eqItemElement);
+                                eq.addWeapon(k);
+                                break;
+                            case "OneHandedWeapon" :
+                                OneHandedWeapon ohw = processOneHandedWeapon(eqItemElement);
+                                eq.addWeapon(ohw);
+                                break;
+                            case "TwoHandedWeapon" :
+                                TwoHandedWeapon thw = processTwoHandedWeapon(eqItemElement);
+                                eq.addWeapon(thw);
+                            default:
+                                System.out.println(eqItemName + "isn't a supported equipped item element");
+                        }
+                    }
+                    else{
+                        System.out.println("the eqItem node isn't an element");
+                    }
+                }
+            }
+            else{
+                System.out.println("Equipped element has no child nodes- its empty");
+            }
+        }
+        return eq;
     }
 
     private Inventory processInventory(Node avatarObject) {
@@ -180,7 +232,23 @@ public class Loader {
                         switch(invItemName){
                             case "Potion" :
                                 Potion p = processPotion(invItemElement);
+                                inv.addItem(p);
                                 break;
+                            case "Hat":
+                                Hat h = processHat(invItemElement);
+                                inv.addItem(h);
+                                break;
+                            case "Knuckle" :
+                                Knuckle k = processKnuckle(invItemElement);
+                                inv.addItem(k);
+                                break;
+                            case "OneHandedWeapon" :
+                                OneHandedWeapon ohw = processOneHandedWeapon(invItemElement);
+                                inv.addItem(ohw);
+                                break;
+                            case "TwoHandedWeapon" :
+                                TwoHandedWeapon thw = processTwoHandedWeapon(invItemElement);
+                                inv.addItem(thw);
                             default:
                                 System.out.println(invItemName + "isn't a supported inventory item element");
                         }
@@ -198,6 +266,38 @@ public class Loader {
             System.out.println("Node passed to processInventory isn't an element");
         }
         return inv;
+    }
+
+    private Knuckle processKnuckle(Element invItemElement) {
+        Knuckle k = new Knuckle();
+        k.setItemName(invItemElement.getAttribute("itemName"));
+        k.setBaseDamage(Integer.valueOf(invItemElement.getAttribute("baseDamage")));
+        Node statsAddNode = invItemElement.getChildNodes().item(0);
+        k.setItemStats(processStatsAddable(statsAddNode));
+        return k;
+    }
+    private OneHandedWeapon processOneHandedWeapon(Element invItemElement) {
+        OneHandedWeapon ohw = new OneHandedWeapon();
+        ohw.setItemName(invItemElement.getAttribute("itemName"));
+        ohw.setBaseDamage(Integer.valueOf(invItemElement.getAttribute("baseDamage")));
+        Node statsAddNode = invItemElement.getChildNodes().item(0);
+        ohw.setItemStats(processStatsAddable(statsAddNode));
+        return ohw;
+    }
+    private TwoHandedWeapon processTwoHandedWeapon(Element invItemElement) {
+        TwoHandedWeapon thw = new TwoHandedWeapon();
+        thw.setItemName(invItemElement.getAttribute("itemName"));
+        thw.setBaseDamage(Integer.valueOf(invItemElement.getAttribute("baseDamage")));
+        Node statsAddNode = invItemElement.getChildNodes().item(0);
+        thw.setItemStats(processStatsAddable(statsAddNode));
+        return thw;
+    }
+    private Hat processHat(Element invItemElement) {
+        Hat h = new Hat();
+        h.setItemName(invItemElement.getAttribute("itemName"));
+        Node statsAddNode = invItemElement.getChildNodes().item(0);
+        h.setItemStats(processStatsAddable(statsAddNode));
+        return h;
     }
 
     private Potion processPotion(Element invItemElement) {
