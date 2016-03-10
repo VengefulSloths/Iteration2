@@ -53,4 +53,9 @@ public class PlainsPersistantViewObjectFactory extends ViewObjectFactory {
     public OneShotViewObject createOneShotViewObject(int r, int s) {
         return new OneShotViewObject(r, s, getCoordinateStrategy(), getLocationStrategy(), "resources/items/box/box_full.xml", "resources/audio/break.wav");
     }
+
+    @Override
+    public OneShotViewObject createObstacleViewObject(int r, int s) {
+        return new OneShotViewObject(r, s, getCoordinateStrategy(), getLocationStrategy(), "resources/items/box/box_full.xml", "resources/audio/success.wav");
+    }
 }

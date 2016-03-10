@@ -2,6 +2,7 @@ package com.vengeful.sloths.Models.EntityMapInteractionCommands;
 
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Inventory.Inventory;
+import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 
 /**
@@ -21,7 +22,7 @@ public class EntityPickupCommand {
     public void execute(){
 
         if(this.inv.addItem(item.getInventorpRep())){
-            this.item.destroy();
+            Map.getInstance().getActiveMapArea().getTile(this.item.getLocation()).removeTakeableItem(this.item);
             this.item.alertObserverOnDestroy();
 
             //TODO: use InventoryTakeableItemFactory to create inventory graphic rep

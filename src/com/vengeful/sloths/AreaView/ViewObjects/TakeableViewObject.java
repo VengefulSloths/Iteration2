@@ -30,6 +30,7 @@ public class TakeableViewObject extends ViewObject implements DestroyableObserve
 
     @Override
     public void alertDestroyed() {
+        (new SoundEffect("resources/audio/pickup.wav")).play();
         for(DestroyVOObserver dvoo : this.observers){
             dvoo.alertDestroyVO(this);
         }

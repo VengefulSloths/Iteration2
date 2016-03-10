@@ -42,9 +42,6 @@ public abstract class MapItem implements  ModelVisitable {
         this.graphicFolder = graphicFolder;
     }
 
-    public void destroy() {
-        this.destroy = true;
-    }
 
     public void setLocation(Coord loc){
         this.location = loc;

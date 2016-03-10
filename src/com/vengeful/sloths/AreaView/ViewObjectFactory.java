@@ -50,6 +50,7 @@ public abstract class ViewObjectFactory {
     public abstract MountainViewObject createMountainTerrainViewObject(int r, int s);
     public abstract WaterViewObject createWaterTerrainViewObject(int r, int s);
     public abstract OneShotViewObject createOneShotViewObject(int r, int s);
+    public abstract OneShotViewObject createObstacleViewObject(int r, int s);
 
     public TakeableViewObject createTakeableViewObject(int r, int s, String resourcePath){
         return new TakeableViewObject(r, s, cs, ls, resourcePath);

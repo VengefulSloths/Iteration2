@@ -1,6 +1,7 @@
 package com.vengeful.sloths.Models.Map.MapItems;
 
 import com.vengeful.sloths.Models.Entity.Entity;
+import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.ViewObservable;
@@ -22,7 +23,7 @@ public class OneShotItem extends MapItem implements ModelVisitable, ViewObservab
 
     public void interact(Entity entity){
         observer.alertDestroyed();
-        this.destroy();
+        Map.getInstance().getActiveMapArea().getTile(getLocation()).removeOneShotItem();
     }
 
     @Override

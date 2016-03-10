@@ -92,9 +92,6 @@ public class Tile implements ModelVisitable {
             //System.out.Println("AE: " + ae);
         }
 
-
-        cleanUp();
-
     }
 
     public void addEntity(Entity entity){
@@ -117,20 +114,10 @@ public class Tile implements ModelVisitable {
     public Entity removeEntity(Entity e){
         if (this.entities.contains(e)) {
             this.entities.remove(e);
+            if (interactiveItem != null) {
+                interactiveItem.unteract(e);
+            }
         }
-
-//        Entity entity = this.entity;
-//        this.entity = null;
-
-        for (Iterator<MapItem> iter = mapItems.iterator(); iter.hasNext();) {
-            MapItem item = iter.next();
-            //item.interact(entity);
-
-            //TODO: this is really weird code
-//            if(item instanceof InteractiveItem)
-//                item.getObserver().alertDeactivated();
-        }
-
 
         return e;
     }
@@ -158,37 +145,7 @@ public class Tile implements ModelVisitable {
         return areaEffect.iterator();
     }
 
-    private void cleanUp(){
-        //cleaningup = true;
-        ArrayList<MapItem> toDestroy = new ArrayList<MapItem>();
-        for (Iterator<MapItem> iter = mapItems.iterator(); iter.hasNext();) {
-            MapItem item = iter.next();
-            if(item.destroyFlag()){
-                toDestroy.add(item);
-            }
-        }
-        for (MapItem td : toDestroy) {
-            try {
-                td.destroy();
-            }catch (Exception e){}
-            mapItems.remove(td);
-
-        }
-
-        //Remove destroyed AE
-        ArrayList<AreaEffect> toDestroyAE = new ArrayList<AreaEffect>();
-        Iterator<AreaEffect> aeIter = this.getAreaEffectIterator();
-        while(aeIter.hasNext()){
-            AreaEffect ae = aeIter.next();
-            if(ae.destroyFlag())
-                toDestroyAE.add(ae);
-        }
-
-        for(AreaEffect ae : toDestroyAE){
-            ae.destroy();
-            areaEffect.remove(ae);
-        }
-    }
+//
 
     public void addTakeableItem(TakeableItem takeableItem) {
         mapItems.add(takeableItem);
@@ -201,6 +158,10 @@ public class Tile implements ModelVisitable {
         } else {
             throw new InvalidParameterException("you cannot add two obstacles");
         }
+    }
+
+    public boolean hasObstacle() {
+        return obstacle != null;
     }
 
     public void addInteractiveItem(InteractiveItem interactiveItem) {
@@ -229,24 +190,24 @@ public class Tile implements ModelVisitable {
         removeMapItem(takeableItem);
     }
 
-    public void removeObstacle(Obstacle item) {
-        removeMapItem(item);
+    public void removeObstacle() {
+        removeMapItem(this.obstacle);
+        this.obstacle.destroy();
         this.obstacle = null;
     }
 
-    public void removeInteractiveItem(InteractiveItem item) {
-        removeMapItem(item);
+    public void removeInteractiveItem() {
+        removeMapItem(this.interactiveItem);
         this.interactiveItem = null;
     }
 
-    public void removeOneShotItem(OneShotItem item) {
-        removeMapItem(item);
+    public void removeOneShotItem() {
+        removeMapItem(this.oneShotItem);
         this.oneShotItem = null;
     }
 
     private void removeMapItem(MapItem item){
         mapItems.remove(item);
-        item.destroy(); //tell observer
     }
 
     public MapItem getMapItem(int index){
@@ -279,4 +240,36 @@ public class Tile implements ModelVisitable {
     public void accept(ModelVisitor visitor) {
         visitor.visitTile(this);
     }
+
+//    private void cleanUp(){
+//        //cleaningup = true;
+//        ArrayList<MapItem> toDestroy = new ArrayList<MapItem>();
+//        for (Iterator<MapItem> iter = mapItems.iterator(); iter.hasNext();) {
+//            MapItem item = iter.next();
+//            if(item.destroyFlag()){
+//                toDestroy.add(item);
+//            }
+//        }
+//        for (MapItem td : toDestroy) {
+//            try {
+//                td.destroy();
+//            }catch (Exception e){}
+//            mapItems.remove(td);
+//
+//        }
+//
+//        //Remove destroyed AE
+//        ArrayList<AreaEffect> toDestroyAE = new ArrayList<AreaEffect>();
+//        Iterator<AreaEffect> aeIter = this.getAreaEffectIterator();
+//        while(aeIter.hasNext()){
+//            AreaEffect ae = aeIter.next();
+//            if(ae.destroyFlag())
+//                toDestroyAE.add(ae);
+//        }
+//
+//        for(AreaEffect ae : toDestroyAE){
+//            ae.destroy();
+//            areaEffect.remove(ae);
+//        }
+//    }
 }
