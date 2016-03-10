@@ -326,8 +326,11 @@ public class SaveVisitor implements ModelVisitor {
     public void visitFireBallAbility(FireBallAbility fireBallAbility) {
         Element fbaElement = doc.createElement("FireBallAbility");
         currentParent.peek().appendChild(fbaElement);
-        //finish writing visit
-        //then write load case
+        fbaElement.setAttribute("startUpTicks", fireBallAbility.getStartupTicks() +"");
+        fbaElement.setAttribute("coolDownTicks", fireBallAbility.getCoolDownTicks() +"");
+        fbaElement.setAttribute("travelDistance", fireBallAbility.getTravelDistance() +"");
+        fbaElement.setAttribute("travelTime", fireBallAbility.getTravelTime() +"");
+        fbaElement.setAttribute("manaCost", fireBallAbility.getManaCost() +"");
     }
 
     @Override

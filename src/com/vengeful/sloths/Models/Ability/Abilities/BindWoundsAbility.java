@@ -28,7 +28,10 @@ public class BindWoundsAbility extends Ability {
         this.cooldownTicks = cooldownTicks;
     }
 
-    public BindWoundsAbility(){}
+    public BindWoundsAbility(){
+        startupTicks = 60;
+        cooldownTicks = 5;
+    }
 
     @Override
     public int execute() {

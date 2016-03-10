@@ -83,4 +83,44 @@ public class FireBallAbility extends Ability{
     public void accept(SaveVisitor sv){
         sv.visitFireBallAbility(this);
     }
+
+    public int getTravelTime() {
+        return travelTime;
+    }
+
+    public void setTravelTime(int travelTime) {
+        this.travelTime = travelTime;
+    }
+
+    public int getTravelDistance() {
+        return travelDistance;
+    }
+
+    public void setTravelDistance(int travelDistance) {
+        this.travelDistance = travelDistance;
+    }
+
+    public int getStartupTicks() {
+        return startupTicks;
+    }
+
+    public void setStartupTicks(int startupTicks) {
+        this.startupTicks = startupTicks;
+    }
+
+    public int getCoolDownTicks() {
+        return coolDownTicks;
+    }
+
+    public void setCoolDownTicks(int coolDownTicks) {
+        this.coolDownTicks = coolDownTicks;
+    }
+
+    public int getManaCost() {
+        return manaCost;
+    }
+
+    public void setManaCost(int manaCost) {
+        this.manaCost = manaCost;
+    }
 }
