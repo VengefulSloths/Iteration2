@@ -12,6 +12,7 @@ import com.vengeful.sloths.Models.Map.Terrains.Grass;
 import com.vengeful.sloths.Models.Map.Terrains.Terrain;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
+import com.vengeful.sloths.Models.TimeModel.TimeModel;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
@@ -187,7 +188,8 @@ public class Tile implements ModelVisitable {
 //    }
 
     public void removeTakeableItem(TakeableItem takeableItem) {
-        removeMapItem(takeableItem);
+
+        TimeModel.getInstance().registerAlertable(() -> removeMapItem(takeableItem), 0);
     }
 
     public void removeObstacle() {
