@@ -23,7 +23,7 @@ public class BreakBoxQuest extends Quest {
 
 
     @Override
-    public boolean finished() {
+    public boolean attempt() {
 
         //Need better way to do this
         for(Tile t : this.tiles){

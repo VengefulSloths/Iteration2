@@ -133,7 +133,9 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
 
     @Override
     public void visitObstacle(Obstacle obstacle) {
-
+        OneShotViewObject obstacleViewObject = factory.createObstacleViewObject(r, s);
+        new ProxyDestoyableObserver(obstacleViewObject, obstacle);
+        currentTile.addChild(obstacleViewObject);
     }
 
     @Override
