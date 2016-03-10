@@ -66,8 +66,11 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     @Override
     public void paintComponent(Graphics2D g) {
         if (!dead) {
+            if(healthBar != null) {
+                healthBar.paintComponent(g);
+            }
             paintBody(g);
-            healthBar.paintComponent(g);
+
         } else {}
     }
 
@@ -98,8 +101,12 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     }
 
     public void setLocation(int r, int s) {
-        healthBar.setR(r);
-        healthBar.setS(s);
+
+        if(healthBar != null) {
+            healthBar.setR(r);
+            healthBar.setS(s);
+        }
+
 
         setR(r);
         setS(s);
@@ -120,8 +127,9 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     public void movementHook(int r, int s, long duration) {
         System.out.println("e.movehook: " + duration);
         ((DynamicTimedImage) currentDynamicImage).start(duration);
-
-        healthBar.alertMove(r,s,duration);
+        if(healthBar != null) {
+            healthBar.alertMove(r, s, duration);
+        }
         (new SoundEffect("resources/audio/grass_step.wav")).play();
     }
 
