@@ -9,6 +9,7 @@ import com.vengeful.sloths.Models.TimeModel.Alertable;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.HexMath;
+import com.vengeful.sloths.Utility.Location;
 
 import java.util.Iterator;
 
@@ -49,7 +50,7 @@ public class EntityRespawnCommand implements Alertable {
         entity.setDead(false);  // Bring entity back to life
         entity.setActive(false); // Even more back to life
 
-        Coord resCoord = HexMath.getClosestMovableTile(respawnCoord); // get closest tile to respawnCoord (may be respawnCoord) to respawn at
+        Coord resCoord = HexMath.getClosestMovableTile(new Location(currentMapArea, respawnCoord)); // get closest tile to respawnCoord (may be respawnCoord) to respawn at
         System.out.println("this is the respawn coord : " + respawnCoord);
         System.out.println("this is rescoord" + resCoord);
         currentMapArea.addEntity(entity, resCoord);

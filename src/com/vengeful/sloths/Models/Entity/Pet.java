@@ -9,7 +9,7 @@ import com.vengeful.sloths.Models.Observers.MovementObserver;
 /**
  * Created by luluding on 2/21/16.
  */
-public abstract class Pet extends Entity{
+public abstract class Pet extends NPC{
 
     protected int timeToRespawn;
 

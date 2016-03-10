@@ -7,6 +7,7 @@ import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.Map.TeleportDestinationTile;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
+import com.vengeful.sloths.Utility.Location;
 
 /**
  * Created by alexs on 3/2/2016.
@@ -34,8 +35,8 @@ public class TeleportSenderTile extends Tile {
 
 
         destinationTile.addEntity(entity);
-
         entity.setLocation(destinationTile.getLocation());
+        entity.teleportPet(new Location(destinationMapArea, destinationTile.getLocation()));
         Map.getInstance().setActiveMapArea(destinationMapArea);
     }
 

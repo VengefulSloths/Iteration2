@@ -66,6 +66,7 @@ public class driver {
         Map.getInstance().addEntity(new Coord(2,2), testPiggy);
         testPiggy.accept(TemporaryVOCreationVisitor.getInstance());
         new PiggyControllerManager(Map.getInstance().getActiveMapArea(), testPiggy);
+        Avatar.getInstance().setPet(testPiggy);
 
         testAvatar.setFacingDirection(Direction.SE);
         testAvatar.getStats().subtract(new CurrentHealthAddable(2));

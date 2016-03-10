@@ -22,6 +22,7 @@ import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Models.Observers.EntityObserver;
 import com.vengeful.sloths.Models.Observers.ModelObserver;
+import com.vengeful.sloths.Utility.Location;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -333,6 +334,10 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     @Override
     public void deregisterObserver(ModelObserver modelObserver) {
         this.observers.remove((EntityObserver) modelObserver);
+    }
+
+    public void teleportPet(Location location){
+        //do nothing
     }
 
 }
