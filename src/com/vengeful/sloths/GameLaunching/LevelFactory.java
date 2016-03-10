@@ -8,6 +8,7 @@ import com.vengeful.sloths.Controllers.ControllerManagers.PiggyControllerManager
 import com.vengeful.sloths.Models.Entity.AggressiveNPC;
 import com.vengeful.sloths.Models.Entity.Piggy;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
+import com.vengeful.sloths.Models.Map.AreaEffects.TakeDamageAE;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Map.*;
@@ -129,6 +130,8 @@ public class LevelFactory {
 
         Quest quest1_b = new DoDestroyObstacleQuest(new Coord(2,3));
         Quest quest1_a = new HasItemQuest(quest1_b, "bluePotion");
+
+        area1.getTile(new Coord(3,3)).addAreaEffect(new TakeDamageAE(1));
 
         area1.addTile(new Coord(1,1), s2);
         area1.getTile(new Coord(2,2)).addInteractiveItem(new InteractiveItem(quest1_a, new Coord(2,2)));

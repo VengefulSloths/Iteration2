@@ -83,13 +83,7 @@ public class Tile implements ModelVisitable {
         while(aeIter.hasNext()){
             AreaEffect ae = aeIter.next();
 
-            Iterator<Entity> entityIterator = this.getEntityIterator();
-            EffectCommand effect;
-
-            while (entityIterator.hasNext()) {
-                effect = ae.createEffectCommand(entityIterator.next());
-                effect.execute();
-            }
+            ae.addEntity(entity);
             //System.out.Println("AE: " + ae);
         }
 
@@ -117,6 +111,13 @@ public class Tile implements ModelVisitable {
             this.entities.remove(e);
             if (interactiveItem != null) {
                 interactiveItem.unteract(e);
+            }
+            Iterator<AreaEffect> aeIter = this.getAreaEffectIterator();
+            while(aeIter.hasNext()){
+                AreaEffect ae = aeIter.next();
+
+                ae.removeEntity(e);
+                //System.out.Println("AE: " + ae);
             }
         }
 
