@@ -213,8 +213,7 @@ public class Loader {
                     case "MeleeAttackAbility" :
                         int wind = Integer.valueOf(currAbility.getAttribute("windTicks"));
                         int cool = Integer.valueOf(currAbility.getAttribute("coolTicks"));
-                        MeleeAttackAbility maa = new MeleeAttackAbility(wind,cool);
-                        maa.setEntity(e);
+                        MeleeAttackAbility maa = new MeleeAttackAbility(e,wind,cool);
                         maa.setStats(e.getStats());
                         abm.addAbility(maa);
                         break;

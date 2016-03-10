@@ -24,21 +24,14 @@ public class MeleeAttackAbility extends Ability {
     private Entity entity;
 
     private Stats stats;
-    private int windTicks;
-    private int coolTicks;
 
 
     public MeleeAttackAbility(Entity entity, int windTicks, int coolTicks) {
+        super(windTicks, coolTicks);
         this.entity = entity;
         this.stats = entity.getStats();
-        this.windTicks = windTicks;
-        this.coolTicks = coolTicks;
     }
 
-    public MeleeAttackAbility(int windTicks, int coolTicks){
-        this.windTicks = windTicks;
-        this.coolTicks = coolTicks;
-    }
 
     @Override
     public int execute() {
@@ -74,7 +67,7 @@ public class MeleeAttackAbility extends Ability {
         }
         Iterator<EntityObserver> iter = entity.getObservers().iterator();
         while (iter.hasNext()) {
-            iter.next().alertAttack(dst.getR(), dst.getS(), windTicks* TimeController.MODEL_TICK, coolTicks* TimeController.MODEL_TICK);
+            iter.next().alertAttack(dst.getR(), dst.getS(), getWindTicks()* TimeController.MODEL_TICK, getCoolTicks()* TimeController.MODEL_TICK);
         }
 
 
@@ -86,11 +79,11 @@ public class MeleeAttackAbility extends Ability {
                 } catch (Exception e) {
                         //do nothing its fine
                 }
-            }, windTicks);
+            }, getWindTicks());
 
-        TimeModel.getInstance().registerAlertable(() -> entity.setActive(false), coolTicks);
+        TimeModel.getInstance().registerAlertable(() -> entity.setActive(false), getCoolTicks());
 
-        return coolTicks;
+        return getCoolTicks();
     }
 
 
@@ -102,21 +95,6 @@ public class MeleeAttackAbility extends Ability {
         sv.visitMeleeAttackAbility(this);
     }
 
-    public int getCoolTicks() {
-        return coolTicks;
-    }
-
-    public void setCoolTicks(int coolTicks) {
-        this.coolTicks = coolTicks;
-    }
-
-    public int getWindTicks() {
-        return windTicks;
-    }
-
-    public void setWindTicks(int windTicks) {
-        this.windTicks = windTicks;
-    }
 
     public void setEntity(Entity entity) {
         this.entity = entity;

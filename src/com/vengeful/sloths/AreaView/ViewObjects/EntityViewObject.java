@@ -164,8 +164,9 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
 
 
     @Override
-    public void alertDrop(int x, int y, MapItem itemToDrop) {
-
+    public void alertCast(long windUpTime, long coolDownTime) {
+        System.out.println("EntityVO recieved cast");
+        hands.cast(windUpTime, coolDownTime);
     }
 
     @Override

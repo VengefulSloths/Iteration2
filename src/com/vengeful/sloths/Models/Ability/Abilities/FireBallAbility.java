@@ -2,6 +2,7 @@ package com.vengeful.sloths.Models.Ability.Abilities;
 
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Entity.Entity;
+import com.vengeful.sloths.Models.Observers.EntityObserver;
 import com.vengeful.sloths.Models.RangedEffects.EntityBlockLineEffectGenerator;
 import com.vengeful.sloths.Models.RangedEffects.EntityPassThroughLineEffectGenerator;
 import com.vengeful.sloths.Models.RangedEffects.LinearEffectGenerator;
@@ -9,9 +10,12 @@ import com.vengeful.sloths.Models.RangedEffects.RangedEffectGenerator;
 import com.vengeful.sloths.Models.SaveLoad.SaveVisitor;
 import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
+import com.vengeful.sloths.Models.TimeModel.TimeController;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Utility.Coord;
+
+import java.util.Iterator;
 
 
 /**
@@ -25,8 +29,6 @@ public class FireBallAbility extends Ability{
     private Entity entity;
     private int travelTime;
     private int travelDistance;
-    private int startupTicks;
-    private int coolDownTicks;
 
     private int manaCost = 2;
     /*
@@ -36,11 +38,10 @@ public class FireBallAbility extends Ability{
     */
 
     public FireBallAbility(Entity entity, int travelTime, int travelDistance, int startupTicks, int coolDownTicks){
+        super(startupTicks, coolDownTicks);
         this.entity = entity;
         this.travelTime = travelTime;
         this.travelDistance = travelDistance;
-        this.startupTicks = startupTicks;
-        this.coolDownTicks = coolDownTicks;
     }
 
     @Override
@@ -54,16 +55,21 @@ public class FireBallAbility extends Ability{
         this.entity.setActive(true);
         this.entity.decMana(this.manaCost);
 
+        Iterator<EntityObserver> observers = entity.getObservers().iterator();
+        while (observers.hasNext()) {
+            System.out.println("alerting cast spells");
+            observers.next().alertCast(getWindTicks()* TimeController.MODEL_TICK, getCoolTicks()*TimeController.MODEL_TICK);
+        }
         TimeModel.getInstance().registerAlertable(() ->{
             doAbility();
-        }, startupTicks);
+        }, getWindTicks());
 
         TimeModel.getInstance().registerAlertable(() ->{
             System.out.println("DONE FIRING THE FIRE BALL");
             this.entity.setActive(false);
-        }, coolDownTicks);
+        }, getCoolTicks());
 
-        return coolDownTicks;
+        return getCoolTicks();
     }
 
     @Override
@@ -101,19 +107,19 @@ public class FireBallAbility extends Ability{
     }
 
     public int getStartupTicks() {
-        return startupTicks;
+        return super.getWindTicks();
     }
 
     public void setStartupTicks(int startupTicks) {
-        this.startupTicks = startupTicks;
+        super.setWindTicks(startupTicks);
     }
 
     public int getCoolDownTicks() {
-        return coolDownTicks;
+        return super.getCoolTicks();
     }
 
     public void setCoolDownTicks(int coolDownTicks) {
-        this.coolDownTicks = coolDownTicks;
+        super.setCoolTicks(coolDownTicks);
     }
 
     public int getManaCost() {
