@@ -43,6 +43,13 @@ public class InventoryView extends View implements InventoryObserver {
     public Inventory getInventory() {
         return inventory;
     }
+    public JPanel getItemPanel() {
+        return itemPanel;
+    }
+
+    public JPanel getTitlePanel() {
+        return titlePanel;
+    }
 
     public InventoryView() { }
 
@@ -76,17 +83,18 @@ public class InventoryView extends View implements InventoryObserver {
         this.add(itemPanel, BorderLayout.CENTER);
     }
 
-        /* Initializes the itemList by generating ItemViewObjects from inventoryItems. Maybe make a factory? */
-        public void initWithInventory(Inventory inventory) {
-            for (int i = 0; i < inventory.getCurrentSize(); i++) {
-                //InventoryItem item = inventory.getItem(i);
-                //this.itemList.add(new ItemViewObject(inventory.getItem(i)));
-                //this.itemList.add(new ItemViewObject(inventory.getItem(i)));
-                System.out.println("THIS IS THE ITEM " + inventory.getItem(i).getItemName() );
-                this.getItemList().add(new ItemViewObject(inventory.getItem(i)));
-                //ivoFactory.generateItemViewObject(inventory.getItem(i), this.getWidth(), this.getHeight(), )
-            }
+    /* Initializes the itemList by generating ItemViewObjects from inventoryItems. Maybe make a factory? */
+    public void initWithInventory(Inventory inventory) {
+        for (int i = 0; i < inventory.getCurrentSize(); i++) {
+            //InventoryItem item = inventory.getItem(i);
+            //this.itemList.add(new ItemViewObject(inventory.getItem(i)));
+            //this.itemList.add(new ItemViewObject(inventory.getItem(i)));
+            System.out.println("THIS IS THE ITEM " + inventory.getItem(i).getItemName() );
+            this.getItemList().add(new ItemViewObject(inventory.getItem(i)));
+            //this.getItemList().add(new ItemViewObject(inventory.getItem(i), this.getWidth(),this.getHeight()));
+            //ivoFactory.generateItemViewObject(inventory.getItem(i), this.getWidth(), this.getHeight(), )
         }
+    }
 
 
     /*Removes InventoryItemViewObject from the itemList */
@@ -109,6 +117,7 @@ public class InventoryView extends View implements InventoryObserver {
     public void alertItemAdded(InventoryItem item) {
         //manager.addInventoryItemViewObject(new ItemViewObject(item));
         this.getItemList().add(new ItemViewObject(item));
+        System.out.println("AN ITEM WAS ADDED!!! " + item.getItemName());
     }
 
     @Override
@@ -125,6 +134,6 @@ public class InventoryView extends View implements InventoryObserver {
         */
     }
 
-        }
+}
 
 
