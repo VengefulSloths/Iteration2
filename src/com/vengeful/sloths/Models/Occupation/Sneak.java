@@ -24,7 +24,7 @@ public class Sneak extends Occupation {
 
         this.addSharedAbility(abilityManager, entity);
     }
-
+    public Sneak (){}
     @Override
     public void levelUp(Stats stats) {
         stats.add(new BaseStatsAddable(1, 2, 1, 1, 0));

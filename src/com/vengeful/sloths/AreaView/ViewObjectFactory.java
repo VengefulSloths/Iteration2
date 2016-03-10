@@ -55,6 +55,10 @@ public abstract class ViewObjectFactory {
         return new TakeableViewObject(r, s, cs, ls, resourcePath);
     }
 
+    public InteractiveItemViewObject createInteractiveItemViewObject(int r, int s, String inactivePath, String activePath) {
+        return new InteractiveItemViewObject(r, s, cs, ls, inactivePath, activePath);
+    }
+
     public AttackViewObject createAttackViewObject(int r, int s, String resourcePath, long duration) {
         return new AttackViewObject(r, s, cs, ls, resourcePath, duration);
     }

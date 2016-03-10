@@ -7,8 +7,6 @@ import java.awt.*;
  */
 public class ViewEngine extends JFrame implements Runnable{
 
-
-
     private JPanel target;
 
     private static ViewEngine ourInstance = new ViewEngine();
@@ -69,5 +67,8 @@ public class ViewEngine extends JFrame implements Runnable{
         if (target != null)
             remove(this.target);
     }
+
+
+
 }
 

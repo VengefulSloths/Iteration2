@@ -1,5 +1,7 @@
 package com.vengeful.sloths.Models.SaveLoad;
 
+import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
 import com.vengeful.sloths.Models.Map.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -59,4 +61,5 @@ public class SaveManager {
     public void setMap(Map map) {
         this.map = map;
     }
+
 }

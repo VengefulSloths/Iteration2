@@ -24,6 +24,7 @@ public class ProxyEntityObserver extends ProxyObserver
     public ModelObserver getModelObserver() {
         return target;
     }
+
     @Override
     public void alertDirectionChange(Direction d) {
         if (!deleteFlag) {
@@ -61,11 +62,7 @@ public class ProxyEntityObserver extends ProxyObserver
 
     @Override
     public void alertDrop(int x, int y, MapItem itemToDrop) {
-        //System.out.Println("WHO IS MY TARGET?: " + target);
 
-        if (!deleteFlag) {
-            target.alertDrop(x,y,itemToDrop);
-        }
     }
 
     @Override
@@ -84,9 +81,7 @@ public class ProxyEntityObserver extends ProxyObserver
 
     @Override
     public void alertLevelUp() {
-        if (!deleteFlag) {
-            target.alertLevelUp();
-        }
+
     }
     @Override
     public void alertDeath() {

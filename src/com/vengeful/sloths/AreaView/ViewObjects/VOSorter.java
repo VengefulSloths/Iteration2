@@ -1,6 +1,7 @@
 package com.vengeful.sloths.AreaView.ViewObjects;
 
 import com.vengeful.sloths.AreaView.DecalViewObject;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 
 /**
  * Created by alexs on 2/23/2016.
@@ -65,6 +66,11 @@ public class VOSorter implements VOVisitor {
     @Override
     public void visitHitBox(HitBoxViewObject h) {
         zLevel = 1200;
+    }
+
+    public void visitInteractiveItem(InteractiveItemViewObject i) {
+        zLevel = 350;
+
     }
 
     @Override

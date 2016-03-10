@@ -16,6 +16,7 @@ import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Knuckle;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 import com.vengeful.sloths.Models.Map.TeleportSenderTile;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
@@ -81,6 +82,7 @@ public interface ModelVisitor {
     void visitTakeableItem(TakeableItem takeableItem);
     void visitObstacle(Obstacle obstacle);
     void visitOneShotItem(OneShotItem osi);
+    void visitInteractiveItem(InteractiveItem item);
 
     void visitGrass(Grass grass);
     void visitMountain(Mountain mountain);

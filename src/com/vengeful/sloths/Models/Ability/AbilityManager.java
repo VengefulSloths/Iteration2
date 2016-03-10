@@ -82,4 +82,17 @@ public class AbilityManager implements ModelVisitable{
     public void setEntity(Entity entity) {
         this.entity = entity;
     }
+
+    public Ability getAbility(String abilityName){
+        for(Ability ab : abilities){
+            if(ab.toString().equals(abilityName)){
+                return ab;
+            }
+        }
+        //didnt find the ability
+        return null;
+    }
+    public Ability[] getActiveAbilities(){
+        return activeAbilities;
+    }
 }

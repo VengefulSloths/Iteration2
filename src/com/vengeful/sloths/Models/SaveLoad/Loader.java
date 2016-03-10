@@ -3,7 +3,12 @@ package com.vengeful.sloths.Models.SaveLoad;
 import com.sun.org.apache.xalan.internal.xsltc.compiler.util.InternalError;
 import com.sun.org.apache.xalan.internal.xsltc.compiler.util.NodeType;
 import com.sun.org.apache.xml.internal.serializer.ElemDesc;
-import com.vengeful.sloths.Models.Entity.Avatar;
+import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
+import com.vengeful.sloths.Models.Ability.Ability;
+import com.vengeful.sloths.Models.Ability.AbilityManager;
+import com.vengeful.sloths.Models.Entity.*;
+import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
@@ -12,6 +17,12 @@ import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Knuckle;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
 import com.vengeful.sloths.Models.Map.MapArea;
+import com.vengeful.sloths.Models.Occupation.Occupation;
+import com.vengeful.sloths.Models.Occupation.Smasher;
+import com.vengeful.sloths.Models.Occupation.Sneak;
+import com.vengeful.sloths.Models.Occupation.Summoner;
+import com.vengeful.sloths.Models.Skills.Skill;
+import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.GenericStatsAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
@@ -142,16 +153,24 @@ public class Loader {
                     a.setLocation(c);
                     break;
                 case "Sneak" :
+                    Sneak sn = new Sneak();
+                    a.setOccupation(sn);
                     break;
                 case "Smasher" :
+                    Smasher sm = new Smasher();
+                    a.setOccupation(sm);
                     break;
                 case "Summoner" :
+                    Summoner sr = new Summoner();
+                    a.setOccupation(sr);
                     break;
                 case "Stats" :
                     Stats s = processStats(avatarObject);
                     a.setStats(s);
                     break;
                 case "AbilityManager" :
+                    AbilityManager abm = processAbilityManager(avatarObject,a);
+                    a.setAbilityManager(abm);
                     break;
                 case "BuffManager" :
                     break;
@@ -160,11 +179,13 @@ public class Loader {
                     a.setInventory(inv);
                     break;
                 case "Equipped" :
-                    Equipped eq = processEquipped(avatarObject);
+                    Equipped eq = processEquipped(avatarObject,a);
                     a.setEquipped(eq);
-                    eq.init(a);
+//                    eq.init(a);
                     break;
                 case "SkillManager" :
+                    SkillManager sk = processSkillManager(avatarObject);
+                    a.setSkillManager(sk);
                     break;
                 default:
                     System.out.println(objectName + "is not a supported avatar object");
@@ -172,9 +193,72 @@ public class Loader {
         }
         return a;
     }
+    //untested
+    private AbilityManager processAbilityManager(Node avatarObject, Entity e) {
+        AbilityManager abm = new AbilityManager(e);
+        if(avatarObject.getNodeType() == Node.ELEMENT_NODE){
+            NodeList abilityContainerNodes = avatarObject.getChildNodes();
+            Element abilitiesElement = (Element) abilityContainerNodes.item(0);
+            NodeList allAbilityNodes = abilitiesElement.getChildNodes();
+            for(int i = 0; i != allAbilityNodes.getLength(); ++i){
+                Element currAbility = (Element)allAbilityNodes.item(i);
+                switch (currAbility.getNodeName()){
+                    case "BindWoundsAbility" :
+                        BindWoundsAbility bwa = new BindWoundsAbility();
+                        bwa.setEntity(e);
+                        bwa.setSkillManager(e.getSkillManager());
+                        abm.addAbility(bwa);
+                        break;
+                    case "MeleeAttackAbility" :
+                        int wind = Integer.valueOf(currAbility.getAttribute("windTicks"));
+                        int cool = Integer.valueOf(currAbility.getAttribute("coolTicks"));
+                        MeleeAttackAbility maa = new MeleeAttackAbility(wind,cool);
+                        maa.setEntity(e);
+                        maa.setStats(e.getStats());
+                        abm.addAbility(maa);
+                        break;
+                    default:
+                        System.out.println(currAbility.getNodeName() + "isn't a supported ability to load");
+                }
+            }
+            Element activeAbilitiesElement = (Element) abilityContainerNodes.item(1);
+            NodeList activeAbilityNodes = activeAbilitiesElement.getChildNodes();
+            for(int i = 0; i != activeAbilityNodes.getLength(); ++i){
+                Element currAbility = (Element)activeAbilityNodes.item(i);
+                Ability ab = abm.getAbility(currAbility.getNodeName());
+                if(ab != null){
+                    abm.equipAbility(ab, i);
+                }
+            }
+        }
+        return abm;
+    }
 
-    private Equipped processEquipped(Node avatarObject) {
+    private SkillManager processSkillManager(Node avatarObject) {
+        SkillManager sk = new SkillManager();
+        if(avatarObject.getNodeType() == Node.ELEMENT_NODE) {
+            Element skElement = (Element) avatarObject;
+            sk.setAvailableSkillPoint(Integer.valueOf(skElement.getAttribute("availableSkillPoints")));
+            NodeList skillNodes = skElement.getChildNodes();
+            if(skillNodes.getLength() == 0){
+                System.out.println("no skills in skill manager");
+            }
+            for(int i = 0; i != skillNodes.getLength(); ++i){
+                if(skillNodes.item(i).getNodeType() == Node.ELEMENT_NODE){
+                    Skill skill = new Skill();
+                    Element skillElement = (Element) skillNodes.item(i);
+                    skill.setName(skillElement.getAttribute("name"));
+                    skill.setLevel(Integer.valueOf(skillElement.getAttribute("level")));
+                    sk.addSkill(skill);
+                }
+            }
+        }
+        return sk;
+    }
+
+    private Equipped processEquipped(Node avatarObject, Entity e) {
         Equipped eq = new Equipped();
+        eq.init(e);
         if(avatarObject.getNodeType() == Node.ELEMENT_NODE) {
             Element eqElement = (Element) avatarObject;
             if(avatarObject.hasChildNodes()){
@@ -190,8 +274,9 @@ public class Loader {
                                 eq.addHat(h);
                                 break;
                             case "Knuckle" :
-                                Knuckle k = processKnuckle(eqItemElement);
-                                eq.addWeapon(k);
+                                //do nothing for knuckle equipped makes its own on creation
+//                                Knuckle k = processKnuckle(eqItemElement);
+//                                eq.addWeapon(k);
                                 break;
                             case "OneHandedWeapon" :
                                 OneHandedWeapon ohw = processOneHandedWeapon(eqItemElement);
@@ -315,7 +400,7 @@ public class Loader {
             Element statsAddElement = (Element) statsAddNode;
             sa.setAgility(Integer.valueOf(statsAddElement.getAttribute("agility")));
             sa.setBonusHealth(Integer.valueOf(statsAddElement.getAttribute("bonusHealth")));
-            sa.setBonusMana(Integer.valueOf(statsAddElement.getAttribute("bounusMana")));
+            sa.setBonusMana(Integer.valueOf(statsAddElement.getAttribute("bonusMana")));
             sa.setCurrentExperience(Integer.valueOf(statsAddElement.getAttribute("currentExperience")));
             sa.setCurrentHealth(Integer.valueOf(statsAddElement.getAttribute("currentHealth")));
             sa.setCurrentMana(Integer.valueOf(statsAddElement.getAttribute("currentMana")));

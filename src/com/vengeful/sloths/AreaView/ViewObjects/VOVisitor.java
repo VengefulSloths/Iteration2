@@ -18,4 +18,6 @@ public interface VOVisitor {
     void visitAttack(AttackViewObject a);
     void visitDamageNumber(DamageNumberViewObject d);
     void visitHitBox(HitBoxViewObject h);
+    void visitInteractiveItem(InteractiveItemViewObject i);
+
 }

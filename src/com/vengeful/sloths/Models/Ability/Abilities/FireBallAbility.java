@@ -65,6 +65,11 @@ public class FireBallAbility extends Ability{
         return coolDownTicks;
     }
 
+    @Override
+    public String toString() {
+        return "FireBallAbility";
+    }
+
     private void doAbility(){
         //TODO: better formula.
         int damage = entity.getStats().getOffensiveRating() * (1 + entity.getSkillManager().getBaneLevel());

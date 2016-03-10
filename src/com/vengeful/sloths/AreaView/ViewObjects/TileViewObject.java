@@ -102,9 +102,6 @@ public class TileViewObject extends ViewObject implements DestroyVOObserver{
 
 
     public void addChild(ViewObject child) {
-
-        System.out.println("adding " +child);
-
         children.add(child);
         children.sort(new Comparator<ViewObject>() {
             VOSorter sorter = new VOSorter();
@@ -121,9 +118,6 @@ public class TileViewObject extends ViewObject implements DestroyVOObserver{
     }
 
     public void removeChild(ViewObject child) {
-
-        System.out.println("removing " + child);
-
         if (children.contains(child)) {
             children.remove(child);
         }
@@ -138,7 +132,6 @@ public class TileViewObject extends ViewObject implements DestroyVOObserver{
     }
 
     public void paintComponent(Graphics2D g) {
-
         if (visibility == Visibility.UNKNOWN) {
             g.drawImage(unknownImage.getImage(),
                     this.getXPixels() + unknownImage.getXOffset() + getLocationXOffset(),
@@ -151,8 +144,16 @@ public class TileViewObject extends ViewObject implements DestroyVOObserver{
                    this);
         } else {
 
-            for (ViewObject child: children) {
-                child.paintComponent(g);
+
+            for (int i =0; i<children.size(); i++) {
+                try {
+                    if ((children.get(i)) != null) {
+                        children.get(i).paintComponent(g);
+
+                    }
+                } catch (Exception e) {
+                    //do nothing its ok
+                }
             }
             g.drawImage(unknownImage.getImage(),
                     this.getXPixels() + unknownImage.getXOffset() + getLocationXOffset(),

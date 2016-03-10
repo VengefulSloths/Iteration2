@@ -1,5 +1,9 @@
 package com.vengeful.sloths.Models.RangedEffects.HitBox;
 
+
+//import apple.laf.JRSUIConstants;
+import com.vengeful.sloths.Models.Entity.Entity;
+import com.vengeful.sloths.Models.EntityMapInteractionCommands.CanMoveVisitor;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Observers.HitBoxObserver;
 import com.vengeful.sloths.Models.RangedEffects.RangedEffectGenerator;

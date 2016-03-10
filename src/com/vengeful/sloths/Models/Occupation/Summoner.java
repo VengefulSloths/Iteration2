@@ -24,7 +24,7 @@ public class Summoner extends Occupation {
 
         this.addSharedAbility(abilityManager, entity);
     }
-
+    public Summoner(){}
     @Override
     public void levelUp(Stats stats) {
         stats.add(new BaseStatsAddable(1, 1, 2, 1, 0));

@@ -155,4 +155,20 @@ public class Equipped implements ViewObservable, ModelVisitable{
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitEquipped(this);
     }
+
+    public SkillManager getSkills() {
+        return skills;
+    }
+
+    public void setSkills(SkillManager skills) {
+        this.skills = skills;
+    }
+
+    public AbilityManager getAbilityManager() {
+        return abilityManager;
+    }
+
+    public void setAbilityManager(AbilityManager abilityManager) {
+        this.abilityManager = abilityManager;
+    }
 }
