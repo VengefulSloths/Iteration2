@@ -20,6 +20,10 @@ public class AggressiveNPCControllerManager extends NPCControllerManager{
 
     public AggressiveNPCControllerManager(MapArea mapArea, Entity entity){
         super(mapArea, entity);
+        this.setSearchingController(new AggressiveNPCSearchingController(mapArea, entity));
+        this.setActionController(new AggressiveNPCActionController(entity));
+        this.setMapArea(mapArea);
+
     }
 
     @Override

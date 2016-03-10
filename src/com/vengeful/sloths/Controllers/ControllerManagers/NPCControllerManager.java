@@ -28,8 +28,6 @@ public abstract class NPCControllerManager implements Tickable{
     public NPCControllerManager(){};
     public NPCControllerManager(MapArea mapArea, Entity entity){
         this.setEntity(entity);
-        this.setSearchingController(new PiggySearchingController(mapArea, entity));
-        this.setActionController(new PiggyActionController(entity));
         this.setMovementController(new LandMovementController());
         this.setMapArea(mapArea);
         TimeModel.getInstance().registerTickable(this);
@@ -53,8 +51,9 @@ public abstract class NPCControllerManager implements Tickable{
 
     public void setMapArea(MapArea mapArea) {
         this.mapArea = mapArea;
-
-        this.searchingController.setMapArea(mapArea);
+        if(searchingController != null) {
+            this.searchingController.setMapArea(mapArea);
+        }
     }
 
 

@@ -71,11 +71,11 @@ public class driver {
         testAvatar.setFacingDirection(Direction.SE);
         testAvatar.getStats().subtract(new CurrentHealthAddable(2));
         //stuff to test enemy controllers
-//        AggressiveNPC testEnemy =  new AggressiveNPC("xXOG_SwaG_LorD_BlazE_MasteR_420_Xx", new Stats(new BaseStatsAddable(5,5,5,5,30)));
-//        testEnemy.setTimeToRespawn(150);
-//        Map.getInstance().addEntity(new Coord(3, 3), testEnemy);
-//        testEnemy.accept(TemporaryVOCreationVisitor.getInstance());
-//        new AggressiveNPCControllerManager(Map.getInstance().getActiveMapArea(), testEnemy);
+        AggressiveNPC testEnemy =  new AggressiveNPC("xXOG_SwaG_LorD_BlazE_MasteR_420_Xx", new Stats(new BaseStatsAddable(5,5,5,5,30)));
+        testEnemy.setTimeToRespawn(150);
+        Map.getInstance().addEntity(new Coord(3, 3), testEnemy);
+        testEnemy.accept(TemporaryVOCreationVisitor.getInstance());
+        new AggressiveNPCControllerManager(Map.getInstance().getActiveMapArea(), testEnemy);
 
        //dd testEnemy.getStats().subtract(new CurrentHealthAddable(1));
 //        SaveManager sm = new SaveManager(Map.getInstance());

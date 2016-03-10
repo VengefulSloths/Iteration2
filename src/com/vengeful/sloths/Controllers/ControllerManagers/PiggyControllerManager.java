@@ -18,7 +18,11 @@ import com.vengeful.sloths.Models.TimeModel.TimeModel;
 public class PiggyControllerManager extends NPCControllerManager {
 
     public PiggyControllerManager(MapArea mapArea, Entity entity){
+
         super(mapArea, entity);
+        this.setSearchingController(new PiggySearchingController(mapArea, entity));
+        this.setActionController(new PiggyActionController(entity));
+        this.setMapArea(mapArea);
     }
 
 
