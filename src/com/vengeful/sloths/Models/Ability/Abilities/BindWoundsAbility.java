@@ -16,19 +16,17 @@ public class BindWoundsAbility extends Ability {
     Entity entity;
     SkillManager skillManager;
 
-    private int startupTicks; //not sure if this is needed
-    private int cooldownTicks;
 
     private int manaCost = 1;
 
     public BindWoundsAbility(Entity entity, SkillManager skillManager, int startupTicks, int cooldownTicks){
+        super(startupTicks, cooldownTicks);
         this.entity = entity;
         this.skillManager = skillManager; //to avoid lod
-        this.startupTicks = startupTicks;
-        this.cooldownTicks = cooldownTicks;
+
     }
 
-    public BindWoundsAbility(){}
+
 
     @Override
     public int execute() {
@@ -44,13 +42,13 @@ public class BindWoundsAbility extends Ability {
 
         TimeModel.getInstance().registerAlertable(() -> {
             this.doHeal();
-        }, startupTicks);
+        }, getWindTicks());
 
 
-        TimeModel.getInstance().registerAlertable(() -> entity.setActive(false), cooldownTicks);
+        TimeModel.getInstance().registerAlertable(() -> entity.setActive(false), getCoolTicks());
 
         //This is however long it will take to bind wounds
-        return cooldownTicks;
+        return getCoolTicks();
     }
 
     private void doHeal(){

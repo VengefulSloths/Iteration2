@@ -9,6 +9,14 @@ import com.vengeful.sloths.Models.ModelVisitor;
  */
 public abstract class Ability implements ModelVisitable {
 
+    private int windTicks;
+    private int coolTicks;
+
+    public Ability(int windTicks, int coolTicks) {
+        this.windTicks = windTicks;
+        this.coolTicks = coolTicks;
+    }
+
     public abstract int execute();
 
     protected boolean shouldDoAbility(int skillLevel, int maxSkillLevel){
@@ -24,6 +32,13 @@ public abstract class Ability implements ModelVisitable {
         return false;
     }
 
+    public int getWindTicks() {
+        return  windTicks;
+    }
+
+    public int getCoolTicks() {
+        return coolTicks;
+    }
 
 
     //TODO: put this at a lower level for saving
