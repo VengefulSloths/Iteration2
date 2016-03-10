@@ -13,6 +13,7 @@ import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Map.*;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.DoDestroyObstacleQuest;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.HasItemQuest;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.Quest;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
 import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
@@ -125,10 +126,12 @@ public class LevelFactory {
         area2.addTile(d2.getLocation(), d2);
 
         area1.getTile(new Coord(2,3)).addObstacle(new Obstacle(new Coord(2,3)));
-        Quest quest1 = new DoDestroyObstacleQuest(new Coord(2,3));
+
+        Quest quest1_b = new DoDestroyObstacleQuest(new Coord(2,3));
+        Quest quest1_a = new HasItemQuest(quest1_b, "bluePotion");
 
         area1.addTile(new Coord(1,1), s2);
-        area1.getTile(new Coord(2,2)).addInteractiveItem(new InteractiveItem(quest1, new Coord(2,2)));
+        area1.getTile(new Coord(2,2)).addInteractiveItem(new InteractiveItem(quest1_a, new Coord(2,2)));
 
 
         MapArea[] areas = new MapArea[2];
