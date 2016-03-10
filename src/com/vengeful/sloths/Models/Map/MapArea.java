@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Models.Map;
 
+import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.SaveLoad.SaveVisitor;
@@ -120,6 +121,10 @@ public class MapArea implements ModelVisitable{
     public void setTiles(Tile[][] tiles){
         this.tiles = tiles;
 
+    }
+    public void addEntity(Entity entity, Coord coord){
+        getTile(coord).addEntity(entity);
+        entity.setLocation(coord);
     }
 
     public int getMaxR() {

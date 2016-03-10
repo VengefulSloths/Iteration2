@@ -15,6 +15,7 @@ public class AggressiveNPC extends NPC{
     }
 
     public void accept(ModelVisitor modelVisitor) {
+        System.out.println("fdskladskjfhsdjkfsdahfkjdshfkjsdhfjksdahfkjsdhfsdjkfhsdjkfhdsjkfhdskjfds");
         modelVisitor.visitAggressiveNPC(this);
     }
 

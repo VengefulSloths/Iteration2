@@ -3,6 +3,7 @@ package com.vengeful.sloths.Models.EntityMapInteractionCommands;
 import com.vengeful.sloths.AreaView.TemporaryVOCreationVisitor;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Map.Map;
+import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Observers.EntityObserver;
 import com.vengeful.sloths.Models.TimeModel.Alertable;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
@@ -15,14 +16,16 @@ import java.util.Iterator;
  * Created by John on 3/8/2016.
  */
 public class EntityRespawnCommand implements Alertable {
-    Entity entity;
-    Coord respawnCoord;
-    int timeToRespawn;
+    private Entity entity;
+    private Coord respawnCoord;
+    private int timeToRespawn;
+    private MapArea currentMapArea;
 
     public EntityRespawnCommand(Entity entity, Coord respawnCoord, int timeToRespawn){
         this.entity = entity;
         this.respawnCoord = respawnCoord;
         this.timeToRespawn = timeToRespawn;
+        this.currentMapArea = Map.getInstance().getActiveMapArea();
 
         TimeModel.getInstance().registerAlertable(this, timeToRespawn);
     }
@@ -47,8 +50,14 @@ public class EntityRespawnCommand implements Alertable {
         entity.setActive(false); // Even more back to life
 
         Coord resCoord = HexMath.getClosestMovableTile(respawnCoord); // get closest tile to respawnCoord (may be respawnCoord) to respawn at
-        Map.getInstance().addEntity(resCoord, entity);
+        System.out.println("this is the respawn coord : " + respawnCoord);
+        System.out.println("this is rescoord" + resCoord);
+        currentMapArea.addEntity(entity, resCoord);
 
-        entity.accept(TemporaryVOCreationVisitor.getInstance());
+        //this if makes it so that it wont make the view on the wrong map
+        //but it never makes the right view when you go back... yet
+        if (Map.getInstance().getActiveMapArea().equals(currentMapArea)) {
+            entity.accept(TemporaryVOCreationVisitor.getInstance());
+        }
     }
 }

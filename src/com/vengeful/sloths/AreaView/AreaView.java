@@ -13,6 +13,7 @@ import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteractionFactory;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
+import com.vengeful.sloths.Models.Map.Tile;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Sound.SoundEffect;
 import com.vengeful.sloths.Utility.Coord;
@@ -42,7 +43,17 @@ public class AreaView extends JPanel implements MapObserver{
 
     private void setActiveCamera(CameraView cameraView) {
         TemporaryVOCreationVisitor.getInstance().setActiveCameraView(cameraView);
-        TemporaryVOCreationVisitor.getInstance().visitAvatar(Avatar.getInstance());
+        //TemporaryVOCreationVisitor.getInstance().visitAvatar(Avatar.getInstance());
+        MapArea test = Map.getInstance().getActiveMapArea();
+        for(Tile[] tileArr : Map.getInstance().getActiveMapArea().getTiles()){
+            for(Tile tile : tileArr){
+                if(tile != null) {
+                    for (Entity entity : tile.getEntities()) {
+                        entity.accept(TemporaryVOCreationVisitor.getInstance());
+                    }
+                }
+            }
+        }
         this.activeCamera = cameraView;
     }
 

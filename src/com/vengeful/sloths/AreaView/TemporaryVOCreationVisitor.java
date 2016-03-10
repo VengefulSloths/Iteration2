@@ -101,12 +101,9 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     private ProxyEntityObserver peo;
     @Override
     public void visitAvatar(Avatar avatar) {
-
-        System.out.println("FUCK");
         if (peo != null) {
             peo.deregister();
         }
-        System.out.println("in view the avatrs location is:" + avatar.getLocation());
         this.avo = factory.createAvatarViewObject(avatar.getLocation().getR(),
                 avatar.getLocation().getS(),
                 "resources/entities/smasher/");
