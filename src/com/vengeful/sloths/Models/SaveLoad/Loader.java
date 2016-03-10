@@ -204,18 +204,20 @@ public class Loader {
                 Element currAbility = (Element)allAbilityNodes.item(i);
                 switch (currAbility.getNodeName()){
                     case "BindWoundsAbility" :
-                        BindWoundsAbility bwa = new BindWoundsAbility();
-                        bwa.setEntity(e);
-                        bwa.setSkillManager(e.getSkillManager());
-                        abm.addAbility(bwa);
+
+                        //Sorry Ian
+//                        BindWoundsAbility bwa = new BindWoundsAbility();
+//                        bwa.setEntity(e);
+//                        bwa.setSkillManager(e.getSkillManager());
+//                        abm.addAbility(bwa);
                         break;
                     case "MeleeAttackAbility" :
-                        int wind = Integer.valueOf(currAbility.getAttribute("windTicks"));
-                        int cool = Integer.valueOf(currAbility.getAttribute("coolTicks"));
-                        MeleeAttackAbility maa = new MeleeAttackAbility(wind,cool);
-                        maa.setEntity(e);
-                        maa.setStats(e.getStats());
-                        abm.addAbility(maa);
+//                        int wind = Integer.valueOf(currAbility.getAttribute("windTicks"));
+//                        int cool = Integer.valueOf(currAbility.getAttribute("coolTicks"));
+//                        MeleeAttackAbility maa = new MeleeAttackAbility(wind,cool);
+//                        maa.setEntity(e);
+//                        maa.setStats(e.getStats());
+//                        abm.addAbility(maa);
                         break;
                     default:
                         System.out.println(currAbility.getNodeName() + "isn't a supported ability to load");

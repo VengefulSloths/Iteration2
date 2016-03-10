@@ -16,5 +16,6 @@ public interface HandState {
     void changeDirection(Direction d);
     void alertMove(int r, int s, long duration);
     void attack(int r, int s, long windUpTime, long coolDownTime);
+    void cast(long windUpTime, long coolDownTime);
     void addWeapon(WeaponImageContainer weapon);
 }
