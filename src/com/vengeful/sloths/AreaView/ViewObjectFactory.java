@@ -4,6 +4,7 @@ import com.vengeful.sloths.AreaView.ViewObjects.*;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.NullTile;
+import com.vengeful.sloths.Models.RangedEffects.HitBox.HitBox;
 import com.vengeful.sloths.Utility.Direction;
 
 /**
@@ -54,6 +55,10 @@ public abstract class ViewObjectFactory {
         return new TakeableViewObject(r, s, cs, ls, resourcePath);
     }
 
+    public InteractiveItemViewObject createInteractiveItemViewObject(int r, int s, String inactivePath, String activePath) {
+        return new InteractiveItemViewObject(r, s, cs, ls, inactivePath, activePath);
+    }
+
     public AttackViewObject createAttackViewObject(int r, int s, String resourcePath, long duration) {
         return new AttackViewObject(r, s, cs, ls, resourcePath, duration);
     }
@@ -75,6 +80,10 @@ public abstract class ViewObjectFactory {
 
     public CoordinateStrategy getCoordinateStrategy() {
         return cs;
+    }
+
+    public HitBoxViewObject createHitBoxViewObject(int r, int s, String resourcePath, Direction d){
+        return new HitBoxViewObject(r, s, cs, ls, resourcePath, d);
     }
 
 }

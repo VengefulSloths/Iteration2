@@ -24,8 +24,8 @@ public class AbilityFactory {
         return new MeleeAttackAbility(entity, windTime, coolTime);
     }
 
-    public BindWoundsAbility createBindWoundsAbility(Entity entity, SkillManager skillManager){
-        return new BindWoundsAbility(entity, skillManager);
+    public BindWoundsAbility createBindWoundsAbility(Entity entity, SkillManager skillManager, int startupTime, int cooldownTime){
+        return new BindWoundsAbility(entity, skillManager, startupTime, cooldownTime);
     }
 
 

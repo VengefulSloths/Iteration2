@@ -26,7 +26,7 @@ public class EntityDropCommand {
 
     public void execute(){
         TakeableItem takeableRep = InventoryTakeableItemFactory.getInstance().createTakeableRep(itemToDrop, dropLoc);
-        this.map.getActiveMapArea().getTile(this.dropLoc).addMapItem(takeableRep);
+        this.map.getActiveMapArea().getTile(this.dropLoc).addTakeableItem(takeableRep);
         entity.getInventory().removeItem(itemToDrop);
 
         //TODO: debug line, remove

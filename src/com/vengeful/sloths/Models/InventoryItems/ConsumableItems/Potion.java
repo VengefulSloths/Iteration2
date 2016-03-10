@@ -14,6 +14,8 @@ public class Potion extends ConsumableItems implements ModelVisitable{
         super(name, statsAddable);
 
     }
+    public Potion(){
+    }
 
     @Override
     public void use(Stats stats) {

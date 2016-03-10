@@ -6,6 +6,8 @@ import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteract
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Weapon;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.ModelVisitor;
+import com.vengeful.sloths.Models.SaveLoad.SaveManager;
+import com.vengeful.sloths.Models.SaveLoad.SaveVisitor;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Models.TimeModel.Alertable;
 import com.vengeful.sloths.Models.TimeModel.TimeController;
@@ -29,6 +31,11 @@ public class MeleeAttackAbility extends Ability {
     public MeleeAttackAbility(Entity entity, int windTicks, int coolTicks) {
         this.entity = entity;
         this.stats = entity.getStats();
+        this.windTicks = windTicks;
+        this.coolTicks = coolTicks;
+    }
+
+    public MeleeAttackAbility(int windTicks, int coolTicks){
         this.windTicks = windTicks;
         this.coolTicks = coolTicks;
     }
@@ -71,7 +78,6 @@ public class MeleeAttackAbility extends Ability {
         }
 
 
-
             TimeModel.getInstance().registerAlertable(() -> {
                 try {
                     for (Entity entity : Map.getInstance().getTile(dst).getEntities()) {
@@ -88,9 +94,43 @@ public class MeleeAttackAbility extends Ability {
     }
 
 
-
-    @Override
-    public void accept(ModelVisitor modelVisitor) {
-        super.accept(modelVisitor);
+//    @Override
+//    public void accept(ModelVisitor modelVisitor) {
+//        super.accept(modelVisitor);
+//    }
+    public void accept(SaveVisitor sv){
+        sv.visitMeleeAttackAbility(this);
     }
+
+    public int getCoolTicks() {
+        return coolTicks;
+    }
+
+    public void setCoolTicks(int coolTicks) {
+        this.coolTicks = coolTicks;
+    }
+
+    public int getWindTicks() {
+        return windTicks;
+    }
+
+    public void setWindTicks(int windTicks) {
+        this.windTicks = windTicks;
+    }
+
+    public void setEntity(Entity entity) {
+        this.entity = entity;
+    }
+
+    public void setStats(Stats stats) {
+        this.stats = stats;
+    }
+
+    public String toString() {
+        return "MeleeAttackAbility";
+    }
+//    @Override
+//    public void accept(ModelVisitor modelVisitor) {
+//        super.accept(modelVisitor);
+//    }
 }

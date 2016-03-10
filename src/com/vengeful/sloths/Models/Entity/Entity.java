@@ -85,15 +85,16 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         this.stats = stats;
         stats.setEntity(this);
         this.skillManager = new SkillManager();
-        this.abilityManager = new AbilityManager();
+        this.abilityManager = new AbilityManager(this);
         this.inventory = new Inventory();
         this.equipped = new Equipped(this);
         this.buffManager = new BuffManager(this);
-        this.occupation = new DummyOccupation(stats, skillManager, abilityManager, this);
         this.movementValidator = new DefaultCanMoveVisitor();
 
         //this.location = new Coord(1,2);
         this.facingDirection = Direction.N;
+
+        this.occupation = new DummyOccupation(stats, skillManager, abilityManager, this);
     }
 
     public void doAbility(int index){
@@ -134,7 +135,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     public final int attack(Direction dir){
         if(!isActive) {
             this.setFacingDirection(dir);
-            abilityManager.getWeaponAbility().execute();
+            return abilityManager.getWeaponAbility().execute();
         }
         return 0;
     }
@@ -191,6 +192,14 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
 
     public void gainHealth(int health) {
         this.getStats().add(new HealthManaExperienceAddable(health, 0, 0, 0, 0));
+    }
+
+    public void decMana(int mana){
+        this.getStats().subtract(new HealthManaExperienceAddable(0,0,mana,0,0));
+    }
+
+    public void gainMana(int mana){
+        this.getStats().add(new HealthManaExperienceAddable(0,0,mana,0,0));
     }
 
     public void pickup(TakeableItem item){
@@ -255,7 +264,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         return this.inventory;
     }
 
-    protected void setInventory(Inventory inventory){
+    public void setInventory(Inventory inventory){
         this.inventory = inventory;
     }
 
@@ -263,7 +272,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         return this.equipped;
     }
 
-    protected void setEquipped(Equipped equipped){
+    public void setEquipped(Equipped equipped){
         this.equipped = equipped;
     }
 
@@ -271,7 +280,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         return this.abilityManager;
     }
 
-    protected void setAbilityManager(AbilityManager abilityManager){
+    public void setAbilityManager(AbilityManager abilityManager){
         this.abilityManager = abilityManager;
     }
 
@@ -279,7 +288,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         return this.buffManager;
     }
 
-    protected void setBuffManager(BuffManager buffManager){
+    public void setBuffManager(BuffManager buffManager){
         this.buffManager = buffManager;
     }
 
@@ -287,7 +296,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         return this.occupation;
     }
 
-    protected void setOccupation(Occupation occupation){
+    public void setOccupation(Occupation occupation){
         this.occupation = occupation;
     }
 

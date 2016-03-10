@@ -15,6 +15,7 @@ import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
 import com.vengeful.sloths.Models.Map.*;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
 import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
@@ -26,6 +27,9 @@ import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Smasher;
 import com.vengeful.sloths.Models.Occupation.Sneak;
 import com.vengeful.sloths.Models.Occupation.Summoner;
+import com.vengeful.sloths.Models.RangedEffects.HitBox.HitBox;
+import com.vengeful.sloths.Models.Skills.Skill;
+import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
 
@@ -102,6 +106,21 @@ public class DefaultCanMoveVisitor extends CanMoveVisitor {
         //System.out.println("cant move because Water");
 
         setCanMove(false);
+
+    }
+
+    @Override
+    public void visitSkillManager(SkillManager skillManager) {
+
+    }
+
+    @Override
+    public void visitSkill(Skill skill) {
+
+    }
+
+    @Override
+    public void visitHitBox(HitBox hitBox) {
 
     }
 
@@ -239,6 +258,11 @@ public class DefaultCanMoveVisitor extends CanMoveVisitor {
 
     @Override
     public void visitOneShotItem(OneShotItem osi) {
+
+    }
+
+    @Override
+    public void visitInteractiveItem(InteractiveItem item) {
 
     }
 

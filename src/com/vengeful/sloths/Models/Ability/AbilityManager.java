@@ -20,13 +20,13 @@ public class AbilityManager implements ModelVisitable{
     private Ability[] activeAbilities;
     private Ability weaponAbility; //set when weapon is equipped.
     //TODO: give it a default: punchAbility
+    private Entity entity;
 
 
-
-
-    public AbilityManager(){
+    public AbilityManager(Entity entity){
         this.abilities = new ArrayList<>();
         this.activeAbilities = new Ability[4]; //3 for occupation specific, 1 for common ability
+        this.entity = entity;
     }
 
     public void addAbility(Ability ability){
@@ -73,5 +73,26 @@ public class AbilityManager implements ModelVisitable{
             ++i;
         }
         return abArray;
+    }
+
+    public Entity getEntity() {
+        return entity;
+    }
+
+    public void setEntity(Entity entity) {
+        this.entity = entity;
+    }
+
+    public Ability getAbility(String abilityName){
+        for(Ability ab : abilities){
+            if(ab.toString().equals(abilityName)){
+                return ab;
+            }
+        }
+        //didnt find the ability
+        return null;
+    }
+    public Ability[] getActiveAbilities(){
+        return activeAbilities;
     }
 }

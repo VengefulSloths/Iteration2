@@ -13,6 +13,6 @@ public interface LaunchGameHelper {
     Coord spawnPoint();
     CameraViewManager createCameras();
     Avatar createAvatar();
-
+    void populateMap();
 
 }

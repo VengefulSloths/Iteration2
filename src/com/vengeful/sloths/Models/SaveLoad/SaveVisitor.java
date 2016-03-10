@@ -1,5 +1,7 @@
 package com.vengeful.sloths.Models.SaveLoad;
 
+import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
@@ -17,6 +19,7 @@ import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
 import com.vengeful.sloths.Models.InventoryTakeableItemFactory;
 import com.vengeful.sloths.Models.Map.*;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
 import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
@@ -26,6 +29,9 @@ import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Occupation.*;
+import com.vengeful.sloths.Models.RangedEffects.HitBox.HitBox;
+import com.vengeful.sloths.Models.Skills.Skill;
+import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Coord;
@@ -55,6 +61,8 @@ import java.util.Stack;
  * these parameters are for properly formatting the save file
  */
 public class SaveVisitor implements ModelVisitor {
+
+
     /**
      * Private variables
      * These don't have getter/setters, will only be changed via the constructor or in method calls
@@ -149,6 +157,7 @@ public class SaveVisitor implements ModelVisitor {
         appendCoordElement(entityElement, currCoord);
         e.getOccupation().accept(this);
         e.getStats().accept(this);
+        e.getSkillManager().accept(this);
         e.getAbilityManager().accept(this);
         e.getBuffManager().accept(this);
         e.getInventory().accept(this);
@@ -267,11 +276,24 @@ public class SaveVisitor implements ModelVisitor {
         Element abmElement = doc.createElement("AbilityManager");
         currentParent.peek().appendChild(abmElement);
         currentParent.push(abmElement);
-        //right now it just holds abilites so put other logic here when it gets added
+        Element absElement = doc.createElement("Abilities");
+        currentParent.peek().appendChild(absElement);
+        currentParent.push(absElement);
         Ability[] abilities = am.getAbilities();
         for(Ability ab : abilities){
             ab.accept(this);
         }
+        currentParent.pop();
+        Element actAbsElement = doc.createElement("ActiveAbilities");
+        currentParent.peek().appendChild(actAbsElement);
+        currentParent.push(actAbsElement);
+        Ability[] activeAbilities = am.getActiveAbilities();
+        for(Ability ab : activeAbilities){
+            if(ab != null){
+                ab.accept(this);
+            }
+        }
+        currentParent.pop();
         if(currentParent.peek().equals(abmElement)){
             System.out.println("visited abilites successfully, stack at proper element");
         }
@@ -283,7 +305,20 @@ public class SaveVisitor implements ModelVisitor {
 
     @Override
     public void visitAbility(Ability ability) {
-        //doesn't do anything right now
+        //this high ofa lelve doesnt do anything
+    }
+    public void visitMeleeAttackAbility(MeleeAttackAbility meleeAttackAbility) {
+        //will get stats and entity when loading
+        Element abElement = doc.createElement("MeleeAttackAbility");
+        currentParent.peek().appendChild(abElement);
+        abElement.setAttribute("windTicks", meleeAttackAbility.getWindTicks() +"");
+        abElement.setAttribute("coolTicks", meleeAttackAbility.getCoolTicks() +"");
+    }
+
+    public void visitBindWounds(BindWoundsAbility bindWoundsAbility) {
+        //will entity and skillmanager when loading
+        Element abElement = doc.createElement("BindWoundsAbility");
+        currentParent.peek().appendChild(abElement);
     }
 
     @Override
@@ -371,7 +406,7 @@ public class SaveVisitor implements ModelVisitor {
         if(e.getWeapon() != null){
             e.getWeapon().accept(this);
         }
-        //not saving entity stats here...will be passed to it in load
+        //gets stats, ability and skill manager from entity in load
         if(currentParent.peek().equals(eElement)){
             System.out.println("Equipped saved with stack at proper element");
             currentParent.pop();
@@ -429,10 +464,20 @@ public class SaveVisitor implements ModelVisitor {
 
     @Override
     public void visitKnuckle(Knuckle thw) {
-
+        Element thwElement = doc.createElement("Knuckle");
+        currentParent.peek().appendChild(thwElement);
+        currentParent.push(thwElement);
+        thwElement.setAttribute("itemName", thw.getItemName());
+        thwElement.setAttribute("baseDamage", thw.getBaseDamage() +"");
+        thw.getItemStats().accept(this);
+        if(currentParent.peek().equals(thwElement)){
+            System.out.println("Knuckle saved with stack at proper element");
+            currentParent.pop();
+        }else{
+            System.out.println("some error saving Knuckle, stack not at the proper element");
+        }
     }
 
-    @Override
     public void visitStatsAddable(StatsAddable sa) {
         Element saElement = doc.createElement("StatsAddable");
         currentParent.peek().appendChild(saElement);
@@ -448,6 +493,27 @@ public class SaveVisitor implements ModelVisitor {
         saElement.setAttribute("currentExperience", sa.getCurrentExperience()+ "");
     }
 
+//    public void visitAgilityAddable(StatsAddable sa){
+//        Element saElement = doc.createElement("AgilityStatsAddable");
+//        currentParent.peek().appendChild(saElement);
+//        saElement.setAttribute("agility", sa.getAgility()+ "");
+//    }
+//
+//    public void visitBaseStatsAddable(StatsAddable sa){
+//        Element saElement = doc.createElement("GenericStatsAddable");
+//        currentParent.peek().appendChild(saElement);
+//        saElement.setAttribute("strength", sa.getStrength()+ "");
+//        saElement.setAttribute("agility", sa.getAgility()+ "");
+//        saElement.setAttribute("intellect", sa.getIntellect()+ "");
+//        saElement.setAttribute("hardiness", sa.getHardiness()+ "");
+//        saElement.setAttribute("movement", sa.getMovement()+ "");
+//    }
+//
+//    public void visitCurrentHealthAddable(StatsAddable sa){
+//        Element saElement = doc.createElement("CurrentHealthAddable");
+//        currentParent.peek().appendChild(saElement);
+//        saElement.setAttribute("strength", sa.getStrength()+ "");
+//    }
     public void visitMapArea(MapArea ma){
         Element maElement = doc.createElement("MapArea");
         currentParent.peek().appendChild(maElement);
@@ -587,6 +653,11 @@ public class SaveVisitor implements ModelVisitor {
         }
     }
 
+    @Override
+    public void visitInteractiveItem(InteractiveItem item) {
+
+    }
+
     /**
      *Don't need to visit terrain in save visitor, the levelFactory handles all of this being recorded
      */
@@ -601,6 +672,39 @@ public class SaveVisitor implements ModelVisitor {
 
     @Override
     public void visitWater(Water water) {
+
+    }
+
+    @Override
+    public void visitSkillManager(SkillManager skillManager) {
+        Element tiElement = doc.createElement("SkillManager");
+        currentParent.peek().appendChild(tiElement);
+        currentParent.push(tiElement);
+        tiElement.setAttribute("availableSkillPoints", skillManager.getAvailableSkillPoints() +"");
+        Iterator<Skill> skills = skillManager.getSkillsIter();
+        while(skills.hasNext()){
+            Skill curr = skills.next();
+            curr.accept(this);
+        }
+        if(currentParent.peek().equals(tiElement)){
+            System.out.println("SkillManager saved with stack at proper element");
+            currentParent.pop();
+        }else{
+            System.out.println("some error saving SkillManager, stack not at the proper element");
+        }
+
+    }
+
+    @Override
+    public void visitSkill(Skill skill) {
+        Element tiElement = doc.createElement("Skill");
+        currentParent.peek().appendChild(tiElement);
+        tiElement.setAttribute("name", skill.getName());
+        tiElement.setAttribute("level", skill.getLevel() +"");
+    }
+
+    @Override
+    public void visitHitBox(HitBox hitBox) {
 
     }
 

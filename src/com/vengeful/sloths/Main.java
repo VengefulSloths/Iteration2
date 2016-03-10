@@ -27,11 +27,14 @@ public class Main {
         window.registerView(menu);
         //window.setSize(1200, 1000);
 
+        //engine.start();
+
         MainController mainController = MainController.getInstance();
 
         mainController.setMenuControllerState(menu);
 
         window.start();
+
 
     }
 }

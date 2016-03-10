@@ -1,8 +1,6 @@
 package com.vengeful.sloths.AreaView;
 
 import com.vengeful.sloths.AreaView.ViewObjects.*;
-import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.SimpleHexCoordinateStrategy;
-import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.CenterAvatarLocationStrategy;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
@@ -21,6 +19,7 @@ import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
 import com.vengeful.sloths.Models.Map.*;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
 import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
@@ -29,18 +28,17 @@ import com.vengeful.sloths.Models.Map.Terrains.Grass;
 import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
 import com.vengeful.sloths.Models.ModelVisitor;
+import com.vengeful.sloths.Models.Observers.*;
 import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Smasher;
 import com.vengeful.sloths.Models.Occupation.Sneak;
 import com.vengeful.sloths.Models.Occupation.Summoner;
-import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
+import com.vengeful.sloths.Models.RangedEffects.HitBox.HitBox;
+import com.vengeful.sloths.Models.Skills.Skill;
+import com.vengeful.sloths.Models.Skills.SkillManager;
+import com.vengeful.sloths.Models.Stats.StatAddables.*;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Direction;
-
-import com.vengeful.sloths.Models.Observers.ModelObserver;
-import com.vengeful.sloths.Models.Observers.ProxyDestoyableObserver;
-import com.vengeful.sloths.Models.Observers.ProxyEntityObserver;
-import com.vengeful.sloths.Models.Observers.ProxyStatsObserver;
 
 /**
  * Created by alexs on 2/23/2016.
@@ -283,12 +281,30 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     }
 
     @Override
+    public void visitHitBox(HitBox hitBox) {
+        String imagePath = "resources/effects/"+hitBox.getName()+"/";
+        HitBoxViewObject hbvo = factory.createHitBoxViewObject(hitBox.getLocation().getR(), hitBox.getLocation().getS(), imagePath, hitBox.getDirection());
+        new ProxyHitBoxObserver(hbvo, hitBox);
+        hbvo.registerObserver(this.activeCameraView); //register for Movement observer
+        hbvo.registerObserver(this.activeCameraView.getTileVO(hbvo)); //register for destroyableObserver
+
+        //hbvo.registerObserver(this.activeCameraView.getTileVO(hbvo)); //TODO: are the attack effects on tile?
+        //TODO: need to remove and add observer whenever moving...
+        this.activeCameraView.addViewObject(hbvo);
+    }
+
+    @Override
     public void visitObstacle(Obstacle obstacle) {
 
     }
 
     @Override
     public void visitOneShotItem(OneShotItem osi) {
+
+    }
+
+    @Override
+    public void visitInteractiveItem(InteractiveItem item) {
 
     }
 
@@ -306,4 +322,65 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     public void visitWater(Water water) {
 
     }
+
+    @Override
+    public void visitSkillManager(SkillManager skillManager) {
+
+    }
+
+    @Override
+    public void visitSkill(Skill skill) {
+
+    }
+
+
+//    @Override
+//    public void visitCurrentHealthAddable(CurrentHealthAddable currentHealthAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitBonusHealthAddable(BonusHealthAddable bonusHealthAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitGenericStatsAddable(GenericStatsAddable genericStatsAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitHardinessAddable(HardinessAddable hardinessAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitBaseStatsAddable(BaseStatsAddable baseStatsAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitHealthManaExperienceAddable(HealthManaExperienceAddable healthManaExperienceAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitIntellectAddable(IntellectAddable intellectAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitMovementAddable(MovementAddable movementAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitStrengthAddable(StrengthAddable strengthAddable) {
+//
+//    }
+//
+//    @Override
+//    public void visitAgilityAddable(AgilityAddable agilityAddable) {
+//
+//    }
 }

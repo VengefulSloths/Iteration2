@@ -1,0 +1,93 @@
+package com.vengeful.sloths.Views.CharacterView;
+
+import com.vengeful.sloths.Models.Inventory.Inventory;
+import com.vengeful.sloths.Utility.Config;
+import com.vengeful.sloths.Views.EquipmentView.EquipmentView;
+import com.vengeful.sloths.Views.InventoryView.InventoryView;
+import com.vengeful.sloths.Views.InventoryView.ListItemViewObject;
+import com.vengeful.sloths.Views.StatsView.StatsView;
+import com.vengeful.sloths.Views.StatsView.StatsViewObject;
+
+import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
+import java.awt.*;
+
+/**
+ * Created by echristiansen on 2/21/2016.
+ */
+public class CharacterView extends JPanel {
+   // public class CharacterViewManager extends JPanel {
+
+    private InventoryView inventoryView;
+    private EquipmentView equipmentView;
+    private StatsView statsView;
+    private JPanel containerPanel;
+    //private Inventory inventory;
+
+    public InventoryView getInventoryView() {
+        return inventoryView;
+    }
+
+    public EquipmentView getEquipmentView() {
+        return equipmentView;
+    }
+
+    public StatsView getStatsView() {
+        return statsView;
+    }
+
+    protected static final int CHARACTER_VIEW_WIDTH =(int) Config.instance().getCharacterViewWidth();
+    protected static final int CHARACTER_VIEW_HEIGHT = (int) Config.instance().getCharacterViewHeight();
+
+    public static int getCharacterViewWidth() {
+        return CHARACTER_VIEW_WIDTH;
+    }
+    public static int getCharacterViewHeight() {
+        return CHARACTER_VIEW_HEIGHT;
+    }
+
+    public CharacterView(InventoryView iv, EquipmentView ev, StatsView sv) {
+        this.inventoryView = iv;
+        this.equipmentView = ev;
+        this.statsView = sv;
+
+        initDefaultUI();
+
+    }
+
+    public CharacterView() {
+
+        /* the idea is to have the overall CVM have a flowlayout so it can be resized and a transparent
+        background so you can see the views behind it, but within this otherwise pointless Panel
+       is the gridlayout containerPanel that actually holds the 3 views (stats, inventory, equip)
+         */
+
+        //this.containerPanel.setBorder(new LineBorder(Color.black));
+
+        initDefaultUI();
+
+    }
+
+    public void initDefaultUI() {
+
+        this.containerPanel = new JPanel();
+        this.setBackground(new Color(0f,0f,0f,0f));
+        this.containerPanel.setBorder(new BevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK));
+
+        this.setLayout(new FlowLayout());
+
+        this.containerPanel.setPreferredSize(new Dimension(this.getCharacterViewWidth(),this.getCharacterViewHeight()));
+        this.containerPanel.setLayout(new GridLayout(1,3));
+
+        this.containerPanel.add(this.inventoryView);
+        this.containerPanel.add(this.equipmentView);
+        this.containerPanel.add(this.statsView);
+        this.add(containerPanel);
+    }
+
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+    }
+
+}

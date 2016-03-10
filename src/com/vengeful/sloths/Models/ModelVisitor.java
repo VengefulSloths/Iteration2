@@ -16,6 +16,7 @@ import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Knuckle;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 import com.vengeful.sloths.Models.Map.TeleportSenderTile;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
@@ -27,7 +28,10 @@ import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
 import com.vengeful.sloths.Models.Map.Tile;
 import com.vengeful.sloths.Models.Occupation.*;
-import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
+import com.vengeful.sloths.Models.RangedEffects.HitBox.HitBox;
+import com.vengeful.sloths.Models.Skills.Skill;
+import com.vengeful.sloths.Models.Skills.SkillManager;
+import com.vengeful.sloths.Models.Stats.StatAddables.*;
 import com.vengeful.sloths.Models.Stats.Stats;
 
 /**
@@ -78,9 +82,15 @@ public interface ModelVisitor {
     void visitTakeableItem(TakeableItem takeableItem);
     void visitObstacle(Obstacle obstacle);
     void visitOneShotItem(OneShotItem osi);
+    void visitInteractiveItem(InteractiveItem item);
 
     void visitGrass(Grass grass);
     void visitMountain(Mountain mountain);
     void visitWater(Water water);
 
+    void visitSkillManager(SkillManager skillManager);
+
+    void visitSkill(Skill skill);
+
+    void visitHitBox(HitBox hitBox);
 }
