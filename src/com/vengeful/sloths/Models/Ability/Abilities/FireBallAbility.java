@@ -6,6 +6,7 @@ import com.vengeful.sloths.Models.RangedEffects.EntityBlockLineEffectGenerator;
 import com.vengeful.sloths.Models.RangedEffects.EntityPassThroughLineEffectGenerator;
 import com.vengeful.sloths.Models.RangedEffects.LinearEffectGenerator;
 import com.vengeful.sloths.Models.RangedEffects.RangedEffectGenerator;
+import com.vengeful.sloths.Models.SaveLoad.SaveVisitor;
 import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
@@ -77,5 +78,9 @@ public class FireBallAbility extends Ability{
         //If the attempt to fire the ability did not fail, then initial fireball hit target accuracy = 100
         RangedEffectGenerator reg = new EntityBlockLineEffectGenerator("FireBall", entity.getLocation(), entity.getFacingDirection(), this.travelDistance, this.travelTime, damage, 100);
         reg.createRangedEffect();
+    }
+
+    public void accept(SaveVisitor sv){
+        sv.visitFireBallAbility(this);
     }
 }

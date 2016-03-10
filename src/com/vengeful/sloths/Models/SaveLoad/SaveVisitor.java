@@ -1,6 +1,7 @@
 package com.vengeful.sloths.Models.SaveLoad;
 
 import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.FireBallAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
@@ -316,6 +317,14 @@ public class SaveVisitor implements ModelVisitor {
         //will entity and skillmanager when loading
         Element abElement = doc.createElement("BindWoundsAbility");
         currentParent.peek().appendChild(abElement);
+    }
+
+
+    public void visitFireBallAbility(FireBallAbility fireBallAbility) {
+        Element fbaElement = doc.createElement("FireBallAbility");
+        currentParent.peek().appendChild(fbaElement);
+        //finish writing visit
+        //then write load case
     }
 
     @Override
@@ -715,4 +724,5 @@ public class SaveVisitor implements ModelVisitor {
     private void appendDirectionAttribute(Element parent, Direction d){
         parent.setAttribute("Direction", d + "");
     }
+
 }
