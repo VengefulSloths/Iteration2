@@ -132,6 +132,9 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
         PiggyViewObject pvo = factory.createPiggyViewObject(piggy.getLocation().getR(), piggy.getLocation().getS(), "resources/entities/piggy/");
         ObserverManager.getInstance().addProxyObserver( new ProxyEntityObserver(pvo, piggy));
         pvo.registerObserver(activeCameraView);
+
+        piggy.getStats().updateObservers();
+
         this.activeCameraView.addViewObject(pvo);
     }
 
@@ -143,6 +146,7 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
         ebvo.registerObserver(activeCameraView);
         ObserverManager.getInstance().addProxyObserver(new ProxyStatsObserver(ebvo.getHealthBar(), aNPC.getStats()));
         aNPC.getStats().updateObservers();
+
         this.activeCameraView.addViewObject(ebvo);
     }
 

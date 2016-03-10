@@ -149,20 +149,38 @@ public class HexMath {
         int currRadius = 1;
         boolean foundCoord = false;
 
+        System.out.println("Src coord: " + src);
+
         // First check if source coordinate is ok to move on
         map.getTile(src).accept(canMoveVisitor);
         if (canMoveVisitor.canMove()) return new Coord(src.getR(), src.getS());
 
-        Iterator<Coord> coordRingIter = sortedRing(src, currRadius);;
+        Iterator<Coord> coordRingIter = sortedRing(src, currRadius);
+
+        System.out.println("Just made coord ring: ");
+        while (coordRingIter.hasNext())
+            System.out.println(coordRingIter.next());
+
+        coordRingIter = sortedRing(src, currRadius);;
 
         Coord currCoord = null;
         while (!foundCoord && coordRingIter.hasNext()) {
             currCoord = coordRingIter.next();
 
-            map.getTile(currCoord).accept(canMoveVisitor);
-            if (canMoveVisitor.canMove()) {
-                foundCoord = true;
-                break;
+            try {
+                map.getActiveMapArea().getTile(currCoord);
+
+                map.getTile(currCoord).accept(canMoveVisitor);
+                if (canMoveVisitor.canMove()) {
+                    foundCoord = true;
+                    break;
+                }
+
+            } catch (IndexOutOfBoundsException e) {
+                // @TODO: Need to handle a bad tile here!
+                //  how do we adjust input coordinate for this?
+
+                // USE SAFETY FUNCTION!
             }
 
             if (!coordRingIter.hasNext() ) {

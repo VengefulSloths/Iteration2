@@ -41,6 +41,11 @@ public class Inventory implements ModelVisitable{
         return inventory.get(index);
     }
 
+    public void clearInventory() {
+        this.inventory = new ArrayList<>();
+        this.setCurrentSize(0);
+    }
+
     public boolean hasItem(InventoryItem item){
         return this.inventory.contains(item);
     }
@@ -116,7 +121,7 @@ public class Inventory implements ModelVisitable{
         return this.maxSize;
     }
 
-
+    public Iterator<InventoryItem> iterator() { return this.inventory.iterator(); }
 
 
     public void registerObserver(ModelObserver modelObserver) {

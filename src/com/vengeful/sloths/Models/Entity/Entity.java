@@ -8,15 +8,11 @@ import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.EquippableItems;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
-import com.vengeful.sloths.Models.InventoryTakeableItemFactory;
-import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.ModelVisitable;
-import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Observers.StatsObserver;
 import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Occupation;
-import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.CurrentHealthAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.HealthManaExperienceAddable;
@@ -24,7 +20,6 @@ import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Models.ViewObservable;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
-import com.vengeful.sloths.Utility.WeaponClass;
 import com.vengeful.sloths.Models.Observers.EntityObserver;
 import com.vengeful.sloths.Models.Observers.ModelObserver;
 
@@ -45,7 +40,6 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     private String name;
     private Stats stats;
     private SkillManager skillManager;
-    private int timeToRespawn = 0;
     private boolean dead = false;
 
     private CanMoveVisitor movementValidator;
@@ -125,10 +119,26 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
             this.setDead(true);
             System.out.println("dying");
 
-            EntityDieCommand edc = EntityMapInteractionFactory.getInstance().createDeathCommand(this, timeToRespawn, observers.iterator());
+            EntityDieCommand edc = EntityMapInteractionFactory.getInstance().createDeathCommand(this, observers.iterator());
+
+            dropAllItems();
+            doRespawn();
+
             return edc.execute();
+
         }
+
         return 0;
+    }
+
+    protected void dropAllItems() {
+        //create drop command
+        EntityMapInteractionFactory.getInstance().createDropEntireInventoryCommand(this).execute();
+        System.out.println("Dropping all items!");
+    }
+
+    protected void doRespawn() {
+        // Nothing for general entity
     }
 
     public final int attack(Direction dir){
@@ -183,6 +193,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
 
     public void takeDamage(int attackDamage){
         //do dmg calculations here (like lessening it for defense)
+        System.out.println("taking damage");
         getStats().subtract(new CurrentHealthAddable(attackDamage));
         for (EntityObserver observer: observers) {
             observer.alertTakeDamage(attackDamage);
@@ -213,16 +224,6 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     }
 
     /********** Getters and Setters *************/
-
-
-    public int getTimeToRespawn() {
-        return timeToRespawn;
-    }
-
-    public void setTimeToRespawn(int timeToRespawn) {
-        this.timeToRespawn = timeToRespawn;
-    }
-
 
     public String getName(){
         return this.name;
@@ -332,14 +333,6 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     @Override
     public void deregisterObserver(ModelObserver modelObserver) {
         this.observers.remove((EntityObserver) modelObserver);
-    }
-
-    /**
-     * Handles accepting a ModelVisitor
-     */
-    public void accept(ModelVisitor modelVisitor) {
-
-        //TODO: delete this, it will cause bugs when people forget to give entities subclasses visit statements
     }
 
 }

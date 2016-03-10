@@ -27,20 +27,13 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     private DynamicImage walkingSE;
     private DynamicImage walkingSW;
 
-
-    private HatViewObject hat;
-
-    //private HandViewObject leftHand;
-    //private HandViewObject rightHand;
     private HealthBarViewObject healthBar;
 
-    private HandsCoordinator hands;
-
-    private Direction direction;
+    protected Direction direction;
 
     private DynamicImage currentDynamicImage;
 
-    private boolean dead = false;
+    protected boolean dead = false;
 
     public EntityViewObject(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy, String resourcePath) {
         super(r, s, coordinateStrategy, locationStrategy);
@@ -56,19 +49,11 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
         this.currentDynamicImage = walkingS;
         this.direction = Direction.S;
 
-        hands = new HandsCoordinator(r, s, coordinateStrategy, locationStrategy, resourcePath, direction);
-
         this.healthBar = new HealthBarViewObject(r,s,coordinateStrategy,locationStrategy);
-
-        this.hat = new HatViewObject(r, s, coordinateStrategy, locationStrategy, direction);
-
-        //TODO: delete this testing code
-        //this.rightHand.hold(new WeaponImageContainer("resources/weapons/dagger/", Direction.S));
     }
 
     public EntityViewObject(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy, String resourcePath, String defaultHatName) {
         this(r, s, coordinateStrategy, locationStrategy, resourcePath);
-        this.hat.setDefaultHatPath("resources/equipment/" + defaultHatName + "/");
     }
 
     private void paintBody(Graphics2D g) {
@@ -80,16 +65,10 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
 
     @Override
     public void paintComponent(Graphics2D g) {
-
         if (!dead) {
-            hands.paintBack(g);
             paintBody(g);
-            hat.paintComponent(g);
-            hands.paintFront(g);
             healthBar.paintComponent(g);
-        } else {
-            //System.out.println("Dead dont show me!");
-        }
+        } else {}
     }
 
     @Override
@@ -116,14 +95,9 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
                 break;
 
         }
-        hands.changeDirection(d);
-        hat.changeDirection(d);
     }
 
     public void setLocation(int r, int s) {
-
-        hands.setLocation(r, s);
-        hat.setLocation(r, s);
         healthBar.setR(r);
         healthBar.setS(s);
 
@@ -147,18 +121,12 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
         System.out.println("e.movehook: " + duration);
         ((DynamicTimedImage) currentDynamicImage).start(duration);
 
-        //leftHand.alertMove(r, s, duration);
-        //rightHand.alertMove(r, s, duration);
         healthBar.alertMove(r,s,duration);
-        hands.alertMove(r, s, duration);
-        hat.alertMove(r, s, duration);
         (new SoundEffect("resources/audio/grass_step.wav")).play();
-
     }
 
     @Override
     public void alertAttack(int r, int s, long windUpTime, long coolDownTime) {
-        hands.attack(r, s, windUpTime, coolDownTime);
     }
 
     @Override
@@ -175,22 +143,18 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     @Override
     public void alertEquipWeapon(String name, WeaponClass weaponClass) {
         WeaponImageContainer weapon = new WeaponImageContainer("resources/weapons/" + name + "/", direction);
-        hands.equipWeapon(weapon, weaponClass);
     }
 
     @Override
     public void alertUnequipWeapon() {
-        hands.unequip();
     }
 
     @Override
     public void alertEquipHat(String name) {
-        this.hat.equip("resources/equipment/" + name + "/");
     }
 
     @Override
     public void alertUnequipHat() {
-        this.hat.unequip();
     }
 
     @Override

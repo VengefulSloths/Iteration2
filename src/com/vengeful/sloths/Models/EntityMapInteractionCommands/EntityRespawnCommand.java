@@ -35,23 +35,20 @@ public class EntityRespawnCommand implements Alertable {
     @Override
     public void mAlert() {
 
+
+        // @TODO:
+        //  If map area changes, a bug happens where entity shows up there
+        //  FIX THIS
+
         System.out.println("executing the respawn command");
+
         entity.getStats().resetStats();
         entity.setDead(false);  // Bring entity back to life
         entity.setActive(false); // Even more back to life
 
         Coord resCoord = HexMath.getClosestMovableTile(respawnCoord); // get closest tile to respawnCoord (may be respawnCoord) to respawn at
         Map.getInstance().addEntity(resCoord, entity);
-        System.out.println("avatars/entitites location is :" +entity.getLocation());
 
-        System.out.println("ResCoord is: " + resCoord);
         entity.accept(TemporaryVOCreationVisitor.getInstance());
-
-
-        //entity.locationChange();
-
-
-
-
     }
 }

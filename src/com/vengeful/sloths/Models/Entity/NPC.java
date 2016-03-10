@@ -11,6 +11,7 @@ import com.vengeful.sloths.Utility.Direction;
  */
 public abstract class NPC extends Entity{
 
+    protected int timeToRespawn;
     //pass in stats
     public NPC(String name, Stats stats){
         super(name, stats);
@@ -20,5 +21,12 @@ public abstract class NPC extends Entity{
         //create talk command
     }
 
+    public int getTimeToRespawn() {
+        return timeToRespawn;
+    }
+
+    public void setTimeToRespawn(int timeToRespawn) {
+        this.timeToRespawn = timeToRespawn;
+    }
     
 }

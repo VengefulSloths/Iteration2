@@ -2,6 +2,7 @@ package com.vengeful.sloths.Models.Entity;
 
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.BuffManager;
+import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteractionFactory;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.ModelVisitor;
@@ -22,6 +23,7 @@ import java.util.Iterator;
 public class Avatar extends Entity{
 
     private static Avatar avatar = null;
+    private int timeToRespawn;
 
     private Avatar(){
         super("Phill", new Stats());
@@ -34,6 +36,13 @@ public class Avatar extends Entity{
         return avatar;
     }
 
+    public void setTimeToRespawn(int time) {
+        this.timeToRespawn = time;
+    }
+
+    public int getTimeToRespawn() {
+        return this.timeToRespawn;
+    }
 
     public void avatarInit(String occupationString, AbilityManager abilityManager, BuffManager buffManager, SkillManager skillManager){
 
@@ -105,8 +114,19 @@ public class Avatar extends Entity{
         this.getStats().add(new HealthManaExperienceAddable(0, 0, 0, 0, xp));
     }
 
-    @Override
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitAvatar(this);
     }
+
+    @Override
+    protected void dropAllItems() {
+        // Do nothing
+        //@ TODO: Maybe have this dorp a few coins
+    }
+
+    @Override
+    protected void doRespawn() {
+        EntityMapInteractionFactory.getInstance().createRespawnCommand(this, this.getLocation(), timeToRespawn);
+    }
+
 }

@@ -59,17 +59,17 @@ public class driver {
         int count = 0;
 
 
-        Piggy testPiggy = new Piggy("Bart", new Stats(new MovementAddable(30)));
-        testPiggy.setFacingDirection(Direction.S);
-        Map.getInstance().addEntity(new Coord(3,5), testPiggy);
-        testPiggy.accept(TemporaryVOCreationVisitor.getInstance());
-        testPiggy.getStats().setHardiness(10);
-        new PiggyControllerManager(Map.getInstance().getActiveMapArea(), testPiggy);
+//        Piggy testPiggy = new Piggy("Bart", new Stats(new MovementAddable(30)));
+//        testPiggy.setFacingDirection(Direction.S);
+//        Map.getInstance().addEntity(new Coord(3,5), testPiggy);
+//        testPiggy.accept(TemporaryVOCreationVisitor.getInstance());
+//        new PiggyControllerManager(Map.getInstance().getActiveMapArea(), testPiggy);
 
         testAvatar.setFacingDirection(Direction.SE);
         testAvatar.getStats().subtract(new CurrentHealthAddable(2));
         //stuff to test enemy controllers
         AggressiveNPC testEnemy =  new AggressiveNPC("xXOG_SwaG_LorD_BlazE_MasteR_420_Xx", new Stats(new BaseStatsAddable(5,5,5,5,30)));
+        testEnemy.setTimeToRespawn(150);
         Map.getInstance().addEntity(new Coord(3, 3), testEnemy);
         testEnemy.accept(TemporaryVOCreationVisitor.getInstance());
         new AggressiveNPCControllerManager(Map.getInstance().getActiveMapArea(), testEnemy);
