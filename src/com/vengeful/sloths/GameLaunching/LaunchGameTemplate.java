@@ -91,7 +91,7 @@ public class LaunchGameTemplate {
 
         modelEngine.start();
 
-       viewEngine.start();
+       //viewEngine.start();
 
     }
 
