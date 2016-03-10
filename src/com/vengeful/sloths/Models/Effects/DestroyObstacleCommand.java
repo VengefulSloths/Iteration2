@@ -33,8 +33,8 @@ public class DestroyObstacleCommand extends EffectCommand{
             this.tile.removeMapItem(this.obstacle);
 */
 
-        if(!this.obstacle.destroyFlag())
-            this.tile.removeMapItem(this.obstacle);
+        if(!this.obstacle.destroyFlag());
+            //this.tile.removeMapItem(this.obstacle);
 
 
         //flag destory?

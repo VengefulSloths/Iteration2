@@ -44,9 +44,14 @@ public class InteractiveItem extends MapItem implements ViewObservable {
 
     public void interact(Entity entity) {
         //do nothing for now
-
         for (InteractiveItemObserver observer: observers) {
             observer.alertActivate();
+        }
+    }
+
+    public void unteract(Entity entity) {
+        for (InteractiveItemObserver observer: observers) {
+            observer.alertDeactivate();
         }
     }
 

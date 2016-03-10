@@ -100,13 +100,9 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
 
     @Override
     public void visitInteractiveItem(InteractiveItem item) {
-        System.out.println("creating interactive view object ******************************");
-        InteractiveItemViewObject interactiveItemViewObject = factory.createInteractiveItemViewObject(r, s, "resources/items/button/button.xml", "resources/items/button/button.xml");
-        System.out.println("step 1          ******************************");
+        InteractiveItemViewObject interactiveItemViewObject = factory.createInteractiveItemViewObject(r, s, "resources/items/button/button.xml", "resources/items/button/button_activated.xml");
         new ProxyInteractiveItemObserver(interactiveItemViewObject, item);
-        System.out.println("step 2          ******************************");
         currentTile.addChild(interactiveItemViewObject);
-        System.out.println("done with interactive view object ******************************");
     }
 
     @Override

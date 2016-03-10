@@ -5,10 +5,15 @@ import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Map.AreaEffects.AreaEffect;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
+import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
+import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
+import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.Map.Terrains.Grass;
 import com.vengeful.sloths.Models.Map.Terrains.Terrain;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
+
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -26,7 +31,14 @@ public class Tile implements ModelVisitable {
     private ArrayList<Entity> entities = new ArrayList<>();
     private ArrayList<Entity> nonCollideableEntities;
     private boolean canBeMovedOn;
+
     private ArrayList<MapItem> mapItems;
+
+    private OneShotItem oneShotItem = null;
+    private Obstacle obstacle = null;
+    private InteractiveItem interactiveItem = null;
+
+
     private ArrayList<AreaEffect> areaEffect;
     private Terrain terrain;
     private boolean cleaningup = false;
@@ -178,11 +190,61 @@ public class Tile implements ModelVisitable {
         }
     }
 
-    public void addMapItem(MapItem mapItem) {
-        mapItems.add(mapItem);
+    public void addTakeableItem(TakeableItem takeableItem) {
+        mapItems.add(takeableItem);
     }
 
-    public void removeMapItem(MapItem item){
+    public void addObstacle(Obstacle obstacle) {
+        if (this.obstacle == null) {
+            mapItems.add(obstacle);
+            this.obstacle = obstacle;
+        } else {
+            throw new InvalidParameterException("you cannot add two obstacles");
+        }
+    }
+
+    public void addInteractiveItem(InteractiveItem interactiveItem) {
+        if (this.interactiveItem == null) {
+            mapItems.add(interactiveItem);
+            this.interactiveItem = interactiveItem;
+        } else {
+            throw new InvalidParameterException("you cannot add two obstacles");
+        }
+    }
+
+    public void addOneShotItem(OneShotItem oneShotItem) {
+        if (this.oneShotItem == null) {
+            mapItems.add(oneShotItem);
+            this.oneShotItem = oneShotItem;
+        } else {
+            throw new InvalidParameterException("you cannot add two obstacles");
+        }
+    }
+
+//    public void addMapItem(MapItem mapItem) {
+//        mapItems.add(mapItem);
+//    }
+
+    public void removeTakeableItem(TakeableItem takeableItem) {
+        removeMapItem(takeableItem);
+    }
+
+    public void removeObstacle(Obstacle item) {
+        removeMapItem(item);
+        this.obstacle = null;
+    }
+
+    public void removeInteractiveItem(InteractiveItem item) {
+        removeMapItem(item);
+        this.interactiveItem = null;
+    }
+
+    public void removeOneShotItem(OneShotItem item) {
+        removeMapItem(item);
+        this.oneShotItem = null;
+    }
+
+    private void removeMapItem(MapItem item){
         mapItems.remove(item);
         item.destroy(); //tell observer
     }
@@ -196,32 +258,6 @@ public class Tile implements ModelVisitable {
 
     public void addAreaEffect(AreaEffect ae){
         areaEffect.add(ae);
-    }
-
-
-    public InteractiveItem getInteractiveItem(){
-
-        for (Iterator<MapItem> iter = mapItems.iterator(); iter.hasNext();) {
-            MapItem item = iter.next();
-            if(item instanceof InteractiveItem)
-                return (InteractiveItem) item;
-        }
-        System.out.println("shit got fucked up you aint supposed to call ths here!!!");
-        return null;
-    }
-
-    /**
-     *Below are getter/setters for the nonCollideableEntities
-     * I've edited teh getter so it returns an array rather than an array list
-     */
-    public Entity[] getNonCollideableEntities() {
-        Entity[] nonColE = new Entity[nonCollideableEntities.size()];
-        int i = 0;
-        for(Entity e : nonCollideableEntities){
-            nonColE[i] = e;
-            ++i;
-        }
-        return nonColE;
     }
 
     /**
@@ -238,10 +274,6 @@ public class Tile implements ModelVisitable {
             ++i;
         }
         return mapItemArray;
-    }
-
-    public void setMapItems(ArrayList<MapItem> mapItems) {
-        this.mapItems = mapItems;
     }
 
     public void accept(ModelVisitor visitor) {

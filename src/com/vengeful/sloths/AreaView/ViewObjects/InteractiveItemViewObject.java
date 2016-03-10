@@ -5,6 +5,7 @@ import com.vengeful.sloths.AreaView.DynamicImages.DynamicImageFactory;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 import com.vengeful.sloths.Models.Observers.InteractiveItemObserver;
+import com.vengeful.sloths.Sound.SoundEffect;
 
 import java.awt.*;
 
@@ -46,11 +47,12 @@ public class InteractiveItemViewObject extends ViewObject implements Interactive
 
     @Override
     public void alertActivate() {
-
+        this.isActive = true;
+        (new SoundEffect("resources/audio/click.wav")).play();
     }
 
     @Override
     public void alertDeactivate() {
-
+        this.isActive = false;
     }
 }
