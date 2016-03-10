@@ -64,12 +64,19 @@ public class VOSorter implements VOVisitor {
     }
 
     @Override
+    public void visitHitBox(HitBoxViewObject h) {
+        zLevel = 1200;
+    }
+
     public void visitInteractiveItem(InteractiveItemViewObject i) {
         zLevel = 350;
+
     }
 
     @Override
     public void visitDecal(DecalViewObject d) {
         zLevel = 300;
     }
+
+
 }

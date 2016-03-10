@@ -36,7 +36,7 @@ public class SaveTestDriver {
 
         Avatar a = Avatar.getInstance();
         a.setFacingDirection(Direction.N);
-        AbilityManager abm = new AbilityManager();
+        AbilityManager abm = new AbilityManager(a);
         a.avatarInit("Sneak", abm, new BuffManager(a), new SkillManager(5));
         tiles1[1][1].addEntity(a);
         SaveManager sm = new SaveManager(m);

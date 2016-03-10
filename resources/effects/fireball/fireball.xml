@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<single_frame_animation>
+    <width>255</width>
+    <height>255</height>
+    <rootPath>resources/effects/fireball/</rootPath>
+    <fileName>fireball.png</fileName>
+    <positioning xOffset="-10" yOffset="-10">custom</positioning>
+</single_frame_animation>

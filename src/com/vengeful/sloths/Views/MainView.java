@@ -1,6 +1,6 @@
 package com.vengeful.sloths.Views;
 
-import com.vengeful.sloths.Views.AreaView.AreaView;
+
 import com.vengeful.sloths.Views.EquipmentView.EquipmentView;
 import com.vengeful.sloths.Views.HUDView.HUDView;
 import com.vengeful.sloths.Views.InventoryView.InventoryView;

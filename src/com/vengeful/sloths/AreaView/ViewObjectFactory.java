@@ -4,6 +4,7 @@ import com.vengeful.sloths.AreaView.ViewObjects.*;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.NullTile;
+import com.vengeful.sloths.Models.RangedEffects.HitBox.HitBox;
 import com.vengeful.sloths.Utility.Direction;
 
 /**
@@ -49,6 +50,7 @@ public abstract class ViewObjectFactory {
     public abstract MountainViewObject createMountainTerrainViewObject(int r, int s);
     public abstract WaterViewObject createWaterTerrainViewObject(int r, int s);
     public abstract OneShotViewObject createOneShotViewObject(int r, int s);
+    public abstract OneShotViewObject createObstacleViewObject(int r, int s);
 
     public TakeableViewObject createTakeableViewObject(int r, int s, String resourcePath){
         return new TakeableViewObject(r, s, cs, ls, resourcePath);
@@ -79,6 +81,10 @@ public abstract class ViewObjectFactory {
 
     public CoordinateStrategy getCoordinateStrategy() {
         return cs;
+    }
+
+    public HitBoxViewObject createHitBoxViewObject(int r, int s, String resourcePath, Direction d){
+        return new HitBoxViewObject(r, s, cs, ls, resourcePath, d);
     }
 
 }

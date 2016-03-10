@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Models.Entity;
 
+import com.vengeful.sloths.AreaView.TemporaryVOCreationVisitor;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.*;
@@ -84,7 +85,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         this.stats = stats;
         stats.setEntity(this);
         this.skillManager = new SkillManager();
-        this.abilityManager = new AbilityManager();
+        this.abilityManager = new AbilityManager(this);
         this.inventory = new Inventory();
         this.equipped = new Equipped(this);
         this.buffManager = new BuffManager(this);
@@ -251,9 +252,12 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     public void locationChange(){
         Iterator<EntityObserver> entityObserverIterator = observers.iterator();
         while (entityObserverIterator.hasNext()) {
-            entityObserverIterator.next().alertDirectionChange(Direction.S);
+            //entityObserverIterator.next().alertDirectionChange(Direction.S);
+            EntityObserver current = entityObserverIterator.next();
+            entityObserverIterator.remove();
         }
-        Map.getInstance().setActiveMapArea(Map.getInstance().getActiveMapArea());
+        this.accept(TemporaryVOCreationVisitor.getInstance());
+        //Map.getInstance().setActiveMapArea(Map.getInstance().getActiveMapArea());
     }
 
     public Inventory getInventory(){

@@ -36,6 +36,7 @@ import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Smasher;
 import com.vengeful.sloths.Models.Occupation.Sneak;
 import com.vengeful.sloths.Models.Occupation.Summoner;
+import com.vengeful.sloths.Models.RangedEffects.HitBox.HitBox;
 import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.*;
@@ -99,13 +100,9 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
 
     @Override
     public void visitInteractiveItem(InteractiveItem item) {
-        System.out.println("creating interactive view object ******************************");
-        InteractiveItemViewObject interactiveItemViewObject = factory.createInteractiveItemViewObject(r, s, "resources/items/button/button.xml", "resources/items/button/button.xml");
-        System.out.println("step 1          ******************************");
+        InteractiveItemViewObject interactiveItemViewObject = factory.createInteractiveItemViewObject(r, s, "resources/items/button/button.xml", "resources/items/button/button_activated.xml");
         new ProxyInteractiveItemObserver(interactiveItemViewObject, item);
-        System.out.println("step 2          ******************************");
         currentTile.addChild(interactiveItemViewObject);
-        System.out.println("done with interactive view object ******************************");
     }
 
     @Override
@@ -136,7 +133,9 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
 
     @Override
     public void visitObstacle(Obstacle obstacle) {
-
+        OneShotViewObject obstacleViewObject = factory.createObstacleViewObject(r, s);
+        new ProxyDestoyableObserver(obstacleViewObject, obstacle);
+        currentTile.addChild(obstacleViewObject);
     }
 
     @Override
@@ -168,6 +167,11 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
 
     @Override
     public void visitSkill(Skill skill) {
+
+    }
+
+    @Override
+    public void visitHitBox(HitBox hitBox) {
 
     }
 

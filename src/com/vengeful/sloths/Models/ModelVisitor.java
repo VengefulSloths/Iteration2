@@ -28,6 +28,7 @@ import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
 import com.vengeful.sloths.Models.Map.Tile;
 import com.vengeful.sloths.Models.Occupation.*;
+import com.vengeful.sloths.Models.RangedEffects.HitBox.HitBox;
 import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.*;
@@ -90,4 +91,6 @@ public interface ModelVisitor {
     void visitSkillManager(SkillManager skillManager);
 
     void visitSkill(Skill skill);
+
+    void visitHitBox(HitBox hitBox);
 }

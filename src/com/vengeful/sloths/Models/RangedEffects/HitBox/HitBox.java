@@ -1,27 +1,35 @@
 package com.vengeful.sloths.Models.RangedEffects.HitBox;
 
-import com.sun.javafx.geom.Path2D;
+import com.vengeful.sloths.Models.ModelVisitable;
+import com.vengeful.sloths.Models.ModelVisitor;
+import com.vengeful.sloths.Models.Observers.HitBoxObserver;
+import com.vengeful.sloths.Models.Observers.ModelObserver;
+import com.vengeful.sloths.Models.ViewObservable;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Models.Map.*;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Models.Entity.*;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
  * Created by luluding on 3/8/16.
  */
-public class HitBox {
+public class HitBox implements ModelVisitable, ViewObservable{
 
     private String name;
     private Coord location;
+    private Direction direction;
     private boolean isActive = false;
     private int damage;
     private int accuracy;
+    private ArrayList<HitBoxObserver> observers = new ArrayList<>();
 
-    public HitBox(String name, Coord location, int dmg, int accuracy){
+    public HitBox(String name, Coord location, int dmg, int accuracy, Direction d){
         this.name = name;
         this.location = location;
+        this.direction = d;
         this.damage = dmg;
         this.accuracy = accuracy;
     }
@@ -66,7 +74,7 @@ public class HitBox {
     //calculate based on accuracy
     //initial accuracy always 100
     private boolean shouldTakeDmg(){
-        int randomNum = 1 + (int)(Math.random() * 101); //[1-100]
+        int randomNum = 1 + (int)(Math.random() * 100); //[1-100]
         if(randomNum <= this.accuracy){
             System.out.println("SHOULD TAKE DMG");
             return true;
@@ -119,4 +127,41 @@ public class HitBox {
         this.accuracy = accuracy;
     }
 
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+
+    @Override
+    public void accept(ModelVisitor visitor) {
+        visitor.visitHitBox(this);
+    }
+
+    @Override
+    public void registerObserver(ModelObserver modelObserver) {
+        this.observers.add((HitBoxObserver) modelObserver);
+    }
+
+    @Override
+    public void deregisterObserver(ModelObserver modelObserver) {
+        this.observers.remove((HitBoxObserver) modelObserver);
+    }
+
+    public void alertObserverOnDestroy(){
+        for(HitBoxObserver observer : this.observers)
+            observer.alertDestroyed();
+    }
+
+    public Iterator<HitBoxObserver> getObservers(){
+        return this.observers.iterator();
+    }
+
+    /*
+    public void alertObserverOnMove(){
+        for(HitBoxObserver observer : this.observers)
+            observer.alertMove();
+    }*/
 }

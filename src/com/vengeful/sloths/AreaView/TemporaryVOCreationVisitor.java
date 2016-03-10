@@ -1,8 +1,6 @@
 package com.vengeful.sloths.AreaView;
 
 import com.vengeful.sloths.AreaView.ViewObjects.*;
-import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.SimpleHexCoordinateStrategy;
-import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.CenterAvatarLocationStrategy;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
@@ -30,20 +28,17 @@ import com.vengeful.sloths.Models.Map.Terrains.Grass;
 import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
 import com.vengeful.sloths.Models.ModelVisitor;
+import com.vengeful.sloths.Models.Observers.*;
 import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Smasher;
 import com.vengeful.sloths.Models.Occupation.Sneak;
 import com.vengeful.sloths.Models.Occupation.Summoner;
+import com.vengeful.sloths.Models.RangedEffects.HitBox.HitBox;
 import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.*;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Direction;
-
-import com.vengeful.sloths.Models.Observers.ModelObserver;
-import com.vengeful.sloths.Models.Observers.ProxyDestoyableObserver;
-import com.vengeful.sloths.Models.Observers.ProxyEntityObserver;
-import com.vengeful.sloths.Models.Observers.ProxyStatsObserver;
 
 /**
  * Created by alexs on 2/23/2016.
@@ -286,6 +281,19 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     }
 
     @Override
+    public void visitHitBox(HitBox hitBox) {
+        String imagePath = "resources/effects/"+hitBox.getName()+"/";
+        HitBoxViewObject hbvo = factory.createHitBoxViewObject(hitBox.getLocation().getR(), hitBox.getLocation().getS(), imagePath, hitBox.getDirection());
+        new ProxyHitBoxObserver(hbvo, hitBox);
+        hbvo.registerObserver(this.activeCameraView); //register for Movement observer
+        hbvo.registerObserver(this.activeCameraView.getTileVO(hbvo)); //register for destroyableObserver
+
+        //hbvo.registerObserver(this.activeCameraView.getTileVO(hbvo)); //TODO: are the attack effects on tile?
+        //TODO: need to remove and add observer whenever moving...
+        this.activeCameraView.addViewObject(hbvo);
+    }
+
+    @Override
     public void visitObstacle(Obstacle obstacle) {
 
     }
@@ -324,6 +332,7 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     public void visitSkill(Skill skill) {
 
     }
+
 
 //    @Override
 //    public void visitCurrentHealthAddable(CurrentHealthAddable currentHealthAddable) {

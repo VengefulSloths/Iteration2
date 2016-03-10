@@ -3,7 +3,7 @@ package com.vengeful.sloths.Models.RangedEffects;
 /**
  * Created by luluding on 3/8/16.
  */
-public abstract class RangedEffectGenerator {
+public abstract class RangedEffectGenerator{
 
     //fog of war
     public static final int NUM_VISIBLE_TILES = 5; //used to calculate decreasing att and accuracy
@@ -25,4 +25,5 @@ public abstract class RangedEffectGenerator {
     public double calculateDecreasingFactor(){
         return 1.0 / NUM_VISIBLE_TILES; //percent to decrease every tile travels
     }
+
 }

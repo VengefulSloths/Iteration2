@@ -1,6 +1,7 @@
 package com.vengeful.sloths.Models.RangedEffects;
 
 import com.sun.javafx.geom.Path2D;
+import com.vengeful.sloths.AreaView.TemporaryVOCreationVisitor;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.RangedEffects.HitBox.HitBox;
 import com.vengeful.sloths.Models.RangedEffects.HitBox.HitBoxMovementCommand;
@@ -29,7 +30,9 @@ public abstract class LinearEffectGenerator extends RangedEffectGenerator{
         this.initialDmg = initialDmg;
         this.initialAccuracy = initialAccuracy;
         this.totalTravelDistance = travelDistanceLeft;
-        this.hitBox = new HitBox(name, location, initialDmg, initialAccuracy);
+        this.hitBox = new HitBox(name, location, initialDmg, initialAccuracy, this.facingDirection);
+        TemporaryVOCreationVisitor creator = TemporaryVOCreationVisitor.getInstance();
+        this.hitBox.accept(creator);
     }
 
 
@@ -39,10 +42,13 @@ public abstract class LinearEffectGenerator extends RangedEffectGenerator{
         goes on until either travelDistanceLeft = 0 or hit a non-existence tile
      */
     public void createRangedEffect(){
-        HitBoxMovementCommand hbmc = new HitBoxMovementCommand(this.initialLocation, this.facingDirection, this.hitBox, this.travelTime, this);
+        HitBoxMovementCommand hbmc = new HitBoxMovementCommand(this.initialLocation, this.facingDirection, this.hitBox, this.travelTime, this, this.hitBox.getObservers());
         if(hbmc.execute() == 0){
             //Alert hitbox view destroy
+            hitBox.alertObserverOnDestroy();
         }
+        //TemporaryVOCreationVisitor creator = TemporaryVOCreationVisitor.getInstance();
+        //this.hitBox.accept(creator);
         //if .execute() returns 0, movement chain breaks and we are done with this ability
     }
 

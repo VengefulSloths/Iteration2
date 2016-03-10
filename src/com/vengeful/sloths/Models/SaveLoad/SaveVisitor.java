@@ -30,6 +30,7 @@ import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Occupation.*;
+import com.vengeful.sloths.Models.RangedEffects.HitBox.HitBox;
 import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
@@ -61,6 +62,8 @@ import java.util.Stack;
  * these parameters are for properly formatting the save file
  */
 public class SaveVisitor implements ModelVisitor {
+
+
     /**
      * Private variables
      * These don't have getter/setters, will only be changed via the constructor or in method calls
@@ -707,6 +710,11 @@ public class SaveVisitor implements ModelVisitor {
         currentParent.peek().appendChild(tiElement);
         tiElement.setAttribute("name", skill.getName());
         tiElement.setAttribute("level", skill.getLevel() +"");
+    }
+
+    @Override
+    public void visitHitBox(HitBox hitBox) {
+
     }
 
     /**

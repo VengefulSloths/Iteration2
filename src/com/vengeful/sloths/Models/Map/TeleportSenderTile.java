@@ -27,9 +27,17 @@ public class TeleportSenderTile extends Tile {
 
         System.out.println("Teleporitng");
         this.removeEntity(entity);
+        System.out.println("Teleporitng1");
+
         destinationTile.addEntity(entity);
+        System.out.println("Teleporitng2");
+
         entity.setLocation(destinationTile.getLocation());
+        System.out.println("Teleporitng3");
+
         Map.getInstance().setActiveMapArea(destinationMapArea);
+        System.out.println("Teleporitng4");
+
     }
 
 

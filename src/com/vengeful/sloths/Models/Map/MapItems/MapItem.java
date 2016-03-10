@@ -31,11 +31,6 @@ public abstract class MapItem implements  ModelVisitable {
         return destroy;
     }
 
-
-    //public void setDestroyFlag(boolean flag){
-    //    this.destroy = flag;
-    //}
-
     public String getItemName(){
         return this.itemName;
     }
@@ -47,13 +42,6 @@ public abstract class MapItem implements  ModelVisitable {
         this.graphicFolder = graphicFolder;
     }
 
-    public void destroy() {
-        //Do alerting in subclasses of map item only
-
-        //observer.alertDestroyed();
-        this.destroy = true;
-        //System.out.Println("This is map object, my observer is: " + observer);
-    }
 
     public void setLocation(Coord loc){
         this.location = loc;
@@ -69,7 +57,6 @@ public abstract class MapItem implements  ModelVisitable {
 //        sm.writeVariableLine(ws, "itemName", itemName, false);
 //        sm.writeVariableLine(ws,"graphicFolder", graphicFolder, false);
 //    }
-    public abstract void accept(ModelVisitor vistior);
 
 
 }

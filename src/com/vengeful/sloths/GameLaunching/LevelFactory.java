@@ -8,10 +8,15 @@ import com.vengeful.sloths.Controllers.ControllerManagers.PiggyControllerManager
 import com.vengeful.sloths.Models.Entity.AggressiveNPC;
 import com.vengeful.sloths.Models.Entity.Piggy;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
+import com.vengeful.sloths.Models.Map.AreaEffects.TakeDamageAE;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Map.*;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.DoDestroyObstacleQuest;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.HasItemQuest;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.Quest;
+import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
 import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.Map.Terrains.Grass;
@@ -102,17 +107,6 @@ public class LevelFactory {
         }
 
 
-        area1.getTile(new Coord(5,5)).addMapItem(new OneShotItem(new Coord(5,5)));
-        area1.getTile(new Coord(6,4)).addMapItem(new OneShotItem(new Coord(6,4)));
-        area1.getTile(new Coord(7,3)).addMapItem(new OneShotItem(new Coord(7,3)));
-        area1.getTile(new Coord(8,2)).addMapItem(new OneShotItem(new Coord(8,2)));
-        area1.getTile(new Coord(9,1)).addMapItem(new OneShotItem(new Coord(9,1)));
-        area1.getTile(new Coord(11,1)).addMapItem(new OneShotItem(new Coord(11,1)));
-
-
-        area1.getTile(new Coord(2,2)).addMapItem(new TakeableItem("redPotion", new Potion("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(1,2)));
-        area1.getTile(new Coord(11,10)).addMapItem(new TakeableItem("bluePotion", new Potion("bluePotion",new BaseStatsAddable(0,0,5,0,0)), new Coord(11,10)));
-
 
         //Area 2
         MapArea area2 = new MapArea(10,10);
@@ -131,8 +125,16 @@ public class LevelFactory {
         TeleportDestinationTile d2 = new TeleportDestinationTile(new Coord(2,1));
         TeleportSenderTile s2 = new TeleportSenderTile(area2, d2);
         area2.addTile(d2.getLocation(), d2);
+
+        area1.getTile(new Coord(2,3)).addObstacle(new Obstacle(new Coord(2,3)));
+
+        Quest quest1_b = new DoDestroyObstacleQuest(new Coord(2,3));
+        Quest quest1_a = new HasItemQuest(quest1_b, "bluePotion");
+
+        area1.getTile(new Coord(3,3)).addAreaEffect(new TakeDamageAE(1));
+
         area1.addTile(new Coord(1,1), s2);
-        area1.getTile(new Coord(2,2)).addMapItem(new InteractiveItem(null, new Coord(2,2)));
+        area1.getTile(new Coord(2,2)).addInteractiveItem(new InteractiveItem(quest1_a, new Coord(2,2)));
 
 
         MapArea[] areas = new MapArea[2];
@@ -151,17 +153,17 @@ public class LevelFactory {
         MapArea[] areas = Map.getInstance().getMapAreas();
         MapArea area1 = areas[0];
         MapArea area2 = areas[1];
-        area1.getTile(new Coord(5,5)).addMapItem(new OneShotItem(new Coord(5,5)));
-        area1.getTile(new Coord(6,4)).addMapItem(new OneShotItem(new Coord(6,4)));
-        area1.getTile(new Coord(7,3)).addMapItem(new OneShotItem(new Coord(7,3)));
-        area1.getTile(new Coord(8,2)).addMapItem(new OneShotItem(new Coord(8,2)));
-        area1.getTile(new Coord(9,1)).addMapItem(new OneShotItem(new Coord(9,1)));
-        area1.getTile(new Coord(11,1)).addMapItem(new OneShotItem(new Coord(11,1)));
+        area1.getTile(new Coord(5,5)).addOneShotItem(new OneShotItem(new Coord(5,5)));
+        area1.getTile(new Coord(6,4)).addOneShotItem(new OneShotItem(new Coord(6,4)));
+        area1.getTile(new Coord(7,3)).addOneShotItem(new OneShotItem(new Coord(7,3)));
+        area1.getTile(new Coord(8,2)).addOneShotItem(new OneShotItem(new Coord(8,2)));
+        area1.getTile(new Coord(9,1)).addOneShotItem(new OneShotItem(new Coord(9,1)));
+        area1.getTile(new Coord(11,1)).addOneShotItem(new OneShotItem(new Coord(11,1)));
 
 
-        area1.getTile(new Coord(2,2)).addMapItem(new TakeableItem("redPotion", new Potion("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(1,2)));
-        area1.getTile(new Coord(11,10)).addMapItem(new TakeableItem("bluePotion", new Potion("bluePotion",new BaseStatsAddable(0,0,5,0,0)), new Coord(11,10)));
-        area2.getTile(new Coord(2,2)).addMapItem(new TakeableItem("redPotion", new Potion("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(1,2)));
+        area1.getTile(new Coord(2,2)).addTakeableItem(new TakeableItem("redPotion", new Potion("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(1,2)));
+        area1.getTile(new Coord(11,10)).addTakeableItem(new TakeableItem("bluePotion", new Potion("bluePotion",new BaseStatsAddable(0,0,5,0,0)), new Coord(11,10)));
+        area2.getTile(new Coord(2,2)).addTakeableItem(new TakeableItem("redPotion", new Potion("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(1,2)));
 
         CameraView camera2 = new PlainsCameraView();
         CameraView camera1 = new PlainsCameraView();

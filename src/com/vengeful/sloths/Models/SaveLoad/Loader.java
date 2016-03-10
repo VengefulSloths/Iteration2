@@ -195,7 +195,7 @@ public class Loader {
     }
     //untested
     private AbilityManager processAbilityManager(Node avatarObject, Entity e) {
-        AbilityManager abm = new AbilityManager();
+        AbilityManager abm = new AbilityManager(e);
         if(avatarObject.getNodeType() == Node.ELEMENT_NODE){
             NodeList abilityContainerNodes = avatarObject.getChildNodes();
             Element abilitiesElement = (Element) abilityContainerNodes.item(0);

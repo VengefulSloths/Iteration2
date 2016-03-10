@@ -75,7 +75,7 @@ public class Avatar extends Entity{
     }
 
     public void avatarInit(String occupationString, Stats stats){
-        this.avatarInit(occupationString, new AbilityManager(), new BuffManager(this), new SkillManager());
+        this.avatarInit(occupationString, new AbilityManager(this), new BuffManager(this), new SkillManager());
     }
 
 

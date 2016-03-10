@@ -2,6 +2,7 @@ package com.vengeful.sloths.Models.Map.MapItems.InteractiveItem;
 
 import com.vengeful.sloths.Models.Effects.EffectCommand;
 import com.vengeful.sloths.Models.Entity.Entity;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.Quest;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Observers.InteractiveItemObserver;
@@ -18,35 +19,34 @@ public class InteractiveItem extends MapItem implements ViewObservable {
 
     private ArrayList<InteractiveItemObserver> observers = new ArrayList<>();
 
-    //used to identify the corresponding image file
-    protected String name;
-    protected EffectCommand command;
 
-    public InteractiveItem(Coord location){
+    public Quest quest;
+
+
+    public InteractiveItem(Quest quest, Coord location){
+        this.quest = quest;
         this.setLocation(location);
     }
 
-
-    public InteractiveItem(EffectCommand command, Coord location){
-        this.command = command;
-        this.setLocation(location);
-    }
-
-    public void setCommand(EffectCommand cmd){
-        this.command = cmd;
+    public void setCommand(Quest quest){
+        this.quest = quest;
     }
 
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
 
     public void interact(Entity entity) {
+        this.quest.attempt();
         //do nothing for now
-
         for (InteractiveItemObserver observer: observers) {
             observer.alertActivate();
+        }
+    }
+
+
+    public void unteract(Entity entity) {
+        for (InteractiveItemObserver observer: observers) {
+            observer.alertDeactivate();
         }
     }
 
