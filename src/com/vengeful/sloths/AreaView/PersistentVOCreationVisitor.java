@@ -33,6 +33,7 @@ import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Smasher;
 import com.vengeful.sloths.Models.Occupation.Sneak;
 import com.vengeful.sloths.Models.Occupation.Summoner;
+import com.vengeful.sloths.Models.RangedEffects.HitBox.HitBox;
 import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.*;
@@ -153,6 +154,11 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
 
     @Override
     public void visitSkill(Skill skill) {
+
+    }
+
+    @Override
+    public void visitHitBox(HitBox hitBox) {
 
     }
 

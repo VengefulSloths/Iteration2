@@ -70,7 +70,7 @@ public class FireBallAbility extends Ability{
         int damage = entity.getStats().getOffensiveRating() * (1 + entity.getSkillManager().getBaneLevel());
 
         //If the attempt to fire the ability did not fail, then initial fireball hit target accuracy = 100
-        RangedEffectGenerator reg = new EntityBlockLineEffectGenerator("FireBall", entity.getLocation(), entity.getFacingDirection(), this.travelDistance, this.travelTime, damage, 100);
+        RangedEffectGenerator reg = new EntityBlockLineEffectGenerator("fireball", entity.getLocation(), entity.getFacingDirection(), this.travelDistance, this.travelTime, damage, 100);
         reg.createRangedEffect();
     }
 }

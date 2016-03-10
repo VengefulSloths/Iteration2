@@ -19,6 +19,4 @@ public abstract class ProxyObserver implements ModelObserver {
     public void deregister() {
         subject.deregisterObserver(this);
     }
-
-
 }

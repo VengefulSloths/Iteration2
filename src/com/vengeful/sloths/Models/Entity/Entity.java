@@ -84,7 +84,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         this.stats = stats;
         stats.setEntity(this);
         this.skillManager = new SkillManager();
-        this.abilityManager = new AbilityManager();
+        this.abilityManager = new AbilityManager(this);
         this.inventory = new Inventory();
         this.equipped = new Equipped(this);
         this.buffManager = new BuffManager(this);

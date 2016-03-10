@@ -1,18 +1,13 @@
 package com.vengeful.sloths.Models.RangedEffects.HitBox;
 
-import apple.laf.JRSUIConstants;
-import com.vengeful.sloths.Models.Entity.Entity;
-import com.vengeful.sloths.Models.EntityMapInteractionCommands.CanMoveVisitor;
 import com.vengeful.sloths.Models.Map.Map;
+import com.vengeful.sloths.Models.Observers.HitBoxObserver;
 import com.vengeful.sloths.Models.RangedEffects.RangedEffectGenerator;
-import com.vengeful.sloths.Models.TimeModel.Alertable;
 import com.vengeful.sloths.Models.TimeModel.TimeController;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Utility.HexMath;
-import com.vengeful.sloths.Models.Observers.EntityObserver;
-import javafx.scene.control.Alert;
 
 import java.util.Iterator;
 
@@ -26,14 +21,16 @@ public class HitBoxMovementCommand{
     private int travelTicks;
     private HitBox subject;
     private RangedEffectGenerator creator;
+    private Iterator<HitBoxObserver> observerIterator;
 
 
-    public HitBoxMovementCommand(Coord src, Direction dir, HitBox hitBox, int travelTicks, RangedEffectGenerator creator) {
+    public HitBoxMovementCommand(Coord src, Direction dir, HitBox hitBox, int travelTicks, RangedEffectGenerator creator, Iterator<HitBoxObserver> observerIterator) {
         this.src = src;
         this.map = Map.getInstance();
         this.travelTicks = travelTicks;
         this.subject = hitBox;
         this.creator = creator;
+        this.observerIterator = observerIterator;
 
 
         this.dst = new Coord(src.getR(), src.getS());
@@ -73,12 +70,16 @@ public class HitBoxMovementCommand{
             return 0;
         }
 
-
         this.subject.setLocation(this.dst);
 
         TimeModel.getInstance().registerAlertable(() -> {
             this.creator.tickAlert();
         }, this.travelTicks);
+
+        //alert view
+        while (observerIterator.hasNext()) {
+            observerIterator.next().alertMove(dst.getR(), dst.getS(), travelTicks * TimeController.MODEL_TICK);
+        }
 
         System.out.println("HITBOX: Going to move from " + src.toString() + " to " + dst.toString());
 

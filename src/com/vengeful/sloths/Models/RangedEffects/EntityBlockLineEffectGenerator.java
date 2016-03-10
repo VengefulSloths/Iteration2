@@ -20,13 +20,13 @@ public class EntityBlockLineEffectGenerator extends LinearEffectGenerator{
         boolean hitTarget = this.getHitBox().takeDamage();
 
         if(this.getTravelDistanceLeft() > 0 && !hitTarget){
-            HitBoxMovementCommand hbmc = new HitBoxMovementCommand(this.getHitBox().getLocation(), this.getFacingDirection(), this.getHitBox(), this.getTravelTime(), this);
+            HitBoxMovementCommand hbmc = new HitBoxMovementCommand(this.getHitBox().getLocation(), this.getFacingDirection(), this.getHitBox(), this.getTravelTime(), this, getHitBox().getObservers());
             if(hbmc.execute() == 0){
-                //Alert hitbox view destroy
+                this.getHitBox().alertObserverOnDestroy();
             }
         }else{
             System.out.println("LINE ATT DONE!!!");
-            //Alert view destroy
+            this.getHitBox().alertObserverOnDestroy();
         }
     }
 }
