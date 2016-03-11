@@ -4,5 +4,5 @@
   <height>126</height>
   <rootPath>resources/mount/</rootPath>
   <fileName>lazy_mount.png</fileName>
-  <positioning>occupying</positioning>
+  <positioning xOffset="-39" yOffset="-90">custom</positioning>
 </single_frame_animation>

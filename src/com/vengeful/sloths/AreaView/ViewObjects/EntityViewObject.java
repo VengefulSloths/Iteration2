@@ -6,6 +6,7 @@ import com.vengeful.sloths.AreaView.TemporaryVOCreationVisitor;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.Hands.HandsCoordinator;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
+import com.vengeful.sloths.AreaView.ViewTime;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.ObserverManager;
 import com.vengeful.sloths.Sound.SoundEffect;
@@ -80,7 +81,7 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
             }
             paintBody(g);
 
-        } else {}
+        }
     }
 
     public boolean isMounted() {
@@ -187,13 +188,28 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     }
 
     @Override
-    public void alertMount(String mountName) {
+    public final void alertMount(String mountName) {
+        System.out.println("just mounted");
+        this.setCustomYOffset(-20);
         mountImage = DynamicImageFactory.getInstance().loadDynamicImage("resources/mount/" + mountName + ".xml");
         this.isMounted = true;
+        ViewTime.getInstance().registerAlert(0, () -> mountAnimation());
+    }
+
+    private int[] offsets = {0,1,1,2,2,3,3,2,1,1,0,0,-1,-1,-2,-2,-3,-3,-2,-2,-1,-1,0};
+    private int count = 0;
+
+    private void mountAnimation() {
+        if (isMounted()) {
+            System.out.println("Setting");
+            setCustomYOffset(-20 + offsets[count++%offsets.length]);
+            ViewTime.getInstance().registerAlert(0, () -> mountAnimation());
+        }
     }
 
     @Override
     public void alertDemount() {
+        this.setCustomYOffset(0);
         this.isMounted = false;
     }
 

@@ -15,25 +15,24 @@ import java.util.ArrayList;
 public class MountAbility extends SelfBuffAbility {
     private ArrayList<EntityObserver> observers;
     private String mountName;
-    private Entity entity;
     public MountAbility(Entity entity, Buff buff, ArrayList<EntityObserver> observers, String mountName, int windTicks, int coolTicks) {
         super(entity, buff, windTicks, coolTicks);
         this.observers = observers;
         this.mountName = mountName;
-        this.entity = entity;
     }
 
     @Override
     public int execute() {
-        if (entity.isActive()) {
-            entity.setActive(true);
-            TimeModel.getInstance().registerAlertable( () -> {
-                for (EntityObserver observer: observers) {
+        int output;
+        if ((output = super.execute()) > 0) {
+            TimeModel.getInstance().registerAlertable(() -> {
+                for (EntityObserver observer : observers) {
                     observer.alertMount(mountName);
                 }
             }, getWindTicks());
         }
-        return super.execute();
+        return output;
+
     }
 
     @Override

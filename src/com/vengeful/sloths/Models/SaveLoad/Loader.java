@@ -10,6 +10,7 @@ import com.vengeful.sloths.Models.Ability.Abilities.FireBallAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
+import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.Entity.*;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Inventory.Equipped;
@@ -19,6 +20,7 @@ import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Hat;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Knuckle;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
+import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.DoDestroyObstacleQuest;
@@ -27,6 +29,7 @@ import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.Quest;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
 import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
+import com.vengeful.sloths.Models.Map.Tile;
 import com.vengeful.sloths.Models.Occupation.*;
 import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
@@ -115,6 +118,8 @@ public class Loader {
                                     break;
                                 case "InteractiveItem" :
                                     InteractiveItem ii = processInteractiveItem(currObject);
+                                    loading.getTile(ii.getLocation()).addInteractiveItem(ii);
+                                    break;
                                 default: System.out.println(currObject.getNodeName() + " doesn't have a case to handle it");
                             }
                         }
@@ -126,8 +131,33 @@ public class Loader {
                 }
             }
         }
+        setActiveMapArea();
     }
-//untested
+//DANK QUADRA-FOR-LOOP TRIANGLE FUNCTION
+private void setActiveMapArea() {
+    Map m = Map.getInstance();
+        MapArea[] mas = m.getMapAreas();
+            Avatar a = Avatar.getInstance();
+                for(MapArea ma : mas){
+                    for(Tile[] tiles : ma.getTiles()){
+                        for(Tile tile : tiles){
+                            if(tile != null){
+                                Entity[] es = tile.getEntities();
+                                    if(es.length != 0){
+                                        for(Entity e : es){
+                                            if(e.equals(a)){
+                                                m.setActiveMapArea(ma);
+                                                    return;
+                                            }
+                                    }
+                                }
+                            }
+                        }
+            }
+    }
+}
+
+    //untested
     private InteractiveItem processInteractiveItem(Node currObject) {
         InteractiveItem ii = new InteractiveItem();
         Element current = (Element) currObject;
@@ -233,6 +263,7 @@ public class Loader {
                     p.setAbilityManager(abm);
                     break;
                 case "BuffManager" :
+                    p.setBuffManager(new BuffManager(p));
                     break;
                 case "Inventory" :
                     Inventory inv = processInventory(avatarObject);
@@ -332,6 +363,7 @@ public class Loader {
                     p.setAbilityManager(abm);
                     break;
                 case "BuffManager" :
+                    p.setBuffManager(new BuffManager(p));
                     break;
                 case "Inventory" :
                     Inventory inv = processInventory(avatarObject);

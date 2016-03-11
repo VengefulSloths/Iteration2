@@ -14,6 +14,8 @@ public abstract class ViewObject extends JComponent {
     private int xPixels;
     private int yPixels;
 
+    private int customYOffset = 0;
+
     private int r;
     private int s;
 
@@ -41,7 +43,11 @@ public abstract class ViewObject extends JComponent {
     }
 
     public int getYPixels() {
-        return yPixels;
+        return yPixels + customYOffset;
+    }
+
+    public void setCustomYOffset(int offset) {
+        this.customYOffset = offset;
     }
 
     public int getR() {

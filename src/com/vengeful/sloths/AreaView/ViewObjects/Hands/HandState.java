@@ -18,4 +18,5 @@ public interface HandState {
     void attack(int r, int s, long windUpTime, long coolDownTime);
     void cast(long windUpTime, long coolDownTime);
     void addWeapon(WeaponImageContainer weapon);
+    void setCustomYOffset(int offset);
 }
