@@ -12,6 +12,7 @@ public class AggressiveNPC extends NPC{
     public AggressiveNPC(String name, Stats stats){
         super(name, stats);
     }
+    public AggressiveNPC(){}
 
     @Override
     public void accept(ModelVisitor modelVisitor) {

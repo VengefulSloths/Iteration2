@@ -172,6 +172,10 @@ public class InventoryControllerState extends InputControllerState{
 
     }
 
+    public void handlePKey(){
+
+    }
+
     @Override
     public boolean handleReleaseLeftKey() {
         return false;

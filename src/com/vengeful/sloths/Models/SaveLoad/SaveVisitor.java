@@ -535,7 +535,9 @@ public class SaveVisitor implements ModelVisitor {
         for(int r = 0; r != ma.getMaxR(); ++r){
             for(int s = 0; s != ma.getMaxS(); ++s){
                 currCoord = new Coord(r,s);
-                tiles[r][s].accept(this);
+                if(tiles[r][s] != null){
+                    tiles[r][s].accept(this);
+                }
             }
         }
         if(currentParent.peek().equals(maElement)){
@@ -552,10 +554,9 @@ public class SaveVisitor implements ModelVisitor {
         while (entityIterator.hasNext())
             entityIterator.next().accept(this);*/
         Entity[] eArr = t.getEntities();
-        if(eArr.length > 0){
-            System.out.println("Entity Found");
-        }
-        //not being used anymore
+//        if(eArr.length > 0){
+//            System.out.println("Entity Found");
+//        }
         MapItem[] mapItems = t.getMapItems();
         if(mapItems.length > 0){
             System.out.println("MapItems Found");
@@ -637,7 +638,7 @@ public class SaveVisitor implements ModelVisitor {
 
     @Override
     public void visitObstacle(Obstacle obstacle) {
-        Element tiElement = doc.createElement("OneShotItem");
+        Element tiElement = doc.createElement("Obstacle");
         currentParent.peek().appendChild(tiElement);
         currentParent.push(tiElement);
         tiElement.setAttribute("Name", obstacle.getItemName());

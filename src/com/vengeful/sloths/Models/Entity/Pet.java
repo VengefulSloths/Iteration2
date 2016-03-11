@@ -13,6 +13,7 @@ public abstract class Pet extends Entity{
 
 
     public Pet(String name, Stats stats) { super(name, stats); }
+    public Pet(){}
 
 
 }
