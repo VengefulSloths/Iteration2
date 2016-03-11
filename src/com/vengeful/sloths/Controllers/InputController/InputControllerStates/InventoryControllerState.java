@@ -6,7 +6,6 @@ import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Views.InventoryView.InventoryView;
 import com.vengeful.sloths.Views.InventoryView.ListInventoryView;
 import com.vengeful.sloths.Views.ViewManager.ViewManager;
-import sun.security.x509.AVA;
 
 /**
  * Created by luluding on 3/3/16.

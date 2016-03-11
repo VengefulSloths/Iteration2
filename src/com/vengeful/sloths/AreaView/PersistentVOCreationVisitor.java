@@ -28,6 +28,9 @@ import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
 import com.vengeful.sloths.Models.Map.*;
 import com.vengeful.sloths.Models.Map.AreaEffects.*;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.BreakBoxQuest;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.DoDestroyObstacleQuest;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.HasItemQuest;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
 import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
@@ -228,7 +231,22 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
     }
 
     @Override
+
     public void visitExplosionAbility(ExplosionAbility explosionAbility) {
+
+    }
+
+    public void visitBreakBoxQuest(BreakBoxQuest breakBoxQuest) {
+
+    }
+
+    @Override
+    public void visitDoDestroyObstacleQuest(DoDestroyObstacleQuest doDestroyObstacleQuest) {
+
+    }
+
+    @Override
+    public void visitHasItemQuest(HasItemQuest hasItemQuest) {
 
     }
 

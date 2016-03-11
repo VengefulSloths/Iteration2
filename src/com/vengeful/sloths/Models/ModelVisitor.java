@@ -25,6 +25,9 @@ import com.vengeful.sloths.Models.Map.AreaEffects.TakeDamageAE;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.BreakBoxQuest;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.DoDestroyObstacleQuest;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.HasItemQuest;
 import com.vengeful.sloths.Models.Map.TeleportSenderTile;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
@@ -116,5 +119,14 @@ public interface ModelVisitor {
     void visitMeleeAttackAbility(MeleeAttackAbility meleeAttackAbility);
 
     void visitFireBallAbility(FireBallAbility fireBallAbility);
+
     void visitExplosionAbility(ExplosionAbility explosionAbility);
+
+
+    void visitBreakBoxQuest(BreakBoxQuest breakBoxQuest);
+
+    void visitDoDestroyObstacleQuest(DoDestroyObstacleQuest doDestroyObstacleQuest);
+
+    void visitHasItemQuest(HasItemQuest hasItemQuest);
+
 }

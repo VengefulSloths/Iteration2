@@ -20,6 +20,10 @@ import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Knuckle;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
 import com.vengeful.sloths.Models.Map.MapArea;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.DoDestroyObstacleQuest;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.HasItemQuest;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.Quest;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
 import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
@@ -109,6 +113,8 @@ public class Loader {
                                     AggressiveNPCControllerManager ancm = new AggressiveNPCControllerManager(loading, aNPC);
                                     loading.getTile(aNPC.getLocation()).addEntity(aNPC);
                                     break;
+                                case "InteractiveItem" :
+                                    InteractiveItem ii = processInteractiveItem(currObject);
                                 default: System.out.println(currObject.getNodeName() + " doesn't have a case to handle it");
                             }
                         }
@@ -120,6 +126,32 @@ public class Loader {
                 }
             }
         }
+    }
+//untested
+    private InteractiveItem processInteractiveItem(Node currObject) {
+        InteractiveItem ii = new InteractiveItem();
+        Element current = (Element) currObject;
+        ii.setItemName(current.getAttribute("itemName"));
+        ii.setLocation(processLocation(currObject.getChildNodes().item(0)));
+        ii.setQuest(processQuest(current.getChildNodes().item(1)));
+        return ii;
+    }
+//untested
+    private Quest processQuest(Node item) {
+        Element current = (Element) item;
+        Quest q = null;
+        switch (current.getNodeName()){
+            case "HasItemQuest" :
+                Quest q2 = processQuest(current.getChildNodes().item(0));
+                q = new HasItemQuest(q2, current.getAttribute("itemName"));
+                break;
+            case"DoDestroyObstacleQuest":
+                q = new DoDestroyObstacleQuest(processLocation(current.getChildNodes().item(0)));
+                break;
+            default:
+                System.out.println(current.getNodeName() + "isn't a supported quest type");
+        }
+        return q;
     }
 
     private Piggy processPiggy(Node currObject) {
@@ -329,7 +361,6 @@ public class Loader {
         osi.setLocation(processLocation(locatioNode));
         return osi;
     }
-
     private Obstacle processObstacle(Node currObject) {
         Obstacle o = new Obstacle();
         Element current = (Element) currObject;
@@ -339,7 +370,6 @@ public class Loader {
         o.setLocation(processLocation(locatioNode));
         return o;
     }
-
     private TakeableItem processTakeable(Node currObject) {
         TakeableItem ti = new TakeableItem();
         Element current = (Element) currObject;
@@ -375,7 +405,6 @@ public class Loader {
         }
         return ti;
     }
-
     private Avatar processAvatar(Node currObject) {
         Avatar a = Avatar.getInstance();
         NamedNodeMap avatarAttributes = currObject.getAttributes();
@@ -471,7 +500,6 @@ public class Loader {
         }
         return a;
     }
-    //untested
     private AbilityManager processAbilityManager(Node avatarObject, Entity e) {
         AbilityManager abm = new AbilityManager(e);
         if(avatarObject.getNodeType() == Node.ELEMENT_NODE){
@@ -519,7 +547,6 @@ public class Loader {
         }
         return abm;
     }
-
     private SkillManager processSkillManager(Node avatarObject) {
         SkillManager sk = new SkillManager();
         if(avatarObject.getNodeType() == Node.ELEMENT_NODE) {
@@ -541,7 +568,6 @@ public class Loader {
         }
         return sk;
     }
-
     private Equipped processEquipped(Node avatarObject, Entity e) {
         Equipped eq = new Equipped();
         eq.init(e);
@@ -586,7 +612,6 @@ public class Loader {
         }
         return eq;
     }
-
     private Inventory processInventory(Node avatarObject) {
         Inventory inv = new Inventory();
         if(avatarObject.getNodeType() == Node.ELEMENT_NODE){
@@ -638,7 +663,6 @@ public class Loader {
         }
         return inv;
     }
-
     private Knuckle processKnuckle(Element invItemElement) {
         Knuckle k = new Knuckle();
         k.setItemName(invItemElement.getAttribute("itemName"));
@@ -670,7 +694,6 @@ public class Loader {
         h.setItemStats(processStatsAddable(statsAddNode));
         return h;
     }
-
     private Potion processPotion(Element invItemElement) {
         Potion p  = new Potion();
         p.setItemName(invItemElement.getAttribute("itemName"));
@@ -679,7 +702,6 @@ public class Loader {
         p.setItemStats(sa);
         return p;
     }
-
     private StatsAddable processStatsAddable(Node statsAddNode) {
         StatsAddable sa = new GenericStatsAddable();
         if(statsAddNode.getNodeType() == Node.ELEMENT_NODE){
@@ -697,7 +719,6 @@ public class Loader {
         }
         return sa;
     }
-
     private Stats processStats(Node avatarObject) {
         Stats s = new Stats();
         if(avatarObject.getNodeType() == Node.ELEMENT_NODE){
@@ -718,7 +739,6 @@ public class Loader {
         }
         return s;
     }
-
     private Coord processLocation(Node object){
         int s;
         int r;
@@ -735,5 +755,4 @@ public class Loader {
         }
         return c;
     }
-
 }

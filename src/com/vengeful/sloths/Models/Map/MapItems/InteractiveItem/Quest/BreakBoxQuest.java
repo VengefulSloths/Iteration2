@@ -3,6 +3,7 @@ package com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 //import com.vengeful.sloths.Models.Map.MapItems.OneShotTest;
 import com.vengeful.sloths.Models.Map.Tile;
+import com.vengeful.sloths.Models.ModelVisitor;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -35,5 +36,20 @@ public class BreakBoxQuest extends Quest {
         }
 
         return true;
+    }
+
+    @Override
+    public void accept(ModelVisitor modelVisitor) {
+        modelVisitor.visitBreakBoxQuest(this);
+    }
+
+    public Tile[] getTiles(){
+        Tile[] tiles = new Tile[this.tiles.size()];
+        int i = 0;
+        for(Tile t : tiles){
+            tiles[i] = t;
+            ++i;
+        }
+        return tiles;
     }
 }

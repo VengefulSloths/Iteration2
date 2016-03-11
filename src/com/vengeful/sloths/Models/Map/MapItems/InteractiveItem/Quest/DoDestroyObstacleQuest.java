@@ -1,6 +1,7 @@
 package com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest;
 
 import com.vengeful.sloths.Models.Map.Map;
+import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Utility.Coord;
 
 /**
@@ -20,5 +21,18 @@ public class DoDestroyObstacleQuest extends Quest{
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void accept(ModelVisitor modelVisitor) {
+        modelVisitor.visitDoDestroyObstacleQuest(this);
+    }
+
+    public Coord getTarget() {
+        return target;
+    }
+
+    public void setTarget(Coord target) {
+        this.target = target;
     }
 }
