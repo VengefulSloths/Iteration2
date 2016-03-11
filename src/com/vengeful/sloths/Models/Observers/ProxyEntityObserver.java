@@ -82,13 +82,17 @@ public class ProxyEntityObserver extends ProxyObserver
     @Override
     public void alertLevelUp() {
 
+        if (!deleteFlag) {
+            ViewTime.getInstance().registerAlert(0, () -> target.alertLevelUp());
+        }
     }
     @Override
     public void alertDeath() {
         if (!deleteFlag) {
-            target.alertDeath();
+            ViewTime.getInstance().registerAlert(0, () -> target.alertDeath());
         }
     }
+
 
     @Override
     public void alertTakeDamage(int damage) {

@@ -42,6 +42,8 @@ public class LaunchGameTemplate {
         cameras = helper.createCameras();
         helper.populateMap();
         avatar = helper.createAvatar();
+        // Set avatar time to respawn (150/30 --> 5 seconds)
+        avatar.setTimeToRespawn(150);
         avatar.getStats().setMovement(45);
 //        avatar.getInstance().getStats().setHardiness(10);
 //        Avatar.getInstance().getStats().setCurrentHealth(60);

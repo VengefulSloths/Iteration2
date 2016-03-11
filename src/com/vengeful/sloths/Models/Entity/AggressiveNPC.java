@@ -1,6 +1,7 @@
 package com.vengeful.sloths.Models.Entity;
 
 import com.vengeful.sloths.Models.Buff.BuffManager;
+import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteractionFactory;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Stats.Stats;
 
@@ -13,9 +14,13 @@ public class AggressiveNPC extends NPC{
         super(name, stats);
     }
 
-    @Override
     public void accept(ModelVisitor modelVisitor) {
+        System.out.println("fdskladskjfhsdjkfsdahfkjdshfkjsdhfjksdahfkjsdhfsdjkfhsdjkfhdsjkfhdskjfds");
         modelVisitor.visitAggressiveNPC(this);
     }
 
+    @Override
+    protected void doRespawn() {
+        EntityMapInteractionFactory.getInstance().createRespawnCommand(this, this.getLocation(), timeToRespawn);
+    }
 }

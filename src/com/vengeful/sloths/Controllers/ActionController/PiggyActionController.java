@@ -45,7 +45,7 @@ public class PiggyActionController extends ActionController {
 
     @Override
     public void visitPiggyTarget(PiggyTarget piggy) {
-        // Mixed instance
+        // Mixed getInstance
         // Do nothing
     }
 
