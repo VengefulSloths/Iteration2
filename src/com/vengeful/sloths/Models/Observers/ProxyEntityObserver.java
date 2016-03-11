@@ -90,6 +90,7 @@ public class ProxyEntityObserver extends ProxyObserver
 
     @Override
     public void alertMount(String mountName) {
+        System.out.println("Proxy mount");
         if (!deleteFlag) {
             ViewTime.getInstance().registerAlert(0, () -> target.alertMount(mountName));
         }
