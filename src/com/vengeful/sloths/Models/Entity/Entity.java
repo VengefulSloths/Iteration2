@@ -187,7 +187,6 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     }
 
     public void setFacingDirection(Direction facingDirection) {
-        System.out.println("blodddop");
         if (facingDirection != null){
             this.facingDirection = facingDirection;
         }else{

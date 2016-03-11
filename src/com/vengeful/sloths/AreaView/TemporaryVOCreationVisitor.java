@@ -151,7 +151,6 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
         if (this.petPeo != null) {
             this.petPeo.deregister();
         }
-
         PiggyViewObject pvo = factory.createPiggyViewObject(piggy.getLocation().getR(), piggy.getLocation().getS(), "resources/entities/piggy/");
         this.petPeo = new ProxyEntityObserver(pvo, piggy);
         ObserverManager.getInstance().addProxyObserver(this.petPeo);
@@ -159,6 +158,8 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
         piggy.getStats().updateObservers();
         activeCameraView.addPiggy(pvo);
+
+        System.out.println("CREATING PET VO @" + pvo.getR() + ", " +  pvo.getS());
 
         this.activeCameraView.addViewObject(pvo);
     }

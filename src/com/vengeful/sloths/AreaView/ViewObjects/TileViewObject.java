@@ -127,9 +127,7 @@ public class TileViewObject extends ViewObject implements DestroyVOObserver{
     }
 
     public void reallyRemoveChild(ViewObject child) {
-        System.out.println("trying to remove child: " + child);
         if (children.contains(child)) {
-            System.out.println("    success removed child: " + child);
             children.remove(child);
         } else {
             ViewTime.getInstance().registerAlert(0, () -> reallyRemoveChild(child));
