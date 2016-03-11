@@ -95,6 +95,44 @@ public class LaunchGameTemplate {
 
     }
 
+    public void launchLoaded(){
+        map = helper.createMap();
+        helper.populateMap();
+        cameras = helper.createCameras();
+        avatar = Avatar.getInstance();
+        initSingletons();
+        AreaView areaView = new AreaView(cameras);
+        //ViewManager vm = new ViewManager();
+        HUDView hv = new HUDView(Config.instance().getHUDViewWidth(), Config.instance().getHUDViewHeight());
+        GridInventoryView giv = new GridInventoryView(avatar.getInventory());
+        EquipmentView ev = new EquipmentView(avatar.getEquipped());
+        StatsView sv = new StatsView(avatar.getStats());
+        //ViewManager vm = new ViewManager(areaView, hv);
+        CharacterView cv = new CharacterView(giv, ev, sv);
+        ViewManager vm = new ViewManager(areaView, hv, cv);
+
+        //ViewEngine viewEngine = new ViewEngine(areaView);
+        ViewEngine viewEngine = ViewEngine.getInstance();
+        viewEngine.registerView(vm);
+
+
+        //viewEngine.registerView(cv);
+
+
+        //ViewEngine viewEngine = new ViewEngine(areaView);
+        //ViewEngine viewEngine = ViewEngine.getInstance();
+        //viewEngine.killOldView();
+        //viewEngine.registerView(areaView);
+
+        //ModelEngine modelEngine = new ModelEngine();
+        ModelEngine modelEngine = ModelEngine.getInstance();
+        MainController controller = MainController.getInstance();
+        controller.init(vm);
+        controller.setAvatarControllerState();
+
+        modelEngine.start();
+    }
+
     public void initSingletons() {
         //Make sure that area view is created before this
 

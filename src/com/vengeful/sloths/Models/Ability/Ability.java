@@ -43,9 +43,9 @@ public abstract class Ability implements ModelVisitable {
 
     //TODO: put this at a lower level for saving
     @Override
-    public void accept(ModelVisitor modelVisitor) {
-        modelVisitor.visitAbility(this);
-    }
+//    public void accept(ModelVisitor modelVisitor) {
+//        modelVisitor.visitAbility(this);
+//    }
     //this is here for aid in loading, if you add more abilities have the toString just return the name of the class as a string
     public abstract String toString();
 

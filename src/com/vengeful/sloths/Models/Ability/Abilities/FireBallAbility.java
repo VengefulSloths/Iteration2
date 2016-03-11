@@ -2,6 +2,8 @@ package com.vengeful.sloths.Models.Ability.Abilities;
 
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Entity.Entity;
+import com.vengeful.sloths.Models.ModelVisitable;
+import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Observers.EntityObserver;
 import com.vengeful.sloths.Models.RangedEffects.EntityBlockLineEffectGenerator;
 import com.vengeful.sloths.Models.RangedEffects.EntityPassThroughLineEffectGenerator;
@@ -86,7 +88,7 @@ public class FireBallAbility extends Ability{
         reg.createRangedEffect();
     }
 
-    public void accept(SaveVisitor sv){
+    public void accept(ModelVisitor sv){
         sv.visitFireBallAbility(this);
     }
 

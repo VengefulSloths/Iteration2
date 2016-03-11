@@ -21,10 +21,7 @@ import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
 import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
-import com.vengeful.sloths.Models.Occupation.Occupation;
-import com.vengeful.sloths.Models.Occupation.Smasher;
-import com.vengeful.sloths.Models.Occupation.Sneak;
-import com.vengeful.sloths.Models.Occupation.Summoner;
+import com.vengeful.sloths.Models.Occupation.*;
 import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.GenericStatsAddable;
@@ -104,6 +101,10 @@ public class Loader {
                                     Piggy p = processPiggy(currObject);
                                     loading.getTile(p.getLocation()).addEntity(p);
                                     break;
+                                case "AggressiveNPC" :
+                                    AggressiveNPC aNPC = processAggressiveNPC(currObject);
+                                    loading.getTile(aNPC.getLocation()).addEntity(aNPC);
+                                    break;
                                 default: System.out.println(currObject.getNodeName() + " doesn't have a case to handle it");
                             }
                         }
@@ -182,6 +183,10 @@ public class Loader {
                 case "Summoner" :
                     Summoner sr = new Summoner();
                     p.setOccupation(sr);
+                    break;
+                case "DummyOccupation" :
+                    DummyOccupation d = new DummyOccupation();
+                    p.setOccupation(d);
                     break;
                 case "Stats" :
                     Stats s = processStats(avatarObject);
@@ -277,6 +282,10 @@ public class Loader {
                 case "Summoner" :
                     Summoner sr = new Summoner();
                     p.setOccupation(sr);
+                    break;
+                case "DummyOccupation" :
+                    DummyOccupation d = new DummyOccupation();
+                    p.setOccupation(d);
                     break;
                 case "Stats" :
                     Stats s = processStats(avatarObject);
@@ -578,7 +587,7 @@ public class Loader {
         Inventory inv = new Inventory();
         if(avatarObject.getNodeType() == Node.ELEMENT_NODE){
             Element invElement = (Element) avatarObject;
-            inv.setCurrentSize(Integer.valueOf(invElement.getAttribute("currentSize")));
+//            inv.setCurrentSize(Integer.valueOf(invElement.getAttribute("currentSize")));
             inv.setMaxSize(Integer.valueOf(invElement.getAttribute("maxSize")));
             if(avatarObject.hasChildNodes()){
                 NodeList invItems = avatarObject.getChildNodes();

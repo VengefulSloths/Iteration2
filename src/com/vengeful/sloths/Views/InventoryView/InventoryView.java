@@ -90,7 +90,7 @@ public class InventoryView extends View implements InventoryObserver {
 
     /* Initializes the itemList by generating ItemViewObjects from inventoryItems. Maybe make a factory? */
     public void initWithInventory(Inventory inventory) {
-        for (int i = 0; i < inventory.getCurrentSize(); i++) {
+        for (int i = 0; i < inventory.getCurrentSize(); ++i) {
             //InventoryItem item = inventory.getItem(i);
             //this.itemList.add(new ItemViewObject(inventory.getItem(i)));
             //this.itemList.add(new ItemViewObject(inventory.getItem(i)));
