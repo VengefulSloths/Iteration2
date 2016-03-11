@@ -4,10 +4,7 @@ import com.vengeful.sloths.AreaView.ViewObjects.InteractiveItemViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.OneShotViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.TakeableViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.TileViewObject;
-import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.ExplosionAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.FireBallAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.*;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
@@ -20,10 +17,7 @@ import com.vengeful.sloths.Models.Entity.Piggy;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Hat;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Knuckle;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.*;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
 import com.vengeful.sloths.Models.Map.*;
 import com.vengeful.sloths.Models.Map.AreaEffects.*;
@@ -247,6 +241,36 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
 
     @Override
     public void visitHasItemQuest(HasItemQuest hasItemQuest) {
+
+    }
+
+    @Override
+    public void visitSelfBuffAbility(SelfBuffAbility selfBuffAbility) {
+
+    }
+
+    @Override
+    public void visitMountAbility(MountAbility mountAbility) {
+
+    }
+
+    @Override
+    public void visitRemoveBuffAbility(RemoveBuffAbility removeBuffAbility) {
+
+    }
+
+    @Override
+    public void visitNullAbility(NullAbility nullAbility) {
+
+    }
+
+    @Override
+    public void visitDemountAbility(DemountAbility demountAbility) {
+
+    }
+
+    @Override
+    public void visitMount(Mount mount) {
 
     }
 

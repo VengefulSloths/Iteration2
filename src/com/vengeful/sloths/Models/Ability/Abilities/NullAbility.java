@@ -20,6 +20,6 @@ public class NullAbility extends Ability {
     @Override
     public void accept(ModelVisitor modelVisitor) {
         System.out.println("THis is inside of accept NullAbility");
-        (new Exception()).printStackTrace();
+        modelVisitor.visitNullAbility(this);
     }
 }

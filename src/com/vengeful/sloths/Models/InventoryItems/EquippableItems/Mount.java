@@ -14,10 +14,12 @@ import com.vengeful.sloths.Models.Stats.StatAddables.MovementAddable;
  */
 public class Mount extends EquippableItems {
     private String name;
+    private int moveSpeed;
     private Buff mountBuff;
 
     public Mount(String name, int moveSpeed) {
         this.mountBuff = new PermanantBuff(new MovementAddable(moveSpeed));
+        this.moveSpeed = moveSpeed;
         this.name = name;
     }
 
@@ -45,6 +47,26 @@ public class Mount extends EquippableItems {
 
     @Override
     public void accept(ModelVisitor mv) {
+        mv.visitMount(this);
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getMoveSpeed() {
+        return moveSpeed;
+    }
+
+    public void setMoveSpeed(int moveSpeed) {
+        this.moveSpeed = moveSpeed;
+    }
+
+    public Buff getMountBuff() {
+        return mountBuff;
+    }
+
+    public void setMountBuff(Buff mountBuff) {
+        this.mountBuff = mountBuff;
     }
 }

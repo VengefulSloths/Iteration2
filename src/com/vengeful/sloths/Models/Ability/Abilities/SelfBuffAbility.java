@@ -47,6 +47,14 @@ public class SelfBuffAbility extends Ability {
 
     @Override
     public void accept(ModelVisitor modelVisitor) {
-        (new Exception()).printStackTrace();
+        modelVisitor.visitSelfBuffAbility(this);
+    }
+
+    public Buff getBuff() {
+        return buff;
+    }
+
+    public void setBuff(Buff buff) {
+        this.buff = buff;
     }
 }
