@@ -3,8 +3,7 @@ package com.vengeful.sloths.AreaView;
 import com.vengeful.sloths.AreaView.ViewObjects.*;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
-import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.NullTile;
-import com.vengeful.sloths.Models.RangedEffects.HitBox.HitBox;
+import com.vengeful.sloths.AreaView.ViewObjects.NullTile;
 import com.vengeful.sloths.Utility.Direction;
 
 /**

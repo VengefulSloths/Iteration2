@@ -89,6 +89,12 @@ public class ProxyEntityObserver extends ProxyObserver
         }
     }
 
+    @Override
+    public void alertMount(String mountName) {
+        if (!deleteFlag) {
+            ViewTime.getInstance().registerAlert(0, () -> target.alertMount(mountName));
+        }
+    }
 
     @Override
     public void alertCast(long windUpTime, long coolDownTime) {

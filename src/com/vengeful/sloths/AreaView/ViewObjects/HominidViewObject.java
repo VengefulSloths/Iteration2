@@ -1,5 +1,7 @@
 package com.vengeful.sloths.AreaView.ViewObjects;
 
+import com.vengeful.sloths.AreaView.DynamicImages.DynamicImage;
+import com.vengeful.sloths.AreaView.DynamicImages.DynamicImageFactory;
 import com.vengeful.sloths.AreaView.DynamicImages.DynamicTimedImage;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.Hands.HandsCoordinator;
@@ -14,6 +16,9 @@ import java.awt.*;
  * Created by zach on 3/9/16.
  */
 public class HominidViewObject extends EntityViewObject {
+
+    private boolean isMounted;
+    private DynamicImage mountImage;
 
     private HandsCoordinator hands;
     private HatViewObject hat;
@@ -39,7 +44,16 @@ public class HominidViewObject extends EntityViewObject {
 
     @Override
     public void paintComponent(Graphics2D g) {
+
+
+
         if (!dead) {
+            if (isMounted) {
+                g.drawImage(mountImage.getImage(),
+                        getXPixels() + getLocationXOffset() + mountImage.getXOffset(),
+                        getYPixels() + getLocationYOffset() + mountImage.getYOffset(),
+                        this);
+            }
             hands.paintBack(g);
 
         } else {}
@@ -50,6 +64,8 @@ public class HominidViewObject extends EntityViewObject {
             hat.paintComponent(g);
             hands.paintFront(g);
         }
+
+
     }
 
     @Override
@@ -84,6 +100,12 @@ public class HominidViewObject extends EntityViewObject {
     public void alertEquipWeapon(String name, WeaponClass weaponClass) {
         WeaponImageContainer weapon = new WeaponImageContainer("resources/weapons/" + name + "/", direction);
         hands.equipWeapon(weapon, weaponClass);
+    }
+
+    @Override
+    public void alertMount(String mountName) {
+        mountImage = DynamicImageFactory.getInstance().loadDynamicImage("resources/mount/" + mountName);
+        this.isMounted = true;
     }
 
     @Override

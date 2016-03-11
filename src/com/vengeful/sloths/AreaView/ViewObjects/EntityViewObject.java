@@ -171,6 +171,11 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     }
 
     @Override
+    public void alertMount(String mountName) {
+        //do nothing in this class, do it in hominnd
+    }
+
+    @Override
     public void alertDeath() {
         System.out.println("this is getting called, to delte the view object");
         ObserverManager.getInstance().deregister(this);

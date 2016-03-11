@@ -26,7 +26,7 @@ public class Mount extends EquippableItems {
     }
 
     public Ability getMountAbility(Entity entity) {
-        return AbilityFactory.getInstance().createSelfBuffAbility(entity, mountBuff, 30, 32);
+        return AbilityFactory.getInstance().createMountAbility(entity, mountBuff, entity.getObservers(), "lazy_mount", 30, 32);
     }
 
     public Ability getDemountAbility(Entity entity) {
