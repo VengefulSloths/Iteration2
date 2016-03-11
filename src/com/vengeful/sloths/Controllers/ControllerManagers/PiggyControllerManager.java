@@ -31,9 +31,13 @@ public class PiggyControllerManager extends NPCControllerManager {
         if(this.getTicks() % 15 == 0) {
             if(this.getMapArea().equals(Map.getInstance().getActiveMapArea())) {
                 //System.out.println("beginning of tick");
-                this.getSearchingController().search(4);//hardcoded to 2 right now
+                if(getSearchingController() != null) {
+                    this.getSearchingController().search(4);//hardcoded to 2 right now
+                }
                 //System.out.println("highest priority target is :" + searchingController.getHighestPriorityTarget());
-                this.getActionController().action(this.getSearchingController().getHighestPriorityTarget());
+                if(getActionController() != null) {
+                    this.getActionController().action(this.getSearchingController().getHighestPriorityTarget());
+                }
                 //movementController
             }else{
                 //you could put reset the npc logic here

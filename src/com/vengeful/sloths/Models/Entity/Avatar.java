@@ -139,11 +139,13 @@ public class Avatar extends Entity{
         if(pet != null){
             System.out.println("squaaaaaaa");
             Coord coord = HexMath.getClosestMovableTile(location);
+            Map.getInstance().getTile(pet.getLocation()).removeEntity(pet);
             System.out.println("here is the coord that piggy trying to go to : " + coord);
             location.getMapArea().addEntity(pet, coord);
             pet.getControllerManager().setMapArea(location.getMapArea());
         }
     }
+
 
     public Pet getPet() {
         return pet;

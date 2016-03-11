@@ -99,6 +99,7 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     private boolean firstAvatarFlag = true;
     private AvatarViewObject avo;
     private ProxyEntityObserver peo;
+    private ProxyEntityObserver petPeo;
     @Override
     public void visitAvatar(Avatar avatar) {
         if (peo != null) {
@@ -120,17 +121,24 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
         avatar.getStats().updateObservers();
 
         //Set the camera views avatar to this
+
         activeCameraView.addAvatar(avo);
 
     }
 
     @Override
     public void visitPiggy(Piggy piggy) {
+        if (this.petPeo != null) {
+            this.petPeo.deregister();
+        }
+
         PiggyViewObject pvo = factory.createPiggyViewObject(piggy.getLocation().getR(), piggy.getLocation().getS(), "resources/entities/piggy/");
-        ObserverManager.getInstance().addProxyObserver( new ProxyEntityObserver(pvo, piggy));
+        this.petPeo = new ProxyEntityObserver(pvo, piggy);
+        ObserverManager.getInstance().addProxyObserver(this.petPeo);
         pvo.registerObserver(activeCameraView);
 
         piggy.getStats().updateObservers();
+        activeCameraView.addPiggy(pvo);
 
         this.activeCameraView.addViewObject(pvo);
     }

@@ -6,6 +6,7 @@ import com.vengeful.sloths.Models.EntityMapInteractionCommands.DefaultCanMoveVis
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.NonTeleMoveVisitor;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
+import com.vengeful.sloths.Models.Map.Tile;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -169,21 +170,31 @@ public class HexMath {
 
         Coord currCoord = null;
         while (!foundCoord && coordRingIter.hasNext()) {
+            System.out.println("a");
             currCoord = coordRingIter.next();
-
+            System.out.println("sddddd");
             try {
+                System.out.println("whddddddat");
                 mapArea.getTile(currCoord);//wtf does this do
-
-                mapArea.getTile(currCoord).accept(canMoveVisitor);
+                System.out.println("eeeeeee");
+                //Tile t = MapArea.getTile();
+                try {
+                    mapArea.getTile(currCoord).accept(canMoveVisitor);
+                }catch (NullPointerException e){
+                    canMoveVisitor.setCanMove(false);
+                }
+                System.out.println("dsdsdsdsd");
                 if (canMoveVisitor.canMove()) {
-                    foundCoord = true;
-                    break;
+                    System.out.println("bleep");
+                    return currCoord;
+                   // foundCoord = true;
+                    //break;
                 }
 
             } catch (IndexOutOfBoundsException e) {
                 // @TODO: Need to handle a bad tile here!
                 //  how do we adjust input coordinate for this?
-
+                System.out.println("what");
                 // USE SAFETY FUNCTION!
             }
 
@@ -191,7 +202,7 @@ public class HexMath {
                 coordRingIter = sortedRing(src, ++currRadius);
             }
         }
-
+        System.out.println("bloop");
         return currCoord;
     }
 }
