@@ -12,6 +12,7 @@ import com.vengeful.sloths.AreaView.Visibility;
 
 import java.awt.*;
 import java.awt.image.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -55,7 +56,9 @@ public class TileViewObject extends ViewObject implements DestroyVOObserver{
     }
 
 
-
+    public ArrayList<ViewObject> getChildren() {
+        return children;
+    }
 
     public Visibility getVisibility() {
         return visibility;

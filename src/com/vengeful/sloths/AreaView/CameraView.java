@@ -161,16 +161,16 @@ public abstract class CameraView implements MovingVOObserver{
         }
     }
     public void cleanUp() {
-        for (int i=0; i<maxX; i++) {
-            for (int j = 0; j < maxY; j++) {
-                if (tiles[i][j] != null) {
-                    tiles[i][j].removeChild(avatar);
-                    tiles[i][j].removeChild(piggy);
-                }
-            }
-        }
-        this.dontMoveAvatarFlag = true;
-        this.avatar.deregisterObserver(this);
+//        for (int i=0; i<maxX; i++) {
+//            for (int j = 0; j < maxY; j++) {
+//                if (tiles[i][j] != null) {
+//                    tiles[i][j].removeChild(avatar);
+//                    tiles[i][j].removeChild(piggy);
+//                }
+//            }
+//        }
+//        this.dontMoveAvatarFlag = true;
+//        this.avatar.deregisterObserver(this);
 
         //this.piggy.deregisterObserver(this);
 
@@ -192,4 +192,18 @@ public abstract class CameraView implements MovingVOObserver{
     public ViewObjectFactory getFactory() {
         return factory;
     }
+
+    public TileViewObject getTileVO(int r, int s) {
+        return tiles[findX(r, s)][findY(r, s)];
+    }
+
+    public int getMaxR() {
+        return maxR;
+    }
+
+
+    public int getMaxS() {
+        return maxS;
+    }
+
 }
