@@ -180,4 +180,37 @@ public class HexMath {
 
         return currCoord;
     }
+
+
+    public static Coord getNextFacingCoord(Coord src, Direction facingDirection){
+
+        Coord dst = new Coord(src.getR(), src.getS());
+        switch (facingDirection) {
+            case N:
+                dst.setS(dst.getS() - 1);
+                break;
+            case S:
+                dst.setS(dst.getS() + 1);
+                break;
+            case NE:
+                dst.setR(dst.getR() + 1);
+                dst.setS(dst.getS() - 1);
+                break;
+            case NW:
+                dst.setR(dst.getR() - 1);
+                break;
+            case SE:
+                dst.setR(dst.getR() + 1);
+                break;
+            case SW:
+                dst.setR(dst.getR() - 1);
+                dst.setS(dst.getS() + 1);
+                break;
+            default:
+                break;
+        }
+
+        return dst;
+
+    }
 }

@@ -31,6 +31,8 @@ import com.vengeful.sloths.Models.Occupation.Smasher;
 import com.vengeful.sloths.Models.Occupation.Sneak;
 import com.vengeful.sloths.Models.Occupation.Summoner;
 import com.vengeful.sloths.Models.RangedEffects.HitBox.HitBox;
+import com.vengeful.sloths.Models.RangedEffects.HitBox.ImmovableHitBox;
+import com.vengeful.sloths.Models.RangedEffects.HitBox.MovableHitBox;
 import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.*;
@@ -277,9 +279,15 @@ public class AggressiveNPCSearchingController extends SearchingController {
     }
 
     @Override
-    public void visitHitBox(HitBox hitBox) {
+    public void visitMovableHitBox(MovableHitBox movableHitBox) {
 
     }
+
+    @Override
+    public void visitImmovableHitBox(ImmovableHitBox immovableHitBox) {
+
+    }
+
 
 //    @Override
 //    public void visitCurrentHealthAddable(CurrentHealthAddable currentHealthAddable) {

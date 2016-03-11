@@ -13,11 +13,15 @@ public abstract class RangedEffectGenerator{
     public abstract void tickAlert();
 
     public int calculateAtt(int initialDmg, int currentRadius){
+        if(currentRadius <= 0)
+            return 0;
         int calculatedDmg = initialDmg - (int)(initialDmg * (currentRadius-1) * calculateDecreasingFactor());
         return calculatedDmg;
     }
 
     public int calculateAccuracy(int initialAcc, int currentRadius){
+        if(currentRadius <= 0)
+            return 0;
         int calculatedAcc = initialAcc - (int)(initialAcc * (currentRadius-1) * calculateDecreasingFactor());
         return calculatedAcc;
     }

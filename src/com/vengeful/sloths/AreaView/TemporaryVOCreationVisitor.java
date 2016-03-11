@@ -34,6 +34,8 @@ import com.vengeful.sloths.Models.Occupation.Smasher;
 import com.vengeful.sloths.Models.Occupation.Sneak;
 import com.vengeful.sloths.Models.Occupation.Summoner;
 import com.vengeful.sloths.Models.RangedEffects.HitBox.HitBox;
+import com.vengeful.sloths.Models.RangedEffects.HitBox.ImmovableHitBox;
+import com.vengeful.sloths.Models.RangedEffects.HitBox.MovableHitBox;
 import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.*;
@@ -280,18 +282,6 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
         this.activeCameraView.addViewObject(tvo);
     }
 
-    @Override
-    public void visitHitBox(HitBox hitBox) {
-        String imagePath = "resources/effects/"+hitBox.getName()+"/";
-        HitBoxViewObject hbvo = factory.createHitBoxViewObject(hitBox.getLocation().getR(), hitBox.getLocation().getS(), imagePath, hitBox.getDirection());
-        new ProxyHitBoxObserver(hbvo, hitBox);
-        hbvo.registerObserver(this.activeCameraView); //register for Movement observer
-        hbvo.registerObserver(this.activeCameraView.getTileVO(hbvo)); //register for destroyableObserver
-
-        //hbvo.registerObserver(this.activeCameraView.getTileVO(hbvo)); //TODO: are the attack effects on tile?
-        //TODO: need to remove and add observer whenever moving...
-        this.activeCameraView.addViewObject(hbvo);
-    }
 
     @Override
     public void visitObstacle(Obstacle obstacle) {
@@ -331,6 +321,26 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     @Override
     public void visitSkill(Skill skill) {
 
+    }
+
+    @Override
+    public void visitMovableHitBox(MovableHitBox movableHitBox) {
+        String imagePath = "resources/effects/"+movableHitBox.getName()+"/";
+        MovableHitBoxViewObject hbvo = factory.createMovableHitBoxViewObject(movableHitBox.getLocation().getR(), movableHitBox.getLocation().getS(), imagePath, movableHitBox.getDirection());
+        new ProxyHitBoxObserver(hbvo, movableHitBox);
+        hbvo.registerObserver(this.activeCameraView); //register for Movement observer
+        //hbvo.registerObserver(this.activeCameraView.getTileVO(hbvo)); //register for destroyableObserver
+        this.activeCameraView.addViewObject(hbvo);
+    }
+
+    @Override
+    public void visitImmovableHitBox(ImmovableHitBox immovableHitBox) {
+        String imagePath = "resources/effects/"+immovableHitBox.getName()+"/"+immovableHitBox.getName()+".xml";
+        ImmovableHitBoxViewObject hbvo = factory.createImmovableHitBoxViewObject(immovableHitBox.getLocation().getR(), immovableHitBox.getLocation().getS(), imagePath);
+        new ProxyHitBoxObserver(hbvo, immovableHitBox);
+        //hbvo.registerObserver(this.activeCameraView); //register for Movement observer
+        //hbvo.registerObserver(this.activeCameraView.getTileVO(hbvo)); //register for destroyableObserver
+        this.activeCameraView.addViewObject(hbvo);
     }
 
 

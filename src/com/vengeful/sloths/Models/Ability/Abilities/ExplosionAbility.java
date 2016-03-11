@@ -1,47 +1,40 @@
 package com.vengeful.sloths.Models.Ability.Abilities;
 
+import com.sun.corba.se.impl.encoding.EncapsInputStream;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.RangedEffects.*;
-import com.vengeful.sloths.Models.Skills.Skill;
-import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
-import com.vengeful.sloths.Utility.Direction;
-import com.vengeful.sloths.Utility.Coord;
-import com.vengeful.sloths.Utility.HexMath;
-
 
 /**
- * Created by luluding on 3/7/16.
+ * Created by luluding on 3/10/16.
  */
-public class FireBallAbility extends Ability{
+public class ExplosionAbility extends Ability{
     /* Summoner only, a type of bane spell */
 
-    //NOTE: can't trust any entity internal attribute reference set in the constructor
-
     private Entity entity;
-    private int travelTime;
-    private int travelDistance;
+    private int expandingTime;
+    private int expandingDistance;
     private int startupTicks;
     private int coolDownTicks;
 
-    private int manaCost = 2;
+    private int manaCost = 6;
 
     private DefaultCanGenerateVisitor canGenerateVisitor;
-    /*
-        Linear Effect -> mana cost = Low
-        Angular Effect -> mana cost = Medium
-        Radial Effect -> mana cost = High
-    */
 
-    public FireBallAbility(Entity entity, int travelTime, int travelDistance, int startupTicks, int coolDownTicks){
+
+    public ExplosionAbility(Entity entity, int expandingTime, int expandingDistance, int startupTicks, int coolDownTicks){
         this.entity = entity;
-        this.travelTime = travelTime;
-        this.travelDistance = travelDistance;
+        this.expandingTime = expandingTime;
+        this.expandingDistance = expandingDistance;
         this.startupTicks = startupTicks;
         this.coolDownTicks = coolDownTicks;
-        this.canGenerateVisitor = new DefaultCanGenerateVisitor();
+        this.canGenerateVisitor = new OnTileCanGenerateVisitor();
     }
+
+
+
+
 
     @Override
     public int execute() {
@@ -51,6 +44,7 @@ public class FireBallAbility extends Ability{
         if(!shouldDoAbility(entity.getSkillManager().getBaneLevel(), entity.getSkillManager().getMaxBaneLevel()))
             return 0;
 
+
         this.entity.setActive(true);
         this.entity.decMana(this.manaCost);
 
@@ -59,25 +53,30 @@ public class FireBallAbility extends Ability{
         }, startupTicks);
 
         TimeModel.getInstance().registerAlertable(() ->{
-            System.out.println("DONE FIRING THE FIRE BALL");
+            System.out.println("DONE DOING EXPLOSION");
             this.entity.setActive(false);
         }, coolDownTicks);
 
         return coolDownTicks;
+
     }
+
+
+    private void doAbility(){
+        int damage = entity.getStats().getOffensiveRating() * (1 + entity.getSkillManager().getBaneLevel());
+
+        //If the attempt to fire the ability did not fail, then initial fireball hit target accuracy = 100
+        //RangedEffectGenerator reg = new EntityBlockLineEffectGenerator("fireball", entity.getLocation(), entity.getFacingDirection(), this.travelDistance, this.travelTime, damage, 100);
+        //reg.createRangedEffect();
+        RangedEffectGenerator reg = new RadialEffectGenerator("explosion", entity.getLocation(), this.expandingDistance, this.expandingTime, damage, 100, canGenerateVisitor);
+        reg.createRangedEffect();
+    }
+
+
+
 
     @Override
     public String toString() {
-        return "FireBallAbility";
-    }
-
-    private void doAbility(){
-        //TODO: better formula.
-        int damage = entity.getStats().getOffensiveRating() * (1 + entity.getSkillManager().getBaneLevel());
-
-        Coord firingLocation = HexMath.getNextFacingCoord(entity.getLocation(), entity.getFacingDirection());
-        //If the attempt to fire the ability did not fail, then initial fireball hit target accuracy = 100
-        RangedEffectGenerator reg = new EntityBlockLineEffectGenerator("fireball", firingLocation, entity.getFacingDirection(), this.travelDistance, this.travelTime, damage, 100, canGenerateVisitor);
-        reg.createRangedEffect();
+        return "ExplosionAbility";
     }
 }

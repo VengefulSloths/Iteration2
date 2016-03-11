@@ -23,7 +23,7 @@ public class BindWoundsAbility extends Ability {
 
     public BindWoundsAbility(Entity entity, SkillManager skillManager, int startupTicks, int cooldownTicks){
         this.entity = entity;
-        this.skillManager = skillManager; //to avoid lod
+        this.skillManager = skillManager;
         this.startupTicks = startupTicks;
         this.cooldownTicks = cooldownTicks;
     }

@@ -30,6 +30,8 @@ import com.vengeful.sloths.Models.Map.Terrains.Water;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Occupation.*;
 import com.vengeful.sloths.Models.RangedEffects.HitBox.HitBox;
+import com.vengeful.sloths.Models.RangedEffects.HitBox.ImmovableHitBox;
+import com.vengeful.sloths.Models.RangedEffects.HitBox.MovableHitBox;
 import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
@@ -704,7 +706,12 @@ public class SaveVisitor implements ModelVisitor {
     }
 
     @Override
-    public void visitHitBox(HitBox hitBox) {
+    public void visitMovableHitBox(MovableHitBox movableHitBox) {
+
+    }
+
+    @Override
+    public void visitImmovableHitBox(ImmovableHitBox immovableHitBox) {
 
     }
 
