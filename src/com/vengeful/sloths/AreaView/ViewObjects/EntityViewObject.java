@@ -6,6 +6,7 @@ import com.vengeful.sloths.AreaView.TemporaryVOCreationVisitor;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.Hands.HandsCoordinator;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
+import com.vengeful.sloths.AreaView.ViewTime;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.ObserverManager;
 import com.vengeful.sloths.Sound.SoundEffect;
@@ -26,6 +27,9 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     private DynamicImage walkingS;
     private DynamicImage walkingSE;
     private DynamicImage walkingSW;
+
+    private DynamicImage mountImage;
+    private boolean isMounted = false;
 
     private HealthBarViewObject healthBar;
 
@@ -66,12 +70,22 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     @Override
     public void paintComponent(Graphics2D g) {
         if (!dead) {
+            if (isMounted) {
+                g.drawImage(mountImage.getImage(),
+                        getXPixels() + getLocationXOffset() + mountImage.getXOffset(),
+                        getYPixels() + getLocationYOffset() + mountImage.getYOffset(),
+                        this);
+            }
             if(healthBar != null) {
                 healthBar.paintComponent(g);
             }
             paintBody(g);
 
-        } else {}
+        }
+    }
+
+    public boolean isMounted() {
+        return isMounted;
     }
 
     @Override
@@ -125,11 +139,14 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
 
     @Override
     public void movementHook(int r, int s, long duration) {
-        ((DynamicTimedImage) currentDynamicImage).start(duration);
+        if(!isMounted) {
+            ((DynamicTimedImage) currentDynamicImage).start(duration);
+            (new SoundEffect("resources/audio/grass_step.wav")).play();
+        }
         if(healthBar != null) {
             healthBar.alertMove(r, s, duration);
         }
-        (new SoundEffect("resources/audio/grass_step.wav")).play();
+
     }
 
     @Override
@@ -168,6 +185,32 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     @Override
     public void alertLevelUp() {
 
+    }
+
+    @Override
+    public final void alertMount(String mountName) {
+        System.out.println("just mounted");
+        this.setCustomYOffset(-20);
+        mountImage = DynamicImageFactory.getInstance().loadDynamicImage("resources/mount/" + mountName + ".xml");
+        this.isMounted = true;
+        ViewTime.getInstance().registerAlert(0, () -> mountAnimation());
+    }
+
+    private int[] offsets = {0,1,1,2,2,3,3,2,1,1,0,0,-1,-1,-2,-2,-3,-3,-2,-2,-1,-1,0};
+    private int count = 0;
+
+    private void mountAnimation() {
+        if (isMounted()) {
+            System.out.println("Setting");
+            setCustomYOffset(-20 + offsets[count++%offsets.length]);
+            ViewTime.getInstance().registerAlert(0, () -> mountAnimation());
+        }
+    }
+
+    @Override
+    public void alertDemount() {
+        this.setCustomYOffset(0);
+        this.isMounted = false;
     }
 
     @Override

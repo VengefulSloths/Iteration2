@@ -133,6 +133,10 @@ public class Avatar extends Entity{
         super.doAbility(index);
     }
 
+    public boolean isMounted() {
+        return isMounted;
+    }
+
     public void avatarInit(String occupationString, Stats stats){
         this.avatarInit(occupationString, new AbilityManager(this), new BuffManager(this), new SkillManager());
     }

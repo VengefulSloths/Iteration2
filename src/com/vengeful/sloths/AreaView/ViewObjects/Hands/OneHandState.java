@@ -191,4 +191,10 @@ public class OneHandState implements HandState {
         walkingStrategy.startWalking(rightHand, duration);
     }
 
+    @Override
+    public void setCustomYOffset(int offset) {
+        leftHand.setCustomYOffset(offset);
+        rightHand.setCustomYOffset(offset);
+    }
+
 }

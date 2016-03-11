@@ -4,8 +4,10 @@ import com.vengeful.sloths.AreaView.CameraView;
 import com.vengeful.sloths.AreaView.CameraViewManager;
 import com.vengeful.sloths.AreaView.PlainsCameraView;
 import com.vengeful.sloths.Models.Entity.Avatar;
+import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
+import com.vengeful.sloths.Models.Map.Tile;
 import com.vengeful.sloths.Models.SaveLoad.Loader;
 import com.vengeful.sloths.Utility.Coord;
 import org.xml.sax.SAXException;
@@ -32,6 +34,7 @@ public class LaunchSavedGame implements LaunchGameHelper {
             Loader l = new Loader("save.xml");
             MapArea[] mapAreas = Map.getInstance().getMapAreas();
             l.loadAreas(mapAreas);
+//            Avatar.getInstance().getLocation()
             CameraView camera2 = new PlainsCameraView();
             CameraView camera1 = new PlainsCameraView();
             camera2.init(mapAreas[1]);

@@ -47,10 +47,11 @@ public class LaunchGameTemplate {
         // Set avatar time to respawn (150/30 --> 5 seconds)
         avatar.setTimeToRespawn(150);
         avatar.getStats().setMovement(45);
-        avatar.equip(new Mount("hex", 10));
 //        avatar.getInstance().getStats().setHardiness(10);
 //        Avatar.getInstance().getStats().setCurrentHealth(60);
         map.addEntity(helper.spawnPoint(), avatar);
+        //below line doesnt work for some reason despite adding the avatar to the map
+//        map.getActiveMapArea().getTile(helper.spawnPoint()).addEntity(Avatar.getInstance());
 
         //Coord newSpawn = helper.spawnPoint();
         //newSpawn.setR(newSpawn.getR()+1);
@@ -59,6 +60,7 @@ public class LaunchGameTemplate {
         initSingletons();
 
         /*****Test avatar drop******/
+        avatar.equip(new Mount("lazy_mount", 10));
         avatar.getInventory().addItem(new Potion("redPotion", new HealthManaExperienceAddable(5,0,0,0,0)));
         avatar.getInventory().addItem(new Potion("bluePotion", new HealthManaExperienceAddable(0,0,5,0,0)));
         avatar.getInventory().addItem(new Potion("bluePotion", new HealthManaExperienceAddable(0,0,5,0,0)));

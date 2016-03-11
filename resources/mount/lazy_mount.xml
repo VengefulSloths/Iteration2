@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<single_frame_animation>
+  <width>78</width>
+  <height>126</height>
+  <rootPath>resources/mount/</rootPath>
+  <fileName>lazy_mount.png</fileName>
+  <positioning xOffset="-39" yOffset="-90">custom</positioning>
+</single_frame_animation>

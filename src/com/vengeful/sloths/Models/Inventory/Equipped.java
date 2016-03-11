@@ -148,6 +148,7 @@ public class Equipped implements ViewObservable, ModelVisitable{
         return this.weapon;
     }
 
+    public Mount getMount() { return this.mount; }
 
     public void alertEquipped(EquippableItems item){
         Iterator<EquipmentObserver> iter = this.equipmentObserver.iterator();

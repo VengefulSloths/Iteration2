@@ -1,5 +1,7 @@
 package com.vengeful.sloths.AreaView.ViewObjects;
 
+import com.vengeful.sloths.AreaView.DynamicImages.DynamicImage;
+import com.vengeful.sloths.AreaView.DynamicImages.DynamicImageFactory;
 import com.vengeful.sloths.AreaView.DynamicImages.DynamicTimedImage;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.Hands.HandsCoordinator;
@@ -14,6 +16,7 @@ import java.awt.*;
  * Created by zach on 3/9/16.
  */
 public class HominidViewObject extends EntityViewObject {
+
 
     private HandsCoordinator hands;
     private HatViewObject hat;
@@ -39,18 +42,30 @@ public class HominidViewObject extends EntityViewObject {
 
     @Override
     public void paintComponent(Graphics2D g) {
-        if (!dead) {
-            hands.paintBack(g);
-
-        } else {}
-
-        super.paintComponent(g);
-
-        if (!dead) {
+        if (isMounted() && !dead) {
+            super.paintComponent(g);
             hat.paintComponent(g);
-            hands.paintFront(g);
+        } else {
+            if (!dead) {
+                hands.paintBack(g);
+            }
+
+            super.paintComponent(g);
+
+            if (!dead) {
+                hat.paintComponent(g);
+                hands.paintFront(g);
+            }
         }
     }
+    @Override
+    public void setCustomYOffset(int offset) {
+        super.setCustomYOffset(offset);
+        this.hat.setCustomYOffset(offset);
+        this.hands.setCustomYOffset(offset);
+        this.getHealthBar().setCustomYOffset(offset);
+    }
+
 
     @Override
     public void alertDirectionChange(Direction d) {
@@ -69,10 +84,13 @@ public class HominidViewObject extends EntityViewObject {
 
     @Override
     public void movementHook(int r, int s, long duration) {
+
         super.movementHook(r, s, duration);
 
         hands.alertMove(r, s, duration);
         hat.alertMove(r, s, duration);
+
+
     }
 
     @Override
@@ -85,6 +103,8 @@ public class HominidViewObject extends EntityViewObject {
         WeaponImageContainer weapon = new WeaponImageContainer("resources/weapons/" + name + "/", direction);
         hands.equipWeapon(weapon, weaponClass);
     }
+
+
 
     @Override
     public void alertUnequipWeapon() {
