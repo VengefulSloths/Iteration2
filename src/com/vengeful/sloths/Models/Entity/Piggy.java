@@ -14,6 +14,10 @@ public class Piggy extends Pet {
         super(name, stats);
     }
 
+
+    public Piggy(){}
+
+    @Override
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitPiggy(this);
     }

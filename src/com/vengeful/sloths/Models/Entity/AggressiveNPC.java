@@ -13,6 +13,7 @@ public class AggressiveNPC extends NPC{
     public AggressiveNPC(String name, Stats stats){
         super(name, stats);
     }
+    public AggressiveNPC(){}
 
     public void accept(ModelVisitor modelVisitor) {
        // System.out.println("fdskladskjfhsdjkfsdahfkjdshfkjsdhfjksdahfkjsdhfsdjkfhsdjkfhdsjkfhdskjfds");

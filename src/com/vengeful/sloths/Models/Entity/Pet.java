@@ -14,6 +14,7 @@ public abstract class Pet extends NPC{
     protected int timeToRespawn;
 
     public Pet(String name, Stats stats) { super(name, stats); }
+    public Pet(){}
 
     public int getTimeToRespawn() {
         return timeToRespawn;

@@ -1,16 +1,9 @@
 package com.vengeful.sloths.Controllers.InputController.InputControllerStates;
 
-import com.vengeful.sloths.Menu.ScrollableMenu;
-
 /**
- * Created by John on 3/7/2016.
+ * Created by John on 3/10/2016.
  */
-public class MenuControllerState extends InputControllerState {
-    ScrollableMenu menu;
-
-    public void setScrollableMenu(ScrollableMenu menu) {
-        this.menu = menu;
-    }
+public class SetInputsControllerState extends InputControllerState {
 
     @Override
     public void continuousFunction() {
@@ -27,11 +20,17 @@ public class MenuControllerState extends InputControllerState {
 
     }
 
+
+
     @Override
     public boolean handleInventoryKey() {
         return false;
     }
 
+    @Override
+    public boolean handleEquipmentKey() {
+        return false;
+    }
 
     @Override
     public boolean handleESCKey() {
@@ -45,10 +44,7 @@ public class MenuControllerState extends InputControllerState {
 
     @Override
     public boolean handleSouthKey() {
-
-        menu.down();
-
-        return true;
+        return false;
     }
 
     @Override
@@ -73,10 +69,7 @@ public class MenuControllerState extends InputControllerState {
 
     @Override
     public boolean handleNorthKey() {
-
-        menu.up();
-
-        return true;
+        return false;
     }
 
     @Override
@@ -86,7 +79,6 @@ public class MenuControllerState extends InputControllerState {
 
     @Override
     public boolean handleCenterKey() {
-        menu.select(null);
         return false;
     }
 
@@ -116,12 +108,18 @@ public class MenuControllerState extends InputControllerState {
     }
 
     @Override
-    public boolean handleSpaceKey() {
-        return false;
+    public void handleSaveKey() {
+
     }
 
-    public void handleSaveKey(){
+    @Override
+    public void handleEnterKey() {
 
+    }
+
+    @Override
+    public boolean handleSpaceKey() {
+        return false;
     }
 
     @Override
@@ -187,15 +185,5 @@ public class MenuControllerState extends InputControllerState {
     @Override
     public boolean handleReleaseUpKey() {
         return false;
-    }
-
-    @Override
-    public boolean handleEquipmentKey() {
-        return false;
-    }
-
-    @Override
-    public void handleEnterKey() {
-
     }
 }

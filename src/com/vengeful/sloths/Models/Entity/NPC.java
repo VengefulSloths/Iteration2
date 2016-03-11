@@ -23,6 +23,7 @@ public abstract class NPC extends Entity{
     public void talk(){
         //create talk command
     }
+    public NPC(){}
 
     public int getTimeToRespawn() {
         return timeToRespawn;
