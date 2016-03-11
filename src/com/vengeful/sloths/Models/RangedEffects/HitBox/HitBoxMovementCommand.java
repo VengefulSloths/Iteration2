@@ -6,6 +6,7 @@ import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.CanMoveVisitor;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Observers.HitBoxObserver;
+import com.vengeful.sloths.Models.RangedEffects.DefaultCanGenerateVisitor;
 import com.vengeful.sloths.Models.RangedEffects.RangedEffectGenerator;
 import com.vengeful.sloths.Models.TimeModel.TimeController;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
@@ -26,9 +27,10 @@ public class HitBoxMovementCommand{
     private HitBox subject;
     private RangedEffectGenerator creator;
     private Iterator<HitBoxObserver> observerIterator;
+    private DefaultCanGenerateVisitor canGenerateVisitor;
 
 
-    public HitBoxMovementCommand(Coord src, Direction dir, HitBox hitBox, int travelTicks, RangedEffectGenerator creator, Iterator<HitBoxObserver> observerIterator) {
+    public HitBoxMovementCommand(Coord src, Direction dir, HitBox hitBox, int travelTicks, RangedEffectGenerator creator, Iterator<HitBoxObserver> observerIterator, DefaultCanGenerateVisitor canGenerateVisitor) {
         this.src = src;
         this.map = Map.getInstance();
         this.travelTicks = travelTicks;
@@ -36,43 +38,26 @@ public class HitBoxMovementCommand{
         this.creator = creator;
         this.observerIterator = observerIterator;
 
-
-        this.dst = new Coord(src.getR(), src.getS());
-        switch (dir) {
-            case N:
-                dst.setS(dst.getS() - 1);
-                break;
-            case S:
-                dst.setS(dst.getS() + 1);
-                break;
-            case NE:
-                dst.setR(dst.getR() + 1);
-                dst.setS(dst.getS() - 1);
-                break;
-            case NW:
-                dst.setR(dst.getR() - 1);
-                break;
-            case SE:
-                dst.setR(dst.getR() + 1);
-                break;
-            case SW:
-                dst.setR(dst.getR() - 1);
-                dst.setS(dst.getS() + 1);
-                break;
-            default:
-                break;
-        }
+        this.dst = HexMath.getNextFacingCoord(src, dir);
+        this.canGenerateVisitor = canGenerateVisitor;
 
     }
 
     public int execute() {
 
-        boolean doesTileExist = HexMath.isValidTile(dst, Map.getInstance().getActiveMapArea().getMaxR(), Map.getInstance().getActiveMapArea().getMaxS());
+        //map area padding = 1
+        boolean doesTileExist = HexMath.isValidTile(dst, Map.getInstance().getActiveMapArea().getMaxR()-1, Map.getInstance().getActiveMapArea().getMaxS()-1);
 
         if(!doesTileExist){
             System.out.println("HITBOX: movement rejected " + src.toString() + " to " + dst.toString());
             return 0;
         }
+
+        //TODO: visitor throws: null tile, get this back once added more padding to map area
+//        map.getActiveMapArea().getTile(dst).accept(canGenerateVisitor);
+//        if(!canGenerateVisitor.canGenerate()){
+//            return 0;
+//        }
 
         this.subject.setLocation(this.dst);
 

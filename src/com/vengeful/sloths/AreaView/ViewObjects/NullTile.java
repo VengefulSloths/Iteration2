@@ -1,6 +1,7 @@
-package com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies;
+package com.vengeful.sloths.AreaView.ViewObjects;
 
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
+import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.TileViewObject;
 import com.vengeful.sloths.AreaView.Visibility;
 

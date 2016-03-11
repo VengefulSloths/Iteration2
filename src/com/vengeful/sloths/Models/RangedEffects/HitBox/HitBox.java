@@ -16,20 +16,17 @@ import java.util.Iterator;
 /**
  * Created by luluding on 3/8/16.
  */
-public class HitBox implements ModelVisitable, ViewObservable{
+public class HitBox implements ViewObservable{
 
     private String name;
     private Coord location;
-    private Direction direction;
-    private boolean isActive = false;
     private int damage;
     private int accuracy;
     private ArrayList<HitBoxObserver> observers = new ArrayList<>();
 
-    public HitBox(String name, Coord location, int dmg, int accuracy, Direction d){
+    public HitBox(String name, Coord location, int dmg, int accuracy){
         this.name = name;
         this.location = location;
-        this.direction = d;
         this.damage = dmg;
         this.accuracy = accuracy;
     }
@@ -84,9 +81,6 @@ public class HitBox implements ModelVisitable, ViewObservable{
     }
 
 
-    //Alert view observer
-
-
     public String getName(){
         return this.name;
     }
@@ -101,14 +95,6 @@ public class HitBox implements ModelVisitable, ViewObservable{
 
     public void setLocation(Coord location){
         this.location = location;
-    }
-
-    public boolean isActive(){
-        return this.isActive;
-    }
-
-    public void setActive(boolean active){
-        this.isActive = active;
     }
 
     public int getDamage() {
@@ -127,18 +113,12 @@ public class HitBox implements ModelVisitable, ViewObservable{
         this.accuracy = accuracy;
     }
 
-    public Direction getDirection() {
-        return direction;
-    }
 
-    public void setDirection(Direction direction) {
-        this.direction = direction;
-    }
-
+    /* Visit subclass instead
     @Override
     public void accept(ModelVisitor visitor) {
         visitor.visitHitBox(this);
-    }
+    }*/
 
     @Override
     public void registerObserver(ModelObserver modelObserver) {

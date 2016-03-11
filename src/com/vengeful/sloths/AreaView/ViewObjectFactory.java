@@ -3,8 +3,7 @@ package com.vengeful.sloths.AreaView;
 import com.vengeful.sloths.AreaView.ViewObjects.*;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
-import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.NullTile;
-import com.vengeful.sloths.Models.RangedEffects.HitBox.HitBox;
+import com.vengeful.sloths.AreaView.ViewObjects.NullTile;
 import com.vengeful.sloths.Utility.Direction;
 
 /**
@@ -83,8 +82,12 @@ public abstract class ViewObjectFactory {
         return cs;
     }
 
-    public HitBoxViewObject createHitBoxViewObject(int r, int s, String resourcePath, Direction d){
-        return new HitBoxViewObject(r, s, cs, ls, resourcePath, d);
+    public MovableHitBoxViewObject createMovableHitBoxViewObject(int r, int s, String resourcePath, Direction d){
+        return new MovableHitBoxViewObject(r, s, cs, ls, resourcePath, d);
+    }
+
+    public ImmovableHitBoxViewObject createImmovableHitBoxViewObject(int r, int s, String resourcePath){
+        return new ImmovableHitBoxViewObject(r, s, cs, ls, resourcePath);
     }
 
     public AEViewObject createAEViewObject(int r, int s, String resourecPath) {

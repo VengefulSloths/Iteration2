@@ -1,6 +1,7 @@
 package com.vengeful.sloths.Models.SaveLoad;
 
 import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.ExplosionAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.FireBallAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
@@ -25,6 +26,9 @@ import com.vengeful.sloths.Models.Map.AreaEffects.InstantDeathAE;
 import com.vengeful.sloths.Models.Map.AreaEffects.LevelUpAE;
 import com.vengeful.sloths.Models.Map.AreaEffects.TakeDamageAE;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.BreakBoxQuest;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.DoDestroyObstacleQuest;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.HasItemQuest;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
 import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
@@ -35,6 +39,8 @@ import com.vengeful.sloths.Models.Map.Terrains.Water;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Occupation.*;
 import com.vengeful.sloths.Models.RangedEffects.HitBox.HitBox;
+import com.vengeful.sloths.Models.RangedEffects.HitBox.ImmovableHitBox;
+import com.vengeful.sloths.Models.RangedEffects.HitBox.MovableHitBox;
 import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
@@ -335,6 +341,49 @@ public class SaveVisitor implements ModelVisitor {
         fbaElement.setAttribute("travelDistance", fireBallAbility.getTravelDistance() +"");
         fbaElement.setAttribute("travelTime", fireBallAbility.getTravelTime() +"");
         fbaElement.setAttribute("manaCost", fireBallAbility.getManaCost() +"");
+    }
+
+    //TODO: added by lulu for ExplosionAbility. Make sure to save it as well. Thanks!
+    public void visitExplosionAbility(ExplosionAbility explosionAbility) {
+
+    }
+
+
+
+    public void visitBreakBoxQuest(BreakBoxQuest breakBoxQuest) {
+//        Element bbqElement = doc.createElement("BreakBoxQuest");
+//        currentParent.peek().appendChild(bbqElement);
+//        Element tilesElement = doc.createElement("tiles");
+//        Tile[] tiles = breakBoxQuest.getTiles();
+//        int i = 0;
+//        for(Tile t : tiles){
+////            tilesElement.setAttribute("tile: " + i, t.);
+//            for(int)
+//        }
+        System.out.println("Not supposed to be using this quest");
+    }
+
+    @Override
+    public void visitDoDestroyObstacleQuest(DoDestroyObstacleQuest doDestroyObstacleQuest) {
+        Element ddoqElement = doc.createElement("DoDestroyObstacleQuest");
+        currentParent.peek().appendChild(ddoqElement);
+        Element targetElement = doc.createElement("target");
+        ddoqElement.appendChild(targetElement);
+        targetElement.setAttribute("s", "" + doDestroyObstacleQuest.getTarget().getS());
+        targetElement.setAttribute("r", "" + doDestroyObstacleQuest.getTarget().getR());
+    }
+
+    @Override
+    public void visitHasItemQuest(HasItemQuest hasItemQuest) {
+        Element hiq = doc.createElement("HasItemQuest");
+        currentParent.peek().appendChild(hiq);
+        currentParent.push(hiq);
+        hiq.setAttribute("itemName", hasItemQuest.getItemName());
+        hasItemQuest.getNextStep().accept(this);
+        if(!currentParent.peek().equals(hiq)){
+            System.out.println("error saving hasItemQuest");
+        }
+        currentParent.pop();
     }
 
     @Override
@@ -650,7 +699,7 @@ public class SaveVisitor implements ModelVisitor {
         Element tiElement = doc.createElement("TakeableItem");
         currentParent.peek().appendChild(tiElement);
         currentParent.push(tiElement);
-        tiElement.setAttribute("Name", takeableItem.getItemName());
+        tiElement.setAttribute("itemName", takeableItem.getItemName());
         appendCoordElement(tiElement, currCoord);
         takeableItem.getInventorpRep().accept(this);
         if(currentParent.peek().equals(tiElement)){
@@ -681,7 +730,7 @@ public class SaveVisitor implements ModelVisitor {
         Element tiElement = doc.createElement("OneShotItem");
         currentParent.peek().appendChild(tiElement);
         currentParent.push(tiElement);
-        tiElement.setAttribute("Name", osi.getItemName());
+        tiElement.setAttribute("itemName", osi.getItemName());
         appendCoordElement(tiElement, currCoord);
         if(currentParent.peek().equals(tiElement)){
 //            System.out.println("OneShot saved with stack at proper element");
@@ -693,7 +742,18 @@ public class SaveVisitor implements ModelVisitor {
 
     @Override
     public void visitInteractiveItem(InteractiveItem item) {
-
+        Element tiElement = doc.createElement("InteractiveItem");
+        currentParent.peek().appendChild(tiElement);
+        currentParent.push(tiElement);
+        tiElement.setAttribute("itemName", item.getItemName());
+        appendCoordElement(tiElement, currCoord);
+        item.getQuest().accept(this);
+        if(currentParent.peek().equals(tiElement)){
+//            System.out.println("OneShot saved with stack at proper element");
+            currentParent.pop();
+        }else{
+            System.out.println("some error saving Interactive, stack not at the proper element");
+        }
     }
 
     /**
@@ -742,7 +802,12 @@ public class SaveVisitor implements ModelVisitor {
     }
 
     @Override
-    public void visitHitBox(HitBox hitBox) {
+    public void visitMovableHitBox(MovableHitBox movableHitBox) {
+
+    }
+
+    @Override
+    public void visitImmovableHitBox(ImmovableHitBox immovableHitBox) {
 
     }
 

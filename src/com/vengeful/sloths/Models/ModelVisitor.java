@@ -1,6 +1,7 @@
 package com.vengeful.sloths.Models;
 
 import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.ExplosionAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.FireBallAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
@@ -24,6 +25,9 @@ import com.vengeful.sloths.Models.Map.AreaEffects.TakeDamageAE;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.BreakBoxQuest;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.DoDestroyObstacleQuest;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.HasItemQuest;
 import com.vengeful.sloths.Models.Map.TeleportSenderTile;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
@@ -36,6 +40,8 @@ import com.vengeful.sloths.Models.Map.Terrains.Water;
 import com.vengeful.sloths.Models.Map.Tile;
 import com.vengeful.sloths.Models.Occupation.*;
 import com.vengeful.sloths.Models.RangedEffects.HitBox.HitBox;
+import com.vengeful.sloths.Models.RangedEffects.HitBox.ImmovableHitBox;
+import com.vengeful.sloths.Models.RangedEffects.HitBox.MovableHitBox;
 import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.*;
@@ -104,11 +110,23 @@ public interface ModelVisitor {
 
     void visitSkill(Skill skill);
 
-    void visitHitBox(HitBox hitBox);
+
+    void visitMovableHitBox(MovableHitBox movableHitBox);
+    void visitImmovableHitBox(ImmovableHitBox immovableHitBox);
 
     void visitBindWounds(BindWoundsAbility bindWoundsAbility);
 
     void visitMeleeAttackAbility(MeleeAttackAbility meleeAttackAbility);
 
     void visitFireBallAbility(FireBallAbility fireBallAbility);
+
+    void visitExplosionAbility(ExplosionAbility explosionAbility);
+
+
+    void visitBreakBoxQuest(BreakBoxQuest breakBoxQuest);
+
+    void visitDoDestroyObstacleQuest(DoDestroyObstacleQuest doDestroyObstacleQuest);
+
+    void visitHasItemQuest(HasItemQuest hasItemQuest);
+
 }

@@ -169,9 +169,9 @@ public class LevelFactory {
         area1.getTile(new Coord(11,1)).addOneShotItem(new OneShotItem(new Coord(11,1)));
 
 
-        area1.getTile(new Coord(2,2)).addTakeableItem(new TakeableItem("redPotion", new Potion("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(1,2)));
+        area1.getTile(new Coord(2,2)).addTakeableItem(new TakeableItem("redPotion", new Potion("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(2,2)));
         area1.getTile(new Coord(11,10)).addTakeableItem(new TakeableItem("bluePotion", new Potion("bluePotion",new BaseStatsAddable(0,0,5,0,0)), new Coord(11,10)));
-        area2.getTile(new Coord(2,2)).addTakeableItem(new TakeableItem("redPotion", new Potion("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(1,2)));
+        area2.getTile(new Coord(2,2)).addTakeableItem(new TakeableItem("redPotion", new Potion("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(2,2)));
 
         CameraView camera2 = new PlainsCameraView();
         CameraView camera1 = new PlainsCameraView();

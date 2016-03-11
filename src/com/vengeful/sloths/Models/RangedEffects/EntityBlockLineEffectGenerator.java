@@ -9,8 +9,8 @@ import com.vengeful.sloths.Utility.Direction;
  */
 public class EntityBlockLineEffectGenerator extends LinearEffectGenerator{
 
-    public EntityBlockLineEffectGenerator(String name, Coord location, Direction direction, int travelDistance, int travelTime, int initialDmg, int initialAccuracy){
-        super(name, location, direction, travelDistance, travelTime, initialDmg, initialAccuracy);
+    public EntityBlockLineEffectGenerator(String name, Coord location, Direction direction, int travelDistance, int travelTime, int initialDmg, int initialAccuracy, DefaultCanGenerateVisitor canGenerateVisitor){
+        super(name, location, direction, travelDistance, travelTime, initialDmg, initialAccuracy, canGenerateVisitor);
     }
 
     @Override
@@ -20,7 +20,7 @@ public class EntityBlockLineEffectGenerator extends LinearEffectGenerator{
         boolean hitTarget = this.getHitBox().takeDamage();
 
         if(this.getTravelDistanceLeft() > 0 && !hitTarget){
-            HitBoxMovementCommand hbmc = new HitBoxMovementCommand(this.getHitBox().getLocation(), this.getFacingDirection(), this.getHitBox(), this.getTravelTime(), this, getHitBox().getObservers());
+            HitBoxMovementCommand hbmc = new HitBoxMovementCommand(this.getHitBox().getLocation(), this.getFacingDirection(), this.getHitBox(), this.getTravelTime(), this, getHitBox().getObservers(), getCanGenerateVisitor());
             if(hbmc.execute() == 0){
                 this.getHitBox().alertObserverOnDestroy();
             }

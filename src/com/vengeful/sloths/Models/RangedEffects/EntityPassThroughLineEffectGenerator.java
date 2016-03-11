@@ -9,8 +9,8 @@ import com.vengeful.sloths.Utility.Direction;
  */
 public class EntityPassThroughLineEffectGenerator extends LinearEffectGenerator{
 
-    public EntityPassThroughLineEffectGenerator(String name, Coord location, Direction direction, int travelDistance, int travelTime, int initialDmg, int initialAccuracy){
-        super(name, location, direction, travelDistance, travelTime, initialDmg, initialAccuracy);
+    public EntityPassThroughLineEffectGenerator(String name, Coord location, Direction direction, int travelDistance, int travelTime, int initialDmg, int initialAccuracy, DefaultCanGenerateVisitor canGenerateVisitor){
+        super(name, location, direction, travelDistance, travelTime, initialDmg, initialAccuracy, canGenerateVisitor);
     }
 
     @Override
@@ -20,7 +20,7 @@ public class EntityPassThroughLineEffectGenerator extends LinearEffectGenerator{
         this.getHitBox().takeDamage();
 
         if(this.getTravelDistanceLeft() > 0){
-            HitBoxMovementCommand hbmc = new HitBoxMovementCommand(this.getHitBox().getLocation(), this.getFacingDirection(), this.getHitBox(), this.getTravelTime(), this, this.getHitBox().getObservers());
+            HitBoxMovementCommand hbmc = new HitBoxMovementCommand(this.getHitBox().getLocation(), this.getFacingDirection(), this.getHitBox(), this.getTravelTime(), this, this.getHitBox().getObservers(), getCanGenerateVisitor());
             if(hbmc.execute() == 0){
                 this.getHitBox().alertObserverOnDestroy();
             }

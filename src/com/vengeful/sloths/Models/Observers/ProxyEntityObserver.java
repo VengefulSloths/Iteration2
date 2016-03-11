@@ -1,7 +1,6 @@
 package com.vengeful.sloths.Models.Observers;
 
 import com.vengeful.sloths.AreaView.ViewTime;
-import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.ViewObservable;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Utility.WeaponClass;
@@ -89,6 +88,19 @@ public class ProxyEntityObserver extends ProxyObserver
         }
     }
 
+    @Override
+    public void alertMount(String mountName) {
+        if (!deleteFlag) {
+            ViewTime.getInstance().registerAlert(0, () -> target.alertMount(mountName));
+        }
+    }
+
+    @Override
+    public void alertDemount() {
+        if (!deleteFlag) {
+            ViewTime.getInstance().registerAlert(0, () -> target.alertDemount());
+        }
+    }
 
     @Override
     public void alertCast(long windUpTime, long coolDownTime) {

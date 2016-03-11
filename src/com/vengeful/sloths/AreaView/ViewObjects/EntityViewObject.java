@@ -27,6 +27,9 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     private DynamicImage walkingSE;
     private DynamicImage walkingSW;
 
+    private DynamicImage mountImage;
+    private boolean isMounted = false;
+
     private HealthBarViewObject healthBar;
 
     protected Direction direction;
@@ -66,12 +69,22 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     @Override
     public void paintComponent(Graphics2D g) {
         if (!dead) {
+            if (isMounted) {
+                g.drawImage(mountImage.getImage(),
+                        getXPixels() + getLocationXOffset() + mountImage.getXOffset(),
+                        getYPixels() + getLocationYOffset() + mountImage.getYOffset(),
+                        this);
+            }
             if(healthBar != null) {
                 healthBar.paintComponent(g);
             }
             paintBody(g);
 
         } else {}
+    }
+
+    public boolean isMounted() {
+        return isMounted;
     }
 
     @Override
@@ -125,11 +138,14 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
 
     @Override
     public void movementHook(int r, int s, long duration) {
-        ((DynamicTimedImage) currentDynamicImage).start(duration);
+        if(!isMounted) {
+            ((DynamicTimedImage) currentDynamicImage).start(duration);
+            (new SoundEffect("resources/audio/grass_step.wav")).play();
+        }
         if(healthBar != null) {
             healthBar.alertMove(r, s, duration);
         }
-        (new SoundEffect("resources/audio/grass_step.wav")).play();
+
     }
 
     @Override
@@ -168,6 +184,17 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     @Override
     public void alertLevelUp() {
 
+    }
+
+    @Override
+    public void alertMount(String mountName) {
+        mountImage = DynamicImageFactory.getInstance().loadDynamicImage("resources/mount/" + mountName + ".xml");
+        this.isMounted = true;
+    }
+
+    @Override
+    public void alertDemount() {
+        this.isMounted = false;
     }
 
     @Override

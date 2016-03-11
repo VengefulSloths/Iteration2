@@ -13,9 +13,10 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * Created by luluding on 3/8/16.
+ * Created by luluding on 3/10/16.
  */
-public class HitBoxViewObject extends MovingViewObject implements HitBoxObserver {
+public class MovableHitBoxViewObject extends MovingViewObject implements HitBoxObserver {
+
 
     //TODO: may need to separate into moving HB and blast HB
 
@@ -29,10 +30,8 @@ public class HitBoxViewObject extends MovingViewObject implements HitBoxObserver
     private DynamicImage currentDynamicImage;
     private int height = -75; //TODO: pass in
 
-    //Used to alert tileVO on destroy
-    ArrayList<DestroyVOObserver> observers = new ArrayList<>();
 
-    public HitBoxViewObject(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy, String resourcePath, Direction d) {
+    public MovableHitBoxViewObject(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy, String resourcePath, Direction d) {
         super(r, s, coordinateStrategy, locationStrategy);
         this.movingN = DynamicImageFactory.getInstance().loadDynamicImage("resources/effects/fireball/fireball_n.xml");
         this.movingN = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "fireball_n.xml");
@@ -85,7 +84,7 @@ public class HitBoxViewObject extends MovingViewObject implements HitBoxObserver
 
     @Override
     public void accept(VOVisitor v) {
-        v.visitHitBox(this);
+        v.visitMovableHitBoxViewObject(this);
     }
 
     @Override
@@ -95,10 +94,6 @@ public class HitBoxViewObject extends MovingViewObject implements HitBoxObserver
         //    dvoo.alertDestroyVO(this);
         //}
         ((DynamicTimedImage) currentDynamicImage).start(20);
-    }
-
-    public void registerObserver(DestroyVOObserver observer) {
-        observers.add(observer);
     }
 
 }
