@@ -127,8 +127,10 @@ public class AvatarControllerState extends InputControllerState {
 
     @Override
     public boolean handleCenterKey() {
-        return false;
+        avatar.mount();
+        return true;
     }
+
 
     @Override
     public boolean handleDropKey() {

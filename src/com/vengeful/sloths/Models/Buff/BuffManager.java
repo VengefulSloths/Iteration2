@@ -3,6 +3,7 @@ package com.vengeful.sloths.Models.Buff;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
+import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.TimeModel.Tickable;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
 
@@ -19,19 +20,28 @@ public class BuffManager implements Tickable, ModelVisitable {
 
     public BuffManager(Entity entity){
         this.entity = entity;
-        this.buffs = new ArrayList<Buff>();
+        this.buffs = new ArrayList<>();
         TimeModel.getInstance().registerTickable(this);
     }
 
     //////////////////////public api//////////////////////////////////
+    public void modifyDamage(StatsAddable statsAddable) {
+        for (Buff buff: buffs) {
+            buff.modifyDamage(statsAddable);
+        }
+    }
+
     public void addBuff(Buff buff){
-        buff.apply(entity.getStats());
-        this.buffs.add(buff);
+        if (!buffs.contains(buff)) {
+            buff.apply(entity.getStats());
+            this.buffs.add(buff);
+        }
     }
 
     public void removeBuff(Buff buff){
-        buff.destroy(entity.getStats());
-        this.buffs.remove(buff);
+        if (buffs.remove(buff) ) {
+            buff.destroy(entity.getStats());
+        }
     }
     public void destroy(){
         TimeModel.getInstance().removeTickable(this);

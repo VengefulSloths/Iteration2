@@ -14,6 +14,10 @@ import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Knuckle;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
+import com.vengeful.sloths.Models.Map.AreaEffects.HealDamageAE;
+import com.vengeful.sloths.Models.Map.AreaEffects.InstantDeathAE;
+import com.vengeful.sloths.Models.Map.AreaEffects.LevelUpAE;
+import com.vengeful.sloths.Models.Map.AreaEffects.TakeDamageAE;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
@@ -61,6 +65,11 @@ public interface ModelVisitor {
     void visitInventory(Inventory i);
     void visitPotion(Potion p);
     void vistUsableItem(UsableItems ui);
+
+    void visitTakeDamageAE(TakeDamageAE t);
+    void visitHealDamageAE(HealDamageAE h);
+    void visitInstantDeathAE(InstantDeathAE i);
+    void visitLevelUpAE(LevelUpAE ae);
 
     void visitEquipped(Equipped e);
     void visitHat(Hat h);

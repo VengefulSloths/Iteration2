@@ -22,6 +22,7 @@ import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
 import com.vengeful.sloths.Models.Map.*;
+import com.vengeful.sloths.Models.Map.AreaEffects.*;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
@@ -89,10 +90,16 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
 
         //TODO: visit the rest of the tile
         tile.getTerrain().accept(this);
-        Iterator<MapItem> iter = tile.getMapItemIterator();
-        while (iter.hasNext()) {
-            iter.next().accept(this);
+        Iterator<MapItem> itemIterator = tile.getMapItemIterator();
+        while (itemIterator.hasNext()) {
+            itemIterator.next().accept(this);
         }
+
+        Iterator<AreaEffect> aeIterator = tile.getAreaEffectIterator();
+        while (aeIterator.hasNext()) {
+            aeIterator.next().accept(this);
+        }
+
 
         tiles.add(currentTile);
 
@@ -143,6 +150,26 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
         OneShotViewObject oneShotViewObject = factory.createOneShotViewObject(r, s);
         new ProxyDestoyableObserver(oneShotViewObject, osi);
         currentTile.addChild(oneShotViewObject);
+    }
+
+    @Override
+    public void visitTakeDamageAE(TakeDamageAE t) {
+        currentTile.addChild(factory.createAEViewObject(r, s, "resources/aoe/aoe_damage.xml"));
+    }
+
+    @Override
+    public void visitHealDamageAE(HealDamageAE h) {
+        currentTile.addChild(factory.createAEViewObject(r, s, "resources/aoe/aoe_heal.xml"));
+    }
+
+    @Override
+    public void visitInstantDeathAE(InstantDeathAE i) {
+        currentTile.addChild(factory.createAEViewObject(r, s, "resources/aoe/aoe_death.xml"));
+    }
+
+    @Override
+    public void visitLevelUpAE(LevelUpAE ae) {
+        currentTile.addChild(factory.createAEViewObject(r, s, "resources/aoe/aoe_level.xml"));
     }
 
     @Override
@@ -313,6 +340,8 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
     public void vistUsableItem(UsableItems ui) {
 
     }
+
+
 
     @Override
     public void visitEquipped(Equipped e) {

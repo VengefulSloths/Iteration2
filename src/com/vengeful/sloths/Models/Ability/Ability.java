@@ -47,7 +47,10 @@ public abstract class Ability implements ModelVisitable {
         modelVisitor.visitAbility(this);
     }
     //this is here for aid in loading, if you add more abilities have the toString just return the name of the class as a string
-    public abstract String toString();
+
+    public String toString() {
+        return "hacky hacky hacky";
+    }
 
     public void setCoolTicks(int coolTicks) {
         this.coolTicks = coolTicks;
@@ -56,4 +59,5 @@ public abstract class Ability implements ModelVisitable {
     public void setWindTicks(int windTicks) {
         this.windTicks = windTicks;
     }
+
 }

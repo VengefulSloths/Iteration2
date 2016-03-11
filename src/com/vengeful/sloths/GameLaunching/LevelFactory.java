@@ -9,6 +9,9 @@ import com.vengeful.sloths.Models.Entity.AggressiveNPC;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.Piggy;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
+import com.vengeful.sloths.Models.Map.AreaEffects.HealDamageAE;
+import com.vengeful.sloths.Models.Map.AreaEffects.InstantDeathAE;
+import com.vengeful.sloths.Models.Map.AreaEffects.LevelUpAE;
 import com.vengeful.sloths.Models.Map.AreaEffects.TakeDamageAE;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
@@ -133,7 +136,10 @@ public class LevelFactory {
         Quest quest1_b = new DoDestroyObstacleQuest(new Coord(2,3));
         Quest quest1_a = new HasItemQuest(quest1_b, "bluePotion");
 
-        area1.getTile(new Coord(3,3)).addAreaEffect(new TakeDamageAE(1));
+        area1.getTile(new Coord(6,6)).addAreaEffect(new TakeDamageAE(1));
+        area1.getTile(new Coord(6,7)).addAreaEffect(new HealDamageAE(1));
+        area1.getTile(new Coord(6,8)).addAreaEffect(new LevelUpAE(1));
+        area1.getTile(new Coord(6,9)).addAreaEffect(new InstantDeathAE());
 
         area1.addTile(new Coord(1,1), s2);
         area1.getTile(new Coord(2,2)).addInteractiveItem(new InteractiveItem(quest1_a, new Coord(2,2)));

@@ -19,6 +19,9 @@ public class AbilityManager implements ModelVisitable{
     private ArrayList<Ability> abilities;
     private Ability[] activeAbilities;
     private Ability weaponAbility; //set when weapon is equipped.
+    private Ability mountAbility; //set when mount is equipped
+    private Ability demountAbility; //set when mount is equipped
+
     //TODO: give it a default: punchAbility
     private Entity entity;
 
@@ -51,6 +54,20 @@ public class AbilityManager implements ModelVisitable{
         this.activeAbilities[index] = ability;
         return true;
     }
+
+    public void setMountAbility(Ability mountAbility) {
+        this.mountAbility = mountAbility;
+    }
+
+    public Ability getMountAbility() {
+        return mountAbility;
+    }
+
+    public Ability getDemountAbility() {
+        return demountAbility;
+    }
+
+    public void setDemountAbility(Ability demountAbility) { this.demountAbility = demountAbility; }
 
     public Ability getWeaponAbility(){
         return this.weaponAbility;

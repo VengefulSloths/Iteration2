@@ -5,6 +5,7 @@ import com.vengeful.sloths.Models.Effects.EffectCommand;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
+import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
 
 import java.util.ArrayList;
@@ -21,7 +22,10 @@ public class TakeDamageAE extends AreaEffect{
     }
 
 
-
+    @Override
+    public void accept(ModelVisitor modelVisitor) {
+        modelVisitor.visitTakeDamageAE(this);
+    }
     @Override
     public void doEffect(Entity entity) {
         entity.takeDamage(damage);
