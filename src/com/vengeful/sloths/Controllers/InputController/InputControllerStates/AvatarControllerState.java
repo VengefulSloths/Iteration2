@@ -44,18 +44,11 @@ public class AvatarControllerState extends InputControllerState {
 
     ///////////////////////handle key presses
     @Override
-    public boolean handleIKey() {
+    public boolean handleInventoryKey() {
         MainController.getInstance().setInventoryControllerState();
         return true;
     }
 
-    @Override
-    public boolean handleEKey() {
-        //TODO: test ability. Remove
-        System.out.println("R PRESSED");
-        avatar.doAbility(1);
-        return true;
-    }
 
     @Override
     public boolean handleESCKey() {
@@ -63,7 +56,7 @@ public class AvatarControllerState extends InputControllerState {
     }
 
     @Override
-    public boolean handle1Key() {
+    public boolean handleSouthWestKey() {
         if(avatar.getFacingDirection() != Direction.SW) {
             avatar.changeDirection(Direction.SW);
         }
@@ -72,7 +65,7 @@ public class AvatarControllerState extends InputControllerState {
     }
 
     @Override
-    public boolean handle2Key() {
+    public boolean handleSouthKey() {
         if(avatar.getFacingDirection() != Direction.S) {
             avatar.changeDirection(Direction.S);
         }
@@ -81,7 +74,7 @@ public class AvatarControllerState extends InputControllerState {
     }
 
     @Override
-    public boolean handle3Key() {
+    public boolean handleSouthEastKey() {
         if(avatar.getFacingDirection() != Direction.SE) {
             avatar.changeDirection(Direction.SE);
         }
@@ -96,17 +89,17 @@ public class AvatarControllerState extends InputControllerState {
     }
 
     @Override
-    public boolean handle4Key() {
+    public boolean handleWestKey() {
         return false;
     }
 
     @Override
-    public boolean handle6Key() {
+    public boolean handleEastKey() {
         return false;
     }
 
     @Override
-    public boolean handle7Key() {
+    public boolean handleNorthWestKey() {
         if(avatar.getFacingDirection() != Direction.NW) {
             avatar.changeDirection(Direction.NW);
         }
@@ -115,7 +108,7 @@ public class AvatarControllerState extends InputControllerState {
     }
 
     @Override
-    public boolean handle8Key() {
+    public boolean handleNorthKey() {
         if(avatar.getFacingDirection() != Direction.N) {
             avatar.changeDirection(Direction.N);
         }
@@ -124,7 +117,7 @@ public class AvatarControllerState extends InputControllerState {
     }
 
     @Override
-    public boolean handle9Key() {
+    public boolean handleNorthEastKey() {
         if(avatar.getFacingDirection() != Direction.NE) {
             avatar.changeDirection(Direction.NE);
         }
@@ -133,12 +126,14 @@ public class AvatarControllerState extends InputControllerState {
     }
 
     @Override
-    public boolean handle5Key() {
-        return false;
+    public boolean handleCenterKey() {
+        avatar.mount();
+        return true;
     }
 
+
     @Override
-    public boolean handleDKey() {
+    public boolean handleDropKey() {
         return false;
     }
 
@@ -169,59 +164,59 @@ public class AvatarControllerState extends InputControllerState {
 
     /////////////////////////handle key releases/////////////////////////
     @Override
-    public void handleRelease1Key() {
+    public void handleReleaseSouthWestKey() {
         if(currentMovementDirection == Direction.SW){
             currentMovementDirection = null;
         }
     }
 
     @Override
-    public void handleRelease2Key() {
+    public void handleReleaseSouthKey() {
         if(currentMovementDirection == Direction.S){
             currentMovementDirection = null;
         }
     }
 
     @Override
-    public void handleRelease3Key() {
+    public void handleReleaseSouthEastKey() {
         if(currentMovementDirection == Direction.SE){
             currentMovementDirection = null;
         }
     }
 
     @Override
-    public void handleRelease4Key() {
+    public void handleReleaseWestKey() {
 
     }
 
     @Override
-    public void handleRelease6Key() {
+    public void handleReleaseEastKey() {
 
     }
 
     @Override
-    public void handleRelease7Key() {
+    public void handleReleaseNorthWestKey() {
         if(currentMovementDirection == Direction.NW){
             currentMovementDirection = null;
         }
     }
 
     @Override
-    public void handleRelease8Key() {
+    public void handleReleaseNorthKey() {
         if(currentMovementDirection == Direction.N){
             currentMovementDirection = null;
         }
     }
 
     @Override
-    public void handleRelease9Key() {
+    public void handleReleaseNorthEastKey() {
         if(currentMovementDirection == Direction.NE){
             currentMovementDirection = null;
         }
     }
 
     @Override
-    public void handleRelease5Key() {
+    public void handleReleaseCenterKey() {
 
     }
 
@@ -249,8 +244,18 @@ public class AvatarControllerState extends InputControllerState {
         return true;
     }
 
-    public void handlePKey(){
+    public void handleSaveKey(){
         //quick call to save for testing
         sm.save();
+    }
+
+    @Override
+    public boolean handleEquipmentKey() {
+        return false;
+    }
+
+    @Override
+    public void handleEnterKey() {
+
     }
 }

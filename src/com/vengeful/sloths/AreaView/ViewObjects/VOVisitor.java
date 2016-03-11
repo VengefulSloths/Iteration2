@@ -1,5 +1,4 @@
 package com.vengeful.sloths.AreaView.ViewObjects;
-
 import com.vengeful.sloths.AreaView.DecalViewObject;
 
 /**
@@ -19,5 +18,6 @@ public interface VOVisitor {
     void visitDamageNumber(DamageNumberViewObject d);
     void visitHitBox(HitBoxViewObject h);
     void visitInteractiveItem(InteractiveItemViewObject i);
+    void visitAE(AEViewObject a);
 
 }

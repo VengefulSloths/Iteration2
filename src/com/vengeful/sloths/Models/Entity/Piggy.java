@@ -14,6 +14,7 @@ public class Piggy extends Pet {
         super(name, stats);
     }
 
+
     public Piggy(){}
 
     @Override

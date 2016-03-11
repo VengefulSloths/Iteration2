@@ -3,6 +3,8 @@ package com.vengeful.sloths.Models.SaveLoad;
 import com.sun.org.apache.xalan.internal.xsltc.compiler.util.InternalError;
 import com.sun.org.apache.xalan.internal.xsltc.compiler.util.NodeType;
 import com.sun.org.apache.xml.internal.serializer.ElemDesc;
+import com.vengeful.sloths.Controllers.ControllerManagers.AggressiveNPCControllerManager;
+import com.vengeful.sloths.Controllers.ControllerManagers.PiggyControllerManager;
 import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.FireBallAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
@@ -99,10 +101,12 @@ public class Loader {
                                     break;
                                 case "Piggy" :
                                     Piggy p = processPiggy(currObject);
+                                    PiggyControllerManager pcm = new PiggyControllerManager(loading,p);
                                     loading.getTile(p.getLocation()).addEntity(p);
                                     break;
                                 case "AggressiveNPC" :
                                     AggressiveNPC aNPC = processAggressiveNPC(currObject);
+                                    AggressiveNPCControllerManager ancm = new AggressiveNPCControllerManager(loading, aNPC);
                                     loading.getTile(aNPC.getLocation()).addEntity(aNPC);
                                     break;
                                 default: System.out.println(currObject.getNodeName() + " doesn't have a case to handle it");

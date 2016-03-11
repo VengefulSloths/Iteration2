@@ -22,6 +22,10 @@ import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
 import com.vengeful.sloths.Models.Map.*;
+import com.vengeful.sloths.Models.Map.AreaEffects.HealDamageAE;
+import com.vengeful.sloths.Models.Map.AreaEffects.InstantDeathAE;
+import com.vengeful.sloths.Models.Map.AreaEffects.LevelUpAE;
+import com.vengeful.sloths.Models.Map.AreaEffects.TakeDamageAE;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
@@ -32,6 +36,8 @@ import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Observers.*;
+import com.vengeful.sloths.Models.ObserverManager;
+
 import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Smasher;
 import com.vengeful.sloths.Models.Occupation.Sneak;
@@ -43,7 +49,12 @@ import com.vengeful.sloths.Models.Stats.StatAddables.*;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Direction;
 
-/**
+
+import com.vengeful.sloths.Models.Observers.ProxyDestoyableObserver;
+import com.vengeful.sloths.Models.Observers.ProxyEntityObserver;
+import com.vengeful.sloths.Models.Observers.ProxyStatsObserver;
+
+ /**
  * Created by alexs on 2/23/2016.
  */
 public class TemporaryVOCreationVisitor implements ModelVisitor {
@@ -102,6 +113,7 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     private boolean firstAvatarFlag = true;
     private AvatarViewObject avo;
     private ProxyEntityObserver peo;
+    private ProxyEntityObserver petPeo;
     @Override
     public void visitAvatar(Avatar avatar) {
         if (peo != null) {
@@ -113,36 +125,47 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
         //Let avo observe avatar through a proxy
         peo = new ProxyEntityObserver(avo, avatar);
-
+        ObserverManager.getInstance().addProxyObserver(peo);
         //Let the AvatarViewFollower follow the avo
         AvatarViewFollower.getInstance().bindToViewObject(avo);
 
         //let the cameraView watch avatar for movement
         avo.registerObserver(activeCameraView);
-        new ProxyStatsObserver(avo.getHealthBar(), avatar.getStats());
+        ObserverManager.getInstance().addProxyObserver(new ProxyStatsObserver(avo.getHealthBar(), avatar.getStats()));
         avatar.getStats().updateObservers();
 
         //Set the camera views avatar to this
+
         activeCameraView.addAvatar(avo);
 
     }
 
     @Override
     public void visitPiggy(Piggy piggy) {
+        if (this.petPeo != null) {
+            this.petPeo.deregister();
+        }
+
         PiggyViewObject pvo = factory.createPiggyViewObject(piggy.getLocation().getR(), piggy.getLocation().getS(), "resources/entities/piggy/");
-        new ProxyEntityObserver(pvo, piggy);
+        this.petPeo = new ProxyEntityObserver(pvo, piggy);
+        ObserverManager.getInstance().addProxyObserver(this.petPeo);
         pvo.registerObserver(activeCameraView);
+
+        piggy.getStats().updateObservers();
+        activeCameraView.addPiggy(pvo);
+
         this.activeCameraView.addViewObject(pvo);
     }
 
     @Override
     public void visitAggressiveNPC(AggressiveNPC aNPC) {
         EvilBlobViewObject ebvo = factory.createEvilBlobViewObject(aNPC.getLocation().getR(), aNPC.getLocation().getS(), "resources/entities/cyclops/");
-
-        new ProxyEntityObserver(ebvo, aNPC);
+        ObserverManager.getInstance().addProxyObserver(new ProxyEntityObserver(ebvo, aNPC));
+        //new ProxyEntityObserver(ebvo, aNPC);
         ebvo.registerObserver(activeCameraView);
-        new ProxyStatsObserver(ebvo.getHealthBar(), aNPC.getStats());
+        ObserverManager.getInstance().addProxyObserver(new ProxyStatsObserver(ebvo.getHealthBar(), aNPC.getStats()));
         aNPC.getStats().updateObservers();
+
         this.activeCameraView.addViewObject(ebvo);
     }
 
@@ -213,6 +236,26 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
     @Override
     public void vistUsableItem(UsableItems ui) {
+
+    }
+
+    @Override
+    public void visitTakeDamageAE(TakeDamageAE t) {
+
+    }
+
+    @Override
+    public void visitHealDamageAE(HealDamageAE h) {
+
+    }
+
+    @Override
+    public void visitInstantDeathAE(InstantDeathAE i) {
+
+    }
+
+    @Override
+    public void visitLevelUpAE(LevelUpAE ae) {
 
     }
 

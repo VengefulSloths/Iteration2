@@ -60,8 +60,8 @@ public class InventoryView extends View implements InventoryObserver {
         this.setInventory(inventory);
         //Create a proxy for the observer, regester the proxy w/ entity, add proxy to manager
         ProxyObserver pio = new ProxyInventoryObserver(this, inventory);
-        ObserverManager.instance().addProxyObserver(pio);
 
+        ObserverManager.getInstance().addProxyObserver(pio);
 
         initWithInventory(this.getInventory());
         initDefaultUI();

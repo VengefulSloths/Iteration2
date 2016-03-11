@@ -13,29 +13,24 @@ import java.util.Iterator;
  */
 public class EntityDieCommand implements Alertable {
 
-    private Entity entity;
+    protected Entity entity;
     private Iterator<EntityObserver> entityObserverIterator;
-    private int timeToRespawn;
 
-    public EntityDieCommand(Entity entity, int timeToRespawn, Iterator<EntityObserver> entityObserverIterator){
+    public EntityDieCommand(Entity entity, Iterator<EntityObserver> entityObserverIterator){
         this.entity = entity;
         this.entityObserverIterator = entityObserverIterator;
-        this.timeToRespawn = timeToRespawn;
     }
+
     @Override
     public int execute() {
         entity.setDead(true);
         entity.setActive(true); //make it so that the entity cant do anything
+
         Map.getInstance().getTile(entity.getLocation()).removeEntity(entity); //unregister him from the tile
 
         while (entityObserverIterator.hasNext()) {
             entityObserverIterator.next().alertDeath();
         }
-
-        EntityMapInteractionFactory emif = EntityMapInteractionFactory.getInstance();
-
-        //@TODO: NEED RESPAWN TILE
-        EntityRespawnCommand erc = emif.createRespawnCommand(entity, Map.getInstance().getRespawnPoint().getCoord(), timeToRespawn);
 
         return 0;
     }

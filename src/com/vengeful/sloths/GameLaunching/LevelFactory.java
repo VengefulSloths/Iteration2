@@ -6,8 +6,12 @@ import com.vengeful.sloths.AreaView.TemporaryVOCreationVisitor;
 import com.vengeful.sloths.Controllers.ControllerManagers.AggressiveNPCControllerManager;
 import com.vengeful.sloths.Controllers.ControllerManagers.PiggyControllerManager;
 import com.vengeful.sloths.Models.Entity.AggressiveNPC;
+import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.Piggy;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
+import com.vengeful.sloths.Models.Map.AreaEffects.HealDamageAE;
+import com.vengeful.sloths.Models.Map.AreaEffects.InstantDeathAE;
+import com.vengeful.sloths.Models.Map.AreaEffects.LevelUpAE;
 import com.vengeful.sloths.Models.Map.AreaEffects.TakeDamageAE;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
@@ -25,6 +29,7 @@ import com.vengeful.sloths.Models.Map.Terrains.Water;
 import com.vengeful.sloths.Models.Map.Tile;
 import com.vengeful.sloths.Models.Stats.StatAddables.BaseStatsAddable;
 import com.vengeful.sloths.AreaView.PlainsCameraView;
+import com.vengeful.sloths.Models.Stats.StatAddables.BonusHealthAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.CurrentHealthAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.MovementAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
@@ -131,7 +136,10 @@ public class LevelFactory {
         Quest quest1_b = new DoDestroyObstacleQuest(new Coord(2,3));
         Quest quest1_a = new HasItemQuest(quest1_b, "bluePotion");
 
-        area1.getTile(new Coord(3,3)).addAreaEffect(new TakeDamageAE(1));
+        area1.getTile(new Coord(6,6)).addAreaEffect(new TakeDamageAE(1));
+        area1.getTile(new Coord(6,7)).addAreaEffect(new HealDamageAE(1));
+        area1.getTile(new Coord(6,8)).addAreaEffect(new LevelUpAE(1));
+        area1.getTile(new Coord(6,9)).addAreaEffect(new InstantDeathAE());
 
         area1.addTile(new Coord(1,1), s2);
         area1.getTile(new Coord(2,2)).addInteractiveItem(new InteractiveItem(quest1_a, new Coord(2,2)));
@@ -174,18 +182,30 @@ public class LevelFactory {
 
 
         TemporaryVOCreationVisitor.getInstance().setActiveCameraView(camera2);
+//        Piggy testPiggy = new Piggy("Bart", new Stats(new MovementAddable(30)));
+//        testPiggy.setFacingDirection(Direction.S);
+//        testPiggy.setLocation(new Coord(3,5));
+//        area2.getTile(new Coord(3,5)).addEntity(testPiggy);
+//        testPiggy.accept(TemporaryVOCreationVisitor.getInstance());
+//        new PiggyControllerManager(area2, testPiggy);
+        //
         Piggy testPiggy = new Piggy("Bart", new Stats(new MovementAddable(30)));
         testPiggy.setFacingDirection(Direction.S);
-        testPiggy.setLocation(new Coord(3,5));
-        area2.getTile(new Coord(3,5)).addEntity(testPiggy);
-        testPiggy.accept(TemporaryVOCreationVisitor.getInstance());
-        new PiggyControllerManager(area2, testPiggy);
+        testPiggy.getStats().add(new BonusHealthAddable(100));
+        testPiggy.getStats().setCurrentHealth(100);
+        Map.getInstance().addEntity(new Coord(3,5), testPiggy);
+        //testPiggy.accept(TemporaryVOCreationVisitor.getInstance());
+        new PiggyControllerManager(Map.getInstance().getActiveMapArea(), testPiggy);
+        Avatar.getInstance().setPet(testPiggy);
+
+
+
 
         //stuff to test enemy controllers
         AggressiveNPC testEnemy =  new AggressiveNPC("xXOG_SwaG_LorD_BlazE_MasteR_420_Xx", new Stats(new BaseStatsAddable(0,0,0,0,30)));
         area2.getTile(new Coord(3,3)).addEntity(testEnemy);
         testEnemy.setLocation(new Coord(3,3));
-        testEnemy.accept(TemporaryVOCreationVisitor.getInstance());
+        //testEnemy.accept(TemporaryVOCreationVisitor.getInstance());
         new AggressiveNPCControllerManager(area2, testEnemy);
 
         testEnemy.getStats().subtract(new CurrentHealthAddable(1));

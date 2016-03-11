@@ -87,4 +87,8 @@ public abstract class ViewObjectFactory {
         return new HitBoxViewObject(r, s, cs, ls, resourcePath, d);
     }
 
+    public AEViewObject createAEViewObject(int r, int s, String resourecPath) {
+        return new AEViewObject(r, s, cs, ls, resourecPath);
+    }
+
 }

@@ -33,63 +33,13 @@ public class PiggyViewObject extends EntityViewObject implements EntityObserver 
         this.walkingSW = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "south_west_moving.xml");
         this.direction = Direction.S;
         this.currentDynamicImage = walkingS;
+        this.setHealthBar(null);
     }
 
     private void paintBody(Graphics2D g) {
         g.drawImage(currentDynamicImage.getImage(),
                 this.getXPixels() + currentDynamicImage.getXOffset() + this.getLocationXOffset(),
                 this.getYPixels() + currentDynamicImage.getYOffset() + this.getLocationYOffset(), this);
-
-    }
-
-    @Override
-    public void paintComponent(Graphics2D g) {
-        switch (this.direction) {
-            case N:
-                paintBody(g);
-                break;
-            case S:
-                paintBody(g);
-                break;
-            case SW:
-                paintBody(g);
-                break;
-            case SE:
-                paintBody(g);
-                break;
-            case NW:
-                paintBody(g);
-                break;
-            case NE:
-                paintBody(g);
-                break;
-        }
-    }
-
-    @Override
-    public void alertDirectionChange(Direction d) {
-        this.direction = d;
-        switch (d) {
-            case N:
-                currentDynamicImage = walkingN;
-                break;
-            case NW:
-                currentDynamicImage = walkingNW;
-                break;
-            case NE:
-                currentDynamicImage = walkingNE;
-                break;
-            case S:
-                currentDynamicImage = walkingS;
-                break;
-            case SW:
-                currentDynamicImage = walkingSW;
-                break;
-            case SE:
-                currentDynamicImage = walkingSE;
-                break;
-
-        }
 
     }
 

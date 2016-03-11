@@ -10,15 +10,11 @@ import com.vengeful.sloths.Models.Stats.Stats;
 /**
  * Created by luluding on 2/21/16.
  */
-public class Buff implements ModelVisitable{
+public abstract class Buff implements ModelVisitable{
 
     private StatsAddable buff;
     private int duration;
 
-    public Buff(){
-        buff = null;
-        duration = 0;
-    }
 
     public Buff(StatsAddable buff, int duration){
         this.buff = buff;
@@ -51,6 +47,10 @@ public class Buff implements ModelVisitable{
 
     public void destroy(Stats stats){
         stats.subtract(buff);
+    }
+
+    public void modifyDamage(StatsAddable statsAddable) {
+        //default do nothing
     }
 
     public boolean applyOnTick(Stats stats){
