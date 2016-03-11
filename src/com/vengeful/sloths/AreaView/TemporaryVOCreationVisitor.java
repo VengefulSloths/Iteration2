@@ -19,6 +19,10 @@ import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
 import com.vengeful.sloths.Models.Map.*;
+import com.vengeful.sloths.Models.Map.AreaEffects.HealDamageAE;
+import com.vengeful.sloths.Models.Map.AreaEffects.InstantDeathAE;
+import com.vengeful.sloths.Models.Map.AreaEffects.LevelUpAE;
+import com.vengeful.sloths.Models.Map.AreaEffects.TakeDamageAE;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
@@ -210,6 +214,26 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
     @Override
     public void vistUsableItem(UsableItems ui) {
+
+    }
+
+    @Override
+    public void visitTakeDamageAE(TakeDamageAE t) {
+
+    }
+
+    @Override
+    public void visitHealDamageAE(HealDamageAE h) {
+
+    }
+
+    @Override
+    public void visitInstantDeathAE(InstantDeathAE i) {
+
+    }
+
+    @Override
+    public void visitLevelUpAE(LevelUpAE ae) {
 
     }
 

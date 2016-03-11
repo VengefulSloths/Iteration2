@@ -20,6 +20,7 @@ import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.CurrentHealthAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.HealthManaExperienceAddable;
+import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Models.ViewObservable;
 import com.vengeful.sloths.Utility.Coord;
@@ -132,7 +133,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         return 0;
     }
 
-    public final int attack(Direction dir){
+    public int attack(Direction dir){
         if(!isActive) {
             this.setFacingDirection(dir);
             return abilityManager.getWeaponAbility().execute();
@@ -184,9 +185,14 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
 
     public void takeDamage(int attackDamage){
         //do dmg calculations here (like lessening it for defense)
-        getStats().subtract(new CurrentHealthAddable(attackDamage));
+        StatsAddable damage = new CurrentHealthAddable(attackDamage);
+        buffManager.modifyDamage(damage);
+
+
+
+        getStats().subtract(damage);
         for (EntityObserver observer: observers) {
-            observer.alertTakeDamage(attackDamage);
+            observer.alertTakeDamage(damage.getCurrentHealth());
         }
     }
 

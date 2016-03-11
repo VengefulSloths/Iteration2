@@ -7,6 +7,7 @@ import com.vengeful.sloths.Models.Entity.Piggy;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteractionFactory;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Mount;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.ModelEngine;
@@ -43,6 +44,7 @@ public class LaunchGameTemplate {
         helper.populateMap();
         avatar = helper.createAvatar();
         avatar.getStats().setMovement(45);
+        avatar.equip(new Mount("hex", 10));
 //        avatar.getInstance().getStats().setHardiness(10);
 //        Avatar.getInstance().getStats().setCurrentHealth(60);
         map.addEntity(helper.spawnPoint(), avatar);

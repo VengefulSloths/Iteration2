@@ -13,6 +13,8 @@ import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.HealthManaExperienceAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
+import com.vengeful.sloths.Models.TimeModel.TimeModel;
+import com.vengeful.sloths.Utility.Direction;
 
 import java.util.Iterator;
 
@@ -22,6 +24,7 @@ import java.util.Iterator;
 public class Avatar extends Entity{
 
     private static Avatar avatar = null;
+
 
     private Avatar(){
         super("Phill", new Stats());
@@ -34,6 +37,7 @@ public class Avatar extends Entity{
         return avatar;
     }
 
+    private boolean isMounted = false;
 
     public void avatarInit(String occupationString, AbilityManager abilityManager, BuffManager buffManager, SkillManager skillManager){
 
@@ -72,6 +76,45 @@ public class Avatar extends Entity{
         skillManager.updateSkillLevel(bws, 1);
         ///////////////////////////
 
+    }
+
+    private int endTime = 0;
+    public void mount() {
+        if (!this.isMounted) {
+            int ticks = this.getAbilityManager().getMountAbility().execute();
+            TimeModel.getInstance().registerAlertable(() -> isMounted = true, ticks);
+        }
+        else {
+            this.getAbilityManager().getDemountAbility().execute();
+            isMounted = false;
+        }
+    }
+
+    @Override
+    public void takeDamage(int damage) {
+        super.takeDamage(damage);
+        if (this.isMounted) {
+            this.getAbilityManager().getDemountAbility().execute();
+            isMounted = false;
+        }
+    }
+
+    @Override
+    public int attack(Direction dir) {
+        if (this.isMounted) {
+            this.getAbilityManager().getDemountAbility().execute();
+            isMounted = false;
+        }
+        return super.attack(dir);
+    }
+
+    @Override
+    public void doAbility(int index) {
+        if (this.isMounted) {
+            this.getAbilityManager().getDemountAbility().execute();
+            isMounted = false;
+        }
+        super.doAbility(index);
     }
 
     public void avatarInit(String occupationString, Stats stats){

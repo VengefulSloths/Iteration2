@@ -131,7 +131,8 @@ public class AvatarControllerState extends InputControllerState {
 
     @Override
     public boolean handle5Key() {
-        return false;
+        avatar.mount();
+        return true;
     }
 
     @Override
