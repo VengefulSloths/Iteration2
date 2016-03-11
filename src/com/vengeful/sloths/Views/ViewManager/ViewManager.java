@@ -81,8 +81,8 @@ public class ViewManager extends JPanel {
         this.areaview.setLayout(new BorderLayout());
         this.sidePanel.setLayout(new BorderLayout());
 
-        setComponentZOrder(areaview, 0);
-        setComponentZOrder(characterView, 1);
+        //setComponentZOrder(areaview, 0);
+        //setComponentZOrder(characterView, 1);
         sidePanel.add(hudView, BorderLayout.NORTH);
         areaview.add(sidePanel, BorderLayout.WEST); /* we add the sidePanel to the areaview because it needs to be transparent to
         //show the areaview/gameplay behind it since the only real component in it is the hudview at the top*/
@@ -113,6 +113,7 @@ public class ViewManager extends JPanel {
 
     public void addView(JComponent component) {
         this.add(component,0);
+        //this.areaview.add(component, BorderLayout.CENTER);
         this.revalidate();
         this.repaint();
     }

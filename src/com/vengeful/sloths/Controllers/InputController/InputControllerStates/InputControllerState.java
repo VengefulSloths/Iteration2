@@ -26,6 +26,9 @@ public abstract class InputControllerState {
     public abstract boolean handleRightKey();
     public abstract boolean handleDownKey();
     public abstract boolean handleUpKey();
+    //Added for saving
+    public abstract void handlePKey();
+
 
     public abstract boolean handleSpaceKey();
 

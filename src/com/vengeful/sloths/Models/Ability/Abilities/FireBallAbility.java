@@ -7,6 +7,7 @@ import com.vengeful.sloths.Models.RangedEffects.EntityBlockLineEffectGenerator;
 import com.vengeful.sloths.Models.RangedEffects.EntityPassThroughLineEffectGenerator;
 import com.vengeful.sloths.Models.RangedEffects.LinearEffectGenerator;
 import com.vengeful.sloths.Models.RangedEffects.RangedEffectGenerator;
+import com.vengeful.sloths.Models.SaveLoad.SaveVisitor;
 import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.TimeModel.TimeController;
@@ -83,5 +84,49 @@ public class FireBallAbility extends Ability{
         //If the attempt to fire the ability did not fail, then initial fireball hit target accuracy = 100
         RangedEffectGenerator reg = new EntityBlockLineEffectGenerator("fireball", entity.getLocation(), entity.getFacingDirection(), this.travelDistance, this.travelTime, damage, 100);
         reg.createRangedEffect();
+    }
+
+    public void accept(SaveVisitor sv){
+        sv.visitFireBallAbility(this);
+    }
+
+    public int getTravelTime() {
+        return travelTime;
+    }
+
+    public void setTravelTime(int travelTime) {
+        this.travelTime = travelTime;
+    }
+
+    public int getTravelDistance() {
+        return travelDistance;
+    }
+
+    public void setTravelDistance(int travelDistance) {
+        this.travelDistance = travelDistance;
+    }
+
+    public int getStartupTicks() {
+        return super.getWindTicks();
+    }
+
+    public void setStartupTicks(int startupTicks) {
+        super.setWindTicks(startupTicks);
+    }
+
+    public int getCoolDownTicks() {
+        return super.getCoolTicks();
+    }
+
+    public void setCoolDownTicks(int coolDownTicks) {
+        super.setCoolTicks(coolDownTicks);
+    }
+
+    public int getManaCost() {
+        return manaCost;
+    }
+
+    public void setManaCost(int manaCost) {
+        this.manaCost = manaCost;
     }
 }

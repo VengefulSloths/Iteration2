@@ -26,7 +26,10 @@ public class BindWoundsAbility extends Ability {
 
     }
 
-
+    public BindWoundsAbility(){
+        super.setCoolTicks(5);
+        super.setWindTicks(60);
+    }
 
     @Override
     public int execute() {

@@ -36,7 +36,7 @@ public class StatsView extends View implements StatsObserver {
 
     public void initDefaultUI() {
 
-        JLabel title = generateTitleLabel("Stats", 16, Color.WHITE);
+        JLabel title = generateTitleLabel("Stats", 22, Color.WHITE);
         titlePanel = new JPanel();
         statsPanel = new JPanel();
 
@@ -52,11 +52,12 @@ public class StatsView extends View implements StatsObserver {
         this.titlePanel.setLayout(new BorderLayout());
         this.statsPanel.setLayout(grid);
         //this.statsPanel.setLayout(new FlowLayout());
+        this.titlePanel.setPreferredSize(new Dimension(this.getWidth(), 50));
 
         //this.titlePanel.setBorder(new LineBorder(Color.BLACK));
-        this.statsPanel.setBorder(new LineBorder(Color.BLACK));
+        //this.statsPanel.setBorder(new LineBorder(Color.BLACK));
 
-        this.titlePanel.add(title, BorderLayout.CENTER);
+        this.titlePanel.add(title, BorderLayout.SOUTH);
         this.add(titlePanel, BorderLayout.NORTH);
         this.add(statsPanel, BorderLayout.CENTER);
 

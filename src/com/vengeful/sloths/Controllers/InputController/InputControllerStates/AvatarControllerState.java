@@ -3,6 +3,8 @@ package com.vengeful.sloths.Controllers.InputController.InputControllerStates;
 import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.AreaView.AvatarViewFollower;
 import com.vengeful.sloths.Models.Entity.Avatar;
+import com.vengeful.sloths.Models.Map.Map;
+import com.vengeful.sloths.Models.SaveLoad.SaveManager;
 import com.vengeful.sloths.Utility.CartesionDirection;
 import com.vengeful.sloths.Utility.Direction;
 
@@ -15,6 +17,7 @@ public class AvatarControllerState extends InputControllerState {
     private AvatarViewFollower follower = AvatarViewFollower.getInstance();
     private Direction currentMovementDirection = null;
     private CartesionDirection currentFollowerDirection = new CartesionDirection();
+    private SaveManager sm = new SaveManager(Map.getInstance());
 
     @Override
     public void continuousFunction() {
@@ -245,5 +248,10 @@ public class AvatarControllerState extends InputControllerState {
     public boolean handleReleaseUpKey() {
         this.currentFollowerDirection.addDirection(CartesionDirection.Direction.S);
         return true;
+    }
+
+    public void handlePKey(){
+        //quick call to save for testing
+        sm.save();
     }
 }

@@ -12,6 +12,7 @@ import com.vengeful.sloths.Views.View;
 import com.vengeful.sloths.Views.ViewFactory.ItemViewObjectFactory;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -60,6 +61,8 @@ public class InventoryView extends View implements InventoryObserver {
         //Create a proxy for the observer, regester the proxy w/ entity, add proxy to manager
         ProxyObserver pio = new ProxyInventoryObserver(this, inventory);
         ObserverManager.instance().addProxyObserver(pio);
+
+
         initWithInventory(this.getInventory());
         initDefaultUI();
     }
@@ -70,15 +73,17 @@ public class InventoryView extends View implements InventoryObserver {
         //JPanel itemPanel = new JPanel();
         titlePanel = new JPanel();
         itemPanel = new JPanel();
-        JLabel title = generateTitleLabel("Inventory", 16, Color.WHITE);
-        itemPanel.setBorder(new LineBorder(Color.BLACK));
+        JLabel title = generateTitleLabel("Inventory", 22, Color.WHITE);
+        //itemPanel.setBorder(new LineBorder(Color.BLACK));
+        //this.itemPanel.setBorder(new BevelBorder(BevelBorder.RAISED,Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE));
         titlePanel.setBackground(new Color(0f, 0f, 0f, 0f));
         itemPanel.setBackground(new Color(0f, 0f, 0f, 0f));
         titlePanel.setLayout(new BorderLayout());
+        this.titlePanel.setPreferredSize(new Dimension(this.getWidth(), 50));
         //itemPanel.setLayout(new GridBagLayout());
         itemPanel.setLayout(new GridLayout(10,1,0,0));
         this.setLayout(new BorderLayout());
-        titlePanel.add(title, BorderLayout.CENTER);
+        titlePanel.add(title, BorderLayout.SOUTH);
         this.add(titlePanel, BorderLayout.NORTH);
         this.add(itemPanel, BorderLayout.CENTER);
     }

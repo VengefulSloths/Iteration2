@@ -1,6 +1,7 @@
 package com.vengeful.sloths.Models.SaveLoad;
 
 import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.FireBallAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
@@ -325,6 +326,17 @@ public class SaveVisitor implements ModelVisitor {
         currentParent.peek().appendChild(abElement);
     }
 
+
+    public void visitFireBallAbility(FireBallAbility fireBallAbility) {
+        Element fbaElement = doc.createElement("FireBallAbility");
+        currentParent.peek().appendChild(fbaElement);
+        fbaElement.setAttribute("startUpTicks", fireBallAbility.getStartupTicks() +"");
+        fbaElement.setAttribute("coolDownTicks", fireBallAbility.getCoolDownTicks() +"");
+        fbaElement.setAttribute("travelDistance", fireBallAbility.getTravelDistance() +"");
+        fbaElement.setAttribute("travelTime", fireBallAbility.getTravelTime() +"");
+        fbaElement.setAttribute("manaCost", fireBallAbility.getManaCost() +"");
+    }
+
     @Override
     public void visitSummoner(Summoner s) {
         Element occElement = doc.createElement("Summoner");
@@ -547,7 +559,9 @@ public class SaveVisitor implements ModelVisitor {
         for(int r = 0; r != ma.getMaxR(); ++r){
             for(int s = 0; s != ma.getMaxS(); ++s){
                 currCoord = new Coord(r,s);
-                tiles[r][s].accept(this);
+                if(tiles[r][s] != null){
+                    tiles[r][s].accept(this);
+                }
             }
         }
         if(currentParent.peek().equals(maElement)){
@@ -564,10 +578,9 @@ public class SaveVisitor implements ModelVisitor {
         while (entityIterator.hasNext())
             entityIterator.next().accept(this);*/
         Entity[] eArr = t.getEntities();
-        if(eArr.length > 0){
-            System.out.println("Entity Found");
-        }
-        //not being used anymore
+//        if(eArr.length > 0){
+//            System.out.println("Entity Found");
+//        }
         MapItem[] mapItems = t.getMapItems();
         if(mapItems.length > 0){
             System.out.println("MapItems Found");
@@ -649,7 +662,7 @@ public class SaveVisitor implements ModelVisitor {
 
     @Override
     public void visitObstacle(Obstacle obstacle) {
-        Element tiElement = doc.createElement("OneShotItem");
+        Element tiElement = doc.createElement("Obstacle");
         currentParent.peek().appendChild(tiElement);
         currentParent.push(tiElement);
         tiElement.setAttribute("Name", obstacle.getItemName());
@@ -747,4 +760,5 @@ public class SaveVisitor implements ModelVisitor {
     private void appendDirectionAttribute(Element parent, Direction d){
         parent.setAttribute("Direction", d + "");
     }
+
 }

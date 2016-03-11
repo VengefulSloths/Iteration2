@@ -124,6 +124,10 @@ public class MenuControllerState extends InputControllerState {
         return false;
     }
 
+    public void handlePKey(){
+
+    }
+
     @Override
     public void handleRelease1Key() {
 
