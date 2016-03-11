@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Controllers.InputController.InputControllerStates;
 
+import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.Menu.ScrollableMenu;
 
 /**
@@ -35,6 +36,7 @@ public class MenuControllerState extends InputControllerState {
 
     @Override
     public boolean handleESCKey() {
+        MainController.getInstance().setAvatarControllerState();
         return false;
     }
 

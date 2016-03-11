@@ -48,7 +48,7 @@ public class InputChangeMenu extends ScrollableMenu {
 
     @Override
     protected void paintComponent(Graphics g) {
-        System.out.println("painting");
+       // System.out.println("painting");
         super.paintComponent(g);
 
         g.setFont(new Font("Helvetica",1,20));
@@ -59,7 +59,7 @@ public class InputChangeMenu extends ScrollableMenu {
         Iterator iter = list.getIterator();
         while (iter.hasNext()) {
             if(index == list.getCurrentIndex()){
-                System.out.println(list.getCurrentIndex());
+                //System.out.println(list.getCurrentIndex());
                 ScrollableMenuItem current = (ScrollableMenuItem) iter.next();
                 g2d.setColor(new Color(255, 0, 255, 80));
                 g2d.fillRect(padding/2, offset , this.getWidth() - padding, itemHeight);

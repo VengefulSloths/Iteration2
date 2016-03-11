@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Models;
 
+import com.vengeful.sloths.AreaView.ViewEngine;
 import com.vengeful.sloths.Models.TimeModel.TimeController;
 
 /**
@@ -8,6 +9,8 @@ import com.vengeful.sloths.Models.TimeModel.TimeController;
 public class ModelEngine implements Runnable {
     //private MainController controller;
     private TimeController timeController;
+    private boolean paused = false;
+    private Thread gameThread = null;
 
     private static ModelEngine ourInstance = new ModelEngine();
     public static ModelEngine getInstance(){return ourInstance;}
@@ -18,13 +21,10 @@ public class ModelEngine implements Runnable {
 
     @Override
     public void run() {
-        while(true) {
-            ////System.out.Println("Model Tick");
-
-            //controller.continuousFunction();
-            timeController.tick();
-
-        }
+            while (!paused){
+                //controller.continuousFunction();
+                timeController.tick();
+            }
     }
 
 //    public void setController(MainController controller) {
@@ -32,6 +32,26 @@ public class ModelEngine implements Runnable {
 //    }
 
     public void start() {
-        new Thread(this).start();
+        if(gameThread == null) {
+            gameThread = new Thread(this);
+            gameThread.start();
+        }
+    }
+
+    public boolean isPaused() {
+        return paused;
+    }
+
+    public void pauseGame() {
+        this.paused = true;
+        ViewEngine.getInstance().pauseView();
+        this.gameThread = null;
+    }
+    public void unpauseGame() {
+        this.paused = false;
+        ViewEngine.getInstance().unpauseView();
+        if(gameThread == null){
+            this.start();
+        }
     }
 }

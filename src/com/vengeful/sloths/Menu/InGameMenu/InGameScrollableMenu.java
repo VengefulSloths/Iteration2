@@ -1,5 +1,7 @@
 package com.vengeful.sloths.Menu.InGameMenu;
 
+import com.vengeful.sloths.Controllers.InputController.KeyBindingMenu.EnterKeyBindViewMenuItem;
+import com.vengeful.sloths.Controllers.InputController.KeyBindingMenu.KeyBindMenuItem;
 import com.vengeful.sloths.Menu.MainMenu.ExitGameMenuItem;
 import com.vengeful.sloths.Menu.MainMenu.LoadGameMenuItem;
 import com.vengeful.sloths.Menu.MainMenu.MainMenuItem;
@@ -32,27 +34,28 @@ public class InGameScrollableMenu extends ScrollableMenu {
         ScrollableMenuList list = new ScrollableMenuList();
         //list.addItem(new NewGameMenuItem());
         //needs to be edited to select save file
-        list.addItem(new MainMenuItem("Key Bindings"));//TODO change this to an actual keybinding item
+        list.addItem(new EnterKeyBindViewMenuItem());//TODO change this to an actual keybinding item
         list.addItem(new LoadGameMenuItem("Load Game"));
         list.addItem(new ExitGameMenuItem());
+        list.addItem(new MainMenuItem("Quit Menu")); //TODO implement and actual quit menu thing
         this.setList(list);
         //this.setBackground(Color.GRAY);
-        //this.setPreferredSize(new Dimension(1200,1000));
-        this.setBounds(300, 200, 600, 600); //try this
+        this.setPreferredSize(new Dimension(1200,1000));
+        //this.setBounds(300, 200, 600, 600); //try this
         this.setPadding(600);
 
     }
 
     @Override
     protected void paintComponent(Graphics g) {
-        System.out.println("painting");
+        //System.out.println("painting");
         super.paintComponent(g);
 
         g.setFont(new Font("Helvetica",1,50));
         int offset = padding/2;
         int index = 0;
         Graphics2D g2d = (Graphics2D) g;
-        g2d.drawImage(bg,300,200,600,600, null);
+        g2d.drawImage(bg,0,0,1200,1000, null);
         Iterator iter = list.getIterator();
         while (iter.hasNext()) {
             if(index == list.getCurrentIndex()){

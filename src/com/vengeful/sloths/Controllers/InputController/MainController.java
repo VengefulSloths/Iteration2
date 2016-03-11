@@ -1,16 +1,15 @@
 package com.vengeful.sloths.Controllers.InputController;
 
+import com.vengeful.sloths.Controllers.InputController.InputControllerStates.*;
 import com.vengeful.sloths.Menu.ScrollableMenu;
 import com.vengeful.sloths.AreaView.ViewEngine;
-import com.vengeful.sloths.Controllers.InputController.InputControllerStates.AvatarControllerState;
-import com.vengeful.sloths.Controllers.InputController.InputControllerStates.InputControllerState;
-import com.vengeful.sloths.Controllers.InputController.InputControllerStates.InventoryControllerState;
-import com.vengeful.sloths.Controllers.InputController.InputControllerStates.MenuControllerState;
 import com.vengeful.sloths.Controllers.InputController.InputStrategies.InputStrategy;
 import com.vengeful.sloths.Controllers.InputController.InputStrategies.QWEASDInputStrategy;
 import com.vengeful.sloths.Models.Entity.Avatar;
+import com.vengeful.sloths.Models.GameEngine;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.Map.Map;
+import com.vengeful.sloths.Models.ModelEngine;
 import com.vengeful.sloths.Models.TimeModel.Tickable;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
 import com.vengeful.sloths.Views.ViewManager.ViewManager;
@@ -33,6 +32,8 @@ public class MainController implements Tickable{
     private AvatarControllerState avatarControllerState;
     private InventoryControllerState inventoryControllerState;
     private MenuControllerState menuControllerState;
+    private SetInputsControllerState setInputsControllerState;
+
 
     public InventoryControllerState getInventoryControllerState() {
         return inventoryControllerState;
@@ -54,6 +55,7 @@ public class MainController implements Tickable{
         avatarControllerState = new AvatarControllerState();
         inventoryControllerState = new InventoryControllerState();
         menuControllerState = new MenuControllerState();
+        setInputsControllerState = new SetInputsControllerState();
 
         state = avatarControllerState;
 
@@ -80,9 +82,11 @@ public class MainController implements Tickable{
 
 
     public void setAvatarControllerState(){
+        ModelEngine.getInstance().unpauseGame();
         this.state = this.avatarControllerState;
         viewManager.closeCharacterView();
         viewManager.closeMenuView();
+        viewManager.closeKeyBindView();
         System.out.println("Switching to avatar state");
     }
 
@@ -99,8 +103,16 @@ public class MainController implements Tickable{
     }
 
     public void setInGameMenuControllerState(){
+        ModelEngine.getInstance().pauseGame();
         this.menuControllerState.setScrollableMenu(viewManager.getMenuView());
         viewManager.openMenuView();
+        this.state = menuControllerState;
+    }
+
+    public void setSetInputsControllerState(){
+        this.setInputsControllerState.setMenu(viewManager.getKeyBindView());
+        viewManager.openKeyBindView();
+        this.state = setInputsControllerState;
     }
 
     public Inventory getInventory(){
@@ -115,4 +127,5 @@ public class MainController implements Tickable{
     public void tick() {
         state.continuousFunction();
     }
+
 }

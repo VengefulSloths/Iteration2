@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Views.ViewManager;
 
+import com.vengeful.sloths.Controllers.InputController.KeyBindingMenu.InputChangeMenu;
 import com.vengeful.sloths.Menu.InGameMenu.InGameScrollableMenu;
 import com.vengeful.sloths.Utility.Config;
 //import com.vengeful.sloths.Views.AreaView.AreaView;
@@ -23,6 +24,7 @@ public class ViewManager extends JPanel {
     private AreaView areaview;
     private HUDView hudView;
     private InGameScrollableMenu menuView;
+    private InputChangeMenu keyBindView;
     JPanel sidePanel;
 
     protected static final int AREA_VIEW_WIDTH =(int) Config.instance().getAreaViewWidth();
@@ -63,6 +65,7 @@ public class ViewManager extends JPanel {
         this.hudView = hv;
         this.characterView = cv;
         menuView = new InGameScrollableMenu(80);
+        this.keyBindView = new InputChangeMenu(40);
         initializeViewManager();
     }
 
@@ -91,12 +94,21 @@ public class ViewManager extends JPanel {
         areaview.add(sidePanel, BorderLayout.WEST); /* we add the sidePanel to the areaview because it needs to be transparent to
         //show the areaview/gameplay behind it since the only real component in it is the hudview at the top*/
         //this.add(areaview);
+        //areaview.add(menuView, BorderLayout.EAST);
         this.add(areaview, BorderLayout.CENTER);
         this.hudView.setBackground(new Color(0f,0f,0f,0.1f));
         this.areaview.setBackground(Color.blue);
 
     }
 
+    public void openKeyBindView(){
+        addView(keyBindView);
+    }
+    public void closeKeyBindView(){
+        remove(keyBindView);
+        this.revalidate();
+        this.repaint();
+    }
     public void openMenuView(){
         addView(menuView);
     }
@@ -142,6 +154,14 @@ public class ViewManager extends JPanel {
 
     public InGameScrollableMenu getMenuView() {
         return menuView;
+    }
+
+    public InputChangeMenu getKeyBindView() {
+        return keyBindView;
+    }
+
+    public void setKeyBindView(InputChangeMenu keyBindView) {
+        this.keyBindView = keyBindView;
     }
 
     public void setMenuView(InGameScrollableMenu menuView) {
