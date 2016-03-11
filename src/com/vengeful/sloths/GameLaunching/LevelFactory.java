@@ -9,6 +9,7 @@ import com.vengeful.sloths.Models.Entity.AggressiveNPC;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.Piggy;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
+import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.Map.AreaEffects.HealDamageAE;
 import com.vengeful.sloths.Models.Map.AreaEffects.InstantDeathAE;
 import com.vengeful.sloths.Models.Map.AreaEffects.LevelUpAE;
@@ -189,13 +190,19 @@ public class LevelFactory {
 //        testPiggy.accept(TemporaryVOCreationVisitor.getInstance());
 //        new PiggyControllerManager(area2, testPiggy);
         //
+
+//        InventoryItem piggyItem = new
         Piggy testPiggy = new Piggy("Bart", new Stats(new MovementAddable(30)));
+//        area2.getTile(new Coord(2,3)).addTakeableItem(new TakeableItem("redPotion", new Potion("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(2,2)));
         testPiggy.setFacingDirection(Direction.S);
         testPiggy.getStats().add(new BonusHealthAddable(100));
         testPiggy.getStats().setCurrentHealth(100);
         Map.getInstance().addEntity(new Coord(3,5), testPiggy);
         //testPiggy.accept(TemporaryVOCreationVisitor.getInstance());
         new PiggyControllerManager(Map.getInstance().getActiveMapArea(), testPiggy);
+
+
+
         Avatar.getInstance().setPet(testPiggy);
 
 

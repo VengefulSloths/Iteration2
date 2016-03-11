@@ -195,4 +195,10 @@ public class UnarmedState implements HandState{
             hand.paintComponent(g);
         }
     }
+
+    @Override
+    public void setCustomYOffset(int offset) {
+        leftHand.setCustomYOffset(offset);
+        rightHand.setCustomYOffset(offset);
+    }
 }

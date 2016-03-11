@@ -79,6 +79,10 @@ public class HandsCoordinator {
         state.changeDirection(d);
     }
 
+    public void setCustomYOffset(int offset) {
+        state.setCustomYOffset(offset);
+    }
+
     public void paintFront(Graphics2D g) {
         state.paintFront(g);
     }

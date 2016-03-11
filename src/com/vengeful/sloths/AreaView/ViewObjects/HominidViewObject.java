@@ -58,6 +58,14 @@ public class HominidViewObject extends EntityViewObject {
             }
         }
     }
+    @Override
+    public void setCustomYOffset(int offset) {
+        super.setCustomYOffset(offset);
+        this.hat.setCustomYOffset(offset);
+        this.hands.setCustomYOffset(offset);
+        this.getHealthBar().setCustomYOffset(offset);
+    }
+
 
     @Override
     public void alertDirectionChange(Direction d) {
