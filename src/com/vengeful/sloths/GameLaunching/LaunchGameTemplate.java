@@ -50,6 +50,8 @@ public class LaunchGameTemplate {
 //        avatar.getInstance().getStats().setHardiness(10);
 //        Avatar.getInstance().getStats().setCurrentHealth(60);
         map.addEntity(helper.spawnPoint(), avatar);
+        //below line doesnt work for some reason despite adding the avatar to the map
+//        map.getActiveMapArea().getTile(helper.spawnPoint()).addEntity(Avatar.getInstance());
 
         //Coord newSpawn = helper.spawnPoint();
         //newSpawn.setR(newSpawn.getR()+1);

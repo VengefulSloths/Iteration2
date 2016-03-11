@@ -133,16 +133,12 @@ public class LevelFactory {
 
         area1.getTile(new Coord(2,3)).addObstacle(new Obstacle(new Coord(2,3)));
 
-        Quest quest1_b = new DoDestroyObstacleQuest(new Coord(2,3));
-        Quest quest1_a = new HasItemQuest(quest1_b, "bluePotion");
-
         area1.getTile(new Coord(6,6)).addAreaEffect(new TakeDamageAE(1));
         area1.getTile(new Coord(6,7)).addAreaEffect(new HealDamageAE(1));
         area1.getTile(new Coord(6,8)).addAreaEffect(new LevelUpAE(1));
         area1.getTile(new Coord(6,9)).addAreaEffect(new InstantDeathAE());
 
         area1.addTile(new Coord(1,1), s2);
-        area1.getTile(new Coord(2,2)).addInteractiveItem(new InteractiveItem(quest1_a, new Coord(2,2)));
 
 
         MapArea[] areas = new MapArea[2];
@@ -172,6 +168,10 @@ public class LevelFactory {
         area1.getTile(new Coord(2,2)).addTakeableItem(new TakeableItem("redPotion", new Potion("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(2,2)));
         area1.getTile(new Coord(11,10)).addTakeableItem(new TakeableItem("bluePotion", new Potion("bluePotion",new BaseStatsAddable(0,0,5,0,0)), new Coord(11,10)));
         area2.getTile(new Coord(2,2)).addTakeableItem(new TakeableItem("redPotion", new Potion("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(2,2)));
+
+        Quest quest1_b = new DoDestroyObstacleQuest(new Coord(2,3));
+        Quest quest1_a = new HasItemQuest(quest1_b, "bluePotion");
+        area1.getTile(new Coord(2,2)).addInteractiveItem(new InteractiveItem(quest1_a, new Coord(2,2)));
 
         CameraView camera2 = new PlainsCameraView();
         CameraView camera1 = new PlainsCameraView();
@@ -210,7 +210,7 @@ public class LevelFactory {
 
         testEnemy.getStats().subtract(new CurrentHealthAddable(1));
 
-
+//        map.getActiveMapArea().getTile(spawnPoint).addEntity(Avatar.getInstance());
         cameras.addCameraView(area2, camera2);
         cameras.addCameraView(area1, camera1);
     }

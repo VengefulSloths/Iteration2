@@ -91,7 +91,9 @@ public class Tile implements ModelVisitable {
 
     public void addEntity(Entity entity){
         //may need to check for an entity already being on the tile
-
+        //the check below breaks the gameF
+//        if(this.entities.size() > 0){
+//        }
         this.entities.add(entity);
         this.interact(entity);
 

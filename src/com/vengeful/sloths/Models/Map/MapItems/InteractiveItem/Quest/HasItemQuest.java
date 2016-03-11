@@ -23,7 +23,7 @@ public class HasItemQuest extends Quest {
     public boolean attempt(){
         InventoryItem[] items = Avatar.getInstance().getInventory().getArrayofItems();
         for (int i=0; i<items.length; i++) {
-            if (items[i].getItemName() == itemName) {
+            if (items[i].getItemName().equals(itemName)) {
                 return nextStep.attempt();
             }
         }
