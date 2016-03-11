@@ -1,6 +1,5 @@
 package com.vengeful.sloths.Controllers.InputController.InputStrategies;
 
-
 import com.vengeful.sloths.Controllers.InputController.InputControllerStates.InputControllerState;
 import com.vengeful.sloths.Controllers.InputController.KeyMapping;
 

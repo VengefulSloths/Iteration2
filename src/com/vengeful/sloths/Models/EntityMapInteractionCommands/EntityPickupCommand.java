@@ -14,6 +14,7 @@ public class EntityPickupCommand {
     Inventory inv;
 
     public EntityPickupCommand(Entity entity, Inventory inv, TakeableItem itemToPickup){
+        System.out.println("Created pick up command");
         this.entity = entity;
         this.item = itemToPickup;
         this.inv = inv;

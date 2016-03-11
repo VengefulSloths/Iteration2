@@ -82,8 +82,12 @@ public abstract class ViewObjectFactory {
         return cs;
     }
 
-    public HitBoxViewObject createHitBoxViewObject(int r, int s, String resourcePath, Direction d){
-        return new HitBoxViewObject(r, s, cs, ls, resourcePath, d);
+    public MovableHitBoxViewObject createMovableHitBoxViewObject(int r, int s, String resourcePath, Direction d){
+        return new MovableHitBoxViewObject(r, s, cs, ls, resourcePath, d);
+    }
+
+    public ImmovableHitBoxViewObject createImmovableHitBoxViewObject(int r, int s, String resourcePath){
+        return new ImmovableHitBoxViewObject(r, s, cs, ls, resourcePath);
     }
 
     public AEViewObject createAEViewObject(int r, int s, String resourecPath) {

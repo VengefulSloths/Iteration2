@@ -24,7 +24,6 @@ public class PiggyActionController extends ActionController {
             Target idleTarget = new AvatarTarget(2);
             idleTarget.setCoord(Avatar.getInstance().getLocation());
             idleTarget.accept(this);
-            System.out.println("idle");
         }
     }
 

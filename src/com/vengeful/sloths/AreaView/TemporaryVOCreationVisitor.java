@@ -1,6 +1,10 @@
 package com.vengeful.sloths.AreaView;
 
 import com.vengeful.sloths.AreaView.ViewObjects.*;
+import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.ExplosionAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.FireBallAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
@@ -24,6 +28,9 @@ import com.vengeful.sloths.Models.Map.AreaEffects.InstantDeathAE;
 import com.vengeful.sloths.Models.Map.AreaEffects.LevelUpAE;
 import com.vengeful.sloths.Models.Map.AreaEffects.TakeDamageAE;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.BreakBoxQuest;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.DoDestroyObstacleQuest;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.HasItemQuest;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
 import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
@@ -40,6 +47,8 @@ import com.vengeful.sloths.Models.Occupation.Smasher;
 import com.vengeful.sloths.Models.Occupation.Sneak;
 import com.vengeful.sloths.Models.Occupation.Summoner;
 import com.vengeful.sloths.Models.RangedEffects.HitBox.HitBox;
+import com.vengeful.sloths.Models.RangedEffects.HitBox.ImmovableHitBox;
+import com.vengeful.sloths.Models.RangedEffects.HitBox.MovableHitBox;
 import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.*;
@@ -148,16 +157,15 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
         if (this.petPeo != null) {
             this.petPeo.deregister();
         }
-
         PiggyViewObject pvo = factory.createPiggyViewObject(piggy.getLocation().getR(), piggy.getLocation().getS(), "resources/entities/piggy/");
         this.petPeo = new ProxyEntityObserver(pvo, piggy);
         ObserverManager.getInstance().addProxyObserver(this.petPeo);
         pvo.registerObserver(activeCameraView);
 
         piggy.getStats().updateObservers();
-        activeCameraView.addPiggy(pvo);
+        activeCameraView.addViewObject(pvo);
 
-        this.activeCameraView.addViewObject(pvo);
+        System.out.println("CREATING PET VO @" + pvo.getR() + ", " +  pvo.getS());
     }
 
     @Override
@@ -329,20 +337,44 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
         this.activeCameraView.addViewObject(tvo);
     }
 
-    @Override
-    public void visitHitBox(HitBox hitBox) {
-        String imagePath = "resources/effects/"+hitBox.getName()+"/";
-        HitBoxViewObject hbvo = factory.createHitBoxViewObject(hitBox.getLocation().getR(), hitBox.getLocation().getS(), imagePath, hitBox.getDirection());
-        new ProxyHitBoxObserver(hbvo, hitBox);
-        hbvo.registerObserver(this.activeCameraView); //register for Movement observer
-        hbvo.registerObserver(this.activeCameraView.getTileVO(hbvo)); //register for destroyableObserver
 
-        //hbvo.registerObserver(this.activeCameraView.getTileVO(hbvo)); //TODO: are the attack effects on tile?
-        //TODO: need to remove and add observer whenever moving...
-        this.activeCameraView.addViewObject(hbvo);
+    @Override
+    public void visitBindWounds(BindWoundsAbility bindWoundsAbility) {
+
     }
 
     @Override
+    public void visitMeleeAttackAbility(MeleeAttackAbility meleeAttackAbility) {
+
+    }
+
+    @Override
+    public void visitFireBallAbility(FireBallAbility fireBallAbility) {
+
+    }
+
+     @Override
+
+     public void visitExplosionAbility(ExplosionAbility explosionAbility) {
+
+     }
+
+     public void visitBreakBoxQuest(BreakBoxQuest breakBoxQuest) {
+
+     }
+
+     @Override
+     public void visitDoDestroyObstacleQuest(DoDestroyObstacleQuest doDestroyObstacleQuest) {
+
+     }
+
+     @Override
+     public void visitHasItemQuest(HasItemQuest hasItemQuest) {
+
+
+     }
+
+     @Override
     public void visitObstacle(Obstacle obstacle) {
 
     }
@@ -380,6 +412,26 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     @Override
     public void visitSkill(Skill skill) {
 
+    }
+
+    @Override
+    public void visitMovableHitBox(MovableHitBox movableHitBox) {
+        String imagePath = "resources/effects/"+movableHitBox.getName()+"/";
+        MovableHitBoxViewObject hbvo = factory.createMovableHitBoxViewObject(movableHitBox.getLocation().getR(), movableHitBox.getLocation().getS(), imagePath, movableHitBox.getDirection());
+        new ProxyHitBoxObserver(hbvo, movableHitBox);
+        hbvo.registerObserver(this.activeCameraView); //register for Movement observer
+        //hbvo.registerObserver(this.activeCameraView.getTileVO(hbvo)); //register for destroyableObserver
+        this.activeCameraView.addViewObject(hbvo);
+    }
+
+    @Override
+    public void visitImmovableHitBox(ImmovableHitBox immovableHitBox) {
+        String imagePath = "resources/effects/"+immovableHitBox.getName()+"/"+immovableHitBox.getName()+".xml";
+        ImmovableHitBoxViewObject hbvo = factory.createImmovableHitBoxViewObject(immovableHitBox.getLocation().getR(), immovableHitBox.getLocation().getS(), imagePath);
+        new ProxyHitBoxObserver(hbvo, immovableHitBox);
+        //hbvo.registerObserver(this.activeCameraView); //register for Movement observer
+        //hbvo.registerObserver(this.activeCameraView.getTileVO(hbvo)); //register for destroyableObserver
+        this.activeCameraView.addViewObject(hbvo);
     }
 
 

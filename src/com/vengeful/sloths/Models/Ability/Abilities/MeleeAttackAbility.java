@@ -104,6 +104,14 @@ public class MeleeAttackAbility extends Ability {
         this.stats = stats;
     }
 
+    public String toString() {
+        return "MeleeAttackAbility";
+    }
+
+    @Override
+    public void accept(ModelVisitor modelVisitor) {
+        modelVisitor.visitMeleeAttackAbility(this);
+    }
 
 //    @Override
 //    public void accept(ModelVisitor modelVisitor) {

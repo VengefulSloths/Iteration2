@@ -86,7 +86,8 @@ public class ViewManager extends JPanel {
         sidePanel.add(hudView, BorderLayout.NORTH);
         areaview.add(sidePanel, BorderLayout.WEST); /* we add the sidePanel to the areaview because it needs to be transparent to
         //show the areaview/gameplay behind it since the only real component in it is the hudview at the top*/
-        this.add(areaview);
+        //this.add(areaview);
+        this.add(areaview, BorderLayout.CENTER);
         this.hudView.setBackground(new Color(0f,0f,0f,0.1f));
         this.areaview.setBackground(Color.blue);
 
@@ -113,6 +114,8 @@ public class ViewManager extends JPanel {
 
     public void addView(JComponent component) {
         this.add(component,0);
+        //this.add(component, BorderLayout.CENTER,0);
+        //this.add(component, BorderLayout.CENTER);
         //this.areaview.add(component, BorderLayout.CENTER);
         this.revalidate();
         this.repaint();

@@ -29,7 +29,6 @@ public class PiggyControllerManager extends NPCControllerManager {
     @Override
     public void tick() {
         if(this.getTicks() % 15 == 0) {
-            System.out.println("ticking");
             if(this.getMapArea().equals(Map.getInstance().getActiveMapArea())) {
                 //System.out.println("beginning of tick");
                 if(getSearchingController() != null) {
@@ -37,7 +36,6 @@ public class PiggyControllerManager extends NPCControllerManager {
                 }
                 //System.out.println("highest priority target is :" + searchingController.getHighestPriorityTarget());
                 if(getActionController() != null) {
-                    System.out.println("highest priority target is " + this.getSearchingController().getHighestPriorityTarget());
                     this.getActionController().action(this.getSearchingController().getHighestPriorityTarget());
                 }
                 //movementController

@@ -2,6 +2,7 @@ package com.vengeful.sloths.Models.Ability.Abilities;
 
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Entity.Entity;
+import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.SaveLoad.SaveManager;
 import com.vengeful.sloths.Models.SaveLoad.SaveVisitor;
 import com.vengeful.sloths.Models.Skills.Skill;
@@ -22,7 +23,7 @@ public class BindWoundsAbility extends Ability {
     public BindWoundsAbility(Entity entity, SkillManager skillManager, int startupTicks, int cooldownTicks){
         super(startupTicks, cooldownTicks);
         this.entity = entity;
-        this.skillManager = skillManager; //to avoid lod
+        this.skillManager = skillManager;
 
     }
 
@@ -67,7 +68,7 @@ public class BindWoundsAbility extends Ability {
         System.out.println("YOUR HEALTH NOW: " + this.entity.getStats().getCurrentHealth());
     }
 
-    public void accept(SaveVisitor sv){
+    public void accept(ModelVisitor sv){
         sv.visitBindWounds(this);
     }
     public void setEntity(Entity entity) {

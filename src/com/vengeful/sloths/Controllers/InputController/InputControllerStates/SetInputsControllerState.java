@@ -20,8 +20,6 @@ public class SetInputsControllerState extends InputControllerState {
 
     }
 
-
-
     @Override
     public boolean handleInventoryKey() {
         return false;

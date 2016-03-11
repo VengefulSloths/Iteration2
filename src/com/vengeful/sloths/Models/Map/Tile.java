@@ -158,7 +158,7 @@ public class Tile implements ModelVisitable {
             mapItems.add(obstacle);
             this.obstacle = obstacle;
         } else {
-            throw new InvalidParameterException("you cannot add two obstacles");
+//            throw new InvalidParameterException("you cannot add two obstacles");
         }
     }
 

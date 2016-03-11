@@ -85,6 +85,7 @@ public class AreaView extends JPanel implements MapObserver{
     @Override
     public void alertMapAreaChange(MapArea m) {
         activeCamera.cleanUp();
+        (new VOCleaner()).visitCameraView(activeCamera);
         setActiveCamera(cameraViewManager.getCurrentCameraView());
         (new SoundEffect("resources/audio/teleport.wav")).play();
     }

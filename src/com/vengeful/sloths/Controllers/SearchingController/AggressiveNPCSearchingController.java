@@ -1,6 +1,10 @@
 package com.vengeful.sloths.Controllers.SearchingController;
 
 import com.vengeful.sloths.Controllers.SearchingController.SearchingController;
+import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.ExplosionAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.FireBallAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
@@ -23,6 +27,9 @@ import com.vengeful.sloths.Models.Map.AreaEffects.InstantDeathAE;
 import com.vengeful.sloths.Models.Map.AreaEffects.LevelUpAE;
 import com.vengeful.sloths.Models.Map.AreaEffects.TakeDamageAE;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.BreakBoxQuest;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.DoDestroyObstacleQuest;
+import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.HasItemQuest;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
 import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
@@ -35,6 +42,8 @@ import com.vengeful.sloths.Models.Occupation.Smasher;
 import com.vengeful.sloths.Models.Occupation.Sneak;
 import com.vengeful.sloths.Models.Occupation.Summoner;
 import com.vengeful.sloths.Models.RangedEffects.HitBox.HitBox;
+import com.vengeful.sloths.Models.RangedEffects.HitBox.ImmovableHitBox;
+import com.vengeful.sloths.Models.RangedEffects.HitBox.MovableHitBox;
 import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.*;
@@ -301,7 +310,47 @@ public class AggressiveNPCSearchingController extends SearchingController {
     }
 
     @Override
-    public void visitHitBox(HitBox hitBox) {
+    public void visitMovableHitBox(MovableHitBox movableHitBox) {
+
+    }
+
+    @Override
+    public void visitImmovableHitBox(ImmovableHitBox immovableHitBox) {
+
+    }
+
+    public void visitBindWounds(BindWoundsAbility bindWoundsAbility) {
+
+    }
+
+    @Override
+    public void visitMeleeAttackAbility(MeleeAttackAbility meleeAttackAbility) {
+
+    }
+
+    @Override
+    public void visitFireBallAbility(FireBallAbility fireBallAbility) {
+
+    }
+
+    @Override
+
+    public void visitExplosionAbility(ExplosionAbility explosionAbility) {
+
+    }
+
+
+    public void visitBreakBoxQuest(BreakBoxQuest breakBoxQuest) {
+
+    }
+
+    @Override
+    public void visitDoDestroyObstacleQuest(DoDestroyObstacleQuest doDestroyObstacleQuest) {
+
+    }
+
+    @Override
+    public void visitHasItemQuest(HasItemQuest hasItemQuest) {
 
     }
 

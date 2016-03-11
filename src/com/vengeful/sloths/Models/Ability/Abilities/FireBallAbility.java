@@ -2,6 +2,9 @@ package com.vengeful.sloths.Models.Ability.Abilities;
 
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Entity.Entity;
+import com.vengeful.sloths.Models.RangedEffects.*;
+import com.vengeful.sloths.Models.ModelVisitable;
+import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Observers.EntityObserver;
 import com.vengeful.sloths.Models.RangedEffects.EntityBlockLineEffectGenerator;
 import com.vengeful.sloths.Models.RangedEffects.EntityPassThroughLineEffectGenerator;
@@ -14,6 +17,7 @@ import com.vengeful.sloths.Models.TimeModel.TimeController;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Utility.Coord;
+import com.vengeful.sloths.Utility.HexMath;
 
 import java.util.Iterator;
 
@@ -31,6 +35,8 @@ public class FireBallAbility extends Ability{
     private int travelDistance;
 
     private int manaCost = 2;
+
+    private DefaultCanGenerateVisitor canGenerateVisitor;
     /*
         Linear Effect -> mana cost = Low
         Angular Effect -> mana cost = Medium
@@ -42,6 +48,7 @@ public class FireBallAbility extends Ability{
         this.entity = entity;
         this.travelTime = travelTime;
         this.travelDistance = travelDistance;
+        this.canGenerateVisitor = new DefaultCanGenerateVisitor();
     }
 
     @Override
@@ -81,12 +88,13 @@ public class FireBallAbility extends Ability{
         //TODO: better formula.
         int damage = entity.getStats().getOffensiveRating() * (1 + entity.getSkillManager().getBaneLevel());
 
+        Coord firingLocation = HexMath.getNextFacingCoord(entity.getLocation(), entity.getFacingDirection());
         //If the attempt to fire the ability did not fail, then initial fireball hit target accuracy = 100
-        RangedEffectGenerator reg = new EntityBlockLineEffectGenerator("fireball", entity.getLocation(), entity.getFacingDirection(), this.travelDistance, this.travelTime, damage, 100);
+        RangedEffectGenerator reg = new EntityBlockLineEffectGenerator("fireball", firingLocation, entity.getFacingDirection(), this.travelDistance, this.travelTime, damage, 100, canGenerateVisitor);
         reg.createRangedEffect();
     }
 
-    public void accept(SaveVisitor sv){
+    public void accept(ModelVisitor sv){
         sv.visitFireBallAbility(this);
     }
 

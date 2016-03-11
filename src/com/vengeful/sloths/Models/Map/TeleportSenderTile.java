@@ -41,6 +41,7 @@ public class TeleportSenderTile extends Tile {
         entity.setLocation(destinationTile.getLocation());
 
         entity.teleportPet(new Location(destinationMapArea, destinationTile.getLocation()));
+
         Map.getInstance().setActiveMapArea(destinationMapArea);
         //System.out.println("Teleporitng4");
 
