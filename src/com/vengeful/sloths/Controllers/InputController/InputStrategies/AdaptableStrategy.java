@@ -11,7 +11,7 @@ import java.awt.event.KeyEvent;
  */
 public class AdaptableStrategy extends InputStrategy {
 
-    HashMap<Integer, Integer> keyMappings = new HashMap<Integer, Integer>();
+    HashMap<Integer, KeyMapping> keyMappings = new HashMap<>();
 
     @Override
     public void interpretPressedKey(int key, InputControllerState state) {
@@ -91,64 +91,64 @@ public class AdaptableStrategy extends InputStrategy {
         if(mapppedKey != null) {
             switch (mapppedKey) {
                 case NORTHWEST:
-                    state.handleNorthWestKey();
+                    state.handleReleaseNorthWestKey();
                     break;
                 case NORTH:
-                    state.handleNorthKey();
+                    state.handleReleaseNorthKey();
                     break;
                 case NORTHEAST:
-                    state.handleNorthEastKey();
+                    state.handleReleaseNorthEastKey();
                     break;
                 case SOUTHWEST:
-                    state.handleSouthWestKey();
+                    state.handleReleaseSouthWestKey();
                     break;
                 case SOUTH:
-                    state.handleSouthKey();
+                    state.handleReleaseSouthKey();
                     break;
                 case SOUTHEAST:
-                    state.handleSouthEastKey();
+                    state.handleReleaseSouthEastKey();
                     break;
                 case INVENTORY:
-                    state.handleInventoryKey();
+                    //state.handleReleaseInventoryKey();
                     break;
                 case EQUIPMENT:
-                    state.handleEquipmentKey();
+                    //state.handleReleaseEquipmentKey();
                     break;
                 case ESC:
-                    state.handleESCKey();
+                    //state.handleReleaseESCKey();
                     break;
                 case UP:
-                    state.handleUpKey();
+                    state.handleReleaseUpKey();
                     break;
                 case DOWN:
-                    state.handleDownKey();
+                    state.handleReleaseDownKey();
                     break;
                 case RIGHT:
-                    state.handleRightKey();
+                    state.handleReleaseRightKey();
                     break;
                 case LEFT:
-                    state.handleLeftKey();
+                    state.handleReleaseLeftKey();
                     break;
                 case SPACE:
-                    state.handleSpaceKey();
+                    //state.handleReleaseSpaceKey();
                     break;
                 case ENTER:
-                    state.handleCenterKey();
+                    state.handleReleaseCenterKey();
                     break;
                 case SAVE:
-                    state.handleSaveKey();
+                    //state.handleReleaseSaveKey();
                     break;
                 case EAST:
-                    state.handleEastKey();
+                    state.handleReleaseEastKey();
                     break;
                 case WEST:
-                    state.handleWestKey();
+                    state.handleReleaseWestKey();
                     break;
                 case CENTER:
-                    state.handleCenterKey();
+                    state.handleReleaseCenterKey();
                     break;
                 case DROP:
-                    state.handleDropKey();
+                    //state.handleReleaseDropKey();
                     break;
                 default:
                     //do nothing not a supported key
@@ -157,7 +157,12 @@ public class AdaptableStrategy extends InputStrategy {
     }
 
     private KeyMapping getMappedKey(int key){
-        KeyMapping mappedKey = KeyMapping.values()[keyMappings.get(key)];
+        KeyMapping mappedKey = keyMappings.get(key);
         return mappedKey;
+    }
+
+    public void setKeyMappings(int key, KeyMapping value){
+        //maybe add logic if that key is already mapped somehwhere
+        keyMappings.put(key, value);
     }
 }
