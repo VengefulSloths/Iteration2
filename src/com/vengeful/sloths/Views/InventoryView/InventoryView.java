@@ -12,6 +12,7 @@ import com.vengeful.sloths.Views.View;
 import com.vengeful.sloths.Views.ViewFactory.ItemViewObjectFactory;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -30,6 +31,8 @@ public class InventoryView extends View implements InventoryObserver {
     //private JPanel itemPanel; //use this perhaps if we are just adding and removing JComponents using this.add() and this.remove()
     protected JPanel titlePanel;
     protected JPanel itemPanel;
+    private int numRows;
+    private int numCols;
 
     public ArrayList<ItemViewObject> getItemList() {
         return itemList;
@@ -43,16 +46,53 @@ public class InventoryView extends View implements InventoryObserver {
     public Inventory getInventory() {
         return inventory;
     }
+    public JPanel getItemPanel() {
+        return itemPanel;
+    }
+
+    public JPanel getTitlePanel() {
+        return titlePanel;
+    }
+
+    public int getNumCols() {
+        return numCols;
+    }
+    public void setNumCols(int numCols) {
+        this.numCols = numCols;
+    }
+    public int getNumRows() {
+        return numRows;
+    }
+    public void setNumRows(int numRows) {
+        this.numRows = numRows;
+    }
 
     public InventoryView() { }
 
-    public InventoryView(Inventory inventory) {
+    public InventoryView(Inventory inventory) { //edit: can maybe delete later
         //this.itemList = new ArrayList<ItemViewObject>();
         this.setItemList(new ArrayList<ItemViewObject>());
         this.setInventory(inventory);
         //Create a proxy for the observer, regester the proxy w/ entity, add proxy to manager
         ProxyObserver pio = new ProxyInventoryObserver(this, inventory);
-        ObserverManager.instance().addProxyObserver(pio);
+        ObserverManager.getInstance().addProxyObserver(pio);
+
+
+        initWithInventory(this.getInventory());
+        initDefaultUI();
+    }
+
+    public InventoryView(Inventory inventory, int numRows, int numCols) {
+        this.setNumCols(numCols);
+        this.setNumRows(numRows);
+        //this.itemList = new ArrayList<ItemViewObject>();
+        this.setItemList(new ArrayList<ItemViewObject>());
+        this.setInventory(inventory);
+        //Create a proxy for the observer, regester the proxy w/ entity, add proxy to manager
+        ProxyObserver pio = new ProxyInventoryObserver(this, inventory);
+
+        ObserverManager.getInstance().addProxyObserver(pio);
+
         initWithInventory(this.getInventory());
         initDefaultUI();
     }
@@ -63,30 +103,37 @@ public class InventoryView extends View implements InventoryObserver {
         //JPanel itemPanel = new JPanel();
         titlePanel = new JPanel();
         itemPanel = new JPanel();
-        JLabel title = generateTitleLabel("Inventory", 16, Color.WHITE);
-        itemPanel.setBorder(new LineBorder(Color.BLACK));
+        JLabel title = generateTitleLabel("Inventory", 22, Color.WHITE);
+        //itemPanel.setBorder(new LineBorder(Color.BLACK));
+        //this.itemPanel.setBorder(new BevelBorder(BevelBorder.RAISED,Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE));
         titlePanel.setBackground(new Color(0f, 0f, 0f, 0f));
         itemPanel.setBackground(new Color(0f, 0f, 0f, 0f));
         titlePanel.setLayout(new BorderLayout());
+        this.titlePanel.setPreferredSize(new Dimension(this.getWidth(), 50));
         //itemPanel.setLayout(new GridBagLayout());
         itemPanel.setLayout(new GridLayout(10,1,0,0));
         this.setLayout(new BorderLayout());
-        titlePanel.add(title, BorderLayout.CENTER);
+        titlePanel.add(title, BorderLayout.SOUTH);
         this.add(titlePanel, BorderLayout.NORTH);
         this.add(itemPanel, BorderLayout.CENTER);
     }
 
-        /* Initializes the itemList by generating ItemViewObjects from inventoryItems. Maybe make a factory? */
-        public void initWithInventory(Inventory inventory) {
-            for (int i = 0; i < inventory.getCurrentSize(); i++) {
-                //InventoryItem item = inventory.getItem(i);
-                //this.itemList.add(new ItemViewObject(inventory.getItem(i)));
-                //this.itemList.add(new ItemViewObject(inventory.getItem(i)));
-                System.out.println("THIS IS THE ITEM " + inventory.getItem(i).getItemName() );
-                this.getItemList().add(new ItemViewObject(inventory.getItem(i)));
-                //ivoFactory.generateItemViewObject(inventory.getItem(i), this.getWidth(), this.getHeight(), )
-            }
+    /* Initializes the itemList by generating ItemViewObjects from inventoryItems. Maybe make a factory? */
+    public void initWithInventory(Inventory inventory) {
+        for (int i = 0; i < inventory.getCurrentSize(); ++i) {
+            //InventoryItem item = inventory.getItem(i);
+            //this.itemList.add(new ItemViewObject(inventory.getItem(i)));
+            //this.itemList.add(new ItemViewObject(inventory.getItem(i)));
+            System.out.println("THIS IS THE ITEM " + inventory.getItem(i).getItemName() );
+            this.getItemList().add(new ItemViewObject(inventory.getItem(i)));
+            //this.getFromItemList(0).setSelected(true);
+            //if(i==0) {
+              //  this.getFromItemList(i).setSelected(true);
+            //}
+            //this.getItemList().add(new ItemViewObject(inventory.getItem(i), this.getWidth(),this.getHeight()));
+            //ivoFactory.generateItemViewObject(inventory.getItem(i), this.getWidth(), this.getHeight(), )
         }
+    }
 
 
     /*Removes InventoryItemViewObject from the itemList */
@@ -109,11 +156,34 @@ public class InventoryView extends View implements InventoryObserver {
     public void alertItemAdded(InventoryItem item) {
         //manager.addInventoryItemViewObject(new ItemViewObject(item));
         this.getItemList().add(new ItemViewObject(item));
+        System.out.println("AN ITEM WAS ADDED!!! " + item.getItemName());
     }
 
     @Override
     public void alertItemDropped(InventoryItem item) {
         this.removeInventoryItemViewObject(item); //what if have multiple of the same items?
+    }
+
+    public int getItemListSize(){
+        return this.itemList.size();
+    }
+
+    public ItemViewObject getFromItemList(int index) {
+        try {
+            return itemList.get(index);
+        }catch(IndexOutOfBoundsException e){
+            return null;
+        }
+    }
+
+    public void setSelected(ItemViewObject item){
+        //give a border
+        item.setSelected(true);
+    }
+
+    public void setDeselected(ItemViewObject item){
+        //give a border
+        item.setSelected(false);
     }
 
     public void paintComponent(Graphics g) {
@@ -125,6 +195,6 @@ public class InventoryView extends View implements InventoryObserver {
         */
     }
 
-        }
+}
 
 

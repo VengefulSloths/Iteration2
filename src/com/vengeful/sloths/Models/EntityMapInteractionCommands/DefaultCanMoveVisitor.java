@@ -1,5 +1,9 @@
 package com.vengeful.sloths.Models.EntityMapInteractionCommands;
 
+import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.ExplosionAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.FireBallAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
@@ -15,6 +19,10 @@ import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
 import com.vengeful.sloths.Models.Map.*;
+import com.vengeful.sloths.Models.Map.AreaEffects.HealDamageAE;
+import com.vengeful.sloths.Models.Map.AreaEffects.InstantDeathAE;
+import com.vengeful.sloths.Models.Map.AreaEffects.LevelUpAE;
+import com.vengeful.sloths.Models.Map.AreaEffects.TakeDamageAE;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
@@ -131,6 +139,24 @@ public class DefaultCanMoveVisitor extends CanMoveVisitor {
 
     }
 
+    public void visitBindWounds(BindWoundsAbility bindWoundsAbility) {
+
+    }
+
+    @Override
+    public void visitMeleeAttackAbility(MeleeAttackAbility meleeAttackAbility) {
+
+    }
+
+    @Override
+    public void visitFireBallAbility(FireBallAbility fireBallAbility) {
+
+    }
+
+    @Override
+    public void visitExplosionAbility(ExplosionAbility explosionAbility) {
+
+    }
 
     @Override
     public void visitMap(Map map) {
@@ -202,6 +228,26 @@ public class DefaultCanMoveVisitor extends CanMoveVisitor {
 
     @Override
     public void vistUsableItem(UsableItems ui) {
+
+    }
+
+    @Override
+    public void visitTakeDamageAE(TakeDamageAE t) {
+
+    }
+
+    @Override
+    public void visitHealDamageAE(HealDamageAE h) {
+
+    }
+
+    @Override
+    public void visitInstantDeathAE(InstantDeathAE i) {
+
+    }
+
+    @Override
+    public void visitLevelUpAE(LevelUpAE ae) {
 
     }
 

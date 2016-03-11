@@ -4,6 +4,7 @@ import com.vengeful.sloths.Models.Effects.EffectCommand;
 import com.vengeful.sloths.Models.Effects.EffectCommandFactory;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.Entity;
+import com.vengeful.sloths.Models.ModelVisitor;
 
 /**
  * Created by luluding on 2/5/16.
@@ -20,4 +21,8 @@ public class HealDamageAE extends AreaEffect{
         entity.gainHealth(health);
     }
 
+    @Override
+    public void accept(ModelVisitor modelVisitor) {
+        modelVisitor.visitHealDamageAE(this);
+    }
 }

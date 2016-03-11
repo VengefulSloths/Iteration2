@@ -2,8 +2,10 @@ package com.vengeful.sloths.Models.Entity;
 
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.BuffManager;
+import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteractionFactory;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
+import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.ConsumableItems;
 import com.vengeful.sloths.Models.Occupation.Smasher;
@@ -13,6 +15,12 @@ import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.HealthManaExperienceAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
+import com.vengeful.sloths.Utility.Coord;
+import com.vengeful.sloths.Utility.HexMath;
+import com.vengeful.sloths.Utility.Location;
+
+import com.vengeful.sloths.Models.TimeModel.TimeModel;
+import com.vengeful.sloths.Utility.Direction;
 
 import java.util.Iterator;
 
@@ -22,6 +30,9 @@ import java.util.Iterator;
 public class Avatar extends Entity{
 
     private static Avatar avatar = null;
+    private int timeToRespawn;
+    private Pet pet;
+
 
     private Avatar(){
         super("Phill", new Stats());
@@ -34,6 +45,15 @@ public class Avatar extends Entity{
         return avatar;
     }
 
+    public void setTimeToRespawn(int time) {
+        this.timeToRespawn = time;
+    }
+
+    public int getTimeToRespawn() {
+        return this.timeToRespawn;
+    }
+
+    private boolean isMounted = false;
 
     public void avatarInit(String occupationString, AbilityManager abilityManager, BuffManager buffManager, SkillManager skillManager){
 
@@ -74,6 +94,45 @@ public class Avatar extends Entity{
 
     }
 
+    private int endTime = 0;
+    public void mount() {
+        if (!this.isMounted) {
+            int ticks = this.getAbilityManager().getMountAbility().execute();
+            TimeModel.getInstance().registerAlertable(() -> isMounted = true, ticks);
+        }
+        else {
+            this.getAbilityManager().getDemountAbility().execute();
+            isMounted = false;
+        }
+    }
+
+    @Override
+    public void takeDamage(int damage) {
+        super.takeDamage(damage);
+        if (this.isMounted) {
+            this.getAbilityManager().getDemountAbility().execute();
+            isMounted = false;
+        }
+    }
+
+    @Override
+    public int attack(Direction dir) {
+        if (this.isMounted) {
+            this.getAbilityManager().getDemountAbility().execute();
+            isMounted = false;
+        }
+        return super.attack(dir);
+    }
+
+    @Override
+    public void doAbility(int index) {
+        if (this.isMounted) {
+            this.getAbilityManager().getDemountAbility().execute();
+            isMounted = false;
+        }
+        super.doAbility(index);
+    }
+
     public void avatarInit(String occupationString, Stats stats){
         this.avatarInit(occupationString, new AbilityManager(this), new BuffManager(this), new SkillManager());
     }
@@ -105,8 +164,39 @@ public class Avatar extends Entity{
         this.getStats().add(new HealthManaExperienceAddable(0, 0, 0, 0, xp));
     }
 
-    @Override
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitAvatar(this);
+    }
+
+    @Override
+    protected void dropAllItems() {
+        // Do nothing
+        //@ TODO: Maybe have this dorp a few coins
+    }
+
+    @Override
+    protected void doRespawn() {
+        EntityMapInteractionFactory.getInstance().createRespawnCommand(this, this.getLocation(), timeToRespawn);
+    }
+
+    @Override
+    public void teleportPet(Location location){
+        if(pet != null){
+            System.out.println("squaaaaaaa");
+            Coord coord = HexMath.getClosestMovableTile(location);
+            Map.getInstance().getTile(pet.getLocation()).removeEntity(pet);
+            System.out.println("here is the coord that piggy trying to go to : " + coord);
+            location.getMapArea().addEntity(pet, coord);
+            pet.getControllerManager().setMapArea(location.getMapArea());
+        }
+    }
+
+
+    public Pet getPet() {
+        return pet;
+    }
+
+    public void setPet(Pet pet) {
+        this.pet = pet;
     }
 }

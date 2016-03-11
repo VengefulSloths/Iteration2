@@ -11,8 +11,7 @@ import com.vengeful.sloths.Models.Stats.Stats;
 public class BuffOverTime extends Buff implements ModelVisitable{
 
     public BuffOverTime(StatsAddable buff, int duration){
-        this.setBuff(buff);
-        this.setDuration(duration);
+        super(buff, duration);
     }
 
 

@@ -91,4 +91,8 @@ public abstract class ViewObjectFactory {
         return new ImmovableHitBoxViewObject(r, s, cs, ls, resourcePath);
     }
 
+    public AEViewObject createAEViewObject(int r, int s, String resourecPath) {
+        return new AEViewObject(r, s, cs, ls, resourecPath);
+    }
+
 }

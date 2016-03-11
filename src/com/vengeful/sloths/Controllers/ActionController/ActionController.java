@@ -4,6 +4,7 @@ import com.vengeful.sloths.Controllers.Target.*;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.CanMoveVisitor;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.DefaultCanMoveVisitor;
+import com.vengeful.sloths.Models.EntityMapInteractionCommands.NonTeleMoveVisitor;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
@@ -62,7 +63,7 @@ public abstract class ActionController implements TargetVisitor {
         java.util.Map<Coord, Coord> parentMap = new HashMap<>();
         Coord targetCoord = target.getCoord();
         Iterator<Coord> iter;
-        CanMoveVisitor canMoveVisitor = new DefaultCanMoveVisitor();
+        CanMoveVisitor canMoveVisitor = new NonTeleMoveVisitor();
         Map map = Map.getInstance();
 
         queue.add(entity.getLocation());

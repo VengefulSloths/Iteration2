@@ -99,6 +99,14 @@ public class OneHandState implements HandState {
 
     @Override
     public void attack(int r, int s, long windUpTime, long coolDownTime) {
+        cast(windUpTime, coolDownTime);
+
+        AttackViewObject attack = TemporaryVOCreationVisitor.getInstance().createAttack(r, s, "resources/effects/slash/slash.xml", windUpTime);
+        ViewTime.getInstance().registerAlert(0, () ->attack.start());
+    }
+
+
+    public void cast(long windUpTime, long coolDownTime) {
         long startTime = ViewTime.getInstance().getCurrentTimeMilli();
         {
             double omega = Math.PI / 200;
@@ -113,9 +121,6 @@ public class OneHandState implements HandState {
 
             ViewTime.getInstance().registerAlert(windUpTime, () ->withdrawHandFromAttack(rightHand, sweepAngle, radius - radiusChange, omega, vr, startTime + windUpTime, (coolDownTime + windUpTime)/2 + startTime));
         }
-
-        AttackViewObject attack = TemporaryVOCreationVisitor.getInstance().createAttack(r, s, "resources/effects/slash/slash.xml", windUpTime);
-        ViewTime.getInstance().registerAlert(0, () ->attack.start());
     }
 
     private void positionHandForAttack(SmartHandViewObject hand, double sweepAngle, int radius, double alpha, double omega, double vr, long startTime, long endTime) {

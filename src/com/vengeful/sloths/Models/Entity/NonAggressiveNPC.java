@@ -14,7 +14,6 @@ public class NonAggressiveNPC extends NPC{
         super(name, stats);
     }
 
-    @Override
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitNonAggressiveNPC(this);
     }

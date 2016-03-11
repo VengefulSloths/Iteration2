@@ -33,7 +33,13 @@ public abstract class LinearEffectGenerator extends RangedEffectGenerator{
         this.initialDmg = initialDmg;
         this.initialAccuracy = initialAccuracy;
         this.totalTravelDistance = travelDistanceLeft;
+
+        //this is created on the next tile (for visual effect), not the tile that entity is standing on.
         this.hitBox = new MovableHitBox(name, location, initialDmg, initialAccuracy, this.facingDirection);
+        this.hitBox.takeDamage();
+        travelDistanceLeft--;
+        //////////////////////////So that can hit adjacent NPC immediately
+
         TemporaryVOCreationVisitor creator = TemporaryVOCreationVisitor.getInstance();
         this.hitBox.accept(creator);
         canGenerateVisitor = canGenerateVisitor;

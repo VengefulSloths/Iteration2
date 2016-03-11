@@ -12,6 +12,12 @@ public class VOSorter implements VOVisitor {
     public int getZLevel() {
         return zLevel;
     }
+
+    @Override
+    public void visitAE(AEViewObject a) {
+        zLevel = 325;
+    }
+
     @Override
     public void visitEntity(EntityViewObject e) {
         zLevel = 1000;

@@ -15,6 +15,7 @@ public class DummyOccupation extends Occupation{
     public DummyOccupation(Stats stats, SkillManager skillManager, AbilityManager abilityManager, Entity entity){
         //does nothing
     }
+    public DummyOccupation(){}
 
     @Override
     public void levelUp(Stats stats) {

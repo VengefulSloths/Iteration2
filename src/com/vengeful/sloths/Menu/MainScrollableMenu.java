@@ -24,7 +24,8 @@ public class MainScrollableMenu extends ScrollableMenu {
         }
         ScrollableMenuList list = new ScrollableMenuList();
         list.addItem(new NewGameMenuItem());
-        list.addItem(new MainMenuItem("Load Game"));
+        //needs to be edited to select save file
+        list.addItem(new LoadGameMenuItem("Load Game"));
         list.addItem(new ExitGameMenuItem());
         this.setList(list);
         //this.setBackground(Color.GRAY);

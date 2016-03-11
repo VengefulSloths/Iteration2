@@ -66,6 +66,10 @@ public class HandsCoordinator {
         state.attack(r, s, windUpTime, coolDownTime);
     }
 
+    public void cast(long windUpTime, long coolDownTime) {
+        state.cast(windUpTime, coolDownTime);
+    }
+
     public void setLocation(int r, int s) {
         state.setLocation(r, s);
     }

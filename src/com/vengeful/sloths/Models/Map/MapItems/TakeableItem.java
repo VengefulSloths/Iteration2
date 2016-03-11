@@ -26,6 +26,8 @@ public class TakeableItem extends MapItem implements ModelVisitable, ViewObserva
         this.setLocation(location);
     }
 
+    public TakeableItem(){}
+
     //Does nothing
     public void interact(Entity entity){
         //maybe alert user he cannot move here
@@ -58,4 +60,7 @@ public class TakeableItem extends MapItem implements ModelVisitable, ViewObserva
         visitor.visitTakeableItem(this);
     }
 
+    public void setInventorpRep(InventoryItem inventorpRep) {
+        this.inventorpRep = inventorpRep;
+    }
 }

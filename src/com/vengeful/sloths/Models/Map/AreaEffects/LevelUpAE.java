@@ -4,6 +4,7 @@ import com.vengeful.sloths.Models.Effects.EffectCommand;
 import com.vengeful.sloths.Models.Effects.EffectCommandFactory;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.Entity;
+import com.vengeful.sloths.Models.ModelVisitor;
 import sun.security.x509.AVA;
 
 /**
@@ -22,5 +23,8 @@ public class LevelUpAE extends AreaEffect{
             ((Avatar) entity).gainXP(experience);
         }
     }
-
+    @Override
+    public void accept(ModelVisitor modelVisitor) {
+        modelVisitor.visitLevelUpAE(this);
+    }
 }

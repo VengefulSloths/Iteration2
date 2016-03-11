@@ -15,6 +15,14 @@ public class ItemViewObject extends JPanel {
     private Image itemImage;
     protected ItemImageFactory imageFactory = new ItemImageFactory(); //edit
     private InventoryItem inventoryItem;
+    private boolean isSelected;
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
 
     public Image getItemImage() {
         return itemImage;

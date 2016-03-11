@@ -2,6 +2,7 @@ package com.vengeful.sloths.Models.Ability.Abilities;
 
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Entity.Entity;
+import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.SaveLoad.SaveManager;
 import com.vengeful.sloths.Models.SaveLoad.SaveVisitor;
 import com.vengeful.sloths.Models.Skills.Skill;
@@ -16,19 +17,20 @@ public class BindWoundsAbility extends Ability {
     Entity entity;
     SkillManager skillManager;
 
-    private int startupTicks; //not sure if this is needed
-    private int cooldownTicks;
 
     private int manaCost = 1;
 
     public BindWoundsAbility(Entity entity, SkillManager skillManager, int startupTicks, int cooldownTicks){
+        super(startupTicks, cooldownTicks);
         this.entity = entity;
         this.skillManager = skillManager;
-        this.startupTicks = startupTicks;
-        this.cooldownTicks = cooldownTicks;
+
     }
 
-    public BindWoundsAbility(){}
+    public BindWoundsAbility(){
+        super.setCoolTicks(5);
+        super.setWindTicks(60);
+    }
 
     @Override
     public int execute() {
@@ -44,13 +46,13 @@ public class BindWoundsAbility extends Ability {
 
         TimeModel.getInstance().registerAlertable(() -> {
             this.doHeal();
-        }, startupTicks);
+        }, getWindTicks());
 
 
-        TimeModel.getInstance().registerAlertable(() -> entity.setActive(false), cooldownTicks);
+        TimeModel.getInstance().registerAlertable(() -> entity.setActive(false), getCoolTicks());
 
         //This is however long it will take to bind wounds
-        return cooldownTicks;
+        return getCoolTicks();
     }
 
     private void doHeal(){
@@ -66,7 +68,7 @@ public class BindWoundsAbility extends Ability {
         System.out.println("YOUR HEALTH NOW: " + this.entity.getStats().getCurrentHealth());
     }
 
-    public void accept(SaveVisitor sv){
+    public void accept(ModelVisitor sv){
         sv.visitBindWounds(this);
     }
     public void setEntity(Entity entity) {

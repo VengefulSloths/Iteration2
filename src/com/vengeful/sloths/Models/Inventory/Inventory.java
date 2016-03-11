@@ -45,6 +45,11 @@ public class Inventory implements ModelVisitable, ViewObservable {
         return inventory.get(index);
     }
 
+    public void clearInventory() {
+        this.inventory = new ArrayList<>();
+        this.setCurrentSize(0);
+    }
+
     public boolean hasItem(InventoryItem item){
         return this.inventory.contains(item);
     }
@@ -68,13 +73,13 @@ public class Inventory implements ModelVisitable, ViewObservable {
         else{
             ++this.currentSize;
 
-            /*
+
             //@TODO: REMOVE REMOVE REMOVE
             Iterator<InventoryObserver> iter = this.inventoryObservers.iterator();
             while (iter.hasNext()) {
                 InventoryObserver io = iter.next();
                 io.alertItemAdded(item);
-            }*/
+            }
 
             inventory.add(item);
         }
@@ -90,18 +95,18 @@ public class Inventory implements ModelVisitable, ViewObservable {
                 System.out.println("Inventory size went below 0");
                 this.currentSize = 0;
             }
+
+        Iterator<InventoryObserver> iter = this.inventoryObservers.iterator();
+        while (iter.hasNext()) {
+            InventoryObserver io = iter.next();
+            io.alertItemDropped(item);
+        }
             return true;
         }else{
             return false;
         }
 
 
-        /*
-        Iterator<InventoryObserver> iter = this.inventoryObservers.iterator();
-        while (iter.hasNext()) {
-            InventoryObserver io = iter.next();
-            io.alertItemDropped(item);
-        }*/
     }
 
 
@@ -121,7 +126,7 @@ public class Inventory implements ModelVisitable, ViewObservable {
         return this.maxSize;
     }
 
-
+    public Iterator<InventoryItem> iterator() { return this.inventory.iterator(); }
 
 
     public void registerObserver(ModelObserver modelObserver) {

@@ -3,6 +3,7 @@ package com.vengeful.sloths.Models.Ability.Abilities;
 import com.sun.corba.se.impl.encoding.EncapsInputStream;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Entity.Entity;
+import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.RangedEffects.*;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
 
@@ -15,8 +16,7 @@ public class ExplosionAbility extends Ability{
     private Entity entity;
     private int expandingTime;
     private int expandingDistance;
-    private int startupTicks;
-    private int coolDownTicks;
+
 
     private int manaCost = 6;
 
@@ -24,11 +24,10 @@ public class ExplosionAbility extends Ability{
 
 
     public ExplosionAbility(Entity entity, int expandingTime, int expandingDistance, int startupTicks, int coolDownTicks){
+        super(startupTicks, coolDownTicks);
         this.entity = entity;
         this.expandingTime = expandingTime;
         this.expandingDistance = expandingDistance;
-        this.startupTicks = startupTicks;
-        this.coolDownTicks = coolDownTicks;
         this.canGenerateVisitor = new OnTileCanGenerateVisitor();
     }
 
@@ -50,14 +49,14 @@ public class ExplosionAbility extends Ability{
 
         TimeModel.getInstance().registerAlertable(() ->{
             doAbility();
-        }, startupTicks);
+        }, this.getWindTicks());
 
         TimeModel.getInstance().registerAlertable(() ->{
             System.out.println("DONE DOING EXPLOSION");
             this.entity.setActive(false);
-        }, coolDownTicks);
+        }, this.getCoolTicks());
 
-        return coolDownTicks;
+        return this.getCoolTicks();
 
     }
 
@@ -78,5 +77,10 @@ public class ExplosionAbility extends Ability{
     @Override
     public String toString() {
         return "ExplosionAbility";
+    }
+
+    @Override
+    public void accept(ModelVisitor e) {
+        e.visitExplosionAbility(this);
     }
 }

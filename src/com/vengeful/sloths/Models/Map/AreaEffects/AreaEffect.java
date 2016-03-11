@@ -3,6 +3,7 @@ package com.vengeful.sloths.Models.Map.AreaEffects;
 import com.vengeful.sloths.Models.Effects.EffectCommand;
 import com.vengeful.sloths.Models.Effects.EffectCommandFactory;
 import com.vengeful.sloths.Models.Entity.Entity;
+import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
 import com.vengeful.sloths.Models.ViewObservable;
 import com.vengeful.sloths.Models.Observers.AreaEffectObserver;
@@ -14,7 +15,7 @@ import java.util.Iterator;
 /**
  * Created by John on 1/30/2016.
  */
-public abstract class AreaEffect {
+public abstract class AreaEffect implements ModelVisitable{
 
     private ArrayList<Entity> affectedEntities = new ArrayList<>();
 

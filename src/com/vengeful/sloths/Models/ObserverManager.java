@@ -17,7 +17,7 @@ public class ObserverManager implements Alertable {
     private ObserverManager() {
         observers = new HashMap<ModelObserver, ProxyObserver>();
     }
-    static public ObserverManager instance() {
+    static public ObserverManager getInstance() {
         if (instance == null) {
             instance = new ObserverManager();
             instance.mAlert();
@@ -49,6 +49,12 @@ public class ObserverManager implements Alertable {
             observers.get(modelObserver).setDeleteFlag(true);
             return true;
         } else return false;
+    }
+
+    public void deregister(ModelObserver modelObserver){
+        if(observers.containsKey(modelObserver)){
+            observers.get(modelObserver).deregister();
+        }
     }
 
     @Override

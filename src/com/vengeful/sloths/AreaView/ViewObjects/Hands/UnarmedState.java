@@ -122,6 +122,16 @@ public class UnarmedState implements HandState{
     private boolean isLeftHand = false;
     @Override
     public void attack(int r, int s, long windUpTime, long coolDownTime) {
+        cast(windUpTime, coolDownTime);
+
+        AttackViewObject attack = TemporaryVOCreationVisitor.getInstance().createAttack(r, s, "resources/effects/punch/punch.xml", windUpTime);
+        ViewTime.getInstance().registerAlert(windUpTime, () ->attack.start());
+
+
+    }
+
+    @Override
+    public void cast(long windUpTime, long coolDownTime) {
         double v = -0.15;
         double a = (2d*(punchDistance-v*windUpTime)/Math.pow(windUpTime, 2));
         long startTime = ViewTime.getInstance().getCurrentTimeMilli();
@@ -139,21 +149,15 @@ public class UnarmedState implements HandState{
         else {
             positionHandForAttack(rightHand, punchDistance, a, v, startTime, startTime + windUpTime);
             ViewTime.getInstance().registerAlert((windUpTime+coolDownTime)/2, () ->retractHand(rightHand, punchDistance, (windUpTime+coolDownTime)/2 + t, coolDownTime + t));
-
-
         }
-
-        AttackViewObject attack = TemporaryVOCreationVisitor.getInstance().createAttack(r, s, "resources/effects/punch/punch.xml", windUpTime);
-        ViewTime.getInstance().registerAlert(windUpTime, () ->attack.start());
-
         if (attackingHand == rightHand) {
             attackingHand = leftHand;
         } else {
             attackingHand = rightHand;
         }
         isLeftHand = !isLeftHand;
-
     }
+
 
     private void positionHandForAttack(SmartHandViewObject hand, int punchDistance, double a, double v, long startTime, long endTime) {
         long t = ViewTime.getInstance().getCurrentTimeMilli();
