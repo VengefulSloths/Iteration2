@@ -3,7 +3,10 @@ package com.vengeful.sloths.Models.SaveLoad;
 import com.sun.org.apache.xalan.internal.xsltc.compiler.util.InternalError;
 import com.sun.org.apache.xalan.internal.xsltc.compiler.util.NodeType;
 import com.sun.org.apache.xml.internal.serializer.ElemDesc;
+import com.vengeful.sloths.Controllers.ControllerManagers.AggressiveNPCControllerManager;
+import com.vengeful.sloths.Controllers.ControllerManagers.PiggyControllerManager;
 import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.FireBallAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
@@ -17,10 +20,10 @@ import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Knuckle;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
 import com.vengeful.sloths.Models.Map.MapArea;
-import com.vengeful.sloths.Models.Occupation.Occupation;
-import com.vengeful.sloths.Models.Occupation.Smasher;
-import com.vengeful.sloths.Models.Occupation.Sneak;
-import com.vengeful.sloths.Models.Occupation.Summoner;
+import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
+import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
+import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
+import com.vengeful.sloths.Models.Occupation.*;
 import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.GenericStatsAddable;
@@ -84,7 +87,28 @@ public class Loader {
                                     Avatar a = processAvatar(currObject);
                                     loading.getTile(a.getLocation()).addEntity(a);
                                     break;
-
+                                case "TakeableItem" :
+                                    TakeableItem t = processTakeable(currObject);
+                                    loading.getTile(t.getLocation()).addTakeableItem(t);
+                                    break;
+                                case "Obstacle" :
+                                    Obstacle o = processObstacle(currObject);
+                                    loading.getTile(o.getLocation()).addObstacle(o);
+                                    break;
+                                case "OneShotItem" :
+                                    OneShotItem osi = processOneShotItem(currObject);
+                                    loading.getTile(osi.getLocation()).addOneShotItem(osi);
+                                    break;
+                                case "Piggy" :
+                                    Piggy p = processPiggy(currObject);
+                                    PiggyControllerManager pcm = new PiggyControllerManager(loading,p);
+                                    loading.getTile(p.getLocation()).addEntity(p);
+                                    break;
+                                case "AggressiveNPC" :
+                                    AggressiveNPC aNPC = processAggressiveNPC(currObject);
+                                    AggressiveNPCControllerManager ancm = new AggressiveNPCControllerManager(loading, aNPC);
+                                    loading.getTile(aNPC.getLocation()).addEntity(aNPC);
+                                    break;
                                 default: System.out.println(currObject.getNodeName() + " doesn't have a case to handle it");
                             }
                         }
@@ -96,6 +120,260 @@ public class Loader {
                 }
             }
         }
+    }
+
+    private Piggy processPiggy(Node currObject) {
+        Piggy p = new Piggy();
+        NamedNodeMap avatarAttributes = currObject.getAttributes();
+        for(int i = 0; i != avatarAttributes.getLength(); ++i){
+            Node attribute = avatarAttributes.item(i);
+            String attributeName = attribute.getNodeName();
+            String value = attribute.getNodeValue();
+            switch (attributeName){
+                case "Direction":
+                    Direction dir = Direction.N;
+                    switch(value){
+                        case "N":
+                            dir = Direction.N;
+                            break;
+                        case "S":
+                            dir = Direction.S;
+                            break;
+                        case "NE":
+                            dir = Direction.NE;
+                            break;
+                        case "Nw":
+                            dir = Direction.NW;
+                            break;
+                        case "SE":
+                            dir = Direction.SE;
+                            break;
+                        case "SW":
+                            dir = Direction.SW;
+                            break;
+                        default:
+                            System.out.println(value + "is not a supporterd direction");
+                    }
+                    p.setFacingDirection(dir);
+                    break;
+                case "Name":
+                    p.setName(value);
+                    break;
+                default:
+                    System.out.println(attributeName + "is not a supported avatar attribute");
+            }
+        }
+        NodeList avatarObjects = currObject.getChildNodes();
+        for(int i = 0; i != avatarObjects.getLength(); ++i){
+            Node avatarObject = avatarObjects.item(i);
+            if(avatarObject.getNodeType() != Node.ELEMENT_NODE){
+                System.out.println("Avatar object isn't an element type");
+                continue;
+            }
+            String objectName = avatarObject.getNodeName();
+            switch (objectName){
+                case "Location" :
+                    Coord c = processLocation(avatarObject);
+                    p.setLocation(c);
+                    break;
+                case "Sneak" :
+                    Sneak sn = new Sneak();
+                    p.setOccupation(sn);
+                    break;
+                case "Smasher" :
+                    Smasher sm = new Smasher();
+                    p.setOccupation(sm);
+                    break;
+                case "Summoner" :
+                    Summoner sr = new Summoner();
+                    p.setOccupation(sr);
+                    break;
+                case "DummyOccupation" :
+                    DummyOccupation d = new DummyOccupation();
+                    p.setOccupation(d);
+                    break;
+                case "Stats" :
+                    Stats s = processStats(avatarObject);
+                    p.setStats(s);
+                    break;
+                case "AbilityManager" :
+                    AbilityManager abm = processAbilityManager(avatarObject,p);
+                    p.setAbilityManager(abm);
+                    break;
+                case "BuffManager" :
+                    break;
+                case "Inventory" :
+                    Inventory inv = processInventory(avatarObject);
+                    p.setInventory(inv);
+                    break;
+                case "Equipped" :
+                    Equipped eq = processEquipped(avatarObject,p);
+                    p.setEquipped(eq);
+//                    eq.init(a);
+                    break;
+                case "SkillManager" :
+                    SkillManager sk = processSkillManager(avatarObject);
+                    p.setSkillManager(sk);
+                    break;
+                default:
+                    System.out.println(objectName + "is not a supported avatar object");
+            }
+        }
+        return p;
+    }
+    private AggressiveNPC processAggressiveNPC(Node currObject){
+        AggressiveNPC p = new AggressiveNPC();
+        NamedNodeMap avatarAttributes = currObject.getAttributes();
+        for(int i = 0; i != avatarAttributes.getLength(); ++i){
+            Node attribute = avatarAttributes.item(i);
+            String attributeName = attribute.getNodeName();
+            String value = attribute.getNodeValue();
+            switch (attributeName){
+                case "Direction":
+                    Direction dir = Direction.N;
+                    switch(value){
+                        case "N":
+                            dir = Direction.N;
+                            break;
+                        case "S":
+                            dir = Direction.S;
+                            break;
+                        case "NE":
+                            dir = Direction.NE;
+                            break;
+                        case "Nw":
+                            dir = Direction.NW;
+                            break;
+                        case "SE":
+                            dir = Direction.SE;
+                            break;
+                        case "SW":
+                            dir = Direction.SW;
+                            break;
+                        default:
+                            System.out.println(value + "is not a supporterd direction");
+                    }
+                    p.setFacingDirection(dir);
+                    break;
+                case "Name":
+                    p.setName(value);
+                    break;
+                default:
+                    System.out.println(attributeName + "is not a supported avatar attribute");
+            }
+        }
+        NodeList avatarObjects = currObject.getChildNodes();
+        for(int i = 0; i != avatarObjects.getLength(); ++i){
+            Node avatarObject = avatarObjects.item(i);
+            if(avatarObject.getNodeType() != Node.ELEMENT_NODE){
+                System.out.println("Avatar object isn't an element type");
+                continue;
+            }
+            String objectName = avatarObject.getNodeName();
+            switch (objectName){
+                case "Location" :
+                    Coord c = processLocation(avatarObject);
+                    p.setLocation(c);
+                    break;
+                case "Sneak" :
+                    Sneak sn = new Sneak();
+                    p.setOccupation(sn);
+                    break;
+                case "Smasher" :
+                    Smasher sm = new Smasher();
+                    p.setOccupation(sm);
+                    break;
+                case "Summoner" :
+                    Summoner sr = new Summoner();
+                    p.setOccupation(sr);
+                    break;
+                case "DummyOccupation" :
+                    DummyOccupation d = new DummyOccupation();
+                    p.setOccupation(d);
+                    break;
+                case "Stats" :
+                    Stats s = processStats(avatarObject);
+                    p.setStats(s);
+                    break;
+                case "AbilityManager" :
+                    AbilityManager abm = processAbilityManager(avatarObject,p);
+                    p.setAbilityManager(abm);
+                    break;
+                case "BuffManager" :
+                    break;
+                case "Inventory" :
+                    Inventory inv = processInventory(avatarObject);
+                    p.setInventory(inv);
+                    break;
+                case "Equipped" :
+                    Equipped eq = processEquipped(avatarObject,p);
+                    p.setEquipped(eq);
+//                    eq.init(a);
+                    break;
+                case "SkillManager" :
+                    SkillManager sk = processSkillManager(avatarObject);
+                    p.setSkillManager(sk);
+                    break;
+                default:
+                    System.out.println(objectName + "is not a supported avatar object");
+            }
+        }
+        return p;
+    }
+    private OneShotItem processOneShotItem(Node currObject) {
+        OneShotItem osi = new OneShotItem();
+        Element current = (Element) currObject;
+        osi.setItemName(current.getAttribute("itemName"));
+
+        Node locatioNode = current.getChildNodes().item(0);
+        osi.setLocation(processLocation(locatioNode));
+        return osi;
+    }
+
+    private Obstacle processObstacle(Node currObject) {
+        Obstacle o = new Obstacle();
+        Element current = (Element) currObject;
+        o.setItemName(current.getAttribute("itemName"));
+
+        Node locatioNode = current.getChildNodes().item(0);
+        o.setLocation(processLocation(locatioNode));
+        return o;
+    }
+
+    private TakeableItem processTakeable(Node currObject) {
+        TakeableItem ti = new TakeableItem();
+        Element current = (Element) currObject;
+        ti.setItemName(current.getAttribute("itemName"));
+
+        Node locatioNode = current.getChildNodes().item(0);
+        ti.setLocation(processLocation(locatioNode));
+
+        Element invItemElement = (Element) current.getChildNodes().item(1);
+        String invItemName = invItemElement.getNodeName();
+        switch(invItemName){
+            case "Potion" :
+                Potion p = processPotion(invItemElement);
+                ti.setInventorpRep(p);
+                break;
+            case "Hat":
+                Hat h = processHat(invItemElement);
+                ti.setInventorpRep(h);
+                break;
+//            case "Knuckle" :
+//                Knuckle k = processKnuckle(invItemElement);
+//                ti.setInventorpRep(p);
+//                break;
+            case "OneHandedWeapon" :
+                OneHandedWeapon ohw = processOneHandedWeapon(invItemElement);
+                ti.setInventorpRep(ohw);
+                break;
+            case "TwoHandedWeapon" :
+                TwoHandedWeapon thw = processTwoHandedWeapon(invItemElement);
+                ti.setInventorpRep(thw);
+            default:
+                System.out.println(invItemName + "isn't a supported inventoryItem representation");
+        }
+        return ti;
     }
 
     private Avatar processAvatar(Node currObject) {
@@ -204,21 +482,27 @@ public class Loader {
                 Element currAbility = (Element)allAbilityNodes.item(i);
                 switch (currAbility.getNodeName()){
                     case "BindWoundsAbility" :
-
-                        //Sorry Ian
-//                        BindWoundsAbility bwa = new BindWoundsAbility();
-//                        bwa.setEntity(e);
-//                        bwa.setSkillManager(e.getSkillManager());
-//                        abm.addAbility(bwa);
+                        BindWoundsAbility bwa = new BindWoundsAbility();
+                        bwa.setEntity(e);
+                        bwa.setSkillManager(e.getSkillManager());
+                        abm.addAbility(bwa);
                         break;
                     case "MeleeAttackAbility" :
-//                        int wind = Integer.valueOf(currAbility.getAttribute("windTicks"));
-//                        int cool = Integer.valueOf(currAbility.getAttribute("coolTicks"));
-//                        MeleeAttackAbility maa = new MeleeAttackAbility(wind,cool);
-//                        maa.setEntity(e);
-//                        maa.setStats(e.getStats());
-//                        abm.addAbility(maa);
+                        int wind = Integer.valueOf(currAbility.getAttribute("windTicks"));
+                        int cool = Integer.valueOf(currAbility.getAttribute("coolTicks"));
+                        MeleeAttackAbility maa = new MeleeAttackAbility(e,wind,cool);
+                        maa.setStats(e.getStats());
+                        abm.addAbility(maa);
                         break;
+                    case "FireBallAbility" :
+                        int start = Integer.valueOf(currAbility.getAttribute("startUpTicks"));
+                        int coolDown = Integer.valueOf(currAbility.getAttribute("coolDownTicks"));
+                        int travelDistance = Integer.valueOf(currAbility.getAttribute("travelDistance"));
+                        int traveTime = Integer.valueOf(currAbility.getAttribute("travelTime"));
+                        int manaCost = Integer.valueOf(currAbility.getAttribute("manaCost"));
+                        FireBallAbility fba = new FireBallAbility(e, traveTime, travelDistance, start, coolDown);
+                        fba.setManaCost(manaCost);
+                        abm.addAbility(fba);
                     default:
                         System.out.println(currAbility.getNodeName() + "isn't a supported ability to load");
                 }
@@ -307,7 +591,7 @@ public class Loader {
         Inventory inv = new Inventory();
         if(avatarObject.getNodeType() == Node.ELEMENT_NODE){
             Element invElement = (Element) avatarObject;
-            inv.setCurrentSize(Integer.valueOf(invElement.getAttribute("currentSize")));
+//            inv.setCurrentSize(Integer.valueOf(invElement.getAttribute("currentSize")));
             inv.setMaxSize(Integer.valueOf(invElement.getAttribute("maxSize")));
             if(avatarObject.hasChildNodes()){
                 NodeList invItems = avatarObject.getChildNodes();

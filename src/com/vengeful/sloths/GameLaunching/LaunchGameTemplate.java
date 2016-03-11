@@ -8,6 +8,7 @@ import com.vengeful.sloths.Models.Entity.Piggy;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteractionFactory;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Mount;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.ModelEngine;
@@ -43,7 +44,10 @@ public class LaunchGameTemplate {
         cameras = helper.createCameras();
         helper.populateMap();
         avatar = helper.createAvatar();
+        // Set avatar time to respawn (150/30 --> 5 seconds)
+        avatar.setTimeToRespawn(150);
         avatar.getStats().setMovement(45);
+        avatar.equip(new Mount("hex", 10));
 //        avatar.getInstance().getStats().setHardiness(10);
 //        Avatar.getInstance().getStats().setCurrentHealth(60);
         map.addEntity(helper.spawnPoint(), avatar);
@@ -115,6 +119,44 @@ public class LaunchGameTemplate {
 
        //viewEngine.start();
 
+    }
+
+    public void launchLoaded(){
+        map = helper.createMap();
+        helper.populateMap();
+        cameras = helper.createCameras();
+        avatar = Avatar.getInstance();
+        initSingletons();
+        AreaView areaView = new AreaView(cameras);
+        //ViewManager vm = new ViewManager();
+        HUDView hv = new HUDView(Config.instance().getHUDViewWidth(), Config.instance().getHUDViewHeight());
+        GridInventoryView giv = new GridInventoryView(avatar.getInventory());
+        EquipmentView ev = new EquipmentView(avatar.getEquipped());
+        StatsView sv = new StatsView(avatar.getStats());
+        //ViewManager vm = new ViewManager(areaView, hv);
+        CharacterView cv = new CharacterView(giv, ev, sv);
+        ViewManager vm = new ViewManager(areaView, hv, cv);
+
+        //ViewEngine viewEngine = new ViewEngine(areaView);
+        ViewEngine viewEngine = ViewEngine.getInstance();
+        viewEngine.registerView(vm);
+
+
+        //viewEngine.registerView(cv);
+
+
+        //ViewEngine viewEngine = new ViewEngine(areaView);
+        //ViewEngine viewEngine = ViewEngine.getInstance();
+        //viewEngine.killOldView();
+        //viewEngine.registerView(areaView);
+
+        //ModelEngine modelEngine = new ModelEngine();
+        ModelEngine modelEngine = ModelEngine.getInstance();
+        MainController controller = MainController.getInstance();
+        controller.init(vm);
+        controller.setAvatarControllerState();
+
+        modelEngine.start();
     }
 
     public void initSingletons() {

@@ -42,6 +42,16 @@ public class SaveManager {
         }
         map.accept(sv);
     }
+
+    public void save(){
+        SaveVisitor sv = null;
+        try {
+            sv = new SaveVisitor();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        }
+        map.accept(sv);
+    }
 //    public void save(Map map){
 //        SaveVisitor sv = null;
 //        try {

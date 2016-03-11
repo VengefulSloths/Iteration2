@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Models.Inventory;
 
+import com.vengeful.sloths.Models.Ability.Abilities.NullAbility;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.*;
@@ -30,12 +31,15 @@ public class Equipped implements ViewObservable, ModelVisitable{
 
     private Weapon weapon = fists;
 
+    private Mount mount;
+
     //private EquippableItems mount;
 
     protected ArrayList<EquipmentObserver> equipmentObserver;
 
     public Equipped(Entity entity){
         this.hat = null;
+        this.mount = null;
         this.entity = entity;
         this.entityStats = entity.getStats();
         this.skills = entity.getSkillManager();
@@ -53,6 +57,18 @@ public class Equipped implements ViewObservable, ModelVisitable{
         this.abilityManager = entity.getAbilityManager();
         this.equipmentObserver = new ArrayList<>();
         addWeapon(fists);
+    }
+
+
+    public void addMount(Mount mount) {
+        if (this.mount != null) {
+            removeMount();
+        }
+
+        this.mount = mount;
+        this.abilityManager.setMountAbility(mount.getMountAbility(entity));
+        this.abilityManager.setDemountAbility(mount.getDemountAbility(entity));
+        //TODO: alert observers
     }
 
 
@@ -82,6 +98,14 @@ public class Equipped implements ViewObservable, ModelVisitable{
             observer.alertEquipWeapon(this.weapon.getItemName(), this.weapon.getWeaponClassification());
         }
         alertEquipped(weapon);
+    }
+
+
+    public void removeMount() {
+        abilityManager.setMountAbility(new NullAbility());
+        abilityManager.setDemountAbility(new NullAbility());
+
+        //TODO: alert equipped view that mount is equiped
     }
 
     public int getOffensiveRating() {

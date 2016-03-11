@@ -13,34 +13,34 @@ public class QWEASDInputStrategy extends InputStrategy {
     public void interpretPressedKey(int key, InputControllerState state) {
         switch (key) {
             case KeyEvent.VK_6: //edit
-                state.handle6Key();
+                state.handleEastKey();
                 break;
             case KeyEvent.VK_4:
-                state.handle4Key();
+                state.handleWestKey();
                 break;
             case KeyEvent.VK_Q:
-                state.handle7Key();
+                state.handleNorthWestKey();
                 break;
             case KeyEvent.VK_W:
-                state.handle8Key();
+                state.handleNorthKey();
                 break;
             case KeyEvent.VK_E:
-                state.handle9Key();
+                state.handleNorthEastKey();
                 break;
             case KeyEvent.VK_A:
-                state.handle1Key();
+                state.handleSouthWestKey();
                 break;
             case KeyEvent.VK_S:
-                state.handle2Key();
+                state.handleSouthKey();
                 break;
             case KeyEvent.VK_D:
-                state.handle3Key();
+                state.handleSouthEastKey();
                 break;
             case KeyEvent.VK_I:
-                state.handleIKey();
+                state.handleInventoryKey();
                 break;
             case KeyEvent.VK_R:
-                state.handleEKey();
+                state.handleEquipmentKey();
                 break;
             case KeyEvent.VK_ESCAPE:
                 state.handleESCKey();
@@ -61,8 +61,10 @@ public class QWEASDInputStrategy extends InputStrategy {
                 state.handleSpaceKey();
                 break;
             case KeyEvent.VK_ENTER:
-                state.handle5Key();
+                state.handleCenterKey();
                 break;
+            case KeyEvent.VK_P:
+                state.handleSaveKey();
         }
     }
 
@@ -70,22 +72,22 @@ public class QWEASDInputStrategy extends InputStrategy {
     public void interpretReleasedKey(int key, InputControllerState state) {
         switch (key) {
             case KeyEvent.VK_Q:
-                state.handleRelease7Key();
+                state.handleReleaseNorthWestKey();
                 break;
             case KeyEvent.VK_W:
-                state.handleRelease8Key();
+                state.handleReleaseNorthKey();
                 break;
             case KeyEvent.VK_E:
-                state.handleRelease9Key();
+                state.handleReleaseNorthEastKey();
                 break;
             case KeyEvent.VK_A:
-                state.handleRelease1Key();
+                state.handleReleaseSouthWestKey();
                 break;
             case KeyEvent.VK_S:
-                state.handleRelease2Key();
+                state.handleReleaseSouthKey();
                 break;
             case KeyEvent.VK_D:
-                state.handleRelease3Key();
+                state.handleReleaseSouthEastKey();
                 break;
             case KeyEvent.VK_UP:
                 state.handleReleaseUpKey();

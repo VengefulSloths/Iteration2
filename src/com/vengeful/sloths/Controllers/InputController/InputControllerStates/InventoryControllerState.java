@@ -43,16 +43,12 @@ public class InventoryControllerState extends InputControllerState{
     }
 
     @Override
-    public boolean handleIKey() {
+    public boolean handleInventoryKey() {
         MainController.getInstance().setAvatarControllerState();
         //MainController.getInstance().setInventoryControllerState();
         return true;
     }
 
-    @Override
-    public boolean handleEKey() {
-        return false;
-    }
 
     @Override
     public boolean handleESCKey() {
@@ -60,30 +56,30 @@ public class InventoryControllerState extends InputControllerState{
     }
 
     @Override
-    public boolean handle1Key() {
+    public boolean handleSouthWestKey() {
         return false;
     }
 
-    @Override
-    public boolean handle2Key() { // select down in inventory
+
+    public boolean handleSouthKey() {
         int itemListSize = this.inventoryView.getItemListSize();
         int numCols = this.inventoryView.getNumCols();
-        if(itemListSize == 0)
+        if (itemListSize == 0)
             return false;
-        this.inventoryIndex+=numCols;
+        this.inventoryIndex += numCols;
         if (this.inventoryIndex >= itemListSize) {
-            this.inventoryIndex-=numCols;
+            this.inventoryIndex -= numCols;
             return false;
-        }else{
-            if(this.inventoryIndex > 0)
-                this.inventoryView.setDeselected(this.inventoryView.getFromItemList(this.inventoryIndex-numCols)); //edit?
+        } else {
+            if (this.inventoryIndex > 0)
+                this.inventoryView.setDeselected(this.inventoryView.getFromItemList(this.inventoryIndex - numCols)); //edit?
         }
         this.inventoryView.setSelected(this.inventoryView.getFromItemList(this.inventoryIndex));
         return true;
     }
 
     @Override
-    public boolean handle3Key() {
+    public boolean handleSouthEastKey() {
         //Here due to InputStrategy
 
         //test code
@@ -99,8 +95,8 @@ public class InventoryControllerState extends InputControllerState{
         }
     }
 
-    @Override
-        public boolean handle4Key() { //select left in inventory
+
+    public boolean handleWestKey() {
         int itemListSize = this.inventoryView.getItemListSize();
         if(itemListSize == 0)
             return false;
@@ -117,57 +113,57 @@ public class InventoryControllerState extends InputControllerState{
     }
 
     @Override
-    public boolean handle6Key() { //select right in inventory
+    public boolean handleEastKey() {
         int itemListSize = this.inventoryView.getItemListSize();
-        if(itemListSize == 0)
+        if (itemListSize == 0)
             return false;
         this.inventoryIndex++; //edit?
         if (this.inventoryIndex >= itemListSize) {
             this.inventoryIndex = itemListSize - 1;
             return false; //edit?
         } else {
-            if(this.inventoryIndex < itemListSize)
-                this.inventoryView.setDeselected(this.inventoryView.getFromItemList(this.inventoryIndex-1)); //edit?
+            if (this.inventoryIndex < itemListSize)
+                this.inventoryView.setDeselected(this.inventoryView.getFromItemList(this.inventoryIndex - 1)); //edit?
         }
         this.inventoryView.setSelected(this.inventoryView.getFromItemList(this.inventoryIndex));
         return true;
     }
 
     @Override
-    public boolean handle7Key() {
+    public boolean handleNorthWestKey() {
         return false;
     }
 
-    @Override
-    public boolean handle8Key() { //select up in inventory
+
+    public boolean handleNorthKey() {
         // Move up an item
         int itemListSize = this.inventoryView.getItemListSize();
-        if(itemListSize == 0)
+        if (itemListSize == 0)
             return false;
         int numCols = this.inventoryView.getNumCols();
-        this.inventoryIndex-=numCols; //edit?
+        this.inventoryIndex -= numCols; //edit?
         if (this.inventoryIndex < 0) {
-            this.inventoryIndex+=numCols;
+            this.inventoryIndex += numCols;
             return false; //edit?
         } else {
-                this.inventoryView.setDeselected(this.inventoryView.getFromItemList(this.inventoryIndex+numCols)); //edit?
+            this.inventoryView.setDeselected(this.inventoryView.getFromItemList(this.inventoryIndex + numCols)); //edit?
         }
         this.inventoryView.setSelected(this.inventoryView.getFromItemList(this.inventoryIndex));
         return true;
     }
 
     @Override
-    public boolean handle9Key() {
+    public boolean handleNorthEastKey() {
         return false;
     }
 
     @Override
-    public boolean handle5Key() {
+    public boolean handleCenterKey() {
         return false;
     }
 
     @Override
-    public boolean handleDKey() {
+    public boolean handleDropKey() {
         return false;
     }
 
@@ -197,47 +193,51 @@ public class InventoryControllerState extends InputControllerState{
     }
 
     @Override
-    public void handleRelease1Key() {
+    public void handleReleaseSouthWestKey() {
 
     }
 
     @Override
-    public void handleRelease2Key() {
+    public void handleReleaseSouthKey() {
 
     }
 
     @Override
-    public void handleRelease3Key() {
+    public void handleReleaseSouthEastKey() {
 
     }
 
     @Override
-    public void handleRelease4Key() {
+    public void handleReleaseWestKey() {
 
     }
 
     @Override
-    public void handleRelease6Key() {
+    public void handleReleaseEastKey() {
 
     }
 
     @Override
-    public void handleRelease7Key() {
+    public void handleReleaseNorthWestKey() {
 
     }
 
     @Override
-    public void handleRelease8Key() {
+    public void handleReleaseNorthKey() {
 
     }
 
     @Override
-    public void handleRelease9Key() {
+    public void handleReleaseNorthEastKey() {
 
     }
 
     @Override
-    public void handleRelease5Key() {
+    public void handleReleaseCenterKey() {
+
+    }
+
+    public void handleSaveKey(){
 
     }
 
@@ -259,5 +259,15 @@ public class InventoryControllerState extends InputControllerState{
     @Override
     public boolean handleReleaseUpKey() {
         return false;
+    }
+
+    @Override
+    public boolean handleEquipmentKey() {
+        return false;
+    }
+
+    @Override
+    public void handleEnterKey() {
+
     }
 }

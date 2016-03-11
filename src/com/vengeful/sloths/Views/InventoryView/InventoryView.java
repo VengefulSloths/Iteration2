@@ -75,7 +75,7 @@ public class InventoryView extends View implements InventoryObserver {
         this.setInventory(inventory);
         //Create a proxy for the observer, regester the proxy w/ entity, add proxy to manager
         ProxyObserver pio = new ProxyInventoryObserver(this, inventory);
-        ObserverManager.instance().addProxyObserver(pio);
+        ObserverManager.getInstance().addProxyObserver(pio);
 
 
         initWithInventory(this.getInventory());
@@ -90,8 +90,8 @@ public class InventoryView extends View implements InventoryObserver {
         this.setInventory(inventory);
         //Create a proxy for the observer, regester the proxy w/ entity, add proxy to manager
         ProxyObserver pio = new ProxyInventoryObserver(this, inventory);
-        ObserverManager.instance().addProxyObserver(pio);
 
+        ObserverManager.getInstance().addProxyObserver(pio);
 
         initWithInventory(this.getInventory());
         initDefaultUI();
@@ -120,7 +120,7 @@ public class InventoryView extends View implements InventoryObserver {
 
     /* Initializes the itemList by generating ItemViewObjects from inventoryItems. Maybe make a factory? */
     public void initWithInventory(Inventory inventory) {
-        for (int i = 0; i < inventory.getCurrentSize(); i++) {
+        for (int i = 0; i < inventory.getCurrentSize(); ++i) {
             //InventoryItem item = inventory.getItem(i);
             //this.itemList.add(new ItemViewObject(inventory.getItem(i)));
             //this.itemList.add(new ItemViewObject(inventory.getItem(i)));

@@ -3,7 +3,10 @@ package com.vengeful.sloths.Utility;
 
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.CanMoveVisitor;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.DefaultCanMoveVisitor;
+import com.vengeful.sloths.Models.EntityMapInteractionCommands.NonTeleMoveVisitor;
 import com.vengeful.sloths.Models.Map.Map;
+import com.vengeful.sloths.Models.Map.MapArea;
+import com.vengeful.sloths.Models.Map.Tile;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -151,33 +154,63 @@ public class HexMath {
      * params: Coord - src coordinate to search
      * return: Coord - closest coordinate found, or null
      */
-    public static Coord getClosestMovableTile(Coord src) {
-        CanMoveVisitor canMoveVisitor = new DefaultCanMoveVisitor();
+    public static Coord getClosestMovableTile(Location location) {
+        Coord src = location.getCoord();
+        MapArea mapArea = location.getMapArea();
+        CanMoveVisitor canMoveVisitor = new NonTeleMoveVisitor();
         Map map = Map.getInstance();
         int currRadius = 1;
         boolean foundCoord = false;
 
+        System.out.println("Src coord: " + src);
+
         // First check if source coordinate is ok to move on
-        map.getTile(src).accept(canMoveVisitor);
+        mapArea.getTile(src).accept(canMoveVisitor);
         if (canMoveVisitor.canMove()) return new Coord(src.getR(), src.getS());
 
-        Iterator<Coord> coordRingIter = sortedRing(src, currRadius);;
+        Iterator<Coord> coordRingIter = sortedRing(src, currRadius);
+
+        System.out.println("Just made coord ring: ");
+        while (coordRingIter.hasNext())
+            System.out.println(coordRingIter.next());
+
+        coordRingIter = sortedRing(src, currRadius);;
 
         Coord currCoord = null;
         while (!foundCoord && coordRingIter.hasNext()) {
+            System.out.println("a");
             currCoord = coordRingIter.next();
+            System.out.println("sddddd");
+            try {
+                System.out.println("whddddddat");
+                mapArea.getTile(currCoord);//wtf does this do
+                System.out.println("eeeeeee");
+                //Tile t = MapArea.getTile();
+                try {
+                    mapArea.getTile(currCoord).accept(canMoveVisitor);
+                }catch (NullPointerException e){
+                    canMoveVisitor.setCanMove(false);
+                }
+                System.out.println("dsdsdsdsd");
+                if (canMoveVisitor.canMove()) {
+                    System.out.println("bleep");
+                    return currCoord;
+                   // foundCoord = true;
+                    //break;
+                }
 
-            map.getTile(currCoord).accept(canMoveVisitor);
-            if (canMoveVisitor.canMove()) {
-                foundCoord = true;
-                break;
+            } catch (IndexOutOfBoundsException e) {
+                // @TODO: Need to handle a bad tile here!
+                //  how do we adjust input coordinate for this?
+                System.out.println("what");
+                // USE SAFETY FUNCTION!
             }
 
             if (!coordRingIter.hasNext() ) {
                 coordRingIter = sortedRing(src, ++currRadius);
             }
         }
-
+        System.out.println("bloop");
         return currCoord;
     }
 }

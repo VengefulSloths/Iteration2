@@ -20,6 +20,7 @@ public class Obstacle extends MapItem implements ViewObservable{
     public Obstacle(Coord location){
         this.setLocation(location);
     }
+    public Obstacle(){}
 
     public void destroy() {
         for(DestroyableObserver observer: observers) {

@@ -30,8 +30,13 @@ public class EntityMapInteractionFactory {
         this.map = map;
     }
 
-    public EntityDieCommand createDeathCommand(Entity entity, int timeToRespawn, Iterator<EntityObserver> entityObserverIterator){
-        EntityDieCommand edc = new EntityDieCommand(entity, timeToRespawn, entityObserverIterator);
+    public EntityDropEntireInventoryCommand createDropEntireInventoryCommand(Entity entity) {
+        EntityDropEntireInventoryCommand entityDropEntireInventoryCommand = new EntityDropEntireInventoryCommand(entity);
+        return entityDropEntireInventoryCommand;
+    }
+
+    public EntityDieCommand createDeathCommand(Entity entity, Iterator<EntityObserver> entityObserverIterator){
+        EntityDieCommand edc = new EntityDieCommand(entity, entityObserverIterator);
         return edc;
     }
 

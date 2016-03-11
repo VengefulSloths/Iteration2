@@ -20,6 +20,7 @@ public class OneShotItem extends MapItem implements ModelVisitable, ViewObservab
     public OneShotItem(Coord location){
         this.setLocation(location);
     }
+    public OneShotItem(){}
 
     public void interact(Entity entity){
         observer.alertDestroyed();
