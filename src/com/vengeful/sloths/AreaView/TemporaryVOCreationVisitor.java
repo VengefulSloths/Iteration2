@@ -157,11 +157,9 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
         pvo.registerObserver(activeCameraView);
 
         piggy.getStats().updateObservers();
-        activeCameraView.addPiggy(pvo);
+        activeCameraView.addViewObject(pvo);
 
         System.out.println("CREATING PET VO @" + pvo.getR() + ", " +  pvo.getS());
-
-        this.activeCameraView.addViewObject(pvo);
     }
 
     @Override

@@ -91,11 +91,6 @@ public abstract class CameraView implements MovingVOObserver{
         }
     }
 
-    public void addPiggy(PiggyViewObject pvo) {
-        addViewObject(pvo);
-        this.piggy = pvo;
-    }
-
     public void paintComponent(Graphics2D g) {
         parallaxBackground.paintComponent(g);
         for (int i=0; i<maxY; i++) {
