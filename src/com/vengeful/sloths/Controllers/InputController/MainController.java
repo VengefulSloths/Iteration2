@@ -82,6 +82,7 @@ public class MainController implements Tickable{
     public void setAvatarControllerState(){
         this.state = this.avatarControllerState;
         viewManager.closeCharacterView();
+        viewManager.closeMenuView();
         System.out.println("Switching to avatar state");
     }
 
@@ -95,6 +96,11 @@ public class MainController implements Tickable{
         this.menuControllerState.setScrollableMenu(menu);
         this.state = this.menuControllerState;
 
+    }
+
+    public void setInGameMenuControllerState(){
+        this.menuControllerState.setScrollableMenu(viewManager.getMenuView());
+        viewManager.openMenuView();
     }
 
     public Inventory getInventory(){

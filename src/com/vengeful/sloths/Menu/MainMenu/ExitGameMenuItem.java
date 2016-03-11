@@ -1,4 +1,6 @@
-package com.vengeful.sloths.Menu;
+package com.vengeful.sloths.Menu.MainMenu;
+
+import com.vengeful.sloths.Menu.ScrollableMenuItemCommand;
 
 /**
  * Created by zach on 3/7/16.

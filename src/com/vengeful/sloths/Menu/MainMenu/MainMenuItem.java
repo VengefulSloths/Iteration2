@@ -1,4 +1,7 @@
-package com.vengeful.sloths.Menu;
+package com.vengeful.sloths.Menu.MainMenu;
+
+import com.vengeful.sloths.Menu.ScrollableMenuItem;
+import com.vengeful.sloths.Menu.ScrollableMenuItemCommand;
 
 import java.awt.*;
 

@@ -1,6 +1,6 @@
 package com.vengeful.sloths;
 
-import com.vengeful.sloths.Menu.MainScrollableMenu;
+import com.vengeful.sloths.Menu.MainMenu.MainScrollableMenu;
 import com.vengeful.sloths.Menu.ScrollableMenu;
 import com.vengeful.sloths.AreaView.ViewEngine;
 import com.vengeful.sloths.Controllers.InputController.MainController;

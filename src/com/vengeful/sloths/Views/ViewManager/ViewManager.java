@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Views.ViewManager;
 
+import com.vengeful.sloths.Menu.InGameMenu.InGameScrollableMenu;
 import com.vengeful.sloths.Utility.Config;
 //import com.vengeful.sloths.Views.AreaView.AreaView;
 import com.vengeful.sloths.Views.CharacterView.CharacterView;
@@ -21,6 +22,7 @@ public class ViewManager extends JPanel {
     private CharacterView characterView;
     private AreaView areaview;
     private HUDView hudView;
+    private InGameScrollableMenu menuView;
     JPanel sidePanel;
 
     protected static final int AREA_VIEW_WIDTH =(int) Config.instance().getAreaViewWidth();
@@ -50,6 +52,7 @@ public class ViewManager extends JPanel {
     public ViewManager(DefaultViewComposite dvc, CharacterView characterView) {
         this.dvc = dvc;
         this.characterView = characterView;
+        menuView = new InGameScrollableMenu(80);
         initializeViewManager();
     }
 
@@ -59,6 +62,7 @@ public class ViewManager extends JPanel {
         this.areaview = av;
         this.hudView = hv;
         this.characterView = cv;
+        menuView = new InGameScrollableMenu(80);
         initializeViewManager();
     }
 
@@ -91,6 +95,16 @@ public class ViewManager extends JPanel {
         this.hudView.setBackground(new Color(0f,0f,0f,0.1f));
         this.areaview.setBackground(Color.blue);
 
+    }
+
+    public void openMenuView(){
+        addView(menuView);
+    }
+
+    public void closeMenuView(){
+        remove(menuView);
+        this.revalidate();
+        this.repaint();
     }
 
     public void openCharacterView() {
@@ -126,4 +140,11 @@ public class ViewManager extends JPanel {
         component.setPreferredSize(new Dimension(width, height));
     }
 
+    public InGameScrollableMenu getMenuView() {
+        return menuView;
+    }
+
+    public void setMenuView(InGameScrollableMenu menuView) {
+        this.menuView = menuView;
+    }
 }
