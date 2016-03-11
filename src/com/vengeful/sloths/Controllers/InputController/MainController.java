@@ -34,6 +34,13 @@ public class MainController implements Tickable{
     private InventoryControllerState inventoryControllerState;
     private MenuControllerState menuControllerState;
 
+    public InventoryControllerState getInventoryControllerState() {
+        return inventoryControllerState;
+    }
+
+    public void setInventoryControllerState(InventoryControllerState inventoryControllerState) {
+        this.inventoryControllerState = inventoryControllerState;
+    }
 
     private static MainController ourInstance = new MainController();
 
@@ -44,7 +51,6 @@ public class MainController implements Tickable{
     private MainController() {
         player = Avatar.getInstance();
         inventory = player.getInventory();
-
         avatarControllerState = new AvatarControllerState();
         inventoryControllerState = new InventoryControllerState();
         menuControllerState = new MenuControllerState();
@@ -58,8 +64,10 @@ public class MainController implements Tickable{
         TimeModel.getInstance().registerTickable(this);
     }
 
+
     public void init(ViewManager vm) {
         this.viewManager = vm;
+        inventoryControllerState.setInventoryView(this.viewManager.getCharacterView().getInventoryView());
     }
 
     public void dispatchPressedKey(int key){
