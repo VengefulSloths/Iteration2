@@ -30,8 +30,7 @@ public class SetInputsControllerState extends InputControllerState {
     public void onRegister() {
 
     }
-
-
+    
     @Override
     public boolean handleInventoryKey() {
 

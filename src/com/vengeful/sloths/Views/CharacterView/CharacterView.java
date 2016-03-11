@@ -10,6 +10,7 @@ import com.vengeful.sloths.Views.StatsView.StatsViewObject;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
@@ -28,11 +29,9 @@ public class CharacterView extends JPanel {
     public InventoryView getInventoryView() {
         return inventoryView;
     }
-
     public EquipmentView getEquipmentView() {
         return equipmentView;
     }
-
     public StatsView getStatsView() {
         return statsView;
     }
@@ -71,19 +70,22 @@ public class CharacterView extends JPanel {
 
     public void initDefaultUI() {
 
+        JPanel pushPanel = new JPanel(); //this JPanel is used to center the CharacterView in the ViewManager. It "pushes" down the CharacterView in the ViewManager
+        pushPanel.setPreferredSize(new Dimension(Config.instance().getAreaViewWidth(), Config.instance().getAreaViewHeight()/6));
+        pushPanel.setBackground(new Color(0f,0f,0f,0f)); //pushPanel needs to be invisible
+
         this.containerPanel = new JPanel();
         this.setBackground(new Color(0f,0f,0f,0f));
         this.containerPanel.setBorder(new BevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK));
-
         this.setLayout(new FlowLayout());
-
         this.containerPanel.setPreferredSize(new Dimension(this.getCharacterViewWidth(),this.getCharacterViewHeight()));
         this.containerPanel.setLayout(new GridLayout(1,3));
-
         this.containerPanel.add(this.inventoryView);
         this.containerPanel.add(this.equipmentView);
         this.containerPanel.add(this.statsView);
+        this.add(pushPanel);
         this.add(containerPanel);
+
     }
 
     public void paintComponent(Graphics g) {

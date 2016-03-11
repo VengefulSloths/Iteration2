@@ -19,6 +19,7 @@ public class AvatarControllerState extends InputControllerState {
     private CartesionDirection currentFollowerDirection = new CartesionDirection();
     private SaveManager sm = new SaveManager(Map.getInstance());
 
+
     @Override
     public void continuousFunction() {
         //do something continuously

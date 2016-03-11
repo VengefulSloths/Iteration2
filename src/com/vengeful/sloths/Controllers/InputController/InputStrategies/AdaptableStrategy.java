@@ -1,10 +1,10 @@
 package com.vengeful.sloths.Controllers.InputController.InputStrategies;
 
-import com.intellij.util.containers.HashMap;
 import com.vengeful.sloths.Controllers.InputController.InputControllerStates.InputControllerState;
 import com.vengeful.sloths.Controllers.InputController.KeyMapping;
 
 import java.awt.event.KeyEvent;
+import java.util.HashMap;
 
 /**
  * Created by John on 3/10/2016.

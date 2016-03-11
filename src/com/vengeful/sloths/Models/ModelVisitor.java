@@ -1,5 +1,8 @@
 package com.vengeful.sloths.Models;
 
+import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.FireBallAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
@@ -102,4 +105,10 @@ public interface ModelVisitor {
     void visitSkill(Skill skill);
 
     void visitHitBox(HitBox hitBox);
+
+    void visitBindWounds(BindWoundsAbility bindWoundsAbility);
+
+    void visitMeleeAttackAbility(MeleeAttackAbility meleeAttackAbility);
+
+    void visitFireBallAbility(FireBallAbility fireBallAbility);
 }

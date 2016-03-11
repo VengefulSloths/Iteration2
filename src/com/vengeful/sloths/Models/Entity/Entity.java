@@ -46,7 +46,9 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
 
     private CanMoveVisitor movementValidator;
 
-    public Entity(){}
+    public Entity(){
+        this.movementValidator = new DefaultCanMoveVisitor();
+    }
     public boolean isActive() {
         return isActive;
     }
@@ -318,13 +320,14 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     }
 
     public void setStats(Stats stats){
-        Iterator<StatsObserver> iterator = this.stats.getObservers().iterator();
         stats.setEntity(this);
         this.stats = stats;
-
-        while(iterator.hasNext()){
-            StatsObserver current = iterator.next();
-            this.stats.registerObserver(current);
+        if(this.stats != null){
+            Iterator<StatsObserver> iterator = this.stats.getObservers().iterator();
+            while(iterator.hasNext()){
+                StatsObserver current = iterator.next();
+                this.stats.registerObserver(current);
+            }
         }
     }
 

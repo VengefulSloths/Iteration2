@@ -12,6 +12,12 @@ public class QWEASDInputStrategy extends InputStrategy {
     @Override
     public void interpretPressedKey(int key, InputControllerState state) {
         switch (key) {
+            case KeyEvent.VK_6: //edit
+                state.handleEastKey();
+                break;
+            case KeyEvent.VK_4:
+                state.handleWestKey();
+                break;
             case KeyEvent.VK_Q:
                 state.handleNorthWestKey();
                 break;
