@@ -11,7 +11,7 @@ public class ProxyAreaEffectObserver extends ProxyObserver implements AreaEffect
     private AreaEffectObserver target;
     public ProxyAreaEffectObserver(AreaEffectObserver target, AreaEffect subject){
         this.target = target;
-        this.subject = subject;
+        //this.subject = subject;
         this.subject.registerObserver(this);
     }
 

@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Models.Observers;
 
+import com.vengeful.sloths.AreaView.ViewTime;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.ViewObservable;
 
@@ -19,21 +20,20 @@ public class ProxyInventoryObserver extends ProxyObserver
 
     @Override
     public ModelObserver getModelObserver() {
-        return (ModelObserver) target;
+        return  target;
     }
 
     @Override
     public void alertItemAdded(InventoryItem item) {
-
-        ////System.out.Println("PROXY OBSERVER");
-        ////System.out.Println("Item: " + item.getItemName() + " Added!");
-        target.alertItemAdded(item);
+        if (!deleteFlag) {
+            ViewTime.getInstance().registerAlert(0, () -> target.alertItemAdded(item));
+        }
     }
 
     @Override
     public void alertItemDropped(InventoryItem item) {
-        ////System.out.Println("PROXY OBSERVER");
-        ////System.out.Println("Item: " + item.getItemName() + " DROPPED!");
-        target.alertItemDropped(item);
+        if (!deleteFlag) {
+            ViewTime.getInstance().registerAlert(0, () -> target.alertItemDropped(item));
+        }
     }
 }

@@ -11,30 +11,13 @@ import com.vengeful.sloths.Models.Entity.Entity;
 public class HealDamageAE extends AreaEffect{
     int health;
 
-    public HealDamageAE(EffectCommandFactory commandFactory){
-        super(commandFactory);
-        this.health = 1;
+    public HealDamageAE(int health) {
+        this.health = health;
     }
 
-    public HealDamageAE(int heal, EffectCommandFactory commandFactory){
-        super(commandFactory);
-        this.health = heal;
-    }
-
-    //This AE can only take effect on Avatar
     @Override
-    public EffectCommand createEffectCommand(Entity affectedEntity) {
-        if(affectedEntity instanceof Avatar)
-            //return new HealDamageAECommand(affectedEntity, this.health, affectedEntity.getLocation());
-            return this.commandFactory.createHealDamageAECommand(affectedEntity, this.health, affectedEntity.getLocation());
-        else
-            return null;
+    public void doEffect(Entity entity) {
+        entity.gainHealth(health);
     }
 
-//    @Override
-//    public void saveMe(SaveManager sm, int ws) {
-//        sm.writeClassLine(ws, "HealingDamageAE");
-//        String h = "" + health;
-//        sm.writeVariableLine(ws, "health", h, false);
-//    }
 }

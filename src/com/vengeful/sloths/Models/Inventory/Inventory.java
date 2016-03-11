@@ -31,7 +31,7 @@ public class Inventory implements ModelVisitable, ViewObservable {
     }
 
     public Inventory(int maxSize) {
-        inventory = new ArrayList<InventoryItem>();
+        inventory = new ArrayList<>();
         this.inventoryObservers = new ArrayList<>();
         this.currentSize = 0;
         this.maxSize = maxSize;
@@ -67,6 +67,7 @@ public class Inventory implements ModelVisitable, ViewObservable {
 
 
     public boolean addItem(InventoryItem item) {
+        System.out.println("adding item");
         if(currentSize >= maxSize)
             return false;
         else{

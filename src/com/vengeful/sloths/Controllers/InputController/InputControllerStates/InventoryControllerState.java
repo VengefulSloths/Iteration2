@@ -1,6 +1,7 @@
 package com.vengeful.sloths.Controllers.InputController.InputControllerStates;
 
 import com.vengeful.sloths.Controllers.InputController.MainController;
+import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 
 /**
@@ -55,8 +56,8 @@ public class InventoryControllerState extends InputControllerState{
         //Here due to InputStrategy
 
         //test code
-        Inventory inventory = MainController.getInstance().getInventory();
-
+        Inventory inventory = Avatar.getInstance().getInventory();
+        System.out.println("inventory size: " + inventory.getCurrentSize());
         if(inventory.getCurrentSize() > 0){
             MainController.getInstance().getPlayer().drop(inventory.getItem(0));
             return true;

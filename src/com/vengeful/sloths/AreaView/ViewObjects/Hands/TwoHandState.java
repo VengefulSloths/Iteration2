@@ -100,6 +100,15 @@ public class TwoHandState implements  HandState {
 
     @Override
     public void attack(int r, int s, long windUpTime, long coolDownTime) {
+        cast(windUpTime, coolDownTime);
+
+        AttackViewObject attackBack = TemporaryVOCreationVisitor.getInstance().createAttack(r, s, "resources/effects/bash/bash_back.xml", coolDownTime - windUpTime, false);
+        AttackViewObject attackFront = TemporaryVOCreationVisitor.getInstance().createAttack(r, s, "resources/effects/bash/bash_front.xml", coolDownTime - windUpTime, true);
+        ViewTime.getInstance().registerAlert(windUpTime, () -> {attackFront.start(); attackBack.start(); });
+    }
+
+    @Override
+    public void cast(long windUpTime, long coolDownTime) {
         long t = ViewTime.getInstance().getCurrentTimeMilli();
 
         double omega = Math.PI/600;
@@ -112,10 +121,6 @@ public class TwoHandState implements  HandState {
 
         ViewTime.getInstance().registerAlert((windUpTime + coolDownTime)/2, () -> resetAttack(leftHand, rightHand));
         ViewTime.getInstance().registerAlert(windUpTime, () -> doAttack(leftHand, rightHand));
-
-        AttackViewObject attackBack = TemporaryVOCreationVisitor.getInstance().createAttack(r, s, "resources/effects/bash/bash_back.xml", coolDownTime - windUpTime, false);
-        AttackViewObject attackFront = TemporaryVOCreationVisitor.getInstance().createAttack(r, s, "resources/effects/bash/bash_front.xml", coolDownTime - windUpTime, true);
-        ViewTime.getInstance().registerAlert(windUpTime, () -> {attackFront.start(); attackBack.start(); });
     }
 
     private void windUpAttack(SmartHandViewObject handLower, SmartHandViewObject handUpper, double alpha, double omega, double ah, double vh, long startTime, long endTime) {

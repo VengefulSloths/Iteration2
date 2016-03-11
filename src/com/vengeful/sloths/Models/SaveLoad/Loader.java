@@ -4,6 +4,7 @@ import com.sun.org.apache.xalan.internal.xsltc.compiler.util.InternalError;
 import com.sun.org.apache.xalan.internal.xsltc.compiler.util.NodeType;
 import com.sun.org.apache.xml.internal.serializer.ElemDesc;
 import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.FireBallAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
@@ -212,11 +213,19 @@ public class Loader {
                     case "MeleeAttackAbility" :
                         int wind = Integer.valueOf(currAbility.getAttribute("windTicks"));
                         int cool = Integer.valueOf(currAbility.getAttribute("coolTicks"));
-                        MeleeAttackAbility maa = new MeleeAttackAbility(wind,cool);
-                        maa.setEntity(e);
+                        MeleeAttackAbility maa = new MeleeAttackAbility(e,wind,cool);
                         maa.setStats(e.getStats());
                         abm.addAbility(maa);
                         break;
+                    case "FireBallAbility" :
+                        int start = Integer.valueOf(currAbility.getAttribute("startUpTicks"));
+                        int coolDown = Integer.valueOf(currAbility.getAttribute("coolDownTicks"));
+                        int travelDistance = Integer.valueOf(currAbility.getAttribute("travelDistance"));
+                        int traveTime = Integer.valueOf(currAbility.getAttribute("travelTime"));
+                        int manaCost = Integer.valueOf(currAbility.getAttribute("manaCost"));
+                        FireBallAbility fba = new FireBallAbility(e, traveTime, travelDistance, start, coolDown);
+                        fba.setManaCost(manaCost);
+                        abm.addAbility(fba);
                     default:
                         System.out.println(currAbility.getNodeName() + "isn't a supported ability to load");
                 }

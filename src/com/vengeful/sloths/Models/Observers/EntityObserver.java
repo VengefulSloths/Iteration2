@@ -9,9 +9,8 @@ public interface EntityObserver extends ModelObserver {
 	void alertMove(int r, int s, long animationTime);
 	void alertAttack(int r, int s, long windUpTime, long coolDownTime);
 
-	@Deprecated
-	void alertDrop(int x, int y, MapItem itemToDrop);
 
+	void alertCast(long windUpTime, long coolDownTime);
 	void alertTakeDamage(int damage);
 	void alertEquipWeapon(String name, WeaponClass weaponClass);
 	void alertUnequipWeapon();

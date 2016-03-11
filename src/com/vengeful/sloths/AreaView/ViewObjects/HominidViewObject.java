@@ -100,4 +100,9 @@ public class HominidViewObject extends EntityViewObject {
     public void alertUnequipHat() {
         this.hat.unequip();
     }
+
+    @Override
+    public void alertCast(long windUpTime, long coolDownTime) {
+        hands.cast(windUpTime, coolDownTime);
+    }
 }

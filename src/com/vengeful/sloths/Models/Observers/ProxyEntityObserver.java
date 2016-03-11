@@ -60,10 +60,6 @@ public class ProxyEntityObserver extends ProxyObserver
         }
     }
 
-    @Override
-    public void alertDrop(int x, int y, MapItem itemToDrop) {
-
-    }
 
     @Override
     public void alertEquipHat(String name) {
@@ -93,6 +89,13 @@ public class ProxyEntityObserver extends ProxyObserver
         }
     }
 
+
+    @Override
+    public void alertCast(long windUpTime, long coolDownTime) {
+        if (!deleteFlag) {
+            ViewTime.getInstance().registerAlert(0, () -> target.alertCast(windUpTime, coolDownTime));
+        }
+    }
 
     @Override
     public void alertTakeDamage(int damage) {

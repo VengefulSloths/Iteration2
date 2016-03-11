@@ -5,6 +5,7 @@ import com.vengeful.sloths.Views.InventoryView.ItemViewObject;
 import com.vengeful.sloths.Views.View;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
@@ -39,7 +40,7 @@ public class EquipmentView extends View {
         this.itemPanel = new JPanel();
 
         this.setBackgroundImageFileName("resources/inventoryBackground.png");
-        JLabel title = generateTitleLabel("Equipment", 16, Color.WHITE);
+        JLabel title = generateTitleLabel("Equipment", 22, Color.WHITE);
         this.add(title);
 
         this.titlePanel.setBackground(new Color(0f,0f,0f,0f));
@@ -50,9 +51,11 @@ public class EquipmentView extends View {
         this.itemPanel.setLayout(grid);
         this.titlePanel.setLayout(new BorderLayout());
 
-        this.itemPanel.setBorder(new LineBorder(Color.BLACK));
+        this.titlePanel.setPreferredSize(new Dimension(this.getWidth(), 50));
+        //this.itemPanel.setBorder(new LineBorder(Color.BLACK))
+        //this.itemPanel.setBorder(new BevelBorder(BevelBorder.RAISED,Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE));
 
-        this.titlePanel.add(title, BorderLayout.CENTER);
+        this.titlePanel.add(title, BorderLayout.SOUTH);
         this.add(titlePanel, BorderLayout.NORTH);
         this.add(itemPanel, BorderLayout.CENTER);
     }
