@@ -27,6 +27,7 @@ public class InteractiveItem extends MapItem implements ViewObservable {
         this.quest = quest;
         this.setLocation(location);
     }
+    public InteractiveItem(){}
 
     public void setCommand(Quest quest){
         this.quest = quest;
@@ -65,6 +66,11 @@ public class InteractiveItem extends MapItem implements ViewObservable {
         observers.remove(modelObserver);
     }
 
+    public Quest getQuest() {
+        return quest;
+    }
 
-
+    public void setQuest(Quest quest) {
+        this.quest = quest;
+    }
 }
