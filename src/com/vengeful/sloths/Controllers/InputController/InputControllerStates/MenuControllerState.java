@@ -107,11 +107,14 @@ public class MenuControllerState extends InputControllerState {
 
     @Override
     public boolean handleDownKey() {
+        menu.down();
         return false;
     }
 
     @Override
     public boolean handleUpKey() {
+
+        menu.up();
         return false;
     }
 

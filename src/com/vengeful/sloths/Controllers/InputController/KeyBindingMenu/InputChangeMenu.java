@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Controllers.InputController.KeyBindingMenu;
 
+import com.vengeful.sloths.Controllers.InputController.KeyMapping;
 import com.vengeful.sloths.Menu.*;
 
 import javax.imageio.ImageIO;
@@ -26,9 +27,17 @@ public class InputChangeMenu extends ScrollableMenu {
             System.out.println(e);
         }
         ScrollableMenuList list = new ScrollableMenuList();
-        list.addItem(new NewGameMenuItem());
-        list.addItem(new MainMenuItem("Load Game"));
-        list.addItem(new ExitGameMenuItem());
+        list.addItem(new KeyBindMenuItem("Inventory", KeyMapping.INVENTORY));
+        list.addItem(new KeyBindMenuItem("Equipment", KeyMapping.INVENTORY));
+        list.addItem(new KeyBindMenuItem("Move North", KeyMapping.NORTH));
+        list.addItem(new KeyBindMenuItem("Move NorthEast", KeyMapping.NORTHEAST));
+        list.addItem(new KeyBindMenuItem("Move NorthWest", KeyMapping.NORTHWEST));
+        list.addItem(new KeyBindMenuItem("Move South", KeyMapping.SOUTH));
+        list.addItem(new KeyBindMenuItem("Move SouthEast", KeyMapping.SOUTHEAST));
+        list.addItem(new KeyBindMenuItem("Move SouthWest", KeyMapping.SOUTHWEST));
+        //TODO add more of these bitches lol (4 abilities)
+
+
         this.setList(list);
         //this.setBackground(Color.GRAY);
         this.setBounds(100, 100, 1000, 800);

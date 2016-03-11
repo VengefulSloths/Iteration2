@@ -1,9 +1,20 @@
 package com.vengeful.sloths.Controllers.InputController.InputControllerStates;
 
+import com.vengeful.sloths.Controllers.InputController.KeyBindingMenu.InputChangeMenu;
+
 /**
  * Created by John on 3/10/2016.
  */
 public class SetInputsControllerState extends InputControllerState {
+    InputChangeMenu menu;
+
+    public InputChangeMenu getMenu() {
+        return menu;
+    }
+
+    public void setMenu(InputChangeMenu menu) {
+        this.menu = menu;
+    }
 
     @Override
     public void continuousFunction() {
@@ -23,6 +34,7 @@ public class SetInputsControllerState extends InputControllerState {
 
     @Override
     public boolean handleInventoryKey() {
+
         return false;
     }
 
@@ -33,6 +45,8 @@ public class SetInputsControllerState extends InputControllerState {
 
     @Override
     public boolean handleESCKey() {
+
+        //go back to area view or menu view or whatever
         return false;
     }
 
@@ -98,11 +112,13 @@ public class SetInputsControllerState extends InputControllerState {
 
     @Override
     public boolean handleDownKey() {
+        menu.down();
         return false;
     }
 
     @Override
     public boolean handleUpKey() {
+        menu.up();
         return false;
     }
 
