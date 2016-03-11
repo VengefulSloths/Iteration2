@@ -120,6 +120,7 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
                 avatar.getLocation().getS(),
                 "resources/entities/smasher/");
 
+
         //Let avo observe avatar through a proxy
         peo = new ProxyEntityObserver(avo, avatar);
         ObserverManager.getInstance().addProxyObserver(peo);
@@ -134,6 +135,11 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
         //Set the camera views avatar to this
 
         activeCameraView.addAvatar(avo);
+
+        if (avatar.isMounted()) {
+            avo.alertMount(avatar.getEquipped().getMount().getName());
+        }
+
 
     }
 

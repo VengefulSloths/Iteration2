@@ -19,4 +19,5 @@ public interface EntityObserver extends ModelObserver {
 	void alertLevelUp();
 	void alertDeath();
 	void alertMount(String mountName);
+	void alertDemount();
 }

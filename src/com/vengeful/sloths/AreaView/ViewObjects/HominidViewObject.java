@@ -17,8 +17,6 @@ import java.awt.*;
  */
 public class HominidViewObject extends EntityViewObject {
 
-    private boolean isMounted;
-    private DynamicImage mountImage;
 
     private HandsCoordinator hands;
     private HatViewObject hat;
@@ -44,28 +42,21 @@ public class HominidViewObject extends EntityViewObject {
 
     @Override
     public void paintComponent(Graphics2D g) {
-
-
-
-        if (!dead) {
-            if (isMounted) {
-                g.drawImage(mountImage.getImage(),
-                        getXPixels() + getLocationXOffset() + mountImage.getXOffset(),
-                        getYPixels() + getLocationYOffset() + mountImage.getYOffset(),
-                        this);
-            }
-            hands.paintBack(g);
-
-        } else {}
-
-        super.paintComponent(g);
-
-        if (!dead) {
+        if (isMounted() && !dead) {
+            super.paintComponent(g);
             hat.paintComponent(g);
-            hands.paintFront(g);
+        } else {
+            if (!dead) {
+                hands.paintBack(g);
+            }
+
+            super.paintComponent(g);
+
+            if (!dead) {
+                hat.paintComponent(g);
+                hands.paintFront(g);
+            }
         }
-
-
     }
 
     @Override
@@ -85,10 +76,13 @@ public class HominidViewObject extends EntityViewObject {
 
     @Override
     public void movementHook(int r, int s, long duration) {
+
         super.movementHook(r, s, duration);
 
         hands.alertMove(r, s, duration);
         hat.alertMove(r, s, duration);
+
+
     }
 
     @Override
@@ -102,11 +96,7 @@ public class HominidViewObject extends EntityViewObject {
         hands.equipWeapon(weapon, weaponClass);
     }
 
-    @Override
-    public void alertMount(String mountName) {
-        mountImage = DynamicImageFactory.getInstance().loadDynamicImage("resources/mount/" + mountName);
-        this.isMounted = true;
-    }
+
 
     @Override
     public void alertUnequipWeapon() {

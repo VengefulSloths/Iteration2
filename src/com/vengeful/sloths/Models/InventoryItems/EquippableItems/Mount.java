@@ -26,11 +26,11 @@ public class Mount extends EquippableItems {
     }
 
     public Ability getMountAbility(Entity entity) {
-        return AbilityFactory.getInstance().createMountAbility(entity, mountBuff, entity.getObservers(), "lazy_mount", 30, 32);
+        return AbilityFactory.getInstance().createMountAbility(entity, mountBuff, entity.getObservers(), name, 30, 32);
     }
 
     public Ability getDemountAbility(Entity entity) {
-        return AbilityFactory.getInstance().createRemoveBuffAbility(mountBuff, entity.getBuffManager(), entity);
+        return AbilityFactory.getInstance().createDemountAbility(mountBuff, entity.getBuffManager(), entity, entity.getObservers());
     }
 
     @Override

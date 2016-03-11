@@ -44,5 +44,9 @@ public class AbilityFactory {
         return new MountAbility(entity, buff, observers, mountName, windTime, coolTime);
     }
 
+    public DemountAbility createDemountAbility(Buff buff, BuffManager buffManager, Entity entity, ArrayList<EntityObserver> observers) {
+        return new DemountAbility(buff, buffManager, entity, observers);
+    }
+
 
 }
