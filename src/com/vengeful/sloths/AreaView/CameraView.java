@@ -137,7 +137,7 @@ public abstract class CameraView implements MovingVOObserver{
                     ()-> {
 
                             tiles[srcX][srcY].removeChild(subject);
-                            if (subject != avatar || !dontMoveAvatarFlag) {
+                            if (!dontMoveAvatarFlag) {
                                 tiles[destX][destY].addChild(subject);
                             }
                         }
@@ -169,7 +169,7 @@ public abstract class CameraView implements MovingVOObserver{
 //                }
 //            }
 //        }
-//        this.dontMoveAvatarFlag = true;
+        this.dontMoveAvatarFlag = true;
 //        this.avatar.deregisterObserver(this);
 
         //this.piggy.deregisterObserver(this);
