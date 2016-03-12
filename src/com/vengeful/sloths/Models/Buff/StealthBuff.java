@@ -3,6 +3,7 @@ package com.vengeful.sloths.Models.Buff;
 import com.vengeful.sloths.Models.Observers.EntityObserver;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
+import com.vengeful.sloths.Models.TimeModel.TimeModel;
 
 import java.util.ArrayList;
 
