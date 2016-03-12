@@ -94,4 +94,8 @@ public abstract class ViewObjectFactory {
         return new AEViewObject(r, s, cs, ls, resourecPath);
     }
 
+    public TrapViewObject createTrapViewObject(int r, int s, String resourcePath){
+        return new TrapViewObject(r, s, cs, ls, resourcePath);
+    }
+
 }

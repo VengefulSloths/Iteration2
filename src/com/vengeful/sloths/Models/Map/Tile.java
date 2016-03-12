@@ -3,11 +3,8 @@ package com.vengeful.sloths.Models.Map;
 import com.vengeful.sloths.Models.Effects.EffectCommand;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Map.AreaEffects.AreaEffect;
+import com.vengeful.sloths.Models.Map.MapItems.*;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
-import com.vengeful.sloths.Models.Map.MapItems.MapItem;
-import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
-import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
-import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.Map.Terrains.Grass;
 import com.vengeful.sloths.Models.Map.Terrains.Terrain;
 import com.vengeful.sloths.Models.ModelVisitable;
@@ -38,6 +35,7 @@ public class Tile implements ModelVisitable {
     private OneShotItem oneShotItem = null;
     private Obstacle obstacle = null;
     private InteractiveItem interactiveItem = null;
+    private Trap trap = null;
 
 
     private ArrayList<AreaEffect> areaEffect;
@@ -75,8 +73,6 @@ public class Tile implements ModelVisitable {
             System.out.println("interacting w/ a map item");
             iter.next().interact(entity);
         }
-
-
 
         //Create AEs
         Iterator<AreaEffect> aeIter = this.getAreaEffectIterator();
@@ -121,6 +117,9 @@ public class Tile implements ModelVisitable {
                 ae.removeEntity(e);
                 //System.out.Println("AE: " + ae);
             }
+
+            this.trap.removeEntity(e);
+
         }
 
         return e;
@@ -186,6 +185,15 @@ public class Tile implements ModelVisitable {
         }
     }
 
+    public void addTrap(Trap trap){
+        if(this.trap == null){
+            mapItems.add(trap);
+            this.trap = trap;
+        }else{
+            //throw new InvalidParameterException("you cannot add two traps");
+        }
+    }
+
 //    public void addMapItem(MapItem mapItem) {
 //        mapItems.add(mapItem);
 //    }
@@ -209,6 +217,12 @@ public class Tile implements ModelVisitable {
     public void removeOneShotItem() {
         removeMapItem(this.oneShotItem);
         this.oneShotItem = null;
+    }
+
+    public void removeTrap(){
+        removeMapItem(this.trap);
+        this.trap = null;
+        //TODO: call destroy???
     }
 
     private void removeMapItem(MapItem item){

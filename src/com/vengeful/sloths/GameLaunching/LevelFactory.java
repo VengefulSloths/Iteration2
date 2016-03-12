@@ -24,6 +24,7 @@ import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.Quest;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
 import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
+import com.vengeful.sloths.Models.Map.MapItems.Trap;
 import com.vengeful.sloths.Models.Map.Terrains.Grass;
 import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
@@ -138,6 +139,10 @@ public class LevelFactory {
         area1.getTile(new Coord(6,7)).addAreaEffect(new HealDamageAE(1));
         area1.getTile(new Coord(6,8)).addAreaEffect(new LevelUpAE(1));
         area1.getTile(new Coord(6,9)).addAreaEffect(new InstantDeathAE());
+
+        //Test Trap:
+        area2.getTile(new Coord(2,3)).addTrap(new Trap(new Coord(2,4)));
+
 
         area1.addTile(new Coord(1,1), s2);
 

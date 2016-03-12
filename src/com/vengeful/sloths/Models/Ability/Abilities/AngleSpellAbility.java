@@ -60,7 +60,7 @@ public class AngleSpellAbility extends Ability{
 
     @Override
     public void accept(ModelVisitor modelVisitor) {
-        //visit
+
     }
 
 

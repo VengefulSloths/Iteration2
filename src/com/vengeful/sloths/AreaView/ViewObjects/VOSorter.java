@@ -87,5 +87,9 @@ public class VOSorter implements VOVisitor {
         zLevel = 300;
     }
 
+    @Override
+    public void visitTrapViewObject(TrapViewObject t) {
+        zLevel = 325;
+    }
 
 }

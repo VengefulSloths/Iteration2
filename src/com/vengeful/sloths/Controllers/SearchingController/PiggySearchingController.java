@@ -5,6 +5,9 @@ import com.vengeful.sloths.Controllers.Target.MapItemTarget;
 import com.vengeful.sloths.Controllers.Target.AggressiveNPCTarget;
 import com.vengeful.sloths.Controllers.Target.Target;
 import com.vengeful.sloths.Models.Ability.Abilities.*;
+import com.vengeful.sloths.Models.Ability.Abilities.AngleSpellAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.ExplosionAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.FireBallAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
@@ -21,14 +24,11 @@ import com.vengeful.sloths.Models.Map.AreaEffects.HealDamageAE;
 import com.vengeful.sloths.Models.Map.AreaEffects.InstantDeathAE;
 import com.vengeful.sloths.Models.Map.AreaEffects.LevelUpAE;
 import com.vengeful.sloths.Models.Map.AreaEffects.TakeDamageAE;
+import com.vengeful.sloths.Models.Map.MapItems.*;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.BreakBoxQuest;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.DoDestroyObstacleQuest;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.HasItemQuest;
-import com.vengeful.sloths.Models.Map.MapItems.MapItem;
-import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
-import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
-import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.Map.Terrains.Grass;
 import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
@@ -36,7 +36,6 @@ import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Smasher;
 import com.vengeful.sloths.Models.Occupation.Sneak;
 import com.vengeful.sloths.Models.Occupation.Summoner;
-import com.vengeful.sloths.Models.RangedEffects.HitBox.HitBox;
 import com.vengeful.sloths.Models.RangedEffects.HitBox.ImmovableHitBox;
 import com.vengeful.sloths.Models.RangedEffects.HitBox.MovableHitBox;
 import com.vengeful.sloths.Models.Skills.Skill;
@@ -351,6 +350,11 @@ public class PiggySearchingController extends SearchingController {
 
     }
 
+    @Override
+    public void visitAngleSpellAbility(AngleSpellAbility angleSpellAbility) {
+
+    }
+
     public void visitBreakBoxQuest(BreakBoxQuest breakBoxQuest) {
 
     }
@@ -392,6 +396,11 @@ public class PiggySearchingController extends SearchingController {
 
     @Override
     public void visitMount(Mount mount) {
+
+    }
+
+    @Override
+    public void visitTrap(Trap trap) {
 
     }
 
