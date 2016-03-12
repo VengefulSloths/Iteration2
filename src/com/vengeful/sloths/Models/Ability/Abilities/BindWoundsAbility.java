@@ -9,6 +9,7 @@ import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.HealthManaExperienceAddable;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
+import com.vengeful.sloths.Utility.ModelConfig;
 
 /**
  * Created by luluding on 3/6/16.
@@ -18,7 +19,7 @@ public class BindWoundsAbility extends Ability {
     SkillManager skillManager;
 
 
-    private int manaCost = 1;
+    private int manaCost = ModelConfig.getManaCostLow();
 
     public BindWoundsAbility(Entity entity, SkillManager skillManager, int startupTicks, int cooldownTicks){
         super(startupTicks, cooldownTicks);

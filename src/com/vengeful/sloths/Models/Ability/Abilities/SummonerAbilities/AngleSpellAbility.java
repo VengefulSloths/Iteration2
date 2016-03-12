@@ -9,6 +9,7 @@ import com.vengeful.sloths.Models.RangedEffects.CanGenerateVisitor.OnTileCanGene
 import com.vengeful.sloths.Models.RangedEffects.RadialEffectGenerator;
 import com.vengeful.sloths.Models.RangedEffects.RangedEffectGenerator;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
+import com.vengeful.sloths.Utility.ModelConfig;
 
 /**
  * Created by luluding on 3/11/16.
@@ -20,7 +21,7 @@ public class AngleSpellAbility extends Ability{
     private int expandingTime;
     private int expandingDistance;
 
-    private int manaCost = 4;
+    private int manaCost = ModelConfig.getManaCostMid();
 
     private DefaultCanGenerateVisitor canGenerateVisitor;
 

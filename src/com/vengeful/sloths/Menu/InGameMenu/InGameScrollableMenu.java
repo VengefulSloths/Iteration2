@@ -20,17 +20,12 @@ import java.util.Iterator;
  * Created by John on 3/11/2016.
  */
 public class InGameScrollableMenu extends ScrollableMenu {
-    private BufferedImage bg;
+    //private BufferedImage bg;
 
     public InGameScrollableMenu(int height){
         super(height);
         //create list here for main menu
-        try {
-            bg = ImageIO.read(new File("resources/backgrounds/mainMenuBg.png"));
-        }catch (Exception e){
-            System.out.println("EXCEPTION");
-            System.out.println(e);
-        }
+
         ScrollableMenuList list = new ScrollableMenuList();
         //list.addItem(new NewGameMenuItem());
         //needs to be edited to select save file
@@ -44,6 +39,7 @@ public class InGameScrollableMenu extends ScrollableMenu {
         this.setPreferredSize(new Dimension(1200,1000));
         //this.setBounds(300, 200, 600, 600); //try this
         this.setPadding(600);
+        this.setBackground(new Color(0f,0f,0f,0.5f));
 
     }
 
@@ -56,7 +52,7 @@ public class InGameScrollableMenu extends ScrollableMenu {
         int offset = padding/2;
         int index = 0;
         Graphics2D g2d = (Graphics2D) g;
-        g2d.drawImage(bg,0,0,1200,1000, null);
+        //g2d.drawImage(bg,300,200,600,600, null);
         Iterator iter = list.getIterator();
         while (iter.hasNext()) {
             if(index == list.getCurrentIndex()){

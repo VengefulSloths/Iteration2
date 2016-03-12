@@ -107,6 +107,22 @@ public class EntityMovementCommand implements Alertable{
 
     @Override
     public void mAlert() {
+
+
+
+
+
         subject.setActive(false);
+    }
+
+    private boolean canSeeTrap(){
+        this.subject.getSkillManager().getMaxRemoveTrapLevel();
+
+
+
+
+        //if trap is activated, it should stay activated
+
+        return false;
     }
 }
