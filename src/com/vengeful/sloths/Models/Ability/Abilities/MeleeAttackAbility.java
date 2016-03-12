@@ -8,6 +8,7 @@ import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.SaveLoad.SaveManager;
 import com.vengeful.sloths.Models.SaveLoad.SaveVisitor;
+import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Models.TimeModel.Alertable;
 import com.vengeful.sloths.Models.TimeModel.TimeController;
@@ -24,12 +25,15 @@ public class MeleeAttackAbility extends Ability {
     private Entity entity;
 
     private Stats stats;
+    private Skill relevantSkill;
+    private int baseDamage;
 
-
-    public MeleeAttackAbility(Entity entity, int windTicks, int coolTicks) {
+    public MeleeAttackAbility(Entity entity, Skill relevantSkill, int baseDamage, int windTicks, int coolTicks) {
         super(windTicks, coolTicks);
         this.entity = entity;
         this.stats = entity.getStats();
+        this.relevantSkill = relevantSkill;
+        this.baseDamage = baseDamage;
     }
 
 
@@ -73,8 +77,10 @@ public class MeleeAttackAbility extends Ability {
 
             TimeModel.getInstance().registerAlertable(() -> {
                 try {
+                    int damage = (entity.getStats().getStrength() + baseDamage)*(1+relevantSkill.getLevel());
+
                     for (Entity entity : Map.getInstance().getTile(dst).getEntities()) {
-                        entity.takeDamage(stats.getOffensiveRating());
+                        entity.takeDamage(damage);
                     }
                 } catch (Exception e) {
                         //do nothing its fine

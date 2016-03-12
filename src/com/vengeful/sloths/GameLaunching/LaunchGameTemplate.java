@@ -1,32 +1,24 @@
 package com.vengeful.sloths.GameLaunching;
 
 import com.vengeful.sloths.AreaView.*;
-import com.vengeful.sloths.Controllers.InputController.InputControllerStates.InventoryControllerState;
 import com.vengeful.sloths.Controllers.InputController.MainController;
-import com.vengeful.sloths.Models.Ability.Abilities.StealthAbility;
+import com.vengeful.sloths.Models.Ability.AbilityFactory;
 import com.vengeful.sloths.Models.Entity.Avatar;
-import com.vengeful.sloths.Models.Entity.Piggy;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteractionFactory;
-import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Mount;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon;
-import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.ModelEngine;
-import com.vengeful.sloths.Models.Stats.StatAddables.BaseStatsAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.HealthManaExperienceAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.StrengthAddable;
 import com.vengeful.sloths.Utility.Config;
-import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Views.AbilitiesSkillsView.AbilitiesSkillView;
 import com.vengeful.sloths.Views.AbilitiesView.GridAbilitiesView;
 import com.vengeful.sloths.Views.CharacterView.CharacterView;
 import com.vengeful.sloths.Views.EquipmentView.EquipmentView;
 import com.vengeful.sloths.Views.HUDView.HUDView;
 import com.vengeful.sloths.Views.InventoryView.GridInventoryView;
-import com.vengeful.sloths.Views.InventoryView.InventoryView;
-import com.vengeful.sloths.Views.InventoryView.ListInventoryView;
 import com.vengeful.sloths.Views.StatsView.StatsView;
 import com.vengeful.sloths.Views.ViewManager.ViewManager;
 
@@ -78,7 +70,7 @@ public class LaunchGameTemplate {
         avatar.equip(new OneHandedWeapon("dagger", new StrengthAddable(5), 10));
 
 
-        avatar.getAbilityManager().equipAbility(new StealthAbility(avatar), 0);
+        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createStealthAbility(avatar), 0);
         /**************************/
 
         AreaView areaView = new AreaView(cameras);

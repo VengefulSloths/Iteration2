@@ -4,6 +4,7 @@ import com.vengeful.sloths.AreaView.ViewObjects.*;
 import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
 import com.vengeful.sloths.Models.Ability.Abilities.*;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.RemoveTrapAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.StealthAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.AngleSpellAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.ExplosionAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
@@ -140,10 +141,9 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
         //Set the camera views avatar to this
 
         activeCameraView.addAvatar(avo);
+
         avatar.getEquipped().alertAllEntityObserversEverything();
-        if (avatar.isMounted()) {
-            avo.alertMount(avatar.getEquipped().getMount().getName());
-        }
+        avatar.getBuffManager().alertObserversEverything();
 
 
     }
@@ -366,6 +366,11 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
      @Override
      public void visitRemoveTrapAbility(RemoveTrapAbility removeTrapAbility) {
+
+     }
+
+     @Override
+     public void visitStealthAbility(StealthAbility stealthAbility) {
 
      }
 

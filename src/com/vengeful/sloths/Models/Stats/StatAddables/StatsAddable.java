@@ -18,6 +18,15 @@ public abstract class StatsAddable implements ModelVisitable{
     private int currentMana;
     private int bonusMana;
     private int currentExperience;
+    private int concealment;
+
+    public int getConcealment() {
+        return concealment;
+    }
+
+    public void setConcealment(int concealment) {
+        this.concealment = concealment;
+    }
 
     public int getStrength() {
         return strength;
@@ -110,6 +119,7 @@ public abstract class StatsAddable implements ModelVisitable{
         this.currentMana = this.currentMana + other.getCurrentMana();
         this.bonusMana = this.bonusMana + other.getBonusMana();
         this.currentExperience = this.currentExperience + other.getCurrentExperience();
+        this.concealment = this.concealment + other.getConcealment();
     }
 
     public void invert(){
@@ -142,6 +152,9 @@ public abstract class StatsAddable implements ModelVisitable{
         }
         if(this.currentExperience != 0){
             this.currentExperience = 0-this.currentExperience;
+        }
+        if(this.concealment != 0) {
+            this.concealment = 0 - this.concealment;
         }
     }
 

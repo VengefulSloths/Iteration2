@@ -1,6 +1,5 @@
 package com.vengeful.sloths.Models.Buff;
 
-import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Observers.EntityObserver;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
@@ -8,29 +7,26 @@ import com.vengeful.sloths.Models.Stats.Stats;
 import java.util.ArrayList;
 
 /**
- * Created by Alex on 3/12/2016.
+ * Created by alexs on 3/12/2016.
  */
-public class MountBuff extends ActionRemovableBuff {
-    private String mountName;
-
-    public MountBuff(String name, StatsAddable statsAddable, BuffManager owner, ArrayList<EntityObserver> observers, String mountName) {
-        super(observers, name, statsAddable, owner);
-        this.mountName = mountName;
+public class StealthBuff extends ActionRemovableBuff {
+    public StealthBuff(ArrayList<EntityObserver> entityObservers, String name, StatsAddable statsAddable, BuffManager owner) {
+        super(entityObservers, name, statsAddable, owner);
     }
 
     @Override
     public void doApply(Stats stats) {
         super.doApply(stats);
         for (EntityObserver observer: getObservers()) {
-            observer.alertMount(mountName);
+            observer.alertStealth();
         }
-     }
+    }
 
     @Override
     public void doRemove(Stats stats) {
         super.doRemove(stats);
         for (EntityObserver observer: getObservers()) {
-            observer.alertDemount();
+            observer.alertUnstealth();
         }
     }
 
@@ -38,7 +34,7 @@ public class MountBuff extends ActionRemovableBuff {
     public void refreshObservers() {
         super.refreshObservers();
         for (EntityObserver observer: getObservers()) {
-            observer.alertMount(mountName);
+            observer.alertStealth();
         }
     }
 }

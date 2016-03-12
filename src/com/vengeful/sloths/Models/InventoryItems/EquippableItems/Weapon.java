@@ -15,7 +15,6 @@ public abstract class Weapon extends EquippableItems {
 
     private int baseDamage;
 
-
     public Weapon(String name, StatsAddable stats, int baseDamage){
         super(name, stats);
         this.baseDamage = baseDamage;

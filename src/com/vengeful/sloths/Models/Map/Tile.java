@@ -245,12 +245,25 @@ public class Tile implements ModelVisitable {
 
     public void removeTrap(){
         if(this.trap != null){
-            removeMapItem(this.trap);
-            this.trap.destroy();
-            this.trap = null;
-
+            if(this.trap.isVisible()){
+                removeMapItem(this.trap);
+                this.trap.destroy();
+                this.trap = null;
+            }else{
+                System.out.println("Trap is not visible");
+            }
+        }else{
+            System.out.println("No trap to be removed");
         }
     }
+
+    public void showTrap(){
+        if(this.trap != null){
+            this.trap.makeVisible();
+        }
+    }
+
+
 
     private void removeMapItem(MapItem item){
         mapItems.remove(item);

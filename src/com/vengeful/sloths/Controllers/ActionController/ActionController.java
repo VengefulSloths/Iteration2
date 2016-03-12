@@ -91,9 +91,11 @@ public abstract class ActionController implements TargetVisitor {
                     map.getTile(tmpCoord).accept(canMoveVisitor);
                     if ((canMoveVisitor.canMove() && !visited.contains(tmpCoord)) || tmpCoord.equals(targetCoord)) {
                         if(!parentMap.containsKey(tmpCoord)) {
+                            queue.add(tmpCoord);
+                        }
+                        if(!parentMap.containsKey(tmpCoord)) {
                             parentMap.put(tmpCoord, currCoord);
                         }
-                        queue.add(tmpCoord);
                     }
                 }catch(Exception e){
                     //System.out.println("out of map bounds");
