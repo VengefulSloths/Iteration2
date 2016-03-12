@@ -80,8 +80,8 @@ public class AggressiveNPCSearchingController extends SearchingController {
 
         int roll = roller.nextInt(10);
         System.out.println("I just rolled a " + roll);
-
-        if (roll > getCurrRing()*avatar.getStealthLevel()) {
+        System.out.println("I need > " + getCurrRing()*avatar.getStats().getConcealment());
+        if (roll > getCurrRing()*avatar.getStats().getConcealment()) {
             Target currTarget = new AvatarTarget(0);
             currTarget.setCoord(this.getCurrentCoord());
             this.setHighestPriorityTarget(this.getMaxTarget(currTarget, this.getHighestPriorityTarget()));

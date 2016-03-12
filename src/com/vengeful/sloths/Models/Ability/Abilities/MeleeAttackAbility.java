@@ -74,18 +74,19 @@ public class MeleeAttackAbility extends Ability {
             iter.next().alertAttack(dst.getR(), dst.getS(), getWindTicks()* TimeController.MODEL_TICK, getCoolTicks()* TimeController.MODEL_TICK);
         }
 
+        int damage = (entity.getStats().getStrength() + baseDamage)*(1+relevantSkill.getLevel());
 
-            TimeModel.getInstance().registerAlertable(() -> {
-                try {
-                    int damage = (entity.getStats().getStrength() + baseDamage)*(1+relevantSkill.getLevel());
+        TimeModel.getInstance().registerAlertable(() -> {
+            try {
 
-                    for (Entity entity : Map.getInstance().getTile(dst).getEntities()) {
-                        entity.takeDamage(damage);
-                    }
-                } catch (Exception e) {
-                        //do nothing its fine
+                System.out.println("Attacking Strength: " + entity.getStats().getStrength());
+                for (Entity entity : Map.getInstance().getTile(dst).getEntities()) {
+                    entity.takeDamage(damage);
                 }
-            }, getWindTicks());
+            } catch (Exception e) {
+                    //do nothing its fine
+            }
+        }, getWindTicks());
 
         TimeModel.getInstance().registerAlertable(() -> entity.setActive(false), getCoolTicks());
 

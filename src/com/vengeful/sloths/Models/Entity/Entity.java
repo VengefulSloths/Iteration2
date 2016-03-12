@@ -138,6 +138,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
             dropAllItems();
             customDeath();
             doRespawn();
+            dropGold();
 
             return edc.execute();
 
@@ -159,6 +160,11 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
 
     protected void doRespawn() {
         // Nothing for general entity
+    }
+
+    protected void dropGold(){
+        EntityMapInteractionFactory.getInstance().createDropAllGoldCommand(this, this.getLocation()).execute();
+        System.out.println("dropping gold");
     }
 
     public int attack(Direction dir){
@@ -250,10 +256,6 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     }
     public void baddOOReceiveGoldForTesting(Gold g){
         this.inventory.addGold(g);
-    }
-    public Gold dropGold(){
-        Gold g= this.inventory.dropAllGold();
-        return g;
     }
 
     public void drop(InventoryItem item){

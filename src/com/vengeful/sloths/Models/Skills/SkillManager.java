@@ -14,6 +14,7 @@ public class SkillManager implements ModelVisitable{
     //<skill name, skill>
     private Map<String, Skill> skills;
     private int availableSkillPoints;
+    private Skill dummySkill = new Skill();
 
     public SkillManager(){
         skills = new HashMap<>();
@@ -71,7 +72,12 @@ public class SkillManager implements ModelVisitable{
     }
 
     private Skill getSkill(String skillName) {
-        return this.skills.get(skillName);
+        if (this.skills.containsKey(skillName)) {
+            return this.skills.get(skillName);
+        } else {
+            return dummySkill;
+        }
+
     }
     /*************************************/
 

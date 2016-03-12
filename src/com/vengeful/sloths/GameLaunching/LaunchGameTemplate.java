@@ -50,10 +50,6 @@ public class LaunchGameTemplate {
         //below line doesnt work for some reason despite adding the avatar to the map
 //        map.getActiveMapArea().getTile(helper.spawnPoint()).addEntity(Avatar.getInstance());
 
-        //Coord newSpawn = helper.spawnPoint();
-        //newSpawn.setR(newSpawn.getR()+1);
-//        map.addEntity(newSpawn,new Piggy());
-
         initSingletons();
 
 

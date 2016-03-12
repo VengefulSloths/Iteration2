@@ -103,4 +103,9 @@ public class EntityMapInteractionFactory {
         return dagc;
     }
 
+    public DropSomeGoldCommand createDropSomeGoldCommand(Entity e, int value){
+        DropSomeGoldCommand dsg = new DropSomeGoldCommand(e, value);
+        return  dsg;
+    }
+
 }

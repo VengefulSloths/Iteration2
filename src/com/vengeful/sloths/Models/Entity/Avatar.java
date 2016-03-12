@@ -29,7 +29,6 @@ public class Avatar extends Entity{
 
     private static Avatar avatar = null;
     private int timeToRespawn;
-    private int stealthLevel = 5;
     private Pet pet;
 
 
@@ -95,15 +94,11 @@ public class Avatar extends Entity{
 
     }
 
-    public int getStealthLevel() {
-        return stealthLevel;
-    }
-
 
 
     public void mount() {
         this.getAbilityManager().doMountAbility();
-        this.stealthLevel = 0;
+
     }
 
     @Override
@@ -161,6 +156,16 @@ public class Avatar extends Entity{
     protected void dropAllItems() {
         // Do nothing
         //@ TODO: Maybe have this dorp a few coins
+    }
+
+    protected void dropGold(){
+//        EntityMapInteractionFactory.getInstance().createDropSomeGoldCommand(this, 20);
+//        System.out.println("Avatar dropping gold");
+        //instead of droppping gold just gonna lose it
+        int prevValue = getInventory().getGold();
+        int toLose = getInventory().getGold() / 10;
+        getInventory().dropSomeGold(toLose);
+        System.out.println("Had: " + prevValue + "gold, now only: " + getInventory().getGold());
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.vengeful.sloths.Controllers.InputController.InputStrategies.Adaptable
 import com.vengeful.sloths.Controllers.InputController.KeyMapping;
 import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.Menu.*;
+import com.vengeful.sloths.Utility.Config;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -24,7 +25,7 @@ public class InputChangeMenu extends ScrollableMenu {
         adaptableStrategy = (AdaptableStrategy) MainController.getInstance().getInputStrategy();
         //create list here for main menu
         try {
-            bg = ImageIO.read(new File("resources/backgrounds/mainMenuBg.png"));
+            bg = ImageIO.read(new File("resources/backgrounds/clouds_bg.jpg"));
         }catch (Exception e){
             System.out.println("EXCEPTION");
             System.out.println(e);
@@ -62,14 +63,15 @@ public class InputChangeMenu extends ScrollableMenu {
         int index = 0;
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(Color.GRAY);
-        g2d.fillRect(0,0,1200,1000);
+        //g2d.fillRect(0,0,1200,1000);
         //g2d.drawImage(bg,0,0,1200,1000, null);
+        g2d.drawImage(bg, 0, 0, Config.instance().getWindowWidth(), Config.instance().getWindowHeight(), null);
         Iterator iter = list.getIterator();
         while (iter.hasNext()) {
             if(index == list.getCurrentIndex()){
                 //System.out.println(list.getCurrentIndex());
                 ScrollableMenuItem current = (ScrollableMenuItem) iter.next();
-                g2d.setColor(new Color(255, 0, 255, 80));
+                g2d.setColor(new Color(0, 0, 255, 80));
                 g2d.fillRect(padding/2, offset , this.getWidth() - padding, itemHeight);
                 current.paintComponent(g2d, padding , offset, this.getWidth(), itemHeight);
             }else{

@@ -12,9 +12,11 @@ import com.vengeful.sloths.Models.GameEngine;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.ModelEngine;
+import com.vengeful.sloths.Models.SaveLoad.SaveManager;
 import com.vengeful.sloths.Models.TimeModel.Tickable;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
 import com.vengeful.sloths.Views.ViewManager.ViewManager;
+import com.vengeful.sloths.Views.ViewManager.ViewObjectManager;
 
 import java.awt.event.KeyEvent;
 
@@ -38,6 +40,7 @@ public class MainController implements Tickable{
     private MenuControllerState menuControllerState;
     private AbilityControllerState abilityControllerState;
     private SetInputsControllerState setInputsControllerState;
+
 
 
     public InventoryControllerState getInventoryControllerState() {
@@ -104,6 +107,7 @@ public class MainController implements Tickable{
         viewManager.closeAbilitiesSkillsView();
         viewManager.closeMenuView();
         viewManager.closeKeyBindView();
+        viewManager.closeChooseSaveView();
         System.out.println("Switching to avatar state");
     }
 
@@ -128,6 +132,7 @@ public class MainController implements Tickable{
     }
 
     public void setInGameMenuControllerState(){
+        viewManager.closeChooseSaveView();
         ModelEngine.getInstance().pauseGame();
         this.menuControllerState.setScrollableMenu(viewManager.getMenuView());
         viewManager.openMenuView();
@@ -138,6 +143,13 @@ public class MainController implements Tickable{
         this.setInputsControllerState.setMenu(viewManager.getKeyBindView());
         viewManager.openKeyBindView();
         this.state = setInputsControllerState;
+    }
+
+    public void setChooseSaveControllerState(){
+        viewManager.closeMenuView();
+        this.menuControllerState.setScrollableMenu(viewManager.getChooseSaveView());
+        viewManager.openChooseSaveView();
+        this.state = menuControllerState;
     }
 
     public Inventory getInventory(){
