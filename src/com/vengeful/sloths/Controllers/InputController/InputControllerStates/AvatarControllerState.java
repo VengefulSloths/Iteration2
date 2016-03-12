@@ -19,7 +19,6 @@ public class AvatarControllerState extends InputControllerState {
     private AvatarViewFollower follower = AvatarViewFollower.getInstance();
     private Direction currentMovementDirection = null;
     private CartesionDirection currentFollowerDirection = new CartesionDirection();
-    private SaveManager sm = new SaveManager(Map.getInstance());
 
 
     @Override
@@ -279,8 +278,8 @@ public class AvatarControllerState extends InputControllerState {
     }
 
     public void handleSaveKey(){
-        //quick call to save for testing
-        sm.save();
+//        //quick call to save for testing
+//        sm.save();
     }
 
     @Override

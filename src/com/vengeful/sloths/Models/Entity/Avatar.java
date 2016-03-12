@@ -31,7 +31,6 @@ public class Avatar extends Entity{
 
     private static Avatar avatar = null;
     private int timeToRespawn;
-    private int stealthLevel = 5;
     private Pet pet;
 
 
@@ -105,15 +104,11 @@ public class Avatar extends Entity{
 
     }
 
-    public int getStealthLevel() {
-        return stealthLevel;
-    }
-
 
 
     public void mount() {
         this.getAbilityManager().doMountAbility();
-        this.stealthLevel = 0;
+
     }
 
     @Override
