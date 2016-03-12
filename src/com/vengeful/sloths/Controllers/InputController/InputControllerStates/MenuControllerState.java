@@ -29,6 +29,31 @@ public class MenuControllerState extends InputControllerState {
     }
 
     @Override
+    public boolean handleAbilitiesKey() {
+        return false;
+    }
+
+    @Override
+    public void handleAbility0Key() {
+
+    }
+
+    @Override
+    public void handleAbility1Key() {
+
+    }
+
+    @Override
+    public void handleAbility2Key() {
+
+    }
+
+    @Override
+    public void handleAbility3Key() {
+
+    }
+
+    @Override
     public boolean handleInventoryKey() {
         return false;
     }

@@ -42,6 +42,11 @@ public class InventoryControllerState extends InputControllerState{
     }
 
     @Override
+    public boolean handleAbilitiesKey() {
+        return false;
+    }
+
+    @Override
     public boolean handleInventoryKey() {
         MainController.getInstance().setAvatarControllerState();
         //MainController.getInstance().setInventoryControllerState();
@@ -65,6 +70,10 @@ public class InventoryControllerState extends InputControllerState{
         return true;
     }
 
+    public void resetInventoryView() {
+        this.inventoryView.resetInventoryView();
+    }
+
     @Override
     public boolean handleSouthEastKey() {
         //Here due to InputStrategy
@@ -81,8 +90,25 @@ public class InventoryControllerState extends InputControllerState{
         }
     }
 
+    @Override
+    public void handleAbility0Key() {
 
+    }
 
+    @Override
+    public void handleAbility1Key() {
+
+    }
+
+    @Override
+    public void handleAbility2Key() {
+
+    }
+
+    @Override
+    public void handleAbility3Key() {
+
+    }
 
     public boolean handleWestKey() {
         this.inventoryView.selectWestItem();

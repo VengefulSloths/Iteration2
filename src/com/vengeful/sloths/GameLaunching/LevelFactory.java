@@ -11,6 +11,7 @@ import com.vengeful.sloths.Models.Entity.Piggy;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Hat;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.PiggyTotem;
 import com.vengeful.sloths.Models.Map.AreaEffects.HealDamageAE;
 import com.vengeful.sloths.Models.Map.AreaEffects.InstantDeathAE;
@@ -189,6 +190,8 @@ public class LevelFactory {
         Avatar.getInstance().setPet(testPiggy);
 
         TakeableItem piggyTotem = new TakeableItem("Piggy Totem", new PiggyTotem("Piggy Totem", testPiggy), new Coord(2,2));
+
+        area1.getTile(new Coord(3,3)).addTakeableItem(new TakeableItem("redPotion", new Hat("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(3,3)));
 //        area2.getTile(new Coord(2,2)).addTakeableItem(piggyTotem);
 
         testPiggy.setPiggyTotem(piggyTotem);

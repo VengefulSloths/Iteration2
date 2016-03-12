@@ -1,5 +1,6 @@
-package com.vengeful.sloths.Views.InventoryView;
+package com.vengeful.sloths.Views.AbilitiesView;
 
+import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Views.ViewFactory.ItemImageFactory;
 import com.vengeful.sloths.Views.ViewFactory.ViewItem;
@@ -10,11 +11,12 @@ import java.awt.*;
 /**
  * Created by lenovo on 2/29/2016.
  */
-public class ItemViewObject extends JPanel {
+public class AbilityViewObject extends JPanel {
 
     private boolean isDisplayed;
     private Image itemImage;
     protected ItemImageFactory imageFactory = new ItemImageFactory(); //edit
+    private Ability ability;
     private ViewItem viewItem;
     private boolean isSelected;
 
@@ -39,6 +41,17 @@ public class ItemViewObject extends JPanel {
         isDisplayed = displayed;
     }
 
+    public Ability getAbility() {
+        return this.ability;
+    }
+    public void setAbility(Ability ability) {
+        this.ability = ability;
+    }
+
+    public ItemImageFactory getImageFactory() {
+        return imageFactory;
+    }
+
     public ViewItem getViewItem() {
         return viewItem;
     }
@@ -46,21 +59,19 @@ public class ItemViewObject extends JPanel {
         this.viewItem = viewItem;
     }
 
-    public ItemImageFactory getImageFactory() {
-        return imageFactory;
-    }
+    public AbilityViewObject() { }
 
-    public ItemViewObject() { }
-
-    public ItemViewObject(ViewItem viewItem) {
-        this.setViewItem(viewItem);
-        this.setItemImage(this.getImageFactory().handleUnscaledItemImageGeneration(viewItem));
+    public AbilityViewObject(Ability ability) {
+        this.setAbility(ability);
+        //this.setItemImage(this.imageFactory.handleUnscaledItemImageGeneration(inventoryItem));
+        this.setItemImage(this.getImageFactory().handleUnscaledItemImageGeneration(ability));
         this.setIsDisplayed(false);
     }
 
-    public ItemViewObject(ViewItem viewItem, int width, int height) {
-        this.setViewItem(viewItem);
-        this.setItemImage(this.getImageFactory().handleScaledItemImageGeneration(viewItem,width,height));
+    public AbilityViewObject(Ability ability, int width, int height) {
+        this.setAbility(ability);
+        //this.setItemImage(this.imageFactory.handleScaledItemImageGeneration(inventoryItem, width, height));
+        this.setItemImage(this.getImageFactory().handleScaledItemImageGeneration(ability,width,height));
         this.setIsDisplayed(false);
     }
 

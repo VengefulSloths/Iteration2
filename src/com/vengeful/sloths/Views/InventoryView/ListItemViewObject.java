@@ -28,24 +28,24 @@ public class ListItemViewObject extends ItemViewObject {
     /* Constructor with itemName (will be item object), inventoryView width, inventoryView height, horizontal and vert scale */
     //public ListItemViewObject(String item, int containerWidth, int containerHeight, double horScale, double vertScale) {
     public ListItemViewObject(InventoryItem item, int containerWidth, int containerHeight, double horScale, double vertScale) {
-        this.setInventoryItem(item);
+        this.setViewItem(item);
         //this.itemImage = imageFactory.handleScaledItemImageGeneration(this.getInventoryItem(), containerWidth, containerHeight);
-        this.itemImage = imageFactory.handleScaledImageLabelGeneration(this.getInventoryItem(), containerWidth, containerHeight);
+        this.itemImage = imageFactory.handleScaledImageLabelGeneration(this.getViewItem(), containerWidth, containerHeight);
         initDefaultAppearance();
     }
 
     //public ListItemViewObject(String item) {
     public ListItemViewObject(InventoryItem item) {
-        this.setInventoryItem(item);
+        this.setViewItem(item);
         //this.itemImage = this.imageFactory.handleUnscaledItemImageGeneration(this.getInventoryItem());
-        this.itemImage = this.imageFactory.handleUnscaledImageLabelGeneration(this.getInventoryItem());
+        this.itemImage = this.imageFactory.handleUnscaledImageLabelGeneration(this.getViewItem());
         initDefaultAppearance();
     }
 
     public void initDefaultAppearance() {
 
         this.setBackground(new Color(0f,0f,0f,0f));
-        this.itemLabel = this.textLabelFactory.generateNameLabel(this.getInventoryItem().getItemName(), 12, Color.white);
+        this.itemLabel = this.textLabelFactory.generateNameLabel(this.getViewItem().getItemName(), 12, Color.white);
         this.itemObjectPanel = new JPanel();
         FlowLayout flow = new FlowLayout();
         flow.setAlignment(FlowLayout.CENTER);

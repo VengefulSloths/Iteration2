@@ -1,32 +1,31 @@
-package com.vengeful.sloths.Views.InventoryView;
+package com.vengeful.sloths.Views.AbilitiesView;
 
+import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Inventory.Inventory;
-import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
+import com.vengeful.sloths.Models.Observers.AbilityManagerObserver;
 import com.vengeful.sloths.Models.Observers.InventoryObserver;
-import com.vengeful.sloths.Utility.Config;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Created by lenovo on 3/8/2016.
  */
-public class GridInventoryView extends InventoryView implements InventoryObserver {
+public class GridAbilitiesView extends AbilitiesView implements AbilityManagerObserver {
 
-    private ArrayList<ItemViewObject> itemList;
+    private ArrayList<AbilityViewObject> itemList;
 
-    public GridInventoryView(Inventory inventory) {
-        super(inventory);
+    public GridAbilitiesView(AbilityManager abilityManager) {
+        super(abilityManager);
         this.setNumRows(5); //default numRows
         this.setNumCols(4); //default numCols
     }
 
-    public GridInventoryView(Inventory inventory, int numRows, int numCols) {
-        super(inventory, numRows, numCols);
+    public GridAbilitiesView(AbilityManager abilityManager, int numRows, int numCols) {
+        super(abilityManager, numRows, numCols);
     }
 
     public void paintComponent(Graphics g) {
@@ -35,14 +34,15 @@ public class GridInventoryView extends InventoryView implements InventoryObserve
         int y;
         int titlePanelWidth = this.getTitlePanel().getWidth();
         int titlePanelHeight = this.getTitlePanel().getHeight();
-        int boxWidth = (int)((this.getItemPanel().getWidth()) * (2.0/((3*getNumCols())+1))); //this doesn't work because the x and y are relative to the inventory as a whole. Might need to move the paint to ItemPanel class.
-        int boxHeight = (int)((this.getItemPanel().getHeight()) * (2.0/((3*getNumRows())+1))); //this doesn't work because the x and y are relative to the inventory as a whole. Might need to move the paint.
+        int boxWidth = (int)((this.getItemPanel().getWidth()) * (2.0/((3*getNumCols())+1))); //this doesn't work because the x and y are relative to the abilityManager as a whole. Might need to move the paint to ItemPanel class.
+        int boxHeight = (int)((this.getItemPanel().getHeight()) * (2.0/((3*getNumRows())+1))); //this doesn't work because the x and y are relative to the abilityManager as a whole. Might need to move the paint.
         int multipleX = 1;
         int multipleY = 1;
 
         GridCalculationStrategy gcs = new GridCalculationStrategy();
         for(int i=0; i<this.getItemListSize(); i++) {
             this.getFromItemList(i).paintComponent(g, gcs.calculateXCoordBasedOnIndex(i), gcs.calculateYCoordBasedOnIndex(i), gcs.calculateSlotWidth(), gcs.calculateSlotHeight());
+            System.out.println("IS SELECTED??? " + this.getFromItemList(i).isSelected());
             if(this.getFromItemList(i).isSelected()) {
                 Border b = BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.GREEN, Color.GREEN);
                 b.paintBorder(this.getFromItemList(i), g, gcs.calculateXCoordBasedOnIndex(i), gcs.calculateYCoordBasedOnIndex(i), gcs.calculateSlotWidth(), gcs.calculateSlotHeight());

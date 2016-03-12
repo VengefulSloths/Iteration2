@@ -1,38 +1,33 @@
 package com.vengeful.sloths.Controllers.InputController.InputControllerStates;
 
-import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
-import com.vengeful.sloths.Controllers.InputController.KeyBindingMenu.InputChangeMenu;
-import com.vengeful.sloths.Controllers.InputController.KeyBindingMenu.KeyBindCommandFactory;
 import com.vengeful.sloths.Controllers.InputController.MainController;
+import com.vengeful.sloths.Views.AbilitiesView.AbilitiesView;
+
 
 /**
- * Created by John on 3/10/2016.
+ * Created by zach on 3/11/16.
  */
-public class SetInputsControllerState extends InputControllerState {
-    InputChangeMenu menu;
-    KeyBindCommandFactory keyBindCommandFactory;//= new KeyBindCommandFactory((AdaptableStrategy) MainController.getInstance().getInputStrategy());
-    //lol the above line is pretty volatile tbh, would refactor if time is had
-    private AdaptableStrategy adaptableStrategy;
-    public SetInputsControllerState(AdaptableStrategy adaptableStrategy){
-        this.adaptableStrategy = adaptableStrategy;
-        this.keyBindCommandFactory = new KeyBindCommandFactory(adaptableStrategy);
+public class AbilityControllerState extends InputControllerState{
+    private AbilitiesView abilitiesView;
+
+    public AbilitiesView getAbilitiesView() {
+        return abilitiesView;
+    }
+    public void setAbilitiesView(AbilitiesView abilitiesView) {
+        this.abilitiesView = abilitiesView;
+    }
+
+    @Override
+    public boolean handleAbilitiesKey() {
+        MainController.getInstance().setAvatarControllerState();
+        return true;
+    }
+
+    public AbilityControllerState() {
+
     }
 
 
-    public InputChangeMenu getMenu() {
-        return menu;
-    }
-
-    public void setMenu(InputChangeMenu menu) {
-        this.menu = menu;
-    }
-
-
-    public void setKey(int key){
-        System.out.println("making the create key command");
-        keyBindCommandFactory.createKeyBindCommand(key ,menu.getMenuItem()).execute();
-        menu.refreshKeys();
-    }
     @Override
     public void continuousFunction() {
 
@@ -47,15 +42,37 @@ public class SetInputsControllerState extends InputControllerState {
     public void onRegister() {
 
     }
-    
+
     @Override
     public boolean handleInventoryKey() {
+        MainController.getInstance().setAvatarControllerState();
+        //MainController.getInstance().setInventoryControllerState();
+        return true;
+    }
 
+
+    @Override
+    public boolean handleESCKey() {
         return false;
     }
 
     @Override
-    public boolean handleAbilitiesKey() {
+    public boolean handleSouthWestKey() {
+        return false;
+    }
+
+
+    public boolean handleSouthKey() {
+        this.abilitiesView.selectSouthItem();
+        return true;
+    }
+
+    public void resetView() {
+        this.abilitiesView.resetView();
+    }
+
+    @Override
+    public boolean handleSouthEastKey() {
         return false;
     }
 
@@ -79,42 +96,15 @@ public class SetInputsControllerState extends InputControllerState {
 
     }
 
-    @Override
-    public boolean handleEquipmentKey() {
-        return false;
-    }
-
-    @Override
-    public boolean handleESCKey() {
-
-        //go back to area view or menu view or whatever
-        MainController.getInstance().setInGameMenuControllerState();
-        return false;
-    }
-
-    @Override
-    public boolean handleSouthWestKey() {
-        return false;
-    }
-
-    @Override
-    public boolean handleSouthKey() {
-        return false;
-    }
-
-    @Override
-    public boolean handleSouthEastKey() {
-        return false;
-    }
-
-    @Override
     public boolean handleWestKey() {
-        return false;
+        this.abilitiesView.selectWestItem();
+        return true;
     }
 
     @Override
     public boolean handleEastKey() {
-        return false;
+        this.abilitiesView.selectEastItem();
+        return true;
     }
 
     @Override
@@ -122,14 +112,18 @@ public class SetInputsControllerState extends InputControllerState {
         return false;
     }
 
-    @Override
+
     public boolean handleNorthKey() {
-        return false;
+        // Move up an item
+        this.abilitiesView.selectNorthItem();
+        return true;
     }
 
     @Override
     public boolean handleNorthEastKey() {
+        // equip ability?
         return false;
+
     }
 
     @Override
@@ -144,34 +138,28 @@ public class SetInputsControllerState extends InputControllerState {
 
     @Override
     public boolean handleLeftKey() {
+        this.abilitiesView.selectWestItem();
         return false;
     }
 
     @Override
     public boolean handleRightKey() {
+
+        this.abilitiesView.selectEastItem();
         return false;
     }
 
     @Override
     public boolean handleDownKey() {
-        menu.down();
+
+        this.abilitiesView.selectSouthItem();
         return false;
     }
 
     @Override
     public boolean handleUpKey() {
-        menu.up();
+        this.abilitiesView.selectNorthItem();
         return false;
-    }
-
-    @Override
-    public void handleSaveKey() {
-
-    }
-
-    @Override
-    public void handleEnterKey() {
-
     }
 
     @Override
@@ -224,6 +212,10 @@ public class SetInputsControllerState extends InputControllerState {
 
     }
 
+    public void handleSaveKey(){
+
+    }
+
     @Override
     public boolean handleReleaseLeftKey() {
         return false;
@@ -244,5 +236,13 @@ public class SetInputsControllerState extends InputControllerState {
         return false;
     }
 
+    @Override
+    public boolean handleEquipmentKey() {
+        return false;
+    }
 
+    @Override
+    public void handleEnterKey() {
+
+    }
 }

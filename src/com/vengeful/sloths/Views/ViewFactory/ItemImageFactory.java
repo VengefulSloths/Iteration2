@@ -14,7 +14,8 @@ public class ItemImageFactory extends ImageFactory {
 
     }
 
-    public String generateItemImageFileName(InventoryItem item) {
+    public String generateItemImageFileName(ViewItem item) {
+        //String imageFileName = "resources/" + item.getItemName() + ".jpg";
         String imageFileName = "resources/InventoryItems/" + item.getItemName() + ".png";
         /*
         String imageFileName;
@@ -43,21 +44,21 @@ public class ItemImageFactory extends ImageFactory {
         return picLabel;
     }
 
-    public Image handleScaledItemImageGeneration(InventoryItem item, int width, int height) {
+    public Image handleScaledItemImageGeneration(ViewItem item, int width, int height) {
         String imageFileName = generateItemImageFileName(item);
         Image itemImage = generateItemImageFromFile(imageFileName);
         Image scaledImage = scaleItemImage(itemImage, width, height);
         return scaledImage;
     }
 
-    public Image handleUnscaledItemImageGeneration(InventoryItem item) {
+    public Image handleUnscaledItemImageGeneration(ViewItem item) {
         String imageFileName = generateItemImageFileName(item);
         Image itemImage = generateItemImageFromFile(imageFileName);
         return itemImage;
     }
 
 
-    public JLabel handleUnscaledImageLabelGeneration(InventoryItem item) {
+    public JLabel handleUnscaledImageLabelGeneration(ViewItem item) {
         String imageFileName = generateItemImageFileName(item);
         Image itemImage = generateItemImageFromFile(imageFileName);
         JLabel itemImageJLabel = createItemImageLabel(itemImage);
@@ -66,7 +67,7 @@ public class ItemImageFactory extends ImageFactory {
 
 
 
-    public JLabel handleScaledImageLabelGeneration(InventoryItem item, int viewWidth, int viewHeight) {
+    public JLabel handleScaledImageLabelGeneration(ViewItem item, int viewWidth, int viewHeight) {
         String imageFileName = generateItemImageFileName(item);
         Image itemImage = generateItemImageFromFile(imageFileName);
         Image scaledImage = scaleItemImage(itemImage, viewWidth, viewHeight);

@@ -5,6 +5,7 @@ import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateS
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.NullTile;
 import com.vengeful.sloths.Utility.Direction;
+import com.vengeful.sloths.Views.AbilitiesView.AbilityViewObject;
 
 /**
  * Created by alexs on 2/22/2016.
