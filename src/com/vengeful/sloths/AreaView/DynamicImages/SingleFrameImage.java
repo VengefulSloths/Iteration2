@@ -9,11 +9,17 @@ import java.awt.*;
  */
 public class SingleFrameImage extends DynamicImage {
     private Image image;
+    private String path;
     public SingleFrameImage(String configPath, int width, int height, PositioningStrategy positioningStrategy) {
         super(width, height, positioningStrategy);
         this.image = (new ImageIcon(configPath)).getImage();
+        this.path = configPath;
     }
+    @Override
     public Image getImage() {
         return image;
     }
+
+    @Override
+    public String getCurrentImagePath() { return path; }
 }

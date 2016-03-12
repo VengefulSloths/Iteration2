@@ -73,7 +73,8 @@ public class EquipmentView extends View implements EquipmentObserver {
         this.titlePanel = new JPanel();
         this.itemPanel = new JPanel();
 
-        this.setBackgroundImageFileName("resources/inventoryBackground.png");
+        //this.setBackgroundImageFileName("resources/skyInventory2.png");
+        this.setBackground(new Color(0f,0f,0f,0.3f));
         JLabel title = generateTitleLabel("Equipment", 22, Color.WHITE);
         this.add(title);
 
@@ -86,12 +87,11 @@ public class EquipmentView extends View implements EquipmentObserver {
         this.titlePanel.setLayout(new BorderLayout());
 
         this.titlePanel.setPreferredSize(new Dimension(this.getWidth(), 50));
-        //this.itemPanel.setBorder(new LineBorder(Color.BLACK))
-        //this.itemPanel.setBorder(new BevelBorder(BevelBorder.RAISED,Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE));
 
         this.titlePanel.add(title, BorderLayout.SOUTH);
         this.add(titlePanel, BorderLayout.NORTH);
         this.add(itemPanel, BorderLayout.CENTER);
+        //this.setBorder(new LineBorder(Color.WHITE));
     }
 
     public void addItem(ItemViewObject item) {
@@ -134,9 +134,9 @@ public class EquipmentView extends View implements EquipmentObserver {
         g.drawRect(boxXCoord, box1Y, boxWidth, boxHeight);
         g.drawRect(boxXCoord, box2Y, boxWidth, boxHeight);
         g.drawRect(boxXCoord, box3Y, boxWidth, boxHeight);
-        //g.drawLine(lineDrawX, box1Y+boxHeight, lineDrawX, box1Y+2*boxHeight);
-        //g.drawLine(lineDrawX, box2Y+boxHeight, lineDrawX, box2Y+2*boxHeight);
-        g.setColor(Color.RED);
+        g.drawLine(lineDrawX, box1Y+boxHeight, lineDrawX, box1Y+2*boxHeight);
+        g.drawLine(lineDrawX, box2Y+boxHeight, lineDrawX, box2Y+2*boxHeight);
+        g.setColor(Color.WHITE);
         g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 18));
         String headGearString = "Headgear";
         String weaponString = "Weapon";

@@ -7,6 +7,7 @@ import com.vengeful.sloths.Models.InventoryItems.EquippableItems.*;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Skills.SkillManager;
+import com.vengeful.sloths.Models.Stats.StatAddables.GenericStatsAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.StrengthAddable;
 import com.vengeful.sloths.Models.ViewObservable;
@@ -136,6 +137,16 @@ public class Equipped implements ViewObservable, ModelVisitable{
         alertWeaponUnequipped(weapon);
     }
 
+    public void alertAllEntityObserversEverything() {
+        for (EntityObserver observer: entity.getObservers()) {
+            if (this.hat != null) {
+                observer.alertEquipHat(this.hat.getItemName());
+            }
+            if (this.weapon != null && this.weapon != fists) {
+                observer.alertEquipWeapon(this.weapon.getItemName(), this.weapon.getWeaponClassification());
+            }
+        }
+    }
 
     //need getter and setter for mount
 
@@ -228,5 +239,17 @@ public class Equipped implements ViewObservable, ModelVisitable{
 
     public void setAbilityManager(AbilityManager abilityManager) {
         this.abilityManager = abilityManager;
+    }
+
+    public GenericStatsAddable getAllEquippedStatEffects(){
+        //@ToDO FINISH WRITING
+        GenericStatsAddable gsa = new GenericStatsAddable();
+        if(hat != null){
+            gsa.add(hat.getItemStats());
+        }
+        if(weapon != null){
+            gsa.add(weapon.getItemStats());
+        }
+        return gsa;
     }
 }

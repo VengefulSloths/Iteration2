@@ -6,19 +6,19 @@ import com.sun.org.apache.xml.internal.serializer.ElemDesc;
 import com.vengeful.sloths.Controllers.ControllerManagers.AggressiveNPCControllerManager;
 import com.vengeful.sloths.Controllers.ControllerManagers.PiggyControllerManager;
 import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.ExplosionAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.FireBallAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
+import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.Entity.*;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Hat;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Knuckle;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.*;
+import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.DoDestroyObstacleQuest;
@@ -27,6 +27,7 @@ import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.Quest;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
 import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
+import com.vengeful.sloths.Models.Map.Tile;
 import com.vengeful.sloths.Models.Occupation.*;
 import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
@@ -115,6 +116,8 @@ public class Loader {
                                     break;
                                 case "InteractiveItem" :
                                     InteractiveItem ii = processInteractiveItem(currObject);
+                                    loading.getTile(ii.getLocation()).addInteractiveItem(ii);
+                                    break;
                                 default: System.out.println(currObject.getNodeName() + " doesn't have a case to handle it");
                             }
                         }
@@ -126,8 +129,33 @@ public class Loader {
                 }
             }
         }
+        setActiveMapArea();
     }
-//untested
+//DANK QUADRA-FOR-LOOP TRIANGLE FUNCTION
+private void setActiveMapArea() {
+    Map m = Map.getInstance();
+        MapArea[] mas = m.getMapAreas();
+            Avatar a = Avatar.getInstance();
+                for(MapArea ma : mas){
+                    for(Tile[] tiles : ma.getTiles()){
+                        for(Tile tile : tiles){
+                            if(tile != null){
+                                Entity[] es = tile.getEntities();
+                                    if(es.length != 0){
+                                        for(Entity e : es){
+                                            if(e.equals(a)){
+                                                m.setActiveMapArea(ma);
+                                                    return;
+                                            }
+                                    }
+                                }
+                            }
+                        }
+            }
+    }
+}
+
+    //untested
     private InteractiveItem processInteractiveItem(Node currObject) {
         InteractiveItem ii = new InteractiveItem();
         Element current = (Element) currObject;
@@ -136,7 +164,7 @@ public class Loader {
         ii.setQuest(processQuest(current.getChildNodes().item(1)));
         return ii;
     }
-//untested
+
     private Quest processQuest(Node item) {
         Element current = (Element) item;
         Quest q = null;
@@ -233,6 +261,7 @@ public class Loader {
                     p.setAbilityManager(abm);
                     break;
                 case "BuffManager" :
+                    p.setBuffManager(new BuffManager(p));
                     break;
                 case "Inventory" :
                     Inventory inv = processInventory(avatarObject);
@@ -332,6 +361,7 @@ public class Loader {
                     p.setAbilityManager(abm);
                     break;
                 case "BuffManager" :
+                    p.setBuffManager(new BuffManager(p));
                     break;
                 case "Inventory" :
                     Inventory inv = processInventory(avatarObject);
@@ -531,6 +561,27 @@ public class Loader {
                         FireBallAbility fba = new FireBallAbility(e, traveTime, travelDistance, start, coolDown);
                         fba.setManaCost(manaCost);
                         abm.addAbility(fba);
+                        break;
+                    case "ExplosionAbility":
+                        int windExA = Integer.valueOf(currAbility.getAttribute("windTicks"));
+                        int coolExA = Integer.valueOf(currAbility.getAttribute("coolTicks"));
+                        int expandingTime = Integer.valueOf(currAbility.getAttribute("expandingTime"));
+                        int expandingDistance = Integer.valueOf(currAbility.getAttribute("expandingDistance"));
+                        int manaCostExA = Integer.valueOf(currAbility.getAttribute("manaCost"));
+                        ExplosionAbility exA = new ExplosionAbility(e,expandingTime,expandingDistance,windExA,coolExA);
+                        exA.setManaCost(manaCostExA);
+                        abm.addAbility(exA);
+                        break;
+                    case "MountAbility" :
+                        break;
+                    case "DemountAbility" :
+                        break;
+                    case "NullAbility" :
+                        break;
+                    case "RemoveBuffAbility" :
+                        break;
+                    case "SelfBuffAbility" :
+                        break;
                     default:
                         System.out.println(currAbility.getNodeName() + "isn't a supported ability to load");
                 }
@@ -597,6 +648,11 @@ public class Loader {
                             case "TwoHandedWeapon" :
                                 TwoHandedWeapon thw = processTwoHandedWeapon(eqItemElement);
                                 eq.addWeapon(thw);
+                                break;
+                            case "Mount":
+                                Mount m = processMount(eqItemElement);
+                                eq.addMount(m);
+                                break;
                             default:
                                 System.out.println(eqItemName + "isn't a supported equipped item element");
                         }
@@ -612,6 +668,14 @@ public class Loader {
         }
         return eq;
     }
+
+    private Mount processMount(Element eqItemElement) {
+        int move = Integer.valueOf(eqItemElement.getAttribute("moveSpeed"));
+        String name = eqItemElement.getAttribute("name");
+        Mount m = new Mount(name, move);
+        return m;
+    }
+
     private Inventory processInventory(Node avatarObject) {
         Inventory inv = new Inventory();
         if(avatarObject.getNodeType() == Node.ELEMENT_NODE){
@@ -645,6 +709,11 @@ public class Loader {
                             case "TwoHandedWeapon" :
                                 TwoHandedWeapon thw = processTwoHandedWeapon(invItemElement);
                                 inv.addItem(thw);
+                                break;
+                            case "Mount":
+                                Mount m = processMount(invItemElement);
+                                inv.addItem(m);
+                                break;
                             default:
                                 System.out.println(invItemName + "isn't a supported inventory item element");
                         }

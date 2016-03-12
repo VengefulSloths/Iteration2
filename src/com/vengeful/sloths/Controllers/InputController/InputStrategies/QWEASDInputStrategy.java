@@ -65,6 +65,11 @@ public class QWEASDInputStrategy extends InputStrategy {
                 break;
             case KeyEvent.VK_P:
                 state.handleSaveKey();
+                /* TODO: test, remove*/
+                break;
+            case KeyEvent.VK_X:
+                state.handleWestKey();
+
         }
     }
 

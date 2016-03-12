@@ -49,7 +49,7 @@ public class DynamicImageFactory {
         } catch (Exception e ) {
             System.out.println("WUT");
 
-            //e.printStackTrace();
+            e.printStackTrace();
         }
 
             return null;

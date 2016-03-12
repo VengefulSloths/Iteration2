@@ -9,6 +9,7 @@ import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrat
 import com.vengeful.sloths.AreaView.ViewTime;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by alexs on 3/3/2016.
@@ -46,6 +47,13 @@ public class AttackViewObject extends ViewObject {
                 this.getXPixels() + animation.getXOffset() + this.getLocationXOffset(),
                 this.getYPixels() + animation.getYOffset() + this.getLocationYOffset(),
                 this);
+    }
+
+    @Override
+    public NonVisibleViewObject getNonVisibleSnapShot() {
+        ArrayList<DynamicImage> visibleImages = new ArrayList<>();
+        visibleImages.add(animation);
+        return new NonVisibleViewObject(getR(), getS(), getCoordinateStrategy(), getLocationStrategy(), visibleImages);
     }
 
     @Override

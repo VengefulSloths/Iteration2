@@ -41,4 +41,9 @@ public class Knuckle extends Weapon implements ModelVisitable{
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitKnuckle(this);
     }
+
+    @Override
+    public void interact() {
+
+    }
 }

@@ -1,11 +1,13 @@
 package com.vengeful.sloths.AreaView.ViewObjects;
 
 
+import com.vengeful.sloths.AreaView.DynamicImages.DynamicImage;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by alexs on 2/20/2016.
@@ -13,6 +15,8 @@ import java.awt.*;
 public abstract class ViewObject extends JComponent {
     private int xPixels;
     private int yPixels;
+
+    private int customYOffset = 0;
 
     private int r;
     private int s;
@@ -41,7 +45,11 @@ public abstract class ViewObject extends JComponent {
     }
 
     public int getYPixels() {
-        return yPixels;
+        return yPixels + customYOffset;
+    }
+
+    public void setCustomYOffset(int offset) {
+        this.customYOffset = offset;
     }
 
     public int getR() {
@@ -72,6 +80,15 @@ public abstract class ViewObject extends JComponent {
 
     public abstract void paintComponent(Graphics2D g);
 
+    public abstract NonVisibleViewObject getNonVisibleSnapShot();
+
     public abstract void accept(VOVisitor v);
 
+    public CoordinateStrategy getCoordinateStrategy() {
+        return coordinateStrategy;
+    }
+
+    public LocationStrategy getLocationStrategy() {
+        return locationStrategy;
+    }
 }

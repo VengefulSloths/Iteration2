@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<dynamic_timed_animation>
+    <width>255</width>
+    <height>255</height>
+    <rootPath>resources/effects/spell/</rootPath>
+    <startConfig>spell_static.xml</startConfig>
+    <endConfig>null.xml</endConfig>
+    <fileName>spell.png</fileName>
+    <positioning xOffset="-25" yOffset="-39">custom</positioning>
+</dynamic_timed_animation>

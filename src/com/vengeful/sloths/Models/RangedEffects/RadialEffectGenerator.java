@@ -2,12 +2,12 @@ package com.vengeful.sloths.Models.RangedEffects;
 
 import com.vengeful.sloths.AreaView.TemporaryVOCreationVisitor;
 import com.vengeful.sloths.Models.Map.Map;
+import com.vengeful.sloths.Models.RangedEffects.CanGenerateVisitor.DefaultCanGenerateVisitor;
 import com.vengeful.sloths.Models.RangedEffects.HitBox.ImmovableHitBox;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.HexMath;
 
-import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -20,7 +20,6 @@ public class RadialEffectGenerator extends RangedEffectGenerator{
     private int expandingTime;
     private int totalExpandingDistance;
     private Coord initialLocation;
-    //facing direction not needed in this case at all
     private int initialDmg;
     private int initialAccuracy;
     private String hitboxName;
@@ -41,10 +40,11 @@ public class RadialEffectGenerator extends RangedEffectGenerator{
 
     @Override
     public void createRangedEffect() {
+
         if(expandingDistanceLeft > 0){
             expandingDistanceLeft--;
             System.out.println("***************** 360: GENERATE ON RING: " + (totalExpandingDistance-expandingDistanceLeft) + " *********************");
-            generateHitBox();
+            generateHitBox(HexMath.ring(initialLocation, totalExpandingDistance-expandingDistanceLeft));
             TimeModel.getInstance().registerAlertable(() -> {
                 createRangedEffect();
             }, expandingTime);
@@ -58,13 +58,13 @@ public class RadialEffectGenerator extends RangedEffectGenerator{
     }
 
 
-    private void generateHitBox(){
+    private void generateHitBox(Iterator<Coord> expandingLocation){
         int damage = calculateAtt(initialDmg, totalExpandingDistance-expandingDistanceLeft);
         int accuracy = calculateAccuracy(initialAccuracy, totalExpandingDistance-expandingDistanceLeft);
 
         boolean doesTileExist;
 
-        Iterator<Coord> expandingLocation = HexMath.ring(initialLocation, totalExpandingDistance-expandingDistanceLeft);
+        //Iterator<Coord> expandingLocation = HexMath.ring(initialLocation, totalExpandingDistance-expandingDistanceLeft);
 
         int tileCounter = 0; //TODO: test , remove
 
@@ -74,8 +74,6 @@ public class RadialEffectGenerator extends RangedEffectGenerator{
             //TODO: remove, remove this doesTileExist thing after map padding added!!
             doesTileExist = HexMath.isValidTile(loc, Map.getInstance().getActiveMapArea().getMaxR(), Map.getInstance().getActiveMapArea().getMaxS());
             if(doesTileExist){
-                System.out.println("WHY VISITOR THROWS????");
-                System.out.println(Map.getInstance().getActiveMapArea().getTile(loc));
 //                Map.getInstance().getActiveMapArea().getTile(loc).accept(canGenerateVisitor);
 //                if(canGenerateVisitor.canGenerate()){
                     ImmovableHitBox newHB = new ImmovableHitBox(hitboxName, loc, damage, accuracy);

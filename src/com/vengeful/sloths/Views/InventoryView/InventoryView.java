@@ -24,6 +24,8 @@ import java.util.Iterator;
  */
 public class InventoryView extends View implements InventoryObserver {
 
+    private int inventoryIndex = 0;
+
     private ArrayList<ItemViewObject> itemList;
     private ItemViewObjectFactory ivoFactory;
     private Inventory inventory;
@@ -67,6 +69,88 @@ public class InventoryView extends View implements InventoryObserver {
         this.numRows = numRows;
     }
 
+
+    public void decrementInventoryIndex(int val) {
+        System.out.println("Inventory index BEFORE decrement: " + this.inventoryIndex);
+        ItemViewObject item = this.getFromItemList(this.inventoryIndex);
+
+
+        if (item != null)
+            this.setDeselected(this.getFromItemList(this.inventoryIndex));
+        if (this.inventoryIndex - val <= 0) {
+            this.inventoryIndex = 0;
+        } else
+            this.inventoryIndex -= val;
+
+
+        item = this.getFromItemList(this.inventoryIndex);
+        if (item != null)
+            this.setSelected(this.getFromItemList(this.inventoryIndex));
+    }
+
+    public void incrementInventoryIndex(int val) {
+        ItemViewObject item = this.getFromItemList(this.inventoryIndex);
+        if (item != null)
+            this.setDeselected(this.getFromItemList(this.inventoryIndex));
+
+        if (this.inventoryIndex + val >= this.inventory.getCurrentSize()) {
+            this.inventoryIndex = this.inventory.getCurrentSize() - 1;
+        } else
+            this.inventoryIndex += val;
+
+
+        item = this.getFromItemList(this.inventoryIndex);
+        if (item != null)
+            this.setSelected(this.getFromItemList(this.inventoryIndex));
+
+    }
+
+    public int selectNorthItem() {
+
+        decrementInventoryIndex(numCols);;
+
+        return inventoryIndex;
+    }
+
+    public int selectSouthItem() {
+        incrementInventoryIndex(numCols);;
+
+        return inventoryIndex;
+    }
+
+    public int selectEastItem() {
+        incrementInventoryIndex(1);
+
+        return inventoryIndex;
+    }
+
+    public int selectWestItem() {
+        decrementInventoryIndex(1);
+
+        return inventoryIndex;
+    }
+
+    public InventoryItem getCurrentItem() {
+        InventoryItem item = this.getInventory().getItem(this.inventoryIndex);
+        return item;
+    }
+
+    public void setInventoryIndex(int inventoryIndex) {
+        this.inventoryIndex = inventoryIndex;
+    }
+
+    public void useCurrentlySelectedItem() {
+        if (this.inventory.getCurrentSize() <= 0) return;
+
+        InventoryItem item = this.getInventory().getItem(this.inventoryIndex);
+
+        if (item != null) {
+            decrementInventoryIndex(0);
+            item.interact();
+            this.getInventory().removeItem(item);
+        }
+    }
+
     public InventoryView() { }
 
     public InventoryView(Inventory inventory) { //edit: can maybe delete later
@@ -97,9 +181,8 @@ public class InventoryView extends View implements InventoryObserver {
     }
 
     public void initDefaultUI() {
-        this.setBackgroundImageFileName("resources/inventoryBackground.png");
-        //JPanel titlePanel = new JPanel();
-        //JPanel itemPanel = new JPanel();
+        //this.setBackgroundImageFileName("resources/skyInventory2.png");
+        this.setBackground(new Color(0f,0f,0f,0.3f));
         titlePanel = new JPanel();
         itemPanel = new JPanel();
         JLabel title = generateTitleLabel("Inventory", 22, Color.WHITE);
@@ -115,6 +198,7 @@ public class InventoryView extends View implements InventoryObserver {
         titlePanel.add(title, BorderLayout.SOUTH);
         this.add(titlePanel, BorderLayout.NORTH);
         this.add(itemPanel, BorderLayout.CENTER);
+        //this.setBorder(new LineBorder(Color.WHITE));
     }
 
     /* Initializes the itemList by generating ItemViewObjects from inventoryItems. Maybe make a factory? */
@@ -161,6 +245,7 @@ public class InventoryView extends View implements InventoryObserver {
     @Override
     public void alertItemDropped(InventoryItem item) {
         this.removeInventoryItemViewObject(item); //what if have multiple of the same items?
+        decrementInventoryIndex(1);
     }
 
     public int getItemListSize(){

@@ -1,11 +1,13 @@
 package com.vengeful.sloths.AreaView.ViewObjects;
 
 
+import com.vengeful.sloths.AreaView.DynamicImages.DynamicImage;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 import com.vengeful.sloths.AreaView.ViewTime;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by Alex on 3/7/2016.
@@ -49,7 +51,12 @@ public class DamageNumberViewObject extends ViewObject {
                 e.printStackTrace();
             }
         }
+    }
 
+    @Override
+    public NonVisibleViewObject getNonVisibleSnapShot() {
+        ArrayList<DynamicImage> visibleImages = new ArrayList<>();
+        return new NonVisibleViewObject(getR(), getS(), getCoordinateStrategy(), getLocationStrategy(), visibleImages);
     }
 
     @Override

@@ -29,6 +29,6 @@ public class DemountAbility extends RemoveBuffAbility {
 
     @Override
     public void accept(ModelVisitor modelVisitor) {
-        (new Exception()).printStackTrace();
+        modelVisitor.visitDemountAbility(this);
     }
 }

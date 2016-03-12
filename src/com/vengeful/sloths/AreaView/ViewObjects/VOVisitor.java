@@ -1,5 +1,4 @@
 package com.vengeful.sloths.AreaView.ViewObjects;
-import com.vengeful.sloths.AreaView.DecalViewObject;
 
 /**
  * Created by alexs on 2/23/2016.

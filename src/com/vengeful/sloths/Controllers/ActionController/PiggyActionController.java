@@ -3,7 +3,13 @@ package com.vengeful.sloths.Controllers.ActionController;
 import com.vengeful.sloths.Controllers.Target.*;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.Entity;
+import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
+import com.vengeful.sloths.Models.Map.Tile;
+import com.vengeful.sloths.Utility.Coord;
+import com.vengeful.sloths.Utility.Direction;
+import com.vengeful.sloths.Utility.HexMath;
+import com.vengeful.sloths.Utility.Location;
 
 /**
  * Created by zach on 3/4/16.
@@ -21,9 +27,17 @@ public class PiggyActionController extends ActionController {
         }else{
             //always return to avatar even if you can technically see him
             //might need to do something here with teleporting
-            Target idleTarget = new AvatarTarget(2);
-            idleTarget.setCoord(Avatar.getInstance().getLocation());
-            idleTarget.accept(this);
+            //System.out.println("oh noes the piggy has lost the avatar");
+            //Target idleTarget = new AvatarTarget(2);
+            //idleTarget.setCoord(Avatar.getInstance().getLocation());
+            //idleTarget.accept(this);
+
+            Coord location = this.getEntity().getLocation();
+            Map.getInstance().getTile(location).removeEntity(this.getEntity());
+
+            Direction oppositeDirection = Avatar.getInstance().getFacingDirection().oppositeDirection;
+            Coord newCoord = HexMath.getNextFacingCoord(Avatar.getInstance().getLocation(), oppositeDirection);
+            Map.getInstance().addEntity(HexMath.getClosestMovableTile(new Location(Map.getInstance().getActiveMapArea(), newCoord)), this.getEntity());
         }
     }
 

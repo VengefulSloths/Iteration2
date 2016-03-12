@@ -10,6 +10,7 @@ import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrat
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by alexs on 2/20/2016.
@@ -28,6 +29,13 @@ public class GrassViewObject extends ViewObject {
                 this.getYPixels()+ grassImage.getYOffset() + this.getLocationYOffset(),
                 this);
 
+    }
+
+    @Override
+    public NonVisibleViewObject getNonVisibleSnapShot() {
+        ArrayList<DynamicImage> visibleImages = new ArrayList<>();
+        visibleImages.add(grassImage);
+        return new NonVisibleViewObject(getR(), getS(), getCoordinateStrategy(), getLocationStrategy(), visibleImages);
     }
 
     @Override

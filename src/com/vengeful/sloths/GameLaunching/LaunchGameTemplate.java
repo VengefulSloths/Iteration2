@@ -9,11 +9,13 @@ import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteract
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Mount;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.ModelEngine;
 import com.vengeful.sloths.Models.Stats.StatAddables.BaseStatsAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.HealthManaExperienceAddable;
+import com.vengeful.sloths.Models.Stats.StatAddables.StrengthAddable;
 import com.vengeful.sloths.Utility.Config;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Views.CharacterView.CharacterView;
@@ -50,6 +52,8 @@ public class LaunchGameTemplate {
 //        avatar.getInstance().getStats().setHardiness(10);
 //        Avatar.getInstance().getStats().setCurrentHealth(60);
         map.addEntity(helper.spawnPoint(), avatar);
+        //below line doesnt work for some reason despite adding the avatar to the map
+//        map.getActiveMapArea().getTile(helper.spawnPoint()).addEntity(Avatar.getInstance());
 
         //Coord newSpawn = helper.spawnPoint();
         //newSpawn.setR(newSpawn.getR()+1);
@@ -81,7 +85,7 @@ public class LaunchGameTemplate {
         avatar.getInventory().addItem(new Potion("redPotion", new HealthManaExperienceAddable(5,0,0,0,0)));
 
 
-
+        avatar.equip(new OneHandedWeapon("dagger", new StrengthAddable(5), 10));
 
         /**************************/
 

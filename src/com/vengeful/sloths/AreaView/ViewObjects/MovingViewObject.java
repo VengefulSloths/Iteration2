@@ -46,7 +46,7 @@ public abstract class MovingViewObject extends ViewObject implements MovementObs
             if (ratio >= 1) {
                 return super.getYPixels();
             }
-            return (int)(ratio*super.getYPixels() + (1-ratio)*previousYPixel);
+            return (int)(ratio*super.getYPixels() + (1.0-ratio)*previousYPixel);
         } else {
             return super.getYPixels();
         }

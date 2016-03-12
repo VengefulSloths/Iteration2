@@ -10,6 +10,7 @@ import java.awt.*;
 public class ViewEngine extends JFrame implements Runnable{
 
     private JPanel target;
+    private boolean gameisPaused = false;
 
     private static ViewEngine ourInstance = new ViewEngine();
     public static ViewEngine getInstance(){return ourInstance;}
@@ -39,8 +40,9 @@ public class ViewEngine extends JFrame implements Runnable{
         int count = 0;
         while(true) {
             long lastTime = System.currentTimeMillis();
-
-            ViewTime.getInstance().tick();
+            if(!gameisPaused) {
+                ViewTime.getInstance().tick();
+            }
             this.repaint();
 
             long delta = System.currentTimeMillis() - lastTime;
@@ -75,7 +77,16 @@ public class ViewEngine extends JFrame implements Runnable{
             remove(this.target);
     }
 
+    public boolean isGameisPaused() {
+        return gameisPaused;
+    }
 
+    public void pauseView() {
+        this.gameisPaused = true;
+    }
 
+    public void unpauseView(){
+        this.gameisPaused = false;
+    }
 }
 

@@ -28,6 +28,6 @@ public abstract class InventoryItem {
         this.value = value;
     }
 
-
+    public abstract void interact();
 
 }

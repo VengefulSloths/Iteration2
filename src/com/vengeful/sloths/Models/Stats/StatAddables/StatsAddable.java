@@ -99,6 +99,34 @@ public abstract class StatsAddable implements ModelVisitable{
         this.currentExperience = currentExperience;
     }
 
+    public void add(StatsAddable other){
+        this.strength = this.strength + other.getStrength();
+        this.agility = this.agility + other.getAgility();
+        this.intellect = this.intellect + other.getIntellect();
+        this.hardiness = this.hardiness + other.getHardiness();
+        this.movement = this.movement + other.getMovement();
+        this.currentHealth = this.currentHealth + other.getCurrentHealth();
+        this.bonusHealth = this.bonusHealth +other.getBonusHealth();
+        this.currentMana = this.currentMana + other.getCurrentMana();
+        this.bonusMana = this.bonusMana + other.getBonusMana();
+        this.currentExperience = this.currentExperience + other.getCurrentExperience();
+    }
+
+    public void invert(){
+        if(this.strength > 0){
+            this.strength = 0-this.strength;
+        }
+        if(this.agility > 0){
+            this.agility = 0-this.agility;
+        }
+        if(this.intellect > 0){
+            this.intellect = 0-this.intellect;
+        }
+        if(this.hardiness > 0){
+            this.hardiness = 0-this.hardiness;
+        }
+    }
+
     public void accept(ModelVisitor modelVisitor){
         modelVisitor.visitStatsAddable(this);
     }

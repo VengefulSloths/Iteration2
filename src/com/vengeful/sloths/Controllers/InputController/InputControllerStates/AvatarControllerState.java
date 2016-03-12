@@ -2,6 +2,8 @@ package com.vengeful.sloths.Controllers.InputController.InputControllerStates;
 
 import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.AreaView.AvatarViewFollower;
+import com.vengeful.sloths.Menu.InGameMenu.InGameScrollableMenu;
+import com.vengeful.sloths.Menu.ScrollableMenu;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.SaveLoad.SaveManager;
@@ -53,7 +55,9 @@ public class AvatarControllerState extends InputControllerState {
 
     @Override
     public boolean handleESCKey() {
-        return false;
+        //ScrollableMenu menu = new InGameScrollableMenu(80);
+        MainController.getInstance().setInGameMenuControllerState();
+        return true;
     }
 
     @Override
@@ -91,6 +95,7 @@ public class AvatarControllerState extends InputControllerState {
 
     @Override
     public boolean handleWestKey() {
+        //TODO: test ability, remove
         System.out.println("X pressed!!!!");
         Avatar.getInstance().doAbility(0);
         return true;

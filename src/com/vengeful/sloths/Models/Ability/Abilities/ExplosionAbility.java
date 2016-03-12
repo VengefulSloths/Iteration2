@@ -1,10 +1,11 @@
 package com.vengeful.sloths.Models.Ability.Abilities;
 
-import com.sun.corba.se.impl.encoding.EncapsInputStream;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.RangedEffects.*;
+import com.vengeful.sloths.Models.RangedEffects.CanGenerateVisitor.DefaultCanGenerateVisitor;
+import com.vengeful.sloths.Models.RangedEffects.CanGenerateVisitor.OnTileCanGenerateVisitor;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
 
 /**
@@ -30,8 +31,6 @@ public class ExplosionAbility extends Ability{
         this.expandingDistance = expandingDistance;
         this.canGenerateVisitor = new OnTileCanGenerateVisitor();
     }
-
-
 
 
 
@@ -82,5 +81,29 @@ public class ExplosionAbility extends Ability{
     @Override
     public void accept(ModelVisitor e) {
         e.visitExplosionAbility(this);
+    }
+
+    public int getExpandingTime() {
+        return expandingTime;
+    }
+
+    public void setExpandingTime(int expandingTime) {
+        this.expandingTime = expandingTime;
+    }
+
+    public int getExpandingDistance() {
+        return expandingDistance;
+    }
+
+    public void setExpandingDistance(int expandingDistance) {
+        this.expandingDistance = expandingDistance;
+    }
+
+    public int getManaCost() {
+        return manaCost;
+    }
+
+    public void setManaCost(int manaCost) {
+        this.manaCost = manaCost;
     }
 }

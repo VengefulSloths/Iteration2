@@ -7,6 +7,7 @@ import com.vengeful.sloths.Views.InventoryView.InventoryView;
 import com.vengeful.sloths.Views.InventoryView.ListItemViewObject;
 import com.vengeful.sloths.Views.StatsView.StatsView;
 import com.vengeful.sloths.Views.StatsView.StatsViewObject;
+import com.vengeful.sloths.Views.View;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -23,7 +24,8 @@ public class CharacterView extends JPanel {
     private InventoryView inventoryView;
     private EquipmentView equipmentView;
     private StatsView statsView;
-    private JPanel containerPanel;
+    //rivate JPanel containerPanel;
+    private View containerPanel;
     //private Inventory inventory;
 
     /* //Code for differently sized panels in the CharacterView
@@ -80,16 +82,28 @@ public class CharacterView extends JPanel {
         pushPanel.setPreferredSize(new Dimension(Config.instance().getAreaViewWidth(), Config.instance().getAreaViewHeight()/6));
         pushPanel.setBackground(new Color(0f,0f,0f,0f)); //pushPanel needs to be invisible
 
-        this.containerPanel = new JPanel();
+
+        //this.containerPanel = new JPanel();
         this.setBackground(new Color(0f,0f,0f,0f));
-        this.containerPanel.setBorder(new BevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK));
+        //this.containerPanel.setBorder(new BevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK));
         this.setLayout(new FlowLayout());
         /* begin old layout code */
+        //this.containerPanel.setPreferredSize(new Dimension(this.getCharacterViewWidth(),this.getCharacterViewHeight()));
+        //this.containerPanel.setLayout(new GridLayout(1,3));
+        //this.containerPanel.add(this.inventoryView);
+        //this.containerPanel.add(this.equipmentView);
+        //this.containerPanel.add(this.statsView);
+
+
+        this.containerPanel = new View();
+        this.containerPanel.setBackgroundImageFileName(("resources/skyCharacterView.png"));
         this.containerPanel.setPreferredSize(new Dimension(this.getCharacterViewWidth(),this.getCharacterViewHeight()));
         this.containerPanel.setLayout(new GridLayout(1,3));
         this.containerPanel.add(this.inventoryView);
         this.containerPanel.add(this.equipmentView);
         this.containerPanel.add(this.statsView);
+        //this.containerPanel.setBackground(new Color(1f,1f,1f,0.8f));
+
         /* end old layout code */
         /* begin new layout edit */
         //this.inventoryView.setPreferredSize(new Dimension(((int)(this.getCharacterViewWidth()*leftPanelProportion)), this.getCharacterViewHeight()));
@@ -102,6 +116,9 @@ public class CharacterView extends JPanel {
         /* end new layout edit */
         this.add(pushPanel);
         this.add(containerPanel);
+        //this.setBorder(new LineBorder(Color.WHITE));
+        this.containerPanel.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(15.0f)));
+
 
     }
 
