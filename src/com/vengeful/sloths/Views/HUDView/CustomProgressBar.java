@@ -60,17 +60,30 @@ public class CustomProgressBar extends JComponent {
         g2d.setColor(depletedColor);
         g2d.fillRect(x + borderWidth/2, y + borderWidth/2, progressBarWidth - borderWidth, progressBarHeight-borderWidth);
         //now paint current stuff
-        g2d.setColor(currentColor);
+
         //calculate % to show
-        if(this.oldCurrent > this.currentProgress){
+        if(this.oldCurrent > this.currentProgress + maxProgress/100f){
             this.oldCurrent -= maxProgress/100f;
-        }
-        if(this.oldCurrent < this.currentProgress){
+            g2d.setColor(currentColor.darker());
+            int percentage = (int)((oldCurrent/maxProgress) * progressBarWidth);
+            g2d.fillRect(x + borderWidth/2, y + borderWidth/2, percentage - borderWidth, progressBarHeight-borderWidth);
+            g2d.setColor(currentColor);
+            int curPercentage = (int)((currentProgress/maxProgress) * progressBarWidth);
+            g2d.fillRect(x + borderWidth/2, y + borderWidth/2, curPercentage - borderWidth, progressBarHeight-borderWidth);
+        }else if(this.oldCurrent < this.currentProgress - maxProgress/100f){
             this.oldCurrent += maxProgress/100f;
+            g2d.setColor(currentColor.darker());
+            int curPercentage = (int)((currentProgress/maxProgress) * progressBarWidth);
+            g2d.fillRect(x + borderWidth/2, y + borderWidth/2, curPercentage - borderWidth, progressBarHeight-borderWidth);
+            g2d.setColor(currentColor);
+            int percentage = (int)((oldCurrent/maxProgress) * progressBarWidth);
+            g2d.fillRect(x + borderWidth/2, y + borderWidth/2, percentage - borderWidth, progressBarHeight-borderWidth);
+        }else{
+            g2d.setColor(currentColor);
+            int percentage = (int)((oldCurrent/maxProgress) * progressBarWidth);
+            g2d.fillRect(x + borderWidth/2, y + borderWidth/2, percentage - borderWidth, progressBarHeight-borderWidth);
         }
-        //System.out.println(oldCurrent + "/" + maxProgress);
-        int percentage = (int)((oldCurrent/maxProgress) * progressBarWidth);
-        g2d.fillRect(x + borderWidth/2, y + borderWidth/2, percentage - borderWidth, progressBarHeight-borderWidth);
+
     }
 
 
