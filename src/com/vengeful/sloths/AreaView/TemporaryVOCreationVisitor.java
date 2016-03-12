@@ -325,6 +325,8 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     public void visitTakeableItem(TakeableItem takeableItem) {
         //used for dropping
         String imagePath = "resources/items/"+takeableItem.getItemName()+"/"+takeableItem.getItemName()+".xml";
+        System.out.println("IMAGE PATH: ");
+        System.out.println(imagePath);
         TakeableViewObject tvo = factory.createTakeableViewObject(takeableItem.getLocation().getR(), takeableItem.getLocation().getS(), imagePath);
         new ProxyDestoyableObserver(tvo, takeableItem);
         tvo.registerObserver(this.activeCameraView.getTileVO(tvo));

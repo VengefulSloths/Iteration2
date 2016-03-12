@@ -41,4 +41,9 @@ public class OneHandedWeapon extends Weapon implements ModelVisitable {
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitOneHandedWeapon(this);
     }
+
+    @Override
+    public void interact() {
+
+    }
 }

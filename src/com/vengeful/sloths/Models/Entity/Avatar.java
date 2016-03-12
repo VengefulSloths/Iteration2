@@ -203,4 +203,6 @@ public class Avatar extends Entity{
     public void setPet(Pet pet) {
         this.pet = pet;
     }
+
+    public Pet removePet() { this.pet = null; return pet; }
 }

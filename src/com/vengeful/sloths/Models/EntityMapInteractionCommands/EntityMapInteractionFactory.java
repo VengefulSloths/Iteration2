@@ -76,6 +76,11 @@ public class EntityMapInteractionFactory {
         return edc;
     }
 
+    public PiggyDropTotemCommand createPiggyDropTotemCommand(TakeableItem itemToDrop, Coord dropLoc, Entity entity) { //Called in Piggy
+        PiggyDropTotemCommand pdtc = new PiggyDropTotemCommand(itemToDrop, dropLoc, entity, this.map);
+        return pdtc;
+    }
+
     public EntityPickupCommand createPickUpCommand(Entity entity, Inventory inv, TakeableItem itemToPickup) {
         EntityPickupCommand epc = new EntityPickupCommand(entity, inv, itemToPickup);
         return epc;

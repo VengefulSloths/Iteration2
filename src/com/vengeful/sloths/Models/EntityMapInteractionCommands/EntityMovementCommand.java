@@ -62,7 +62,7 @@ public class EntityMovementCommand implements Alertable{
         }
        // subject.setFacingDirection(dir);
 
-        System.out.println("Model: Going to move from " + src.toString() + " to " + dst.toString());
+//        System.out.println("Model: Going to move from " + src.toString() + " to " + dst.toString());
 
     }
 
