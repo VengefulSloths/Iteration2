@@ -217,6 +217,7 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
 
     private void mountAnimation() {
         if (isMounted()) {
+            //System.out.println("Setting");
             setCustomYOffset(-20 + offsets[count++%offsets.length]);
             ViewTime.getInstance().registerAlert(0, () -> mountAnimation());
         }

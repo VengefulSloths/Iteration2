@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Controllers.SearchingController;
 
+import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
 import com.vengeful.sloths.Controllers.SearchingController.SearchingController;
 import com.vengeful.sloths.Models.Ability.Abilities.*;
 import com.vengeful.sloths.Models.Ability.Ability;
@@ -375,6 +376,11 @@ public class AggressiveNPCSearchingController extends SearchingController {
 
     @Override
     public void visitMount(Mount mount) {
+
+    }
+
+    @Override
+    public void visitAdaptableStrategy(AdaptableStrategy adaptableStrategy) {
 
     }
 
