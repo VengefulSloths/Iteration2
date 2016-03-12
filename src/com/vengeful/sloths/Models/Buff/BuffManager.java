@@ -76,6 +76,12 @@ public class BuffManager implements Tickable, ModelVisitable {
         return bArrary;
     }
 
+    public void alertObserversEverything() {
+        for (Buff buff: buffs) {
+            buff.refreshObservers();
+        }
+    }
+
     public GenericStatsAddable getAllBuffStatEffects(){
         GenericStatsAddable gsa = new GenericStatsAddable();
         Buff[] buffs = this.getBuffs();

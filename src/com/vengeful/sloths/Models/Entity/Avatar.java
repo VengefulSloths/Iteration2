@@ -55,7 +55,6 @@ public class Avatar extends Entity{
         return this.timeToRespawn;
     }
 
-    private boolean isMounted = false;
 
     public void avatarInit(String occupationString, AbilityManager abilityManager, BuffManager buffManager, SkillManager skillManager){
 
@@ -122,9 +121,6 @@ public class Avatar extends Entity{
         super.doAbility(index);
     }
 
-    public boolean isMounted() {
-        return isMounted;
-    }
 
     public void avatarInit(String occupationString, Stats stats){
         this.avatarInit(occupationString, new AbilityManager(this), new BuffManager(this), new SkillManager());

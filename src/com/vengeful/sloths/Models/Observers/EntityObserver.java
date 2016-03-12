@@ -24,4 +24,8 @@ public interface EntityObserver extends ModelObserver {
 
 	void alertMount(String mountName);
 	void alertDemount();
+
+	void alertAddBuff(String buffName);
+	void alertRemoveBuff(String buffName);
+
 }

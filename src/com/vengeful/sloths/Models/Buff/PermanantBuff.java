@@ -1,8 +1,11 @@
 package com.vengeful.sloths.Models.Buff;
 
 import com.vengeful.sloths.Models.Entity.Entity;
+import com.vengeful.sloths.Models.Observers.EntityObserver;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
+
+import java.util.ArrayList;
 
 /**
  * Created by Alex on 3/10/2016.
@@ -10,18 +13,19 @@ import com.vengeful.sloths.Models.Stats.Stats;
 public class PermanantBuff extends Buff {
     private StatsAddable statsAddable;
 
-    public PermanantBuff(StatsAddable buff) {
-        this.statsAddable = buff;
+    public PermanantBuff(ArrayList<EntityObserver> entityObservers, String name, StatsAddable statsAddable) {
+        super(entityObservers, name);
+        this.statsAddable = statsAddable;
     }
 
 
     @Override
-    public void apply(Stats stats) {
+    public void doApply(Stats stats) {
         stats.add(statsAddable);
     }
 
     @Override
-    public void remove(Stats stats) {
+    public void doRemove(Stats stats) {
         stats.subtract(statsAddable);
     }
 

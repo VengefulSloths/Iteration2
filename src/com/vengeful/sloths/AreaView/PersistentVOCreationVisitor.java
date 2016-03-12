@@ -7,11 +7,10 @@ import com.vengeful.sloths.AreaView.ViewObjects.InteractiveItemViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.OneShotViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.TakeableViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.TileViewObject;
-import com.vengeful.sloths.AreaView.ViewObjects.*;
 import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
-import com.vengeful.sloths.AreaView.ViewObjects.*;
 import com.vengeful.sloths.Models.Ability.Abilities.*;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.RemoveTrapAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.StealthAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.AngleSpellAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.ExplosionAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
@@ -53,8 +52,6 @@ import com.vengeful.sloths.Models.Stats.StatAddables.*;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Models.Observers.ProxyDestoyableObserver;
-import com.vengeful.sloths.Models.Observers.ProxyObserver;
-import com.vengeful.sloths.Views.AbilitiesView.AbilityViewObject;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -253,6 +250,11 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
 
     @Override
     public void visitRemoveTrapAbility(RemoveTrapAbility removeTrapAbility) {
+
+    }
+
+    @Override
+    public void visitStealthAbility(StealthAbility stealthAbility) {
 
     }
 
