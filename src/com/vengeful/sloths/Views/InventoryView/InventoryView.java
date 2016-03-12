@@ -161,7 +161,6 @@ public class InventoryView extends View implements InventoryObserver {
         ProxyObserver pio = new ProxyInventoryObserver(this, inventory);
         ObserverManager.getInstance().addProxyObserver(pio);
 
-
         initWithInventory(this.getInventory());
         initDefaultUI();
     }
@@ -182,9 +181,8 @@ public class InventoryView extends View implements InventoryObserver {
     }
 
     public void initDefaultUI() {
-        this.setBackgroundImageFileName("resources/inventoryBackground.png");
-        //JPanel titlePanel = new JPanel();
-        //JPanel itemPanel = new JPanel();
+        //this.setBackgroundImageFileName("resources/skyInventory2.png");
+        this.setBackground(new Color(0f,0f,0f,0.3f));
         titlePanel = new JPanel();
         itemPanel = new JPanel();
         JLabel title = generateTitleLabel("Inventory", 22, Color.WHITE);
@@ -200,6 +198,7 @@ public class InventoryView extends View implements InventoryObserver {
         titlePanel.add(title, BorderLayout.SOUTH);
         this.add(titlePanel, BorderLayout.NORTH);
         this.add(itemPanel, BorderLayout.CENTER);
+        //this.setBorder(new LineBorder(Color.WHITE));
     }
 
     /* Initializes the itemList by generating ItemViewObjects from inventoryItems. Maybe make a factory? */

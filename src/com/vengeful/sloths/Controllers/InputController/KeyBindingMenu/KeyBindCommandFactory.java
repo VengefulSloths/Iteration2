@@ -15,7 +15,7 @@ public class KeyBindCommandFactory {
 
     public KeyBindCommand createKeyBindCommand(int keyCode, KeyBindMenuItem item){
         KeyMapping keyMapping =  item.getKeyMapping();
-        KeyBindCommand command = new KeyBindCommand(keyMapping, keyCode, adaptableStrategy);
+        KeyBindCommand command = new KeyBindCommand(keyMapping, keyCode, adaptableStrategy, item);
         return command;
     }
 

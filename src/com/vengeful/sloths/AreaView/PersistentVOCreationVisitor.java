@@ -4,6 +4,7 @@ import com.vengeful.sloths.AreaView.ViewObjects.InteractiveItemViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.OneShotViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.TakeableViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.TileViewObject;
+import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
 import com.vengeful.sloths.Models.Ability.Abilities.*;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
@@ -271,6 +272,11 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
 
     @Override
     public void visitMount(Mount mount) {
+
+    }
+
+    @Override
+    public void visitAdaptableStrategy(AdaptableStrategy adaptableStrategy) {
 
     }
 

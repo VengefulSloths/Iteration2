@@ -6,7 +6,7 @@ package com.vengeful.sloths.Utility;
 public class Config {
 
 
-    private static final int WINDOW_WIDTH = 1200; //set the overall window width. Was 1400
+    private static final int WINDOW_WIDTH = 1400; //set the overall window width. Was 1400
     private static final int WINDOW_HEIGHT = 1000; //was 900
 
     private static final int AREA_VIEW_WIDTH = WINDOW_WIDTH; //set the overall window width
@@ -14,8 +14,8 @@ public class Config {
 
     private static final double HUD_VIEW_WIDTH_PROPORTION = 0.35;
     private static final double HUD_VIEW_HEIGHT_PROPORTION = .13;
-    private static final double CHARACTER_VIEW_WIDTH_PROPORTION = 0.75;
-    private static final double CHARACTER_VIEW_HEIGHT_PROPORTION = 0.60;
+    private static final double CHARACTER_VIEW_WIDTH_PROPORTION = 0.80;
+    private static final double CHARACTER_VIEW_HEIGHT_PROPORTION = 0.70;
 
     private static final int HUD_VIEW_WIDTH = (int) (HUD_VIEW_WIDTH_PROPORTION*AREA_VIEW_WIDTH);
     private static final int HUD_VIEW_HEIGHT = (int) (HUD_VIEW_HEIGHT_PROPORTION * AREA_VIEW_HEIGHT);

@@ -1,6 +1,7 @@
 package com.vengeful.sloths.AreaView;
 
 import com.vengeful.sloths.AreaView.ViewObjects.*;
+import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
 import com.vengeful.sloths.Models.Ability.Abilities.*;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
@@ -396,6 +397,11 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
      @Override
      public void visitMount(Mount mount) {
+
+     }
+
+     @Override
+     public void visitAdaptableStrategy(AdaptableStrategy adaptableStrategy) {
 
      }
 
