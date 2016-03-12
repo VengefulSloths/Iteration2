@@ -203,9 +203,9 @@ public class LevelFactory {
 
         TakeableItem piggyTotem = new TakeableItem("Piggy Totem", new PiggyTotem("Piggy Totem", testPiggy), new Coord(2,2));
 
-        MeleeAttackAbility meleeAttackAbility = AbilityFactory.getInstance().createMeleeAttackAbility(Avatar.getInstance(), 150, 150);
-        meleeAttackAbility.setItemName("Melee Attack");
-        area1.getTile(new Coord(3,3)).addTakeableItem(new TakeableItem("redPotion", new AbilityItem(meleeAttackAbility), new Coord(3,3)));
+        //MeleeAttackAbility meleeAttackAbility = AbilityFactory.getInstance().createMeleeAttackAbility(Avatar.getInstance(), 150, 150);
+        //meleeAttackAbility.setItemName("Melee Attack");
+        //area1.getTile(new Coord(3,3)).addTakeableItem(new TakeableItem("redPotion", new AbilityItem(meleeAttackAbility), new Coord(3,3)));
 
 
         testPiggy.setPiggyTotem(piggyTotem);

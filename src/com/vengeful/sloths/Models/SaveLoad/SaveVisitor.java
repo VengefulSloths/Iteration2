@@ -183,6 +183,8 @@ public class SaveVisitor implements ModelVisitor {
         //inv/equipped visit, stats visit, occupation visit, etc...
         appendDirectionAttribute(entityElement, e.getFacingDirection());
         appendCoordElement(entityElement, currCoord);
+        e.getInventory().accept(this);
+        e.getEquipped().accept(this);
         GenericStatsAddable gsa = e.getAllEntityStatEffects();
         gsa.invert();
         e.getStats().add(gsa);
@@ -193,8 +195,6 @@ public class SaveVisitor implements ModelVisitor {
         e.getBuffManager().accept(this);
         e.getAbilityManager().accept(this);
         e.getOccupation().accept(this);
-        e.getInventory().accept(this);
-        e.getEquipped().accept(this);
     }
     @Override
     public void visitPiggy(Piggy piggy) {
