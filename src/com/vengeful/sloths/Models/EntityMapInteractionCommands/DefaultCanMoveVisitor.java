@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Models.EntityMapInteractionCommands;
 
+import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
 import com.vengeful.sloths.Models.Ability.Abilities.*;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
@@ -198,6 +199,11 @@ public class DefaultCanMoveVisitor extends CanMoveVisitor {
 
     @Override
     public void visitMount(Mount mount) {
+
+    }
+
+    @Override
+    public void visitAdaptableStrategy(AdaptableStrategy adaptableStrategy) {
 
     }
 

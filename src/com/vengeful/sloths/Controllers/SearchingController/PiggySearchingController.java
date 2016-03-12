@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Controllers.SearchingController;
 
+import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
 import com.vengeful.sloths.Controllers.Target.AvatarTarget;
 import com.vengeful.sloths.Controllers.Target.MapItemTarget;
 import com.vengeful.sloths.Controllers.Target.AggressiveNPCTarget;
@@ -392,6 +393,11 @@ public class PiggySearchingController extends SearchingController {
 
     @Override
     public void visitMount(Mount mount) {
+
+    }
+
+    @Override
+    public void visitAdaptableStrategy(AdaptableStrategy adaptableStrategy) {
 
     }
 

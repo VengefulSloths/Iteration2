@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Models;
 
+import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
 import com.vengeful.sloths.Models.Ability.Abilities.*;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
@@ -134,4 +135,6 @@ public interface ModelVisitor {
     void visitDemountAbility(DemountAbility demountAbility);
 
     void visitMount(Mount mount);
+
+    void visitAdaptableStrategy(AdaptableStrategy adaptableStrategy);
 }

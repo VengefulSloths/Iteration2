@@ -2,6 +2,8 @@ package com.vengeful.sloths.Controllers.InputController.InputStrategies;
 
 import com.vengeful.sloths.Controllers.InputController.InputControllerStates.InputControllerState;
 import com.vengeful.sloths.Controllers.InputController.KeyMapping;
+import com.vengeful.sloths.Models.ModelVisitable;
+import com.vengeful.sloths.Models.ModelVisitor;
 import javafx.scene.input.KeyCode;
 
 import java.awt.event.KeyEvent;
@@ -11,7 +13,7 @@ import java.util.Map;
 /**
  * Created by John on 3/10/2016.
  */
-public class AdaptableStrategy extends InputStrategy {
+public class AdaptableStrategy extends InputStrategy implements ModelVisitable {
 
     HashMap<Integer, KeyMapping> keyMappings = new HashMap<>();
 
@@ -31,7 +33,11 @@ public class AdaptableStrategy extends InputStrategy {
         setKeyMappings(KeyEvent.VK_LEFT, KeyMapping.LEFT);
         setKeyMappings(KeyEvent.VK_RIGHT, KeyMapping.RIGHT);
         setKeyMappings(KeyEvent.VK_I, KeyMapping.INVENTORY);
+        setKeyMappings(KeyEvent.VK_P, KeyMapping.SAVE);
         //setKeyMappings(KeyEvent.VK_S, KeyMapping.SOUTH);
+    }
+
+    public AdaptableStrategy(boolean createFromLoad){
 
     }
 
@@ -196,5 +202,18 @@ public class AdaptableStrategy extends InputStrategy {
     public void setKeyMappings(int key, KeyMapping value){
         //maybe add logic if that key is already mapped somehwhere
         keyMappings.put(key, value);
+    }
+
+    public HashMap<Integer, KeyMapping> getKeyMappings() {
+        return keyMappings;
+    }
+
+    public void setKeyMappings(HashMap<Integer, KeyMapping> keyMappings) {
+        this.keyMappings = keyMappings;
+    }
+
+    @Override
+    public void accept(ModelVisitor modelVisitor) {
+        modelVisitor.visitAdaptableStrategy(this);
     }
 }

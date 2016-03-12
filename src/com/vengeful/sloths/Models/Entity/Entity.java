@@ -15,6 +15,7 @@ import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Occupation;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.CurrentHealthAddable;
+import com.vengeful.sloths.Models.Stats.StatAddables.GenericStatsAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.HealthManaExperienceAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
@@ -360,6 +361,15 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
 
     public void teleportPet(Location location){
         //do nothing
+    }
+
+    public GenericStatsAddable getAllEntityStatEffects(){
+        GenericStatsAddable gsa = new GenericStatsAddable();
+        BuffManager bm = this.getBuffManager();
+        Equipped eq = this.getEquipped();
+        gsa.add(bm.getAllBuffStatEffects());
+        gsa.add(eq.getAllEquippedStatEffects());
+        return  gsa;
     }
 
 }
