@@ -8,6 +8,7 @@ import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.SaveLoad.SaveManager;
 import com.vengeful.sloths.Models.SaveLoad.SaveVisitor;
+import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Models.TimeModel.Alertable;
 import com.vengeful.sloths.Models.TimeModel.TimeController;
@@ -24,12 +25,13 @@ public class MeleeAttackAbility extends Ability {
     private Entity entity;
 
     private Stats stats;
+    private Skill relevantSkill;
 
-
-    public MeleeAttackAbility(Entity entity, int windTicks, int coolTicks) {
+    public MeleeAttackAbility(Entity entity, Skill relevantSkill, int windTicks, int coolTicks) {
         super(windTicks, coolTicks);
         this.entity = entity;
         this.stats = entity.getStats();
+        this.relevantSkill = relevantSkill;
     }
 
 

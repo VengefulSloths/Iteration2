@@ -171,6 +171,16 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     }
 
     @Override
+    public void alertAddBuff(String buffName) {
+        System.out.println("a buff was added");
+    }
+
+    @Override
+    public void alertRemoveBuff(String buffName) {
+        System.out.println("a buff was added");
+    }
+
+    @Override
     public void alertAttack(int r, int s, long windUpTime, long coolDownTime) {
         AttackViewObject attack = TemporaryVOCreationVisitor.getInstance().createAttack(r, s, "resources/effects/punch/punch.xml", windUpTime);
         ViewTime.getInstance().registerAlert(windUpTime, () ->attack.start());
@@ -253,11 +263,13 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
 
     @Override
     public void alertStealth() {
+        System.out.println("setting stealth to true");
         this.isStealthed = true;
     }
 
     @Override
     public void alertUnstealth() {
+        System.out.println("setting stealth to false");
         this.isStealthed = false;
     }
 

@@ -1,34 +1,35 @@
-package com.vengeful.sloths.Models.Ability.Abilities;
+package com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities;
 
-import com.vengeful.sloths.Models.Ability.AbilityManager;
+import com.vengeful.sloths.Models.Ability.Abilities.SelfBuffAbility;
 import com.vengeful.sloths.Models.Ability.Hooks.RemoveBuffHook;
 import com.vengeful.sloths.Models.Buff.Buff;
+import com.vengeful.sloths.Models.Buff.PermanantBuff;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Observers.EntityObserver;
-import com.vengeful.sloths.Models.SaveLoad.SaveVisitor;
+import com.vengeful.sloths.Models.Stats.StatAddables.MovementAddable;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
 
 import java.util.ArrayList;
 
 /**
- * Created by Alex on 3/10/2016.
+ * Created by Alex on 3/12/2016.
  */
-public class MountAbility extends SelfBuffAbility {
-    private String mountName;
+public class StealthAbility extends SelfBuffAbility {
     private Entity entity;
     private Buff buff;
-    public MountAbility(Entity entity, Buff buff, String mountName, int windTicks, int coolTicks) {
+
+    public StealthAbility(Entity entity, Buff buff, int windTicks, int coolTicks) {
         super(entity, buff, windTicks, coolTicks);
-        this.mountName = mountName;
         this.entity = entity;
         this.buff = buff;
-
-
     }
 
     @Override
     public int execute() {
+
+        //This will set the creep to the correct level
+        buff.getBuff().setConcealment(entity.getSkillManager().getCreepLevel());
         int output;
         if ((output = super.execute()) > 0) {
             TimeModel.getInstance().registerAlertable(() -> {
@@ -36,19 +37,10 @@ public class MountAbility extends SelfBuffAbility {
             }, getWindTicks());
         }
         return output;
-
     }
 
     @Override
-    public void accept(ModelVisitor v) {
-        v.visitMountAbility(this);
-    }
-
-    public String getMountName() {
-        return mountName;
-    }
-
-    public void setMountName(String mountName) {
-        this.mountName = mountName;
+    public void accept(ModelVisitor visitor){
+        visitor.visitStealthAbility(this);
     }
 }

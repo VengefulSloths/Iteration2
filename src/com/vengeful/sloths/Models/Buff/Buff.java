@@ -3,63 +3,65 @@ package com.vengeful.sloths.Models.Buff;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
+import com.vengeful.sloths.Models.Observers.EntityObserver;
+import com.vengeful.sloths.Models.Stats.StatAddables.GenericStatsAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.StrengthAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
+
+import java.util.ArrayList;
 
 /**
  * Created by luluding on 2/21/16.
  */
 public abstract class Buff implements ModelVisitable{
 
-    private StatsAddable buff;
-    private int duration;
+    private ArrayList<EntityObserver> observers;
+    private String name;
 
-
-    public Buff(StatsAddable buff, int duration){
-        this.buff = buff;
-        this.duration = duration;
+    public Buff(ArrayList<EntityObserver> entityObservers, String name) {
+        this.observers = entityObservers;
+        this.name = name;
     }
 
-    ////////////////getters/setters/////////////////////////
-
-
-    public StatsAddable getBuff() {
-        return buff;
+    public String getName() {
+        return name;
     }
 
-    public void setBuff(StatsAddable buff) {
-        this.buff = buff;
+    public ArrayList<EntityObserver> getObservers() {
+        return observers;
     }
 
-    public int getDuration() {
-        return duration;
+    public final void apply(Stats stats) {
+        for (EntityObserver observer: observers) {
+            observer.alertAddBuff(getName());
+        }
+        doApply(stats);
     }
 
-    public void setDuration(int duration) {
-        this.duration = duration;
+    public final void remove(Stats stats) {
+        for (EntityObserver observer: observers) {
+            observer.alertRemoveBuff(getName());
+        }
+        doRemove(stats);
     }
 
-    ////////////////////public api//////////////////////////
-    public void apply(Stats stats){
-        stats.add(buff);
-    }
+    public abstract void doRemove(Stats stats);
 
-    public void destroy(Stats stats){
-        stats.subtract(buff);
-    }
+    public abstract void doApply(Stats stats);
 
     public void modifyDamage(StatsAddable statsAddable) {
         //default do nothing
     }
 
-    public boolean applyOnTick(Stats stats){
-        this.duration -= 1;
-        if(duration <= 0){
-            destroy(stats);
-            return true;
+    public abstract StatsAddable getBuff();
+
+    public abstract boolean applyOnTick(Stats stats);
+
+    public void refreshObservers () {
+        for (EntityObserver observer: observers) {
+            observer.alertAddBuff(getName());
         }
-        return false;
     }
 
     @Override

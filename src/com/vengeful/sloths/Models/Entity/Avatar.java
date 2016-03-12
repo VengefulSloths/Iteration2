@@ -37,6 +37,7 @@ public class Avatar extends Entity{
 
     private Avatar(){
         super("Phill", new Stats());
+        this.getStats().setLives(3);
     }
 
     public static Avatar getInstance(){
@@ -54,7 +55,6 @@ public class Avatar extends Entity{
         return this.timeToRespawn;
     }
 
-    private boolean isMounted = false;
 
     public void avatarInit(String occupationString, AbilityManager abilityManager, BuffManager buffManager, SkillManager skillManager){
 
@@ -99,50 +99,28 @@ public class Avatar extends Entity{
         return stealthLevel;
     }
 
-    public void interrupt() {
-        if (this.isMounted) {
-            this.getAbilityManager().getDemountAbility().execute();
-            isMounted = false;
-        }
-        this.stealthLevel = 0;
-    }
+
 
     public void mount() {
-        if (!this.isMounted) {
-            int ticks = this.getAbilityManager().getMountAbility().execute();
-            TimeModel.getInstance().registerAlertable(() -> isMounted = true, ticks);
-        }
-        else {
-            this.getAbilityManager().getDemountAbility().execute();
-            isMounted = false;
-        }
-
+        this.getAbilityManager().doMountAbility();
         this.stealthLevel = 0;
     }
 
     @Override
     public void takeDamage(int damage) {
         super.takeDamage(damage);
-        interrupt();
     }
 
     @Override
     public int attack(Direction dir) {
-        interrupt();
-
         return super.attack(dir);
     }
 
     @Override
     public void doAbility(int index) {
-        interrupt();
-
         super.doAbility(index);
     }
 
-    public boolean isMounted() {
-        return isMounted;
-    }
 
     public void avatarInit(String occupationString, Stats stats){
         this.avatarInit(occupationString, new AbilityManager(this), new BuffManager(this), new SkillManager());
@@ -188,7 +166,6 @@ public class Avatar extends Entity{
     @Override
     protected void doRespawn() {
         EntityMapInteractionFactory.getInstance().createRespawnCommand(this, this.getLocation(), timeToRespawn);
-        interrupt();
     }
 
     @Override

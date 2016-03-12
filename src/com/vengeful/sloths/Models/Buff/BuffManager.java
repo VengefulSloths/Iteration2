@@ -27,8 +27,8 @@ public class BuffManager implements Tickable, ModelVisitable {
 
     //////////////////////public api//////////////////////////////////
     public void modifyDamage(StatsAddable statsAddable) {
-        for (Buff buff: buffs) {
-            buff.modifyDamage(statsAddable);
+        for (int i = buffs.size() - 1; i >= 0; i--) {
+            buffs.get(i).modifyDamage(statsAddable);
         }
     }
 
@@ -39,10 +39,12 @@ public class BuffManager implements Tickable, ModelVisitable {
         }
     }
 
-    public void removeBuff(Buff buff){
+    public boolean removeBuff(Buff buff){
         if (buffs.remove(buff) ) {
-            buff.destroy(entity.getStats());
+            buff.remove(entity.getStats());
+            return true;
         }
+        return false;
     }
     public void destroy(){
         TimeModel.getInstance().removeTickable(this);
@@ -72,6 +74,12 @@ public class BuffManager implements Tickable, ModelVisitable {
             ++i;
         }
         return bArrary;
+    }
+
+    public void alertObserversEverything() {
+        for (Buff buff: buffs) {
+            buff.refreshObservers();
+        }
     }
 
     public GenericStatsAddable getAllBuffStatEffects(){
