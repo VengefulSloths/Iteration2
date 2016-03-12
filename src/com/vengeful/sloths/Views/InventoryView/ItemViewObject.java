@@ -72,6 +72,7 @@ public class ItemViewObject extends JPanel {
     public void paintComponent(Graphics g, int x, int y, int width, int height) {
         super.paintComponent(g);
         g.drawImage(this.getItemImage(), x, y, width, height, this);
+        System.out.println("THIS IS THE IMAGE width: " + width+ "this is the image height: " + height);
     }
 
 
