@@ -2,6 +2,7 @@ package com.vengeful.sloths.Views.InventoryView;
 
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Views.ViewFactory.ItemImageFactory;
+import com.vengeful.sloths.Views.ViewFactory.ViewItem;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +15,7 @@ public class ItemViewObject extends JPanel {
     private boolean isDisplayed;
     private Image itemImage;
     protected ItemImageFactory imageFactory = new ItemImageFactory(); //edit
-    private InventoryItem inventoryItem;
+    private ViewItem viewItem;
     private boolean isSelected;
 
     public boolean isSelected() {
@@ -38,11 +39,11 @@ public class ItemViewObject extends JPanel {
         isDisplayed = displayed;
     }
 
-    public InventoryItem getInventoryItem() {
-        return inventoryItem;
+    public ViewItem getViewItem() {
+        return viewItem;
     }
-    public void setInventoryItem(InventoryItem inventoryItem) {
-        this.inventoryItem = inventoryItem;
+    public void setViewItem(ViewItem viewItem) {
+        this.viewItem = viewItem;
     }
 
     public ItemImageFactory getImageFactory() {
@@ -51,17 +52,15 @@ public class ItemViewObject extends JPanel {
 
     public ItemViewObject() { }
 
-    public ItemViewObject(InventoryItem inventoryItem) {
-        this.setInventoryItem(inventoryItem);
-        //this.setItemImage(this.imageFactory.handleUnscaledItemImageGeneration(inventoryItem));
-        this.setItemImage(this.getImageFactory().handleUnscaledItemImageGeneration(inventoryItem));
+    public ItemViewObject(ViewItem viewItem) {
+        this.setViewItem(viewItem);
+        this.setItemImage(this.getImageFactory().handleUnscaledItemImageGeneration(viewItem));
         this.setIsDisplayed(false);
     }
 
-    public ItemViewObject(InventoryItem inventoryItem, int width, int height) {
-        this.setInventoryItem(inventoryItem);
-        //this.setItemImage(this.imageFactory.handleScaledItemImageGeneration(inventoryItem, width, height));
-        this.setItemImage(this.getImageFactory().handleScaledItemImageGeneration(inventoryItem,width,height));
+    public ItemViewObject(ViewItem viewItem, int width, int height) {
+        this.setViewItem(viewItem);
+        this.setItemImage(this.getImageFactory().handleScaledItemImageGeneration(viewItem,width,height));
         this.setIsDisplayed(false);
     }
 

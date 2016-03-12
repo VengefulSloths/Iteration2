@@ -6,6 +6,7 @@ import com.vengeful.sloths.Menu.ScrollableMenu;
 import com.vengeful.sloths.AreaView.ViewEngine;
 import com.vengeful.sloths.Controllers.InputController.InputStrategies.InputStrategy;
 import com.vengeful.sloths.Controllers.InputController.InputStrategies.QWEASDInputStrategy;
+import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.GameEngine;
 import com.vengeful.sloths.Models.Inventory.Inventory;
@@ -35,6 +36,7 @@ public class MainController implements Tickable{
     private AvatarControllerState avatarControllerState;
     private InventoryControllerState inventoryControllerState;
     private MenuControllerState menuControllerState;
+    private AbilityControllerState abilityControllerState;
     private SetInputsControllerState setInputsControllerState;
 
 
@@ -59,6 +61,7 @@ public class MainController implements Tickable{
         avatarControllerState = new AvatarControllerState();
         inventoryControllerState = new InventoryControllerState();
         menuControllerState = new MenuControllerState();
+        abilityControllerState = new AbilityControllerState();
         setInputsControllerState = new SetInputsControllerState((AdaptableStrategy) inputStrategy);
 
         state = avatarControllerState;
@@ -74,6 +77,7 @@ public class MainController implements Tickable{
     public void init(ViewManager vm) {
         this.viewManager = vm;
         inventoryControllerState.setInventoryView(this.viewManager.getCharacterView().getInventoryView());
+        abilityControllerState.setAbilitiesView(this.viewManager.getAbilitiesSkillView().getAbilitiesView());
     }
 
     public void dispatchPressedKey(int key){
@@ -97,6 +101,7 @@ public class MainController implements Tickable{
         ModelEngine.getInstance().unpauseGame();
         this.state = this.avatarControllerState;
         viewManager.closeCharacterView();
+        viewManager.closeAbilitiesSkillsView();
         viewManager.closeMenuView();
         viewManager.closeKeyBindView();
         System.out.println("Switching to avatar state");
@@ -104,6 +109,7 @@ public class MainController implements Tickable{
 
     public void setInventoryControllerState(){
         this.state = this.inventoryControllerState;
+        this.inventoryControllerState.resetInventoryView();
         viewManager.openCharacterView();
         System.out.println("Switching to inventory state");
     }
@@ -112,6 +118,13 @@ public class MainController implements Tickable{
         this.menuControllerState.setScrollableMenu(menu);
         this.state = this.menuControllerState;
 
+    }
+
+    public void setAbilityControllerState(){
+        this.state = this.abilityControllerState;
+        this.abilityControllerState.resetView();
+        viewManager.openAbilitiesSkillsView();
+        System.out.println("Switching to inventory state");
     }
 
     public void setInGameMenuControllerState(){

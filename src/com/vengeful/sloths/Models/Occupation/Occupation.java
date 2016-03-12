@@ -3,6 +3,8 @@ package com.vengeful.sloths.Models.Occupation;
 
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.RemoveTrapAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.AngleSpellAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.ExplosionAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
 import com.vengeful.sloths.Models.Ability.AbilityFactory;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
@@ -38,10 +40,10 @@ public abstract class Occupation implements ModelVisitable{
 
         //TODO: test, remove
 
-        /*
+
         ExplosionAbility ea = new ExplosionAbility(entity, 10, 3, 5, 5);
         abilityManager.addAbility(ea);
-        abilityManager.equipAbility(ea, 0);*/
+        abilityManager.equipAbility(ea, 1);
 
         /*
         AngleSpellAbility ea = new AngleSpellAbility(entity, 10, 5, 5, 5);
@@ -51,11 +53,11 @@ public abstract class Occupation implements ModelVisitable{
 
         RemoveTrapAbility rta = new RemoveTrapAbility(entity, 3, 5);
         abilityManager.addAbility(rta);
-        abilityManager.equipAbility(rta, 0);
+        abilityManager.equipAbility(rta, 3);
 
-        //FireBallAbility fba = new FireBallAbility(entity, 10, 3, 30, 40);
-        //abilityManager.addAbility(fba);
-        //abilityManager.equipAbility(fba, 0);
+        FireBallAbility fba = new FireBallAbility(entity, 10, 3, 30, 40);
+        abilityManager.addAbility(fba);
+        abilityManager.equipAbility(fba, 2);
 
     }
 }

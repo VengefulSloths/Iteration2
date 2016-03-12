@@ -222,6 +222,11 @@ public class DefaultCanMoveVisitor extends CanMoveVisitor {
     }
 
     @Override
+    public void visitGold(Gold gold) {
+
+    }
+
+    @Override
     public void visitMap(Map map) {
 
     }

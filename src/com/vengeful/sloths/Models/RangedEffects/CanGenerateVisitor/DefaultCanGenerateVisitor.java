@@ -225,6 +225,11 @@ public class DefaultCanGenerateVisitor implements ModelVisitor{
 
     }
 
+    @Override
+    public void visitGold(Gold gold) {
+
+    }
+
 
     /********** Not gonna use down below *********/
 

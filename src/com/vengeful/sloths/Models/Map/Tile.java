@@ -36,6 +36,7 @@ public class Tile implements ModelVisitable {
     private Obstacle obstacle = null;
     private InteractiveItem interactiveItem = null;
     private Trap trap = null;
+    private Gold gold = null;
 
 
     private ArrayList<AreaEffect> areaEffect;
@@ -69,6 +70,8 @@ public class Tile implements ModelVisitable {
 
     public void interact(Entity entity)
     {
+        //this loop doesnt actually work, interact will remove items which breaks the traversal
+        //can be fixed but is probably unnecessary
         for (Iterator<MapItem> iter = mapItems.iterator(); iter.hasNext();) {
             System.out.println("interacting w/ a map item");
             iter.next().interact(entity);
@@ -82,7 +85,6 @@ public class Tile implements ModelVisitable {
             ae.addEntity(entity);
             //System.out.Println("AE: " + ae);
         }
-
     }
 
     public void addEntity(Entity entity){
@@ -185,6 +187,15 @@ public class Tile implements ModelVisitable {
             throw new InvalidParameterException("you cannot add two obstacles");
         }
     }
+    public void addGold(Gold gold){
+        if(this.gold == null){
+            this.gold = gold;
+            mapItems.add(gold);
+        }
+        else {
+            this.gold.addGold(gold);
+        }
+    }
 
     public void addTrap(Trap trap){
         if(this.trap == null){
@@ -202,6 +213,10 @@ public class Tile implements ModelVisitable {
     public void removeTakeableItem(TakeableItem takeableItem) {
 
         TimeModel.getInstance().registerAlertable(() -> removeMapItem(takeableItem), 0);
+    }
+
+    public void removeGold(Gold gold){
+        TimeModel.getInstance().registerAlertable(() -> removeMapItem(gold), 0);
     }
 
     public void removeObstacle() {

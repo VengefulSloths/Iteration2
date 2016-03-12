@@ -420,6 +420,17 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
      }
 
      @Override
+     public void visitGold(Gold gold) {
+         String imagePath = "resources/items/"+gold.getItemName()+"/"+gold.getItemName()+".xml";
+         System.out.println("IMAGE PATH: ");
+         System.out.println(imagePath);
+         GoldViewObject tvo = factory.createGoldViewObject(gold.getLocation().getR(), gold.getLocation().getS(), imagePath);
+         new ProxyDestoyableObserver(tvo, gold);
+         tvo.registerObserver(this.activeCameraView.getTileVO(tvo));
+         this.activeCameraView.addViewObject(tvo);
+     }
+
+     @Override
     public void visitObstacle(Obstacle obstacle) {
 
     }

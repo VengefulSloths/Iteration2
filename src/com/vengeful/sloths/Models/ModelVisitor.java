@@ -140,4 +140,5 @@ public interface ModelVisitor {
 
     void visitAdaptableStrategy(AdaptableStrategy adaptableStrategy);
 
+    void visitGold(Gold gold);
 }

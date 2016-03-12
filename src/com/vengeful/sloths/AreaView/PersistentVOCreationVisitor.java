@@ -1,12 +1,15 @@
 package com.vengeful.sloths.AreaView;
 
 
+
 import com.vengeful.sloths.AreaView.ViewObjects.*;
 import com.vengeful.sloths.AreaView.ViewObjects.InteractiveItemViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.OneShotViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.TakeableViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.TileViewObject;
+import com.vengeful.sloths.AreaView.ViewObjects.*;
 import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
+import com.vengeful.sloths.AreaView.ViewObjects.*;
 import com.vengeful.sloths.Models.Ability.Abilities.*;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.RemoveTrapAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.AngleSpellAbility;
@@ -50,6 +53,8 @@ import com.vengeful.sloths.Models.Stats.StatAddables.*;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Models.Observers.ProxyDestoyableObserver;
+import com.vengeful.sloths.Models.Observers.ProxyObserver;
+import com.vengeful.sloths.Views.AbilitiesView.AbilityViewObject;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -115,6 +120,12 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
         InteractiveItemViewObject interactiveItemViewObject = factory.createInteractiveItemViewObject(r, s, "resources/items/button/button.xml", "resources/items/button/button_activated.xml");
         new ProxyInteractiveItemObserver(interactiveItemViewObject, item);
         currentTile.addChild(interactiveItemViewObject);
+    }
+
+    public void visitAbilityItem(Ability ability) {
+        String abilityName = ability.getItemName();
+//        String abilityPath = "resources/abilities/"+abilityName
+//        AbilityViewObject abilityViewObject = factory.createAbilityViewObject
     }
 
     @Override
@@ -299,6 +310,16 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
     @Override
     public void visitAdaptableStrategy(AdaptableStrategy adaptableStrategy) {
 
+    }
+
+
+    @Override
+    public void visitGold(Gold gold) {
+        String imagePath = "resources/items/"+gold.getItemName()+"/"+gold.getItemName()+".xml";
+        GoldViewObject goldViewObject = factory.createGoldViewObject(r, s, imagePath);
+        new ProxyDestoyableObserver(goldViewObject, gold);
+        goldViewObject.registerObserver(currentTile); //tileViewObject listen for takeable vo destroy
+        currentTile.addChild(goldViewObject);
     }
 
 

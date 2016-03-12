@@ -21,4 +21,5 @@ public interface VOVisitor {
     void visitAE(AEViewObject a);
     void visitTrapViewObject(TrapViewObject t);
 
+    void acceptGold(GoldViewObject goldViewObject);
 }

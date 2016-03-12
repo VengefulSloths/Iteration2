@@ -361,6 +361,11 @@ public class NonTeleMoveVisitor extends CanMoveVisitor{
     }
 
     @Override
+    public void visitGold(Gold gold) {
+
+    }
+
+    @Override
     public void visitTakeDamageAE(TakeDamageAE t) {
 
     }

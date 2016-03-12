@@ -415,6 +415,11 @@ public class PiggySearchingController extends SearchingController {
 
     }
 
+    @Override
+    public void visitGold(Gold gold) {
+
+    }
+
 //    @Override
 //    public void visitCurrentHealthAddable(CurrentHealthAddable currentHealthAddable) {
 //

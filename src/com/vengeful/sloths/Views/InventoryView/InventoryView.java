@@ -69,6 +69,21 @@ public class InventoryView extends View implements InventoryObserver {
         this.numRows = numRows;
     }
 
+    public void resetInventoryView() {
+        if (this.inventory.getCurrentSize() > 0) {
+            ItemViewObject item = this.getFromItemList(this.inventoryIndex);
+
+            if (item != null)
+                this.setDeselected(this.getFromItemList(this.inventoryIndex));
+
+            this.inventoryIndex = 0;
+
+            item = this.getFromItemList(this.inventoryIndex);
+            if (item != null)
+                this.setSelected(this.getFromItemList(this.inventoryIndex));
+        }
+    }
+
 
     public void decrementInventoryIndex(int val) {
         System.out.println("Inventory index BEFORE decrement: " + this.inventoryIndex);
@@ -154,7 +169,7 @@ public class InventoryView extends View implements InventoryObserver {
     public InventoryView() { }
 
     public InventoryView(Inventory inventory) { //edit: can maybe delete later
-        //this.itemList = new ArrayList<ItemViewObject>();
+        //this.itemList = new ArrayList<AbilityViewObject>();
         this.setItemList(new ArrayList<ItemViewObject>());
         this.setInventory(inventory);
         //Create a proxy for the observer, regester the proxy w/ entity, add proxy to manager
@@ -168,7 +183,7 @@ public class InventoryView extends View implements InventoryObserver {
     public InventoryView(Inventory inventory, int numRows, int numCols) {
         this.setNumCols(numCols);
         this.setNumRows(numRows);
-        //this.itemList = new ArrayList<ItemViewObject>();
+        //this.itemList = new ArrayList<AbilityViewObject>();
         this.setItemList(new ArrayList<ItemViewObject>());
         this.setInventory(inventory);
         //Create a proxy for the observer, regester the proxy w/ entity, add proxy to manager
@@ -205,15 +220,15 @@ public class InventoryView extends View implements InventoryObserver {
     public void initWithInventory(Inventory inventory) {
         for (int i = 0; i < inventory.getCurrentSize(); ++i) {
             //InventoryItem item = inventory.getItem(i);
-            //this.itemList.add(new ItemViewObject(inventory.getItem(i)));
-            //this.itemList.add(new ItemViewObject(inventory.getItem(i)));
+            //this.itemList.add(new AbilityViewObject(inventory.getItem(i)));
+            //this.itemList.add(new AbilityViewObject(inventory.getItem(i)));
             System.out.println("THIS IS THE ITEM " + inventory.getItem(i).getItemName() );
             this.getItemList().add(new ItemViewObject(inventory.getItem(i)));
             //this.getFromItemList(0).setSelected(true);
             //if(i==0) {
               //  this.getFromItemList(i).setSelected(true);
             //}
-            //this.getItemList().add(new ItemViewObject(inventory.getItem(i), this.getWidth(),this.getHeight()));
+            //this.getItemList().add(new AbilityViewObject(inventory.getItem(i), this.getWidth(),this.getHeight()));
             //ivoFactory.generateItemViewObject(inventory.getItem(i), this.getWidth(), this.getHeight(), )
         }
     }
@@ -226,7 +241,7 @@ public class InventoryView extends View implements InventoryObserver {
         ItemViewObject ivo = null;
 
         for (int i = 0; i < this.getItemList().size(); i++) {
-            if (this.getItemList().get(i).getInventoryItem().equals(item)) {
+            if (this.getItemList().get(i).getViewItem().equals(item)) {
                 ivo = (ItemViewObject) this.getItemList().get(i);
                 ivo.setIsDisplayed(false); //edit?
                 this.getItemList().remove(i);
@@ -237,7 +252,7 @@ public class InventoryView extends View implements InventoryObserver {
 
     @Override
     public void alertItemAdded(InventoryItem item) {
-        //manager.addInventoryItemViewObject(new ItemViewObject(item));
+        //manager.addInventoryItemViewObject(new AbilityViewObject(item));
         this.getItemList().add(new ItemViewObject(item));
         System.out.println("AN ITEM WAS ADDED!!! " + item.getItemName());
     }
@@ -273,7 +288,7 @@ public class InventoryView extends View implements InventoryObserver {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         /*
-        for(ItemViewObject e: itemList) {
+        for(AbilityViewObject e: itemList) {
             e.paintComponent(g);
         }
         */

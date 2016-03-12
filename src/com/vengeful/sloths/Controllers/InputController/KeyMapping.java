@@ -23,7 +23,12 @@ public enum KeyMapping {
     DOWN(16),
     UP(17),
     DROP(18),
-    SAVE(19);
+    SAVE(19),
+    ABILITY_0(20),
+    ABILITY_1(21),
+    ABILITY_2(22),
+    ABILITY_3(23),
+    ABILITIES(24);
 
     private int value;
 

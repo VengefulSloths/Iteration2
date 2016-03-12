@@ -11,6 +11,7 @@ import com.vengeful.sloths.Models.Entity.Piggy;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Hat;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.PiggyTotem;
 import com.vengeful.sloths.Models.Map.AreaEffects.HealDamageAE;
 import com.vengeful.sloths.Models.Map.AreaEffects.InstantDeathAE;
@@ -19,6 +20,7 @@ import com.vengeful.sloths.Models.Map.AreaEffects.TakeDamageAE;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Map.*;
+import com.vengeful.sloths.Models.Map.MapItems.Gold;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.DoDestroyObstacleQuest;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.HasItemQuest;
@@ -163,6 +165,7 @@ public class LevelFactory {
         MapArea area1 = areas[0];
         MapArea area2 = areas[1];
         area1.getTile(new Coord(5,5)).addOneShotItem(new OneShotItem(new Coord(5,5)));
+        area1.getTile(new Coord(5,6)).addGold(new Gold(10, new Coord(5,6)));
         area1.getTile(new Coord(6,4)).addOneShotItem(new OneShotItem(new Coord(6,4)));
         area1.getTile(new Coord(7,3)).addOneShotItem(new OneShotItem(new Coord(7,3)));
         area1.getTile(new Coord(8,2)).addOneShotItem(new OneShotItem(new Coord(8,2)));
@@ -194,6 +197,8 @@ public class LevelFactory {
         Avatar.getInstance().setPet(testPiggy);
 
         TakeableItem piggyTotem = new TakeableItem("Piggy Totem", new PiggyTotem("Piggy Totem", testPiggy), new Coord(2,2));
+
+        area1.getTile(new Coord(3,3)).addTakeableItem(new TakeableItem("redPotion", new Hat("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(3,3)));
 //        area2.getTile(new Coord(2,2)).addTakeableItem(piggyTotem);
 
         testPiggy.setPiggyTotem(piggyTotem);

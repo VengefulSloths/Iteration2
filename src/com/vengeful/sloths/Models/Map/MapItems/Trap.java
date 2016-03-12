@@ -53,6 +53,7 @@ public class Trap extends MapItem implements ModelVisitable, ViewObservable{
         for(DestroyableObserver observer: observers) {
             observer.alertDestroyed();
         }
+        System.out.println("TRAP REMOVED");
     }
 
 

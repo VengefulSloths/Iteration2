@@ -105,7 +105,11 @@ public class VOCleaner implements VOVisitor {
     }
 
     @Override
-    public void visitTrapViewObject(TrapViewObject t) {
+
+    public void visitTrapViewObject(TrapViewObject t) {}
+
+    public void acceptGold(GoldViewObject goldViewObject) {
+
 
     }
 }
