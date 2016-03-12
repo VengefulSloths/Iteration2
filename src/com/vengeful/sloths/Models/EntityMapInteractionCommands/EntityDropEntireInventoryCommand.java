@@ -29,7 +29,6 @@ public class EntityDropEntireInventoryCommand {
             takeableItem = InventoryTakeableItemFactory.getInstance().createTakeableRep(inventoryItem, this.entity.getLocation());
             Map.getInstance().getActiveMapArea().getTile(this.entity.getLocation()).addTakeableItem(takeableItem);
         }
-        new DropAllGoldCommand(this.entity, this.entity.getLocation()).execute();
         // Physically empty out the entity's inventory
         this.entity.getInventory().clearInventory();
     }

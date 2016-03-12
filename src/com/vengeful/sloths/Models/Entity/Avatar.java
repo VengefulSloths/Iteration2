@@ -78,6 +78,16 @@ public class Avatar extends Entity{
                 this.setOccupation(new Summoner(this.getStats(), this.getSkillManager(), this.getAbilityManager(), this));
         }
 
+
+/*
+        Iterator<Coord> visibleArea = HexMath.hexagon(getLocation(), 5); //5 is visible radius
+        while(visibleArea.hasNext()){
+            if(this.canSeeTrap())
+                Map.getInstance().getActiveMapArea().getTile(visibleArea.next()).showTrap();
+        }*/
+
+
+
         //TODO: test ability, remove
         Iterator<Skill> iter = skillManager.getSkillsIter();
         Skill bws = null;
@@ -158,6 +168,16 @@ public class Avatar extends Entity{
         //@ TODO: Maybe have this dorp a few coins
     }
 
+    protected void dropGold(){
+//        EntityMapInteractionFactory.getInstance().createDropSomeGoldCommand(this, 20);
+//        System.out.println("Avatar dropping gold");
+        //instead of droppping gold just gonna lose it
+        int prevValue = getInventory().getGold();
+        int toLose = getInventory().getGold() / 10;
+        getInventory().dropSomeGold(toLose);
+        System.out.println("Had: " + prevValue + "gold, now only: " + getInventory().getGold());
+    }
+
     @Override
     protected void doRespawn() {
         EntityMapInteractionFactory.getInstance().createRespawnCommand(this, this.getLocation(), timeToRespawn);
@@ -173,6 +193,20 @@ public class Avatar extends Entity{
             location.getMapArea().addEntity(pet, coord);
             pet.getControllerManager().setMapArea(location.getMapArea());
         }
+    }
+
+    public boolean canSeeTrap(){
+        int skillLevel =  this.getSkillManager().getRemoveTrapLevel();
+        int maxSkillLevel = this.getSkillManager().getMaxRemoveTrapLevel();
+        int probability = (int)Math.round(((double)skillLevel / maxSkillLevel) * 80); //probability of seeing trap is not capped
+        int randomNum = 1 + (int)(Math.random() * 100); //[1-100]
+        if(randomNum <= probability){
+            System.out.println("ATTEMPT TO SEE TRAP SUCCEED! " + " skillLevel: " + skillLevel + " accu: " + probability);
+            return true;
+        }else{
+            System.out.println("ATTEMPT TO SEE TRAP FAILED! " + " skillLevel: " + skillLevel + " accu: " + probability);
+        }
+        return false;
     }
 
 

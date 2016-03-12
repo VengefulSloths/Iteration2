@@ -3,6 +3,7 @@ package com.vengeful.sloths.Menu.MainMenu;
 import com.vengeful.sloths.Menu.ScrollableMenu;
 import com.vengeful.sloths.Menu.ScrollableMenuItem;
 import com.vengeful.sloths.Menu.ScrollableMenuList;
+import com.vengeful.sloths.Utility.Config;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -47,13 +48,14 @@ public class MainScrollableMenu extends ScrollableMenu {
         int offset = padding/2;
         int index = 0;
         Graphics2D g2d = (Graphics2D) g;
-        g2d.drawImage(bg,0,0,1200,1000, null);
+        //g2d.drawImage(bg,0,0,1200,1000, null);
+        g2d.drawImage(bg,0,0, Config.instance().getWindowWidth(), Config.instance().getWindowHeight(), null);
         Iterator iter = list.getIterator();
         while (iter.hasNext()) {
             if(index == list.getCurrentIndex()){
                 //System.out.println(list.getCurrentIndex());
                 ScrollableMenuItem current = (ScrollableMenuItem) iter.next();
-                g2d.setColor(new Color(255, 0, 255, 80));
+                g2d.setColor(new Color(0, 0, 255, 80));
                 g2d.fillRect(padding/2, offset , this.getWidth() - padding, itemHeight);
                 current.paintComponent(g2d, padding , offset, this.getWidth(), itemHeight);
             }else{

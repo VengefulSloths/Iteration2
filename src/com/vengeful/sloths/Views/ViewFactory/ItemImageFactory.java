@@ -15,19 +15,11 @@ public class ItemImageFactory extends ImageFactory {
     }
 
     public String generateItemImageFileName(ViewItem item) {
-        //String imageFileName = "resources/" + item.getItemName() + ".jpg";
-        System.out.println(item);
-        String imageFileName = "resources/InventoryItems/" + item.getItemName() + ".png";
-        /*
-        String imageFileName;
-        if(item.getItemName()!=null) {
-            imageFileName = "resources/" + item.getItemName() + ".png";
-        } else {
-            imageFileName = null;
-        }
-        */
+        String imageFileName = "resources/InventoryItems/"+item.getItemName()+".png";
+        System.out.println("Trying to print out image file name : " + imageFileName);
         return imageFileName;
     }
+
 
     public Image generateItemImageFromFile(String imageFileName) {
         ImageIcon itemImageIcon = new ImageIcon(imageFileName);

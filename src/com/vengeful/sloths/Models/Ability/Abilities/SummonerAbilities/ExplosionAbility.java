@@ -7,6 +7,7 @@ import com.vengeful.sloths.Models.RangedEffects.*;
 import com.vengeful.sloths.Models.RangedEffects.CanGenerateVisitor.DefaultCanGenerateVisitor;
 import com.vengeful.sloths.Models.RangedEffects.CanGenerateVisitor.OnTileCanGenerateVisitor;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
+import com.vengeful.sloths.Utility.ModelConfig;
 
 /**
  * Created by luluding on 3/10/16.
@@ -19,7 +20,7 @@ public class ExplosionAbility extends Ability{
     private int expandingDistance;
 
 
-    private int manaCost = 6;
+    private int manaCost = ModelConfig.getManaCostHigh();
 
     private DefaultCanGenerateVisitor canGenerateVisitor;
 
