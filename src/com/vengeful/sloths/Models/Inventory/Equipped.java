@@ -200,6 +200,13 @@ public class Equipped implements ViewObservable, ModelVisitable{
 
     public GenericStatsAddable getAllEquippedStatEffects(){
         //@ToDO FINISH WRITING
-        return new GenericStatsAddable();
+        GenericStatsAddable gsa = new GenericStatsAddable();
+        if(hat != null){
+            gsa.add(hat.getItemStats());
+        }
+        if(weapon != null){
+            gsa.add(weapon.getItemStats());
+        }
+        return gsa;
     }
 }

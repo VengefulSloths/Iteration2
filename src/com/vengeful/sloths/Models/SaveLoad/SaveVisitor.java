@@ -164,7 +164,7 @@ public class SaveVisitor implements ModelVisitor {
         //need to clear stats of buffs before saving them
         //things that can affect stats that should be cleared
         //buff, equipped item stats,
-
+        GenericStatsAddable gsa = getAllEntityStatEffects(e);
         e.getStats().accept(this);
         e.getSkillManager().accept(this);
         e.getBuffManager().accept(this);
@@ -902,9 +902,9 @@ public class SaveVisitor implements ModelVisitor {
     private GenericStatsAddable getAllEntityStatEffects(Entity e){
         GenericStatsAddable gsa = new GenericStatsAddable();
         BuffManager bm = e.getBuffManager();
-        gsa.add(bm.getAllBuffStatEffects());
         Equipped eq = e.getEquipped();
-
+        gsa.add(bm.getAllBuffStatEffects());
+        gsa.add(eq.getAllEquippedStatEffects());
         return  gsa;
     }
 
