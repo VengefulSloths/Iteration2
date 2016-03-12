@@ -1,8 +1,7 @@
 package com.vengeful.sloths.Models.Occupation;
 
 
-import com.vengeful.sloths.Models.Ability.Abilities.ExplosionAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.FireBallAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.AngleSpellAbility;
 import com.vengeful.sloths.Models.Ability.AbilityFactory;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
@@ -37,16 +36,19 @@ public abstract class Occupation implements ModelVisitable{
         //abilityManager.equipAbility(bwa, 1);
 
         //TODO: test, remove
+
+        /*
         ExplosionAbility ea = new ExplosionAbility(entity, 10, 3, 5, 5);
         abilityManager.addAbility(ea);
-        abilityManager.equipAbility(ea, 0);
+        abilityManager.equipAbility(ea, 0);*/
 
+        AngleSpellAbility ea = new AngleSpellAbility(entity, 10, 5, 5, 5);
+        abilityManager.addAbility(ea);
+        abilityManager.equipAbility(ea, 0);
 
         //FireBallAbility fba = new FireBallAbility(entity, 10, 3, 30, 40);
         //abilityManager.addAbility(fba);
         //abilityManager.equipAbility(fba, 0);
-
-
 
     }
 }

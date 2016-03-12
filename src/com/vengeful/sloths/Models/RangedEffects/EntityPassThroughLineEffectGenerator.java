@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Models.RangedEffects;
 
+import com.vengeful.sloths.Models.RangedEffects.CanGenerateVisitor.DefaultCanGenerateVisitor;
 import com.vengeful.sloths.Models.RangedEffects.HitBox.HitBoxMovementCommand;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;

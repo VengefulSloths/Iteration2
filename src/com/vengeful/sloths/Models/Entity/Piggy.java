@@ -1,5 +1,9 @@
 package com.vengeful.sloths.Models.Entity;
 
+import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityDieCommand;
+import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteractionFactory;
+import com.vengeful.sloths.Models.InventoryItems.UsableItems.PiggyTotem;
+import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Stats.Stats;
@@ -9,17 +13,29 @@ import com.vengeful.sloths.Models.Stats.Stats;
  */
 public class Piggy extends Pet {
 
-    public Piggy(String name, Stats stats){
+    TakeableItem piggyTotem;
 
+    public Piggy(String name, Stats stats){
         super(name, stats);
     }
 
-
-    public Piggy(){}
+    public Piggy() {}
 
     @Override
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitPiggy(this);
     }
 
+    public TakeableItem getPiggyTotem() {
+        return piggyTotem;
+    }
+
+    public void setPiggyTotem(TakeableItem piggyTotem) {
+        this.piggyTotem = piggyTotem;
+    }
+
+    protected void customDeath() {
+        EntityMapInteractionFactory.getInstance().createPiggyDropTotemCommand(this.getPiggyTotem(), this.getLocation(), this).execute();
+        Avatar.getInstance().removePet();
+    }
 }

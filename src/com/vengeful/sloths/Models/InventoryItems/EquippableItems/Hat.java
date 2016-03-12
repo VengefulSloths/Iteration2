@@ -31,4 +31,9 @@ public class Hat extends EquippableItems implements ModelVisitable {
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitHat(this);
     }
+
+    @Override
+    public void interact() {
+
+    }
 }

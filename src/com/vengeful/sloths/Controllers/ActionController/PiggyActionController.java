@@ -32,15 +32,12 @@ public class PiggyActionController extends ActionController {
             //idleTarget.setCoord(Avatar.getInstance().getLocation());
             //idleTarget.accept(this);
 
-           Coord location = this.getEntity().getLocation();
-           Map.getInstance().getTile(location).removeEntity(this.getEntity());
-//
-//            Map.getInstance().addEntity(HexMath.getClosestMovableTile(new Location(Map.getInstance().getActiveMapArea(), Avatar.getInstance().getLocation())), this.getEntity());
+            Coord location = this.getEntity().getLocation();
+            Map.getInstance().getTile(location).removeEntity(this.getEntity());
+
             Direction oppositeDirection = Avatar.getInstance().getFacingDirection().oppositeDirection;
             Coord newCoord = HexMath.getNextFacingCoord(Avatar.getInstance().getLocation(), oppositeDirection);
             Map.getInstance().addEntity(HexMath.getClosestMovableTile(new Location(Map.getInstance().getActiveMapArea(), newCoord)), this.getEntity());
-
-            //this.getEntity().move(oppositeDirection);
         }
     }
 

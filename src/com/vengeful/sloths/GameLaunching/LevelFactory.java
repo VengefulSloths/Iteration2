@@ -11,6 +11,7 @@ import com.vengeful.sloths.Models.Entity.Piggy;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
+import com.vengeful.sloths.Models.InventoryItems.UsableItems.PiggyTotem;
 import com.vengeful.sloths.Models.Map.AreaEffects.HealDamageAE;
 import com.vengeful.sloths.Models.Map.AreaEffects.InstantDeathAE;
 import com.vengeful.sloths.Models.Map.AreaEffects.LevelUpAE;
@@ -166,7 +167,8 @@ public class LevelFactory {
 
         area1.getTile(new Coord(2,2)).addTakeableItem(new TakeableItem("redPotion", new Potion("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(2,2)));
         area1.getTile(new Coord(11,10)).addTakeableItem(new TakeableItem("bluePotion", new Potion("bluePotion",new BaseStatsAddable(0,0,5,0,0)), new Coord(11,10)));
-        area2.getTile(new Coord(2,2)).addTakeableItem(new TakeableItem("redPotion", new Potion("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(2,2)));
+//        area2.getTile(new Coord(2,2)).addTakeableItem(new TakeableItem("redPotion", new Potion("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(2,2)));
+
 
         Quest quest1_b = new DoDestroyObstacleQuest(new Coord(2,3));
         Quest quest1_a = new HasItemQuest(quest1_b, "bluePotion");
@@ -176,32 +178,28 @@ public class LevelFactory {
         CameraView camera1 = new PlainsCameraView();
 
 
+        Piggy testPiggy = new Piggy("Bart", new Stats(new MovementAddable(30)));
+
+        testPiggy.setFacingDirection(Direction.S);
+        testPiggy.getStats().add(new BonusHealthAddable(100));
+        testPiggy.getStats().setCurrentHealth(0);
+        Map.getInstance().addEntity(new Coord(3,5), testPiggy);
+        new PiggyControllerManager(Map.getInstance().getActiveMapArea(), testPiggy);
+
+        Avatar.getInstance().setPet(testPiggy);
+
+        TakeableItem piggyTotem = new TakeableItem("Piggy Totem", new PiggyTotem("Piggy Totem", testPiggy), new Coord(2,2));
+//        area2.getTile(new Coord(2,2)).addTakeableItem(piggyTotem);
+
+        testPiggy.setPiggyTotem(piggyTotem);
+
         camera2.init(area2);
         camera1.init(area1);
 
 
         TemporaryVOCreationVisitor.getInstance().setActiveCameraView(camera2);
-//        Piggy testPiggy = new Piggy("Bart", new Stats(new MovementAddable(30)));
-//        testPiggy.setFacingDirection(Direction.S);
-//        testPiggy.setLocation(new Coord(3,5));
-//        area2.getTile(new Coord(3,5)).addEntity(testPiggy);
-//        testPiggy.accept(TemporaryVOCreationVisitor.getInstance());
-//        new PiggyControllerManager(area2, testPiggy);
-        //
-
-//        InventoryItem piggyItem = new
-        Piggy testPiggy = new Piggy("Bart", new Stats(new MovementAddable(30)));
-//        area2.getTile(new Coord(2,3)).addTakeableItem(new TakeableItem("redPotion", new Potion("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(2,2)));
-        testPiggy.setFacingDirection(Direction.S);
-        testPiggy.getStats().add(new BonusHealthAddable(100));
-        testPiggy.getStats().setCurrentHealth(100);
-        Map.getInstance().addEntity(new Coord(3,5), testPiggy);
-        //testPiggy.accept(TemporaryVOCreationVisitor.getInstance());
-        new PiggyControllerManager(Map.getInstance().getActiveMapArea(), testPiggy);
 
 
-
-        Avatar.getInstance().setPet(testPiggy);
 
 
 
