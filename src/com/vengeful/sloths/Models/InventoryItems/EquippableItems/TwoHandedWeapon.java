@@ -9,6 +9,7 @@ import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
+import com.vengeful.sloths.Utility.ModelConfig;
 import com.vengeful.sloths.Utility.WeaponClass;
 
 /**
@@ -28,7 +29,7 @@ public class TwoHandedWeapon extends Weapon implements ModelVisitable{
 
     @Override
     public Ability getAttackAbility(Entity entity) {
-        return AbilityFactory.getInstance().createMeleeAttackAbility(entity, 10, 30);
+        return AbilityFactory.getInstance().createMeleeAttackAbility(entity, ModelConfig.getTwoHandedWindup(), ModelConfig.getTwoHandedSpeed());
     }
 
     @Override

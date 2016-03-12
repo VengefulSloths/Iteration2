@@ -19,6 +19,7 @@ public class Trap extends MapItem implements ModelVisitable, ViewObservable{
     private ArrayList<DestroyableObserver> observers = new ArrayList<>();
     private ArrayList<Entity> affectedEntities = new ArrayList<>();
     private int damageTaken;
+    private boolean isVisible = false;
 
     public Trap(Coord location){
         this.setLocation(location);
@@ -54,6 +55,17 @@ public class Trap extends MapItem implements ModelVisitable, ViewObservable{
             observer.alertDestroyed();
         }
         System.out.println("TRAP REMOVED");
+
+        //TODO: have a visibility variable. Remove only if its visible
+    }
+
+    public boolean isVisible(){
+        return this.isVisible;
+    }
+
+    public void makeVisible(){
+        this.isVisible = true;
+        //alert view
     }
 
 

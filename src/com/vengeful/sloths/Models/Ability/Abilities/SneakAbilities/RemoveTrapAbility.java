@@ -7,6 +7,7 @@ import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.HexMath;
+import com.vengeful.sloths.Utility.ModelConfig;
 
 /**
  * Created by luluding on 3/12/16.
@@ -16,7 +17,7 @@ public class RemoveTrapAbility extends Ability{
 
     private Entity entity;
 
-    private int manaCost = 1;
+    private int manaCost = ModelConfig.getManaCostLow();
 
 
     public RemoveTrapAbility(Entity entity, int windTicks, int coolTicks){
@@ -31,7 +32,7 @@ public class RemoveTrapAbility extends Ability{
         if(this.entity.isActive())
             return 0;
 
-        if(!shouldDoAbility(entity.getSkillManager().getBaneLevel(), entity.getSkillManager().getMaxBaneLevel()))
+        if(!shouldDoAbility(entity.getSkillManager().getRemoveTrapLevel(), entity.getSkillManager().getRemoveTrapLevel()))
             return 0;
 
 

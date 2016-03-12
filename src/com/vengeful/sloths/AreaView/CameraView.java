@@ -4,6 +4,7 @@ import com.vengeful.sloths.AreaView.ViewObjects.*;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.HexMath;
+import com.vengeful.sloths.Utility.ModelConfig;
 
 import java.awt.*;
 import java.util.Iterator;
@@ -82,7 +83,7 @@ public abstract class CameraView implements MovingVOObserver{
                 //make everything either unknown or nonvisible
             }
         }
-        Iterator<Coord> toReveal = HexMath.saftey(HexMath.hexagon(new Coord(avo.getR(), avo.getS()), 5), maxR, maxS);
+        Iterator<Coord> toReveal = HexMath.saftey(HexMath.hexagon(new Coord(avo.getR(), avo.getS()), ModelConfig.getRadiusOfVisibility()), maxR, maxS);
         while (toReveal.hasNext()) {
             Coord current = toReveal.next();
             int r = current.getR();
@@ -139,14 +140,14 @@ public abstract class CameraView implements MovingVOObserver{
                     );
         }
         if (subject == this.avatar) {
-            Iterator<Coord> toBeRevealed = HexMath.saftey(HexMath.ring(new Coord(destR, destS), 5), maxR, maxS);
+            Iterator<Coord> toBeRevealed = HexMath.saftey(HexMath.ring(new Coord(destR, destS), ModelConfig.getRadiusOfVisibility()), maxR, maxS);
             while(toBeRevealed.hasNext()) {
                 Coord current = toBeRevealed.next();
                 int r = current.getR();
                 int s = current.getS();
                 tiles[findX(r, s)][findY(r,s)].setVisibility(Visibility.VISIBLE);
             }
-            Iterator<Coord> toBeConcealed = HexMath.saftey(HexMath.ring(new Coord(destR, destS), 6), maxR, maxS);
+            Iterator<Coord> toBeConcealed = HexMath.saftey(HexMath.ring(new Coord(destR, destS), ModelConfig.getRadiusOfVisibility()+1), maxR, maxS);
             while(toBeConcealed.hasNext()) {
                 Coord current = toBeConcealed.next();
                 int r = current.getR();
@@ -169,7 +170,7 @@ public abstract class CameraView implements MovingVOObserver{
 
         //this.piggy.deregisterObserver(this);
 
-        Iterator<Coord> toBeConcealed = HexMath.saftey(HexMath.hexagon(new Coord(avatar.getR(), avatar.getS()), 6), maxR, maxS);
+        Iterator<Coord> toBeConcealed = HexMath.saftey(HexMath.hexagon(new Coord(avatar.getR(), avatar.getS()), ModelConfig.getRadiusOfVisibility()+1), maxR, maxS);
         while(toBeConcealed.hasNext()) {
             Coord current = toBeConcealed.next();
             int r = current.getR();

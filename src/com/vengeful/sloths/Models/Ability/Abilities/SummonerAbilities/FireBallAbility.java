@@ -11,6 +11,7 @@ import com.vengeful.sloths.Models.TimeModel.TimeController;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.HexMath;
+import com.vengeful.sloths.Utility.ModelConfig;
 
 import java.util.Iterator;
 
@@ -27,7 +28,7 @@ public class FireBallAbility extends Ability{
     private int travelTime;
     private int travelDistance;
 
-    private int manaCost = 2;
+    private int manaCost = ModelConfig.getManaCostLow();
 
     private DefaultCanGenerateVisitor canGenerateVisitor;
     /*

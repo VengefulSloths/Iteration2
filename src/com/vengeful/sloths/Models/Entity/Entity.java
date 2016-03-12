@@ -373,6 +373,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         //do nothing
     }
 
+
     public GenericStatsAddable getAllEntityStatEffects(){
         GenericStatsAddable gsa = new GenericStatsAddable();
         BuffManager bm = this.getBuffManager();
