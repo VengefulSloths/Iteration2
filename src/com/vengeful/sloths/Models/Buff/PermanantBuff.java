@@ -16,6 +16,7 @@ public class PermanantBuff extends Buff {
     public PermanantBuff(ArrayList<EntityObserver> entityObservers, String name, StatsAddable statsAddable) {
         super(entityObservers, name);
         this.statsAddable = statsAddable;
+        System.out.println("Strength of stats addable = " + statsAddable.getStrength() );
     }
 
 
