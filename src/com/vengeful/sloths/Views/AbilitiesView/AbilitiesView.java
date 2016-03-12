@@ -7,6 +7,7 @@ import com.vengeful.sloths.Models.ObserverManager;
 import com.vengeful.sloths.Models.Observers.*;
 import com.vengeful.sloths.Views.View;
 import com.vengeful.sloths.Views.ViewFactory.ItemViewObjectFactory;
+import com.vengeful.sloths.Views.ViewFactory.ViewItem;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,10 +21,7 @@ public class AbilitiesView extends View implements AbilityManagerObserver {
     private int viewIndex = 0;
 
     private ArrayList<AbilityViewObject> abilityList;
-    private ItemViewObjectFactory ivoFactory;
     private AbilityManager abilityManager;
-    //private JPanel titlePanel;
-    //private JPanel itemPanel; //use this perhaps if we are just adding and removing JComponents using this.add() and this.remove()
     protected JPanel titlePanel;
     protected JPanel itemPanel;
     private int numRows;
@@ -154,7 +152,7 @@ public class AbilitiesView extends View implements AbilityManagerObserver {
         this.setItemList(new ArrayList<>());
         this.setAbilityManager(abilityManager);
 
-        //Create a proxy for the observer, regester the proxy w/ entity, add proxy to manager
+        //Create a proxy for the observer, register the proxy w/ entity, add proxy to manager
         ProxyObserver pio = new ProxyAbilityManagerObserver(this, this.abilityManager);
         ObserverManager.getInstance().addProxyObserver(pio);
 
@@ -166,8 +164,8 @@ public class AbilitiesView extends View implements AbilityManagerObserver {
     public AbilitiesView(AbilityManager abilityManager, int numRows, int numCols) {
         this.setNumCols(numCols);
         this.setNumRows(numRows);
-        //this.itemList = new ArrayList<AbilityViewObject>();
-        this.setItemList(new ArrayList<AbilityViewObject>());
+
+        this.setItemList(new ArrayList<>());
         this.setAbilityManager(abilityManager);
         //Create a proxy for the observer, regester the proxy w/ entity, add proxy to manager
         ProxyObserver pio = new ProxyAbilityManagerObserver(this, abilityManager);
@@ -184,7 +182,7 @@ public class AbilitiesView extends View implements AbilityManagerObserver {
         //JPanel itemPanel = new JPanel();
         titlePanel = new JPanel();
         itemPanel = new JPanel();
-        JLabel title = generateTitleLabel("Inventory", 22, Color.WHITE);
+        JLabel title = generateTitleLabel("Abilities", 22, Color.WHITE);
         //itemPanel.setBorder(new LineBorder(Color.BLACK));
         //this.itemPanel.setBorder(new BevelBorder(BevelBorder.RAISED,Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE));
         titlePanel.setBackground(new Color(0f, 0f, 0f, 0f));
@@ -202,20 +200,7 @@ public class AbilitiesView extends View implements AbilityManagerObserver {
     /* Initializes the itemList by generating ItemViewObjects from inventoryItems. Maybe make a factory? */
     public void initWithInventory(AbilityManager abilityManager) {
         for (int i = 0; i < abilityManager.getCurrentSize(); ++i) {
-            //InventoryItem item = inventory.getItem(i);
-            //this.itemList.add(new AbilityViewObject(inventory.getItem(i)));
-            //this.itemList.add(new AbilityViewObject(inventory.getItem(i)));
-            System.out.println("THIS IS THE ITEM " + abilityManager.getAbilityByIndex(i).getItemName() );
-
             this.getItemList().add(new AbilityViewObject(abilityManager.getAbilityByIndex(i)));
-
-
-            //this.getFromItemList(0).setSelected(true);
-            //if(i==0) {
-              //  this.getFromItemList(i).setSelected(true);
-            //}
-            //this.getItemList().add(new AbilityViewObject(inventory.getItem(i), this.getWidth(),this.getHeight()));
-            //ivoFactory.generateItemViewObject(inventory.getItem(i), this.getWidth(), this.getHeight(), )
         }
     }
 
@@ -271,17 +256,18 @@ public class AbilitiesView extends View implements AbilityManagerObserver {
 
     @Override
     public void alertAbilityAdded(Ability ability) {
-
+        System.out.println("alert ability added");
+        this.getItemList().add(new AbilityViewObject(ability));
     }
 
     @Override
     public void alertAbilityEquipped(Ability ability) {
-
+        // @TODO: IMPLEMENT THIS!
     }
 
     @Override
     public void alertAbilityUnset(Ability ability) {
-
+        // @TODO: IMPLEMENT THIS!
     }
 
 }

@@ -253,6 +253,7 @@ public class InventoryView extends View implements InventoryObserver {
     @Override
     public void alertItemAdded(InventoryItem item) {
         //manager.addInventoryItemViewObject(new AbilityViewObject(item));
+        System.out.println("Item is : " + item);
         this.getItemList().add(new ItemViewObject(item));
         System.out.println("AN ITEM WAS ADDED!!! " + item.getItemName());
     }

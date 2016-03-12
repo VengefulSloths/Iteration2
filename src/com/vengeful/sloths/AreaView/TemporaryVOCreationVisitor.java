@@ -3,6 +3,10 @@ package com.vengeful.sloths.AreaView;
 import com.vengeful.sloths.AreaView.ViewObjects.*;
 import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
 import com.vengeful.sloths.Models.Ability.Abilities.*;
+import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.RemoveTrapAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.AngleSpellAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.ExplosionAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
@@ -35,7 +39,6 @@ import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Smasher;
 import com.vengeful.sloths.Models.Occupation.Sneak;
 import com.vengeful.sloths.Models.Occupation.Summoner;
-import com.vengeful.sloths.Models.RangedEffects.HitBox.HitBox;
 import com.vengeful.sloths.Models.RangedEffects.HitBox.ImmovableHitBox;
 import com.vengeful.sloths.Models.RangedEffects.HitBox.MovableHitBox;
 import com.vengeful.sloths.Models.Skills.Skill;
@@ -77,8 +80,12 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
         this.factory = activeCameraView.getFactory();
     }
 
+     @Override
+     public void visitAbilityItem(AbilityItem abilityItem) {
 
-    @Override
+     }
+
+     @Override
     public void visitMap(Map map) {
 
     }
@@ -352,6 +359,16 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
      }
 
+     @Override
+     public void visitAngleSpellAbility(AngleSpellAbility angleSpellAbility) {
+
+     }
+
+     @Override
+     public void visitRemoveTrapAbility(RemoveTrapAbility removeTrapAbility) {
+
+     }
+
      public void visitBreakBoxQuest(BreakBoxQuest breakBoxQuest) {
 
      }
@@ -398,6 +415,10 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
      }
 
      @Override
+
+     public void visitTrap(Trap trap) {
+     }
+
      public void visitAdaptableStrategy(AdaptableStrategy adaptableStrategy) {
 
      }

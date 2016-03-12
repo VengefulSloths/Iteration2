@@ -4,6 +4,10 @@ import com.vengeful.sloths.Controllers.InputController.InputStrategies.Adaptable
 import com.vengeful.sloths.Controllers.InputController.KeyMapping;
 import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.Models.Ability.Abilities.*;
+import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.RemoveTrapAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.AngleSpellAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.ExplosionAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
@@ -16,12 +20,12 @@ import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.*;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
-import com.vengeful.sloths.Models.InventoryTakeableItemFactory;
 import com.vengeful.sloths.Models.Map.*;
 import com.vengeful.sloths.Models.Map.AreaEffects.HealDamageAE;
 import com.vengeful.sloths.Models.Map.AreaEffects.InstantDeathAE;
 import com.vengeful.sloths.Models.Map.AreaEffects.LevelUpAE;
 import com.vengeful.sloths.Models.Map.AreaEffects.TakeDamageAE;
+import com.vengeful.sloths.Models.Map.MapItems.*;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapItems.*;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
@@ -33,7 +37,6 @@ import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Occupation.*;
-import com.vengeful.sloths.Models.RangedEffects.HitBox.HitBox;
 import com.vengeful.sloths.Models.RangedEffects.HitBox.ImmovableHitBox;
 import com.vengeful.sloths.Models.RangedEffects.HitBox.MovableHitBox;
 import com.vengeful.sloths.Models.Skills.Skill;
@@ -150,6 +153,11 @@ public class SaveVisitor implements ModelVisitor {
         }
 
         System.out.println("File saved!");
+    }
+
+    @Override
+    public void visitAbilityItem(AbilityItem abilityItem) {
+
     }
 
     @Override
@@ -357,7 +365,6 @@ public class SaveVisitor implements ModelVisitor {
         fbaElement.setAttribute("manaCost", fireBallAbility.getManaCost() +"");
     }
 
-    //TODO: added by lulu for ExplosionAbility. Make sure to save it as well. Thanks!
     public void visitExplosionAbility(ExplosionAbility explosionAbility) {
         Element exA = doc.createElement("ExplosionAbility");
         currentParent.peek().appendChild(exA);
@@ -368,6 +375,15 @@ public class SaveVisitor implements ModelVisitor {
         exA.setAttribute("manaCost", explosionAbility.getManaCost() +"");
     }
 
+    @Override
+    public void visitAngleSpellAbility(AngleSpellAbility angleSpellAbility) {
+        //TODO: new ability. Make sure to save, thanks!
+    }
+
+    @Override
+    public void visitRemoveTrapAbility(RemoveTrapAbility removeTrapAbility) {
+        //TODO: new ability. Make sure to save, thanks!
+    }
 
 
     public void visitBreakBoxQuest(BreakBoxQuest breakBoxQuest) {
@@ -471,6 +487,11 @@ public class SaveVisitor implements ModelVisitor {
     }
 
     @Override
+
+    public void visitTrap(Trap trap) {
+        //TODO: newly added mapItem, make sure to save as well. Thanks!
+    }
+
     public void visitAdaptableStrategy(AdaptableStrategy adaptableStrategy) {
         Element asElement = doc.createElement("AdaptableStrategy");
         currentParent.peek().appendChild(asElement);

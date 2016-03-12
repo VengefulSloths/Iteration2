@@ -36,6 +36,7 @@ public class Tile implements ModelVisitable {
     private OneShotItem oneShotItem = null;
     private Obstacle obstacle = null;
     private InteractiveItem interactiveItem = null;
+    private Trap trap = null;
     private Gold gold = null;
 
 
@@ -83,6 +84,7 @@ public class Tile implements ModelVisitable {
 //            System.out.println("interacting w/ a map item");
 //            iter.next().interact(entity);
 //        }
+
         //Create AEs
         Iterator<AreaEffect> aeIter = this.getAreaEffectIterator();
         while(aeIter.hasNext()){
@@ -125,6 +127,10 @@ public class Tile implements ModelVisitable {
                 ae.removeEntity(e);
                 //System.out.Println("AE: " + ae);
             }
+
+            if(this.trap != null)
+                this.trap.removeEntity(e);
+
         }
 
         return e;
@@ -199,6 +205,15 @@ public class Tile implements ModelVisitable {
         }
     }
 
+    public void addTrap(Trap trap){
+        if(this.trap == null){
+            mapItems.add(trap);
+            this.trap = trap;
+        }else{
+            //throw new InvalidParameterException("you cannot add two traps");
+        }
+    }
+
 //    public void addMapItem(MapItem mapItem) {
 //        mapItems.add(mapItem);
 //    }
@@ -226,6 +241,15 @@ public class Tile implements ModelVisitable {
     public void removeOneShotItem() {
         removeMapItem(this.oneShotItem);
         this.oneShotItem = null;
+    }
+
+    public void removeTrap(){
+        if(this.trap != null){
+            removeMapItem(this.trap);
+            this.trap.destroy();
+            this.trap = null;
+
+        }
     }
 
     private void removeMapItem(MapItem item){

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<single_frame_animation>
+    <width>255</width>
+    <height>255</height>
+    <rootPath>resources/trap/</rootPath>
+    <fileName>trap.png</fileName>
+    <positioning xOffset="-25" yOffset="-39">custom</positioning>
+</single_frame_animation>

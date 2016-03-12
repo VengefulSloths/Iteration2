@@ -5,6 +5,8 @@ import com.vengeful.sloths.AreaView.CameraViewManager;
 import com.vengeful.sloths.AreaView.TemporaryVOCreationVisitor;
 import com.vengeful.sloths.Controllers.ControllerManagers.AggressiveNPCControllerManager;
 import com.vengeful.sloths.Controllers.ControllerManagers.PiggyControllerManager;
+import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
+import com.vengeful.sloths.Models.Ability.AbilityFactory;
 import com.vengeful.sloths.Models.Entity.AggressiveNPC;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.Piggy;
@@ -20,6 +22,7 @@ import com.vengeful.sloths.Models.Map.AreaEffects.TakeDamageAE;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Map.*;
+import com.vengeful.sloths.Models.Map.MapItems.AbilityItem;
 import com.vengeful.sloths.Models.Map.MapItems.Gold;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.DoDestroyObstacleQuest;
@@ -28,6 +31,7 @@ import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.Quest;
 import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
 import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
+import com.vengeful.sloths.Models.Map.MapItems.Trap;
 import com.vengeful.sloths.Models.Map.Terrains.Grass;
 import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
@@ -140,6 +144,10 @@ public class LevelFactory {
         area1.getTile(new Coord(6,8)).addAreaEffect(new LevelUpAE(1));
         area1.getTile(new Coord(6,9)).addAreaEffect(new InstantDeathAE());
 
+        //Test Trap:
+        area1.getTile(new Coord(6,5)).addTrap(new Trap(new Coord(6,5)));
+
+
         area1.addTile(new Coord(1,1), s2);
 
 
@@ -194,8 +202,10 @@ public class LevelFactory {
 
         TakeableItem piggyTotem = new TakeableItem("Piggy Totem", new PiggyTotem("Piggy Totem", testPiggy), new Coord(2,2));
 
-        area1.getTile(new Coord(3,3)).addTakeableItem(new TakeableItem("redPotion", new Hat("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(3,3)));
-//        area2.getTile(new Coord(2,2)).addTakeableItem(piggyTotem);
+        MeleeAttackAbility meleeAttackAbility = AbilityFactory.getInstance().createMeleeAttackAbility(Avatar.getInstance(), 150, 150);
+        meleeAttackAbility.setItemName("Melee Attack");
+        area1.getTile(new Coord(3,3)).addTakeableItem(new TakeableItem("redPotion", new AbilityItem(meleeAttackAbility), new Coord(3,3)));
+
 
         testPiggy.setPiggyTotem(piggyTotem);
 

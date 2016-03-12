@@ -17,4 +17,7 @@ public abstract class ViewItem {
     public String getItemName() {
         return this.name;
     }
+    public void setItemName(String name) {
+        this.name = name;
+    }
 }

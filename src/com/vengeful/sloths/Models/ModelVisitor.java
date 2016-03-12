@@ -2,6 +2,10 @@ package com.vengeful.sloths.Models;
 
 import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
 import com.vengeful.sloths.Models.Ability.Abilities.*;
+import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.RemoveTrapAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.AngleSpellAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.ExplosionAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
@@ -31,7 +35,6 @@ import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
 import com.vengeful.sloths.Models.Map.Tile;
 import com.vengeful.sloths.Models.Occupation.*;
-import com.vengeful.sloths.Models.RangedEffects.HitBox.HitBox;
 import com.vengeful.sloths.Models.RangedEffects.HitBox.ImmovableHitBox;
 import com.vengeful.sloths.Models.RangedEffects.HitBox.MovableHitBox;
 import com.vengeful.sloths.Models.Skills.Skill;
@@ -57,6 +60,7 @@ public interface ModelVisitor {
     void visitBuffOverTime(BuffOverTime buffOverTime);
     void visitAbilityManager(AbilityManager am);
     void visitAbility(Ability ability);
+    void visitAbilityItem(AbilityItem abilityItem);
 
     void visitSummoner(Summoner s);
     void visitSneak(Sneak s);
@@ -107,12 +111,11 @@ public interface ModelVisitor {
     void visitImmovableHitBox(ImmovableHitBox immovableHitBox);
 
     void visitBindWounds(BindWoundsAbility bindWoundsAbility);
-
     void visitMeleeAttackAbility(MeleeAttackAbility meleeAttackAbility);
-
     void visitFireBallAbility(FireBallAbility fireBallAbility);
-
     void visitExplosionAbility(ExplosionAbility explosionAbility);
+    void visitAngleSpellAbility(AngleSpellAbility angleSpellAbility);
+    void visitRemoveTrapAbility(RemoveTrapAbility removeTrapAbility);
 
 
     void visitBreakBoxQuest(BreakBoxQuest breakBoxQuest);
@@ -132,6 +135,9 @@ public interface ModelVisitor {
     void visitDemountAbility(DemountAbility demountAbility);
 
     void visitMount(Mount mount);
+
+
+    void visitTrap(Trap trap);
 
     void visitAdaptableStrategy(AdaptableStrategy adaptableStrategy);
 
