@@ -24,7 +24,7 @@ public class InputChangeMenu extends ScrollableMenu {
         adaptableStrategy = (AdaptableStrategy) MainController.getInstance().getInputStrategy();
         //create list here for main menu
         try {
-            bg = ImageIO.read(new File("resources/backgrounds/mainMenuBg.png"));
+            bg = ImageIO.read(new File("resources/test_bg.png"));
         }catch (Exception e){
             System.out.println("EXCEPTION");
             System.out.println(e);
