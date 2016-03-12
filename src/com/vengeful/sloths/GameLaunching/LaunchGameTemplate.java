@@ -3,6 +3,7 @@ package com.vengeful.sloths.GameLaunching;
 import com.vengeful.sloths.AreaView.*;
 import com.vengeful.sloths.Controllers.InputController.InputControllerStates.InventoryControllerState;
 import com.vengeful.sloths.Controllers.InputController.MainController;
+import com.vengeful.sloths.Models.Ability.Abilities.StealthAbility;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.Piggy;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteractionFactory;
@@ -87,6 +88,8 @@ public class LaunchGameTemplate {
 
         avatar.equip(new OneHandedWeapon("dagger", new StrengthAddable(5), 10));
 
+
+        avatar.getAbilityManager().equipAbility(new StealthAbility(avatar), 0);
         /**************************/
 
         AreaView areaView = new AreaView(cameras);

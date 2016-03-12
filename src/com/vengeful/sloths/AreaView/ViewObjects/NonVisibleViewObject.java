@@ -15,6 +15,10 @@ import java.util.ArrayList;
 public class NonVisibleViewObject extends ViewObject {
     private ArrayList<Tuple<Image, Integer, Integer>> images = new ArrayList<>();
 
+    private boolean overridePixels;
+    private int overriddenX = 0;
+    private int overriddenY = 0;
+
     public NonVisibleViewObject(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy, ArrayList<DynamicImage> dynamicImages) {
         super(r, s, coordinateStrategy, locationStrategy);
         for (DynamicImage dynamicImage : dynamicImages) {
@@ -22,21 +26,42 @@ public class NonVisibleViewObject extends ViewObject {
                     dynamicImage.getXOffset(),
                     dynamicImage.getYOffset()));
         }
+        overridePixels = false;
+    }
+
+    public NonVisibleViewObject(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy, ArrayList<DynamicImage> dynamicImages, int xPixels, int yPixels) {
+        this(r, s, coordinateStrategy, locationStrategy, dynamicImages);
+        this.overridePixels = true;
+        this.overriddenX = xPixels;
+        this.overriddenY = yPixels;
     }
 
     @Override
     public void paintComponent(Graphics2D g) {
         for (int i = 0; i < images.size(); i++) {
             g.drawImage(images.get(i).x,
-                    images.get(i).y + getLocationXOffset() + getXPixels(),
-                    images.get(i).z + getLocationYOffset() + getYPixels(),
+                    images.get(i).y + getLocationXOffset() + (overridePixels ? overriddenX : getXPixels()),
+                    images.get(i).z + getLocationYOffset() + (overridePixels ? overriddenY : getYPixels()),
                     this);
         }
     }
 
+
     @Override
     public void accept(VOVisitor v) {
 
+    }
+
+    public boolean isOverridingPixels() {
+        return overridePixels;
+    }
+
+    public int getOverriddenX() {
+        return overriddenX;
+    }
+
+    public int getOverriddenY() {
+        return overriddenY;
     }
 
     public ArrayList<Tuple<Image, Integer, Integer>> getImages() {
@@ -51,6 +76,11 @@ public class NonVisibleViewObject extends ViewObject {
 
 
     public void addNonVisibleViewObject(NonVisibleViewObject other) {
+        if (other.isOverridingPixels()) {
+            this.overridePixels = true;
+            this.overriddenX = other.getOverriddenX();
+            this.overriddenY = other.getOverriddenY();
+        }
         images.addAll(other.getImages());
     }
 
