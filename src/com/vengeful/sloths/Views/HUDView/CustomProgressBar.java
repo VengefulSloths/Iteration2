@@ -68,7 +68,7 @@ public class CustomProgressBar extends JComponent {
         if(this.oldCurrent < this.currentProgress){
             this.oldCurrent += maxProgress/100f;
         }
-        System.out.println(oldCurrent + "/" + maxProgress);
+        //System.out.println(oldCurrent + "/" + maxProgress);
         int percentage = (int)((oldCurrent/maxProgress) * progressBarWidth);
         g2d.fillRect(x + borderWidth/2, y + borderWidth/2, percentage - borderWidth, progressBarHeight-borderWidth);
     }
