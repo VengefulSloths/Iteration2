@@ -35,6 +35,7 @@ public class InGameScrollableMenu extends ScrollableMenu {
         //list.addItem(new NewGameMenuItem());
         //needs to be edited to select save file
         list.addItem(new EnterKeyBindViewMenuItem());//TODO change this to an actual keybinding item
+        list.addItem(new MainMenuItem("Save Game"));
         list.addItem(new LoadGameMenuItem("Load Game"));
         list.addItem(new ExitGameMenuItem());
         list.addItem(new MainMenuItem("Quit Menu")); //TODO implement and actual quit menu thing
