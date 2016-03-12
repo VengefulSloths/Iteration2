@@ -368,6 +368,11 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
      }
 
+     @Override
+     public void visitStealthAbility(StealthAbility stealthAbility) {
+
+     }
+
      public void visitBreakBoxQuest(BreakBoxQuest breakBoxQuest) {
 
      }

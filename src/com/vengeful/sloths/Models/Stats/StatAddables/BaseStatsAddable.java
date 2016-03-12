@@ -15,6 +15,15 @@ public class BaseStatsAddable extends StatsAddable implements ModelVisitable {
         this.setHardiness(hardiness);
         this.setMovement(movement);
     }
+
+    public BaseStatsAddable(int strength, int agility, int intellect, int hardiness, int movement, int concealment){
+        this.setStrength(strength);
+        this.setAgility(agility);
+        this.setIntellect(intellect);
+        this.setHardiness(hardiness);
+        this.setMovement(movement);
+        this.setConcealment(concealment);
+    }
     public void accept(ModelVisitor mv){
         super.accept(mv);
     }

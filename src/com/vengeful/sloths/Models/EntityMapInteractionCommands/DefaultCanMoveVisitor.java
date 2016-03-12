@@ -58,6 +58,11 @@ public class DefaultCanMoveVisitor extends CanMoveVisitor {
     }
 
     @Override
+    public void visitStealthAbility(StealthAbility stealthAbility) {
+        
+    }
+
+    @Override
     public void visitTrap(Trap trap) {
 
     }

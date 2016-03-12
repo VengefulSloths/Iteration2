@@ -41,6 +41,8 @@ public class Stats implements ModelVisitable, ViewObservable {
     private int bonusMana = 0;
     private int lives;
 
+    private int concealment = 0;
+
     private Entity entity;
 
     private ArrayList<StatsObserver> observers = new ArrayList<>();
@@ -228,6 +230,14 @@ public class Stats implements ModelVisitable, ViewObservable {
         }else{
             this.currentHealth = 0;
         }
+    }
+
+    public void setConcealment(int concealment) {
+        this.concealment = concealment;
+    }
+
+    public int getConcealment() {
+        return concealment;
     }
 
     public int getMaxExperience(){

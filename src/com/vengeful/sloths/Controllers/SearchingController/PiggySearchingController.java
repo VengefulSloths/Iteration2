@@ -368,6 +368,11 @@ public class PiggySearchingController extends SearchingController {
 
     }
 
+    @Override
+    public void visitStealthAbility(StealthAbility stealthAbility) {
+
+    }
+
     public void visitBreakBoxQuest(BreakBoxQuest breakBoxQuest) {
 
     }

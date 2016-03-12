@@ -116,6 +116,7 @@ public interface ModelVisitor {
     void visitExplosionAbility(ExplosionAbility explosionAbility);
     void visitAngleSpellAbility(AngleSpellAbility angleSpellAbility);
     void visitRemoveTrapAbility(RemoveTrapAbility removeTrapAbility);
+    void visitStealthAbility(StealthAbility stealthAbility);
 
 
     void visitBreakBoxQuest(BreakBoxQuest breakBoxQuest);

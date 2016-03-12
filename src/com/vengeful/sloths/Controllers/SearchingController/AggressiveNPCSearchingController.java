@@ -409,6 +409,11 @@ public class AggressiveNPCSearchingController extends SearchingController {
     @Override
     public void visitRemoveTrapAbility(RemoveTrapAbility removeTrapAbility) {}
 
+    @Override
+    public void visitStealthAbility(StealthAbility stealthAbility) {
+
+    }
+
     public void visitGold(Gold gold) {
 
     }

@@ -396,4 +396,9 @@ public class NonTeleMoveVisitor extends CanMoveVisitor{
     public void visitRemoveTrapAbility(RemoveTrapAbility removeTrapAbility) {
 
     }
+
+    @Override
+    public void visitStealthAbility(StealthAbility stealthAbility) {
+
+    }
 }

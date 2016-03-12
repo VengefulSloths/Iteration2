@@ -385,6 +385,11 @@ public class SaveVisitor implements ModelVisitor {
         //TODO: new ability. Make sure to save, thanks!
     }
 
+    @Override
+    public void visitStealthAbility(StealthAbility stealthAbility) {
+        //TODO: save this thing
+    }
+
 
     public void visitBreakBoxQuest(BreakBoxQuest breakBoxQuest) {
 //        Element bbqElement = doc.createElement("BreakBoxQuest");

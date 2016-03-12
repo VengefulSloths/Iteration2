@@ -11,12 +11,10 @@ import java.util.ArrayList;
  * Created by Alex on 3/12/2016.
  */
 public class MountBuff extends ActionRemovableBuff {
-    private ArrayList<EntityObserver> observers;
     private String mountName;
 
     public MountBuff(String name, StatsAddable statsAddable, BuffManager owner, ArrayList<EntityObserver> observers, String mountName) {
         super(observers, name, statsAddable, owner);
-        this.observers = observers;
         this.mountName = mountName;
     }
 

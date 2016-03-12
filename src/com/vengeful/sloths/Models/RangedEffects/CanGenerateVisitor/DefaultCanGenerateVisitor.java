@@ -175,6 +175,11 @@ public class DefaultCanGenerateVisitor implements ModelVisitor{
     }
 
     @Override
+    public void visitStealthAbility(StealthAbility stealthAbility) {
+
+    }
+
+    @Override
     public void visitBreakBoxQuest(BreakBoxQuest breakBoxQuest) {
 
     }
