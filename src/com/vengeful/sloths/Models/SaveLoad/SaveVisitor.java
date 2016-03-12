@@ -1,9 +1,13 @@
 package com.vengeful.sloths.Models.SaveLoad;
 
+import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
+import com.vengeful.sloths.Controllers.InputController.KeyMapping;
+import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.Models.Ability.Abilities.*;
-import com.vengeful.sloths.Models.Ability.Abilities.AngleSpellAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.ExplosionAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.FireBallAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.RemoveTrapAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.AngleSpellAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.ExplosionAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
@@ -22,6 +26,7 @@ import com.vengeful.sloths.Models.Map.AreaEffects.InstantDeathAE;
 import com.vengeful.sloths.Models.Map.AreaEffects.LevelUpAE;
 import com.vengeful.sloths.Models.Map.AreaEffects.TakeDamageAE;
 import com.vengeful.sloths.Models.Map.MapItems.*;
+import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.BreakBoxQuest;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.DoDestroyObstacleQuest;
@@ -53,8 +58,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
-import java.util.Iterator;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * Created by Ian on 2/21/2016.
@@ -102,21 +106,36 @@ public class SaveVisitor implements ModelVisitor {
      * See comments on class for more specifics on how these visits work
      */
     public void visitMap(Map map) {
-        //visit Map should be the first thing called so it should also be the root element in the xml
         Element mapElement = doc.createElement("Map");
-        doc.appendChild(mapElement);
-        //map is the root element in the xml, so should be the last element pooped from stack
+        currentParent.peek().appendChild(mapElement);
         currentParent.push(mapElement);
         MapArea[] mas = map.getMapAreas();
         for(MapArea ma : mas){
             ma.accept(this);
         }
         if(currentParent.peek().equals(mapElement)){
-            System.out.println("stack cleared");
+//            System.out.println("stack cleared after map saved");
             currentParent.pop();
         }else {
-            System.out.println("stack not cleared at end of save game");
+            System.out.println("some error within saving Map");
         }
+
+    }
+
+    public void save(){
+        Element root = doc.createElement("YourSavedGame");
+        doc.appendChild(root);
+        currentParent.push(root);
+        Map.getInstance().accept(this);
+        ((AdaptableStrategy)(MainController.getInstance().getInputStrategy())).accept(this);
+        if(currentParent.peek().equals(currentParent)){
+            System.out.println("Stack cleared at end of save");
+        }
+        currentParent.pop();
+        completeSave();
+    }
+
+    public void completeSave(){
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = null;
         try {
@@ -133,7 +152,6 @@ public class SaveVisitor implements ModelVisitor {
         }
 
         System.out.println("File saved!");
-
     }
 
     @Override
@@ -159,11 +177,12 @@ public class SaveVisitor implements ModelVisitor {
         //inv/equipped visit, stats visit, occupation visit, etc...
         appendDirectionAttribute(entityElement, e.getFacingDirection());
         appendCoordElement(entityElement, currCoord);
-        //need to clear stats of buffs before saving them
-        //things that can affect stats that should be cleared
-        //buff, equipped item stats,
-        GenericStatsAddable gsa = getAllEntityStatEffects(e);
+        GenericStatsAddable gsa = e.getAllEntityStatEffects();
+        gsa.invert();
+        e.getStats().add(gsa);
         e.getStats().accept(this);
+        gsa.invert();
+        e.getStats().add(gsa);
         e.getSkillManager().accept(this);
         e.getBuffManager().accept(this);
         e.getAbilityManager().accept(this);
@@ -352,7 +371,12 @@ public class SaveVisitor implements ModelVisitor {
 
     @Override
     public void visitAngleSpellAbility(AngleSpellAbility angleSpellAbility) {
-        //TODO: newly added ability. Make sure to save, thanks!
+        //TODO: new ability. Make sure to save, thanks!
+    }
+
+    @Override
+    public void visitRemoveTrapAbility(RemoveTrapAbility removeTrapAbility) {
+        //TODO: new ability. Make sure to save, thanks!
     }
 
 
@@ -457,8 +481,22 @@ public class SaveVisitor implements ModelVisitor {
     }
 
     @Override
+
     public void visitTrap(Trap trap) {
         //TODO: newly added mapItem, make sure to save as well. Thanks!
+    }
+
+    public void visitAdaptableStrategy(AdaptableStrategy adaptableStrategy) {
+        Element asElement = doc.createElement("AdaptableStrategy");
+        currentParent.peek().appendChild(asElement);
+        HashMap<Integer, KeyMapping> hm = adaptableStrategy.getKeyMappings();
+        for(java.util.Map.Entry<Integer, KeyMapping> entry : hm.entrySet()){
+            Element entryElement = doc.createElement("Entry");
+            asElement.appendChild(entryElement);
+            entryElement.setAttribute("key", entry.getKey() +"");
+            entryElement.setAttribute("value", entry.getValue().getValue() + "");
+        }
+        System.out.println("keyMappingsSaved");
     }
 
     @Override
@@ -905,13 +943,5 @@ public class SaveVisitor implements ModelVisitor {
         parent.setAttribute("Direction", d + "");
     }
 
-    private GenericStatsAddable getAllEntityStatEffects(Entity e){
-        GenericStatsAddable gsa = new GenericStatsAddable();
-        BuffManager bm = e.getBuffManager();
-        Equipped eq = e.getEquipped();
-        gsa.add(bm.getAllBuffStatEffects());
-        gsa.add(eq.getAllEquippedStatEffects());
-        return  gsa;
-    }
 
 }

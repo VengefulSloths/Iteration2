@@ -38,14 +38,20 @@ public class Trap extends MapItem implements ModelVisitable, ViewObservable{
 
 
     private void damageEntity(){
-        for(Entity entity : affectedEntities){
-            entity.takeDamage(this.damageTaken);
+        for(int i = 0; i < affectedEntities.size(); i++){
+            affectedEntities.get(0).takeDamage(this.damageTaken);
         }
 
         if(this.affectedEntities.size() > 0){
             TimeModel.getInstance().registerAlertable(() -> {
                 damageEntity();
             }, 20);
+        }
+    }
+
+    public void destroy() {
+        for(DestroyableObserver observer: observers) {
+            observer.alertDestroyed();
         }
     }
 
@@ -70,6 +76,6 @@ public class Trap extends MapItem implements ModelVisitable, ViewObservable{
 
     @Override
     public void accept(ModelVisitor modelVisitor) {
-
+        modelVisitor.visitTrap(this);
     }
 }

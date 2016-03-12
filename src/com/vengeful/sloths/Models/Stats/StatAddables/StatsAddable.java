@@ -113,17 +113,35 @@ public abstract class StatsAddable implements ModelVisitable{
     }
 
     public void invert(){
-        if(this.strength > 0){
+        if(this.strength != 0){
             this.strength = 0-this.strength;
         }
-        if(this.agility > 0){
+        if(this.agility != 0){
             this.agility = 0-this.agility;
         }
-        if(this.intellect > 0){
+        if(this.intellect != 0){
             this.intellect = 0-this.intellect;
         }
-        if(this.hardiness > 0){
+        if(this.hardiness != 0){
             this.hardiness = 0-this.hardiness;
+        }
+        if(this.movement != 0){
+            this.movement = 0-this.movement;
+        }
+        if(this.currentHealth != 0){
+            this.currentHealth = 0-this.currentHealth;
+        }
+        if(this.bonusHealth !=0){
+            this.bonusHealth = 0-this.bonusHealth;
+        }
+        if(this.currentMana != 0){
+            this.currentMana = 0- this.currentMana;
+        }
+        if(this.bonusMana != 0){
+            this.bonusMana = 0-this.bonusMana;
+        }
+        if(this.currentExperience != 0){
+            this.currentExperience = 0-this.currentExperience;
         }
     }
 

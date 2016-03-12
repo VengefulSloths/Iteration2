@@ -1,9 +1,11 @@
 package com.vengeful.sloths.Models.EntityMapInteractionCommands;
 
+import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
 import com.vengeful.sloths.Models.Ability.Abilities.*;
-import com.vengeful.sloths.Models.Ability.Abilities.AngleSpellAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.ExplosionAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.FireBallAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.RemoveTrapAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.AngleSpellAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.ExplosionAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
@@ -45,6 +47,7 @@ import java.util.Iterator;
  * Created by John on 3/10/2016.
  */
 public class NonTeleMoveVisitor extends CanMoveVisitor{
+
     @Override
     public void visitAvatar(Avatar avatar) {
         //System.out.println("cant move because Avatar");
@@ -349,7 +352,11 @@ public class NonTeleMoveVisitor extends CanMoveVisitor{
     }
 
     @Override
+
     public void visitTrap(Trap trap) {
+    }
+
+    public void visitAdaptableStrategy(AdaptableStrategy adaptableStrategy) {
 
     }
 
@@ -370,6 +377,11 @@ public class NonTeleMoveVisitor extends CanMoveVisitor{
 
     @Override
     public void visitLevelUpAE(LevelUpAE ae) {
+
+    }
+
+    @Override
+    public void visitRemoveTrapAbility(RemoveTrapAbility removeTrapAbility) {
 
     }
 }

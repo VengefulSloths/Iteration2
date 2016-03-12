@@ -9,6 +9,8 @@ import com.vengeful.sloths.Models.Entity.AggressiveNPC;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.Piggy;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
+import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.PiggyTotem;
 import com.vengeful.sloths.Models.Map.AreaEffects.HealDamageAE;
 import com.vengeful.sloths.Models.Map.AreaEffects.InstantDeathAE;
@@ -29,11 +31,8 @@ import com.vengeful.sloths.Models.Map.Terrains.Grass;
 import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
 import com.vengeful.sloths.Models.Map.Tile;
-import com.vengeful.sloths.Models.Stats.StatAddables.BaseStatsAddable;
+import com.vengeful.sloths.Models.Stats.StatAddables.*;
 import com.vengeful.sloths.AreaView.PlainsCameraView;
-import com.vengeful.sloths.Models.Stats.StatAddables.BonusHealthAddable;
-import com.vengeful.sloths.Models.Stats.StatAddables.CurrentHealthAddable;
-import com.vengeful.sloths.Models.Stats.StatAddables.MovementAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
@@ -141,7 +140,7 @@ public class LevelFactory {
         area1.getTile(new Coord(6,9)).addAreaEffect(new InstantDeathAE());
 
         //Test Trap:
-        area2.getTile(new Coord(2,3)).addTrap(new Trap(new Coord(2,4)));
+        area1.getTile(new Coord(6,5)).addTrap(new Trap(new Coord(6,5)));
 
 
         area1.addTile(new Coord(1,1), s2);
@@ -214,6 +213,7 @@ public class LevelFactory {
         AggressiveNPC testEnemy =  new AggressiveNPC("xXOG_SwaG_LorD_BlazE_MasteR_420_Xx", new Stats(new BaseStatsAddable(0,0,0,0,30)));
         area2.getTile(new Coord(3,3)).addEntity(testEnemy);
         testEnemy.setLocation(new Coord(3,3));
+        testEnemy.equip(new TwoHandedWeapon("cleaver", new StrengthAddable(1), 1));
         //testEnemy.accept(TemporaryVOCreationVisitor.getInstance());
         new AggressiveNPCControllerManager(area2, testEnemy);
 

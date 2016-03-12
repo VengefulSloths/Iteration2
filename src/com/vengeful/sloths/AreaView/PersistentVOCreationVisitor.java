@@ -1,10 +1,17 @@
 package com.vengeful.sloths.AreaView;
 
+
 import com.vengeful.sloths.AreaView.ViewObjects.*;
+import com.vengeful.sloths.AreaView.ViewObjects.InteractiveItemViewObject;
+import com.vengeful.sloths.AreaView.ViewObjects.OneShotViewObject;
+import com.vengeful.sloths.AreaView.ViewObjects.TakeableViewObject;
+import com.vengeful.sloths.AreaView.ViewObjects.TileViewObject;
+import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
 import com.vengeful.sloths.Models.Ability.Abilities.*;
-import com.vengeful.sloths.Models.Ability.Abilities.AngleSpellAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.ExplosionAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.FireBallAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.RemoveTrapAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.AngleSpellAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.ExplosionAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
@@ -239,6 +246,11 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
 
     }
 
+    @Override
+    public void visitRemoveTrapAbility(RemoveTrapAbility removeTrapAbility) {
+
+    }
+
     public void visitBreakBoxQuest(BreakBoxQuest breakBoxQuest) {
 
     }
@@ -283,6 +295,11 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
 
     }
 
+
+    @Override
+    public void visitAdaptableStrategy(AdaptableStrategy adaptableStrategy) {
+
+    }
 
 
 //    @Override

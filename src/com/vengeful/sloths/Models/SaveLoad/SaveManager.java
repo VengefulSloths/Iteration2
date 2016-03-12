@@ -1,5 +1,7 @@
 package com.vengeful.sloths.Models.SaveLoad;
 
+import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
+import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
 import com.vengeful.sloths.Models.Map.Map;
@@ -40,7 +42,10 @@ public class SaveManager {
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }
-        map.accept(sv);
+        sv.save();
+//        map.accept(sv);
+//        ((AdaptableStrategy)(MainController.getInstance().getInputStrategy())).accept(sv);
+//        sv.completeSave();
     }
 
     public void save(){
@@ -50,7 +55,10 @@ public class SaveManager {
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }
-        map.accept(sv);
+        sv.save();
+//        map.accept(sv);
+//        ((AdaptableStrategy)(MainController.getInstance().getInputStrategy())).accept(sv);
+//        sv.completeSave();
     }
 //    public void save(Map map){
 //        SaveVisitor sv = null;

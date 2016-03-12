@@ -1,9 +1,11 @@
 package com.vengeful.sloths.Models;
 
+import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
 import com.vengeful.sloths.Models.Ability.Abilities.*;
-import com.vengeful.sloths.Models.Ability.Abilities.AngleSpellAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.ExplosionAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.FireBallAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.RemoveTrapAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.AngleSpellAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.ExplosionAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
@@ -112,6 +114,7 @@ public interface ModelVisitor {
     void visitFireBallAbility(FireBallAbility fireBallAbility);
     void visitExplosionAbility(ExplosionAbility explosionAbility);
     void visitAngleSpellAbility(AngleSpellAbility angleSpellAbility);
+    void visitRemoveTrapAbility(RemoveTrapAbility removeTrapAbility);
 
 
     void visitBreakBoxQuest(BreakBoxQuest breakBoxQuest);
@@ -132,5 +135,9 @@ public interface ModelVisitor {
 
     void visitMount(Mount mount);
 
+
     void visitTrap(Trap trap);
+
+    void visitAdaptableStrategy(AdaptableStrategy adaptableStrategy);
+
 }

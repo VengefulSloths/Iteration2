@@ -165,6 +165,8 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
 
     @Override
     public void alertAttack(int r, int s, long windUpTime, long coolDownTime) {
+        AttackViewObject attack = TemporaryVOCreationVisitor.getInstance().createAttack(r, s, "resources/effects/punch/punch.xml", windUpTime);
+        ViewTime.getInstance().registerAlert(windUpTime, () ->attack.start());
     }
 
     @Override
@@ -181,7 +183,7 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
 
     @Override
     public void alertEquipWeapon(String name, WeaponClass weaponClass) {
-        WeaponImageContainer weapon = new WeaponImageContainer("resources/weapons/" + name + "/", direction);
+        //default do nothing
     }
 
     @Override
@@ -215,7 +217,7 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
 
     private void mountAnimation() {
         if (isMounted()) {
-            System.out.println("Setting");
+            //System.out.println("Setting");
             setCustomYOffset(-20 + offsets[count++%offsets.length]);
             ViewTime.getInstance().registerAlert(0, () -> mountAnimation());
         }

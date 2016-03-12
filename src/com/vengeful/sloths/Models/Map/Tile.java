@@ -118,7 +118,8 @@ public class Tile implements ModelVisitable {
                 //System.out.Println("AE: " + ae);
             }
 
-            this.trap.removeEntity(e);
+            if(this.trap != null)
+                this.trap.removeEntity(e);
 
         }
 
@@ -220,9 +221,12 @@ public class Tile implements ModelVisitable {
     }
 
     public void removeTrap(){
-        removeMapItem(this.trap);
-        this.trap = null;
-        //TODO: call destroy???
+        if(this.trap != null){
+            removeMapItem(this.trap);
+            this.trap.destroy();
+            this.trap = null;
+
+        }
     }
 
     private void removeMapItem(MapItem item){
