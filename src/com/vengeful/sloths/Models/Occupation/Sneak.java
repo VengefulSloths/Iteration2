@@ -18,7 +18,7 @@ public class Sneak extends Occupation {
         stats.add(new BaseStatsAddable(0, 10, 0, 0, 0));
         this.addSharedSkills(skillManager);
         skillManager.addSkill(new Skill("pick pocket"));
-        skillManager.addSkill(new Skill("remove trap"));
+        //skillManager.addSkill(new Skill("remove trap")); //TODO: uncomment after testing
         skillManager.addSkill(new Skill("creep"));
         skillManager.addSkill(new Skill("ranged weapon"));
 

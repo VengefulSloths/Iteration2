@@ -31,6 +31,8 @@ public class AbilityFactory {
 
     private AbilityFactory() {
     }
+
+
     public MeleeAttackAbility createMeleeAttackAbility(Entity entity, Skill relevantSkill, int baseDamage, int windTime, int coolTime) {
         return new MeleeAttackAbility(entity, relevantSkill, baseDamage, windTime, coolTime);
     }
