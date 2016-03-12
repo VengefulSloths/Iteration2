@@ -3,6 +3,7 @@ package com.vengeful.sloths.Models.Ability;
 import com.vengeful.sloths.AreaView.vAlertable;
 import com.vengeful.sloths.AreaView.vCommand;
 import com.vengeful.sloths.Models.Ability.Abilities.NullAbility;
+import com.vengeful.sloths.Models.Ability.Hooks.Hook;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
@@ -21,7 +22,8 @@ public class AbilityManager implements ModelVisitable{
     private Ability[] activeAbilities;
     private Ability weaponAbility; //set when weapon is equipped.
     private Ability mountAbility; //set when mount is equipped
-    private Ability demountAbility; //set when mount is equipped
+
+    private ArrayList<Hook> castAbilityHooks = new ArrayList<>();
 
     //TODO: give it a default: punchAbility
     private Entity entity;
@@ -41,6 +43,8 @@ public class AbilityManager implements ModelVisitable{
     }
 
     public boolean doAbility(int index){
+        doAbilityHooks();
+
         if(index < 0 || index >= activeAbilities.length)
             return false;
 
@@ -49,6 +53,16 @@ public class AbilityManager implements ModelVisitable{
 
         this.activeAbilities[index].execute();
         return true;
+    }
+
+    public int doMountAbility() {
+        doAbilityHooks();
+        return mountAbility.execute();
+    }
+
+    public int doWeaponAbility(){
+        doAbilityHooks();
+        return this.weaponAbility.execute();
     }
 
     public boolean equipAbility(Ability ability, int index){
@@ -67,11 +81,6 @@ public class AbilityManager implements ModelVisitable{
         return mountAbility;
     }
 
-    public Ability getDemountAbility() {
-        return demountAbility;
-    }
-
-    public void setDemountAbility(Ability demountAbility) { this.demountAbility = demountAbility; }
 
     public Ability getWeaponAbility(){
         return this.weaponAbility;
@@ -115,5 +124,21 @@ public class AbilityManager implements ModelVisitable{
     }
     public Ability[] getActiveAbilities(){
         return activeAbilities;
+    }
+
+    public void addAbilityHook(Hook hook) {
+        this.castAbilityHooks.add(hook);
+    }
+
+    public void removeAbilityHook(Hook hook) {
+        if (castAbilityHooks.contains(hook)) {
+            castAbilityHooks.remove(hook);
+        }
+    }
+
+    private void doAbilityHooks() {
+        for (Hook hook: castAbilityHooks) {
+            hook.execute(this);
+        }
     }
 }
