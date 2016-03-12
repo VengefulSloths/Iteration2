@@ -24,6 +24,7 @@ import java.util.Iterator;
 //TODO: Give tile a clean operation that will clear any VOs on it that wont persist
 public class TileViewObject extends ViewObject implements DestroyVOObserver{
     private ArrayList<ViewObject> children;
+    private ArrayList<NonVisibleViewObject> nonVisibleChildren = new ArrayList<>();
     private DynamicImage unknownImage = DynamicImageFactory.getInstance().loadDynamicImage("resources/terrain/disapearing_cloud.xml");
 
     private BufferedImage nonVisibleImage;
@@ -65,40 +66,31 @@ public class TileViewObject extends ViewObject implements DestroyVOObserver{
     }
 
     public void setVisibility(Visibility visibility) {
-        if (this.visibility == Visibility.UNKNOWN && visibility == Visibility.NONVISIBLE) {
-            //illegal state transition
-        } else if (this.visibility == Visibility.VISIBLE && visibility == Visibility.NONVISIBLE) {
-
-
-            //TODO: got to zachs method
-            //preCalcNonVisibleImage();
-
-
-
-            this.visibility = Visibility.NONVISIBLE;
-        } else if (this.visibility == Visibility.UNKNOWN && visibility == Visibility.VISIBLE){
-            this.visibility = Visibility.VISIBLE;
-            ((DynamicTimedImage) unknownImage).start(300);
-        } else {
-            this.visibility = visibility;
-
+        switch(visibility) {
+            case NONVISIBLE:
+                if (this.visibility == Visibility.VISIBLE) {
+                    preCalcNonVisibleImage();
+                    this.visibility = Visibility.NONVISIBLE;
+                }
+                break;
+            case UNKNOWN:
+                this.visibility = Visibility.UNKNOWN;
+                break;
+            case VISIBLE:
+                if (this.visibility == Visibility.UNKNOWN) {
+                    ((DynamicTimedImage) unknownImage).start(300);
+                }
+                this.visibility = Visibility.VISIBLE;
+                nonVisibleChildren.clear();
+                break;
         }
     }
 
     public void preCalcNonVisibleImage() {
-        BufferedImage temp = new BufferedImage(AreaView.WIDTH, AreaView.HEIGHT, BufferedImage.TYPE_4BYTE_ABGR_PRE);
-        Graphics2D g2d = temp.createGraphics();
+        nonVisibleChildren.clear();
         for (ViewObject child: children) {
-            child.paintComponent(g2d);
+            nonVisibleChildren.add(child.getNonVisibleSnapShot());
         }
-
-        temp = temp.getSubimage(getWeirdXOffset(), getWeirdYOffset(), 78, 128);
-
-        nonVisibleImage = darkenOp.filter(temp, temp);
-
-
-        //nonVisibleImage = darkenOp.filter(temp, temp);
-
     }
 
     private Visibility visibility = Visibility.UNKNOWN;
@@ -141,10 +133,9 @@ public class TileViewObject extends ViewObject implements DestroyVOObserver{
                     this.getYPixels() + unknownImage.getYOffset() + getLocationYOffset(),
                     this);
         } else if (visibility == Visibility.NONVISIBLE) {
-           g.drawImage(nonVisibleImage,
-                   getWeirdXOffset(),
-                   getWeirdYOffset(),
-                   this);
+           for (NonVisibleViewObject nonVisibleViewObject: nonVisibleChildren) {
+               nonVisibleViewObject.paintComponent(g);
+           }
         } else {
 
 
@@ -162,6 +153,12 @@ public class TileViewObject extends ViewObject implements DestroyVOObserver{
                     this.getYPixels() + unknownImage.getYOffset() + getLocationYOffset(),
                     this);
         }
+    }
+
+    @Override
+    public NonVisibleViewObject getNonVisibleSnapShot() {
+        ArrayList<DynamicImage> visibleImages = new ArrayList<>();
+        return new NonVisibleViewObject(getR(), getS(), getCoordinateStrategy(), getLocationStrategy(), visibleImages);
     }
 
     @Override

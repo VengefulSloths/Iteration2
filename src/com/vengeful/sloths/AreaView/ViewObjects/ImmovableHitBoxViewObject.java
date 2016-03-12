@@ -40,6 +40,12 @@ public class ImmovableHitBoxViewObject extends ViewObject implements HitBoxObser
                 this);
     }
 
+    @Override
+    public NonVisibleViewObject getNonVisibleSnapShot() {
+        ArrayList<DynamicImage> visibleImages = new ArrayList<>();
+        visibleImages.add(itemImage);
+        return new NonVisibleViewObject(getR(), getS(), getCoordinateStrategy(), getLocationStrategy(), visibleImages);
+    }
 
     @Override
     public void accept(VOVisitor v) {

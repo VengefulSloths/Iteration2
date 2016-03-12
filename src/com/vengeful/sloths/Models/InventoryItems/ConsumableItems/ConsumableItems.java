@@ -13,7 +13,6 @@ public abstract class ConsumableItems extends InventoryItem{
     public ConsumableItems(String name, StatsAddable statsAddable){
         this.setItemName(name);
         this.itemStats = statsAddable;
-
     }
 
     public  ConsumableItems(){}

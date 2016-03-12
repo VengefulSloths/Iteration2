@@ -6,6 +6,7 @@ import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateS
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by alexs on 2/27/2016.
@@ -20,6 +21,13 @@ public class WaterViewObject extends ViewObject{
     @Override
     public void paintComponent(Graphics2D g) {
         g.drawImage(waterImage.getImage(), getXPixels() + waterImage.getXOffset() + getLocationXOffset(), getYPixels() + waterImage.getYOffset() + getLocationYOffset(), this);
+    }
+
+    @Override
+    public NonVisibleViewObject getNonVisibleSnapShot() {
+        ArrayList<DynamicImage> visibleImages = new ArrayList<>();
+        visibleImages.add(waterImage);
+        return new NonVisibleViewObject(getR(), getS(), getCoordinateStrategy(), getLocationStrategy(), visibleImages);
     }
 
     @Override

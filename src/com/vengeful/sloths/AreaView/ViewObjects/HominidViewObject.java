@@ -11,6 +11,7 @@ import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Utility.WeaponClass;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by zach on 3/9/16.
@@ -58,6 +59,29 @@ public class HominidViewObject extends EntityViewObject {
             }
         }
     }
+
+    @Override
+    public NonVisibleViewObject getNonVisibleSnapShot() {
+
+        NonVisibleViewObject output = new NonVisibleViewObject(getR(), getS(), getCoordinateStrategy(), getLocationStrategy(), new ArrayList<>());
+
+        if (isMounted() && !dead) {
+            output.addNonVisibleViewObject(super.getNonVisibleSnapShot());
+            output.addNonVisibleViewObject(hat.getNonVisibleSnapShot());
+        } else {
+            if (!dead) {
+                output.addNonVisibleViewObject(hands.getNonVisibleBack());
+            }
+            output.addNonVisibleViewObject(super.getNonVisibleSnapShot());
+            if (!dead) {
+                System.out.println("adding hat and hands to nonvis");
+                output.addNonVisibleViewObject(hat.getNonVisibleSnapShot());
+                output.addNonVisibleViewObject(hands.getNonVisibleFront());
+            }
+        }
+        return output;
+    }
+
     @Override
     public void setCustomYOffset(int offset) {
         super.setCustomYOffset(offset);

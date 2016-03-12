@@ -51,6 +51,13 @@ public class MovableHitBoxViewObject extends MovingViewObject implements HitBoxO
                 this.getYPixels() + height + currentDynamicImage.getYOffset() + this.getLocationYOffset(), this);
     }
 
+    @Override
+    public NonVisibleViewObject getNonVisibleSnapShot() {
+        ArrayList<DynamicImage> visibleImages = new ArrayList<>();
+        visibleImages.add(currentDynamicImage);
+        return new NonVisibleViewObject(getR(), getS(), getCoordinateStrategy(), getLocationStrategy(), visibleImages);
+    }
+
     //TODO: how to pass in the correct direction for this to fire
     public void changeDirection(Direction d) {
         this.direction = d;

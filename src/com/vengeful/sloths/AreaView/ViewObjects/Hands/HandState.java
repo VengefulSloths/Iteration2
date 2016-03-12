@@ -1,5 +1,6 @@
 package com.vengeful.sloths.AreaView.ViewObjects.Hands;
 
+import com.vengeful.sloths.AreaView.ViewObjects.NonVisibleViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.WeaponImageContainer;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Utility.WeaponClass;
@@ -12,6 +13,10 @@ import java.awt.*;
 public interface HandState {
     void paintFront(Graphics2D g);
     void paintBack(Graphics2D g);
+
+    NonVisibleViewObject getNonVisibleFront();
+    NonVisibleViewObject getNonVisibleBack();
+
     void setLocation(int r, int s);
     void changeDirection(Direction d);
     void alertMove(int r, int s, long duration);
