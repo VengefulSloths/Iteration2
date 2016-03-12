@@ -15,6 +15,7 @@ import com.vengeful.sloths.Utility.WeaponClass;
 import com.vengeful.sloths.Models.Observers.EntityObserver;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by alexs on 2/20/2016.
@@ -82,6 +83,19 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
             paintBody(g);
 
         }
+    }
+
+    @Override
+    public NonVisibleViewObject getNonVisibleSnapShot() {
+        ArrayList<DynamicImage> visibleImages = new ArrayList<>();
+
+        if (!dead) {
+            if (isMounted()) {
+                visibleImages.add(mountImage);
+            }
+            visibleImages.add(currentDynamicImage);
+        }
+        return new NonVisibleViewObject(getR(), getS(), getCoordinateStrategy(), getLocationStrategy(), visibleImages);
     }
 
     public boolean isMounted() {

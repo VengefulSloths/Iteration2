@@ -5,11 +5,13 @@ import com.vengeful.sloths.AreaView.DynamicImages.DynamicImageFactory;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.MovingViewObject;
+import com.vengeful.sloths.AreaView.ViewObjects.NonVisibleViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.VOVisitor;
 import com.vengeful.sloths.AreaView.ViewObjects.WeaponImageContainer;
 import com.vengeful.sloths.Utility.Direction;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by alexs on 3/4/2016.
@@ -94,6 +96,14 @@ public class SmartHandViewObject extends MovingViewObject{
                     this);
         }
     }
+
+    @Override
+    public NonVisibleViewObject getNonVisibleSnapShot() {
+        System.out.println("Whoa boy, we shouldnt be saving hands");
+        ArrayList<DynamicImage> visibleImages = new ArrayList<>();
+        return new NonVisibleViewObject(getR(), getS(), getCoordinateStrategy(), getLocationStrategy(), visibleImages);
+    }
+
 
     @Override
     public void accept(VOVisitor v) {

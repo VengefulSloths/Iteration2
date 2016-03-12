@@ -1,13 +1,15 @@
-package com.vengeful.sloths.AreaView;
+package com.vengeful.sloths.AreaView.ViewObjects;
 
 import com.vengeful.sloths.AreaView.DynamicImages.DynamicImage;
 import com.vengeful.sloths.AreaView.DynamicImages.DynamicImageFactory;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
+import com.vengeful.sloths.AreaView.ViewObjects.NonVisibleViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.VOVisitor;
 import com.vengeful.sloths.AreaView.ViewObjects.ViewObject;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by alexs on 3/2/2016.
@@ -27,6 +29,13 @@ public class DecalViewObject extends ViewObject{
                 getXPixels() + getLocationXOffset() + dynamicImage.getXOffset(),
                 getYPixels() + getLocationYOffset() + dynamicImage.getYOffset(),
                 this);
+    }
+
+    @Override
+    public NonVisibleViewObject getNonVisibleSnapShot() {
+        ArrayList<DynamicImage> visibleImages = new ArrayList<>();
+        visibleImages.add(dynamicImage);
+        return new NonVisibleViewObject(getR(), getS(), getCoordinateStrategy(), getLocationStrategy(), visibleImages);
     }
 
     @Override

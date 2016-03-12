@@ -9,8 +9,9 @@ public abstract class DynamicImage {
     private PositioningStrategy positioningStrategy;
     private int height;
     private int width;
-    public abstract Image getImage();
 
+    public abstract Image getImage();
+    public abstract String getCurrentImagePath();
     //TODO pull positioningStrategy out of the config
     public DynamicImage(int width, int height, PositioningStrategy positioningStrategy) {
         this.positioningStrategy = positioningStrategy;

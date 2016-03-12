@@ -1,7 +1,6 @@
 package com.vengeful.sloths.AreaView.ViewObjects;
 
 import com.vengeful.sloths.AreaView.CameraView;
-import com.vengeful.sloths.AreaView.DecalViewObject;
 
 import java.util.ArrayList;
 

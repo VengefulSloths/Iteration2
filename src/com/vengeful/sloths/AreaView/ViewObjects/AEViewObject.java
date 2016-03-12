@@ -6,6 +6,7 @@ import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateS
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by Alex on 3/10/2016.
@@ -25,6 +26,13 @@ public class AEViewObject extends ViewObject{
                 getXPixels() + getLocationXOffset() + image.getXOffset(),
                 getYPixels() + getLocationYOffset() + image.getYOffset(),
                 this);
+    }
+
+    @Override
+    public NonVisibleViewObject getNonVisibleSnapShot() {
+        ArrayList<DynamicImage> visibleImages = new ArrayList<>();
+        visibleImages.add(image);
+        return new NonVisibleViewObject(getR(), getS(), getCoordinateStrategy(), getLocationStrategy(), visibleImages);
     }
 
     @Override

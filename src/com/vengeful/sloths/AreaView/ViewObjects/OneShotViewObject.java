@@ -1,5 +1,6 @@
 package com.vengeful.sloths.AreaView.ViewObjects;
 
+import com.vengeful.sloths.AreaView.DynamicImages.DynamicImage;
 import com.vengeful.sloths.AreaView.DynamicImages.DynamicImageFactory;
 import com.vengeful.sloths.AreaView.DynamicImages.DynamicTimedImage;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
@@ -8,6 +9,7 @@ import com.vengeful.sloths.Sound.SoundEffect;
 import com.vengeful.sloths.Models.Observers.DestroyableObserver;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by alexs on 2/29/2016.
@@ -34,6 +36,13 @@ public class OneShotViewObject extends ViewObject implements DestroyableObserver
                 getXPixels() + itemImage.getXOffset() + getLocationXOffset(),
                 getYPixels() + itemImage.getYOffset() + getLocationYOffset(),
                 this);
+    }
+
+    @Override
+    public NonVisibleViewObject getNonVisibleSnapShot() {
+        ArrayList<DynamicImage> visibleImages = new ArrayList<>();
+        visibleImages.add(itemImage);
+        return new NonVisibleViewObject(getR(), getS(), getCoordinateStrategy(), getLocationStrategy(), visibleImages);
     }
 
     @Override
