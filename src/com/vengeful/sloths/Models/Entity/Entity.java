@@ -157,7 +157,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     public int attack(Direction dir){
         if(!isActive) {
             this.setFacingDirection(dir);
-            return abilityManager.getWeaponAbility().execute();
+            return abilityManager.doWeaponAbility();
         }
         return 0;
     }
@@ -240,6 +240,13 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     public void getGold(Gold gold){
         EntityPickUpGoldCommand epgc = EntityMapInteractionFactory.getInstance().createPickUpGoldCommand(this, this.getInventory(), gold);
         epgc.execute();
+    }
+    public void baddOOReceiveGoldForTesting(Gold g){
+        this.inventory.addGold(g);
+    }
+    public Gold dropGold(){
+        Gold g= this.inventory.dropAllGold();
+        return g;
     }
 
     public void drop(InventoryItem item){

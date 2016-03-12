@@ -1,6 +1,7 @@
 package com.vengeful.sloths.Models.Ability;
 
 import com.vengeful.sloths.Models.Ability.Abilities.NullAbility;
+import com.vengeful.sloths.Models.Ability.Hooks.Hook;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
@@ -21,10 +22,12 @@ public class AbilityManager implements ModelVisitable, ViewObservable {
     private Ability[] activeAbilities;
     private Ability weaponAbility; //set when weapon is equipped.
     private Ability mountAbility; //set when mount is equipped
-    private Ability demountAbility; //set when mount is equipped
+
+
+    private ArrayList<Hook> castAbilityHooks = new ArrayList<>();
+
     private ArrayList<AbilityManagerObserver> abilityManagerObservers;
 
-    //TODO: give it a default: punchAbility
     private Entity entity;
 
 
@@ -53,6 +56,8 @@ public class AbilityManager implements ModelVisitable, ViewObservable {
     }
 
     public boolean doAbility(int index){
+        doAbilityHooks();
+
         if(index < 0 || index >= activeAbilities.length)
             return false;
 
@@ -61,6 +66,16 @@ public class AbilityManager implements ModelVisitable, ViewObservable {
 
         this.activeAbilities[index].execute();
         return true;
+    }
+
+    public int doMountAbility() {
+        doAbilityHooks();
+        return mountAbility.execute();
+    }
+
+    public int doWeaponAbility(){
+        doAbilityHooks();
+        return this.weaponAbility.execute();
     }
 
     public boolean equipAbility(Ability ability, int index){
@@ -85,12 +100,6 @@ public class AbilityManager implements ModelVisitable, ViewObservable {
     public Ability getMountAbility() {
         return mountAbility;
     }
-
-    public Ability getDemountAbility() {
-        return demountAbility;
-    }
-
-    public void setDemountAbility(Ability demountAbility) { this.demountAbility = demountAbility; }
 
     public Ability getWeaponAbility(){
         return this.weaponAbility;
@@ -142,6 +151,22 @@ public class AbilityManager implements ModelVisitable, ViewObservable {
         return activeAbilities;
     }
 
+
+    public void addAbilityHook(Hook hook) {
+        this.castAbilityHooks.add(hook);
+    }
+
+    public void removeAbilityHook(Hook hook) {
+        if (castAbilityHooks.contains(hook)) {
+            castAbilityHooks.remove(hook);
+        }
+    }
+
+    private void doAbilityHooks() {
+        for (int i = castAbilityHooks.size() - 1 ; i >= 0; i--) {
+            castAbilityHooks.get(i).execute(this);
+        }
+    }
     @Override
     public void registerObserver(ModelObserver modelObserver) {
         this.abilityManagerObservers.add((AbilityManagerObserver) modelObserver);

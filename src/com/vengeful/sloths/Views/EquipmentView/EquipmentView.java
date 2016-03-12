@@ -130,7 +130,7 @@ public class EquipmentView extends View implements EquipmentObserver {
         int boxWidth = 14 * lineHor;
         int boxHeight = 2 * lineVert;
         int drawStringHorMultiple = (int) ((1 / 2.0) * widthDivisor);
-        g.setColor(Color.BLACK);
+        g.setColor(Color.WHITE);
         g.drawRect(boxXCoord, box1Y, boxWidth, boxHeight);
         g.drawRect(boxXCoord, box2Y, boxWidth, boxHeight);
         g.drawRect(boxXCoord, box3Y, boxWidth, boxHeight);
@@ -144,9 +144,9 @@ public class EquipmentView extends View implements EquipmentObserver {
         int headGearStringWidth = g.getFontMetrics().stringWidth(headGearString);
         int weaponStringWidth = g.getFontMetrics().stringWidth(weaponString);
         int mountStringWidth = g.getFontMetrics().stringWidth(mountString);
-        g.drawString("Headgear", lineHor * drawStringHorMultiple - (int) ((1.0 / 2) * headGearStringWidth), box1Y - 10);
-        g.drawString("Weapon", lineHor * drawStringHorMultiple - (int) ((1.0 / 2) * weaponStringWidth), box2Y - 10);
-        g.drawString("Mount", lineHor * drawStringHorMultiple - (int) ((1.0 / 2) * mountStringWidth), box3Y - 10);
+        g.drawString(headGearString, lineHor * drawStringHorMultiple - (int) ((1.0 / 2) * headGearStringWidth), box1Y - 10);
+        g.drawString(weaponString, lineHor * drawStringHorMultiple - (int) ((1.0 / 2) * weaponStringWidth), box2Y - 10);
+        g.drawString(mountString, lineHor * drawStringHorMultiple - (int) ((1.0 / 2) * mountStringWidth), box3Y - 10);
         /* end vertically aligned box drawing */
 
         if(this.getHat()!=null) {

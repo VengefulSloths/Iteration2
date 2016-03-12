@@ -4,6 +4,7 @@ package com.vengeful.sloths.Controllers.SearchingController;
 import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
 import com.vengeful.sloths.Models.Ability.Abilities.*;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.RemoveTrapAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.StealthAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.AngleSpellAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.ExplosionAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
@@ -67,6 +68,10 @@ public class AggressiveNPCSearchingController extends SearchingController {
 
     }
 
+    @Override
+    public void visitAbilityItem(AbilityItem abilityItem) {
+
+    }
 
     @Override
     public void visitAvatar(Avatar avatar) {
@@ -404,6 +409,11 @@ public class AggressiveNPCSearchingController extends SearchingController {
 
     @Override
     public void visitRemoveTrapAbility(RemoveTrapAbility removeTrapAbility) {}
+
+    @Override
+    public void visitStealthAbility(StealthAbility stealthAbility) {
+
+    }
 
     public void visitGold(Gold gold) {
 

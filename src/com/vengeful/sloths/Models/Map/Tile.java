@@ -11,6 +11,7 @@ import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
 
+import java.lang.reflect.Array;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -72,10 +73,17 @@ public class Tile implements ModelVisitable {
     {
         //this loop doesnt actually work, interact will remove items which breaks the traversal
         //can be fixed but is probably unnecessary
-        for (Iterator<MapItem> iter = mapItems.iterator(); iter.hasNext();) {
-            System.out.println("interacting w/ a map item");
-            iter.next().interact(entity);
+        MapItem[] itemsToInteract = new MapItem[mapItems.size()];
+        for(int i = 0; i != mapItems.size(); ++i){
+            itemsToInteract[i] = mapItems.get(i);
         }
+        for(int i = 0; i != itemsToInteract.length; ++i){
+            itemsToInteract[i].interact(entity);
+        }
+//        for (Iterator<MapItem> iter = mapItems.iterator(); iter.hasNext();) {
+//            System.out.println("interacting w/ a map item");
+//            iter.next().interact(entity);
+//        }
 
         //Create AEs
         Iterator<AreaEffect> aeIter = this.getAreaEffectIterator();

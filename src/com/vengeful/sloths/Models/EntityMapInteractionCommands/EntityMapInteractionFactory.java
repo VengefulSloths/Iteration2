@@ -7,6 +7,7 @@ import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapItems.Gold;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
+import com.vengeful.sloths.Models.Map.Tile;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Models.Observers.EntityObserver;
@@ -95,6 +96,11 @@ public class EntityMapInteractionFactory {
     public EntityRespawnCommand createRespawnCommand(Entity entity, Coord respawnTile, int timeToRespawn) {
         EntityRespawnCommand erc = new EntityRespawnCommand(entity, respawnTile, timeToRespawn);
         return erc;
+    }
+
+    public DropAllGoldCommand createDropAllGoldCommand(Entity entity, Coord dest){
+        DropAllGoldCommand dagc = new DropAllGoldCommand(entity, dest);
+        return dagc;
     }
 
 }

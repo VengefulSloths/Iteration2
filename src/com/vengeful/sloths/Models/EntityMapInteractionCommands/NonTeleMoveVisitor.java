@@ -3,6 +3,7 @@ package com.vengeful.sloths.Models.EntityMapInteractionCommands;
 import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
 import com.vengeful.sloths.Models.Ability.Abilities.*;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.RemoveTrapAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.StealthAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.AngleSpellAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.ExplosionAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
@@ -64,6 +65,13 @@ public class NonTeleMoveVisitor extends CanMoveVisitor{
         //System.out.println("cant move because nonaNPC");
         setCanMove(false);
     }
+
+    @Override
+    public void visitAbilityItem(AbilityItem abilityItem) {
+
+
+    }
+
     @Override
     public void visitPiggy(Piggy piggy) {
         setCanMove(false);
@@ -387,6 +395,11 @@ public class NonTeleMoveVisitor extends CanMoveVisitor{
 
     @Override
     public void visitRemoveTrapAbility(RemoveTrapAbility removeTrapAbility) {
+
+    }
+
+    @Override
+    public void visitStealthAbility(StealthAbility stealthAbility) {
 
     }
 }

@@ -5,6 +5,7 @@ import com.vengeful.sloths.Controllers.InputController.KeyMapping;
 import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.Models.Ability.Abilities.*;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.RemoveTrapAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.StealthAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.AngleSpellAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.ExplosionAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
@@ -27,7 +28,6 @@ import com.vengeful.sloths.Models.Map.AreaEffects.LevelUpAE;
 import com.vengeful.sloths.Models.Map.AreaEffects.TakeDamageAE;
 import com.vengeful.sloths.Models.Map.MapItems.*;
 import com.vengeful.sloths.Models.Map.Map;
-import com.vengeful.sloths.Models.Map.MapItems.*;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.BreakBoxQuest;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.DoDestroyObstacleQuest;
@@ -156,6 +156,11 @@ public class SaveVisitor implements ModelVisitor {
     }
 
     @Override
+    public void visitAbilityItem(AbilityItem abilityItem) {
+
+    }
+
+    @Override
     public void visitAvatar(Avatar avatar) {
         Element entityElement = doc.createElement("Avatar");
         currentParent.peek().appendChild(entityElement);
@@ -274,7 +279,7 @@ public class SaveVisitor implements ModelVisitor {
         Element bElement = doc.createElement("Buff");
         currentParent.peek().appendChild(bElement);
         currentParent.push(bElement);
-        bElement.setAttribute("duration", b.getDuration() + "");
+        //bElement.setAttribute("duration", b.getDuration() + "");
         b.getBuff().accept(this);
         if(currentParent.peek().equals(bElement)){
 //            System.out.println("stack at proper element after recording buff");
@@ -289,7 +294,7 @@ public class SaveVisitor implements ModelVisitor {
         Element bElement = doc.createElement("BuffOverTime");
         currentParent.peek().appendChild(bElement);
         currentParent.push(bElement);
-        bElement.setAttribute("duration", buffOverTime.getDuration() + "");
+        //bElement.setAttribute("duration", buffOverTime.getDuration() + "");
         buffOverTime.getBuff().accept(this);
         if(currentParent.peek().equals(bElement)){
 //            System.out.println("stack at proper element after recording buffovertime");
@@ -378,6 +383,11 @@ public class SaveVisitor implements ModelVisitor {
     @Override
     public void visitRemoveTrapAbility(RemoveTrapAbility removeTrapAbility) {
         //TODO: new ability. Make sure to save, thanks!
+    }
+
+    @Override
+    public void visitStealthAbility(StealthAbility stealthAbility) {
+        //TODO: save this thing
     }
 
 

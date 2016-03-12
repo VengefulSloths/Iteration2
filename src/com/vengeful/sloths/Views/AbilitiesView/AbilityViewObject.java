@@ -2,6 +2,7 @@ package com.vengeful.sloths.Views.AbilitiesView;
 
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
+import com.vengeful.sloths.Views.ViewFactory.AbilityImageFactory;
 import com.vengeful.sloths.Views.ViewFactory.ItemImageFactory;
 import com.vengeful.sloths.Views.ViewFactory.ViewItem;
 
@@ -15,7 +16,7 @@ public class AbilityViewObject extends JPanel {
 
     private boolean isDisplayed;
     private Image itemImage;
-    protected ItemImageFactory imageFactory = new ItemImageFactory(); //edit
+    protected ItemImageFactory imageFactory = new AbilityImageFactory(); //edit
     private Ability ability;
     private ViewItem viewItem;
     private boolean isSelected;
@@ -62,15 +63,14 @@ public class AbilityViewObject extends JPanel {
     public AbilityViewObject() { }
 
     public AbilityViewObject(Ability ability) {
+        this.setViewItem(ability);
         this.setAbility(ability);
-        //this.setItemImage(this.imageFactory.handleUnscaledItemImageGeneration(inventoryItem));
         this.setItemImage(this.getImageFactory().handleUnscaledItemImageGeneration(ability));
         this.setIsDisplayed(false);
     }
 
     public AbilityViewObject(Ability ability, int width, int height) {
         this.setAbility(ability);
-        //this.setItemImage(this.imageFactory.handleScaledItemImageGeneration(inventoryItem, width, height));
         this.setItemImage(this.getImageFactory().handleScaledItemImageGeneration(ability,width,height));
         this.setIsDisplayed(false);
     }

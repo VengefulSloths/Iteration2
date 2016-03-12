@@ -3,6 +3,7 @@ package com.vengeful.sloths.Models;
 import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
 import com.vengeful.sloths.Models.Ability.Abilities.*;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.RemoveTrapAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.StealthAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.AngleSpellAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.ExplosionAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
@@ -60,6 +61,7 @@ public interface ModelVisitor {
     void visitBuffOverTime(BuffOverTime buffOverTime);
     void visitAbilityManager(AbilityManager am);
     void visitAbility(Ability ability);
+    void visitAbilityItem(AbilityItem abilityItem);
 
     void visitSummoner(Summoner s);
     void visitSneak(Sneak s);
@@ -115,6 +117,7 @@ public interface ModelVisitor {
     void visitExplosionAbility(ExplosionAbility explosionAbility);
     void visitAngleSpellAbility(AngleSpellAbility angleSpellAbility);
     void visitRemoveTrapAbility(RemoveTrapAbility removeTrapAbility);
+    void visitStealthAbility(StealthAbility stealthAbility);
 
 
     void visitBreakBoxQuest(BreakBoxQuest breakBoxQuest);

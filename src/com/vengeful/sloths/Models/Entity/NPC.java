@@ -18,6 +18,7 @@ public abstract class NPC extends Entity{
     //pass in stats
     public NPC(String name, Stats stats){
         super(name, stats);
+        this.setTimeToRespawn(100);
     }
 
     public void talk(){
