@@ -160,6 +160,7 @@ public class LevelFactory {
         MapArea area1 = areas[0];
         MapArea area2 = areas[1];
         area1.getTile(new Coord(5,5)).addOneShotItem(new OneShotItem(new Coord(5,5)));
+        area1.getTile(new Coord(5,5)).addGold(new Gold(1000000000,new Coord(5,5)));
         area1.getTile(new Coord(5,6)).addGold(new Gold(10, new Coord(5,6)));
         area1.getTile(new Coord(6,4)).addOneShotItem(new OneShotItem(new Coord(6,4)));
         area1.getTile(new Coord(7,3)).addOneShotItem(new OneShotItem(new Coord(7,3)));
