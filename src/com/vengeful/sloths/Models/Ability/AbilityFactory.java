@@ -3,9 +3,11 @@ package com.vengeful.sloths.Models.Ability;
 import com.vengeful.sloths.Models.Ability.Abilities.*;
 import com.vengeful.sloths.Models.Buff.Buff;
 import com.vengeful.sloths.Models.Buff.BuffManager;
+import com.vengeful.sloths.Models.Buff.MountBuff;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Observers.EntityObserver;
 import com.vengeful.sloths.Models.Skills.SkillManager;
+import com.vengeful.sloths.Models.Stats.StatAddables.MovementAddable;
 
 import java.util.ArrayList;
 
@@ -40,8 +42,9 @@ public class AbilityFactory {
         return new RemoveBuffAbility(buff, buffManager, entity);
     }
 
-    public MountAbility createMountAbility( Entity entity, Buff buff, ArrayList<EntityObserver> observers, String mountName, int windTime, int coolTime) {
-        return new MountAbility(entity, buff, observers, mountName, windTime, coolTime);
+    public MountAbility createMountAbility( Entity entity, int moveSpeed, String mountName, int windTime, int coolTime) {
+        Buff mountBuff = new MountBuff("Mount", new MovementAddable(moveSpeed), entity.getBuffManager(), entity.getObservers(), mountName);
+        return new MountAbility(entity, mountBuff, mountName, windTime, coolTime);
     }
 
     public DemountAbility createDemountAbility(Buff buff, BuffManager buffManager, Entity entity, ArrayList<EntityObserver> observers) {

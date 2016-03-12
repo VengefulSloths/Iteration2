@@ -166,8 +166,8 @@ public class AbilityManager implements ModelVisitable, ViewObservable {
     }
 
     private void doAbilityHooks() {
-        for (Hook hook : castAbilityHooks) {
-            hook.execute(this);
+        for (int i = castAbilityHooks.size() - 1 ; i >= 0; i--) {
+            castAbilityHooks.get(i).execute(this);
         }
     }
     @Override

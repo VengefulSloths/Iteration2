@@ -28,7 +28,7 @@ public class Mount extends EquippableItems {
     }
 
     public Ability getMountAbility(Entity entity) {
-        return AbilityFactory.getInstance().createMountAbility(entity, new MountBuff(new MovementAddable(moveSpeed), entity.getBuffManager(), entity.getObservers()), entity.getObservers(), name, 30, 32);
+        return AbilityFactory.getInstance().createMountAbility(entity, 10, name, 30, 32);
     }
 
 

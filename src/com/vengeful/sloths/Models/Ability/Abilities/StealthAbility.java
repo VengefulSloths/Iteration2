@@ -14,11 +14,11 @@ import java.util.ArrayList;
  */
 public class StealthAbility extends SelfBuffAbility {
     private ArrayList<EntityObserver> observers;
+    
 
-
-    public StealthAbility(Entity entity) {
-        super(entity, new PermanantBuff(new MovementAddable(-10)), 20, 25);
-        this.observers = entity.getObservers();
+    public StealthAbility(Entity entity, Buff buff, int windTicks, int coolTicks, ArrayList<EntityObserver> observers) {
+        super(entity, buff, windTicks, coolTicks);
+        this.observers = observers;
     }
 
     @Override

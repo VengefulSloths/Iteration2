@@ -140,10 +140,9 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
         //Set the camera views avatar to this
 
         activeCameraView.addAvatar(avo);
+
         avatar.getEquipped().alertAllEntityObserversEverything();
-        if (avatar.isMounted()) {
-            avo.alertMount(avatar.getEquipped().getMount().getName());
-        }
+        avatar.getBuffManager().alertObserversEverything();
 
 
     }

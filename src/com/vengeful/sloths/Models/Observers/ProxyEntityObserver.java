@@ -4,6 +4,7 @@ import com.vengeful.sloths.AreaView.ViewTime;
 import com.vengeful.sloths.Models.ViewObservable;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Utility.WeaponClass;
+import com.vengeful.sloths.Views.View;
 
 /**
  * Created by alexs on 1/31/2016.
@@ -114,6 +115,20 @@ public class ProxyEntityObserver extends ProxyObserver
     public void alertDemount() {
         if (!deleteFlag) {
             ViewTime.getInstance().registerAlert(0, () -> target.alertDemount());
+        }
+    }
+
+    @Override
+    public void alertAddBuff(String buffName) {
+        if (!deleteFlag) {
+            ViewTime.getInstance().registerAlert(0, () -> target.alertAddBuff(buffName));
+        }
+    }
+
+    @Override
+    public void alertRemoveBuff(String buffName) {
+        if (!deleteFlag) {
+            ViewTime.getInstance().registerAlert(0, () -> target.alertRemoveBuff(buffName));
         }
     }
 

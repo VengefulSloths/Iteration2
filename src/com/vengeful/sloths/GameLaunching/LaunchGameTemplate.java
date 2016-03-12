@@ -82,7 +82,7 @@ public class LaunchGameTemplate {
         avatar.equip(new OneHandedWeapon("dagger", new StrengthAddable(5), 10));
 
 
-        avatar.getAbilityManager().equipAbility(new StealthAbility(avatar), 0);
+        //avatar.getAbilityManager().equipAbility(new StealthAbility(avatar), 0);
         /**************************/
 
         AreaView areaView = new AreaView(cameras);

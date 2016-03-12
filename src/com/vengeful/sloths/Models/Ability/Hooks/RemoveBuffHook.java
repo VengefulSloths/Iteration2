@@ -14,21 +14,16 @@ import java.util.ArrayList;
 public class RemoveBuffHook implements Hook {
     private BuffManager buffManager;
     private Buff buff;
-    private ArrayList<EntityObserver> observers;
 
-    public RemoveBuffHook(Buff buff, BuffManager buffManager, ArrayList<EntityObserver> observers) {
+
+    public RemoveBuffHook(Buff buff, BuffManager buffManager) {
         this.buff = buff;
         this.buffManager = buffManager;
-        this.observers = observers;
     }
 
     @Override
     public void execute(AbilityManager owner) {
-        if (buffManager.removeBuff(buff) ) {
-            for (EntityObserver observer: observers) {
-                observer.alertDemount();
-            }
-        }
+        buffManager.removeBuff(buff);
         owner.removeAbilityHook(this);
     }
 }
