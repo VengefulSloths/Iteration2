@@ -21,14 +21,11 @@ import com.vengeful.sloths.Models.Map.AreaEffects.HealDamageAE;
 import com.vengeful.sloths.Models.Map.AreaEffects.InstantDeathAE;
 import com.vengeful.sloths.Models.Map.AreaEffects.LevelUpAE;
 import com.vengeful.sloths.Models.Map.AreaEffects.TakeDamageAE;
+import com.vengeful.sloths.Models.Map.MapItems.*;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.BreakBoxQuest;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.DoDestroyObstacleQuest;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.HasItemQuest;
-import com.vengeful.sloths.Models.Map.MapItems.MapItem;
-import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
-import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
-import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.Map.Terrains.Grass;
 import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
@@ -381,6 +378,11 @@ public class AggressiveNPCSearchingController extends SearchingController {
 
     @Override
     public void visitAdaptableStrategy(AdaptableStrategy adaptableStrategy) {
+
+    }
+
+    @Override
+    public void visitGold(Gold gold) {
 
     }
 

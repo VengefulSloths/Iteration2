@@ -1,9 +1,6 @@
 package com.vengeful.sloths.AreaView;
 
-import com.vengeful.sloths.AreaView.ViewObjects.InteractiveItemViewObject;
-import com.vengeful.sloths.AreaView.ViewObjects.OneShotViewObject;
-import com.vengeful.sloths.AreaView.ViewObjects.TakeableViewObject;
-import com.vengeful.sloths.AreaView.ViewObjects.TileViewObject;
+import com.vengeful.sloths.AreaView.ViewObjects.*;
 import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
 import com.vengeful.sloths.Models.Ability.Abilities.*;
 import com.vengeful.sloths.Models.Ability.Ability;
@@ -22,14 +19,11 @@ import com.vengeful.sloths.Models.InventoryItems.EquippableItems.*;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
 import com.vengeful.sloths.Models.Map.*;
 import com.vengeful.sloths.Models.Map.AreaEffects.*;
+import com.vengeful.sloths.Models.Map.MapItems.*;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.BreakBoxQuest;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.DoDestroyObstacleQuest;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.HasItemQuest;
-import com.vengeful.sloths.Models.Map.MapItems.MapItem;
-import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
-import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
-import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.Map.Terrains.Grass;
 import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
@@ -278,6 +272,15 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
     @Override
     public void visitAdaptableStrategy(AdaptableStrategy adaptableStrategy) {
 
+    }
+
+    @Override
+    public void visitGold(Gold gold) {
+        String imagePath = "resources/items/"+gold.getItemName()+"/"+gold.getItemName()+".xml";
+        GoldViewObject goldViewObject = factory.createGoldViewObject(r, s, imagePath);
+        new ProxyDestoyableObserver(goldViewObject, gold);
+        goldViewObject.registerObserver(currentTile); //tileViewObject listen for takeable vo destroy
+        currentTile.addChild(goldViewObject);
     }
 
 //    @Override

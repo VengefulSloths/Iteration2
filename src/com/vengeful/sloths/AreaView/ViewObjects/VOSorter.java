@@ -16,6 +16,11 @@ public class VOSorter implements VOVisitor {
     }
 
     @Override
+    public void acceptGold(GoldViewObject goldViewObject) {
+        zLevel = 500;
+    }
+
+    @Override
     public void visitEntity(EntityViewObject e) {
         zLevel = 1000;
     }

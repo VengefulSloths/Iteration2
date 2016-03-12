@@ -19,6 +19,7 @@ import com.vengeful.sloths.Models.Map.AreaEffects.TakeDamageAE;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Map.*;
+import com.vengeful.sloths.Models.Map.MapItems.Gold;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.DoDestroyObstacleQuest;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.HasItemQuest;
@@ -158,6 +159,7 @@ public class LevelFactory {
         MapArea area1 = areas[0];
         MapArea area2 = areas[1];
         area1.getTile(new Coord(5,5)).addOneShotItem(new OneShotItem(new Coord(5,5)));
+        area1.getTile(new Coord(5,6)).addGold(new Gold(10, new Coord(5,6)));
         area1.getTile(new Coord(6,4)).addOneShotItem(new OneShotItem(new Coord(6,4)));
         area1.getTile(new Coord(7,3)).addOneShotItem(new OneShotItem(new Coord(7,3)));
         area1.getTile(new Coord(8,2)).addOneShotItem(new OneShotItem(new Coord(8,2)));

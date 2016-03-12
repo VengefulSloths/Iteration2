@@ -94,4 +94,7 @@ public abstract class ViewObjectFactory {
         return new AEViewObject(r, s, cs, ls, resourecPath);
     }
 
+    public GoldViewObject createGoldViewObject(int r, int s, String imagePath) {
+        return new GoldViewObject(r,s,cs,ls,imagePath);
+    }
 }

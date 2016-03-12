@@ -20,4 +20,5 @@ public interface VOVisitor {
     void visitInteractiveItem(InteractiveItemViewObject i);
     void visitAE(AEViewObject a);
 
+    void acceptGold(GoldViewObject goldViewObject);
 }
