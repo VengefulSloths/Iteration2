@@ -19,7 +19,7 @@ public class LivesView extends JComponent {
     @Override
     public void paintComponent(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
-        int offset = 20;
+        int offset = 15;
         for(int i = 0; i < numLives; ++i){
             //System.out.println("pringint lives " + i);
             g2d.drawImage(livesIcon,0,offset, this);

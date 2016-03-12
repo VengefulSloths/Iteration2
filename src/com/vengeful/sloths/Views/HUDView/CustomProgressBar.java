@@ -39,8 +39,23 @@ public class CustomProgressBar extends JComponent {
         //now paint current stuff
         g2d.setColor(currentColor);
         //calculate % to show
-        int percentage = (int)(((float)currentProgress/(float)maxProgress) * 100);
+        int percentage = (int)(((float)currentProgress/(float)maxProgress) * progressBarWidth);
         g2d.fillRect(borderWidth/2, borderWidth/2, percentage - borderWidth, progressBarHeight-borderWidth);
+    }
+
+    public void paintComponent(Graphics g, int x, int y){
+        Graphics2D g2d = (Graphics2D) g;
+        //paint rectangle to draw border
+        g2d.setColor(borderColor);
+        g2d.fillRect(x,y,progressBarWidth,progressBarHeight);
+        //now add depleted color
+        g2d.setColor(depletedColor);
+        g2d.fillRect(x + borderWidth/2, y + borderWidth/2, progressBarWidth - borderWidth, progressBarHeight-borderWidth);
+        //now paint current stuff
+        g2d.setColor(currentColor);
+        //calculate % to show
+        int percentage = (int)(((float)currentProgress/(float)maxProgress) * progressBarWidth);
+        g2d.fillRect(x + borderWidth/2, y + borderWidth/2, percentage - borderWidth, progressBarHeight-borderWidth);
     }
 
 
