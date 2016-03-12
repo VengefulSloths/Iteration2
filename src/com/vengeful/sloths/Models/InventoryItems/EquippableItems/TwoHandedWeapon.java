@@ -29,7 +29,7 @@ public class TwoHandedWeapon extends Weapon implements ModelVisitable{
 
     @Override
     public Ability getAttackAbility(Entity entity) {
-        return AbilityFactory.getInstance().createMeleeAttackAbility(entity, ModelConfig.getTwoHandedWindup(), ModelConfig.getTwoHandedSpeed());
+        return AbilityFactory.getInstance().createMeleeAttackAbility(entity, entity.getSkillManager().getTwoHandSkill(), getBaseDamage(), ModelConfig.getTwoHandedWindup(), ModelConfig.getTwoHandedSpeed());
     }
 
     @Override

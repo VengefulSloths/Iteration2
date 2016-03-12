@@ -568,13 +568,13 @@ private void setActiveMapArea() {
                         bwa.setSkillManager(e.getSkillManager());
                         abm.addAbility(bwa);
                         break;
-                    case "MeleeAttackAbility" :
-                        int wind = Integer.valueOf(currAbility.getAttribute("windTicks"));
-                        int cool = Integer.valueOf(currAbility.getAttribute("coolTicks"));
-                        MeleeAttackAbility maa = new MeleeAttackAbility(e,wind,cool);
-                        maa.setStats(e.getStats());
-                        abm.addAbility(maa);
-                        break;
+//                    case "MeleeAttackAbility" :
+//                        int wind = Integer.valueOf(currAbility.getAttribute("windTicks"));
+//                        int cool = Integer.valueOf(currAbility.getAttribute("coolTicks"));
+//                        MeleeAttackAbility maa = new MeleeAttackAbility(e,wind,cool);
+//                        maa.setStats(e.getStats());
+//                        abm.addAbility(maa);
+//                        break;
                     case "FireBallAbility" :
                         int start = Integer.valueOf(currAbility.getAttribute("startUpTicks"));
                         int coolDown = Integer.valueOf(currAbility.getAttribute("coolDownTicks"));

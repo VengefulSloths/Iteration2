@@ -6,6 +6,7 @@ import com.vengeful.sloths.Models.Ability.AbilityFactory;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
+import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
@@ -16,6 +17,7 @@ import com.vengeful.sloths.Utility.WeaponClass;
  * Created by luluding on 2/22/16.
  */
 public class OneHandedWeapon extends Weapon implements ModelVisitable {
+
 
     public OneHandedWeapon(String name, StatsAddable stats, int baseDamage){
         super(name, stats, baseDamage);
@@ -35,7 +37,7 @@ public class OneHandedWeapon extends Weapon implements ModelVisitable {
 
     @Override
     public Ability getAttackAbility(Entity entity) {
-        return AbilityFactory.getInstance().createMeleeAttackAbility(entity, ModelConfig.getOneHandedWindup(), ModelConfig.getOneHandedSpeed());
+        return AbilityFactory.getInstance().createMeleeAttackAbility(entity, entity.getSkillManager().getOneHandSkill(), getBaseDamage(), ModelConfig.getOneHandedWindup(), ModelConfig.getOneHandedSpeed());
     }
 
     @Override
