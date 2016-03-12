@@ -155,6 +155,14 @@ public class Inventory implements ModelVisitable, ViewObservable {
         this.gold += gold.getValue();
         return true;
     }
+    public Gold dropAllGold(){
+        Gold g = new Gold();
+        g.setValue(this.getGold());
+        g.setItemName("gold");
+        this.setGold(0);
+        return g;
+    }
+
     public int getGold() {
         return gold;
     }

@@ -241,6 +241,13 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         EntityPickUpGoldCommand epgc = EntityMapInteractionFactory.getInstance().createPickUpGoldCommand(this, this.getInventory(), gold);
         epgc.execute();
     }
+    public void baddOOReceiveGoldForTesting(Gold g){
+        this.inventory.addGold(g);
+    }
+    public Gold dropGold(){
+        Gold g= this.inventory.dropAllGold();
+        return g;
+    }
 
     public void drop(InventoryItem item){
         EntityDropCommand edc = EntityMapInteractionFactory.getInstance().createDropCommand(item, this.getLocation(), this);

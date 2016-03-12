@@ -25,7 +25,7 @@ public class EntityDieCommand implements Alertable {
     public int execute() {
         entity.setDead(true);
         entity.setActive(true); //make it so that the entity cant do anything
-
+//        new EntityDropEntireInventoryCommand(entity).execute();
         Map.getInstance().getTile(entity.getLocation()).removeEntity(entity); //unregister him from the tile
 
         while (entityObserverIterator.hasNext()) {
