@@ -1,4 +1,6 @@
 package com.vengeful.sloths.AreaView;
+import com.vengeful.sloths.Utility.Config;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -24,8 +26,10 @@ public class ViewEngine extends JFrame implements Runnable{
         setTitle("Divergent Skies");
         setResizable(false);
         pack();
-        this.setPreferredSize(new Dimension(1200, 1000));
-        this.setSize(1200, 1000);
+        //this.setPreferredSize(new Dimension(1200, 1000));
+        //this.setSize(1200, 1000);
+        this.setPreferredSize(new Dimension(Config.instance().getWindowWidth(), Config.instance().getWindowHeight())); //edit
+        this.setSize(Config.instance().getWindowWidth(), Config.instance().getWindowHeight()); //edit
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);

@@ -26,6 +26,12 @@ public class CharacterView extends JPanel {
     private JPanel containerPanel;
     //private Inventory inventory;
 
+    /* //Code for differently sized panels in the CharacterView
+    private double leftPanelProportion = 0.21;
+    private double rightPanelProportion = 0.21;
+    private double centerPanelProportion = 1.0 - leftPanelProportion - rightPanelProportion;
+    */
+
     public InventoryView getInventoryView() {
         return inventoryView;
     }
@@ -78,11 +84,22 @@ public class CharacterView extends JPanel {
         this.setBackground(new Color(0f,0f,0f,0f));
         this.containerPanel.setBorder(new BevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK));
         this.setLayout(new FlowLayout());
+        /* begin old layout code */
         this.containerPanel.setPreferredSize(new Dimension(this.getCharacterViewWidth(),this.getCharacterViewHeight()));
         this.containerPanel.setLayout(new GridLayout(1,3));
         this.containerPanel.add(this.inventoryView);
         this.containerPanel.add(this.equipmentView);
         this.containerPanel.add(this.statsView);
+        /* end old layout code */
+        /* begin new layout edit */
+        //this.inventoryView.setPreferredSize(new Dimension(((int)(this.getCharacterViewWidth()*leftPanelProportion)), this.getCharacterViewHeight()));
+        //this.equipmentView.setPreferredSize(new Dimension(((int)(this.getCharacterViewWidth()*centerPanelProportion)), this.getCharacterViewHeight()));
+        //this.statsView.setPreferredSize(new Dimension(((int)(this.getCharacterViewWidth()*rightPanelProportion)), this.getCharacterViewHeight()));
+        //this.containerPanel.setLayout(new BorderLayout());
+        //this.containerPanel.add(this.inventoryView, BorderLayout.WEST);
+        //this.containerPanel.add(this.equipmentView,BorderLayout.CENTER);
+        //this.containerPanel.add(this.statsView, BorderLayout.EAST);
+        /* end new layout edit */
         this.add(pushPanel);
         this.add(containerPanel);
 
