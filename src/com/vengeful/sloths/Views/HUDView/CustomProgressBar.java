@@ -8,12 +8,14 @@ import java.awt.*;
  */
 public class CustomProgressBar extends JComponent {
 
-    int maxProgress = 0;
-    int currentProgress = 0;
+    float maxProgress = 0;
+    float currentProgress = 0;
 
     int progressBarWidth;
     int progressBarHeight;
     int borderWidth;
+
+    float oldCurrent = -1;
 
     Color currentColor = Color.GREEN;
     Color depletedColor = Color.RED;
@@ -39,7 +41,13 @@ public class CustomProgressBar extends JComponent {
         //now paint current stuff
         g2d.setColor(currentColor);
         //calculate % to show
-        int percentage = (int)(((float)currentProgress/(float)maxProgress) * progressBarWidth);
+        if(this.oldCurrent > this.currentProgress){
+            this.oldCurrent -= maxProgress/100f;
+        }
+        if(this.oldCurrent < this.currentProgress){
+            this.oldCurrent += maxProgress/100f;
+        }
+        int percentage = (int)((oldCurrent/maxProgress) * progressBarWidth);
         g2d.fillRect(borderWidth/2, borderWidth/2, percentage - borderWidth, progressBarHeight-borderWidth);
     }
 
@@ -54,7 +62,14 @@ public class CustomProgressBar extends JComponent {
         //now paint current stuff
         g2d.setColor(currentColor);
         //calculate % to show
-        int percentage = (int)(((float)currentProgress/(float)maxProgress) * progressBarWidth);
+        if(this.oldCurrent > this.currentProgress){
+            this.oldCurrent -= maxProgress/100f;
+        }
+        if(this.oldCurrent < this.currentProgress){
+            this.oldCurrent += maxProgress/100f;
+        }
+        System.out.println(oldCurrent + "/" + maxProgress);
+        int percentage = (int)((oldCurrent/maxProgress) * progressBarWidth);
         g2d.fillRect(x + borderWidth/2, y + borderWidth/2, percentage - borderWidth, progressBarHeight-borderWidth);
     }
 
@@ -62,19 +77,25 @@ public class CustomProgressBar extends JComponent {
     //////////////////////////////////////////////getters and setters//////////////////////////////////
 
     public int getMaxProgress() {
-        return maxProgress;
+        return (int)maxProgress;
     }
 
     public void setMaxProgress(int maxProgress) {
-        this.maxProgress = maxProgress;
+        this.maxProgress = (float)maxProgress;
     }
 
     public int getCurrentProgress() {
-        return currentProgress;
+        return(int)currentProgress;
     }
 
     public void setCurrentProgress(int currentProgress) {
-        this.currentProgress = currentProgress;
+        if(this.oldCurrent == -1){
+            this.oldCurrent = (float) currentProgress;
+            this.currentProgress = (float) currentProgress;
+        }else {
+            this.oldCurrent = this.currentProgress;
+            this.currentProgress = (float) currentProgress;
+        }
     }
 
     public int getProgressBarWidth() {

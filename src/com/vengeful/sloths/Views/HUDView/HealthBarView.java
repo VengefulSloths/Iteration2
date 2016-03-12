@@ -20,26 +20,23 @@ public class HealthBarView extends JComponent {
         this.setPreferredSize(new Dimension(160, 116));
 
         this.healthBar = new CustomProgressBar(140, 20);
-        healthBar.setMaxProgress(100);
-        healthBar.setCurrentProgress(50);
-        healthBar.setBorderWidth(5);
+
+        healthBar.setBorderWidth(6);
         healthBar.setDepletedColor(Color.LIGHT_GRAY);
 
         //this.add(healthBar);
 
 
         this.manaBar = new CustomProgressBar(140, 20);
-        manaBar.setMaxProgress(100);
-        manaBar.setCurrentProgress(50);
-        manaBar.setBorderWidth(5);
+
+        manaBar.setBorderWidth(6);
         manaBar.setCurrentColor(Color.CYAN);
         manaBar.setDepletedColor(Color.LIGHT_GRAY);
         //this.add(manaBar);
 
         this.xpBar = new CustomProgressBar(140, 20);
-        xpBar.setMaxProgress(100);
-        xpBar.setCurrentProgress(50);
-        xpBar.setBorderWidth(5);
+
+        xpBar.setBorderWidth(6);
         xpBar.setCurrentColor(Color.ORANGE);
         xpBar.setDepletedColor(Color.LIGHT_GRAY);
         // xpPanel.add(xpLabel);
