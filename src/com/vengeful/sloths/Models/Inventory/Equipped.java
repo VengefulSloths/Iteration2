@@ -137,6 +137,16 @@ public class Equipped implements ViewObservable, ModelVisitable{
         alertUnEquipped(weapon);
     }
 
+    public void alertAllEntityObserversEverything() {
+        for (EntityObserver observer: entity.getObservers()) {
+            if (this.hat != null) {
+                observer.alertEquipHat(this.hat.getItemName());
+            }
+            if (this.weapon != null && this.weapon != fists) {
+                observer.alertEquipWeapon(this.weapon.getItemName(), this.weapon.getWeaponClassification());
+            }
+        }
+    }
 
     //need getter and setter for mount
 

@@ -31,7 +31,7 @@ public class SetInputsControllerState extends InputControllerState {
     public void setKey(int key){
         System.out.println("making the create key command");
         keyBindCommandFactory.createKeyBindCommand(key ,menu.getMenuItem()).execute();
-
+        menu.refreshKeys();
     }
     @Override
     public void continuousFunction() {

@@ -16,7 +16,7 @@ public class ItemImageFactory extends ImageFactory {
 
     public String generateItemImageFileName(InventoryItem item) {
         //String imageFileName = "resources/" + item.getItemName() + ".jpg";
-        String imageFileName = "resources/" + item.getItemName() + ".png";
+        String imageFileName = "resources/InventoryItems/" + item.getItemName() + ".png";
         return imageFileName;
     }
 

@@ -1,4 +1,4 @@
-package com.vengeful.sloths.Models.RangedEffects;
+package com.vengeful.sloths.Models.RangedEffects.CanGenerateVisitor;
 
 import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
 import com.vengeful.sloths.Models.Ability.Abilities.*;

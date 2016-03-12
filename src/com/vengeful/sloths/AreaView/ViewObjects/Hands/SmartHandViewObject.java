@@ -99,9 +99,13 @@ public class SmartHandViewObject extends MovingViewObject{
 
     @Override
     public NonVisibleViewObject getNonVisibleSnapShot() {
-        System.out.println("Whoa boy, we shouldnt be saving hands");
         ArrayList<DynamicImage> visibleImages = new ArrayList<>();
-        return new NonVisibleViewObject(getR(), getS(), getCoordinateStrategy(), getLocationStrategy(), visibleImages);
+        NonVisibleViewObject output = new NonVisibleViewObject(getR(), getS(), getCoordinateStrategy(), getLocationStrategy(), visibleImages);
+        output.addFromVisibleImage(handImage, xPixelOffset, yPixelOffset);
+        if (weapon != null) {
+            output.addFromVisibleImage(weapon.getCurrentDynamicImage(), xPixelOffset, yPixelOffset);
+        }
+        return output;
     }
 
 

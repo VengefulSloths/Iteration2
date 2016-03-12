@@ -201,7 +201,19 @@ public class AdaptableStrategy extends InputStrategy implements ModelVisitable {
 
     public void setKeyMappings(int key, KeyMapping value){
         //maybe add logic if that key is already mapped somehwhere
-        keyMappings.put(key, value);
+        if(keyMappings.containsKey(key)){
+            //need to swap
+            KeyMapping tmp = keyMappings.get(key);
+            int tmpkey = this.getKeyCode(value);
+            if(tmpkey != -1){
+                keyMappings.put(tmpkey, tmp);
+            }else{
+                //idk but we need to notify the view somehow
+            }
+            keyMappings.put(key, value);
+        }else {
+            keyMappings.put(key, value);
+        }
     }
 
     public HashMap<Integer, KeyMapping> getKeyMappings() {

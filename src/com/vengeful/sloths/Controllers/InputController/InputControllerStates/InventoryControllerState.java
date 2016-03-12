@@ -61,19 +61,7 @@ public class InventoryControllerState extends InputControllerState{
 
 
     public boolean handleSouthKey() {
-        int itemListSize = this.inventoryView.getItemListSize();
-        int numCols = this.inventoryView.getNumCols();
-        if (itemListSize == 0)
-            return false;
-        this.inventoryIndex += numCols;
-        if (this.inventoryIndex >= itemListSize) {
-            this.inventoryIndex -= numCols;
-            return false;
-        } else {
-            if (this.inventoryIndex > 0)
-                this.inventoryView.setDeselected(this.inventoryView.getFromItemList(this.inventoryIndex - numCols)); //edit?
-        }
-        this.inventoryView.setSelected(this.inventoryView.getFromItemList(this.inventoryIndex));
+        this.inventoryView.selectSouthItem();
         return true;
     }
 
@@ -83,10 +71,9 @@ public class InventoryControllerState extends InputControllerState{
 
         //test code
         Inventory inventory = Avatar.getInstance().getInventory();
-        System.out.println("inventory size: " + inventory.getCurrentSize());
         if(inventory.getCurrentSize() > 0){
             //MainController.getInstance().getPlayer().drop(inventory.getItem(0)); //edit: think this was working before
-            MainController.getInstance().getPlayer().drop(inventory.getItem(inventoryIndex));
+            MainController.getInstance().getPlayer().drop(this.inventoryView.getCurrentItem());
             return true;
         }else{
             System.out.println("Nothing in inventory");
@@ -95,36 +82,16 @@ public class InventoryControllerState extends InputControllerState{
     }
 
 
+
+
     public boolean handleWestKey() {
-        int itemListSize = this.inventoryView.getItemListSize();
-        if(itemListSize == 0)
-            return false;
-        this.inventoryIndex--;
-        if (this.inventoryIndex < 0) {
-            this.inventoryIndex++;
-            return false; //edit?
-        } else {
-            if(this.inventoryIndex < itemListSize)
-                this.inventoryView.setDeselected(this.inventoryView.getFromItemList(this.inventoryIndex+1)); //edit?
-        }
-        this.inventoryView.setSelected(this.inventoryView.getFromItemList(this.inventoryIndex));
+        this.inventoryView.selectWestItem();
         return true;
     }
 
     @Override
     public boolean handleEastKey() {
-        int itemListSize = this.inventoryView.getItemListSize();
-        if (itemListSize == 0)
-            return false;
-        this.inventoryIndex++; //edit?
-        if (this.inventoryIndex >= itemListSize) {
-            this.inventoryIndex = itemListSize - 1;
-            return false; //edit?
-        } else {
-            if (this.inventoryIndex < itemListSize)
-                this.inventoryView.setDeselected(this.inventoryView.getFromItemList(this.inventoryIndex - 1)); //edit?
-        }
-        this.inventoryView.setSelected(this.inventoryView.getFromItemList(this.inventoryIndex));
+        this.inventoryView.selectEastItem();
         return true;
     }
 
@@ -136,24 +103,16 @@ public class InventoryControllerState extends InputControllerState{
 
     public boolean handleNorthKey() {
         // Move up an item
-        int itemListSize = this.inventoryView.getItemListSize();
-        if (itemListSize == 0)
-            return false;
-        int numCols = this.inventoryView.getNumCols();
-        this.inventoryIndex -= numCols; //edit?
-        if (this.inventoryIndex < 0) {
-            this.inventoryIndex += numCols;
-            return false; //edit?
-        } else {
-            this.inventoryView.setDeselected(this.inventoryView.getFromItemList(this.inventoryIndex + numCols)); //edit?
-        }
-        this.inventoryView.setSelected(this.inventoryView.getFromItemList(this.inventoryIndex));
+        this.inventoryView.selectNorthItem();
         return true;
     }
 
     @Override
     public boolean handleNorthEastKey() {
-        return false;
+        this.inventoryView.useCurrentlySelectedItem();
+
+        return true;
+
     }
 
     @Override
@@ -168,21 +127,27 @@ public class InventoryControllerState extends InputControllerState{
 
     @Override
     public boolean handleLeftKey() {
+        this.inventoryView.selectWestItem();
         return false;
     }
 
     @Override
     public boolean handleRightKey() {
+
+        this.inventoryView.selectEastItem();
         return false;
     }
 
     @Override
     public boolean handleDownKey() {
+
+        this.inventoryView.selectSouthItem();
         return false;
     }
 
     @Override
     public boolean handleUpKey() {
+        this.inventoryView.selectNorthItem();
         return false;
     }
 

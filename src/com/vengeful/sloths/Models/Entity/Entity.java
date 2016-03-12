@@ -123,11 +123,12 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     public final int die(){
         if(!this.dead) {
             this.setDead(true);
-            System.out.println("dying");
+            System.out.println("dying bruh");
 
             EntityDieCommand edc = EntityMapInteractionFactory.getInstance().createDeathCommand(this, observers.iterator());
 
             dropAllItems();
+            customDeath();
             doRespawn();
 
             return edc.execute();
@@ -137,6 +138,10 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         return 0;
     }
 
+    protected void customDeath() {
+        // anything extra
+        System.out.println("custom death entity");
+    }
 
     protected void dropAllItems() {
         //create drop command

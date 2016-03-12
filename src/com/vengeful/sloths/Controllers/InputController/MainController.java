@@ -26,7 +26,7 @@ public class MainController implements Tickable{
     private Inventory inventory;
     private InputControllerState state;
     private Map map;
-    private InputStrategy inputStrategy;
+    private AdaptableStrategy inputStrategy;
     private InputHandler inputHandler;
 
     private ViewManager viewManager;
@@ -140,11 +140,11 @@ public class MainController implements Tickable{
         state.continuousFunction();
     }
 
-    public InputStrategy getInputStrategy() {
+    public AdaptableStrategy getInputStrategy() {
         return inputStrategy;
     }
 
-    public void setInputStrategy(InputStrategy inputStrategy) {
+    public void setInputStrategy(AdaptableStrategy inputStrategy) {
         this.inputStrategy = inputStrategy;
     }
 }

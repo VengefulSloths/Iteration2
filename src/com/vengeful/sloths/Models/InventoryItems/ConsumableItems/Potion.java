@@ -26,4 +26,9 @@ public class Potion extends ConsumableItems implements ModelVisitable{
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitPotion(this);
     }
+
+    @Override
+    public void interact() {
+
+    }
 }

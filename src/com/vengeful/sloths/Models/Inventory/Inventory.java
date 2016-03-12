@@ -67,7 +67,6 @@ public class Inventory implements ModelVisitable, ViewObservable {
 
 
     public boolean addItem(InventoryItem item) {
-        System.out.println("adding item");
         if(currentSize >= maxSize)
             return false;
         else{
