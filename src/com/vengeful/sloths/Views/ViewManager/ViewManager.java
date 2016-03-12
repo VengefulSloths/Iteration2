@@ -4,6 +4,7 @@ import com.vengeful.sloths.Controllers.InputController.KeyBindingMenu.InputChang
 import com.vengeful.sloths.Menu.InGameMenu.InGameScrollableMenu;
 import com.vengeful.sloths.Utility.Config;
 //import com.vengeful.sloths.Views.AreaView.AreaView;
+import com.vengeful.sloths.Views.AbilitiesSkillsView.AbilitiesSkillView;
 import com.vengeful.sloths.Views.CharacterView.CharacterView;
 import com.vengeful.sloths.Views.HUDView.HUDView;
 import com.vengeful.sloths.AreaView.AreaView;
@@ -21,6 +22,7 @@ public class ViewManager extends JPanel {
 
     DefaultViewComposite dvc;
     private CharacterView characterView;
+    private AbilitiesSkillView abilitiesSkillView;
     private AreaView areaview;
     private HUDView hudView;
     private InGameScrollableMenu menuView;
@@ -35,6 +37,15 @@ public class ViewManager extends JPanel {
     public CharacterView getCharacterView() {
         return characterView;
     }
+
+    public AbilitiesSkillView getAbilitiesSkillView() {
+        return abilitiesSkillView;
+    }
+
+    public void setAbilitiesSkillView(AbilitiesSkillView abilitiesSkillView) {
+        this.abilitiesSkillView = abilitiesSkillView;
+    }
+
     public void setCharacterView(CharacterView characterView) {
         this.characterView = characterView;
     }
@@ -123,11 +134,21 @@ public class ViewManager extends JPanel {
         addView(characterView);
     }
 
+    public void openAbilitiesSkillsView() {
+        addView(abilitiesSkillView);
+    }
+
     public void closeAllViews() {
         //TODO: close everything but HUD
     }
     public void closeCharacterView() {
         this.remove(characterView);
+        this.revalidate();
+        this.repaint();
+    }
+
+    public void closeAbilitiesSkillsView() {
+        this.remove(abilitiesSkillView);
         this.revalidate();
         this.repaint();
     }

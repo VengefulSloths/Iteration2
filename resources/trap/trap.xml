@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<dynamic_timed_animation>
+    <width>50</width>
+    <height>50</height>
+    <rootPath>resources/trap/</rootPath>
+    <startConfig>trap_static.xml</startConfig>
+    <endConfig>null.xml</endConfig>
+    <fileName>trap.png</fileName>
+    <positioning xOffset="-25" yOffset="-39">custom</positioning>
+</dynamic_timed_animation>

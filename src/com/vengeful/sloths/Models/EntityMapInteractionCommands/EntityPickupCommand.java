@@ -22,6 +22,7 @@ public class EntityPickupCommand {
 
     public void execute(){
 
+        System.out.println("IPCKUP!");
         if(this.inv.addItem(item.getInventorpRep())){
             Map.getInstance().getActiveMapArea().getTile(this.item.getLocation()).removeTakeableItem(this.item);
             this.item.alertObserverOnDestroy();

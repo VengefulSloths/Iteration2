@@ -5,6 +5,7 @@ import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.Map.Map;
+import com.vengeful.sloths.Models.Map.MapItems.Gold;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.Direction;
@@ -84,6 +85,11 @@ public class EntityMapInteractionFactory {
     public EntityPickupCommand createPickUpCommand(Entity entity, Inventory inv, TakeableItem itemToPickup) {
         EntityPickupCommand epc = new EntityPickupCommand(entity, inv, itemToPickup);
         return epc;
+    }
+
+    public EntityPickUpGoldCommand createPickUpGoldCommand(Entity entity, Inventory inv, Gold gold){
+        EntityPickUpGoldCommand epgc = new EntityPickUpGoldCommand(entity,inv,gold);
+        return epgc;
     }
 
     public EntityRespawnCommand createRespawnCommand(Entity entity, Coord respawnTile, int timeToRespawn) {

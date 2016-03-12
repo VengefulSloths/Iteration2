@@ -13,6 +13,7 @@ public class QWEASDInputStrategy extends InputStrategy {
     public void interpretPressedKey(int key, InputControllerState state) {
         switch (key) {
             case KeyEvent.VK_6: //edit
+                System.out.println("6^^^6^^");
                 state.handleEastKey();
                 break;
             case KeyEvent.VK_4:
@@ -36,6 +37,7 @@ public class QWEASDInputStrategy extends InputStrategy {
             case KeyEvent.VK_D:
                 state.handleSouthEastKey();
                 break;
+            // @TODO: Add case for Abilities menu here
             case KeyEvent.VK_I:
                 state.handleInventoryKey();
                 break;

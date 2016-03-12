@@ -34,7 +34,7 @@ public class InventoryItemViewObjectManager extends ViewObjectManager {
         ItemViewObject ivo = null;
 
         for (int i = 0; i < this.getItemListSize(); i++) {
-            if (this.getItemList().get(i).getInventoryItem().equals(item)) {
+            if (this.getItemList().get(i).getViewItem().equals(item)) {
                 ivo = (ItemViewObject) this.getItemList().get(i);
                 ivo.setIsDisplayed(false); //edit?
                 this.getItemList().remove(i);
@@ -43,7 +43,7 @@ public class InventoryItemViewObjectManager extends ViewObjectManager {
         return ivo;
     }
 
-    /* Gets an ItemViewObject from the itemList */
+    /* Gets an AbilityViewObject from the itemList */
     public ItemViewObject getFromItemList(int index) {
         try {
             return this.getItemList().get(index);

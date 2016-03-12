@@ -82,6 +82,10 @@ public abstract class SearchingController implements ModelVisitor {
     }
 
 
+    private int currRing;
+    public int getCurrRing() {
+        return currRing;
+    }
 
     /**
      * Get target result of search
@@ -92,7 +96,7 @@ public abstract class SearchingController implements ModelVisitor {
      */
     public void search(int searchRadius) {
         this.highestPriorityTarget = null;//set it null at the beginning of each search so it doesnt keep seeing old searches
-        int currRing = 0;
+        currRing = 0;
 
         Coord currCoord = entity.getLocation();
 

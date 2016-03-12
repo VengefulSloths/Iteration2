@@ -33,6 +33,11 @@ public class AdaptableStrategy extends InputStrategy implements ModelVisitable {
         setKeyMappings(KeyEvent.VK_LEFT, KeyMapping.LEFT);
         setKeyMappings(KeyEvent.VK_RIGHT, KeyMapping.RIGHT);
         setKeyMappings(KeyEvent.VK_I, KeyMapping.INVENTORY);
+        setKeyMappings(KeyEvent.VK_K, KeyMapping.ABILITIES);
+        setKeyMappings(KeyEvent.VK_0, KeyMapping.ABILITY_0);
+        setKeyMappings(KeyEvent.VK_1, KeyMapping.ABILITY_1);
+        setKeyMappings(KeyEvent.VK_2, KeyMapping.ABILITY_2);
+        setKeyMappings(KeyEvent.VK_3, KeyMapping.ABILITY_3);
         setKeyMappings(KeyEvent.VK_P, KeyMapping.SAVE);
         //setKeyMappings(KeyEvent.VK_S, KeyMapping.SOUTH);
     }
@@ -64,6 +69,9 @@ public class AdaptableStrategy extends InputStrategy implements ModelVisitable {
                     break;
                 case SOUTHEAST:
                     state.handleSouthEastKey();
+                    break;
+                case ABILITIES:
+                    state.handleAbilitiesKey();
                     break;
                 case INVENTORY:
                     state.handleInventoryKey();
@@ -106,6 +114,18 @@ public class AdaptableStrategy extends InputStrategy implements ModelVisitable {
                     break;
                 case DROP:
                     state.handleDropKey();
+                    break;
+                case ABILITY_0:
+                    state.handleAbility0Key();
+                    break;
+                case ABILITY_1:
+                    state.handleAbility1Key();
+                    break;
+                case ABILITY_2:
+                    state.handleAbility2Key();
+                    break;
+                case ABILITY_3:
+                    state.handleAbility3Key();
                     break;
                 default:
                     //do nothing not a supported key

@@ -103,4 +103,13 @@ public class VOCleaner implements VOVisitor {
     public void visitAE(AEViewObject a) {
 
     }
+
+    @Override
+
+    public void visitTrapViewObject(TrapViewObject t) {}
+
+    public void acceptGold(GoldViewObject goldViewObject) {
+
+
+    }
 }
