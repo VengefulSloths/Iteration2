@@ -8,6 +8,7 @@ import com.vengeful.sloths.Models.Buff.MountBuff;
 import com.vengeful.sloths.Models.Buff.StealthBuff;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Observers.EntityObserver;
+import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.GenericStatsAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.MovementAddable;
@@ -30,8 +31,8 @@ public class AbilityFactory {
 
     private AbilityFactory() {
     }
-    public MeleeAttackAbility createMeleeAttackAbility(Entity entity, int windTime, int coolTime) {
-        return new MeleeAttackAbility(entity, windTime, coolTime);
+    public MeleeAttackAbility createMeleeAttackAbility(Entity entity, Skill relevantSkill, int baseDamage, int windTime, int coolTime) {
+        return new MeleeAttackAbility(entity, relevantSkill, baseDamage, windTime, coolTime);
     }
 
     public BindWoundsAbility createBindWoundsAbility(Entity entity, SkillManager skillManager, int startupTime, int cooldownTime){

@@ -6,6 +6,7 @@ import com.vengeful.sloths.Models.Ability.AbilityFactory;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
+import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
@@ -34,7 +35,7 @@ public class Knuckle extends Weapon implements ModelVisitable{
 
     @Override
     public Ability getAttackAbility(Entity entity) {
-        return AbilityFactory.getInstance().createMeleeAttackAbility(entity, 4, 8);
+        return AbilityFactory.getInstance().createMeleeAttackAbility(entity, entity.getSkillManager().getBrawlingSkill(), getBaseDamage(), 4, 8);
     }
 
     @Override

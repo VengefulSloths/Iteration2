@@ -68,9 +68,31 @@ public class SkillManager implements ModelVisitable{
             return this.skills.get(skillName).getMaxSkillLevel();
         }
     }
+
+    private Skill getSkill(String skillName) {
+        return this.skills.get(skillName);
+    }
     /*************************************/
 
+    public Skill getOneHandSkill() {
+        return getSkill("one-handed weapon");
+    }
 
+    public Skill getTwoHandSkill() {
+        return getSkill("two-handed weapon");
+    }
+
+    public Skill getBrawlingSkill() {
+        return getSkill("brawling");
+    }
+
+    public Skill getRangedWeaponSkill() {
+        return getSkill("ranged weapon");
+    }
+
+    public Skill getStaffSkill() {
+        return getSkill("staff");
+    }
 
     public Iterator<Skill> getSkillsIter(){
         return this.skills.values().iterator();
