@@ -20,7 +20,18 @@ public class GenericStatsAddable extends StatsAddable implements ModelVisitable 
         this.setBonusMana(bonusMana);
         this.setCurrentExperience(currentExperience);
     }
-    public GenericStatsAddable(){}
+    public GenericStatsAddable(){
+        this.setStrength(0);
+        this.setAgility(0);
+        this.setIntellect(0);
+        this.setHardiness(0);
+        this.setMovement(0);
+        this.setCurrentHealth(0);
+        this.setBonusHealth(0);
+        this.setCurrentMana(0);
+        this.setBonusMana(0);
+        this.setCurrentExperience(0);
+    }
     public void accept(ModelVisitor mv){
         super.accept(mv);
     }

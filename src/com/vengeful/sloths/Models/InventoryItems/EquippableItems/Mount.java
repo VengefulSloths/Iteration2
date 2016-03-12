@@ -69,4 +69,9 @@ public class Mount extends EquippableItems {
     public void setMountBuff(Buff mountBuff) {
         this.mountBuff = mountBuff;
     }
+
+    @Override
+    public void interact() {
+
+    }
 }

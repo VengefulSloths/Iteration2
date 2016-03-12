@@ -66,4 +66,5 @@ public abstract class Buff implements ModelVisitable{
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitBuff(this);
     }
+
 }

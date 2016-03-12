@@ -1,5 +1,6 @@
 package com.vengeful.sloths.AreaView.ViewObjects;
 
+import com.vengeful.sloths.AreaView.DynamicImages.DynamicImage;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 import com.vengeful.sloths.AreaView.vAlertable;
@@ -8,6 +9,7 @@ import com.vengeful.sloths.Models.Observers.EntityObserver;
 import com.vengeful.sloths.Models.Observers.StatsObserver;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by John on 3/3/2016.
@@ -34,6 +36,12 @@ public class HealthBarViewObject extends MovingViewObject implements StatsObserv
     @Override
     public void accept(VOVisitor v) {
 
+    }
+
+    @Override
+    public NonVisibleViewObject getNonVisibleSnapShot() {
+        ArrayList<DynamicImage> visibleImages = new ArrayList<>();
+        return new NonVisibleViewObject(getR(), getS(), getCoordinateStrategy(), getLocationStrategy(), visibleImages);
     }
 
     @Override

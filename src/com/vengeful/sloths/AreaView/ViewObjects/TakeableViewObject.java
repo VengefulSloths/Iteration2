@@ -44,6 +44,13 @@ public class TakeableViewObject extends ViewObject implements DestroyableObserve
                 this);
     }
 
+    @Override
+    public NonVisibleViewObject getNonVisibleSnapShot() {
+        ArrayList<DynamicImage> visibleImages = new ArrayList<>();
+        visibleImages.add(itemImage);
+        return new NonVisibleViewObject(getR(), getS(), getCoordinateStrategy(), getLocationStrategy(), visibleImages);
+    }
+
     public void registerObserver(DestroyVOObserver observer) {
         observers.add(observer);
     }

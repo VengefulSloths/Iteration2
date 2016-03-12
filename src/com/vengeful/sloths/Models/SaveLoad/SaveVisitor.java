@@ -37,6 +37,7 @@ import com.vengeful.sloths.Models.RangedEffects.HitBox.ImmovableHitBox;
 import com.vengeful.sloths.Models.RangedEffects.HitBox.MovableHitBox;
 import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
+import com.vengeful.sloths.Models.Stats.StatAddables.GenericStatsAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Coord;
@@ -160,6 +161,10 @@ public class SaveVisitor implements ModelVisitor {
         //inv/equipped visit, stats visit, occupation visit, etc...
         appendDirectionAttribute(entityElement, e.getFacingDirection());
         appendCoordElement(entityElement, currCoord);
+        //need to clear stats of buffs before saving them
+        //things that can affect stats that should be cleared
+        //buff, equipped item stats,
+        GenericStatsAddable gsa = getAllEntityStatEffects(e);
         e.getStats().accept(this);
         e.getSkillManager().accept(this);
         e.getBuffManager().accept(this);
@@ -892,6 +897,15 @@ public class SaveVisitor implements ModelVisitor {
 
     private void appendDirectionAttribute(Element parent, Direction d){
         parent.setAttribute("Direction", d + "");
+    }
+
+    private GenericStatsAddable getAllEntityStatEffects(Entity e){
+        GenericStatsAddable gsa = new GenericStatsAddable();
+        BuffManager bm = e.getBuffManager();
+        Equipped eq = e.getEquipped();
+        gsa.add(bm.getAllBuffStatEffects());
+        gsa.add(eq.getAllEquippedStatEffects());
+        return  gsa;
     }
 
 }

@@ -8,6 +8,7 @@ import com.vengeful.sloths.Models.Observers.InteractiveItemObserver;
 import com.vengeful.sloths.Sound.SoundEffect;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by Alex on 3/9/2016.
@@ -38,6 +39,18 @@ public class InteractiveItemViewObject extends ViewObject implements Interactive
                     getYPixels() + getLocationYOffset() + inactiveImage.getYOffset(),
                     this);
         }
+    }
+
+    @Override
+    public NonVisibleViewObject getNonVisibleSnapShot() {
+        ArrayList<DynamicImage> visibleImages = new ArrayList<>();
+        if (isActive) {
+            visibleImages.add(activeImage);
+        } else {
+            visibleImages.add(inactiveImage);
+        }
+
+        return new NonVisibleViewObject(getR(), getS(), getCoordinateStrategy(), getLocationStrategy(), visibleImages);
     }
 
     @Override

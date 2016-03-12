@@ -7,6 +7,7 @@ import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrat
 import com.vengeful.sloths.Utility.Direction;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by alexs on 3/3/2016.
@@ -89,6 +90,13 @@ public class HatViewObject extends MovingViewObject{
         g.drawImage(currentHat.getImage(),
                 this.getXPixels() + currentHat.getXOffset() + this.getLocationXOffset(),
                 this.getYPixels() + currentHat.getYOffset() + this.getLocationYOffset(), this);
+    }
+
+    @Override
+    public NonVisibleViewObject getNonVisibleSnapShot() {
+        ArrayList<DynamicImage> visibleImages = new ArrayList<>();
+        visibleImages.add(currentHat);
+        return new NonVisibleViewObject(getR(), getS(), getCoordinateStrategy(), getLocationStrategy(), visibleImages);
     }
 
     @Override

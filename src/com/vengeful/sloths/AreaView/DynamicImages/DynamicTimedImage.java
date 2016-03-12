@@ -13,6 +13,7 @@ public class DynamicTimedImage extends DynamicImage {
     private DynamicImage startImage;
     private DynamicImage endImage;
     private ArrayList<Image> animatedImages;
+    private ArrayList<String> paths = new ArrayList<>();
     private enum state {PRE, ACTIVE, POST}
     private state currentState = state.PRE;
     private long startTime = Long.MAX_VALUE;
@@ -27,6 +28,7 @@ public class DynamicTimedImage extends DynamicImage {
         this.endImage = end;
         animatedImages = new ArrayList<>();
         for (String imagePath: imagePaths) {
+            paths.add(imagePath);
             animatedImages.add((new ImageIcon(imagePath)).getImage());
         }
     }
@@ -60,6 +62,19 @@ public class DynamicTimedImage extends DynamicImage {
         } else {
             //System.out.println((int)((ViewTime.getInstance().getCurrentTimeMilli() - startTime)*animatedImages.size()/(endTime - startTime)));
             return animatedImages.get( (int)((ViewTime.getInstance().getCurrentTimeMilli() - startTime)*animatedImages.size()/(endTime - startTime)));
+        }
+    }
+
+    @Override
+    public String getCurrentImagePath() {
+        this.resolveState();
+        if (currentState == state.PRE) {
+            return startImage.getCurrentImagePath();
+        } else if (currentState == state.POST) {
+            return endImage.getCurrentImagePath();
+        } else {
+            //System.out.println((int)((ViewTime.getInstance().getCurrentTimeMilli() - startTime)*animatedImages.size()/(endTime - startTime)));
+            return paths.get( (int)((ViewTime.getInstance().getCurrentTimeMilli() - startTime)*animatedImages.size()/(endTime - startTime)));
         }
     }
 

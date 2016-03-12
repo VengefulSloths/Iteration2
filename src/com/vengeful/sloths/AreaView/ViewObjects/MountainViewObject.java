@@ -7,6 +7,7 @@ import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateS
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by alexs on 2/20/2016.
@@ -24,6 +25,13 @@ public class MountainViewObject extends ViewObject {
                 this.getXPixels() + grassImage.getXOffset() + this.getLocationXOffset(),
                 this.getYPixels()+ grassImage.getYOffset() + this.getLocationYOffset(),
                 this);
+    }
+
+    @Override
+    public NonVisibleViewObject getNonVisibleSnapShot() {
+        ArrayList<DynamicImage> visibleImages = new ArrayList<>();
+        visibleImages.add(grassImage);
+        return new NonVisibleViewObject(getR(), getS(), getCoordinateStrategy(), getLocationStrategy(), visibleImages);
     }
 
     @Override
