@@ -31,6 +31,7 @@ public class Avatar extends Entity{
 
     private static Avatar avatar = null;
     private int timeToRespawn;
+    private int stealthLevel = 5;
     private Pet pet;
 
 
@@ -95,7 +96,18 @@ public class Avatar extends Entity{
 
     }
 
-    private int endTime = 0;
+    public int getStealthLevel() {
+        return stealthLevel;
+    }
+
+    public void interrupt() {
+        if (this.isMounted) {
+            this.getAbilityManager().getDemountAbility().execute();
+            isMounted = false;
+        }
+        this.stealthLevel = 0;
+    }
+
     public void mount() {
         if (!this.isMounted) {
             int ticks = this.getAbilityManager().getMountAbility().execute();
@@ -105,32 +117,27 @@ public class Avatar extends Entity{
             this.getAbilityManager().getDemountAbility().execute();
             isMounted = false;
         }
+
+        this.stealthLevel = 0;
     }
 
     @Override
     public void takeDamage(int damage) {
         super.takeDamage(damage);
-        if (this.isMounted) {
-            this.getAbilityManager().getDemountAbility().execute();
-            isMounted = false;
-        }
+        interrupt();
     }
 
     @Override
     public int attack(Direction dir) {
-        if (this.isMounted) {
-            this.getAbilityManager().getDemountAbility().execute();
-            isMounted = false;
-        }
+        interrupt();
+
         return super.attack(dir);
     }
 
     @Override
     public void doAbility(int index) {
-        if (this.isMounted) {
-            this.getAbilityManager().getDemountAbility().execute();
-            isMounted = false;
-        }
+        interrupt();
+
         super.doAbility(index);
     }
 
@@ -182,6 +189,7 @@ public class Avatar extends Entity{
     @Override
     protected void doRespawn() {
         EntityMapInteractionFactory.getInstance().createRespawnCommand(this, this.getLocation(), timeToRespawn);
+        interrupt();
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.vengeful.sloths.Models.Inventory;
 
 
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
+import com.vengeful.sloths.Models.Map.MapItems.Gold;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
 
@@ -21,6 +22,7 @@ public class Inventory implements ModelVisitable, ViewObservable {
 
     //leave it as an arrayList so that items can move over when previous one removed from inventory
     private ArrayList<InventoryItem> inventory;
+    private int gold;
     private int currentSize;
     private int maxSize;
 
@@ -35,6 +37,7 @@ public class Inventory implements ModelVisitable, ViewObservable {
         this.inventoryObservers = new ArrayList<>();
         this.currentSize = 0;
         this.maxSize = maxSize;
+        this.gold = 0;
     }
 
 
@@ -147,5 +150,16 @@ public class Inventory implements ModelVisitable, ViewObservable {
             arrItem[i++] = ii;
         }
         return arrItem;
+    }
+    public boolean addGold(Gold gold){
+        this.gold += gold.getValue();
+        return true;
+    }
+    public int getGold() {
+        return gold;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
     }
 }

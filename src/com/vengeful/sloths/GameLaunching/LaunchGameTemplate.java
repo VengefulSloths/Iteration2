@@ -3,6 +3,7 @@ package com.vengeful.sloths.GameLaunching;
 import com.vengeful.sloths.AreaView.*;
 import com.vengeful.sloths.Controllers.InputController.InputControllerStates.InventoryControllerState;
 import com.vengeful.sloths.Controllers.InputController.MainController;
+import com.vengeful.sloths.Models.Ability.Abilities.StealthAbility;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.Piggy;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteractionFactory;
@@ -18,6 +19,8 @@ import com.vengeful.sloths.Models.Stats.StatAddables.HealthManaExperienceAddable
 import com.vengeful.sloths.Models.Stats.StatAddables.StrengthAddable;
 import com.vengeful.sloths.Utility.Config;
 import com.vengeful.sloths.Utility.Coord;
+import com.vengeful.sloths.Views.AbilitiesSkillsView.AbilitiesSkillView;
+import com.vengeful.sloths.Views.AbilitiesView.GridAbilitiesView;
 import com.vengeful.sloths.Views.CharacterView.CharacterView;
 import com.vengeful.sloths.Views.EquipmentView.EquipmentView;
 import com.vengeful.sloths.Views.HUDView.HUDView;
@@ -61,6 +64,7 @@ public class LaunchGameTemplate {
 
         initSingletons();
 
+
         /*****Test avatar drop******/
         avatar.equip(new Mount("lazy_mount", 10));
         avatar.getInventory().addItem(new Potion("redPotion", new HealthManaExperienceAddable(5,0,0,0,0)));
@@ -87,17 +91,28 @@ public class LaunchGameTemplate {
 
         avatar.equip(new OneHandedWeapon("dagger", new StrengthAddable(5), 10));
 
+
+        avatar.getAbilityManager().equipAbility(new StealthAbility(avatar), 0);
         /**************************/
 
         AreaView areaView = new AreaView(cameras);
         //ViewManager vm = new ViewManager();
         HUDView hv = new HUDView(Config.instance().getHUDViewWidth(), Config.instance().getHUDViewHeight());
         GridInventoryView giv = new GridInventoryView(avatar.getInventory());
+        System.out.println("Ability manageR: ");
+        System.out.println(avatar.getAbilityManager());
+        GridAbilitiesView gav = new GridAbilitiesView(avatar.getAbilityManager());
+
         EquipmentView ev = new EquipmentView(avatar.getEquipped());
         StatsView sv = new StatsView(avatar.getStats());
         //ViewManager vm = new ViewManager(areaView, hv);
         CharacterView cv = new CharacterView(giv, ev, sv);
+
+        // @TODO: Create equipped abilities and skills view!
+        AbilitiesSkillView abilitiesSkillView = new AbilitiesSkillView(gav, null, null);
+
         ViewManager vm = new ViewManager(areaView, hv, cv);
+        vm.setAbilitiesSkillView(abilitiesSkillView);
 
         //ViewEngine viewEngine = new ViewEngine(areaView);
         ViewEngine viewEngine = ViewEngine.getInstance();
@@ -135,11 +150,14 @@ public class LaunchGameTemplate {
         //ViewManager vm = new ViewManager();
         HUDView hv = new HUDView(Config.instance().getHUDViewWidth(), Config.instance().getHUDViewHeight());
         GridInventoryView giv = new GridInventoryView(avatar.getInventory());
+        GridAbilitiesView gridAbilitiesView = new GridAbilitiesView(avatar.getAbilityManager());
         EquipmentView ev = new EquipmentView(avatar.getEquipped());
         StatsView sv = new StatsView(avatar.getStats());
         //ViewManager vm = new ViewManager(areaView, hv);
         CharacterView cv = new CharacterView(giv, ev, sv);
+        AbilitiesSkillView abilitiesSkillView = new AbilitiesSkillView(gridAbilitiesView, null, null);
         ViewManager vm = new ViewManager(areaView, hv, cv);
+        vm.setAbilitiesSkillView(abilitiesSkillView);
 
         //ViewEngine viewEngine = new ViewEngine(areaView);
         ViewEngine viewEngine = ViewEngine.getInstance();

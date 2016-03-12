@@ -40,8 +40,8 @@ public class StatsView extends View implements StatsObserver {
         titlePanel = new JPanel();
         statsPanel = new JPanel();
 
-        //this.setBackgroundImageFileName(backgroundImageFileName);
-        this.setBackgroundImageFileName("resources/statsBackground.png");
+        //this.setBackgroundImageFileName("resources/skyInventory2.png");
+        this.setBackground(new Color(0f,0f,0f,0.3f));
         this.titlePanel.setBackground(new Color(0f,0f,0f,0f));
         this.statsPanel.setBackground(new Color(0f,0f,0f,0f));
 
@@ -55,8 +55,7 @@ public class StatsView extends View implements StatsObserver {
         this.titlePanel.setPreferredSize(new Dimension(this.getWidth(), 50));
 
         //this.titlePanel.setBorder(new LineBorder(Color.BLACK));
-        //this.statsPanel.setBorder(new LineBorder(Color.BLACK));
-
+        //this.setBorder(new LineBorder(Color.WHITE));
         this.titlePanel.add(title, BorderLayout.SOUTH);
         this.add(titlePanel, BorderLayout.NORTH);
         this.add(statsPanel, BorderLayout.CENTER);

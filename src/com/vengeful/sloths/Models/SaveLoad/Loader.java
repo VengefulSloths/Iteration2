@@ -1,13 +1,13 @@
 package com.vengeful.sloths.Models.SaveLoad;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.InternalError;
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.NodeType;
-import com.sun.org.apache.xml.internal.serializer.ElemDesc;
 import com.vengeful.sloths.Controllers.ControllerManagers.AggressiveNPCControllerManager;
 import com.vengeful.sloths.Controllers.ControllerManagers.PiggyControllerManager;
+import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
+import com.vengeful.sloths.Controllers.InputController.KeyMapping;
+import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.ExplosionAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.FireBallAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.ExplosionAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
@@ -20,6 +20,7 @@ import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.*;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
+import com.vengeful.sloths.Models.Map.MapItems.Gold;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.DoDestroyObstacleQuest;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.HasItemQuest;
@@ -42,13 +43,6 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -67,7 +61,7 @@ public class Loader {
 
     public void loadAreas(MapArea[] areas){
         Node root = doc.getDocumentElement();
-        NodeList mapAreas = root.getChildNodes();
+        NodeList mapAreas = root.getChildNodes().item(0).getChildNodes();
         if(root.hasChildNodes()){
             for(int i = 0; i != mapAreas.getLength(); ++i){
                 Node currMA = mapAreas.item(i);
@@ -91,6 +85,7 @@ public class Loader {
                                 case "Avatar":
                                     Avatar a = processAvatar(currObject);
                                     loading.getTile(a.getLocation()).addEntity(a);
+                                    MainController.getInstance().setInputStrategy(processInputStrategy((Element)root.getChildNodes().item(1)));
                                     break;
                                 case "TakeableItem" :
                                     TakeableItem t = processTakeable(currObject);
@@ -118,6 +113,10 @@ public class Loader {
                                     InteractiveItem ii = processInteractiveItem(currObject);
                                     loading.getTile(ii.getLocation()).addInteractiveItem(ii);
                                     break;
+                                case "Gold" :
+                                    Gold g = processGold(currObject);
+                                    loading.getTile(g.getLocation()).addGold(g);
+                                    break;
                                 default: System.out.println(currObject.getNodeName() + " doesn't have a case to handle it");
                             }
                         }
@@ -131,7 +130,31 @@ public class Loader {
         }
         setActiveMapArea();
     }
-//DANK QUADRA-FOR-LOOP TRIANGLE FUNCTION
+
+    private Gold processGold(Node currObject) {
+        Gold g = new Gold();
+        Element gElement = (Element) currObject;
+        g.setItemName(gElement.getAttribute("itemName"));
+        g.setValue(Integer.valueOf(gElement.getAttribute("value")));
+        g.setLocation(processLocation(gElement.getFirstChild()));
+        return g;
+    }
+
+    private AdaptableStrategy processInputStrategy(Element item) {
+        boolean createFromLoad = true;
+        AdaptableStrategy as = new AdaptableStrategy(createFromLoad);
+//        HashMap<Integer, KeyMapping> hs= as.getKeyMappings();
+        NodeList entryElements = item.getChildNodes();
+        for(int i =0; i != entryElements.getLength(); ++i){
+            Element entryElement = (Element)(entryElements.item(i));
+            int key = Integer.valueOf(entryElement.getAttribute("key"));
+            KeyMapping value = KeyMapping.fromInt(Integer.valueOf(entryElement.getAttribute("value")));
+            as.setKeyMappings(key,value);
+        }
+        return as;
+    }
+
+    //DANK QUADRA-FOR-LOOP TRIANGLE FUNCTION
 private void setActiveMapArea() {
     Map m = Map.getInstance();
         MapArea[] mas = m.getMapAreas();

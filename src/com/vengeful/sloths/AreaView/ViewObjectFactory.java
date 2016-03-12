@@ -5,6 +5,7 @@ import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateS
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.NullTile;
 import com.vengeful.sloths.Utility.Direction;
+import com.vengeful.sloths.Views.AbilitiesView.AbilityViewObject;
 
 /**
  * Created by alexs on 2/22/2016.
@@ -92,6 +93,16 @@ public abstract class ViewObjectFactory {
 
     public AEViewObject createAEViewObject(int r, int s, String resourecPath) {
         return new AEViewObject(r, s, cs, ls, resourecPath);
+    }
+
+
+    public TrapViewObject createTrapViewObject(int r, int s, String resourcePath){
+        return new TrapViewObject(r, s, cs, ls, resourcePath);
+    }
+
+
+    public GoldViewObject createGoldViewObject(int r, int s, String imagePath) {
+        return new GoldViewObject(r,s,cs,ls,imagePath);
     }
 
 }

@@ -2,6 +2,8 @@ package com.vengeful.sloths.Controllers.InputController.InputStrategies;
 
 import com.vengeful.sloths.Controllers.InputController.InputControllerStates.InputControllerState;
 import com.vengeful.sloths.Controllers.InputController.KeyMapping;
+import com.vengeful.sloths.Models.ModelVisitable;
+import com.vengeful.sloths.Models.ModelVisitor;
 import javafx.scene.input.KeyCode;
 
 import java.awt.event.KeyEvent;
@@ -11,7 +13,7 @@ import java.util.Map;
 /**
  * Created by John on 3/10/2016.
  */
-public class AdaptableStrategy extends InputStrategy {
+public class AdaptableStrategy extends InputStrategy implements ModelVisitable {
 
     HashMap<Integer, KeyMapping> keyMappings = new HashMap<>();
 
@@ -31,7 +33,16 @@ public class AdaptableStrategy extends InputStrategy {
         setKeyMappings(KeyEvent.VK_LEFT, KeyMapping.LEFT);
         setKeyMappings(KeyEvent.VK_RIGHT, KeyMapping.RIGHT);
         setKeyMappings(KeyEvent.VK_I, KeyMapping.INVENTORY);
+        setKeyMappings(KeyEvent.VK_K, KeyMapping.ABILITIES);
+        setKeyMappings(KeyEvent.VK_0, KeyMapping.ABILITY_0);
+        setKeyMappings(KeyEvent.VK_1, KeyMapping.ABILITY_1);
+        setKeyMappings(KeyEvent.VK_2, KeyMapping.ABILITY_2);
+        setKeyMappings(KeyEvent.VK_3, KeyMapping.ABILITY_3);
+        setKeyMappings(KeyEvent.VK_P, KeyMapping.SAVE);
         //setKeyMappings(KeyEvent.VK_S, KeyMapping.SOUTH);
+    }
+
+    public AdaptableStrategy(boolean createFromLoad){
 
     }
 
@@ -58,6 +69,9 @@ public class AdaptableStrategy extends InputStrategy {
                     break;
                 case SOUTHEAST:
                     state.handleSouthEastKey();
+                    break;
+                case ABILITIES:
+                    state.handleAbilitiesKey();
                     break;
                 case INVENTORY:
                     state.handleInventoryKey();
@@ -100,6 +114,18 @@ public class AdaptableStrategy extends InputStrategy {
                     break;
                 case DROP:
                     state.handleDropKey();
+                    break;
+                case ABILITY_0:
+                    state.handleAbility0Key();
+                    break;
+                case ABILITY_1:
+                    state.handleAbility1Key();
+                    break;
+                case ABILITY_2:
+                    state.handleAbility2Key();
+                    break;
+                case ABILITY_3:
+                    state.handleAbility3Key();
                     break;
                 default:
                     //do nothing not a supported key
@@ -208,5 +234,18 @@ public class AdaptableStrategy extends InputStrategy {
         }else {
             keyMappings.put(key, value);
         }
+    }
+
+    public HashMap<Integer, KeyMapping> getKeyMappings() {
+        return keyMappings;
+    }
+
+    public void setKeyMappings(HashMap<Integer, KeyMapping> keyMappings) {
+        this.keyMappings = keyMappings;
+    }
+
+    @Override
+    public void accept(ModelVisitor modelVisitor) {
+        modelVisitor.visitAdaptableStrategy(this);
     }
 }

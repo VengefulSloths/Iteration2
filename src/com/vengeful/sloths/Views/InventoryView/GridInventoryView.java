@@ -48,7 +48,7 @@ public class GridInventoryView extends InventoryView implements InventoryObserve
                 b.paintBorder(this.getFromItemList(i), g, gcs.calculateXCoordBasedOnIndex(i), gcs.calculateYCoordBasedOnIndex(i), gcs.calculateSlotWidth(), gcs.calculateSlotHeight());
                 g.setFont(new Font(Font.DIALOG, Font.BOLD, 10));
                 g.setColor(Color.GREEN);
-                g.drawString(this.getFromItemList(i).getInventoryItem().getItemName(), gcs.calculateXCoordBasedOnIndex(i), gcs.calculateYCoordBasedOnIndex(i) + gcs.calculateSlotHeight() + boxHeight/4);
+                g.drawString(this.getFromItemList(i).getViewItem().getItemName(), gcs.calculateXCoordBasedOnIndex(i), gcs.calculateYCoordBasedOnIndex(i) + gcs.calculateSlotHeight() + boxHeight/4);
             }
         }
 

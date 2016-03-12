@@ -32,6 +32,8 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     private DynamicImage mountImage;
     private boolean isMounted = false;
 
+    private boolean isStealthed = false;
+
     private HealthBarViewObject healthBar;
 
     protected Direction direction;
@@ -71,17 +73,20 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     @Override
     public void paintComponent(Graphics2D g) {
         if (!dead) {
-            if (isMounted) {
-                g.drawImage(mountImage.getImage(),
-                        getXPixels() + getLocationXOffset() + mountImage.getXOffset(),
-                        getYPixels() + getLocationYOffset() + mountImage.getYOffset(),
-                        this);
+            if (isStealthed) {
+                getNonVisibleSnapShot().paintComponent(g);
+            } else {
+                if (isMounted) {
+                    g.drawImage(mountImage.getImage(),
+                            getXPixels() + getLocationXOffset() + mountImage.getXOffset(),
+                            getYPixels() + getLocationYOffset() + mountImage.getYOffset(),
+                            this);
+                }
+                if(healthBar != null) {
+                    healthBar.paintComponent(g);
+                }
+                paintBody(g);
             }
-            if(healthBar != null) {
-                healthBar.paintComponent(g);
-            }
-            paintBody(g);
-
         }
     }
 
@@ -95,13 +100,15 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
             }
             visibleImages.add(currentDynamicImage);
         }
-        return new NonVisibleViewObject(getR(), getS(), getCoordinateStrategy(), getLocationStrategy(), visibleImages);
+        NonVisibleViewObject output = new NonVisibleViewObject(getR(), getS(), getCoordinateStrategy(), getLocationStrategy(), visibleImages, getXPixels(), getYPixels());
+        return output;
     }
 
     public boolean isMounted() {
         return isMounted;
     }
-
+    public boolean isStealthed() { return isStealthed;
+    }
     @Override
     public void alertDirectionChange(Direction d) {
         this.direction = d;
@@ -217,6 +224,7 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
 
     private void mountAnimation() {
         if (isMounted()) {
+            //System.out.println("Setting");
             setCustomYOffset(-20 + offsets[count++%offsets.length]);
             ViewTime.getInstance().registerAlert(0, () -> mountAnimation());
         }
@@ -241,6 +249,16 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
 //        ViewTime.getInstance().registerAlert(0, () ->attack.start());
 
 
+    }
+
+    @Override
+    public void alertStealth() {
+        this.isStealthed = true;
+    }
+
+    @Override
+    public void alertUnstealth() {
+        this.isStealthed = false;
     }
 
     @Override

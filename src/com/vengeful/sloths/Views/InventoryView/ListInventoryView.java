@@ -72,7 +72,7 @@ public class ListInventoryView extends InventoryView implements InventoryObserve
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         //this.itemPanel.add(manager.getFromItemList(0));
-        System.out.println("THE MOTHERLOVING ITEMNAME: " + manager.getFromItemList(0).getInventoryItem().getItemName());
+        System.out.println("THE MOTHERLOVING ITEMNAME: " + manager.getFromItemList(0).getViewItem().getItemName());
         //test1.paintComponent(g2d);
         //test2.paintComponent(g2d);
         int horOffset = 5;
@@ -82,7 +82,7 @@ public class ListInventoryView extends InventoryView implements InventoryObserve
             vertOffset +=20;
         }
         /*
-        Iterator<ItemViewObject> iter = manager.iterator();
+        Iterator<AbilityViewObject> iter = manager.iterator();
         while (iter.hasNext()) {
             ListItemViewObject current = (ListItemViewObject) iter.next();
             //current.paintComponent(g2d);

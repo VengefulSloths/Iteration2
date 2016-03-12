@@ -8,6 +8,7 @@ import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.EquippableItems;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
+import com.vengeful.sloths.Models.Map.MapItems.Gold;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.Observers.StatsObserver;
@@ -15,6 +16,7 @@ import com.vengeful.sloths.Models.Occupation.DummyOccupation;
 import com.vengeful.sloths.Models.Occupation.Occupation;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.CurrentHealthAddable;
+import com.vengeful.sloths.Models.Stats.StatAddables.GenericStatsAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.HealthManaExperienceAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
@@ -235,6 +237,10 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         EntityPickupCommand epc = EntityMapInteractionFactory.getInstance().createPickUpCommand(this, this.getInventory(), item);
         epc.execute();
     }
+    public void getGold(Gold gold){
+        EntityPickUpGoldCommand epgc = EntityMapInteractionFactory.getInstance().createPickUpGoldCommand(this, this.getInventory(), gold);
+        epgc.execute();
+    }
 
     public void drop(InventoryItem item){
         EntityDropCommand edc = EntityMapInteractionFactory.getInstance().createDropCommand(item, this.getLocation(), this);
@@ -365,6 +371,15 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
 
     public void teleportPet(Location location){
         //do nothing
+    }
+
+    public GenericStatsAddable getAllEntityStatEffects(){
+        GenericStatsAddable gsa = new GenericStatsAddable();
+        BuffManager bm = this.getBuffManager();
+        Equipped eq = this.getEquipped();
+        gsa.add(bm.getAllBuffStatEffects());
+        gsa.add(eq.getAllEquippedStatEffects());
+        return  gsa;
     }
 
 }

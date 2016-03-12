@@ -9,6 +9,7 @@ public abstract class InputControllerState {
     public abstract void onDeregister();
     public abstract void onRegister();
 
+    public abstract boolean handleAbilitiesKey();
     public abstract boolean handleInventoryKey();
     public abstract boolean handleEquipmentKey();
     public abstract boolean handleESCKey();
@@ -29,6 +30,11 @@ public abstract class InputControllerState {
     //Added for saving
     public abstract void handleSaveKey();
     public abstract void handleEnterKey();
+
+    public abstract void handleAbility0Key();
+    public abstract void handleAbility1Key();
+    public abstract void handleAbility2Key();
+    public abstract void handleAbility3Key();
 
     public abstract boolean handleSpaceKey();
 

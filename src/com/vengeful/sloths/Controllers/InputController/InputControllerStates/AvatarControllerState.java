@@ -43,7 +43,31 @@ public class AvatarControllerState extends InputControllerState {
 
     }
 
+    @Override
+    public void handleAbility0Key() {
+        Avatar.getInstance().doAbility(0);
+    }
 
+    @Override
+    public void handleAbility1Key() {
+        Avatar.getInstance().doAbility(1);
+    }
+
+    @Override
+    public boolean handleAbilitiesKey() {
+        MainController.getInstance().setAbilityControllerState();
+        return true;
+    }
+
+    @Override
+    public void handleAbility2Key() {
+        Avatar.getInstance().doAbility(2);
+    }
+
+    @Override
+    public void handleAbility3Key() {
+        Avatar.getInstance().doAbility(3);
+    }
 
     ///////////////////////handle key presses
     @Override
@@ -103,6 +127,8 @@ public class AvatarControllerState extends InputControllerState {
 
     @Override
     public boolean handleEastKey() {
+
+
         return false;
     }
 

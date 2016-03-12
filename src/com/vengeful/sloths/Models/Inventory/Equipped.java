@@ -73,22 +73,22 @@ public class Equipped implements ViewObservable, ModelVisitable{
     }
 
 
-    public void addHat(EquippableItems hat){
+    public void addHat(Hat hat){
         if(this.hat != null)
             removeHat(this.hat);
 
-        this.hat = (Hat) hat;
+        this.hat = hat;
         this.entityStats.add(this.hat.getItemStats());
 
         for (EntityObserver observer: entity.getObservers()) {
             observer.alertEquipHat(hat.getItemName());
         }
-        alertEquipped(hat);
+        alertHatEquipped(hat);
     }
 
-    public void addWeapon(EquippableItems weapon){
+    public void addWeapon(Weapon weapon){
         this.entityStats.subtract(weapon.getItemStats());
-        this.weapon = (Weapon) weapon;
+        this.weapon = weapon;
         this.entityStats.add(this.weapon.getItemStats());
         this.entityStats.setOffensiveRating(getOffensiveRating());
 
@@ -98,7 +98,7 @@ public class Equipped implements ViewObservable, ModelVisitable{
         for (EntityObserver observer: entity.getObservers()) {
             observer.alertEquipWeapon(this.weapon.getItemName(), this.weapon.getWeaponClassification());
         }
-        alertEquipped(weapon);
+        alertWeaponEquipped(weapon);
     }
 
 
@@ -114,17 +114,17 @@ public class Equipped implements ViewObservable, ModelVisitable{
     }
 
 
-    public void removeHat(EquippableItems hat){
+    public void removeHat(Hat hat){
         this.hat = null;
         this.entityStats.subtract(hat.getItemStats());
 
         for (EntityObserver observer: entity.getObservers()) {
             observer.alertUnequipHat();
         }
-        alertUnEquipped(hat);
+        alertHatEquipped(hat);
     }
 
-    public void removeWeapon(EquippableItems weapon){
+    public void removeWeapon(Weapon weapon){
         this.weapon = fists;
         this.entityStats.subtract(weapon.getItemStats());
         this.entityStats.setOffensiveRating(getOffensiveRating());
@@ -134,7 +134,7 @@ public class Equipped implements ViewObservable, ModelVisitable{
         for (EntityObserver observer: entity.getObservers()) {
             observer.alertUnequipWeapon();
         }
-        alertUnEquipped(weapon);
+        alertWeaponUnequipped(weapon);
     }
 
     public void alertAllEntityObserversEverything() {
@@ -161,21 +161,54 @@ public class Equipped implements ViewObservable, ModelVisitable{
 
     public Mount getMount() { return this.mount; }
 
-    public void alertEquipped(EquippableItems item){
+    public void alertHatEquipped(Hat hat){
         Iterator<EquipmentObserver> iter = this.equipmentObserver.iterator();
         while (iter.hasNext()) {
             EquipmentObserver io = iter.next();
-            io.alertItemEquipped(item);
+            io.alertHatEquipped(hat);
         }
     }
 
-    public void alertUnEquipped(EquippableItems item){
+    public void alertHatUnequipped(Hat hat){
         Iterator<EquipmentObserver> iter = this.equipmentObserver.iterator();
         while (iter.hasNext()) {
             EquipmentObserver io = iter.next();
-            io.alertItemUnequipped(item);
+            io.alertHatUnequipped(hat);
         }
     }
+
+    public void alertWeaponEquipped(Weapon weapon){
+        Iterator<EquipmentObserver> iter = this.equipmentObserver.iterator();
+        while (iter.hasNext()) {
+            EquipmentObserver io = iter.next();
+            io.alertWeaponEquipped(weapon);
+        }
+    }
+
+    public void alertWeaponUnequipped(Weapon weapon){
+        Iterator<EquipmentObserver> iter = this.equipmentObserver.iterator();
+        while (iter.hasNext()) {
+            EquipmentObserver io = iter.next();
+            io.alertWeaponUnequipped(weapon);
+        }
+    }
+
+    public void alertMountEquipped(Mount mount){
+        Iterator<EquipmentObserver> iter = this.equipmentObserver.iterator();
+        while (iter.hasNext()) {
+            EquipmentObserver io = iter.next();
+            io.alertMountEquipped(mount);
+        }
+    }
+
+    public void alertMountUnequipped(Mount mount){
+        Iterator<EquipmentObserver> iter = this.equipmentObserver.iterator();
+        while (iter.hasNext()) {
+            EquipmentObserver io = iter.next();
+            io.alertMountUnequipped(mount);
+        }
+    }
+
 
     @Override
     public void deregisterObserver(ModelObserver modelObserver) {

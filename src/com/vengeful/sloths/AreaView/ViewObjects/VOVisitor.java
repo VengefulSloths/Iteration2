@@ -19,5 +19,7 @@ public interface VOVisitor {
     void visitImmovableHitBoxViewObject(ImmovableHitBoxViewObject i);
     void visitInteractiveItem(InteractiveItemViewObject i);
     void visitAE(AEViewObject a);
+    void visitTrapViewObject(TrapViewObject t);
 
+    void acceptGold(GoldViewObject goldViewObject);
 }

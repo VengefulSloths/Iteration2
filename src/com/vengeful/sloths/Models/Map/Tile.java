@@ -3,17 +3,15 @@ package com.vengeful.sloths.Models.Map;
 import com.vengeful.sloths.Models.Effects.EffectCommand;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Map.AreaEffects.AreaEffect;
+import com.vengeful.sloths.Models.Map.MapItems.*;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
-import com.vengeful.sloths.Models.Map.MapItems.MapItem;
-import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
-import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
-import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.Map.Terrains.Grass;
 import com.vengeful.sloths.Models.Map.Terrains.Terrain;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
 
+import java.lang.reflect.Array;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -38,6 +36,8 @@ public class Tile implements ModelVisitable {
     private OneShotItem oneShotItem = null;
     private Obstacle obstacle = null;
     private InteractiveItem interactiveItem = null;
+    private Trap trap = null;
+    private Gold gold = null;
 
 
     private ArrayList<AreaEffect> areaEffect;
@@ -71,12 +71,19 @@ public class Tile implements ModelVisitable {
 
     public void interact(Entity entity)
     {
-        for (Iterator<MapItem> iter = mapItems.iterator(); iter.hasNext();) {
-            System.out.println("interacting w/ a map item");
-            iter.next().interact(entity);
+        //this loop doesnt actually work, interact will remove items which breaks the traversal
+        //can be fixed but is probably unnecessary
+        MapItem[] itemsToInteract = new MapItem[mapItems.size()];
+        for(int i = 0; i != mapItems.size(); ++i){
+            itemsToInteract[i] = mapItems.get(i);
         }
-
-
+        for(int i = 0; i != itemsToInteract.length; ++i){
+            itemsToInteract[i].interact(entity);
+        }
+//        for (Iterator<MapItem> iter = mapItems.iterator(); iter.hasNext();) {
+//            System.out.println("interacting w/ a map item");
+//            iter.next().interact(entity);
+//        }
 
         //Create AEs
         Iterator<AreaEffect> aeIter = this.getAreaEffectIterator();
@@ -86,7 +93,6 @@ public class Tile implements ModelVisitable {
             ae.addEntity(entity);
             //System.out.Println("AE: " + ae);
         }
-
     }
 
     public void addEntity(Entity entity){
@@ -121,6 +127,10 @@ public class Tile implements ModelVisitable {
                 ae.removeEntity(e);
                 //System.out.Println("AE: " + ae);
             }
+
+            if(this.trap != null)
+                this.trap.removeEntity(e);
+
         }
 
         return e;
@@ -185,6 +195,24 @@ public class Tile implements ModelVisitable {
             throw new InvalidParameterException("you cannot add two obstacles");
         }
     }
+    public void addGold(Gold gold){
+        if(this.gold == null){
+            this.gold = gold;
+            mapItems.add(gold);
+        }
+        else {
+            this.gold.addGold(gold);
+        }
+    }
+
+    public void addTrap(Trap trap){
+        if(this.trap == null){
+            mapItems.add(trap);
+            this.trap = trap;
+        }else{
+            //throw new InvalidParameterException("you cannot add two traps");
+        }
+    }
 
 //    public void addMapItem(MapItem mapItem) {
 //        mapItems.add(mapItem);
@@ -193,6 +221,10 @@ public class Tile implements ModelVisitable {
     public void removeTakeableItem(TakeableItem takeableItem) {
 
         TimeModel.getInstance().registerAlertable(() -> removeMapItem(takeableItem), 0);
+    }
+
+    public void removeGold(Gold gold){
+        TimeModel.getInstance().registerAlertable(() -> removeMapItem(gold), 0);
     }
 
     public void removeObstacle() {
@@ -209,6 +241,15 @@ public class Tile implements ModelVisitable {
     public void removeOneShotItem() {
         removeMapItem(this.oneShotItem);
         this.oneShotItem = null;
+    }
+
+    public void removeTrap(){
+        if(this.trap != null){
+            removeMapItem(this.trap);
+            this.trap.destroy();
+            this.trap = null;
+
+        }
     }
 
     private void removeMapItem(MapItem item){

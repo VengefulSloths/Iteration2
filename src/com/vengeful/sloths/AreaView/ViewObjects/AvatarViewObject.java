@@ -10,4 +10,5 @@ public class AvatarViewObject extends HominidViewObject{
     public AvatarViewObject(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy, String resourcePath) {
         super(r, s, coordinateStrategy, locationStrategy, resourcePath, "bald");
     }
+
 }

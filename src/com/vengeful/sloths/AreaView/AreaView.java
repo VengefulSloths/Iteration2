@@ -69,6 +69,15 @@ public class AreaView extends JPanel implements MapObserver{
         setActiveCamera(cvm.getCurrentCameraView());
     }
 
+
+    public void generateImageBackground(String imageName, Graphics g) {
+        ImageIcon itemIcon = new ImageIcon(imageName);
+        Image backgroundImage = itemIcon.getImage();
+        //g.drawImage(backgroundImage, 0, 0, this.getViewWidth(), this.getViewHeight(),this);
+        g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(),this);
+
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -79,6 +88,8 @@ public class AreaView extends JPanel implements MapObserver{
         //g2d.drawString("Hello World!!!", 50, 50);
 
         //Toolkit.getDefaultToolkit().sync();
+        //generateImageBackground("resources/skyCharacterView.png",g);
+
 
     }
 
