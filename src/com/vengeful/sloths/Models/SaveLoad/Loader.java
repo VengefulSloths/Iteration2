@@ -20,6 +20,7 @@ import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.*;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
+import com.vengeful.sloths.Models.Map.MapItems.Gold;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.DoDestroyObstacleQuest;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.HasItemQuest;
@@ -112,6 +113,10 @@ public class Loader {
                                     InteractiveItem ii = processInteractiveItem(currObject);
                                     loading.getTile(ii.getLocation()).addInteractiveItem(ii);
                                     break;
+                                case "Gold" :
+                                    Gold g = processGold(currObject);
+                                    loading.getTile(g.getLocation()).addGold(g);
+                                    break;
                                 default: System.out.println(currObject.getNodeName() + " doesn't have a case to handle it");
                             }
                         }
@@ -124,6 +129,15 @@ public class Loader {
             }
         }
         setActiveMapArea();
+    }
+
+    private Gold processGold(Node currObject) {
+        Gold g = new Gold();
+        Element gElement = (Element) currObject;
+        g.setItemName(gElement.getAttribute("itemName"));
+        g.setValue(Integer.valueOf(gElement.getAttribute("value")));
+        g.setLocation(processLocation(gElement.getFirstChild()));
+        return g;
     }
 
     private AdaptableStrategy processInputStrategy(Element item) {
