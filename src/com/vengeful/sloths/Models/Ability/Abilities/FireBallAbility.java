@@ -2,20 +2,13 @@ package com.vengeful.sloths.Models.Ability.Abilities;
 
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Entity.Entity;
-import com.vengeful.sloths.Models.RangedEffects.*;
-import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Observers.EntityObserver;
+import com.vengeful.sloths.Models.RangedEffects.CanGenerateVisitor.DefaultCanGenerateVisitor;
 import com.vengeful.sloths.Models.RangedEffects.EntityBlockLineEffectGenerator;
-import com.vengeful.sloths.Models.RangedEffects.EntityPassThroughLineEffectGenerator;
-import com.vengeful.sloths.Models.RangedEffects.LinearEffectGenerator;
 import com.vengeful.sloths.Models.RangedEffects.RangedEffectGenerator;
-import com.vengeful.sloths.Models.SaveLoad.SaveVisitor;
-import com.vengeful.sloths.Models.Skills.Skill;
-import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.TimeModel.TimeController;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
-import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.HexMath;
 
