@@ -39,7 +39,7 @@ public class SaveTestDriver {
         AbilityManager abm = new AbilityManager(a);
         a.avatarInit("Sneak", abm, new BuffManager(a), new SkillManager(5));
         tiles1[1][1].addEntity(a);
-        SaveManager sm = new SaveManager(m);
+        SaveManager sm = new SaveManager();
         sm.save("testSave");
 
 //        Loader l = null;
