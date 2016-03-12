@@ -138,7 +138,7 @@ public class Loader {
         setActiveMapArea();
     }
 
-    private InputStrategy processInputStrategy(Element item) {
+    private AdaptableStrategy processInputStrategy(Element item) {
         boolean createFromLoad = true;
         AdaptableStrategy as = new AdaptableStrategy(createFromLoad);
 //        HashMap<Integer, KeyMapping> hs= as.getKeyMappings();
