@@ -5,6 +5,8 @@ import com.vengeful.sloths.AreaView.CameraViewManager;
 import com.vengeful.sloths.AreaView.TemporaryVOCreationVisitor;
 import com.vengeful.sloths.Controllers.ControllerManagers.AggressiveNPCControllerManager;
 import com.vengeful.sloths.Controllers.ControllerManagers.PiggyControllerManager;
+import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
+import com.vengeful.sloths.Models.Ability.AbilityFactory;
 import com.vengeful.sloths.Models.Entity.AggressiveNPC;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.Piggy;
@@ -20,6 +22,7 @@ import com.vengeful.sloths.Models.Map.AreaEffects.TakeDamageAE;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Map.*;
+import com.vengeful.sloths.Models.Map.MapItems.AbilityItem;
 import com.vengeful.sloths.Models.Map.MapItems.Gold;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.DoDestroyObstacleQuest;
@@ -198,8 +201,10 @@ public class LevelFactory {
 
         TakeableItem piggyTotem = new TakeableItem("Piggy Totem", new PiggyTotem("Piggy Totem", testPiggy), new Coord(2,2));
 
-        area1.getTile(new Coord(3,3)).addTakeableItem(new TakeableItem("redPotion", new Hat("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(3,3)));
-//        area2.getTile(new Coord(2,2)).addTakeableItem(piggyTotem);
+        MeleeAttackAbility meleeAttackAbility = AbilityFactory.getInstance().createMeleeAttackAbility(Avatar.getInstance(), 150, 150);
+        meleeAttackAbility.setItemName("Melee Attack");
+        area1.getTile(new Coord(3,3)).addTakeableItem(new TakeableItem("redPotion", new AbilityItem(meleeAttackAbility), new Coord(3,3)));
+
 
         testPiggy.setPiggyTotem(piggyTotem);
 

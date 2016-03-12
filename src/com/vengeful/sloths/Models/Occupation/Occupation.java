@@ -35,6 +35,7 @@ public abstract class Occupation implements ModelVisitable{
 
     protected void addSharedAbility(AbilityManager abilityManager, Entity entity){
         BindWoundsAbility bwa = AbilityFactory.getInstance().createBindWoundsAbility(entity, entity.getSkillManager(), 2, 5);
+        bwa.setItemName("fireball");
         abilityManager.addAbility(bwa);
         //abilityManager.equipAbility(bwa, 1);
 
@@ -47,6 +48,7 @@ public abstract class Occupation implements ModelVisitable{
 
         /*
         AngleSpellAbility ea = new AngleSpellAbility(entity, 10, 5, 5, 5);
+        ea.setItemName("AngelSpell");
         abilityManager.addAbility(ea);
         abilityManager.equipAbility(ea, 0);
         */

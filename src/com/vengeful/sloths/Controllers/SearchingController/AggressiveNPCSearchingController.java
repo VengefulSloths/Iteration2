@@ -67,6 +67,10 @@ public class AggressiveNPCSearchingController extends SearchingController {
 
     }
 
+    @Override
+    public void visitAbilityItem(AbilityItem abilityItem) {
+
+    }
 
     @Override
     public void visitAvatar(Avatar avatar) {

@@ -40,6 +40,11 @@ public class GridAbilitiesView extends AbilitiesView implements AbilityManagerOb
         int multipleY = 1;
 
         GridCalculationStrategy gcs = new GridCalculationStrategy();
+        System.out.println(this.getItemListSize());
+        System.out.println("ITEM LIST: ");
+        for (int i = 0; i < this.getItemListSize(); i++) {
+            System.out.println(this.getFromItemList(i));
+        }
         for(int i=0; i<this.getItemListSize(); i++) {
             this.getFromItemList(i).paintComponent(g, gcs.calculateXCoordBasedOnIndex(i), gcs.calculateYCoordBasedOnIndex(i), gcs.calculateSlotWidth(), gcs.calculateSlotHeight());
             System.out.println("IS SELECTED??? " + this.getFromItemList(i).isSelected());

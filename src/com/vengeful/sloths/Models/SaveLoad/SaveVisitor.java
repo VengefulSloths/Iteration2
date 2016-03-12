@@ -156,6 +156,11 @@ public class SaveVisitor implements ModelVisitor {
     }
 
     @Override
+    public void visitAbilityItem(AbilityItem abilityItem) {
+
+    }
+
+    @Override
     public void visitAvatar(Avatar avatar) {
         Element entityElement = doc.createElement("Avatar");
         currentParent.peek().appendChild(entityElement);

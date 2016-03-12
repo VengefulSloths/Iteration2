@@ -61,6 +61,10 @@ public class DefaultCanGenerateVisitor implements ModelVisitor{
 
     private boolean canGenerate;
 
+    @Override
+    public void visitAbilityItem(AbilityItem abilityItem) {
+
+    }
 
     @Override
     public void visitTile(Tile tile) {

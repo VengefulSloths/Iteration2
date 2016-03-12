@@ -80,8 +80,12 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
         this.factory = activeCameraView.getFactory();
     }
 
+     @Override
+     public void visitAbilityItem(AbilityItem abilityItem) {
 
-    @Override
+     }
+
+     @Override
     public void visitMap(Map map) {
 
     }

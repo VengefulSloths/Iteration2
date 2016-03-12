@@ -66,6 +66,12 @@ public class PiggySearchingController extends SearchingController {
     }
 
     @Override
+    public void visitAbilityItem(AbilityItem abilityItem) {
+
+
+    }
+
+    @Override
     public void visitAvatar(Avatar avatar) {
         // Avatar is third-most important to Piggy
         Target currTarget = new AvatarTarget(2);

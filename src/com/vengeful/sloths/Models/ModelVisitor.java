@@ -60,6 +60,7 @@ public interface ModelVisitor {
     void visitBuffOverTime(BuffOverTime buffOverTime);
     void visitAbilityManager(AbilityManager am);
     void visitAbility(Ability ability);
+    void visitAbilityItem(AbilityItem abilityItem);
 
     void visitSummoner(Summoner s);
     void visitSneak(Sneak s);

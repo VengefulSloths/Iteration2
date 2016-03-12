@@ -122,12 +122,6 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
         currentTile.addChild(interactiveItemViewObject);
     }
 
-    public void visitAbilityItem(Ability ability) {
-        String abilityName = ability.getItemName();
-//        String abilityPath = "resources/abilities/"+abilityName
-//        AbilityViewObject abilityViewObject = factory.createAbilityViewObject
-    }
-
     @Override
     public void visitMapItem(MapItem mapItem) {
 
@@ -471,6 +465,11 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
 
     @Override
     public void visitHat(Hat h) {
+
+    }
+
+    @Override
+    public void visitAbilityItem(AbilityItem abilityItem) {
 
     }
 

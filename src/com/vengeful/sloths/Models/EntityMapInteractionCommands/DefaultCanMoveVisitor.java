@@ -78,6 +78,13 @@ public class DefaultCanMoveVisitor extends CanMoveVisitor {
         //System.out.println("cant move because nonaNPC");
         setCanMove(false);
     }
+
+    @Override
+    public void visitAbilityItem(AbilityItem abilityItem) {
+
+
+    }
+
     @Override
     public void visitPiggy(Piggy piggy) {
         setCanMove(false);
