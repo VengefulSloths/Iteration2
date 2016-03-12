@@ -29,6 +29,14 @@ public class RemoveBuffAbility extends Ability {
 
     @Override
     public void accept(ModelVisitor modelVisitor) {
-        (new Exception()).printStackTrace();
+        modelVisitor.visitRemoveBuffAbility(this);
+    }
+
+    public Buff getBuff() {
+        return buff;
+    }
+
+    public void setBuff(Buff buff) {
+        this.buff = buff;
     }
 }

@@ -2,11 +2,9 @@ package com.vengeful.sloths.Utility;
 
 
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.CanMoveVisitor;
-import com.vengeful.sloths.Models.EntityMapInteractionCommands.DefaultCanMoveVisitor;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.NonTeleMoveVisitor;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
-import com.vengeful.sloths.Models.Map.Tile;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -244,6 +242,79 @@ public class HexMath {
         }
 
         return dst;
-
     }
+
+
+    public static Iterator<Coord> angle (Coord center, int radius, Direction facingDirection){
+
+        ArrayList<Coord> coords = new ArrayList<>();
+        //int numTileCounter = 0;
+
+        if(radius == 0)
+            coords.add(center);
+
+        Coord centerTile = center;
+        for(int n = 0; n < radius; n++){
+            centerTile = getNextFacingCoord(centerTile, facingDirection);
+        } //get the enter tile at that radius
+        coords.add(centerTile);
+        System.out.println("Center coord added: " + centerTile.getR() + ", " + centerTile.getS());
+        //add center tile at that layer first, then add tiles on each side of center tile...
+
+        //get num of tiles needed to be added on each side
+        int tileToAddOnEachSide = 0;
+        if(radius % 2 == 0){
+            tileToAddOnEachSide = (radius + 1) / 2;
+        }else{
+            tileToAddOnEachSide = radius / 2;
+        }
+        //System.out.println("Tile to add on each side: " + tileToAddOnEachSide);
+
+
+        switch (facingDirection){
+            case S:
+                addTileToAngle(coords, tileToAddOnEachSide, getNextFacingCoord(centerTile, Direction.NE), Direction.NE);
+                addTileToAngle(coords, tileToAddOnEachSide, getNextFacingCoord(centerTile, Direction.NW), Direction.NW);
+                break;
+            case N:
+                addTileToAngle(coords, tileToAddOnEachSide, getNextFacingCoord(centerTile, Direction.SE), Direction.SE);
+                addTileToAngle(coords, tileToAddOnEachSide, getNextFacingCoord(centerTile, Direction.SW), Direction.SW);
+                break;
+            case NE:
+                addTileToAngle(coords, tileToAddOnEachSide, getNextFacingCoord(centerTile, Direction.NW), Direction.NW);
+                addTileToAngle(coords, tileToAddOnEachSide, getNextFacingCoord(centerTile, Direction.S), Direction.S);
+                break;
+            case NW:
+                addTileToAngle(coords, tileToAddOnEachSide, getNextFacingCoord(centerTile, Direction.NE), Direction.NE);
+                addTileToAngle(coords, tileToAddOnEachSide, getNextFacingCoord(centerTile, Direction.S), Direction.S);
+                break;
+            case SE:
+                addTileToAngle(coords, tileToAddOnEachSide, getNextFacingCoord(centerTile, Direction.N), Direction.N);
+                addTileToAngle(coords, tileToAddOnEachSide, getNextFacingCoord(centerTile, Direction.SW), Direction.SW);
+                break;
+            case SW:
+                addTileToAngle(coords, tileToAddOnEachSide, getNextFacingCoord(centerTile, Direction.N), Direction.N);
+                addTileToAngle(coords, tileToAddOnEachSide, getNextFacingCoord(centerTile, Direction.SE), Direction.SE);
+                break;
+        }
+
+        return coords.iterator();
+    }
+
+
+    private static void addTileToAngle(ArrayList<Coord> coords, int expectedTiles, Coord coord, Direction direction){
+        if(expectedTiles <= 0){
+            return;
+        }
+
+        expectedTiles--;
+        System.out.println("Coords added: " + coord.getR() + ", " + coord.getS());
+        //System.out.println("Counter: " + expectedTiles);
+
+
+        addTileToAngle(coords, expectedTiles, getNextFacingCoord(coord, direction), direction);
+        coords.add(coord);
+        //return expectedTiles;
+    }
+
 }

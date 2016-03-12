@@ -15,6 +15,8 @@ import java.util.ArrayList;
 public class MountAbility extends SelfBuffAbility {
     private ArrayList<EntityObserver> observers;
     private String mountName;
+    private Entity entity;
+
     public MountAbility(Entity entity, Buff buff, ArrayList<EntityObserver> observers, String mountName, int windTicks, int coolTicks) {
         super(entity, buff, windTicks, coolTicks);
         this.observers = observers;
@@ -37,7 +39,14 @@ public class MountAbility extends SelfBuffAbility {
 
     @Override
     public void accept(ModelVisitor v) {
-        (new Exception()).printStackTrace();
+        v.visitMountAbility(this);
     }
 
+    public String getMountName() {
+        return mountName;
+    }
+
+    public void setMountName(String mountName) {
+        this.mountName = mountName;
+    }
 }

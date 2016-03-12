@@ -1,9 +1,6 @@
 package com.vengeful.sloths.Models.SaveLoad;
 
-import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.ExplosionAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.FireBallAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.*;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
@@ -13,10 +10,7 @@ import com.vengeful.sloths.Models.Entity.*;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Hat;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Knuckle;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.*;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
 import com.vengeful.sloths.Models.InventoryTakeableItemFactory;
@@ -43,6 +37,7 @@ import com.vengeful.sloths.Models.RangedEffects.HitBox.ImmovableHitBox;
 import com.vengeful.sloths.Models.RangedEffects.HitBox.MovableHitBox;
 import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
+import com.vengeful.sloths.Models.Stats.StatAddables.GenericStatsAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Coord;
@@ -166,11 +161,15 @@ public class SaveVisitor implements ModelVisitor {
         //inv/equipped visit, stats visit, occupation visit, etc...
         appendDirectionAttribute(entityElement, e.getFacingDirection());
         appendCoordElement(entityElement, currCoord);
+        //need to clear stats of buffs before saving them
+        //things that can affect stats that should be cleared
+        //buff, equipped item stats,
+
         e.getStats().accept(this);
         e.getSkillManager().accept(this);
+        e.getBuffManager().accept(this);
         e.getAbilityManager().accept(this);
         e.getOccupation().accept(this);
-        e.getBuffManager().accept(this);
         e.getInventory().accept(this);
         e.getEquipped().accept(this);
     }
@@ -345,7 +344,13 @@ public class SaveVisitor implements ModelVisitor {
 
     //TODO: added by lulu for ExplosionAbility. Make sure to save it as well. Thanks!
     public void visitExplosionAbility(ExplosionAbility explosionAbility) {
-
+        Element exA = doc.createElement("ExplosionAbility");
+        currentParent.peek().appendChild(exA);
+        exA.setAttribute("windTicks", explosionAbility.getWindTicks() + "");
+        exA.setAttribute("coolTicks", explosionAbility.getCoolTicks() + "");
+        exA.setAttribute("expandingTime", explosionAbility.getExpandingTime() +"");
+        exA.setAttribute("expandingDistance", explosionAbility.getExpandingDistance() +"");
+        exA.setAttribute("manaCost", explosionAbility.getManaCost() +"");
     }
 
 
@@ -384,6 +389,70 @@ public class SaveVisitor implements ModelVisitor {
             System.out.println("error saving hasItemQuest");
         }
         currentParent.pop();
+    }
+
+    @Override
+    public void visitSelfBuffAbility(SelfBuffAbility selfBuffAbility) {
+        Element sba = doc.createElement("SelfBuffAbility");
+        currentParent.peek().appendChild(sba);
+        currentParent.push(sba);
+        sba.setAttribute("windTicks", selfBuffAbility.getWindTicks() + "");
+        sba.setAttribute("coolTicks", selfBuffAbility.getCoolTicks() + "");
+        selfBuffAbility.getBuff().accept(this);
+        if(!currentParent.peek().equals(sba)){
+            System.out.println("error saving selfBuffAbility");
+        }
+        currentParent.pop();
+    }
+    //mount ability needs to get observers from avatar once its loaded
+    //save buff here
+    @Override
+    public void visitMountAbility(MountAbility mountAbility) {
+//        Element ma = doc.createElement("MountAbility");
+//        currentParent.peek().appendChild(ma);
+//        currentParent.push(ma);
+//        ma.setAttribute("windTicks", mountAbility.getWindTicks() + "");
+//        ma.setAttribute("coolTicks", mountAbility.getCoolTicks() + "");
+//        ma.setAttribute("mountName", mountAbility.getMountName());
+//        mountAbility.getBuff().accept(this);
+//        if(!currentParent.peek().equals(ma)){
+//            System.out.println("error saving mountAbilit");
+//        }
+//        currentParent.pop();
+    }
+
+    @Override
+    public void visitRemoveBuffAbility(RemoveBuffAbility removeBuffAbility) {
+    //not needed atm just need demount which extends from this
+    }
+
+    @Override
+    public void visitNullAbility(NullAbility nullAbility) {
+        //not needed, creating abilityManager initialized active abilities to null
+    }
+    //demount ability needs to get observers from avatar once its loaded
+    //needs to get buff from mount ability...
+    //loading sequence will have to be hardcoded into loader
+    @Override
+    public void visitDemountAbility(DemountAbility demountAbility) {
+//        Element ma = doc.createElement("MountAbility");
+//        currentParent.peek().appendChild(ma);
+//        currentParent.push(ma);
+//        ma.setAttribute("windTicks", demountAbility.getWindTicks() + "");
+//        ma.setAttribute("coolTicks", demountAbility.getCoolTicks() + "");
+//        demountAbility.getBuff().accept(this);
+//        if(!currentParent.peek().equals(ma)){
+//            System.out.println("error saving demountAbilit");
+//        }
+//        currentParent.pop();
+    }
+
+    @Override
+    public void visitMount(Mount mount) {
+        Element mE = doc.createElement("Mount");
+        currentParent.peek().appendChild(mE);
+        mE.setAttribute("name", mount.getName());
+        mE.setAttribute("moveSpeed", mount.getMoveSpeed() + "");
     }
 
     @Override
@@ -491,6 +560,9 @@ public class SaveVisitor implements ModelVisitor {
         }
         if(e.getWeapon() != null){
             e.getWeapon().accept(this);
+        }
+        if(e.getMount() != null){
+            e.getMount().accept(this);
         }
         //gets stats, ability and skill manager from entity in load
         if(currentParent.peek().equals(eElement)){
@@ -825,6 +897,15 @@ public class SaveVisitor implements ModelVisitor {
 
     private void appendDirectionAttribute(Element parent, Direction d){
         parent.setAttribute("Direction", d + "");
+    }
+
+    private GenericStatsAddable getAllEntityStatEffects(Entity e){
+        GenericStatsAddable gsa = new GenericStatsAddable();
+        BuffManager bm = e.getBuffManager();
+        gsa.add(bm.getAllBuffStatEffects());
+        Equipped eq = e.getEquipped();
+
+        return  gsa;
     }
 
 }

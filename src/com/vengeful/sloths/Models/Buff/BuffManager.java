@@ -3,6 +3,7 @@ package com.vengeful.sloths.Models.Buff;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
+import com.vengeful.sloths.Models.Stats.StatAddables.GenericStatsAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.TimeModel.Tickable;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
@@ -71,5 +72,14 @@ public class BuffManager implements Tickable, ModelVisitable {
             ++i;
         }
         return bArrary;
+    }
+
+    public GenericStatsAddable getAllBuffStatEffects(){
+        GenericStatsAddable gsa = new GenericStatsAddable();
+        Buff[] buffs = this.getBuffs();
+        for(Buff b : buffs){
+            gsa.add(b.getBuff());
+        }
+        return gsa;
     }
 }

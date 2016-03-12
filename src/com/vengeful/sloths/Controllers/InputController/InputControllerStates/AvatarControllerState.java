@@ -95,6 +95,7 @@ public class AvatarControllerState extends InputControllerState {
 
     @Override
     public boolean handleWestKey() {
+        //TODO: test ability, remove
         System.out.println("X pressed!!!!");
         Avatar.getInstance().doAbility(0);
         return true;

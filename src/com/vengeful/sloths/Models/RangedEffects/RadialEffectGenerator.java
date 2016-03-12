@@ -1,10 +1,12 @@
 package com.vengeful.sloths.Models.RangedEffects;
 
 import com.vengeful.sloths.AreaView.TemporaryVOCreationVisitor;
+import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.RangedEffects.HitBox.ImmovableHitBox;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
 import com.vengeful.sloths.Utility.Coord;
+import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Utility.HexMath;
 
 import javax.swing.plaf.synth.SynthTextAreaUI;
@@ -74,8 +76,6 @@ public class RadialEffectGenerator extends RangedEffectGenerator{
             //TODO: remove, remove this doesTileExist thing after map padding added!!
             doesTileExist = HexMath.isValidTile(loc, Map.getInstance().getActiveMapArea().getMaxR(), Map.getInstance().getActiveMapArea().getMaxS());
             if(doesTileExist){
-                System.out.println("WHY VISITOR THROWS????");
-                System.out.println(Map.getInstance().getActiveMapArea().getTile(loc));
 //                Map.getInstance().getActiveMapArea().getTile(loc).accept(canGenerateVisitor);
 //                if(canGenerateVisitor.canGenerate()){
                     ImmovableHitBox newHB = new ImmovableHitBox(hitboxName, loc, damage, accuracy);
