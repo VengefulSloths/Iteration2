@@ -263,11 +263,13 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
 
     @Override
     public void alertStealth() {
+        System.out.println("setting stealth to true");
         this.isStealthed = true;
     }
 
     @Override
     public void alertUnstealth() {
+        System.out.println("setting stealth to false");
         this.isStealthed = false;
     }
 

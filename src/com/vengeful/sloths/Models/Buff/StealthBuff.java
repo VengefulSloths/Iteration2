@@ -15,16 +15,16 @@ public class StealthBuff extends ActionRemovableBuff {
     }
 
     @Override
-    public void doRemove(Stats stats) {
-        super.doRemove(stats);
+    public void doApply(Stats stats) {
+        super.doApply(stats);
         for (EntityObserver observer: getObservers()) {
             observer.alertStealth();
         }
     }
 
     @Override
-    public void doApply(Stats stats) {
-        super.doApply(stats);
+    public void doRemove(Stats stats) {
+        super.doRemove(stats);
         for (EntityObserver observer: getObservers()) {
             observer.alertUnstealth();
         }

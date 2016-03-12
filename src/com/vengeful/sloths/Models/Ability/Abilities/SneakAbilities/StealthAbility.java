@@ -1,5 +1,6 @@
-package com.vengeful.sloths.Models.Ability.Abilities;
+package com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities;
 
+import com.vengeful.sloths.Models.Ability.Abilities.SelfBuffAbility;
 import com.vengeful.sloths.Models.Ability.Hooks.RemoveBuffHook;
 import com.vengeful.sloths.Models.Buff.Buff;
 import com.vengeful.sloths.Models.Buff.PermanantBuff;
@@ -29,8 +30,6 @@ public class StealthAbility extends SelfBuffAbility {
 
         //This will set the creep to the correct level
         buff.getBuff().setConcealment(entity.getSkillManager().getCreepLevel());
-
-
         int output;
         if ((output = super.execute()) > 0) {
             TimeModel.getInstance().registerAlertable(() -> {

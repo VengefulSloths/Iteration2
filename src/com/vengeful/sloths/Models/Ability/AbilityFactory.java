@@ -1,13 +1,17 @@
 package com.vengeful.sloths.Models.Ability;
 
 import com.vengeful.sloths.Models.Ability.Abilities.*;
+import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.StealthAbility;
 import com.vengeful.sloths.Models.Buff.Buff;
 import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.Buff.MountBuff;
+import com.vengeful.sloths.Models.Buff.StealthBuff;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Observers.EntityObserver;
 import com.vengeful.sloths.Models.Skills.SkillManager;
+import com.vengeful.sloths.Models.Stats.StatAddables.GenericStatsAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.MovementAddable;
+import com.vengeful.sloths.Models.Stats.StatAddables.StrengthAddable;
 
 import java.util.ArrayList;
 
@@ -47,8 +51,9 @@ public class AbilityFactory {
         return new MountAbility(entity, mountBuff, mountName, windTime, coolTime);
     }
 
-    public DemountAbility createDemountAbility(Buff buff, BuffManager buffManager, Entity entity, ArrayList<EntityObserver> observers) {
-        return new DemountAbility(buff, buffManager, entity, observers);
+    public StealthAbility createStealthAbility(Entity entity) {
+        Buff stealthBuff = new StealthBuff(entity.getObservers(), "Creep", new StrengthAddable(entity.getStats().getStrength()), entity.getBuffManager());
+        return new StealthAbility(entity, stealthBuff, 20,25);
     }
 
 

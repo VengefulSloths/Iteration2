@@ -28,8 +28,6 @@ public class AbilityManager implements ModelVisitable, ViewObservable {
 
     private ArrayList<AbilityManagerObserver> abilityManagerObservers;
 
-
-    //TODO: give it a default: punchAbility
     private Entity entity;
 
 
@@ -102,7 +100,6 @@ public class AbilityManager implements ModelVisitable, ViewObservable {
     public Ability getMountAbility() {
         return mountAbility;
     }
-
 
     public Ability getWeaponAbility(){
         return this.weaponAbility;
