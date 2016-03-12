@@ -70,11 +70,13 @@ public class HominidViewObject extends EntityViewObject {
             output.addNonVisibleViewObject(hat.getNonVisibleSnapShot());
         } else {
             if (!dead) {
-                //TODO put some hands here
+                output.addNonVisibleViewObject(hands.getNonVisibleBack());
             }
             output.addNonVisibleViewObject(super.getNonVisibleSnapShot());
             if (!dead) {
+                System.out.println("adding hat and hands to nonvis");
                 output.addNonVisibleViewObject(hat.getNonVisibleSnapShot());
+                output.addNonVisibleViewObject(hands.getNonVisibleFront());
             }
         }
         return output;

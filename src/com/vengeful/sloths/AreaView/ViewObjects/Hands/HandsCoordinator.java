@@ -3,6 +3,7 @@ package com.vengeful.sloths.AreaView.ViewObjects.Hands;
 
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
+import com.vengeful.sloths.AreaView.ViewObjects.NonVisibleViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.WeaponImageContainer;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Utility.WeaponClass;
@@ -91,6 +92,9 @@ public class HandsCoordinator {
         state.paintBack(g);
     }
 
+    public NonVisibleViewObject getNonVisibleFront() { return state.getNonVisibleFront(); }
+
+    public NonVisibleViewObject getNonVisibleBack() { return state.getNonVisibleBack(); }
 
 
 }

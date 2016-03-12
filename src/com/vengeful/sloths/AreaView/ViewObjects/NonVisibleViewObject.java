@@ -43,11 +43,12 @@ public class NonVisibleViewObject extends ViewObject {
         return images;
     }
 
-    public void addFromVisibleImage(DynamicImage visibleImage) {
+    public void addFromVisibleImage(DynamicImage visibleImage, int xOffset, int yOffset) {
         images.add(new Tuple<>(getNonVisibleImage(visibleImage),
-                visibleImage.getXOffset(),
-                visibleImage.getYOffset()));
+                visibleImage.getXOffset() + xOffset,
+                visibleImage.getYOffset() + yOffset));
     }
+
 
     public void addNonVisibleViewObject(NonVisibleViewObject other) {
         images.addAll(other.getImages());

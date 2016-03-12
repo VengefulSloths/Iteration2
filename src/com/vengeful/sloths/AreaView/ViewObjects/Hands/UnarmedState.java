@@ -5,6 +5,8 @@ import com.vengeful.sloths.AreaView.TemporaryVOCreationVisitor;
 import com.vengeful.sloths.AreaView.ViewObjects.AttackViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
+import com.vengeful.sloths.AreaView.ViewObjects.NonVisibleViewObject;
+import com.vengeful.sloths.AreaView.ViewObjects.ViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.WeaponImageContainer;
 import com.vengeful.sloths.AreaView.ViewTime;
 import com.vengeful.sloths.Utility.Direction;
@@ -193,6 +195,66 @@ public class UnarmedState implements HandState{
     public void paintBack(Graphics2D g) {
         for (SmartHandViewObject hand: background) {
             hand.paintComponent(g);
+        }
+    }
+
+    @Override
+    public NonVisibleViewObject getNonVisibleFront() {
+        if (foreground.size() > 0) {
+            NonVisibleViewObject nonVisibleViewObject = foreground.get(0).getNonVisibleSnapShot();
+            if (foreground.size() > 1) {
+                nonVisibleViewObject.addNonVisibleViewObject(foreground.get(1).getNonVisibleSnapShot());
+            }
+            return nonVisibleViewObject;
+        } else {
+
+            //This is essentially a joke
+            return new NonVisibleViewObject(0, 0, new CoordinateStrategy() {
+                @Override
+                public void adjustXY(int r, int s, ViewObject subject) {
+
+                }
+            }, new LocationStrategy() {
+                @Override
+                public int offsetXPixels() {
+                    return 0;
+                }
+
+                @Override
+                public int offsetYPixels() {
+                    return 0;
+                }
+            }, new ArrayList<>());
+        }
+    }
+
+    @Override
+    public NonVisibleViewObject getNonVisibleBack() {
+        if (background.size() > 0) {
+            NonVisibleViewObject nonVisibleViewObject = background.get(0).getNonVisibleSnapShot();
+            if (background.size() > 1) {
+                nonVisibleViewObject.addNonVisibleViewObject(background.get(1).getNonVisibleSnapShot());
+            }
+            return nonVisibleViewObject;
+        } else {
+
+            //This is essentially a joke
+            return new NonVisibleViewObject(0, 0, new CoordinateStrategy() {
+                @Override
+                public void adjustXY(int r, int s, ViewObject subject) {
+
+                }
+            }, new LocationStrategy() {
+                @Override
+                public int offsetXPixels() {
+                    return 0;
+                }
+
+                @Override
+                public int offsetYPixels() {
+                    return 0;
+                }
+            }, new ArrayList<>());
         }
     }
 
