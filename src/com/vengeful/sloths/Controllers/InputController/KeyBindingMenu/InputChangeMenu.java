@@ -58,7 +58,9 @@ public class InputChangeMenu extends ScrollableMenu {
         int offset = padding/2;
         int index = 0;
         Graphics2D g2d = (Graphics2D) g;
-        g2d.drawImage(bg,0,0,1200,1000, null);
+        g2d.setColor(Color.GRAY);
+        g2d.fillRect(0,0,1200,1000);
+        //g2d.drawImage(bg,0,0,1200,1000, null);
         Iterator iter = list.getIterator();
         while (iter.hasNext()) {
             if(index == list.getCurrentIndex()){

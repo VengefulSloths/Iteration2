@@ -39,6 +39,7 @@ public class Stats implements ModelVisitable, ViewObservable {
 
     private int bonusHealth = 0;
     private int bonusMana = 0;
+    private int lives;
 
     private Entity entity;
 
@@ -52,6 +53,7 @@ public class Stats implements ModelVisitable, ViewObservable {
         this.movement = 45;//might need to modify this (done)
         this.level = 1;
         this.currentHealth = 1;
+        this.lives = 1;
         calculateStats();
 
         this.currentHealth = this.maxHealth;
@@ -65,6 +67,7 @@ public class Stats implements ModelVisitable, ViewObservable {
         setHardiness(stats.getHardiness());
         setMovement(stats.getMovement());
         this.level = 1;
+        this.lives = 1;
 
         calculateStats();
 
@@ -261,6 +264,14 @@ public class Stats implements ModelVisitable, ViewObservable {
 
     public ArrayList<StatsObserver> getObservers() {
         return observers;
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
     }
 
     /////////////////////////// public api ////////////////////////////////////

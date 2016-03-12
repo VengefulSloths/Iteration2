@@ -36,6 +36,7 @@ public class Avatar extends Entity{
 
     private Avatar(){
         super("Phill", new Stats());
+        this.getStats().setLives(3);
     }
 
     public static Avatar getInstance(){
