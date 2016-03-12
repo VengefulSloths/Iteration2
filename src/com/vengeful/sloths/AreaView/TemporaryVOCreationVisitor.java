@@ -7,10 +7,7 @@ import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
 import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.Buff.BuffOverTime;
-import com.vengeful.sloths.Models.Entity.AggressiveNPC;
-import com.vengeful.sloths.Models.Entity.Avatar;
-import com.vengeful.sloths.Models.Entity.NonAggressiveNPC;
-import com.vengeful.sloths.Models.Entity.Piggy;
+import com.vengeful.sloths.Models.Entity.*;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
@@ -110,7 +107,7 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     }
 
 
-    private boolean firstAvatarFlag = true;
+
     private AvatarViewObject avo;
     private ProxyEntityObserver peo;
     private ProxyEntityObserver petPeo;
@@ -138,7 +135,7 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
         //Set the camera views avatar to this
 
         activeCameraView.addAvatar(avo);
-
+        avatar.getEquipped().alertAllEntityObserversEverything();
         if (avatar.isMounted()) {
             avo.alertMount(avatar.getEquipped().getMount().getName());
         }
@@ -170,9 +167,11 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
         ebvo.registerObserver(activeCameraView);
         ObserverManager.getInstance().addProxyObserver(new ProxyStatsObserver(ebvo.getHealthBar(), aNPC.getStats()));
         aNPC.getStats().updateObservers();
-
+        aNPC.getEquipped().alertAllEntityObserversEverything();
         this.activeCameraView.addViewObject(ebvo);
     }
+
+
 
     @Override
     public void visitNonAggressiveNPC(NonAggressiveNPC nonANPC) {
