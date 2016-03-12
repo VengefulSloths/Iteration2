@@ -39,12 +39,12 @@ public abstract class Occupation implements ModelVisitable{
         //TODO: test, remove
         ExplosionAbility ea = new ExplosionAbility(entity, 10, 3, 5, 5);
         abilityManager.addAbility(ea);
-        abilityManager.equipAbility(ea, 1);
+        abilityManager.equipAbility(ea, 0);
 
 
-        FireBallAbility fba = new FireBallAbility(entity, 10, 3, 30, 40);
-        abilityManager.addAbility(fba);
-        abilityManager.equipAbility(fba, 0);
+        //FireBallAbility fba = new FireBallAbility(entity, 10, 3, 30, 40);
+        //abilityManager.addAbility(fba);
+        //abilityManager.equipAbility(fba, 0);
 
 
 
