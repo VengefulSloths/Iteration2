@@ -12,16 +12,18 @@ public class KeyBindCommand implements ScrollableMenuItemCommand {
     private KeyMapping keyMapping;
     private int keyCode;
     private AdaptableStrategy adaptableStrategy;
+    private KeyBindMenuItem item;
 
-    public KeyBindCommand(KeyMapping keyMapping, int keyCode, AdaptableStrategy adaptableStrategy){
+    public KeyBindCommand(KeyMapping keyMapping, int keyCode, AdaptableStrategy adaptableStrategy, KeyBindMenuItem item){
         this.keyMapping = keyMapping;
         this.keyCode = keyCode;
         this.adaptableStrategy = adaptableStrategy;
+        this.item = item;
     }
     @Override
     public void execute() {
         System.out.println("Rebinding Key");
         adaptableStrategy.setKeyMappings(this.keyCode, this.keyMapping);
-
+        item.setCurrentMappedKey(keyCode);
     }
 }

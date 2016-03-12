@@ -1,6 +1,8 @@
 package com.vengeful.sloths.Controllers.InputController.KeyBindingMenu;
 
+import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
 import com.vengeful.sloths.Controllers.InputController.KeyMapping;
+import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.Menu.*;
 
 import javax.imageio.ImageIO;
@@ -14,11 +16,12 @@ import java.util.Iterator;
  */
 public class InputChangeMenu extends ScrollableMenu {
 
-
+    private AdaptableStrategy adaptableStrategy;
     private BufferedImage bg;
 
     public InputChangeMenu(int height){
         super(height);
+        adaptableStrategy = (AdaptableStrategy) MainController.getInstance().getInputStrategy();
         //create list here for main menu
         try {
             bg = ImageIO.read(new File("resources/backgrounds/mainMenuBg.png"));
@@ -75,5 +78,13 @@ public class InputChangeMenu extends ScrollableMenu {
 
     public KeyBindMenuItem getMenuItem(){
         return (KeyBindMenuItem) list.getCurrentMenuItem();
+    }
+
+
+    public void refreshKeys(){
+        Iterator<ScrollableMenuItem> iter = list.getIterator();
+        while(iter.hasNext()){
+            ((KeyBindMenuItem)iter.next()).updateKeyBind();
+        }
     }
 }
