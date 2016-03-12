@@ -1,16 +1,21 @@
-package com.vengeful.sloths.Menu;
+package com.vengeful.sloths.Controllers.InputController.KeyBindingMenu;
+
+import com.vengeful.sloths.Controllers.InputController.KeyMapping;
+import com.vengeful.sloths.Menu.ScrollableMenuItem;
+import com.vengeful.sloths.Menu.ScrollableMenuItemCommand;
 
 import java.awt.*;
 
 /**
- * Created by John on 2/18/2016.
+ * Created by John on 3/10/2016.
  */
-public class MainMenuItem implements ScrollableMenuItem {
-
+public class KeyBindMenuItem implements ScrollableMenuItem {
     private String name;
+    private KeyMapping keyMapping;
 
-    public MainMenuItem(String name){
+    public KeyBindMenuItem(String name, KeyMapping keyMapping){
         this.name = name;
+        this.keyMapping = keyMapping;
     }
 
     public String getName() {
@@ -32,5 +37,13 @@ public class MainMenuItem implements ScrollableMenuItem {
         g2d.setColor(Color.WHITE);
         FontMetrics metrics = g2d.getFontMetrics(g2d.getFont());
         g2d.drawString(this.name, width / 2 - metrics.stringWidth(this.name)/2, yPos + height/2 + metrics.getAscent()/2);
+    }
+
+    public KeyMapping getKeyMapping() {
+        return keyMapping;
+    }
+
+    public void setKeyMapping(KeyMapping keyMapping) {
+        this.keyMapping = keyMapping;
     }
 }

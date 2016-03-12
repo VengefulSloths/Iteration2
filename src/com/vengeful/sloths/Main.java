@@ -1,15 +1,20 @@
 package com.vengeful.sloths;
 
-import com.vengeful.sloths.Menu.MainScrollableMenu;
+import com.vengeful.sloths.Menu.MainMenu.MainScrollableMenu;
 import com.vengeful.sloths.Menu.ScrollableMenu;
 import com.vengeful.sloths.AreaView.ViewEngine;
 import com.vengeful.sloths.Controllers.InputController.MainController;
+import com.vengeful.sloths.Utility.Coord;
+import com.vengeful.sloths.Utility.Direction;
+import com.vengeful.sloths.Utility.HexMath;
 
 import java.awt.*;
 
 public class Main {
 
     public static void main(String[] args) {
+
+
 	// write your code here
         ViewEngine window = ViewEngine.getInstance();
 
@@ -28,6 +33,13 @@ public class Main {
         //window.setSize(1200, 1000);
 
         //engine.start();
+
+
+        //test angle ranged att
+        HexMath.angle(new Coord(1,-1), 8, Direction.S);
+
+
+
 
         MainController mainController = MainController.getInstance();
 

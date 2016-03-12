@@ -6,6 +6,7 @@ import com.sun.org.apache.xml.internal.serializer.ElemDesc;
 import com.vengeful.sloths.Controllers.ControllerManagers.AggressiveNPCControllerManager;
 import com.vengeful.sloths.Controllers.ControllerManagers.PiggyControllerManager;
 import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.ExplosionAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.FireBallAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
@@ -16,10 +17,7 @@ import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Hat;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Knuckle;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.*;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
@@ -166,7 +164,7 @@ private void setActiveMapArea() {
         ii.setQuest(processQuest(current.getChildNodes().item(1)));
         return ii;
     }
-//untested
+
     private Quest processQuest(Node item) {
         Element current = (Element) item;
         Quest q = null;
@@ -563,6 +561,27 @@ private void setActiveMapArea() {
                         FireBallAbility fba = new FireBallAbility(e, traveTime, travelDistance, start, coolDown);
                         fba.setManaCost(manaCost);
                         abm.addAbility(fba);
+                        break;
+                    case "ExplosionAbility":
+                        int windExA = Integer.valueOf(currAbility.getAttribute("windTicks"));
+                        int coolExA = Integer.valueOf(currAbility.getAttribute("coolTicks"));
+                        int expandingTime = Integer.valueOf(currAbility.getAttribute("expandingTime"));
+                        int expandingDistance = Integer.valueOf(currAbility.getAttribute("expandingDistance"));
+                        int manaCostExA = Integer.valueOf(currAbility.getAttribute("manaCost"));
+                        ExplosionAbility exA = new ExplosionAbility(e,expandingTime,expandingDistance,windExA,coolExA);
+                        exA.setManaCost(manaCostExA);
+                        abm.addAbility(exA);
+                        break;
+                    case "MountAbility" :
+                        break;
+                    case "DemountAbility" :
+                        break;
+                    case "NullAbility" :
+                        break;
+                    case "RemoveBuffAbility" :
+                        break;
+                    case "SelfBuffAbility" :
+                        break;
                     default:
                         System.out.println(currAbility.getNodeName() + "isn't a supported ability to load");
                 }
@@ -629,6 +648,11 @@ private void setActiveMapArea() {
                             case "TwoHandedWeapon" :
                                 TwoHandedWeapon thw = processTwoHandedWeapon(eqItemElement);
                                 eq.addWeapon(thw);
+                                break;
+                            case "Mount":
+                                Mount m = processMount(eqItemElement);
+                                eq.addMount(m);
+                                break;
                             default:
                                 System.out.println(eqItemName + "isn't a supported equipped item element");
                         }
@@ -644,6 +668,14 @@ private void setActiveMapArea() {
         }
         return eq;
     }
+
+    private Mount processMount(Element eqItemElement) {
+        int move = Integer.valueOf(eqItemElement.getAttribute("moveSpeed"));
+        String name = eqItemElement.getAttribute("name");
+        Mount m = new Mount(name, move);
+        return m;
+    }
+
     private Inventory processInventory(Node avatarObject) {
         Inventory inv = new Inventory();
         if(avatarObject.getNodeType() == Node.ELEMENT_NODE){
@@ -677,6 +709,11 @@ private void setActiveMapArea() {
                             case "TwoHandedWeapon" :
                                 TwoHandedWeapon thw = processTwoHandedWeapon(invItemElement);
                                 inv.addItem(thw);
+                                break;
+                            case "Mount":
+                                Mount m = processMount(invItemElement);
+                                inv.addItem(m);
+                                break;
                             default:
                                 System.out.println(invItemName + "isn't a supported inventory item element");
                         }

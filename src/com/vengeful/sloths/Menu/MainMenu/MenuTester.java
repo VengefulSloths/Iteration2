@@ -1,8 +1,9 @@
-package com.vengeful.sloths.Menu;
+package com.vengeful.sloths.Menu.MainMenu;
 
 
 import com.vengeful.sloths.AreaView.ViewEngine;
 import com.vengeful.sloths.Controllers.InputController.MainController;
+import com.vengeful.sloths.Menu.ScrollableMenu;
 
 import java.awt.*;
 

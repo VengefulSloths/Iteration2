@@ -1,9 +1,6 @@
 package com.vengeful.sloths.Models;
 
-import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.ExplosionAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.FireBallAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.*;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
@@ -13,10 +10,7 @@ import com.vengeful.sloths.Models.Entity.*;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Hat;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Knuckle;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.*;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
 import com.vengeful.sloths.Models.Map.AreaEffects.HealDamageAE;
 import com.vengeful.sloths.Models.Map.AreaEffects.InstantDeathAE;
@@ -129,4 +123,15 @@ public interface ModelVisitor {
 
     void visitHasItemQuest(HasItemQuest hasItemQuest);
 
+    void visitSelfBuffAbility(SelfBuffAbility selfBuffAbility);
+
+    void visitMountAbility(MountAbility mountAbility);
+
+    void visitRemoveBuffAbility(RemoveBuffAbility removeBuffAbility);
+
+    void visitNullAbility(NullAbility nullAbility);
+
+    void visitDemountAbility(DemountAbility demountAbility);
+
+    void visitMount(Mount mount);
 }

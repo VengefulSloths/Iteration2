@@ -2,6 +2,7 @@ package com.vengeful.sloths.Models.Ability;
 
 import com.vengeful.sloths.AreaView.vAlertable;
 import com.vengeful.sloths.AreaView.vCommand;
+import com.vengeful.sloths.Models.Ability.Abilities.NullAbility;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
@@ -29,6 +30,9 @@ public class AbilityManager implements ModelVisitable{
     public AbilityManager(Entity entity){
         this.abilities = new ArrayList<>();
         this.activeAbilities = new Ability[4]; //3 for occupation specific, 1 for common ability
+        for(int i = 0; i != activeAbilities.length; ++i){
+            activeAbilities[i] = new NullAbility();
+        }
         this.entity = entity;
     }
 
