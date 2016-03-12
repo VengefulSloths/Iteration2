@@ -6,7 +6,7 @@ import java.awt.*;
 /**
  * Created by echristiansen on 2/21/2016.
  */
-public abstract class View extends JPanel {
+public class View extends JPanel {
 
     private int viewWidth;
     private int viewHeight;

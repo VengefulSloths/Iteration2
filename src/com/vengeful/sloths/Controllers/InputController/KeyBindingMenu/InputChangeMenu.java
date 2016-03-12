@@ -30,6 +30,7 @@ public class InputChangeMenu extends ScrollableMenu {
             System.out.println(e);
         }
         ScrollableMenuList list = new ScrollableMenuList();
+        list.addItem(new KeyBindMenuItem("Abilities", KeyMapping.ABILITIES));
         list.addItem(new KeyBindMenuItem("Inventory", KeyMapping.INVENTORY));
         list.addItem(new KeyBindMenuItem("Equipment", KeyMapping.INVENTORY));
         list.addItem(new KeyBindMenuItem("Move North", KeyMapping.NORTH));
@@ -38,8 +39,10 @@ public class InputChangeMenu extends ScrollableMenu {
         list.addItem(new KeyBindMenuItem("Move South", KeyMapping.SOUTH));
         list.addItem(new KeyBindMenuItem("Move SouthEast", KeyMapping.SOUTHEAST));
         list.addItem(new KeyBindMenuItem("Move SouthWest", KeyMapping.SOUTHWEST));
-        //TODO add more of these bitches lol (4 abilities)
-
+        list.addItem(new KeyBindMenuItem("Ability 0", KeyMapping.ABILITY_0));
+        list.addItem(new KeyBindMenuItem("Ability 1", KeyMapping.ABILITY_1));
+        list.addItem(new KeyBindMenuItem("Ability 2", KeyMapping.ABILITY_2));
+        list.addItem(new KeyBindMenuItem("Ability 3", KeyMapping.ABILITY_3));
 
         this.setList(list);
         //this.setBackground(Color.GRAY);

@@ -1,6 +1,7 @@
 package com.vengeful.sloths.Views.InventoryView;
 
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
+import com.vengeful.sloths.Views.ViewFactory.ViewItem;
 
 import java.awt.*;
 
@@ -13,7 +14,7 @@ public class GridItemViewObject extends ItemViewObject {
         super();
     }
 
-    public GridItemViewObject(InventoryItem inventoryItem, int width, int height) {
+    public GridItemViewObject(ViewItem inventoryItem, int width, int height) {
         super(inventoryItem, width, height);
     }
 

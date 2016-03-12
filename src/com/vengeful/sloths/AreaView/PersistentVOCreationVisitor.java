@@ -2,6 +2,7 @@ package com.vengeful.sloths.AreaView;
 
 import com.vengeful.sloths.AreaView.ViewObjects.*;
 import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
+import com.vengeful.sloths.AreaView.ViewObjects.*;
 import com.vengeful.sloths.Models.Ability.Abilities.*;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
@@ -43,6 +44,7 @@ import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Models.Observers.ProxyDestoyableObserver;
 import com.vengeful.sloths.Models.Observers.ProxyObserver;
+import com.vengeful.sloths.Views.AbilitiesView.AbilityViewObject;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -108,6 +110,12 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
         InteractiveItemViewObject interactiveItemViewObject = factory.createInteractiveItemViewObject(r, s, "resources/items/button/button.xml", "resources/items/button/button_activated.xml");
         new ProxyInteractiveItemObserver(interactiveItemViewObject, item);
         currentTile.addChild(interactiveItemViewObject);
+    }
+
+    public void visitAbilityItem(Ability ability) {
+        String abilityName = ability.getItemName();
+//        String abilityPath = "resources/abilities/"+abilityName
+//        AbilityViewObject abilityViewObject = factory.createAbilityViewObject
     }
 
     @Override

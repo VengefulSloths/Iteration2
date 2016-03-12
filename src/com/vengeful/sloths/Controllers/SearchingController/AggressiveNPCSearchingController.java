@@ -42,6 +42,7 @@ import com.vengeful.sloths.Models.Stats.StatAddables.*;
 import com.vengeful.sloths.Models.Stats.Stats;
 
 import java.util.Iterator;
+import java.util.Random;
 
 /**
  * Created by zach on 2/22/16.
@@ -51,7 +52,7 @@ public class AggressiveNPCSearchingController extends SearchingController {
     public AggressiveNPCSearchingController(MapArea mapArea, Entity entity) {
         super(mapArea, entity);
     }
-
+    private Random roller = new Random(420);
     @Override
     protected void doneSearching() {
 
@@ -62,13 +63,21 @@ public class AggressiveNPCSearchingController extends SearchingController {
 
     }
 
+
     @Override
     public void visitAvatar(Avatar avatar) {
         // set priority yadyadyayd
         //System.out.println("agressive npc sees the avatar :o");
-        Target currTarget = new AvatarTarget(0);
-        currTarget.setCoord(this.getCurrentCoord());
-        this.setHighestPriorityTarget(this.getMaxTarget(currTarget, this.getHighestPriorityTarget()));
+
+        int roll = roller.nextInt(10);
+        System.out.println("I just rolled a " + roll);
+
+        if (roll > getCurrRing()*avatar.getStealthLevel()) {
+            Target currTarget = new AvatarTarget(0);
+            currTarget.setCoord(this.getCurrentCoord());
+            this.setHighestPriorityTarget(this.getMaxTarget(currTarget, this.getHighestPriorityTarget()));
+        }
+
     }
 
     @Override

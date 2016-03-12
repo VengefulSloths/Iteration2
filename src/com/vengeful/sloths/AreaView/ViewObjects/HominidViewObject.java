@@ -47,15 +47,19 @@ public class HominidViewObject extends EntityViewObject {
             super.paintComponent(g);
             hat.paintComponent(g);
         } else {
-            if (!dead) {
-                hands.paintBack(g);
-            }
+            if (isStealthed()) {
+                getNonVisibleSnapShot().paintComponent(g);
+            } else {
+                if (!dead) {
+                    hands.paintBack(g);
+                }
 
-            super.paintComponent(g);
+                super.paintComponent(g);
 
-            if (!dead) {
-                hat.paintComponent(g);
-                hands.paintFront(g);
+                if (!dead) {
+                    hat.paintComponent(g);
+                    hands.paintFront(g);
+                }
             }
         }
     }
@@ -74,7 +78,6 @@ public class HominidViewObject extends EntityViewObject {
             }
             output.addNonVisibleViewObject(super.getNonVisibleSnapShot());
             if (!dead) {
-                System.out.println("adding hat and hands to nonvis");
                 output.addNonVisibleViewObject(hat.getNonVisibleSnapShot());
                 output.addNonVisibleViewObject(hands.getNonVisibleFront());
             }
