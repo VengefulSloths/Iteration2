@@ -44,10 +44,10 @@ public class GridInventoryView extends InventoryView implements InventoryObserve
         for(int i=0; i<this.getItemListSize(); i++) {
             this.getFromItemList(i).paintComponent(g, gcs.calculateXCoordBasedOnIndex(i), gcs.calculateYCoordBasedOnIndex(i), gcs.calculateSlotWidth(), gcs.calculateSlotHeight());
             if(this.getFromItemList(i).isSelected()) {
-                Border b = BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.GREEN, Color.GREEN);
+                Border b = BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.WHITE, Color.WHITE);
                 b.paintBorder(this.getFromItemList(i), g, gcs.calculateXCoordBasedOnIndex(i), gcs.calculateYCoordBasedOnIndex(i), gcs.calculateSlotWidth(), gcs.calculateSlotHeight());
                 g.setFont(new Font(Font.DIALOG, Font.BOLD, 10));
-                g.setColor(Color.GREEN);
+                g.setColor(Color.WHITE);
                 g.drawString(this.getFromItemList(i).getInventoryItem().getItemName(), gcs.calculateXCoordBasedOnIndex(i), gcs.calculateYCoordBasedOnIndex(i) + gcs.calculateSlotHeight() + boxHeight/4);
             }
         }
@@ -74,12 +74,10 @@ public class GridInventoryView extends InventoryView implements InventoryObserve
         }
 
         public int calculateXCoordBasedOnIndex(int index){
-            //int xCoord = index%this.gridInventoryView.getNumCols();
             int columnSlotIndex = calculateColumnSlotNumberBasedOnIndex(index);
             int slotWidth = calculateSlotWidth();
             int multipleX = 1 + 3*columnSlotIndex;
             int xCoord = (slotWidth/2)* multipleX;
-            //System.out.println("TRYING TO PRINT OUT ITEM FOR INDEX " + index + "at xCoord" + xCoord + "!!!!!");
             return xCoord;
         }
 
@@ -90,35 +88,25 @@ public class GridInventoryView extends InventoryView implements InventoryObserve
             int slotHeight = calculateSlotHeight();
             int lineLength = slotHeight/2;
             int yCoord = ((slotHeight/2) * multipleY) + getTitlePanel().getHeight();
-            //System.out.println("TRYING TO PRINT OUT ITEM FOR INDEX " + index + " at yCoord " + yCoord + "!!" + "ROWslotInDEX is " + rowSlotIndex + "for linelength " + lineLength + "with titlepanel height " + getTitlePanel().getHeight());
-
             return yCoord;
         }
 
         public int calculateColumnSlotNumberBasedOnIndex(int index){
-            //int xCoord = index%this.gridInventoryView.getNumCols();
             int columnSlot = index%getNumCols();
             return columnSlot;
         }
 
         public int calculateRowSlotNumberBasedOnIndex(int index) {
-            //int yCoord = index/this.gridInventoryView.getNumCols();
-            //int rowSlot = index/getNumRows();
             int rowSlot = index/getNumCols();
-            //System.out.println("THESE ARE THE ROWSLOTOOTTTTOOSSS!!! " + rowSlot + "for numRows " + getNumRows());
             return rowSlot;
         }
 
         public int calculateSlotWidth() {
-            //int slotWidth = (int)((this.gridInventoryView.getItemPanel().getWidth()) * (2.0/((3*this.gridInventoryView.getNumCols())+1)));
-            //int slotWidth = (int)((getItemPanel().getWidth()) * (2.0/((3*this.gridInventoryView.getNumCols())+1)));
             int slotWidth = (int)((getItemPanel().getWidth()) * (2.0/((3*getNumCols())+1)));
             return slotWidth;
         }
 
         public int calculateSlotHeight() {
-            //int slotHeight = (int)((this.gridInventoryView.getItemPanel().getHeight()) * (2.0/((3*this.gridInventoryView.getNumRows())+1)));
-            //int slotHeight = (int)((getItemPanel().getHeight()) * (2.0/((3*this.gridInventoryView.getNumRows())+1)));
             int slotHeight = (int)((getItemPanel().getHeight()) * (2.0/((3*getNumRows())+1)));
             return slotHeight;
         }
