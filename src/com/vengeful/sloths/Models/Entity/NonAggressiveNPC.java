@@ -2,6 +2,8 @@ package com.vengeful.sloths.Models.Entity;
 
 import com.vengeful.sloths.Models.Buff.Buff;
 import com.vengeful.sloths.Models.Buff.BuffManager;
+import com.vengeful.sloths.Models.EntityMapInteractionCommands.DropAllGoldCommand;
+import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteractionFactory;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Stats.Stats;
 
@@ -17,5 +19,6 @@ public class NonAggressiveNPC extends NPC{
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitNonAggressiveNPC(this);
     }
+
 
 }

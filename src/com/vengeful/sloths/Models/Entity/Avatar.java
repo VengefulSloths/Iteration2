@@ -173,6 +173,16 @@ public class Avatar extends Entity{
         //@ TODO: Maybe have this dorp a few coins
     }
 
+    protected void dropGold(){
+//        EntityMapInteractionFactory.getInstance().createDropSomeGoldCommand(this, 20);
+//        System.out.println("Avatar dropping gold");
+        //instead of droppping gold just gonna lose it
+        int prevValue = getInventory().getGold();
+        int toLose = getInventory().getGold() / 10;
+        getInventory().dropSomeGold(toLose);
+        System.out.println("Had: " + prevValue + "gold, now only: " + getInventory().getGold());
+    }
+
     @Override
     protected void doRespawn() {
         EntityMapInteractionFactory.getInstance().createRespawnCommand(this, this.getLocation(), timeToRespawn);
