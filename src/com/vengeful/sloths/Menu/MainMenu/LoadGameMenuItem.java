@@ -1,8 +1,8 @@
-package com.vengeful.sloths.Menu;
+package com.vengeful.sloths.Menu.MainMenu;
 
 import com.vengeful.sloths.GameLaunching.LaunchGameTemplate;
-import com.vengeful.sloths.GameLaunching.LaunchNewGame;
 import com.vengeful.sloths.GameLaunching.LaunchSavedGame;
+import com.vengeful.sloths.Menu.ScrollableMenuItemCommand;
 
 /**
  * Created by icavitt on 3/10/2016.

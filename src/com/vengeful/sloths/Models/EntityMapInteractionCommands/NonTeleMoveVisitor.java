@@ -346,7 +346,7 @@ public class NonTeleMoveVisitor extends CanMoveVisitor{
 
     @Override
     public void visitTakeDamageAE(TakeDamageAE t) {
-        
+
     }
 
     @Override

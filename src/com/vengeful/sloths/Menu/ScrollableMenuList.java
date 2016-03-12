@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Menu;
 
+import java.awt.*;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -50,5 +51,9 @@ public class ScrollableMenuList {
         if (currentIndex >= list.size()) return;
         
         this.currentIndex = currentIndex;
+    }
+
+    public ScrollableMenuItem getCurrentMenuItem(){
+        return list.get(currentIndex);
     }
 }
