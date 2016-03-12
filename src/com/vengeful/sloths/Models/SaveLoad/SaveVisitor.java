@@ -279,7 +279,7 @@ public class SaveVisitor implements ModelVisitor {
         Element bElement = doc.createElement("Buff");
         currentParent.peek().appendChild(bElement);
         currentParent.push(bElement);
-        bElement.setAttribute("duration", b.getDuration() + "");
+        //bElement.setAttribute("duration", b.getDuration() + "");
         b.getBuff().accept(this);
         if(currentParent.peek().equals(bElement)){
 //            System.out.println("stack at proper element after recording buff");
@@ -294,7 +294,7 @@ public class SaveVisitor implements ModelVisitor {
         Element bElement = doc.createElement("BuffOverTime");
         currentParent.peek().appendChild(bElement);
         currentParent.push(bElement);
-        bElement.setAttribute("duration", buffOverTime.getDuration() + "");
+        //bElement.setAttribute("duration", buffOverTime.getDuration() + "");
         buffOverTime.getBuff().accept(this);
         if(currentParent.peek().equals(bElement)){
 //            System.out.println("stack at proper element after recording buffovertime");

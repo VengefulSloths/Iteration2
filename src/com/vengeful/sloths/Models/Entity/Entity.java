@@ -157,7 +157,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     public int attack(Direction dir){
         if(!isActive) {
             this.setFacingDirection(dir);
-            return abilityManager.getWeaponAbility().execute();
+            return abilityManager.doWeaponAbility();
         }
         return 0;
     }
