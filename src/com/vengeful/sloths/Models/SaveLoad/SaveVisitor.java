@@ -486,7 +486,18 @@ public class SaveVisitor implements ModelVisitor {
 
     @Override
     public void visitGold(Gold gold) {
-        //@TODO write the save for gold
+        Element gElement = doc.createElement("Gold");
+        currentParent.peek().appendChild(gElement);
+        currentParent.push(gElement);
+        gElement.setAttribute("itemName", gold.getItemName());
+        gElement.setAttribute("value", gold.getValue() + "");
+        appendCoordElement(gElement, currCoord);
+        if(currentParent.peek().equals(gElement)){
+//            System.out.println("takeable saved with stack at proper element");
+            currentParent.pop();
+        }else{
+            System.out.println("some error saving gold, stack not at the proper element");
+        }
     }
 
     @Override
@@ -523,6 +534,7 @@ public class SaveVisitor implements ModelVisitor {
         currentParent.push(iElement);
         iElement.setAttribute("maxSize", i.getMaxSize() +"");
         iElement.setAttribute("currentSize", i.getCurrentSize() +"");
+        iElement.setAttribute("gold", i.getGold() + "");
         InventoryItem[] arr = i.getArrayofItems();
         for(InventoryItem ii : arr){
             ii.accept(this);
