@@ -161,11 +161,12 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
 
     @Override
     public void visitTrap(Trap trap) {
+        /* will not be shown at beginning of the game
         String imagePath = "resources/trap/trap.xml";
         TrapViewObject trapViewObject = factory.createTrapViewObject(r, s, imagePath);
         new ProxyDestoyableObserver(trapViewObject, trap);
         currentTile.addChild(trapViewObject);
-
+        */
     }
 
     @Override

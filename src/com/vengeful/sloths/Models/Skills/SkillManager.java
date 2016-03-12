@@ -2,6 +2,7 @@ package com.vengeful.sloths.Models.Skills;
 
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
+import com.vengeful.sloths.Utility.ModelConfig;
 
 import java.util.*;
 
@@ -16,7 +17,7 @@ public class SkillManager implements ModelVisitable{
 
     public SkillManager(){
         skills = new HashMap<>();
-        availableSkillPoints = 3; //give 3 at beginning of game
+        availableSkillPoints = ModelConfig.getInitialSkillpoint();
     }
 
     public SkillManager(int availableSkillPoints){

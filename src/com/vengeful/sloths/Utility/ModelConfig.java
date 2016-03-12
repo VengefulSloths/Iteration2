@@ -18,7 +18,12 @@ public class ModelConfig {
     private static final int MANA_COST_MID = 4;
     private static final int MANA_COST_HIGH = 6;
 
+    private static final int INITIAL_SKILLPOINT = 3; //give player 3 skill points on start
 
+
+    public static int getInitialSkillpoint() {
+        return INITIAL_SKILLPOINT;
+    }
 
     public static int getRadiusOfVisibility() {
         return RADIUS_OF_VISIBILITY;

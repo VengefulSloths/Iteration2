@@ -113,6 +113,8 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
                     movementValidator,
                     observers.iterator());
 
+            movementHook();
+
             return emc.execute();
 
 
@@ -120,6 +122,11 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         return 0;
 
     }
+
+    protected void movementHook(){
+        //for subclass to do extra logic
+    }
+
 
     public final int die(){
         if(!this.dead) {
