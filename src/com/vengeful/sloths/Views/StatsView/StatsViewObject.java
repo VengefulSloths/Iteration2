@@ -17,11 +17,27 @@ public class StatsViewObject extends JPanel {
     private String value;
     private TextLabelFactory labelFactory = new TextLabelFactory();
 
-    public StatsViewObject(String stat, int value){
+    public String getStat() {
+        return stat;
+    }
+    public void setStat(String stat) {
+        this.stat = stat;
+    }
+    public String getValue() {
+        return value;
+    }
+    public void setValue(String value) {
+        this.value = value;
+    }
 
+    public StatsViewObject(String stat, int value){
+        this.stat = stat;
+        this.value = String.valueOf(value);
+
+        /*
         this.statsObjectPanel = new JPanel();
-        this.statName = labelFactory.generateStatsLabel(stat + ": ", 15, Color.BLACK);
-        this.statValue = labelFactory.generateStatsLabel(String.valueOf(value), 13, Color.BLUE);
+        this.statName = labelFactory.generateStatsLabel(stat + ": ", 16, Color.BLACK);
+        this.statValue = labelFactory.generateStatsLabel(String.valueOf(value), 14, Color.BLUE);
         this.setBackground(new Color(0f,0f,0f,0f));
 
         FlowLayout flow = new FlowLayout();
@@ -32,14 +48,25 @@ public class StatsViewObject extends JPanel {
         this.statsObjectPanel.setBackground(new Color(0f,0f,0f,0f));
         this.statsObjectPanel.add(this.statName);
         this.statsObjectPanel.add(this.statValue);
-        this.add(statsObjectPanel);
+        this.add(statsObjectPanel, 0);
+        */
 
     }
+
 
 
     public void paintComponent(Graphics2D g2d) {
         super.paintComponent(g2d);
 
     }
+
+    public void paintComponent(Graphics g, int x, int y) {
+        super.paintComponent(g);
+        String statString = this.getStat() + ": " + this.getValue();
+        int stringWidth = g.getFontMetrics().stringWidth(statString);
+        g.drawString(statString, x - stringWidth/2, y);
+
+    }
+
 
 }

@@ -1,4 +1,4 @@
-package com.vengeful.sloths.Models.Ability.Abilities;
+package com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities;
 
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Entity.Entity;
@@ -60,7 +60,7 @@ public class AngleSpellAbility extends Ability{
 
     @Override
     public void accept(ModelVisitor modelVisitor) {
-        //visit
+
     }
 
 

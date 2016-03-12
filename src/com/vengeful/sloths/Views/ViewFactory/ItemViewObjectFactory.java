@@ -17,7 +17,7 @@ public class ItemViewObjectFactory {
     }
 
 
-    public ItemViewObject generateItemViewObject(InventoryItem item, int viewWidth, int viewHeight) {
+    public ItemViewObject generateItemViewObject(ViewItem item, int viewWidth, int viewHeight) {
         return new ItemViewObject(item, viewWidth, viewHeight);
     }
 

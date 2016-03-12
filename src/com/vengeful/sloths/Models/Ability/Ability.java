@@ -3,11 +3,12 @@ package com.vengeful.sloths.Models.Ability;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
+import com.vengeful.sloths.Views.ViewFactory.ViewItem;
 
 /**
  * Created by luluding on 2/21/16.
  */
-public abstract class Ability implements ModelVisitable {
+public abstract class Ability extends ViewItem implements ModelVisitable {
 
     private int windTicks;
     private int coolTicks;

@@ -14,7 +14,7 @@ public class GridItemViewObjectFactory extends ItemViewObjectFactory {
 
     }
 
-    public GridItemViewObjectFactory(InventoryItem item, int containerWidth, int containerHeight, int numRows, int numCols) {
+    public GridItemViewObjectFactory(ViewItem item, int containerWidth, int containerHeight, int numRows, int numCols) {
 
 
     }
