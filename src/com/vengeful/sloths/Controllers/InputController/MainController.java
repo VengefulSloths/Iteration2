@@ -1,6 +1,7 @@
 package com.vengeful.sloths.Controllers.InputController;
 
 import com.vengeful.sloths.Controllers.InputController.InputControllerStates.*;
+import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
 import com.vengeful.sloths.Menu.ScrollableMenu;
 import com.vengeful.sloths.AreaView.ViewEngine;
 import com.vengeful.sloths.Controllers.InputController.InputStrategies.InputStrategy;
@@ -13,6 +14,8 @@ import com.vengeful.sloths.Models.ModelEngine;
 import com.vengeful.sloths.Models.TimeModel.Tickable;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
 import com.vengeful.sloths.Views.ViewManager.ViewManager;
+
+import java.awt.event.KeyEvent;
 
 /**
  * Created by John on 2/29/2016.
@@ -50,17 +53,18 @@ public class MainController implements Tickable{
     }
 
     private MainController() {
+        inputStrategy = new AdaptableStrategy();//for testing
         player = Avatar.getInstance();
         inventory = player.getInventory();
         avatarControllerState = new AvatarControllerState();
         inventoryControllerState = new InventoryControllerState();
         menuControllerState = new MenuControllerState();
-        setInputsControllerState = new SetInputsControllerState();
+        setInputsControllerState = new SetInputsControllerState((AdaptableStrategy) inputStrategy);
 
         state = avatarControllerState;
 
         map = Map.getInstance();
-        inputStrategy = new QWEASDInputStrategy();//for testing
+
         inputHandler = new InputHandler(this);
         ViewEngine.getInstance().addKeyListener(inputHandler);
         TimeModel.getInstance().registerTickable(this);
@@ -73,7 +77,15 @@ public class MainController implements Tickable{
     }
 
     public void dispatchPressedKey(int key){
-        inputStrategy.interpretPressedKey(key, state);
+
+        if(state != setInputsControllerState) {
+            inputStrategy.interpretPressedKey(key, state);
+        }else if(key == KeyEvent.VK_UP || key == KeyEvent.VK_DOWN || key == KeyEvent.VK_LEFT || key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_ESCAPE ){
+            inputStrategy.interpretPressedKey(key, state);
+
+        }else{
+            setInputsControllerState.setKey(key);
+        }
     }
 
     public void dispatchReleasedKey(int key){
@@ -128,4 +140,11 @@ public class MainController implements Tickable{
         state.continuousFunction();
     }
 
+    public InputStrategy getInputStrategy() {
+        return inputStrategy;
+    }
+
+    public void setInputStrategy(InputStrategy inputStrategy) {
+        this.inputStrategy = inputStrategy;
+    }
 }

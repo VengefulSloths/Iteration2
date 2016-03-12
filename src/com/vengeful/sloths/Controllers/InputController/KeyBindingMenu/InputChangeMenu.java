@@ -72,4 +72,8 @@ public class InputChangeMenu extends ScrollableMenu {
             index++;
         }
     }
+
+    public KeyBindMenuItem getMenuItem(){
+        return (KeyBindMenuItem) list.getCurrentMenuItem();
+    }
 }

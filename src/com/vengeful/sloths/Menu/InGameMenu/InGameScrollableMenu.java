@@ -59,7 +59,7 @@ public class InGameScrollableMenu extends ScrollableMenu {
         Iterator iter = list.getIterator();
         while (iter.hasNext()) {
             if(index == list.getCurrentIndex()){
-                System.out.println(list.getCurrentIndex());
+                //System.out.println(list.getCurrentIndex());
                 ScrollableMenuItem current = (ScrollableMenuItem) iter.next();
                 g2d.setColor(new Color(255, 0, 255, 80));
                 g2d.fillRect(padding/2, offset , this.getWidth() - padding, itemHeight);

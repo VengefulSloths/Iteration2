@@ -1,12 +1,23 @@
 package com.vengeful.sloths.Controllers.InputController.InputControllerStates;
 
+import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
 import com.vengeful.sloths.Controllers.InputController.KeyBindingMenu.InputChangeMenu;
+import com.vengeful.sloths.Controllers.InputController.KeyBindingMenu.KeyBindCommandFactory;
+import com.vengeful.sloths.Controllers.InputController.MainController;
 
 /**
  * Created by John on 3/10/2016.
  */
 public class SetInputsControllerState extends InputControllerState {
     InputChangeMenu menu;
+    KeyBindCommandFactory keyBindCommandFactory;//= new KeyBindCommandFactory((AdaptableStrategy) MainController.getInstance().getInputStrategy());
+    //lol the above line is pretty volatile tbh, would refactor if time is had
+    private AdaptableStrategy adaptableStrategy;
+    public SetInputsControllerState(AdaptableStrategy adaptableStrategy){
+        this.adaptableStrategy = adaptableStrategy;
+        this.keyBindCommandFactory = new KeyBindCommandFactory(adaptableStrategy);
+    }
+
 
     public InputChangeMenu getMenu() {
         return menu;
@@ -16,6 +27,12 @@ public class SetInputsControllerState extends InputControllerState {
         this.menu = menu;
     }
 
+
+    public void setKey(int key){
+        System.out.println("making the create key command");
+        keyBindCommandFactory.createKeyBindCommand(key ,menu.getMenuItem()).execute();
+
+    }
     @Override
     public void continuousFunction() {
 
@@ -37,6 +54,7 @@ public class SetInputsControllerState extends InputControllerState {
         return false;
     }
 
+
     @Override
     public boolean handleEquipmentKey() {
         return false;
@@ -46,6 +64,7 @@ public class SetInputsControllerState extends InputControllerState {
     public boolean handleESCKey() {
 
         //go back to area view or menu view or whatever
+        MainController.getInstance().setInGameMenuControllerState();
         return false;
     }
 

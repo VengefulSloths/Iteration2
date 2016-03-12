@@ -2,9 +2,11 @@ package com.vengeful.sloths.Controllers.InputController.InputStrategies;
 
 import com.vengeful.sloths.Controllers.InputController.InputControllerStates.InputControllerState;
 import com.vengeful.sloths.Controllers.InputController.KeyMapping;
+import javafx.scene.input.KeyCode;
 
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by John on 3/10/2016.
@@ -12,6 +14,26 @@ import java.util.HashMap;
 public class AdaptableStrategy extends InputStrategy {
 
     HashMap<Integer, KeyMapping> keyMappings = new HashMap<>();
+
+    public AdaptableStrategy(){
+        //need to preset some keys
+        setKeyMappings(KeyEvent.VK_W, KeyMapping.NORTH);
+        setKeyMappings(KeyEvent.VK_S, KeyMapping.SOUTH);
+        setKeyMappings(KeyEvent.VK_Q, KeyMapping.NORTHWEST);
+        setKeyMappings(KeyEvent.VK_E, KeyMapping.NORTHEAST);
+        setKeyMappings(KeyEvent.VK_A, KeyMapping.SOUTHWEST);
+        setKeyMappings(KeyEvent.VK_D, KeyMapping.SOUTHEAST);
+        setKeyMappings(KeyEvent.VK_SPACE, KeyMapping.SPACE);
+        setKeyMappings(KeyEvent.VK_ENTER, KeyMapping.ENTER);
+        setKeyMappings(KeyEvent.VK_ESCAPE, KeyMapping.ESC);
+        setKeyMappings(KeyEvent.VK_UP, KeyMapping.UP);
+        setKeyMappings(KeyEvent.VK_DOWN, KeyMapping.DOWN);
+        setKeyMappings(KeyEvent.VK_LEFT, KeyMapping.LEFT);
+        setKeyMappings(KeyEvent.VK_RIGHT, KeyMapping.RIGHT);
+        setKeyMappings(KeyEvent.VK_I, KeyMapping.INVENTORY);
+        //setKeyMappings(KeyEvent.VK_S, KeyMapping.SOUTH);
+
+    }
 
     @Override
     public void interpretPressedKey(int key, InputControllerState state) {
@@ -159,6 +181,16 @@ public class AdaptableStrategy extends InputStrategy {
     private KeyMapping getMappedKey(int key){
         KeyMapping mappedKey = keyMappings.get(key);
         return mappedKey;
+    }
+
+    public int getKeyCode(KeyMapping mapping){
+        for(Map.Entry<Integer, KeyMapping> entry : keyMappings.entrySet()){
+            if(entry.getValue().equals(mapping)){
+                return entry.getKey();
+            }
+        }
+        System.out.println("keybind error");
+        return -1;
     }
 
     public void setKeyMappings(int key, KeyMapping value){

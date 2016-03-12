@@ -20,6 +20,7 @@ public class KeyBindCommand implements ScrollableMenuItemCommand {
     }
     @Override
     public void execute() {
+        System.out.println("Rebinding Key");
         adaptableStrategy.setKeyMappings(this.keyCode, this.keyMapping);
 
     }
