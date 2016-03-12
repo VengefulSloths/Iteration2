@@ -68,7 +68,6 @@ public class Equipped implements ViewObservable, ModelVisitable{
 
         this.mount = mount;
         this.abilityManager.setMountAbility(mount.getMountAbility(entity));
-        this.abilityManager.setDemountAbility(mount.getDemountAbility(entity));
         //TODO: alert observers
     }
 
@@ -104,7 +103,6 @@ public class Equipped implements ViewObservable, ModelVisitable{
 
     public void removeMount() {
         abilityManager.setMountAbility(new NullAbility());
-        abilityManager.setDemountAbility(new NullAbility());
 
         //TODO: alert equipped view that mount is equiped
     }

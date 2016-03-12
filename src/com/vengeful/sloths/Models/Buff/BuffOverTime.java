@@ -10,32 +10,24 @@ import com.vengeful.sloths.Models.Stats.Stats;
  */
 public class BuffOverTime extends Buff implements ModelVisitable{
 
-    public BuffOverTime(StatsAddable buff, int duration){
-        super(buff, duration);
-    }
 
+    @Override
+    public void apply(Stats stats) {
 
-    ////////////////////public api//////////////////////////
-    public void apply(Stats stats){
-        stats.add(this.getBuff());
-    }
-
-    public void destroy(Stats stats){
-        stats.subtract(this.getBuff());
-    }
-
-    public boolean applyOnTick(Stats stats){
-        stats.add(this.getBuff());
-        this.setDuration(this.getDuration() - 1);
-        if(this.getDuration() <= 0){
-            destroy(stats);
-            return true;
-        }
-        return false;
     }
 
     @Override
-    public void accept(ModelVisitor modelVisitor) {
-        modelVisitor.visitBuffOverTime(this);
+    public void remove(Stats stats) {
+
+    }
+
+    @Override
+    public StatsAddable getBuff() {
+        return null;
+    }
+
+    @Override
+    public boolean applyOnTick(Stats stats) {
+        return false;
     }
 }
