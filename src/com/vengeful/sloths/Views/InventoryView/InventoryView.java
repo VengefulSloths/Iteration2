@@ -8,6 +8,7 @@ import com.vengeful.sloths.Models.Observers.ProxyInventoryObserver;
 import com.vengeful.sloths.Models.Observers.ProxyObserver;
 
 
+import com.vengeful.sloths.Utility.RealTuple;
 import com.vengeful.sloths.Views.View;
 import com.vengeful.sloths.Views.ViewFactory.ItemViewObjectFactory;
 
@@ -59,6 +60,8 @@ public class InventoryView extends View implements InventoryObserver {
         return itemPanel;
     }
 
+    public int getInventoryIndex() { return this.inventoryIndex; }
+
     public JPanel getTitlePanel() {
         return titlePanel;
     }
@@ -108,6 +111,8 @@ public class InventoryView extends View implements InventoryObserver {
         item = this.getFromItemList(this.inventoryIndex);
         if (item != null)
             this.setSelected(this.getFromItemList(this.inventoryIndex));
+
+        System.out.println("Inventory size is: " + this.getInventory().getCurrentSize());
     }
 
     public void incrementInventoryIndex(int val) {
@@ -124,6 +129,8 @@ public class InventoryView extends View implements InventoryObserver {
         item = this.getFromItemList(this.inventoryIndex);
         if (item != null)
             this.setSelected(this.getFromItemList(this.inventoryIndex));
+
+        System.out.println("Inventory size is: " + this.getInventory().getCurrentSize());
 
     }
 
@@ -153,27 +160,22 @@ public class InventoryView extends View implements InventoryObserver {
     }
 
     public InventoryItem getCurrentItem() {
-        InventoryItem item = this.getInventory().getItem(this.inventoryIndex);
+        if (this.itemList.isEmpty()) return null;
+
+        InventoryItem item = (InventoryItem) this.itemList.get(this.inventoryIndex).getViewItem();
         return item;
-    }
-
-    public void setInventoryIndex(int inventoryIndex) {
-        this.inventoryIndex = inventoryIndex;
-    }
-
-    protected int getInventoryIndex() {
-        return inventoryIndex;
     }
 
     public void useCurrentlySelectedItem() {
         if (this.inventory.getCurrentSize() <= 0) return;
 
-        InventoryItem item = this.getInventory().getItem(this.inventoryIndex);
+        InventoryItem item = (InventoryItem) this.itemList.get(this.inventoryIndex).getViewItem();
 
         if (item != null) {
             decrementInventoryIndex(0);
             item.interact();
             this.getInventory().removeItem(item);
+            this.dropViewItem();
         }
     }
 
@@ -255,16 +257,20 @@ public class InventoryView extends View implements InventoryObserver {
     public void alertItemAdded(InventoryItem item) {
         //manager.addInventoryItemViewObject(new AbilityViewObject(item));
         System.out.println("Item is : " + item);
+        RealTuple<ItemViewObject, InventoryItem> itemTuple = new RealTuple<>(new ItemViewObject(item), item);
         this.getItemList().add(new ItemViewObject(item));
         System.out.println("AN ITEM WAS ADDED!!! " + item.getItemName());
     }
 
     @Override
     public void alertItemDropped(InventoryItem item) {
-        this.removeInventoryItemViewObject(item); //what if have multiple of the same items?
+       //this.removeInventoryItemViewObject(item); //what if have multiple of the same items?
         decrementInventoryIndex(1);
     }
 
+    public void dropViewItem(){
+        itemList.remove(inventoryIndex);
+    }
     public int getItemListSize(){
         return this.itemList.size();
     }

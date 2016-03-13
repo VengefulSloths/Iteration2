@@ -33,6 +33,7 @@ public abstract class Occupation implements ModelVisitable{
         //TODO: test, remove, and uncomment subclass
         skillManager.addSkill(new Skill("bane", 10, 10));
         skillManager.addSkill(new Skill("boon", 10, 10));
+        skillManager.addSkill(new Skill("enchantment", 10, 10));
 
     }
 

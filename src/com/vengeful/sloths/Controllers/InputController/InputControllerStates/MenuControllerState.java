@@ -122,8 +122,12 @@ public class MenuControllerState extends InputControllerState {
     }
 
     @Override
-    public boolean handleCenterKey() {
+    public void handleEnterKey() {
         menu.select(null);
+    }
+
+    @Override
+    public boolean handleCenterKey() {
         return false;
     }
 
@@ -233,12 +237,6 @@ public class MenuControllerState extends InputControllerState {
     public boolean handleEquipmentKey() {
         return false;
     }
-
-    @Override
-    public void handleEnterKey() {
-
-    }
-
 
 
 

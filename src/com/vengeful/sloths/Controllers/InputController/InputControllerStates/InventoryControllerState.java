@@ -20,10 +20,13 @@ public class InventoryControllerState extends InputControllerState{
         this.inventoryView = inventoryView;
     }
 
+    public void setSelected(boolean isActive) {
+        this.inventoryView.setSelected(isActive);
+    }
+
     public InventoryControllerState() {
 
     }
-
 
     @Override
     public void continuousFunction() {
@@ -81,7 +84,10 @@ public class InventoryControllerState extends InputControllerState{
         Inventory inventory = Avatar.getInstance().getInventory();
         if(inventory.getCurrentSize() > 0){
             //MainController.getInstance().getPlayer().drop(inventory.getItem(0)); //edit: think this was working before
+
+            System.out.println("About to dorp item: " + this.inventoryView.getCurrentItem().getItemName());
             MainController.getInstance().getPlayer().drop(this.inventoryView.getCurrentItem());
+            this.inventoryView.dropViewItem();
             return true;
         }else{
             System.out.println("Nothing in inventory");
@@ -143,7 +149,7 @@ public class InventoryControllerState extends InputControllerState{
 
     @Override
     public void resetView(boolean isActive) {
-
+        this.inventoryView.setSelected(isActive);
     }
 
     @Override
@@ -164,7 +170,6 @@ public class InventoryControllerState extends InputControllerState{
 
     @Override
     public boolean handleRightKey() {
-
         this.inventoryView.selectEastItem();
         return false;
     }
@@ -263,7 +268,6 @@ public class InventoryControllerState extends InputControllerState{
     @Override
     public void handleEnterKey() {
         this.inventoryView.useCurrentlySelectedItem();
-
     }
 
     @Override

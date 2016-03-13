@@ -44,4 +44,8 @@ public class Piggy extends Pet {
         EntityMapInteractionFactory.getInstance().createPiggyDropTotemCommand(this.getPiggyTotem(), this.getLocation(), this).execute();
         Avatar.getInstance().removePet();
     }
+
+    public void enrage(){
+        //piggy can't enrage
+    }
 }
