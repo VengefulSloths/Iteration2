@@ -81,8 +81,8 @@ public class AggressiveNPCSearchingController extends SearchingController {
         //System.out.println("agressive npc sees the avatar :o");
 
         int roll = roller.nextInt(10);
-        System.out.println("I just rolled a " + roll);
-        System.out.println("I need > " + getCurrRing()*avatar.getStats().getConcealment());
+//        System.out.println("I just rolled a " + roll);
+//        System.out.println("I need > " + getCurrRing()*avatar.getStats().getConcealment());
         if (roll > getCurrRing()*avatar.getStats().getConcealment()) {
             Target currTarget = new AvatarTarget(0);
             currTarget.setCoord(this.getCurrentCoord());

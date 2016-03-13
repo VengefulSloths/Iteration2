@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Models.Observers;
 
+import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.EquippableItems;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Hat;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Mount;
@@ -20,5 +21,4 @@ public interface EquipmentObserver extends ModelObserver{
 
     void alertMountEquipped(Mount mount);
     void alertMountUnequipped(Mount mount);
-
 }

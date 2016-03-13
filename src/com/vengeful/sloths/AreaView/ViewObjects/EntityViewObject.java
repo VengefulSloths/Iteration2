@@ -172,12 +172,12 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
 
     @Override
     public void alertAddBuff(String buffName) {
-        System.out.println("a buff was added");
+        healthBar.addBuff(buffName);
     }
 
     @Override
     public void alertRemoveBuff(String buffName) {
-        System.out.println("a buff was added");
+        healthBar.removeBuff(buffName);
     }
 
     @Override

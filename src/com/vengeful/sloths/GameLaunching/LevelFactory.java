@@ -6,6 +6,7 @@ import com.vengeful.sloths.AreaView.TemporaryVOCreationVisitor;
 import com.vengeful.sloths.Controllers.ControllerManagers.AggressiveNPCControllerManager;
 import com.vengeful.sloths.Controllers.ControllerManagers.PiggyControllerManager;
 import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
 import com.vengeful.sloths.Models.Ability.AbilityFactory;
 import com.vengeful.sloths.Models.Entity.AggressiveNPC;
 import com.vengeful.sloths.Models.Entity.Avatar;
@@ -204,10 +205,9 @@ public class LevelFactory {
 
         TakeableItem piggyTotem = new TakeableItem("Piggy Totem", new PiggyTotem("Piggy Totem", testPiggy), new Coord(2,2));
 
-        //MeleeAttackAbility meleeAttackAbility = AbilityFactory.getInstance().createMeleeAttackAbility(Avatar.getInstance(), 150, 150);
-        //meleeAttackAbility.setItemName("Melee Attack");
-        //area1.getTile(new Coord(3,3)).addTakeableItem(new TakeableItem("redPotion", new AbilityItem(meleeAttackAbility), new Coord(3,3)));
-
+        FireBallAbility fireBallAbility = new FireBallAbility(Avatar.getInstance(), 150, 150, 150, 150);
+        fireBallAbility.setItemName("Melee Attack");
+        area1.getTile(new Coord(3,3)).addTakeableItem(new TakeableItem("meleeAttack", new AbilityItem(fireBallAbility), new Coord(3,3)));
 
         testPiggy.setPiggyTotem(piggyTotem);
 

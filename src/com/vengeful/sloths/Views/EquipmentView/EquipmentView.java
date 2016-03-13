@@ -30,7 +30,7 @@ public class EquipmentView extends View implements EquipmentObserver {
 
     private EquipmentViewObject hat;
     private EquipmentViewObject weapon;
-    private EquipmentViewObject mount;
+    private MountViewObject mount;
 
     public Equipped getEquipment() {
         return equipment;
@@ -53,21 +53,27 @@ public class EquipmentView extends View implements EquipmentObserver {
     public void setWeapon(EquipmentViewObject weapon) {
         this.weapon = weapon;
     }
-    public EquipmentViewObject getMount() {
+    public MountViewObject getMount() {
         return mount;
     }
-    public void setMount(EquipmentViewObject mount) {
+    public void setMount(MountViewObject mount) {
         this.mount = mount;
     }
 
 
     public EquipmentView(Equipped equipment) {
         this.equipment = equipment;
+        initializeEquipment(equipment);
         ProxyObserver pio = new ProxyEquipmentObserver(this, equipment);
         ObserverManager.getInstance().addProxyObserver(pio);
         initDefaultUI();
     }
 
+    public void initializeEquipment(Equipped equipment) {
+        this.hat = new EquipmentViewObject(equipment.getHat());
+        this.weapon = new EquipmentViewObject(equipment.getWeapon());
+        this.mount = new MountViewObject(equipment.getMount());
+    }
 
     public void initDefaultUI() {
         this.titlePanel = new JPanel();
@@ -101,21 +107,6 @@ public class EquipmentView extends View implements EquipmentObserver {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-
-        /* begin triangle drawing */ /*
-        int vert1x = (int)((1.0/3)*this.itemPanel.getWidth());
-        int vert2x = (int)((1.0/2)*this.itemPanel.getWidth());
-        int vert3x = (int)((2.0/3)*this.itemPanel.getWidth());
-        int vert1y = (int)((2.0/3)*this.itemPanel.getHeight());
-        int vert2y = (int)((1.0/3)*this.itemPanel.getHeight());
-        int vert3y = (int)((2.0/3)*this.itemPanel.getHeight());
-        System.out.println("VERT 1X IS " + vert1x + ", VERT2X is " + vert2x + "VERT3X IS " + vert3x);
-        g.setColor(Color.GREEN);
-        g.drawLine(vert1x, vert1y, vert2x, vert2y);
-        g.drawLine(vert2x, vert2y, vert3x, vert3y);
-        g.drawLine(vert3x, vert3y, vert1x, vert1y);
-       */ /* end triangle drawing */
-
         /*begin vertically aligned box drawing */
         int widthDivisor = 16;
         int heightDivisor = 12;
@@ -134,8 +125,6 @@ public class EquipmentView extends View implements EquipmentObserver {
         g.drawRect(boxXCoord, box1Y, boxWidth, boxHeight);
         g.drawRect(boxXCoord, box2Y, boxWidth, boxHeight);
         g.drawRect(boxXCoord, box3Y, boxWidth, boxHeight);
-        g.drawLine(lineDrawX, box1Y+boxHeight, lineDrawX, box1Y+2*boxHeight);
-        g.drawLine(lineDrawX, box2Y+boxHeight, lineDrawX, box2Y+2*boxHeight);
         g.setColor(Color.WHITE);
         g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 18));
         String headGearString = "Headgear";
@@ -144,9 +133,12 @@ public class EquipmentView extends View implements EquipmentObserver {
         int headGearStringWidth = g.getFontMetrics().stringWidth(headGearString);
         int weaponStringWidth = g.getFontMetrics().stringWidth(weaponString);
         int mountStringWidth = g.getFontMetrics().stringWidth(mountString);
+        int stringHeight = g.getFontMetrics().getHeight();
         g.drawString(headGearString, lineHor * drawStringHorMultiple - (int) ((1.0 / 2) * headGearStringWidth), box1Y - 10);
         g.drawString(weaponString, lineHor * drawStringHorMultiple - (int) ((1.0 / 2) * weaponStringWidth), box2Y - 10);
         g.drawString(mountString, lineHor * drawStringHorMultiple - (int) ((1.0 / 2) * mountStringWidth), box3Y - 10);
+        g.drawLine(lineDrawX, box1Y+boxHeight, lineDrawX, box1Y+2*boxHeight - stringHeight);
+        g.drawLine(lineDrawX, box2Y+boxHeight, lineDrawX, box2Y+2*boxHeight - stringHeight);
         /* end vertically aligned box drawing */
 
         if(this.getHat()!=null) {
@@ -183,7 +175,7 @@ public class EquipmentView extends View implements EquipmentObserver {
 
     @Override
     public void alertMountEquipped(Mount mount) {
-        this.setMount(new EquipmentViewObject(mount));
+        this.setMount(new MountViewObject(mount));
     }
 
     @Override

@@ -2,10 +2,7 @@ package com.vengeful.sloths.Models.Ability;
 
 import com.vengeful.sloths.Models.Ability.Abilities.*;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.StealthAbility;
-import com.vengeful.sloths.Models.Buff.Buff;
-import com.vengeful.sloths.Models.Buff.BuffManager;
-import com.vengeful.sloths.Models.Buff.MountBuff;
-import com.vengeful.sloths.Models.Buff.StealthBuff;
+import com.vengeful.sloths.Models.Buff.*;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Observers.EntityObserver;
 import com.vengeful.sloths.Models.Skills.Skill;
@@ -58,6 +55,12 @@ public class AbilityFactory {
         Buff stealthBuff = new StealthBuff(entity.getObservers(), "Creep", new StrengthAddable(30), entity.getBuffManager());
         return new StealthAbility(entity, stealthBuff, 20,25);
     }
+
+    public SelfBuffAbility createProtectFromEvil(Entity entity) {
+        Buff timedBuff = new ProtectFromEvilBuff(entity.getObservers(), entity.getBuffManager(), new GenericStatsAddable(), "protection", 2, 300);
+        return new SelfBuffAbility(entity, timedBuff, 8, 15);
+    }
+
 
 
 }

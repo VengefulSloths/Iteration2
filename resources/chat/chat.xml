@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<repeating_animation>
+  <width>800</width>
+  <height>300</height>
+  <duration>1200</duration>
+  <rootPath>resources/chat/</rootPath>
+  <fileName>chat1.png</fileName>
+  <fileName>chat2.png</fileName>
+  <fileName>chat3.png</fileName>
+  <fileName>chat4.png</fileName>
+  <fileName>chat5.png</fileName>
+  <fileName>chat6.png</fileName>
+  <fileName>chat7.png</fileName>
+  <fileName>chat8.png</fileName>
+  <positioning>center</positioning>
+</repeating_animation>
