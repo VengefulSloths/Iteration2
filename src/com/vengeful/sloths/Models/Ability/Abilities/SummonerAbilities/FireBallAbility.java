@@ -38,7 +38,7 @@ public class FireBallAbility extends Ability {
     */
 
     public FireBallAbility(Entity entity, int travelTime, int travelDistance, int startupTicks, int coolDownTicks){
-        super(startupTicks, coolDownTicks);
+        super("Fire Ball", startupTicks, coolDownTicks);
         this.entity = entity;
         this.travelTime = travelTime;
         this.travelDistance = travelDistance;

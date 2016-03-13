@@ -6,6 +6,7 @@ import com.vengeful.sloths.AreaView.TemporaryVOCreationVisitor;
 import com.vengeful.sloths.Controllers.ControllerManagers.AggressiveNPCControllerManager;
 import com.vengeful.sloths.Controllers.ControllerManagers.PiggyControllerManager;
 import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SelfBuffAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
 import com.vengeful.sloths.Models.Ability.AbilityFactory;
 import com.vengeful.sloths.Models.DialogueTrade.DialogContainer;
@@ -215,6 +216,13 @@ public class LevelFactory {
         FireBallAbility fireBallAbility = new FireBallAbility(Avatar.getInstance(), 150, 150, 150, 150);
         fireBallAbility.setItemName("Fire Ball");
         area1.getTile(new Coord(3,3)).addTakeableItem(new TakeableItem("Fire Ball", new AbilityItem(fireBallAbility), new Coord(3,3)));
+
+        SelfBuffAbility hot = AbilityFactory.getInstance().createHealOverTime(Avatar.getInstance());
+
+        SelfBuffAbility roids = AbilityFactory.getInstance().createDamageBoost(Avatar.getInstance());
+
+
+        area1.getTile(new Coord(7,7)).addTakeableItem(new TakeableItem("Roids", new AbilityItem(roids), new Coord(7,7)));
 
         testPiggy.setPiggyTotem(piggyTotem);
 

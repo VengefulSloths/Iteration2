@@ -171,15 +171,14 @@ public class InventoryControllerState extends InputControllerState{
 
     @Override
     public boolean handleDownKey() {
-
         this.inventoryView.selectSouthItem();
-        return false;
+        return true;
     }
 
     @Override
     public boolean handleUpKey() {
         this.inventoryView.selectNorthItem();
-        return false;
+        return true;
     }
 
     @Override
@@ -263,6 +262,7 @@ public class InventoryControllerState extends InputControllerState{
 
     @Override
     public void handleEnterKey() {
+        this.inventoryView.useCurrentlySelectedItem();
 
     }
 

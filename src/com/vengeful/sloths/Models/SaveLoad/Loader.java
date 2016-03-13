@@ -593,7 +593,7 @@ private void setActiveMapArea() {
                 Element currAbility = (Element)allAbilityNodes.item(i);
                 switch (currAbility.getNodeName()){
                     case "BindWoundsAbility" :
-                        BindWoundsAbility bwa = new BindWoundsAbility();
+                        BindWoundsAbility bwa = AbilityFactory.getInstance().createBindWoundsAbility(Avatar.getInstance());
                         bwa.setEntity(e);
                         bwa.setSkillManager(e.getSkillManager());
                         abm.addAbility(bwa);

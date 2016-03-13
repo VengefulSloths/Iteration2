@@ -4,6 +4,9 @@ import com.vengeful.sloths.Models.InventoryItems.EquippableItems.EquippableItems
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Mount;
 import com.vengeful.sloths.Views.ViewFactory.MountImageFactory;
 
+import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 import java.awt.*;
 
 /**
@@ -61,6 +64,10 @@ public class MountViewObject extends EquipmentViewObject {
             g.drawString(itemName, stringXCoord, y+stringHeight);
             g.drawString(itemStats, stringXCoord, y+2*stringHeight + containerHeight/10);
             g.drawString(itemDescription, stringXCoord, y+3*stringHeight + 2*containerHeight/10);
+            if (this.isSelected()) {
+                Border b = BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.WHITE, Color.WHITE);
+                b.paintBorder(this, g, x, y, containerWidth, containerHeight);
+            }
         } else {
             String notEquipped = new String("Not equipped");
             g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));

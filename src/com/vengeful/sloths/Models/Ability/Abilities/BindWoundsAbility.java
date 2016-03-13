@@ -21,19 +21,14 @@ public class BindWoundsAbility extends Ability {
 
     private int manaCost = ModelConfig.getManaCostLow();
 
-    public BindWoundsAbility(Entity entity, SkillManager skillManager, int startupTicks, int cooldownTicks){
-        super(startupTicks, cooldownTicks);
+    public BindWoundsAbility(Entity entity){
+        super("Bind Wounds", 45, 60);
         this.entity = entity;
-        this.skillManager = skillManager;
+        this.skillManager = entity.getSkillManager();
         this.name = "Bind Wounds";
 
     }
 
-    public BindWoundsAbility(){
-        super.setCoolTicks(5);
-        super.setWindTicks(60);
-        this.name = "Bind Wounds";
-    }
 
     @Override
     public int execute() {
