@@ -217,7 +217,7 @@ public class MainController implements Tickable{
         GridAvatarInvViewTrading avatarInvView = new GridAvatarInvViewTrading(Avatar.getInstance().getInventory(), bargainSkill);
         GridEntityInvViewTrading entityInvView = new GridEntityInvViewTrading(targInv, bargainSkill);
         TradeView tradeView = new TradeView(avatarInvView, entityInvView, bargainSkill);
-        this.tradeContollerState = new TradeControllerState(tradeView);
+        this.tradeContollerState = new TradeControllerState(tradeView, target);
         viewManager.setTradeView(tradeView);
         viewManager.openTradeView();
         this.state = this.tradeContollerState;

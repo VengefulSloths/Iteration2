@@ -5,6 +5,7 @@ import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.Map.MapItems.Gold;
 import com.vengeful.sloths.Sound.SoundEffect;
+import com.vengeful.sloths.Utility.CalculateBuySellPickPocket;
 
 /**
  * Created by harrison on 3/13/16.
@@ -21,6 +22,7 @@ public class AvatarBuyCommand {
 
     public void execute(){
         int itemValue = item.getValue();
+        itemValue = CalculateBuySellPickPocket.CalculateBuyPrice(itemValue, Avatar.getInstance().getSkillManager().getBargainLevel());
         Inventory avatarInventory = Avatar.getInstance().getInventory();
         if(itemValue > avatarInventory.getGold()){
             SoundEffect fail = new SoundEffect("resources/audio/buzzerFail.wav");

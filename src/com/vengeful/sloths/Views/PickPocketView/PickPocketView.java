@@ -3,6 +3,7 @@ package com.vengeful.sloths.Views.PickPocketView;
 import com.sun.prism.Graphics;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Inventory.Inventory;
+import com.vengeful.sloths.Utility.CalculateBuySellPickPocket;
 import com.vengeful.sloths.Views.InventoryView.GridInventoryView;
 import com.vengeful.sloths.Views.InventoryView.InventoryView;
 import com.vengeful.sloths.Views.InventoryView.ItemViewObject;
@@ -37,7 +38,7 @@ public class PickPocketView extends GridInventoryView {
             //this.itemList.add(new AbilityViewObject(inventory.getItem(i)));
             System.out.println("THIS IS THE ITEM " + inventory.getItem(i).getItemName() );
             int value = inventory.getItem(i).getValue();
-            int chanceToPickPocket = 100 - value / (pickPocketSkill + 1);
+            int chanceToPickPocket = CalculateBuySellPickPocket.CalculatePickpocketChance(value, pickPocketSkill);
             this.getItemList().add(new PickPocketItems(inventory.getItem(i), chanceToPickPocket));
             //this.getFromItemList(0).setSelected(true);
             //if(i==0) {

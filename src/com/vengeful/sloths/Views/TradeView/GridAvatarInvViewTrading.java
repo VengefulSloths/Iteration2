@@ -1,6 +1,7 @@
 package com.vengeful.sloths.Views.TradeView;
 
 import com.vengeful.sloths.Models.Inventory.Inventory;
+import com.vengeful.sloths.Utility.CalculateBuySellPickPocket;
 import com.vengeful.sloths.Views.InventoryView.GridInventoryView;
 
 /**
@@ -22,7 +23,7 @@ public class GridAvatarInvViewTrading extends GridInventoryView{
             //this.itemList.add(new AbilityViewObject(inventory.getItem(i)));
             System.out.println("THIS IS THE ITEM " + inventory.getItem(i).getItemName() );
             int value = inventory.getItem(i).getValue();
-            int valuePostBargain = value + bargainSkill;
+            int valuePostBargain = CalculateBuySellPickPocket.CalculateSellPrice(value, bargainSkill);
             this.getItemList().add(new TradeItem(inventory.getItem(i), valuePostBargain));
             //this.getFromItemList(0).setSelected(true);
             //if(i==0) {
