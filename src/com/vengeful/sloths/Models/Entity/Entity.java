@@ -223,10 +223,8 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
 
     public void takeDamage(int attackDamage){
         //do dmg calculations here (like lessening it for defense)
-
         StatsAddable damage = new CurrentHealthAddable(attackDamage);
         buffManager.modifyDamage(damage);
-
 
         getStats().subtract(damage);
         for (EntityObserver observer: observers) {
