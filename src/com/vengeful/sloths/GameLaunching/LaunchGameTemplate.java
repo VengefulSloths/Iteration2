@@ -61,6 +61,7 @@ public class LaunchGameTemplate {
 
         /*****Test avatar drop******/
         avatar.equip(new Mount("lazy_mount", 10));
+
         avatar.getInventory().addItem(new Potion("redPotion", new HealthManaExperienceAddable(5,0,0,0,0)));
         avatar.getInventory().addItem(new Potion("bluePotion", new HealthManaExperienceAddable(0,0,5,0,0)));
         avatar.getInventory().addItem(new Potion("bluePotion", new HealthManaExperienceAddable(0,0,5,0,0)));
@@ -72,9 +73,13 @@ public class LaunchGameTemplate {
         avatar.getInventory().addItem(new Potion("redPotion", new HealthManaExperienceAddable(5,0,0,0,0)));
         avatar.getInventory().addItem(new Potion("redPotion", new HealthManaExperienceAddable(5,0,0,0,0)));
 
+        System.out.println("AVATAR HAS " + avatar.getInventory().getCurrentSize() + " items");
+
+        System.out.println("After equipped...");
 
         avatar.equip(new OneHandedWeapon("dagger", new StrengthAddable(5), 10));
         avatar.equip(new Hat("tophat", new StrengthAddable(0))); //edit
+        System.out.println("AVATAR HAS " + avatar.getInventory().getCurrentSize() + " items");
 //        avatar.equip(new Mount("mount", 10)); //edit
 
 

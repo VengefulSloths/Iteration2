@@ -84,6 +84,7 @@ public class InventoryControllerState extends InputControllerState{
         Inventory inventory = Avatar.getInstance().getInventory();
         if(inventory.getCurrentSize() > 0){
             //MainController.getInstance().getPlayer().drop(inventory.getItem(0)); //edit: think this was working before
+
             MainController.getInstance().getPlayer().drop(this.inventoryView.getCurrentItem());
             return true;
         }else{
@@ -167,7 +168,6 @@ public class InventoryControllerState extends InputControllerState{
 
     @Override
     public boolean handleRightKey() {
-
         this.inventoryView.selectEastItem();
         return false;
     }

@@ -261,7 +261,8 @@ public class InventoryView extends View implements InventoryObserver {
 
     @Override
     public void alertItemDropped(InventoryItem item) {
-        this.removeInventoryItemViewObject(item); //what if have multiple of the same items?
+       this.removeInventoryItemViewObject(item); //what if have multiple of the same items?
+
         decrementInventoryIndex(1);
     }
 
