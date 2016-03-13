@@ -422,6 +422,10 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
      @Override
 
      public void visitTrap(Trap trap) {
+         String imagePath = "resources/trap/trap.xml";
+         TrapViewObject trapViewObject = factory.createTrapViewObject(trap.getLocation().getR(), trap.getLocation().getS(), imagePath);
+         new ProxyDestoyableObserver(trapViewObject, trap);
+         this.activeCameraView.addViewObject(trapViewObject);
      }
 
      public void visitAdaptableStrategy(AdaptableStrategy adaptableStrategy) {
