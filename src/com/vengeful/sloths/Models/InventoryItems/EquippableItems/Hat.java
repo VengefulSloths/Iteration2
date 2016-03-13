@@ -34,8 +34,4 @@ public class Hat extends EquippableItems implements ModelVisitable {
         modelVisitor.visitHat(this);
     }
 
-    @Override
-    public void interact() {
-        this.addToEquipped(Avatar.getInstance().getEquipped());
-    }
 }
