@@ -217,7 +217,8 @@ public class InventoryView extends View implements InventoryObserver {
         titlePanel = new JPanel();
         itemPanel = new JPanel();
         //goldPanel = new JPanel();
-        JLabel title = generateTitleLabel("Inventory", 22, Color.WHITE);
+        String label = getInvLabel();
+        JLabel title = generateTitleLabel(label, 22, Color.WHITE);
 
         //itemPanel.setBorder(new LineBorder(Color.BLACK));
         //this.itemPanel.setBorder(new BevelBorder(BevelBorder.RAISED,Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE));
@@ -238,6 +239,14 @@ public class InventoryView extends View implements InventoryObserver {
         this.add(itemPanel, BorderLayout.CENTER);
         this.add(goldPanel, BorderLayout.SOUTH);
         //this.setBorder(new LineBorder(Color.WHITE));
+    }
+
+    protected void setString(String s) {
+        //do nothing
+    }
+
+    protected String getInvLabel() {
+        return "Inventory";
     }
 
     /* Initializes the itemList by generating ItemViewObjects from inventoryItems. Maybe make a factory? */

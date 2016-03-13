@@ -24,6 +24,9 @@ public class CalculateBuySellPickPocket {
     }
 
     public static int CalculatePickpocketChance(int value, int pickPocketSkill){
+        if(pickPocketSkill == 0){
+            ++pickPocketSkill;
+        }
         if(value <= 100){
             value = 100 - (int)Math.floor(value/pickPocketSkill);
         }

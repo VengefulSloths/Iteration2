@@ -119,7 +119,6 @@ public class GridInventoryView extends InventoryView implements InventoryObserve
         }
 
 
-
     }
 
 }
