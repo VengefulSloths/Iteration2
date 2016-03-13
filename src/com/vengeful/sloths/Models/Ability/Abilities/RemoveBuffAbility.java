@@ -13,8 +13,8 @@ public class RemoveBuffAbility extends Ability {
     private BuffManager buffManager;
     private Buff buff;
     private Entity entity;
-    public RemoveBuffAbility(Buff buff, BuffManager buffManager, Entity entity) {
-        super(1, 1);
+    public RemoveBuffAbility(String name, Buff buff, BuffManager buffManager, Entity entity) {
+        super(name, 1, 1);
         this.buff = buff;
         this.buffManager = buffManager;
         this.entity = entity;

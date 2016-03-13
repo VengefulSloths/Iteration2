@@ -26,7 +26,7 @@ public class AngleSpellAbility extends Ability{
     private DefaultCanGenerateVisitor canGenerateVisitor;
 
     public AngleSpellAbility(Entity entity, int expandingTime, int expandingDistance, int startupTicks, int coolDownTicks){
-        super(startupTicks, coolDownTicks);
+        super("Cone of Death", startupTicks, coolDownTicks);
         this.entity = entity;
         this.expandingTime = expandingTime;
         this.expandingDistance = expandingDistance;
