@@ -75,6 +75,10 @@ public class AvatarControllerState extends InputControllerState {
         return true;
     }
 
+    @Override
+    public void handleTalkKey() {
+        Avatar.getInstance().talk();
+    }
 
     @Override
     public boolean handleESCKey() {

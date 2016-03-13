@@ -5,6 +5,7 @@ import com.vengeful.sloths.Controllers.InputController.InputStrategies.Adaptable
 import com.vengeful.sloths.Menu.CharacterCreation.CharacterCreationView;
 import com.vengeful.sloths.Menu.ScrollableMenu;
 import com.vengeful.sloths.AreaView.ViewEngine;
+import com.vengeful.sloths.Models.DialogueTrade.DialogContainer;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.Map.Map;
@@ -38,6 +39,7 @@ public class MainController implements Tickable{
     private AbilitySkillsControllerState abilitySkillsControllerState;
     private SetInputsControllerState setInputsControllerState;
     private CharacterCreationControllerState characterCreationControllerState;
+    private DialogControllerState dialogControllerState;
 
 
 
@@ -65,6 +67,7 @@ public class MainController implements Tickable{
         abilitySkillsControllerState = new AbilitySkillsControllerState();
         setInputsControllerState = new SetInputsControllerState(inputStrategy);
         characterCreationControllerState = new CharacterCreationControllerState();
+        dialogControllerState = new DialogControllerState();
 
         state = avatarControllerState;
 
@@ -96,6 +99,14 @@ public class MainController implements Tickable{
 
     public void dispatchReleasedKey(int key){
         inputStrategy.interpretReleasedKey(key, state);
+    }
+
+    public void setDialogControllerState(DialogContainer dialogContainer){
+        //swap out views here
+
+
+        dialogControllerState.setDialogContainer(dialogContainer);
+        this.state = dialogControllerState;
     }
 
     public void setCharacterCreationControllerState(){
