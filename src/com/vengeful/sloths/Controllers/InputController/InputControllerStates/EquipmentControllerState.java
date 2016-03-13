@@ -20,13 +20,19 @@ public class EquipmentControllerState extends InputControllerState{
 
     }
 
+    public void setSelected(boolean isActive) {
+        this.equipmentView.setSelected(isActive);
+    }
+
     public void setEquipmentViewSelected() {
         this.getEquipmentView().setSelected(true);
     }
 
 
     public void resetView(boolean isActiveView) {
-        this.equipmentView.resetView(isActiveView);
+
+//        this.equipmentView.resetView(isActiveView);
+        this.setSelected(isActiveView);
     }
 
 

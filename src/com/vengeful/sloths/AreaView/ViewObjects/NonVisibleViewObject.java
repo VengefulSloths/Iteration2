@@ -22,9 +22,15 @@ public class NonVisibleViewObject extends ViewObject {
     public NonVisibleViewObject(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy, ArrayList<DynamicImage> dynamicImages) {
         super(r, s, coordinateStrategy, locationStrategy);
         for (DynamicImage dynamicImage : dynamicImages) {
-            images.add(new Tuple<>(getNonVisibleImage(dynamicImage),
-                    dynamicImage.getXOffset(),
-                    dynamicImage.getYOffset()));
+            if (dynamicImage == null) {
+                images.add(new Tuple<>(getNonVisibleImage(dynamicImage),
+                        -26,
+                        -130));
+            } else {
+                images.add(new Tuple<>(getNonVisibleImage(dynamicImage),
+                        dynamicImage.getXOffset(),
+                        dynamicImage.getYOffset()));
+            }
         }
         overridePixels = false;
     }
@@ -85,8 +91,11 @@ public class NonVisibleViewObject extends ViewObject {
     }
 
     private Image getNonVisibleImage(DynamicImage visibleImage) {
+        if (visibleImage == null) return (new ImageIcon("resources/dark_resources/null/file_not_found.png")).getImage();
+
         String nonVisiblePath = "resources/dark_" + visibleImage.getCurrentImagePath();
         return (new ImageIcon(nonVisiblePath)).getImage();
+
     }
 
     @Override

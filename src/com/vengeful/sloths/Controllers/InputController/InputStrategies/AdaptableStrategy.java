@@ -99,7 +99,7 @@ public class AdaptableStrategy extends InputStrategy implements ModelVisitable {
                     state.handleSpaceKey();
                     break;
                 case ENTER:
-                    state.handleCenterKey();
+                    state.handleEnterKey();
                     break;
                 case SAVE:
                     state.handleSaveKey();

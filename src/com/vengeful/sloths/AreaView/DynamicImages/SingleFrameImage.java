@@ -21,5 +21,5 @@ public class SingleFrameImage extends DynamicImage {
     }
 
     @Override
-    public String getCurrentImagePath() { return path; }
+    public String doGetCurrentImagePath() { return path; }
 }

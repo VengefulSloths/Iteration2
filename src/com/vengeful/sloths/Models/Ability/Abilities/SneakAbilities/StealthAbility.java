@@ -20,7 +20,7 @@ public class StealthAbility extends SelfBuffAbility {
     private Buff buff;
 
     public StealthAbility(Entity entity, Buff buff, int windTicks, int coolTicks) {
-        super(entity, buff, windTicks, coolTicks);
+        super("Stealth", entity, buff, windTicks, coolTicks);
         this.entity = entity;
         this.buff = buff;
     }

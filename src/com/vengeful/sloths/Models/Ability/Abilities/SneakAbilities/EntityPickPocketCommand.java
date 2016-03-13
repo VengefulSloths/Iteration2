@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities;
 
+import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Inventory.Inventory;
@@ -38,6 +39,9 @@ public class EntityPickPocketCommand {
             }
         }
         System.out.println("pick pocket FAILED");
-
+        target.setDead(false);
+        target.setActive(false);
+        MainController.getInstance().setAvatarControllerState();
+        target.enrage();
     }
 }

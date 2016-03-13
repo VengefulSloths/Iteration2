@@ -26,10 +26,15 @@ public class PickPocketItems extends ItemViewObject {
     public void paintComponent(Graphics g, int x, int y, int width, int height) {
         super.paintComponent(g, x, y, width, height);
         Graphics2D g2d = (Graphics2D) g;
+        Font font = new Font("Helvetica",1,30);
+        FontMetrics metrics = g2d.getFontMetrics();
+        g2d.setFont(font);
         g2d.setColor(new Color(0f,0f,0f,.4f));
-        g2d.fillRect(x + 10,y + height/2,width - 20,height/2);
+        g2d.fillRect(x ,y + height/2 + 20,metrics.stringWidth(""+chanceToSucceed+"%") + 120,height/2 - 20);
         g2d.setColor(Color.WHITE);
-        g2d.drawString("" +chanceToSucceed, x +10, y + height);
+        g2d.setFont(new Font("Helvetica",1,50));
+        g2d.drawString("" +chanceToSucceed+ "%", width/2 + metrics.stringWidth(""+chanceToSucceed+"%"), y + height);
+        g2d.setFont(font);
     }
 
 

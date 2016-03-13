@@ -21,9 +21,8 @@ public class RemoveTrapAbility extends Ability{
 
 
     public RemoveTrapAbility(Entity entity, int windTicks, int coolTicks){
+        super("Remove Trap", windTicks, coolTicks);
         this.entity = entity;
-        this.setWindTicks(windTicks);
-        this.setCoolTicks(coolTicks);
     }
 
 

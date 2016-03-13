@@ -13,13 +13,10 @@ public abstract class Ability extends ViewItem implements ModelVisitable {
     private int windTicks;
     private int coolTicks;
 
-    public Ability(int windTicks, int coolTicks) {
+    public Ability(String name, int windTicks, int coolTicks) {
         this.windTicks = windTicks;
         this.coolTicks = coolTicks;
-        name = "No Name Ability";
-    }
-    public Ability(){
-        name = "No Name Ability";
+        this.name = name;
     }
     public abstract int execute();
 

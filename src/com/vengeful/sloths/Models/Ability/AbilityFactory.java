@@ -2,7 +2,7 @@ package com.vengeful.sloths.Models.Ability;
 
 import com.vengeful.sloths.Models.Ability.Abilities.*;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.StealthAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.BoonBuffAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.*;
 import com.vengeful.sloths.Models.Buff.*;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Observers.EntityObserver;
@@ -36,16 +36,16 @@ public class AbilityFactory {
         return new MeleeAttackAbility(entity, relevantSkill, baseDamage, windTime, coolTime);
     }
 
-    public BindWoundsAbility createBindWoundsAbility(Entity entity, SkillManager skillManager, int startupTime, int cooldownTime){
-        return new BindWoundsAbility(entity, skillManager, startupTime, cooldownTime);
+    public BindWoundsAbility createBindWoundsAbility(Entity entity){
+        return new BindWoundsAbility(entity);
     }
 
-    public SelfBuffAbility createSelfBuffAbility(Entity entity, Buff buff, int windTime, int coolTime) {
-        return new SelfBuffAbility(entity, buff, windTime, coolTime);
+    public SelfBuffAbility createSelfBuffAbility(String name, Entity entity, Buff buff, int windTime, int coolTime) {
+        return new SelfBuffAbility(name, entity, buff, windTime, coolTime);
     }
 
-    public RemoveBuffAbility createRemoveBuffAbility(Buff buff, BuffManager buffManager, Entity entity) {
-        return new RemoveBuffAbility(buff, buffManager, entity);
+    public RemoveBuffAbility createRemoveBuffAbility(String name, Buff buff, BuffManager buffManager, Entity entity) {
+        return new RemoveBuffAbility(name, buff, buffManager, entity);
     }
 
     public MountAbility createMountAbility( Entity entity, int moveSpeed, String mountName, int windTime, int coolTime) {
@@ -60,18 +60,33 @@ public class AbilityFactory {
 
     public SelfBuffAbility createProtectFromEvil(Entity entity) {
         Buff timedBuff = new ProtectFromEvilBuff(entity.getObservers(), entity.getBuffManager(), new GenericStatsAddable(), "protection", 2, 300);
-        return new BoonBuffAbility(entity, timedBuff, 8, 15);
+        return new BoonBuffAbility("Protect From Evil", entity, timedBuff, 8, 15);
     }
 
     public SelfBuffAbility createDamageBoost(Entity entity){
         Buff damageBuff = new TimedBuff(entity.getObservers(), entity.getBuffManager(), new StrengthAddable(entity.getStats().getStrength()*2), "damageBoost", 300);
-        return new BoonBuffAbility(entity, damageBuff, 8, 15);
+        return new BoonBuffAbility("Roids", entity, damageBuff, 8, 15);
     }
 
     public SelfBuffAbility createHealOverTime(Entity entity){
         Buff healBuff = new HealOverTimeBuff(entity.getObservers(), entity.getBuffManager(), new CurrentHealthAddable(1), "healOverTime", 600, 60);
-        return new BoonBuffAbility(entity, healBuff, 8, 15);
+        return new BoonBuffAbility("Rejuvenation", entity, healBuff, 8, 15);
     }
 
+    public FireBallAbility createFireBallAbility(Entity entity, int travelTime, int travelDistance, int startupTicks, int coolDownTicks){
+        return new FireBallAbility(entity, travelTime, travelDistance, startupTicks, coolDownTicks);
+    }
+
+    public ExplosionAbility createExplosionAbility(Entity entity, int expandingTime, int expandingDistance, int startupTicks, int coolDownTicks){
+        return new ExplosionAbility(entity, expandingTime, expandingDistance, startupTicks, coolDownTicks);
+    }
+
+    public AngleSpellAbility createAngleSpellAbility(Entity entity, int expandingTime, int expandingDistance, int startupTicks, int coolDownTicks){
+        return new AngleSpellAbility(entity, expandingTime, expandingDistance, startupTicks, coolDownTicks);
+    }
+
+    public NPCFallAsleepAbility createNPCFallAsleepAbility(Entity entity){
+        return new NPCFallAsleepAbility(entity, 8, 15, 360);
+    }
 
 }
