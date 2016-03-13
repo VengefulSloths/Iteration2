@@ -32,6 +32,11 @@ public class EntityMapInteractionFactory {
         this.map = map;
     }
 
+    public EntityTalkCommand createEntityTalkCommand(Direction dir, Coord src){
+        EntityTalkCommand etc = new EntityTalkCommand(dir, src);
+        return etc;
+    }
+
     public EntityDropEntireInventoryCommand createDropEntireInventoryCommand(Entity entity) {
         EntityDropEntireInventoryCommand entityDropEntireInventoryCommand = new EntityDropEntireInventoryCommand(entity);
         return entityDropEntireInventoryCommand;
