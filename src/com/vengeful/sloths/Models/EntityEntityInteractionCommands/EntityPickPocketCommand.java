@@ -1,4 +1,4 @@
-package com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities;
+package com.vengeful.sloths.Models.EntityEntityInteractionCommands;
 
 import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.Models.Entity.Avatar;

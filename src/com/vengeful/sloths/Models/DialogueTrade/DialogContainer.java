@@ -1,5 +1,7 @@
 package com.vengeful.sloths.Models.DialogueTrade;
 
+import com.vengeful.sloths.Models.Entity.Entity;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -7,7 +9,7 @@ import java.util.Iterator;
  * Created by John on 3/12/2016.
  */
 public abstract class DialogContainer extends DialogObservable {
-
+    private Entity speaker;
     private int cursor = 0;
     private ArrayList<String> dialogList = new ArrayList<>();
     Iterator<DialogObserver> iter;
@@ -16,6 +18,10 @@ public abstract class DialogContainer extends DialogObservable {
 
     public DialogContainer(String name){
         this.name = name;
+    }
+    public DialogContainer(Entity speaker){
+        this.speaker = speaker;
+        this.name = speaker.getName();
     }
 
     public void next(){
@@ -38,6 +44,14 @@ public abstract class DialogContainer extends DialogObservable {
 
     public void appendDialog(String nextDialog) {
         dialogList.add(nextDialog);
+    }
+
+    public Entity getSpeaker() {
+        return speaker;
+    }
+
+    public void setSpeaker(Entity speaker) {
+        this.speaker = speaker;
     }
 
 

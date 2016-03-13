@@ -30,10 +30,10 @@ public class PickPocketItems extends ItemViewObject {
         FontMetrics metrics = g2d.getFontMetrics();
         g2d.setFont(font);
         g2d.setColor(new Color(0f,0f,0f,.4f));
-        g2d.fillRect(x ,y + height/2 + 20,metrics.stringWidth(""+chanceToSucceed+"%") + 120,height/2 - 20);
+        g2d.fillRect(x ,y + height/2 ,width,height/2 );
         g2d.setColor(Color.WHITE);
         g2d.setFont(new Font("Helvetica",1,50));
-        g2d.drawString("" +chanceToSucceed+ "%", width/2 + metrics.stringWidth(""+chanceToSucceed+"%"), y + height);
+        g2d.drawString("" +chanceToSucceed+ "%", x , y + height);
         g2d.setFont(font);
     }
 
