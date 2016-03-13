@@ -52,5 +52,4 @@ public abstract class Weapon extends EquippableItems {
         this.addToEquipped(Avatar.getInstance().getEquipped());
     }
 
-
 }

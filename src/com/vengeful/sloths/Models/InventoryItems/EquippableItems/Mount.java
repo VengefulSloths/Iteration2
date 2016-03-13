@@ -59,8 +59,6 @@ public class Mount extends EquippableItems {
         this.moveSpeed = moveSpeed;
     }
 
-
-
     @Override
     public void interact() {
 

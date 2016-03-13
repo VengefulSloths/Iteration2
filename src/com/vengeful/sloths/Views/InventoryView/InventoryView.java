@@ -221,7 +221,7 @@ public class InventoryView extends View implements InventoryObserver {
 
         //itemPanel.setBorder(new LineBorder(Color.BLACK));
         //this.itemPanel.setBorder(new BevelBorder(BevelBorder.RAISED,Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE));
-        goldPanel = new GoldView();
+        goldPanel = new GoldView(inventory);
         goldPanel.setBackground(new Color(0f, 0f, 0f, 0f));
         goldPanel.setPreferredSize(new Dimension(this.getWidth(), 40));
 
@@ -312,7 +312,7 @@ public class InventoryView extends View implements InventoryObserver {
         try {
             //g.setFont(new Font("Helvetica",1,40));
             //g.setColor(Color.orange);
-            goldPanel.setText("Gold: " + Avatar.getInstance().getInventory().getGold());
+            goldPanel.setText("Gold: " + inventory.getGold());
         }catch (NullPointerException e){
             //this is okay
         }

@@ -61,11 +61,10 @@ public class NPCFallAsleepAbility extends Ability{
             if(target != null){
                 while (target.hasNext()){
                     Entity e = target.next();
-                    e.setDead(true);
+                    e.setStunned(true);
                     System.out.println("NPC GOES TO SLEEP");
                     TimeModel.getInstance().registerAlertable(() -> {
-                        e.setDead(false);
-                        e.setActive(false);
+                        e.setStunned(true);
                         System.out.println("NPC WAKES UP");
                     }, sleepTime);
                 }

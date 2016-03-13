@@ -3,6 +3,7 @@ package com.vengeful.sloths.Models.InventoryItems.EquippableItems;
 import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityFactory;
+import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
@@ -40,11 +41,6 @@ public class TwoHandedWeapon extends Weapon implements ModelVisitable{
     @Override
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitTwoHandedWeapon(this);
-    }
-
-    @Override
-    public void interact() {
-
     }
 }
 

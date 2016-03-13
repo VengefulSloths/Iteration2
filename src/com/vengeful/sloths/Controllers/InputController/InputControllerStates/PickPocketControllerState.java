@@ -59,8 +59,7 @@ public class PickPocketControllerState extends InputControllerState{
 
     @Override
     public boolean handleInventoryKey() {
-        target.setDead(false);
-        target.setActive(false);
+        target.setStunned(false);
         MainController.getInstance().setAvatarControllerState();
         //MainController.getInstance().setInventoryControllerState();
         return true;
@@ -69,8 +68,7 @@ public class PickPocketControllerState extends InputControllerState{
 
     @Override
     public boolean handleESCKey() {
-        target.setDead(false);
-        target.setActive(false);
+        target.setStunned(false);
         MainController.getInstance().setAvatarControllerState();
         return false;
     }
