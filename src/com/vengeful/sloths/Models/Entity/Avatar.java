@@ -6,6 +6,7 @@ import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteract
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.Map.Map;
+import com.vengeful.sloths.Models.Map.Tile;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.ConsumableItems;
 import com.vengeful.sloths.Models.Occupation.Smasher;
@@ -15,12 +16,9 @@ import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.HealthManaExperienceAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
-import com.vengeful.sloths.Utility.Coord;
-import com.vengeful.sloths.Utility.HexMath;
-import com.vengeful.sloths.Utility.Location;
+import com.vengeful.sloths.Utility.*;
 
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
-import com.vengeful.sloths.Utility.Direction;
 
 import java.util.Iterator;
 
@@ -77,14 +75,6 @@ public class Avatar extends Entity{
             default:
                 this.setOccupation(new Summoner(this.getStats(), this.getSkillManager(), this.getAbilityManager(), this));
         }
-
-
-/*
-        Iterator<Coord> visibleArea = HexMath.hexagon(getLocation(), 5); //5 is visible radius
-        while(visibleArea.hasNext()){
-            if(this.canSeeTrap())
-                Map.getInstance().getActiveMapArea().getTile(visibleArea.next()).showTrap();
-        }*/
 
 
 
@@ -191,17 +181,40 @@ public class Avatar extends Entity{
         }
     }
 
-    public boolean canSeeTrap(){
+
+
+    protected void movementHook(){
+        Iterator<Coord> visibleCoord = HexMath.hexagon(getLocation(), ModelConfig.getRadiusOfVisibility());
+        Tile t = null;
+        boolean isValidTile = false;
+        while(visibleCoord.hasNext()) {
+            Coord c = visibleCoord.next();
+            isValidTile = HexMath.isValidTile(c, Map.getInstance().getActiveMapArea().getMaxR(), Map.getInstance().getActiveMapArea().getMaxS());
+            if(isValidTile){
+                t = Map.getInstance().getActiveMapArea().getTile(c);
+            }
+
+            if(t != null){
+                if(this.canSeeTrap())
+                    t.showTrap();
+                else
+                    t.makeTrapUndetectable();
+            }
+        }
+    }
+
+
+    private boolean canSeeTrap(){
         int skillLevel =  this.getSkillManager().getRemoveTrapLevel();
         int maxSkillLevel = this.getSkillManager().getMaxRemoveTrapLevel();
-        int probability = (int)Math.round(((double)skillLevel / maxSkillLevel) * 80); //probability of seeing trap is not capped
+        int probability = (int)Math.round(((double)skillLevel / maxSkillLevel) * 70); //probability of seeing trap is not capped
         int randomNum = 1 + (int)(Math.random() * 100); //[1-100]
         if(randomNum <= probability){
-            System.out.println("ATTEMPT TO SEE TRAP SUCCEED! " + " skillLevel: " + skillLevel + " accu: " + probability);
+            //System.out.println("ATTEMPT TO SEE TRAP SUCCEED! " + " skillLevel: " + skillLevel + " accu: " + probability);
             return true;
-        }else{
-            System.out.println("ATTEMPT TO SEE TRAP FAILED! " + " skillLevel: " + skillLevel + " accu: " + probability);
         }
+
+        //System.out.println("ATTEMPT TO SEE TRAP FAILED! " + " skillLevel: " + skillLevel + " accu: " + probability);
         return false;
     }
 

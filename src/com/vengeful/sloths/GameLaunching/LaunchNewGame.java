@@ -36,8 +36,9 @@ public class LaunchNewGame implements LaunchGameHelper {
         return levelFactory.getCameras();
     }
     @Override
-    public Avatar createAvatar() {
-        Avatar.getInstance().avatarInit("Smasher", new Stats(new BonusHealthAddable(30)));
+
+    public Avatar createAvatar(String avatarOccupation) {
+        Avatar.getInstance().avatarInit(avatarOccupation, new Stats());
         return Avatar.getInstance();
     }
 }

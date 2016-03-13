@@ -38,6 +38,25 @@ public class Equipped implements ViewObservable, ModelVisitable{
 
     protected ArrayList<EquipmentObserver> equipmentObserver;
 
+    public Hat getHat() {
+        return hat;
+    }
+    public void setHat(Hat hat) {
+        this.hat = hat;
+    }
+    public Weapon getWeapon() {
+        return weapon;
+    }
+    public void setWeapon(Weapon weapon) {
+        this.weapon = weapon;
+    }
+    public Mount getMount() {
+        return mount;
+    }
+    public void setMount(Mount mount) {
+        this.mount = mount;
+    }
+
     public Equipped(Entity entity){
         this.hat = null;
         this.mount = null;
@@ -86,7 +105,7 @@ public class Equipped implements ViewObservable, ModelVisitable{
     }
 
     public void addWeapon(Weapon weapon){
-        this.entityStats.subtract(weapon.getItemStats());
+        this.entityStats.subtract(this.weapon.getItemStats());
         this.weapon = weapon;
         this.entityStats.add(this.weapon.getItemStats());
         this.entityStats.setOffensiveRating(getOffensiveRating());
@@ -146,18 +165,6 @@ public class Equipped implements ViewObservable, ModelVisitable{
         }
     }
 
-    //need getter and setter for mount
-
-
-    public EquippableItems getHat(){
-        return this.hat;
-    }
-
-    public EquippableItems getWeapon(){
-        return this.weapon;
-    }
-
-    public Mount getMount() { return this.mount; }
 
     public void alertHatEquipped(Hat hat){
         Iterator<EquipmentObserver> iter = this.equipmentObserver.iterator();

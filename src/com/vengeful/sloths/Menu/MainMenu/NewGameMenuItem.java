@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Menu.MainMenu;
 
+import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.GameLaunching.LaunchGameTemplate;
 import com.vengeful.sloths.GameLaunching.LaunchNewGame;
 import com.vengeful.sloths.Menu.ScrollableMenuItemCommand;
@@ -19,8 +20,9 @@ public class NewGameMenuItem extends MainMenuItem {
     }
 
     private void startGame() {
-        System.out.println("launch new game !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        LaunchGameTemplate launcher = new LaunchGameTemplate(new LaunchNewGame());
-        launcher.launch();
+       // System.out.println("launch new game !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+//        LaunchGameTemplate launcher = new LaunchGameTemplate(new LaunchNewGame());
+//        launcher.launch();
+        MainController.getInstance().setCharacterCreationControllerState();
     }
 }

@@ -20,6 +20,7 @@ import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.*;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
+import com.vengeful.sloths.Models.InventoryItems.UsableItems.PiggyTotem;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
 import com.vengeful.sloths.Models.Map.*;
 import com.vengeful.sloths.Models.Map.AreaEffects.HealDamageAE;
@@ -183,18 +184,18 @@ public class SaveVisitor implements ModelVisitor {
         //inv/equipped visit, stats visit, occupation visit, etc...
         appendDirectionAttribute(entityElement, e.getFacingDirection());
         appendCoordElement(entityElement, currCoord);
-        e.getInventory().accept(this);
-        e.getEquipped().accept(this);
         GenericStatsAddable gsa = e.getAllEntityStatEffects();
         gsa.invert();
-        e.getStats().add(gsa);
+        e.getStats().addNoCheck(gsa);
         e.getStats().accept(this);
         gsa.invert();
-        e.getStats().add(gsa);
+        e.getStats().addNoCheck(gsa);
         e.getSkillManager().accept(this);
         e.getBuffManager().accept(this);
         e.getAbilityManager().accept(this);
         e.getOccupation().accept(this);
+        e.getInventory().accept(this);
+        e.getEquipped().accept(this);
     }
     @Override
     public void visitPiggy(Piggy piggy) {
@@ -377,17 +378,31 @@ public class SaveVisitor implements ModelVisitor {
 
     @Override
     public void visitAngleSpellAbility(AngleSpellAbility angleSpellAbility) {
-        //TODO: new ability. Make sure to save, thanks!
+        Element asaElement = doc.createElement("AngleSpellAbility");
+        currentParent.peek().appendChild(asaElement);
+        asaElement.setAttribute("windTicks", angleSpellAbility.getWindTicks() + "");
+        asaElement.setAttribute("coolTicks", angleSpellAbility.getCoolTicks() + "");
+        asaElement.setAttribute("expandingTime", angleSpellAbility.getExpandingTime() +"");
+        asaElement.setAttribute("expandingDistance", angleSpellAbility.getExpandingDistance() +"");
+        asaElement.setAttribute("manaCost", angleSpellAbility.getManaCost() +"");
     }
 
     @Override
     public void visitRemoveTrapAbility(RemoveTrapAbility removeTrapAbility) {
-        //TODO: new ability. Make sure to save, thanks!
+        Element rtaElement = doc.createElement("RemoveTrapAbility");
+        currentParent.peek().appendChild(rtaElement);
+        rtaElement.setAttribute("windTicks", removeTrapAbility.getWindTicks() + "");
+        rtaElement.setAttribute("coolTicks", removeTrapAbility.getCoolTicks() + "");
+        rtaElement.setAttribute("manaCost", removeTrapAbility.getManaCost() +"");
     }
 
     @Override
     public void visitStealthAbility(StealthAbility stealthAbility) {
-        //TODO: save this thing
+        Element rtaElement = doc.createElement("StealthAbility");
+        currentParent.peek().appendChild(rtaElement);
+        rtaElement.setAttribute("windTicks", stealthAbility.getWindTicks() + "");
+        rtaElement.setAttribute("coolTicks", stealthAbility.getCoolTicks() + "");
+        //use the abilityFactory to generate from here, no need to save buff
     }
 
 
@@ -494,7 +509,17 @@ public class SaveVisitor implements ModelVisitor {
     @Override
 
     public void visitTrap(Trap trap) {
-        //TODO: newly added mapItem, make sure to save as well. Thanks!
+        Element trapElement = doc.createElement("Trap");
+        currentParent.peek().appendChild(trapElement);
+        trapElement.setAttribute("itemName", trap.getItemName());
+        trapElement.setAttribute("damageTaken", trap.getDamageTaken() +"");
+        trapElement.setAttribute("isVisible", trap.isVisible() + "");
+        currentParent.push(trapElement);
+        appendCoordElement(trapElement, currCoord);
+        if(!currentParent.peek().equals(trapElement)){
+            System.out.println("failed saving trap");
+        }
+        currentParent.pop();
     }
 
     public void visitAdaptableStrategy(AdaptableStrategy adaptableStrategy) {
@@ -524,6 +549,19 @@ public class SaveVisitor implements ModelVisitor {
         }else{
             System.out.println("some error saving gold, stack not at the proper element");
         }
+    }
+
+    @Override
+    public void visitPiggyTotem(PiggyTotem piggyTotem) {
+        Element ptElement = doc.createElement("PiggyTotem");
+        currentParent.peek().appendChild(ptElement);
+        currentParent.push(ptElement);
+        ptElement.setAttribute("itemName", piggyTotem.getItemName());
+        piggyTotem.getPig().accept(this);
+        if(currentParent.peek().equals(ptElement)){
+            System.out.println("error saving piggy totem");
+        }
+        currentParent.pop();
     }
 
     @Override

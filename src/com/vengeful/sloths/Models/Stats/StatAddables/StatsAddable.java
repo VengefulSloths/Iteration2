@@ -162,4 +162,21 @@ public abstract class StatsAddable implements ModelVisitable{
         modelVisitor.visitStatsAddable(this);
     }
 
+    public String toString() {
+        String statsString = "";
+        statsString = (this.getStrength() > 0) ? statsString + "Strength: " + this.getStrength() : statsString + "";
+        statsString = (this.getAgility() > 0) ? statsString + "Agility: " + this.getStrength() : statsString + "";
+        statsString = (this.getIntellect() > 0) ? statsString + "Intellect: " + this.getStrength() : statsString + "";
+        statsString = (this.getHardiness() > 0) ? statsString + "Hardiness: " + this.getStrength() : statsString + "";
+        statsString = (this.getMovement() > 0) ? statsString + "Movement: " + this.getStrength() : statsString + "";
+        statsString = (this.getConcealment() > 0) ? statsString + "Concealment: " + this.getStrength() : statsString + "";
+        statsString = (this.getCurrentHealth() > 0) ? statsString + "Current health: " + this.getStrength() : statsString + "";
+        statsString = (this.getBonusHealth() > 0) ? statsString + "Bonus health: " + this.getStrength() : statsString + "";
+        statsString = (this.getCurrentMana() > 0) ? statsString + "Current mana: " + this.getStrength() : statsString + "";
+        statsString = (this.getBonusMana() > 0) ? statsString + "Bonus mana: " + this.getStrength() : statsString + "";
+        statsString = (this.getCurrentExperience() > 0) ? statsString + "Current experience: " + this.getStrength() : statsString + "";
+        return statsString;
+    }
+
+
 }
