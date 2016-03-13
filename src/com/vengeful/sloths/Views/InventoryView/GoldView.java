@@ -1,5 +1,7 @@
 package com.vengeful.sloths.Views.InventoryView;
 
+import com.vengeful.sloths.Models.Inventory.Inventory;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -8,6 +10,12 @@ import java.awt.*;
  */
 public class GoldView extends JComponent {
 
+    private Inventory inventory;
+
+    public GoldView(Inventory inventory){
+        this.inventory = inventory;
+    }
+
     private String text;
     @Override
     public void paintComponent(Graphics g){
@@ -15,7 +23,7 @@ public class GoldView extends JComponent {
         g.setFont(new Font("Helvetica",1,20));
         g.setColor(Color.orange);
         FontMetrics metrics = g.getFontMetrics();
-        g.drawString(this.getText(),this.getWidth()/2 - metrics.stringWidth(this.getText())/2,20);
+        g.drawString("Gold: " + this.inventory.getGold(),this.getWidth()/2 - metrics.stringWidth(this.getText())/2,20);
     }
 
     public String getText() {
