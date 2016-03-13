@@ -46,14 +46,18 @@ public class EntityInitiatePickPocketCommand {
             default:
                 break;
         }
-        Entity[] e = Map.getInstance().getTile(dst).getEntities();
-        if(e.length > 0){
-            this.target = e[0];
-            this.pickPocketSkill = a.getSkillManager().getPickPocketLevel();
-            target.setDead(true);
-            //a.setDead(true);
-            targInv = target.getInventory();
-        }
+        try {
+            Entity[] e = Map.getInstance().getTile(dst).getEntities();
+            if(e.length > 0){
+                this.target = e[0];
+                this.pickPocketSkill = a.getSkillManager().getPickPocketLevel();
+                target.setDead(true);
+                //a.setDead(true);
+                targInv = target.getInventory();
+            }
+        }catch (NullPointerException e){}
+
+
     }
 
     public void execute(){
