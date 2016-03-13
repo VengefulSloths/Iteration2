@@ -20,6 +20,7 @@ public class AbilityViewObject extends JPanel {
     private Ability ability;
     private ViewItem viewItem;
     private boolean isSelected;
+    String name = " ";
 
     public boolean isSelected() {
         return isSelected;
@@ -60,13 +61,31 @@ public class AbilityViewObject extends JPanel {
         this.viewItem = viewItem;
     }
 
+    public String getItemName() {
+        return this.name;
+    }
+    public void setItemName(String name) {
+        this.name = name;
+    }
+
     public AbilityViewObject() { }
 
     public AbilityViewObject(Ability ability) {
         this.setViewItem(ability);
         this.setAbility(ability);
-        this.setItemImage(this.getImageFactory().handleUnscaledItemImageGeneration(ability));
         this.setIsDisplayed(false);
+
+        System.out.println("Creating AbilityViewObject with name: " );
+        if (!ability.getItemName().equals("")) {
+            this.setItemName(ability.getItemName());
+
+        } else if (!ability.toString().equals("")) {
+            this.setItemName(ability.toString());
+        }
+
+        this.setItemImage(this.getImageFactory().handleUnscaledItemImageGeneration(ability));
+
+        System.out.println("name: " + this.getItemName());
     }
 
     public AbilityViewObject(Ability ability, int width, int height) {

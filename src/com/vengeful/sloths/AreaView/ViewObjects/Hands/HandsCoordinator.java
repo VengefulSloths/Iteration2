@@ -96,5 +96,12 @@ public class HandsCoordinator {
 
     public NonVisibleViewObject getNonVisibleBack() { return state.getNonVisibleBack(); }
 
+    private boolean isFrozen = false;
+    public void setFreeze(boolean isFrozen) {
+        this.isFrozen = true;
+    }
 
+    public boolean isFrozen() {
+        return isFrozen;
+    }
 }

@@ -167,7 +167,7 @@ public class AbilitiesView extends View implements AbilityManagerObserver {
 
         this.setItemList(new ArrayList<>());
         this.setAbilityManager(abilityManager);
-        //Create a proxy for the observer, regester the proxy w/ entity, add proxy to manager
+        //Create a proxy for the observer, register the proxy w/ entity, add proxy to manager
         ProxyObserver pio = new ProxyAbilityManagerObserver(this, abilityManager);
 
         ObserverManager.getInstance().addProxyObserver(pio);
@@ -199,7 +199,10 @@ public class AbilitiesView extends View implements AbilityManagerObserver {
 
     /* Initializes the itemList by generating ItemViewObjects from inventoryItems. Maybe make a factory? */
     public void initWithInventory(AbilityManager abilityManager) {
+        System.out.println("Ability Manager contents: ");
         for (int i = 0; i < abilityManager.getCurrentSize(); ++i) {
+            System.out.println("index : " + i);
+            System.out.println(abilityManager.getAbilityByIndex(i));
             this.getItemList().add(new AbilityViewObject(abilityManager.getAbilityByIndex(i)));
         }
     }
@@ -233,6 +236,15 @@ public class AbilitiesView extends View implements AbilityManagerObserver {
         }catch(IndexOutOfBoundsException e){
             return null;
         }
+    }
+
+    public void equipAbility(int slot) {
+        if (this.viewIndex <= 0 || this.viewIndex > this.abilityList.size()) this.viewIndex = 0;
+        if (this.abilityList.size() == 0) return;
+
+        AbilityViewObject avo = this.abilityList.get(this.viewIndex);
+        System.out.println("Attempting to equip ability: " + avo.getAbility().getItemName());
+        this.abilityManager.equipAbility(avo.getAbility(), slot);
     }
 
     public void setSelected(AbilityViewObject item){

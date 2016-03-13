@@ -16,8 +16,11 @@ public abstract class Ability extends ViewItem implements ModelVisitable {
     public Ability(int windTicks, int coolTicks) {
         this.windTicks = windTicks;
         this.coolTicks = coolTicks;
+        name = "No Name Ability";
     }
-    public Ability(){}
+    public Ability(){
+        name = "No Name Ability";
+    }
     public abstract int execute();
 
     protected boolean shouldDoAbility(int skillLevel, int maxSkillLevel){
@@ -49,6 +52,9 @@ public abstract class Ability extends ViewItem implements ModelVisitable {
 //    }
     //this is here for aid in loading, if you add more abilities have the toString just return the name of the class as a string
 
+    public String getItemName() {
+        return this.name;
+    }
     public String toString() {
         return "hacky hacky hacky";
     }

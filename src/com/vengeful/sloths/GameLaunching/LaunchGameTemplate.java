@@ -80,6 +80,8 @@ public class LaunchGameTemplate {
 //        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createStealthAbility(avatar), 0);
         avatar.getAbilityManager().equipAbility(new PickPocketAbility(), 0);
         avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createProtectFromEvil(avatar), 1);
+        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createDamageBoost(avatar), 2);
+        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createHealOverTime(avatar), 3);
         /**************************/
 
         AreaView areaView = new AreaView(cameras);
@@ -118,6 +120,11 @@ public class LaunchGameTemplate {
         MainController controller = MainController.getInstance();
         controller.init(vm);
         controller.setAvatarControllerState();
+
+//        ViewTime.getInstance().registerAlert(100, () -> {
+//            vm.getDialogView().alertDialogChange("I sexually Identify as an Attack Helicopter. Ever since I was a boy I dreamed of soaring over the oilfields dropping hot sticky loads on disgusting foreigners. People say to me that a person being a helicopter is Impossible and I’m fucking retarded but I don’t care, I’m beautiful. I’m having a plastic surgeon install rotary blades, 30 mm cannons and AMG-114 Hellfire missiles on my body. From now on I want you guys to call me “Apache” and respect my right to kill from above and kill needlessly.");
+//            vm.openDialogView();
+//        });
 
 
         modelEngine.start();

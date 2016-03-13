@@ -40,7 +40,6 @@ public class TimedBuff extends Buff{
     }
 
     public boolean applyOnTick(Stats stats){
-        System.out.println(duration);
         this.duration -= 1;
         if(duration <= 0){
             this.owner.removeBuff(this);

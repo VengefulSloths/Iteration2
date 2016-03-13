@@ -2,11 +2,13 @@ package com.vengeful.sloths.Models.Ability;
 
 import com.vengeful.sloths.Models.Ability.Abilities.*;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.StealthAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.BoonBuffAbility;
 import com.vengeful.sloths.Models.Buff.*;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Observers.EntityObserver;
 import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
+import com.vengeful.sloths.Models.Stats.StatAddables.CurrentHealthAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.GenericStatsAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.MovementAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.StrengthAddable;
@@ -47,7 +49,7 @@ public class AbilityFactory {
     }
 
     public MountAbility createMountAbility( Entity entity, int moveSpeed, String mountName, int windTime, int coolTime) {
-        Buff mountBuff = new MountBuff("Mount", new MovementAddable(moveSpeed), entity.getBuffManager(), entity.getObservers(), mountName);
+        Buff mountBuff = new MountBuff("mount", new MovementAddable(moveSpeed), entity.getBuffManager(), entity.getObservers(), mountName);
         return new MountAbility(entity, mountBuff, mountName, windTime, coolTime);
     }
 
@@ -58,9 +60,18 @@ public class AbilityFactory {
 
     public SelfBuffAbility createProtectFromEvil(Entity entity) {
         Buff timedBuff = new ProtectFromEvilBuff(entity.getObservers(), entity.getBuffManager(), new GenericStatsAddable(), "protection", 2, 300);
-        return new SelfBuffAbility(entity, timedBuff, 8, 15);
+        return new BoonBuffAbility(entity, timedBuff, 8, 15);
     }
 
+    public SelfBuffAbility createDamageBoost(Entity entity){
+        Buff damageBuff = new TimedBuff(entity.getObservers(), entity.getBuffManager(), new StrengthAddable(entity.getStats().getStrength()*2), "damageBoost", 300);
+        return new BoonBuffAbility(entity, damageBuff, 8, 15);
+    }
+
+    public SelfBuffAbility createHealOverTime(Entity entity){
+        Buff healBuff = new HealOverTimeBuff(entity.getObservers(), entity.getBuffManager(), new CurrentHealthAddable(1), "healOverTime", 600, 60);
+        return new BoonBuffAbility(entity, healBuff, 8, 15);
+    }
 
 
 }

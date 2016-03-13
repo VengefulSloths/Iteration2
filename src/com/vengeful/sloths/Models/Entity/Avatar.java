@@ -227,8 +227,12 @@ public class Avatar extends Entity{
     }
 
     public void setPet(Pet pet) {
+        pet.alertAlive();
         this.pet = pet;
     }
 
-    public Pet removePet() { this.pet = null; return pet; }
+    public Pet removePet() {
+        this.pet.alertDead();
+        this.pet = null;
+        return pet; }
 }

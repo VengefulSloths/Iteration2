@@ -40,10 +40,10 @@ public class InputChangeMenu extends ScrollableMenu {
         list.addItem(new KeyBindMenuItem("Move SouthEast", KeyMapping.SOUTHEAST));
         list.addItem(new KeyBindMenuItem("Move SouthWest", KeyMapping.SOUTHWEST));
         list.addItem(new KeyBindMenuItem("Attack", KeyMapping.SPACE));
-        list.addItem(new KeyBindMenuItem("Ability 0", KeyMapping.ABILITY_0));
         list.addItem(new KeyBindMenuItem("Ability 1", KeyMapping.ABILITY_1));
         list.addItem(new KeyBindMenuItem("Ability 2", KeyMapping.ABILITY_2));
         list.addItem(new KeyBindMenuItem("Ability 3", KeyMapping.ABILITY_3));
+        list.addItem(new KeyBindMenuItem("Ability 4", KeyMapping.ABILITY_4));
 
         this.setList(list);
         //this.setBackground(Color.GRAY);

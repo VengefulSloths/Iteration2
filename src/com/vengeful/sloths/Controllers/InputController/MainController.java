@@ -5,6 +5,7 @@ import com.vengeful.sloths.Controllers.InputController.InputStrategies.Adaptable
 import com.vengeful.sloths.Menu.CharacterCreation.CharacterCreationView;
 import com.vengeful.sloths.Menu.ScrollableMenu;
 import com.vengeful.sloths.AreaView.ViewEngine;
+import com.vengeful.sloths.Models.DialogueTrade.DialogContainer;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Inventory.Inventory;
@@ -41,6 +42,7 @@ public class MainController implements Tickable{
     private SetInputsControllerState setInputsControllerState;
     private CharacterCreationControllerState characterCreationControllerState;
     private PickPocketControllerState pickPocketControllerState;
+    private DialogControllerState dialogControllerState;
 
 
 
@@ -69,6 +71,8 @@ public class MainController implements Tickable{
         setInputsControllerState = new SetInputsControllerState(inputStrategy);
         characterCreationControllerState = new CharacterCreationControllerState();
         pickPocketControllerState = new PickPocketControllerState();
+        dialogControllerState = new DialogControllerState();
+
         state = avatarControllerState;
 
         map = Map.getInstance();
@@ -101,6 +105,15 @@ public class MainController implements Tickable{
         inputStrategy.interpretReleasedKey(key, state);
     }
 
+    public void setDialogControllerState(DialogContainer dialogContainer){
+        viewManager.openDialogView();
+
+        dialogContainer.registerObserver(viewManager.getDialogView());
+
+        dialogControllerState.setDialogContainer(dialogContainer);
+        this.state = dialogControllerState;
+    }
+
     public void setCharacterCreationControllerState(){
         ViewEngine.getInstance().killOldView();
         CharacterCreationView view = new CharacterCreationView(500,400);
@@ -120,6 +133,7 @@ public class MainController implements Tickable{
         if(!viewManager.getPickPocketView().equals(null)){
             viewManager.closePickPocketView();
         }
+        viewManager.closeDialogView();
         System.out.println("Switching to avatar state");
     }
 

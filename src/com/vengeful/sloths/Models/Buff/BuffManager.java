@@ -43,13 +43,18 @@ public class BuffManager implements Tickable, ModelVisitable {
 
     public boolean removeBuff(Buff buff){
         if (buffs.remove(buff) ) {
-            System.out.println("about to remved buff");
             buff.remove(entity.getStats());
-            System.out.println("succesfilly remved buff");
             return true;
         }
         return false;
     }
+
+    public void removeAllBuffs(){
+        for(int i = 0; i < buffs.size(); i++){
+            removeBuff(buffs.get(i));
+        }
+    }
+
     public void destroy(){
         TimeModel.getInstance().removeTickable(this);
     }
@@ -59,7 +64,6 @@ public class BuffManager implements Tickable, ModelVisitable {
     @Override
     public void tick() {
         for (int i = buffs.size() - 1; i >=0; i-- ) {
-            System.out.println("applying on tick");
             buffs.get(i).applyOnTick(entity.getStats());
         }
     }

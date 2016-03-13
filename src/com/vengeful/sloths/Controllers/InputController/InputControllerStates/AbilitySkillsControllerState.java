@@ -3,20 +3,27 @@ package com.vengeful.sloths.Controllers.InputController.InputControllerStates;
 import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.Views.AbilitiesSkillsView.AbilitiesSkillView;
 
+import java.util.ArrayList;
+
 /**
  * Created by zach on 3/12/16.
  */
 public class AbilitySkillsControllerState extends InputControllerState {
     private AbilitiesSkillView abilitiesSkillView;
 
+    private int currStateIndex = 0;
     private InputControllerState state;
+    private ArrayList<InputControllerState> possibleStates;
 
     private SkillsControllerState skillsControllerState;
     private AbilityControllerState abilityControllerState;
 
     public AbilitySkillsControllerState() {
+        possibleStates = new ArrayList<>();
         this.abilityControllerState = new AbilityControllerState();
         this.skillsControllerState = new SkillsControllerState();
+        possibleStates.add(this.abilityControllerState);
+        possibleStates.add(this.skillsControllerState);
 
         this.state = this.abilityControllerState;
     }
@@ -45,6 +52,11 @@ public class AbilitySkillsControllerState extends InputControllerState {
 
     @Override
     public void onRegister() {
+
+    }
+
+    @Override
+    public void handleTalkKey() {
 
     }
 
@@ -121,22 +133,22 @@ public class AbilitySkillsControllerState extends InputControllerState {
 
     @Override
     public boolean handleLeftKey() {
-        return false;
+        return state.handleLeftKey();
     }
 
     @Override
     public boolean handleRightKey() {
-        return false;
+        return state.handleRightKey();
     }
 
     @Override
     public boolean handleDownKey() {
-        return false;
+        return state.handleDownKey();
     }
 
     @Override
     public boolean handleUpKey() {
-        return false;
+        return state.handleUpKey();
     }
 
     @Override
@@ -150,38 +162,40 @@ public class AbilitySkillsControllerState extends InputControllerState {
     }
 
     @Override
-    public void handleAbility0Key() {
-
-    }
-
-    // Set state to AbilityControllerState
-    @Override
     public void handleAbility1Key() {
-        // @TODO: Set state selected!
-
-        this.state = this.abilityControllerState;
-        this.skillsControllerState.resetView(false);
-        this.abilityControllerState.resetView(true);
-
+        state.handleAbility1Key();
     }
 
     @Override
     public void handleAbility2Key() {
-
+        state.handleAbility2Key();
     }
 
     @Override
     public void handleAbility3Key() {
-        // @TODO: Set state selected!
+        state.handleAbility3Key();
+    }
 
-        this.state = this.skillsControllerState;
-        this.skillsControllerState.resetView(true);
-        this.abilityControllerState.resetView(false);
+    @Override
+    public void handleAbility4Key() {
+        state.handleAbility4Key();
+    }
+
+    @Override
+    public void resetView(boolean isActive) {
+
     }
 
     @Override
     public boolean handleSpaceKey() {
-        return false;
+
+        currStateIndex = (currStateIndex + 1) % 2;
+
+        this.state = this.possibleStates.get(currStateIndex);
+        this.state.resetView(true);
+        this.possibleStates.get((currStateIndex+1)%2).resetView(false);
+
+        return true;
     }
 
     @Override

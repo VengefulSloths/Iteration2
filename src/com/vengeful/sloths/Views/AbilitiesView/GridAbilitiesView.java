@@ -16,8 +16,6 @@ import java.util.ArrayList;
  */
 public class GridAbilitiesView extends AbilitiesView implements AbilityManagerObserver {
 
-    private ArrayList<AbilityViewObject> itemList;
-
     public GridAbilitiesView(AbilityManager abilityManager) {
         super(abilityManager);
         this.setNumRows(5); //default numRows
@@ -48,7 +46,7 @@ public class GridAbilitiesView extends AbilitiesView implements AbilityManagerOb
                 b.paintBorder(this.getFromItemList(i), g, gcs.calculateXCoordBasedOnIndex(i), gcs.calculateYCoordBasedOnIndex(i), gcs.calculateSlotWidth(), gcs.calculateSlotHeight());
                 g.setFont(new Font(Font.DIALOG, Font.BOLD, 10));
                 g.setColor(Color.GREEN);
-                g.drawString(this.getFromItemList(i).getViewItem().getItemName(), gcs.calculateXCoordBasedOnIndex(i), gcs.calculateYCoordBasedOnIndex(i) + gcs.calculateSlotHeight() + boxHeight/4);
+                g.drawString(this.getFromItemList(i).getItemName(), gcs.calculateXCoordBasedOnIndex(i), gcs.calculateYCoordBasedOnIndex(i) + gcs.calculateSlotHeight() + boxHeight/4);
             }
         }
 
