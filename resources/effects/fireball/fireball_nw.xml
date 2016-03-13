@@ -6,5 +6,5 @@
     <startConfig>fireball.xml</startConfig>
     <endConfig>null.xml</endConfig>
     <fileName>fireball.png</fileName>
-    <positioning xOffset="-25" yOffset="-39">custom</positioning>
+    <positioning xOffset="-25" yOffset="15">custom</positioning>
 </dynamic_timed_animation>

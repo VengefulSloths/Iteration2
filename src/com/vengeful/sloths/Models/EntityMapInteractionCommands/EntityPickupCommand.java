@@ -36,7 +36,5 @@ public class EntityPickupCommand {
         for(int i = 0; i < entity.getInventory().getCurrentSize(); i++){
             System.out.println(entity.getInventory().getItem(i).getItemName());
         }
-
-
     }
 }
