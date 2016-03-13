@@ -17,6 +17,7 @@ import com.vengeful.sloths.Models.Entity.Piggy;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.DropAllGoldCommand;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Bow;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Hat;
@@ -45,10 +46,7 @@ import com.vengeful.sloths.Models.Map.Tile;
 import com.vengeful.sloths.Models.Stats.StatAddables.*;
 import com.vengeful.sloths.AreaView.PlainsCameraView;
 import com.vengeful.sloths.Models.Stats.Stats;
-import com.vengeful.sloths.Utility.Coord;
-import com.vengeful.sloths.Utility.Direction;
-import com.vengeful.sloths.Utility.HexMath;
-import com.vengeful.sloths.Utility.Location;
+import com.vengeful.sloths.Utility.*;
 
 import java.util.Iterator;
 
@@ -188,6 +186,8 @@ public class LevelFactory {
 //        area2.getTile(new Coord(2,2)).addTakeableItem(new TakeableItem("redPotion", new Potion("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(2,2)));
 
 
+        area1.getTile(new Coord(9, 2)).addTakeableItem(new TakeableItem("Bow", new Bow("Bow", new AgilityAddable(3), 3, WeaponClass.BOW), new Coord(9,2)));
+
         Quest quest1_b = new DoDestroyObstacleQuest(new Coord(2,3));
         Quest quest1_a = new HasItemQuest(quest1_b, "bluePotion");
         area1.getTile(new Coord(2,2)).addInteractiveItem(new InteractiveItem(quest1_a, new Coord(2,2)));
@@ -197,21 +197,21 @@ public class LevelFactory {
 
         Potion p = new Potion("redPotion", new CurrentHealthAddable(20));
         p.setValue(100000);
-        Piggy testPiggy = new Piggy("Bart", new Stats(new MovementAddable(30)));
-        testPiggy.getInventory().addItem(p);
-        testPiggy.getInventory().addItem(p);
-        testPiggy.getInventory().addItem(p);
-        testPiggy.getInventory().addItem(p);
-        testPiggy.setFacingDirection(Direction.S);
-        testPiggy.getStats().add(new BonusHealthAddable(100));
-//        testPiggy.getStats().setCurrentHealth(0);
-        Map.getInstance().addEntity(new Coord(3,5), testPiggy);
-        testPiggy.baddOOReceiveGoldForTesting(new Gold(100, new Coord()));
-        new PiggyControllerManager(Map.getInstance().getActiveMapArea(), testPiggy);
+//        Piggy testPiggy = new Piggy("Bart", new Stats(new MovementAddable(30)));
+//        testPiggy.getInventory().addItem(p);
+//        testPiggy.getInventory().addItem(p);
+//        testPiggy.getInventory().addItem(p);
+//        testPiggy.getInventory().addItem(p);
+//        testPiggy.setFacingDirection(Direction.S);
+//        testPiggy.getStats().add(new BonusHealthAddable(100));
+////        testPiggy.getStats().setCurrentHealth(0);
+//        Map.getInstance().addEntity(new Coord(3,5), testPiggy);
+//        testPiggy.baddOOReceiveGoldForTesting(new Gold(100, new Coord()));
+//        new PiggyControllerManager(Map.getInstance().getActiveMapArea(), testPiggy);
 
-        Avatar.getInstance().setPet(testPiggy);
+//        Avatar.getInstance().setPet(testPiggy);
 
-        TakeableItem piggyTotem = new TakeableItem("Piggy Totem", new PiggyTotem("Piggy Totem", testPiggy), new Coord(2,2));
+//        TakeableItem piggyTotem = new TakeableItem("Piggy Totem", new PiggyTotem("Piggy Totem", testPiggy), new Coord(2,2));
 
         FireBallAbility fireBallAbility = new FireBallAbility(Avatar.getInstance(), 150, 150, 150, 150);
         fireBallAbility.setItemName("Fire Ball");
@@ -224,7 +224,7 @@ public class LevelFactory {
 
         area1.getTile(new Coord(7,7)).addTakeableItem(new TakeableItem("Roids", new AbilityItem(roids), new Coord(7,7)));
 
-        testPiggy.setPiggyTotem(piggyTotem);
+//        testPiggy.setPiggyTotem(piggyTotem);
 
         //dialog test on piggy
 
@@ -241,20 +241,20 @@ public class LevelFactory {
 
 
         //stuff to test enemy controllers
-        AggressiveNPC testEnemy =  new AggressiveNPC("xXOG_SwaG_LorD_BlazE_MasteR_420_Xx", new Stats(new BaseStatsAddable(0,0,0,0,30)));
-        testEnemy.getInventory().addItem(p);
-        testEnemy.getInventory().addItem(p);
-        testEnemy.getInventory().addItem(p);
-        testEnemy.getInventory().addItem(p);
-        testEnemy.getInventory().addItem(p);
-        area2.getTile(new Coord(3,3)).addEntity(testEnemy);
-        testEnemy.setLocation(new Coord(3,3));
-        testEnemy.equip(new TwoHandedWeapon("cleaver", new StrengthAddable(1), 1));
-
-        //testEnemy.accept(TemporaryVOCreationVisitor.getInstance());
-        new AggressiveNPCControllerManager(area2, testEnemy);
-
-        testEnemy.getStats().subtract(new CurrentHealthAddable(1));
+//        AggressiveNPC testEnemy =  new AggressiveNPC("xXOG_SwaG_LorD_BlazE_MasteR_420_Xx", new Stats(new BaseStatsAddable(0,0,0,0,30)));
+//        testEnemy.getInventory().addItem(p);
+//        testEnemy.getInventory().addItem(p);
+//        testEnemy.getInventory().addItem(p);
+//        testEnemy.getInventory().addItem(p);
+//        testEnemy.getInventory().addItem(p);
+//        area2.getTile(new Coord(3,3)).addEntity(testEnemy);
+//        testEnemy.setLocation(new Coord(3,3));
+//        testEnemy.equip(new TwoHandedWeapon("cleaver", new StrengthAddable(1), 1));
+//
+//        //testEnemy.accept(TemporaryVOCreationVisitor.getInstance());
+//        new AggressiveNPCControllerManager(area2, testEnemy);
+//
+//        testEnemy.getStats().subtract(new CurrentHealthAddable(1));
 
 //        map.getActiveMapArea().getTile(spawnPoint).addEntity(Avatar.getInstance());
         cameras.addCameraView(area2, camera2);

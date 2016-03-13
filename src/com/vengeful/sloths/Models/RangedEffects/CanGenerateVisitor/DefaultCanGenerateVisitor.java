@@ -389,6 +389,16 @@ public class DefaultCanGenerateVisitor implements ModelVisitor{
     }
 
     @Override
+    public void visitBow(Bow bow) {
+
+    }
+
+    @Override
+    public void visitStaff(Staff staff) {
+
+    }
+
+    @Override
     public void visitStatsAddable(StatsAddable sa) {
 
     }

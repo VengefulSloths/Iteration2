@@ -758,6 +758,16 @@ public class SaveVisitor implements ModelVisitor {
         }
     }
 
+    @Override
+    public void visitBow(Bow bow) {
+
+    }
+
+    @Override
+    public void visitStaff(Staff staff) {
+
+    }
+
     public void visitStatsAddable(StatsAddable sa) {
         Element saElement = doc.createElement("StatsAddable");
         currentParent.peek().appendChild(saElement);

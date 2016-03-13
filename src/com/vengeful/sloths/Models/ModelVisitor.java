@@ -82,6 +82,8 @@ public interface ModelVisitor {
     void visitOneHandedWeapon(OneHandedWeapon ohw);
     void visitTwoHandedWeapon(TwoHandedWeapon thw);
     void visitKnuckle(Knuckle thw);
+    void visitBow(Bow bow);
+    void visitStaff(Staff staff);
     void visitStatsAddable(StatsAddable sa);
 
     void visitMapArea(MapArea mapArea);
