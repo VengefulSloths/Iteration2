@@ -14,7 +14,10 @@ import com.vengeful.sloths.Models.ModelEngine;
 import com.vengeful.sloths.Models.SaveLoad.SaveManager;
 import com.vengeful.sloths.Models.TimeModel.Tickable;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
+import com.vengeful.sloths.Views.InventoryView.GridInventoryView;
 import com.vengeful.sloths.Views.PickPocketView.PickPocketView;
+import com.vengeful.sloths.Views.TradeView.GridInvViewTrading;
+import com.vengeful.sloths.Views.TradeView.TradeView;
 import com.vengeful.sloths.Views.ViewManager.ViewManager;
 import com.vengeful.sloths.Views.ViewManager.ViewObjectManager;
 
@@ -45,6 +48,7 @@ public class MainController implements Tickable{
     private CharacterCreationControllerState characterCreationControllerState;
     private PickPocketControllerState pickPocketControllerState;
     private DialogControllerState dialogControllerState;
+    private TradeControllerState tradeContollerState;
 
     public InventoryEquipmentControllerState getInventoryEquipmentControllerState() {
         return inventoryEquipmentControllerState;
@@ -116,14 +120,6 @@ public class MainController implements Tickable{
         this.state = dialogControllerState;
     }
 
-    public void setCharacterCreationControllerState(){
-        ViewEngine.getInstance().killOldView();
-        CharacterCreationView view = new CharacterCreationView(500,400);
-        ViewEngine.getInstance().registerView(view);
-        characterCreationControllerState.setMenu(view);
-        this.state = characterCreationControllerState;
-    }
-
     public void setAvatarControllerState(){
         ModelEngine.getInstance().unpauseGame();
         this.state = this.avatarControllerState;
@@ -153,17 +149,6 @@ public class MainController implements Tickable{
     }
     */
 
-
-    public void setPickPocketControllerState(Entity e, Inventory inv, int pickPocketSkill){
-        //make a pickpocketView
-        PickPocketView pickPocketView = new PickPocketView(inv, e, pickPocketSkill);
-        viewManager.setPickPocketView(pickPocketView);
-        viewManager.openPickPocketView();
-        this.state = this.pickPocketControllerState;
-        pickPocketControllerState.initPickPocketValues(pickPocketView, inv,e);
-        //REMEMBER TO RESET ACTIVE
-        //PROBABLY GO IN A CALL IN PICKPOCKETVIEW
-    }
 
     public void setMenuControllerState(ScrollableMenu menu) {
         this.menuControllerState.setScrollableMenu(menu);
@@ -218,5 +203,35 @@ public class MainController implements Tickable{
 
     public void setInputStrategy(AdaptableStrategy inputStrategy) {
         this.inputStrategy = inputStrategy;
+    }
+
+    public void setCharacterCreationControllerState(){
+        ViewEngine.getInstance().killOldView();
+        CharacterCreationView view = new CharacterCreationView(500,400);
+        ViewEngine.getInstance().registerView(view);
+        characterCreationControllerState.setMenu(view);
+        this.state = characterCreationControllerState;
+    }
+
+    public void setTradeControllerState(Entity target, Inventory targInv, int bargainSkill) {
+
+        GridInvViewTrading avatarInvView = new GridInvViewTrading(Avatar.getInstance().getInventory(), bargainSkill);
+        //will need a different constructor and pass both bargin skills in and calculate based off that...or something...
+        GridInvViewTrading entityInvView = new GridInvViewTrading(targInv, bargainSkill);
+        TradeView tradeView = new TradeView(avatarInvView, entityInvView, bargainSkill);
+        viewManager.setTradeView(tradeView);
+        viewManager.openTradeView();
+        this.state = this.tradeContollerState;
+//        tradeContollerState.initTradeValues(tradeView, targInv,target);
+    }
+    public void setPickPocketControllerState(Entity e, Inventory inv, int pickPocketSkill){
+        //make a pickpocketView
+        PickPocketView pickPocketView = new PickPocketView(inv, e, pickPocketSkill);
+        viewManager.setPickPocketView(pickPocketView);
+        viewManager.openPickPocketView();
+        this.state = this.pickPocketControllerState;
+        pickPocketControllerState.initPickPocketValues(pickPocketView, inv,e);
+        //REMEMBER TO RESET ACTIVE
+        //PROBABLY GO IN A CALL IN PICKPOCKETVIEW
     }
 }

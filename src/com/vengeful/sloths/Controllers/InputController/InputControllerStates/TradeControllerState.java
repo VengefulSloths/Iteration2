@@ -1,27 +1,26 @@
 package com.vengeful.sloths.Controllers.InputController.InputControllerStates;
 
 import com.vengeful.sloths.Controllers.InputController.MainController;
-import com.vengeful.sloths.Models.EntityEntityInteractionCommands.EntityPickPocketCommand;
 import com.vengeful.sloths.Models.Entity.Entity;
+import com.vengeful.sloths.Models.EntityEntityInteractionCommands.EntityPickPocketCommand;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
-import com.vengeful.sloths.Views.PickPocketView.PickPocketView;
+import com.vengeful.sloths.Views.TradeView.TradeView;
 
 /**
- * Created by harrison on 3/12/16.
+ * Created by harrison on 3/13/16.
  */
-public class PickPocketControllerState extends InputControllerState{
-    private Entity target = null;
+public class TradeControllerState extends InputControllerState{
     private Inventory targInv = null;
-//    private int pickPocketSkill = 0;
-    private PickPocketView pickPocketView = null;
+    //    private int pickPocketSkill = 0;
+    private TradeView tradeView = null;
 
 
-    public void initPickPocketValues(PickPocketView pickPocketView, Inventory targInv, Entity target) {
-        this.pickPocketView = pickPocketView;
+    public void TradeView(TradeView tradeView, Inventory targInv) {
+        this.tradeView = tradeView;
         this.targInv = targInv;
-        this.target = target;
     }
+
     @Override
     public void continuousFunction() {
 
@@ -59,8 +58,6 @@ public class PickPocketControllerState extends InputControllerState{
 
     @Override
     public boolean handleInventoryKey() {
-        target.setDead(false);
-        target.setActive(false);
         MainController.getInstance().setAvatarControllerState();
         //MainController.getInstance().setInventoryControllerState();
         return true;
@@ -69,8 +66,6 @@ public class PickPocketControllerState extends InputControllerState{
 
     @Override
     public boolean handleESCKey() {
-        target.setDead(false);
-        target.setActive(false);
         MainController.getInstance().setAvatarControllerState();
         return false;
     }
@@ -82,12 +77,12 @@ public class PickPocketControllerState extends InputControllerState{
 
 
     public boolean handleSouthKey() {
-        this.pickPocketView.selectSouthItem();
+//        this.tradeView.selectSouthItem();
         return true;
     }
 
     public void resetInventoryView() {
-        this.pickPocketView.resetInventoryView();
+//        this.tradeView.resetInventoryView();
     }
 
     @Override
@@ -127,13 +122,13 @@ public class PickPocketControllerState extends InputControllerState{
 
 
     public boolean handleWestKey() {
-        this.pickPocketView.selectWestItem();
+//        this.tradeView.selectWestItem();
         return true;
     }
 
     @Override
     public boolean handleEastKey() {
-        this.pickPocketView.selectEastItem();
+//        this.pickPocketView.selectEastItem();
         return true;
     }
 
@@ -145,15 +140,15 @@ public class PickPocketControllerState extends InputControllerState{
 
     public boolean handleNorthKey() {
         // Move up an item
-        this.pickPocketView.selectNorthItem();
+//        this.tradeView.selectNorthItem();
         return true;
     }
 
     @Override
     public boolean handleNorthEastKey() {
 //        this.pickPocketView.useCurrentlySelectedItem();
-        InventoryItem item = this.pickPocketView.getCurrentItem();
-        new EntityPickPocketCommand(target,targInv,item).execute();
+//        InventoryItem item = this.tradeView.getCurrentItem();
+        //ENTITY TRADE COMMAND
         return true;
 
     }
@@ -170,27 +165,27 @@ public class PickPocketControllerState extends InputControllerState{
 
     @Override
     public boolean handleLeftKey() {
-        this.pickPocketView.selectWestItem();
+//        this.tradeView.selectWestItem();
         return false;
     }
 
     @Override
     public boolean handleRightKey() {
 
-        this.pickPocketView.selectEastItem();
+//        this.tradeView.selectEastItem();
         return false;
     }
 
     @Override
     public boolean handleDownKey() {
 
-        this.pickPocketView.selectSouthItem();
+//        this.tradeView.selectSouthItem();
         return false;
     }
 
     @Override
     public boolean handleUpKey() {
-        this.pickPocketView.selectNorthItem();
+//        this.tradeView.selectNorthItem();
         return false;
     }
 

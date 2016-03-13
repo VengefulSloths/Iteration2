@@ -11,6 +11,7 @@ import com.vengeful.sloths.Views.DialogView.DialogView;
 import com.vengeful.sloths.Views.HUDView.HUDView;
 import com.vengeful.sloths.AreaView.AreaView;
 import com.vengeful.sloths.Views.PickPocketView.PickPocketView;
+import com.vengeful.sloths.Views.TradeView.TradeView;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -33,6 +34,7 @@ public class ViewManager extends JPanel {
     private InputChangeMenu keyBindView;
     private ChooseSaveMenu chooseSaveView;
     private PickPocketView pickPocketView;
+    private TradeView tradeView;
 
 
     JPanel sidePanel;
@@ -137,6 +139,18 @@ public class ViewManager extends JPanel {
     public void closePickPocketView(){
         try {
             remove(pickPocketView);
+        }catch(NullPointerException e){
+            //nbd
+        }
+        this.revalidate();
+        this.repaint();
+    }
+    public void openTradeView(){
+        addView(tradeView);
+    }
+    public void closeTradeView(){
+        try {
+            remove(tradeView);
         }catch(NullPointerException e){
             //nbd
         }
@@ -253,5 +267,13 @@ public class ViewManager extends JPanel {
 
     public void setPickPocketView(PickPocketView pickPocketView) {
         this.pickPocketView = pickPocketView;
+    }
+
+    public TradeView getTradeView() {
+        return tradeView;
+    }
+
+    public void setTradeView(TradeView tradeView) {
+        this.tradeView = tradeView;
     }
 }
