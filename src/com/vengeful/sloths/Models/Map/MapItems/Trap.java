@@ -91,4 +91,16 @@ public class Trap extends MapItem implements ModelVisitable, ViewObservable{
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitTrap(this);
     }
+
+    public int getDamageTaken() {
+        return damageTaken;
+    }
+
+    public void setDamageTaken(int damageTaken) {
+        this.damageTaken = damageTaken;
+    }
+
+    public void setVisible(boolean visible) {
+        isVisible = visible;
+    }
 }

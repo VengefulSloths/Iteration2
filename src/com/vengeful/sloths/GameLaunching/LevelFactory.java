@@ -195,7 +195,7 @@ public class LevelFactory {
 
         testPiggy.setFacingDirection(Direction.S);
         testPiggy.getStats().add(new BonusHealthAddable(100));
-        testPiggy.getStats().setCurrentHealth(0);
+//        testPiggy.getStats().setCurrentHealth(0);
         Map.getInstance().addEntity(new Coord(3,5), testPiggy);
         testPiggy.baddOOReceiveGoldForTesting(new Gold(100, new Coord()));
         new PiggyControllerManager(Map.getInstance().getActiveMapArea(), testPiggy);
