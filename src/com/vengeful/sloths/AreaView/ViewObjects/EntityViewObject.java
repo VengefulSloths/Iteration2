@@ -82,10 +82,10 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
                             getYPixels() + getLocationYOffset() + mountImage.getYOffset(),
                             this);
                 }
+                paintBody(g);
                 if(healthBar != null) {
                     healthBar.paintComponent(g);
                 }
-                paintBody(g);
             }
         }
     }
@@ -224,6 +224,7 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     public final void alertMount(String mountName) {
         System.out.println("just mounted");
         this.setCustomYOffset(-20);
+        healthBar.setCustomYOffset(-20);
         mountImage = DynamicImageFactory.getInstance().loadDynamicImage("resources/mount/" + mountName + ".xml");
         this.isMounted = true;
         ViewTime.getInstance().registerAlert(0, () -> mountAnimation());
@@ -243,6 +244,7 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     @Override
     public void alertDemount() {
         this.setCustomYOffset(0);
+        healthBar.setCustomYOffset(-20);
         this.isMounted = false;
     }
 

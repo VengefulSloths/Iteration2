@@ -102,8 +102,9 @@ public class MainController implements Tickable{
     }
 
     public void setDialogControllerState(DialogContainer dialogContainer){
-        //swap out views here
+        viewManager.openDialogView();
 
+        dialogContainer.registerObserver(viewManager.getDialogView());
 
         dialogControllerState.setDialogContainer(dialogContainer);
         this.state = dialogControllerState;
@@ -126,6 +127,7 @@ public class MainController implements Tickable{
         viewManager.closeMenuView();
         viewManager.closeKeyBindView();
         viewManager.closeChooseSaveView();
+        viewManager.closeDialogView();
         System.out.println("Switching to avatar state");
     }
 

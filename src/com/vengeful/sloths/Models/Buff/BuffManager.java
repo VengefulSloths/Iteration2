@@ -43,9 +43,7 @@ public class BuffManager implements Tickable, ModelVisitable {
 
     public boolean removeBuff(Buff buff){
         if (buffs.remove(buff) ) {
-            System.out.println("about to remved buff");
             buff.remove(entity.getStats());
-            System.out.println("succesfilly remved buff");
             return true;
         }
         return false;
@@ -59,7 +57,6 @@ public class BuffManager implements Tickable, ModelVisitable {
     @Override
     public void tick() {
         for (int i = buffs.size() - 1; i >=0; i-- ) {
-            System.out.println("applying on tick");
             buffs.get(i).applyOnTick(entity.getStats());
         }
     }
