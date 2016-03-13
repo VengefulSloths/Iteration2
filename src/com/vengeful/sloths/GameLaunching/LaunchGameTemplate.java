@@ -71,6 +71,7 @@ public class LaunchGameTemplate {
 
 
         avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createStealthAbility(avatar), 0);
+        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createProtectFromEvil(avatar), 1);
         /**************************/
 
         AreaView areaView = new AreaView(cameras);

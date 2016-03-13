@@ -4,6 +4,8 @@ import com.vengeful.sloths.AreaView.CameraViewManager;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Map.Map;
+import com.vengeful.sloths.Models.Stats.StatAddables.BonusHealthAddable;
+import com.vengeful.sloths.Models.Stats.StatAddables.GenericStatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Models.TimeModel.Alertable;
 import com.vengeful.sloths.Utility.Coord;
@@ -35,7 +37,7 @@ public class LaunchNewGame implements LaunchGameHelper {
     }
     @Override
     public Avatar createAvatar() {
-        Avatar.getInstance().avatarInit("Smasher", new Stats());
+        Avatar.getInstance().avatarInit("Smasher", new Stats(new BonusHealthAddable(30)));
         return Avatar.getInstance();
     }
 }

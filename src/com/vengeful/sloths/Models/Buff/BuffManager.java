@@ -33,15 +33,19 @@ public class BuffManager implements Tickable, ModelVisitable {
     }
 
     public void addBuff(Buff buff){
-        if (!buffs.contains(buff)) {
-            buff.apply(entity.getStats());
-            this.buffs.add(buff);
+        if (buffs.contains(buff)) {
+            this.removeBuff(buff);
         }
+        buff.apply(entity.getStats());
+        this.buffs.add(buff);
+
     }
 
     public boolean removeBuff(Buff buff){
         if (buffs.remove(buff) ) {
+            System.out.println("about to remved buff");
             buff.remove(entity.getStats());
+            System.out.println("succesfilly remved buff");
             return true;
         }
         return false;
@@ -54,10 +58,9 @@ public class BuffManager implements Tickable, ModelVisitable {
 //    }
     @Override
     public void tick() {
-        //System.out.println("tick"); //THIS LINE WAS TOO HARD TO FIND
-        for (Iterator<Buff> iterator = buffs.iterator(); iterator.hasNext();) {
-            Buff buff = iterator.next();
-            buff.applyOnTick(entity.getStats());
+        for (int i = buffs.size() - 1; i >=0; i-- ) {
+            System.out.println("applying on tick");
+            buffs.get(i).applyOnTick(entity.getStats());
         }
     }
 

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<single_frame_animation>
+  <width>16</width>
+  <height>16</height>
+  <rootPath>resources/buffs/</rootPath>
+  <fileName>protection.png</fileName>
+  <positioning>center</positioning>
+</single_frame_animation>
