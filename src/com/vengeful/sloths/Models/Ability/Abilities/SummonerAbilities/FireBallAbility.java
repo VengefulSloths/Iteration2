@@ -80,7 +80,7 @@ public class FireBallAbility extends Ability{
 
     private void doAbility(){
         //TODO: better formula.
-        int damage = entity.getStats().getOffensiveRating() * (1 + entity.getSkillManager().getBaneLevel());
+        int damage = (entity.getStats().getStrength() + entity.getEquipped().getWeapon().getBaseDamage()) * (2 + entity.getSkillManager().getBaneLevel());
 
         Coord firingLocation = HexMath.getNextFacingCoord(entity.getLocation(), entity.getFacingDirection());
         //If the attempt to fire the ability did not fail, then initial fireball hit target accuracy = 100

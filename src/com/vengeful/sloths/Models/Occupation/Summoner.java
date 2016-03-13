@@ -18,8 +18,8 @@ public class Summoner extends Occupation {
         stats.add(new BaseStatsAddable(0, 0, 10, 0, 0));
         this.addSharedSkills(skillManager);
         skillManager.addSkill(new Skill("enchantment"));
-        skillManager.addSkill(new Skill("boon"));
-        skillManager.addSkill(new Skill("bane"));
+        //skillManager.addSkill(new Skill("boon"));
+        //skillManager.addSkill(new Skill("bane"));
         skillManager.addSkill(new Skill("staff"));
 
         this.addSharedAbility(abilityManager, entity);

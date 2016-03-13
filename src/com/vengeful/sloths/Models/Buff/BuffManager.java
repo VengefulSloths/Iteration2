@@ -50,6 +50,13 @@ public class BuffManager implements Tickable, ModelVisitable {
         }
         return false;
     }
+
+    public void removeAllBuffs(){
+        for(int i = 0; i < buffs.size(); i++){
+            removeBuff(buffs.get(i));
+        }
+    }
+
     public void destroy(){
         TimeModel.getInstance().removeTickable(this);
     }

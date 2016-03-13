@@ -57,4 +57,12 @@ public class SelfBuffAbility extends Ability {
     public void setBuff(Buff buff) {
         this.buff = buff;
     }
+
+    public Entity getTarget() {
+        return target;
+    }
+
+    public void setTarget(Entity target) {
+        this.target = target;
+    }
 }

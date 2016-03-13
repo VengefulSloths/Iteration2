@@ -62,11 +62,8 @@ public class ExplosionAbility extends Ability{
 
 
     private void doAbility(){
-        int damage = entity.getStats().getOffensiveRating() * (1 + entity.getSkillManager().getBaneLevel());
+        int damage = (entity.getStats().getStrength() + entity.getEquipped().getWeapon().getBaseDamage()) * (2 + entity.getSkillManager().getBaneLevel());
 
-        //If the attempt to fire the ability did not fail, then initial fireball hit target accuracy = 100
-        //RangedEffectGenerator reg = new EntityBlockLineEffectGenerator("fireball", entity.getLocation(), entity.getFacingDirection(), this.travelDistance, this.travelTime, damage, 100);
-        //reg.createRangedEffect();
         RangedEffectGenerator reg = new RadialEffectGenerator("explosion", entity.getLocation(), this.expandingDistance, this.expandingTime, damage, 100, canGenerateVisitor);
         reg.createRangedEffect();
     }
