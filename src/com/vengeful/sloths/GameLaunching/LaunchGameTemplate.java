@@ -78,8 +78,8 @@ public class LaunchGameTemplate {
         //avatar.equip(new Mount("mount", 10)); //edit
 
 //        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createStealthAbility(avatar), 0);
-        avatar.getAbilityManager().equipAbility(new PickPocketAbility(), 0);
-        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createProtectFromEvil(avatar), 1);
+        avatar.getAbilityManager().equipAbility(new PickPocketAbility(), 1);
+//        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createProtectFromEvil(avatar), 1);
         avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createDamageBoost(avatar), 2);
         avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createHealOverTime(avatar), 3);
         /**************************/

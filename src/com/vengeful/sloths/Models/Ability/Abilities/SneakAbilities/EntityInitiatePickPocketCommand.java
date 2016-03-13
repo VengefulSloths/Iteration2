@@ -47,11 +47,13 @@ public class EntityInitiatePickPocketCommand {
                 break;
         }
         Entity[] e = Map.getInstance().getTile(dst).getEntities();
-        this.target = e[0];
-        this.pickPocketSkill = a.getSkillManager().getPickPocketLevel();
-        target.setDead(true);
-        //a.setDead(true);
-        targInv = target.getInventory();
+        if(e.length > 0){
+            this.target = e[0];
+            this.pickPocketSkill = a.getSkillManager().getPickPocketLevel();
+            target.setDead(true);
+            //a.setDead(true);
+            targInv = target.getInventory();
+        }
     }
 
     public void execute(){

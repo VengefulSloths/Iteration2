@@ -130,9 +130,7 @@ public class MainController implements Tickable{
         viewManager.closeMenuView();
         viewManager.closeKeyBindView();
         viewManager.closeChooseSaveView();
-        if(!viewManager.getPickPocketView().equals(null)){
-            viewManager.closePickPocketView();
-        }
+        viewManager.closePickPocketView();
         viewManager.closeDialogView();
         System.out.println("Switching to avatar state");
     }

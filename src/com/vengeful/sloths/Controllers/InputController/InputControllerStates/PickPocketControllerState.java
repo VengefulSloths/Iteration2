@@ -91,7 +91,6 @@ public class PickPocketControllerState extends InputControllerState{
         return false;
     }
 
-    @Override
     public void handleAbility0Key() {
 
     }
@@ -108,6 +107,11 @@ public class PickPocketControllerState extends InputControllerState{
 
     @Override
     public void handleAbility3Key() {
+
+    }
+
+    @Override
+    public void handleAbility4Key() {
 
     }
 
@@ -185,6 +189,11 @@ public class PickPocketControllerState extends InputControllerState{
     }
 
     @Override
+    public void handleTalkKey() {
+
+    }
+
+    @Override
     public void handleReleaseSouthWestKey() {
 
     }
@@ -251,6 +260,11 @@ public class PickPocketControllerState extends InputControllerState{
     @Override
     public boolean handleReleaseUpKey() {
         return false;
+    }
+
+    @Override
+    public void resetView(boolean isActive) {
+
     }
 
     @Override
