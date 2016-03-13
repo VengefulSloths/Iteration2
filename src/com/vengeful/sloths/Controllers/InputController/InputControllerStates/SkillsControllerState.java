@@ -26,6 +26,11 @@ public class SkillsControllerState extends  InputControllerState {
     }
 
     @Override
+    public void handleTalkKey() {
+
+    }
+
+    @Override
     public void onDeregister() {
 
     }

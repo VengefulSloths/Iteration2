@@ -1,16 +1,13 @@
 package com.vengeful.sloths.Controllers.InputController.InputControllerStates;
 
-import com.vengeful.sloths.GameLaunching.LaunchGameTemplate;
-import com.vengeful.sloths.GameLaunching.LaunchNewGame;
-import com.vengeful.sloths.Menu.CharacterCreation.CharacterCreationView;
+import com.vengeful.sloths.Models.DialogueTrade.DialogContainer;
 
 /**
  * Created by John on 3/12/2016.
  */
-public class CharacterCreationControllerState extends InputControllerState {
+public class DialogControllerState extends InputControllerState {
 
-    private CharacterCreationView menu;
-
+    private DialogContainer dialogContainer;
     @Override
     public void continuousFunction() {
 
@@ -87,11 +84,16 @@ public class CharacterCreationControllerState extends InputControllerState {
     }
 
     @Override
-    public boolean handleCenterKey() {
-        System.out.println("launch game");
+    public void handleTalkKey() {
+        System.out.println("DIALOGGING");
+        dialogContainer.next();
 
-        LaunchGameTemplate launcher = new LaunchGameTemplate(new LaunchNewGame());
-        launcher.launch(menu.getOccupation());
+    }
+
+    @Override
+    public boolean handleCenterKey() {
+        System.out.println("DIALOGGING");
+        dialogContainer.next();
         return false;
     }
 
@@ -102,13 +104,11 @@ public class CharacterCreationControllerState extends InputControllerState {
 
     @Override
     public boolean handleLeftKey() {
-        menu.left();
         return false;
     }
 
     @Override
     public boolean handleRightKey() {
-        menu.right();
         return false;
     }
 
@@ -129,9 +129,6 @@ public class CharacterCreationControllerState extends InputControllerState {
 
     @Override
     public void handleEnterKey() {
-        System.out.println("launch game");
-        LaunchGameTemplate launcher = new LaunchGameTemplate(new LaunchNewGame());
-        launcher.launch(menu.getOccupation());
 
     }
 
@@ -152,11 +149,6 @@ public class CharacterCreationControllerState extends InputControllerState {
 
     @Override
     public void handleAbility3Key() {
-
-    }
-
-    @Override
-    public void handleTalkKey() {
 
     }
 
@@ -230,11 +222,11 @@ public class CharacterCreationControllerState extends InputControllerState {
         return false;
     }
 
-    public CharacterCreationView getMenu() {
-        return menu;
+    public DialogContainer getDialogContainer() {
+        return dialogContainer;
     }
 
-    public void setMenu(CharacterCreationView menu) {
-        this.menu = menu;
+    public void setDialogContainer(DialogContainer dialogContainer) {
+        this.dialogContainer = dialogContainer;
     }
 }

@@ -8,6 +8,8 @@ import com.vengeful.sloths.Controllers.ControllerManagers.PiggyControllerManager
 import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
 import com.vengeful.sloths.Models.Ability.AbilityFactory;
+import com.vengeful.sloths.Models.DialogueTrade.DialogContainer;
+import com.vengeful.sloths.Models.DialogueTrade.TerminalDialogContainer;
 import com.vengeful.sloths.Models.Entity.AggressiveNPC;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.Piggy;
@@ -211,6 +213,9 @@ public class LevelFactory {
 
         testPiggy.setPiggyTotem(piggyTotem);
 
+        //dialog test on piggy
+
+
         camera2.init(area2);
         camera1.init(area1);
 
@@ -227,6 +232,7 @@ public class LevelFactory {
         area2.getTile(new Coord(3,3)).addEntity(testEnemy);
         testEnemy.setLocation(new Coord(3,3));
         testEnemy.equip(new TwoHandedWeapon("cleaver", new StrengthAddable(1), 1));
+
         //testEnemy.accept(TemporaryVOCreationVisitor.getInstance());
         new AggressiveNPCControllerManager(area2, testEnemy);
 

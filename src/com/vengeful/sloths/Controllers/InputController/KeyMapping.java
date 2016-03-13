@@ -28,7 +28,8 @@ public enum KeyMapping {
     ABILITY_1(21),
     ABILITY_2(22),
     ABILITY_3(23),
-    ABILITIES(24);
+    ABILITIES(24),
+    TALK(25);
 
     private int value;
 
