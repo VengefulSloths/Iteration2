@@ -20,10 +20,13 @@ public class InventoryControllerState extends InputControllerState{
         this.inventoryView = inventoryView;
     }
 
+    public void setSelected(boolean isActive) {
+        this.inventoryView.setSelected(isActive);
+    }
+
     public InventoryControllerState() {
 
     }
-
 
     @Override
     public void continuousFunction() {
@@ -143,7 +146,7 @@ public class InventoryControllerState extends InputControllerState{
 
     @Override
     public void resetView(boolean isActive) {
-
+        this.inventoryView.setSelected(isActive);
     }
 
     @Override
@@ -263,7 +266,6 @@ public class InventoryControllerState extends InputControllerState{
     @Override
     public void handleEnterKey() {
         this.inventoryView.useCurrentlySelectedItem();
-
     }
 
     @Override
