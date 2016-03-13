@@ -31,6 +31,7 @@ public class ViewEngine extends JFrame implements Runnable{
         //this.setSize(1200, 1000);
         this.setPreferredSize(new Dimension(Config.instance().getWindowWidth(), Config.instance().getWindowHeight())); //edit
         this.setSize(Config.instance().getWindowWidth(), Config.instance().getWindowHeight()); //edit
+        this.pack();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);

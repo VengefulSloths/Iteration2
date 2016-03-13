@@ -11,7 +11,17 @@ public abstract class DynamicImage {
     private int width;
 
     public abstract Image getImage();
-    public abstract String getCurrentImagePath();
+
+    public String getCurrentImagePath() {
+        try {
+            return doGetCurrentImagePath();
+        } catch (NullPointerException e) {
+            System.out.println("COULD NOT FIND DYNAMIC IMAGE");
+            e.printStackTrace();
+            return "resources/null/file_not_found.png";
+        }
+    }
+    public abstract String doGetCurrentImagePath();
     //TODO pull positioningStrategy out of the config
     public DynamicImage(int width, int height, PositioningStrategy positioningStrategy) {
         this.positioningStrategy = positioningStrategy;

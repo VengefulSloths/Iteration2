@@ -4,6 +4,7 @@ import com.vengeful.sloths.Controllers.InputController.InputStrategies.Adaptable
 import com.vengeful.sloths.Controllers.InputController.KeyMapping;
 import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.Models.Ability.Abilities.*;
+import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.PickPocketAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.RemoveTrapAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.StealthAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.AngleSpellAbility;
@@ -562,6 +563,11 @@ public class SaveVisitor implements ModelVisitor {
             System.out.println("error saving piggy totem");
         }
         currentParent.pop();
+    }
+
+    @Override
+    public void visitPickPocketAbility(PickPocketAbility pickPocketAbility) {
+
     }
 
     @Override

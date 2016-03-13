@@ -2,6 +2,7 @@ package com.vengeful.sloths.Models.EntityMapInteractionCommands;
 
 import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
 import com.vengeful.sloths.Models.Ability.Abilities.*;
+import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.PickPocketAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.RemoveTrapAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.StealthAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.AngleSpellAbility;
@@ -376,6 +377,11 @@ public class NonTeleMoveVisitor extends CanMoveVisitor{
 
     @Override
     public void visitPiggyTotem(PiggyTotem piggyTotem) {
+
+    }
+
+    @Override
+    public void visitPickPocketAbility(PickPocketAbility pickPocketAbility) {
 
     }
 

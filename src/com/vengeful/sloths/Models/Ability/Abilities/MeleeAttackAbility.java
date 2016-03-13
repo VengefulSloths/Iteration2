@@ -29,7 +29,7 @@ public class MeleeAttackAbility extends Ability {
     private int baseDamage;
 
     public MeleeAttackAbility(Entity entity, Skill relevantSkill, int baseDamage, int windTicks, int coolTicks) {
-        super(windTicks, coolTicks);
+        super("Melee Attack", windTicks, coolTicks);
         this.entity = entity;
         this.stats = entity.getStats();
         this.relevantSkill = relevantSkill;

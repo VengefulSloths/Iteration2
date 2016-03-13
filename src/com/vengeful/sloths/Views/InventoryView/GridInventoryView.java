@@ -24,6 +24,7 @@ public class GridInventoryView extends InventoryView implements InventoryObserve
         this.setNumRows(5); //default numRows
         this.setNumCols(4); //default numCols
     }
+    public GridInventoryView(){}
 
     public GridInventoryView(Inventory inventory, int numRows, int numCols) {
         super(inventory, numRows, numCols);
@@ -45,7 +46,7 @@ public class GridInventoryView extends InventoryView implements InventoryObserve
             g.setColor(Color.WHITE);
             this.getFromItemList(i).paintComponent(g, gcs.calculateXCoordBasedOnIndex(i), gcs.calculateYCoordBasedOnIndex(i), gcs.calculateSlotWidth(), gcs.calculateSlotHeight());
             g.drawString(this.getFromItemList(i).getViewItem().getItemName(), gcs.calculateXCoordBasedOnIndex(i), gcs.calculateYCoordBasedOnIndex(i) + gcs.calculateSlotHeight() + boxHeight/4);
-            if(this.getFromItemList(i).isSelected()) {
+            if(this.getFromItemList(i).isSelected() && this.isSelected()) { //edit?
                 Border b = BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.WHITE, Color.WHITE);
                 b.paintBorder(this.getFromItemList(i), g, gcs.calculateXCoordBasedOnIndex(i), gcs.calculateYCoordBasedOnIndex(i), gcs.calculateSlotWidth(), gcs.calculateSlotHeight());
                 //g.setFont(new Font(Font.DIALOG, Font.BOLD, 10));

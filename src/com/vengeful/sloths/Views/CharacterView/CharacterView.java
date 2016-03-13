@@ -119,7 +119,6 @@ public class CharacterView extends JPanel {
         //this.setBorder(new LineBorder(Color.WHITE));
         this.containerPanel.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(15.0f)));
 
-
     }
 
     public void paintComponent(Graphics g) {

@@ -10,6 +10,7 @@ import com.vengeful.sloths.Views.CharacterView.CharacterView;
 import com.vengeful.sloths.Views.DialogView.DialogView;
 import com.vengeful.sloths.Views.HUDView.HUDView;
 import com.vengeful.sloths.AreaView.AreaView;
+import com.vengeful.sloths.Views.PickPocketView.PickPocketView;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -31,6 +32,9 @@ public class ViewManager extends JPanel {
     private InGameScrollableMenu menuView;
     private InputChangeMenu keyBindView;
     private ChooseSaveMenu chooseSaveView;
+    private PickPocketView pickPocketView;
+
+
     JPanel sidePanel;
 
     protected static final int AREA_VIEW_WIDTH =(int) Config.instance().getAreaViewWidth();
@@ -126,6 +130,18 @@ public class ViewManager extends JPanel {
 
         this.dialogView = new DialogView();
 
+    }
+    public void openPickPocketView(){
+        addView(pickPocketView);
+    }
+    public void closePickPocketView(){
+        try {
+            remove(pickPocketView);
+        }catch(NullPointerException e){
+            //nbd
+        }
+        this.revalidate();
+        this.repaint();
     }
 
     public void openChooseSaveView(){
@@ -229,5 +245,13 @@ public class ViewManager extends JPanel {
 
     public void setChooseSaveView(ChooseSaveMenu chooseSaveView) {
         this.chooseSaveView = chooseSaveView;
+    }
+
+    public PickPocketView getPickPocketView() {
+        return pickPocketView;
+    }
+
+    public void setPickPocketView(PickPocketView pickPocketView) {
+        this.pickPocketView = pickPocketView;
     }
 }

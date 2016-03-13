@@ -66,7 +66,7 @@ public class DynamicTimedImage extends DynamicImage {
     }
 
     @Override
-    public String getCurrentImagePath() {
+    public String doGetCurrentImagePath() {
         this.resolveState();
         if (currentState == state.PRE) {
             return startImage.getCurrentImagePath();

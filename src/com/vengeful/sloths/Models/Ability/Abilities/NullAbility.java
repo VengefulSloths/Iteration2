@@ -9,7 +9,7 @@ import com.vengeful.sloths.Models.ModelVisitor;
 public class NullAbility extends Ability {
 
     public NullAbility() {
-        super(1, 2);
+        super("Null", 1, 2);
 
     }
 

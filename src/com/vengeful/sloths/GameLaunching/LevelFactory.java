@@ -6,6 +6,7 @@ import com.vengeful.sloths.AreaView.TemporaryVOCreationVisitor;
 import com.vengeful.sloths.Controllers.ControllerManagers.AggressiveNPCControllerManager;
 import com.vengeful.sloths.Controllers.ControllerManagers.PiggyControllerManager;
 import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SelfBuffAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
 import com.vengeful.sloths.Models.Ability.AbilityFactory;
 import com.vengeful.sloths.Models.DialogueTrade.DialogContainer;
@@ -14,6 +15,7 @@ import com.vengeful.sloths.Models.Entity.AggressiveNPC;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.Piggy;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.DropAllGoldCommand;
+import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
@@ -193,9 +195,13 @@ public class LevelFactory {
         CameraView camera2 = new PlainsCameraView();
         CameraView camera1 = new PlainsCameraView();
 
-
+        Potion p = new Potion("redPotion", new CurrentHealthAddable(20));
+        p.setValue(100000);
         Piggy testPiggy = new Piggy("Bart", new Stats(new MovementAddable(30)));
-
+        testPiggy.getInventory().addItem(p);
+        testPiggy.getInventory().addItem(p);
+        testPiggy.getInventory().addItem(p);
+        testPiggy.getInventory().addItem(p);
         testPiggy.setFacingDirection(Direction.S);
         testPiggy.getStats().add(new BonusHealthAddable(100));
 //        testPiggy.getStats().setCurrentHealth(0);
@@ -210,6 +216,13 @@ public class LevelFactory {
         FireBallAbility fireBallAbility = new FireBallAbility(Avatar.getInstance(), 150, 150, 150, 150);
         fireBallAbility.setItemName("Fire Ball");
         area1.getTile(new Coord(3,3)).addTakeableItem(new TakeableItem("Fire Ball", new AbilityItem(fireBallAbility), new Coord(3,3)));
+
+        SelfBuffAbility hot = AbilityFactory.getInstance().createHealOverTime(Avatar.getInstance());
+
+        SelfBuffAbility roids = AbilityFactory.getInstance().createDamageBoost(Avatar.getInstance());
+
+
+        area1.getTile(new Coord(7,7)).addTakeableItem(new TakeableItem("Roids", new AbilityItem(roids), new Coord(7,7)));
 
         testPiggy.setPiggyTotem(piggyTotem);
 
@@ -229,6 +242,11 @@ public class LevelFactory {
 
         //stuff to test enemy controllers
         AggressiveNPC testEnemy =  new AggressiveNPC("xXOG_SwaG_LorD_BlazE_MasteR_420_Xx", new Stats(new BaseStatsAddable(0,0,0,0,30)));
+        testEnemy.getInventory().addItem(p);
+        testEnemy.getInventory().addItem(p);
+        testEnemy.getInventory().addItem(p);
+        testEnemy.getInventory().addItem(p);
+        testEnemy.getInventory().addItem(p);
         area2.getTile(new Coord(3,3)).addEntity(testEnemy);
         testEnemy.setLocation(new Coord(3,3));
         testEnemy.equip(new TwoHandedWeapon("cleaver", new StrengthAddable(1), 1));

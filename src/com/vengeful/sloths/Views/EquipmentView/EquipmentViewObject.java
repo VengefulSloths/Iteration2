@@ -9,6 +9,8 @@ import com.vengeful.sloths.Views.ViewFactory.ItemImageFactory;
 import com.vengeful.sloths.Views.ViewFactory.ViewItem;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 import java.awt.*;
 
 /**
@@ -79,6 +81,10 @@ public class EquipmentViewObject extends ItemViewObject {
 
         if(this.getViewItem().getItemName()!=null) {
             g.drawString(itemName, stringXCoord, y+stringHeight);
+            if(this.isSelected()) {
+                Border b = BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.GREEN, Color.WHITE);
+                b.paintBorder(this, g, x, y, containerWidth, containerHeight);
+            }
             if(this.getEquipmentItem().getItemStats().toString().length()>0) {
                 g.drawString(itemStats, stringXCoord, y+2*stringHeight + containerHeight/10);
                 g.drawString(itemDescription, stringXCoord, y+3*stringHeight + 2*containerHeight/10);

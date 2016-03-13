@@ -29,7 +29,7 @@ public class RepeatingImage extends DynamicImage {
     }
 
     @Override
-    public String getCurrentImagePath() {
+    public String doGetCurrentImagePath() {
         float offsetTime = ViewTime.getInstance().getCurrentTimeMilli() % duration;
         return paths.get((int)((offsetTime/duration)*animatedImages.size()));
     }

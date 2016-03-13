@@ -167,6 +167,7 @@ public class AbilitySkillsControllerState extends InputControllerState {
     }
 
     @Override
+
     public void handleAbility2Key() {
         state.handleAbility2Key();
     }

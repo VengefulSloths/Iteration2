@@ -131,7 +131,11 @@ public class HexMath {
             return Direction.SW;
         }else if(rDiff >= 1 && sDiff == 0){
             return Direction.NW;
-        }else {
+        }else if(rDiff >= 1 && sDiff >= 1) {
+            return Direction.NW;
+        }else if(rDiff <=-1 && sDiff <= -1 ){
+            return Direction.SE;
+        }else{
             //System.out.println("fail");
             return null;
 
