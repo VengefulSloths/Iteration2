@@ -6,6 +6,7 @@ import com.vengeful.sloths.Menu.SaveMenu.ChooseSaveMenu;
 import com.vengeful.sloths.Utility.Config;
 //import com.vengeful.sloths.Views.AreaView.AreaView;
 import com.vengeful.sloths.Views.AbilitiesSkillsView.AbilitiesSkillView;
+import com.vengeful.sloths.Views.AbilitiesView.AbilityHUD;
 import com.vengeful.sloths.Views.CharacterView.CharacterView;
 import com.vengeful.sloths.Views.DialogView.DialogView;
 import com.vengeful.sloths.Views.HUDView.HUDView;
@@ -35,6 +36,7 @@ public class ViewManager extends JPanel {
     private ChooseSaveMenu chooseSaveView;
     private PickPocketView pickPocketView;
     private TradeView tradeView;
+    private AbilityHUD abilityHUD;
 
 
     JPanel sidePanel;
@@ -96,6 +98,7 @@ public class ViewManager extends JPanel {
         menuView = new InGameScrollableMenu(80);
         this.keyBindView = new InputChangeMenu(40);
         this.chooseSaveView = new ChooseSaveMenu(80);
+        this.abilityHUD = new AbilityHUD(400,100);
         initializeViewManager();
     }
 

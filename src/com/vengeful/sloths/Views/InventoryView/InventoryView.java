@@ -222,7 +222,7 @@ public class InventoryView extends View implements InventoryObserver {
 
         //itemPanel.setBorder(new LineBorder(Color.BLACK));
         //this.itemPanel.setBorder(new BevelBorder(BevelBorder.RAISED,Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE));
-        goldPanel = new GoldView();
+        goldPanel = new GoldView(inventory);
         goldPanel.setBackground(new Color(0f, 0f, 0f, 0f));
         goldPanel.setPreferredSize(new Dimension(this.getWidth(), 40));
 
@@ -262,12 +262,16 @@ public class InventoryView extends View implements InventoryObserver {
         //We can sort on iterator because it will be called less
         int index = 0;
         ItemViewObject ivo = null;
+        System.out.println("YOU ARE TRYING TO DROP " + item.getItemName());
 
         for (int i = 0; i < this.getItemList().size(); i++) {
             if (this.getItemList().get(i).getViewItem().equals(item)) {
                 ivo = (ItemViewObject) this.getItemList().get(i);
+                System.out.println("ACTUALLY DROPPING " + ivo.getViewItem().getItemName());
                 ivo.setIsDisplayed(false); //edit?
-                this.getItemList().remove(i);
+                //this.getItemList().remove(i);
+                //this.getItemList().remove(ivo);
+                this.getItemList().remove(inventoryIndex);
             }
         }
         return ivo;
@@ -317,16 +321,11 @@ public class InventoryView extends View implements InventoryObserver {
         try {
             //g.setFont(new Font("Helvetica",1,40));
             //g.setColor(Color.orange);
-            goldPanel.setText("Gold: " + Avatar.getInstance().getInventory().getGold());
+            goldPanel.setText("Gold: " + inventory.getGold());
         }catch (NullPointerException e){
             //this is okay
         }
         super.paintComponent(g);
-        /*
-        for(AbilityViewObject e: itemList) {
-            e.paintComponent(g);
-        }
-        */
     }
 
 }
