@@ -4,10 +4,14 @@ import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.Views.AbilitiesSkillsView.AbilitiesSkillView;
 import com.vengeful.sloths.Views.CharacterView.CharacterView;
 
+import java.util.ArrayList;
+
 /**
  * Created by echristiansen on 3/12/2016.
  */
 public class InventoryEquipmentControllerState extends InputControllerState {
+    private int currStateIndex = 0;
+    private ArrayList<InputControllerState> possibleStates;
 
     private CharacterView characterView;
 
@@ -17,8 +21,13 @@ public class InventoryEquipmentControllerState extends InputControllerState {
     private EquipmentControllerState equipmentControllerState;
 
     public InventoryEquipmentControllerState() {
+        possibleStates = new ArrayList<>();
+
         this.inventoryControllerState = new InventoryControllerState();
         this.equipmentControllerState = new EquipmentControllerState();
+        possibleStates.add(this.inventoryControllerState);
+        possibleStates.add(this.equipmentControllerState);
+
         this.state = this.inventoryControllerState;
     }
 
@@ -157,18 +166,11 @@ public class InventoryEquipmentControllerState extends InputControllerState {
 
     @Override
     public void handleEnterKey() {
-
+        state.handleEnterKey();
     }
-
-
 
     @Override
     public void handleAbility1Key() {
-        this.state = this.inventoryControllerState;
-        this.inventoryControllerState.getInventoryView().setSelected(true);
-        this.inventoryControllerState.getInventoryView().resetInventoryView();
-        this.equipmentControllerState.getEquipmentView().setSelected(false);
-        System.out.println("Trying to handleability 1 key");
     }
 
     @Override
@@ -178,10 +180,6 @@ public class InventoryEquipmentControllerState extends InputControllerState {
 
     @Override
     public void handleAbility3Key() {
-        this.state = this.equipmentControllerState;
-        this.inventoryControllerState.getInventoryView().setSelected(false);
-        this.equipmentControllerState.getEquipmentView().setSelected(true);
-        System.out.println("Trying to handleability 3 key");
     }
 
     @Override
@@ -191,7 +189,12 @@ public class InventoryEquipmentControllerState extends InputControllerState {
 
     @Override
     public boolean handleSpaceKey() {
-        return false;
+        currStateIndex = (currStateIndex + 1) % 2;
+        this.state = this.possibleStates.get(currStateIndex);
+        this.state.resetView(true);
+        this.possibleStates.get((currStateIndex+1)%2).resetView(false);
+
+        return true;
     }
 
     @Override

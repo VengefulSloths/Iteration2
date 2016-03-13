@@ -10,7 +10,8 @@ import com.vengeful.sloths.Models.ModelVisitor;
 public class PickPocketAbility extends Ability implements ModelVisitable{
     //this ability initiates the command to start the pickpocketing window and controller
     public PickPocketAbility(){
-        super("pick pocket", 1, 2);
+        super("Pick Pocket", 1, 2);
+
     }
     @Override
     public int execute() {

@@ -93,10 +93,6 @@ public class CharacterCreationControllerState extends InputControllerState {
 
     @Override
     public boolean handleCenterKey() {
-        System.out.println("launch game");
-
-        LaunchGameTemplate launcher = new LaunchGameTemplate(new LaunchNewGame());
-        launcher.launch(menu.getOccupation());
         return false;
     }
 
@@ -137,7 +133,6 @@ public class CharacterCreationControllerState extends InputControllerState {
         System.out.println("launch game");
         LaunchGameTemplate launcher = new LaunchGameTemplate(new LaunchNewGame());
         launcher.launch(menu.getOccupation());
-
     }
 
     @Override
