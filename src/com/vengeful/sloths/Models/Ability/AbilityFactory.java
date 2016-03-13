@@ -2,10 +2,7 @@ package com.vengeful.sloths.Models.Ability;
 
 import com.vengeful.sloths.Models.Ability.Abilities.*;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.StealthAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.AngleSpellAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.BoonBuffAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.ExplosionAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.*;
 import com.vengeful.sloths.Models.Buff.*;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Observers.EntityObserver;
@@ -88,5 +85,8 @@ public class AbilityFactory {
         return new AngleSpellAbility(entity, expandingTime, expandingDistance, startupTicks, coolDownTicks);
     }
 
+    public NPCFallAsleepAbility createNPCFallAsleepAbility(Entity entity){
+        return new NPCFallAsleepAbility(entity, 8, 15, 360);
+    }
 
 }

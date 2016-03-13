@@ -5,9 +5,7 @@ import com.vengeful.sloths.Models.Ability.Abilities.*;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.PickPocketAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.RemoveTrapAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.StealthAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.AngleSpellAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.ExplosionAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.*;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
@@ -120,7 +118,9 @@ public interface ModelVisitor {
     void visitAngleSpellAbility(AngleSpellAbility angleSpellAbility);
     void visitRemoveTrapAbility(RemoveTrapAbility removeTrapAbility);
     void visitStealthAbility(StealthAbility stealthAbility);
-
+    void visitNPCFallAsleepAbility(NPCFallAsleepAbility npcFallAsleepAbility);
+    void visitPickPocketAbility(PickPocketAbility pickPocketAbility);
+    void visitSelfBuffAbility(SelfBuffAbility selfBuffAbility);
 
     void visitBreakBoxQuest(BreakBoxQuest breakBoxQuest);
 
@@ -128,7 +128,7 @@ public interface ModelVisitor {
 
     void visitHasItemQuest(HasItemQuest hasItemQuest);
 
-    void visitSelfBuffAbility(SelfBuffAbility selfBuffAbility);
+
 
     void visitMountAbility(MountAbility mountAbility);
 
@@ -149,5 +149,5 @@ public interface ModelVisitor {
 
     void visitPiggyTotem(PiggyTotem piggyTotem);
 
-    void visitPickPocketAbility(PickPocketAbility pickPocketAbility);
+
 }
