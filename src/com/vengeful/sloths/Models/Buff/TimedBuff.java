@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Models.Buff;
 
+import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Observers.EntityObserver;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
@@ -54,5 +55,9 @@ public class TimedBuff extends Buff{
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    public void accept(ModelVisitor mv){
+        mv.visitTimedBuff(this);
     }
 }

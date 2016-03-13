@@ -8,10 +8,9 @@ import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.RemoveTrapAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.StealthAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.AngleSpellAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FlameThrowerAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.ExplosionAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityFactory;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
@@ -625,13 +624,13 @@ private void setActiveMapArea() {
                         exA.setManaCost(manaCostExA);
                         abm.addAbility(exA);
                         break;
-                    case "AngleSpellAbility" :
+                    case "FlameThrowerAbility" :
                         int windASA = Integer.valueOf(currAbility.getAttribute("windTicks"));
                         int coolASA = Integer.valueOf(currAbility.getAttribute("coolTicks"));
                         int expandingTimeASA = Integer.valueOf(currAbility.getAttribute("expandingTime"));
                         int expandingDistanceASA = Integer.valueOf(currAbility.getAttribute("expandingDistance"));
                         int manaCostASA = Integer.valueOf(currAbility.getAttribute("manaCost"));
-                        AngleSpellAbility asa = new AngleSpellAbility(e,expandingTimeASA,expandingDistanceASA,windASA,coolASA);
+                        FlameThrowerAbility asa = new FlameThrowerAbility(e,expandingTimeASA,expandingDistanceASA,windASA,coolASA);
                         asa.setManaCost(manaCostASA);
                         abm.addAbility(asa);
                         break;

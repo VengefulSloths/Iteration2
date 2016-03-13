@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Models.Buff;
 
+import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Observers.EntityObserver;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
@@ -34,5 +35,9 @@ public class ProtectFromEvilBuff extends TimedBuff{
         if(--this.counter == 0) {
             this.owner.removeBuff(this);
         }
+    }
+
+    public void accept(ModelVisitor mv){
+        mv.visitProtectFromEvilBuff(this);
     }
 }

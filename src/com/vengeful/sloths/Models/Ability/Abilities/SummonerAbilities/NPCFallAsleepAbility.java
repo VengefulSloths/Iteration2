@@ -93,4 +93,20 @@ public class NPCFallAsleepAbility extends Ability{
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitNPCFallAsleepAbility(this);
     }
+
+    public int getSleepTime() {
+        return sleepTime;
+    }
+
+    public void setSleepTime(int sleepTime) {
+        this.sleepTime = sleepTime;
+    }
+
+    public int getManaCost() {
+        return manaCost;
+    }
+
+    public void setManaCost(int manaCost) {
+        this.manaCost = manaCost;
+    }
 }

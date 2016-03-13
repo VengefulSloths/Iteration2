@@ -12,6 +12,7 @@ import com.vengeful.sloths.Views.DialogView.DialogView;
 import com.vengeful.sloths.Views.HUDView.HUDView;
 import com.vengeful.sloths.AreaView.AreaView;
 import com.vengeful.sloths.Views.PickPocketView.PickPocketView;
+import com.vengeful.sloths.Views.PickPocketView.PickPocketViewContainer;
 import com.vengeful.sloths.Views.TradeView.TradeView;
 
 import javax.swing.*;
@@ -35,6 +36,7 @@ public class ViewManager extends JPanel {
     private InputChangeMenu keyBindView;
     private ChooseSaveMenu chooseSaveView;
     private PickPocketView pickPocketView;
+    private PickPocketViewContainer pickPocketViewContainer;
     private TradeView tradeView;
     private AbilityHUD abilityHUD;
 
@@ -99,6 +101,7 @@ public class ViewManager extends JPanel {
         this.keyBindView = new InputChangeMenu(40);
         this.chooseSaveView = new ChooseSaveMenu(80);
         this.abilityHUD = new AbilityHUD(400,100);
+        this.pickPocketViewContainer = new PickPocketViewContainer();
         initializeViewManager();
     }
 
@@ -137,11 +140,11 @@ public class ViewManager extends JPanel {
 
     }
     public void openPickPocketView(){
-        addView(pickPocketView);
+        addView(pickPocketViewContainer);
     }
     public void closePickPocketView(){
         try {
-            remove(pickPocketView);
+            remove(pickPocketViewContainer);
         }catch(NullPointerException e){
             //nbd
         }
@@ -269,6 +272,7 @@ public class ViewManager extends JPanel {
     }
 
     public void setPickPocketView(PickPocketView pickPocketView) {
+        this.pickPocketViewContainer.setPpv(pickPocketView);
         this.pickPocketView = pickPocketView;
     }
 
