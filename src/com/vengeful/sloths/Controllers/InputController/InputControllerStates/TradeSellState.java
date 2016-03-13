@@ -2,7 +2,10 @@ package com.vengeful.sloths.Controllers.InputController.InputControllerStates;
 
 import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.Models.Entity.Avatar;
+import com.vengeful.sloths.Models.EntityEntityInteractionCommands.AvatarBuyCommand;
+import com.vengeful.sloths.Models.EntityEntityInteractionCommands.AvatarSellCommand;
 import com.vengeful.sloths.Models.Inventory.Inventory;
+import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Views.InventoryView.InventoryView;
 import com.vengeful.sloths.Views.TradeView.GridAvatarInvViewTrading;
 import com.vengeful.sloths.Views.TradeView.GridEntityInvViewTrading;
@@ -141,9 +144,11 @@ public class TradeSellState extends InventoryControllerState {
 
     @Override
     public boolean handleNorthEastKey() {
-        this.inventoryView.useCurrentlySelectedItem();
 
+        InventoryItem item = this.inventoryView.getCurrentItem();
+        new AvatarSellCommand(this.inventoryView.getInventory(), item).execute();
         return true;
+
 
     }
 

@@ -1,6 +1,7 @@
 package com.vengeful.sloths.Controllers.InputController.InputControllerStates;
 
 import com.vengeful.sloths.Controllers.InputController.MainController;
+import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Views.TradeView.GridEntityInvViewTrading;
 import com.vengeful.sloths.Views.TradeView.TradeView;
 
@@ -15,13 +16,15 @@ public class TradeControllerState extends InputControllerState{
     private InventoryControllerState activeState = null;
     private TradeBuyState buyState = null;
     private TradeSellState sellState = null;
+    private Entity target;
 //Might need a reset view method
-    public TradeControllerState(TradeView tradeView) {
+    public TradeControllerState(TradeView tradeView, Entity target) {
         this.tradeView = tradeView;
         this.buyState = new TradeBuyState();
         this.sellState = new TradeSellState();
         this.sellState.setInventoryView(tradeView.getAvatarInvView());
         this.buyState.setInventoryView(tradeView.getEntityInvView());
+        this.target = target;
         this.activeState = buyState;
 //        this.targInv = targInv;
     }
@@ -63,6 +66,7 @@ public class TradeControllerState extends InputControllerState{
 
     @Override
     public boolean handleInventoryKey() {
+        target.setStunned(false);
         MainController.getInstance().setAvatarControllerState();
         //MainController.getInstance().setInventoryControllerState();
         return true;
@@ -71,6 +75,7 @@ public class TradeControllerState extends InputControllerState{
 
     @Override
     public boolean handleESCKey() {
+        target.setStunned(false);
         MainController.getInstance().setAvatarControllerState();
         return false;
     }
@@ -137,6 +142,7 @@ public class TradeControllerState extends InputControllerState{
     public boolean handleEastKey() {
 //        this.pickPocketView.selectEastItem();
         activeState.getInventoryView().selectEastItem();
+        target.setStunned(true);
         return true;
     }
 
@@ -206,6 +212,17 @@ public class TradeControllerState extends InputControllerState{
 
     @Override
     public boolean handleSpaceKey() {
+        if(this.activeState.equals(buyState)){
+            this.activeState = sellState;
+            buyState.resetView(false);
+            activeState.resetView(true);
+        }
+        else{
+            this.activeState = buyState;
+            sellState.resetView(false);
+            activeState.resetView(true);
+        }
+
         return false;
     }
 

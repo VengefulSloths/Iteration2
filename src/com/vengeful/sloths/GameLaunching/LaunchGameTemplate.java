@@ -78,7 +78,8 @@ public class LaunchGameTemplate {
         System.out.println("After equipped...");
 
         avatar.equip(new OneHandedWeapon("dagger", new StrengthAddable(5), 10));
-        avatar.equip(new Hat("tophat", new StrengthAddable(0))); //edit
+        avatar.equip(new Hat("tophat", new StrengthAddable(15))); //edit
+        //avatar.equip(new Mount("mount", 10)); //edit
         System.out.println("AVATAR HAS " + avatar.getInventory().getCurrentSize() + " items");
 //        avatar.equip(new Mount("mount", 10)); //edit
 
@@ -90,7 +91,7 @@ public class LaunchGameTemplate {
 
 //        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createStealthAbility(avatar), 0);
 //        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createProtectFromEvil(avatar), 1);
-        //avatar.getAbilityManager().equipAbility(new PickPocketAbility(), 1);
+//        avatar.getAbilityManager().equipAbility(new PickPocketAbility(), 1);
         avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createNPCFallAsleepAbility(avatar), 1);
 
         avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createDamageBoost(avatar), 2);

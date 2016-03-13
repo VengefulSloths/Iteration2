@@ -82,7 +82,7 @@ public class EquipmentViewObject extends ItemViewObject {
         if(this.getViewItem().getItemName()!=null) {
             g.drawString(itemName, stringXCoord, y+stringHeight);
             if(this.isSelected()) {
-                Border b = BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.GREEN, Color.WHITE);
+                Border b = BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.GREEN, Color.GREEN);
                 b.paintBorder(this, g, x, y, containerWidth, containerHeight);
             }
             if(this.getEquipmentItem().getItemStats().toString().length()>0) {

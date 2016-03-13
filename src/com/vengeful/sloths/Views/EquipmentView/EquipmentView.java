@@ -208,6 +208,9 @@ public class EquipmentView extends View implements EquipmentObserver {
         if (this.equipmentViewObjectArray[0] != null) {
             this.equipmentViewObjectArray[0].paintComponent(g, boxXCoord, box1Y, boxWidth, boxHeight);
         }
+
+        //this.equipmentViewObjectArray[0].paintComponent(g, boxXCoord, box1Y, boxWidth, boxHeight);
+
         if (this.equipmentViewObjectArray[1] != null) {
             this.equipmentViewObjectArray[1].paintComponent(g, boxXCoord, box2Y, boxWidth, boxHeight);
         }
@@ -215,10 +218,14 @@ public class EquipmentView extends View implements EquipmentObserver {
             this.equipmentViewObjectArray[2].paintComponent(g, boxXCoord, box3Y, boxWidth, boxHeight);
         }
 
+        //want to call paintComponent even on null slots because then they can say nothing displayed??
+
+        /*
             Border b = BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.WHITE, Color.WHITE);
             if (this.selectionIndex == 0 && this.isSelected()) { //edit
                 b.paintBorder(this.getHat(), g, boxXCoord, box1Y, boxWidth, boxHeight);
             }
+            */
 
         /*
             if (this.selectionIndex == 0 && this.getHat() != null) {
@@ -232,6 +239,23 @@ public class EquipmentView extends View implements EquipmentObserver {
 
         }
 
+
+    public void unequipItem() {
+        if(selectionIndex==0 && this.equipmentViewObjectArray[0]!=null) {
+            this.getHat().getEquipmentItem().removeFromEquipped(this.equipment);
+            this.equipmentViewObjectArray[0]=null;
+            //this.revalidate();
+            //this.repaint();
+        } else if(selectionIndex==1 && this.equipmentViewObjectArray[1]!=null) {
+            this.getWeapon().getEquipmentItem().removeFromEquipped(this.equipment);
+            this.equipmentViewObjectArray[1]=null;
+        } else if(selectionIndex==2 && this.equipmentViewObjectArray[2]!=null) {
+            //this.getMount().getEquipmentItem().removeFromEquipped(this.equipment);
+            this.getMount().getMount().removeFromEquipped(this.equipment);
+            this.equipmentViewObjectArray[2]=null;
+        }
+
+    }
 
         @Override
         public void alertWeaponEquipped(Weapon weapon) {

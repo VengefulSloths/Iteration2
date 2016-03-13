@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Models.InventoryItems.EquippableItems;
 
+import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.Stats.StatAddables.BaseStatsAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
@@ -36,5 +37,9 @@ public abstract class EquippableItems extends InventoryItem {
         this.itemStats = stats;
     }
 
+    @Override
+    public void interact() {
+        this.addToEquipped(Avatar.getInstance().getEquipped());
+    }
 
 }

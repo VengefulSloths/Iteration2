@@ -217,7 +217,8 @@ public class InventoryView extends View implements InventoryObserver {
         titlePanel = new JPanel();
         itemPanel = new JPanel();
         //goldPanel = new JPanel();
-        JLabel title = generateTitleLabel("Inventory", 22, Color.WHITE);
+        String label = getInvLabel();
+        JLabel title = generateTitleLabel(label, 22, Color.WHITE);
 
         //itemPanel.setBorder(new LineBorder(Color.BLACK));
         //this.itemPanel.setBorder(new BevelBorder(BevelBorder.RAISED,Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE));
@@ -240,6 +241,14 @@ public class InventoryView extends View implements InventoryObserver {
         //this.setBorder(new LineBorder(Color.WHITE));
     }
 
+    protected void setString(String s) {
+        //do nothing
+    }
+
+    protected String getInvLabel() {
+        return "Inventory";
+    }
+
     /* Initializes the itemList by generating ItemViewObjects from inventoryItems. Maybe make a factory? */
     public void initWithInventory(Inventory inventory) {
         for (int i = 0; i < inventory.getCurrentSize(); ++i) {
@@ -253,12 +262,16 @@ public class InventoryView extends View implements InventoryObserver {
         //We can sort on iterator because it will be called less
         int index = 0;
         ItemViewObject ivo = null;
+        System.out.println("YOU ARE TRYING TO DROP " + item.getItemName());
 
         for (int i = 0; i < this.getItemList().size(); i++) {
             if (this.getItemList().get(i).getViewItem().equals(item)) {
                 ivo = (ItemViewObject) this.getItemList().get(i);
+                System.out.println("ACTUALLY DROPPING " + ivo.getViewItem().getItemName());
                 ivo.setIsDisplayed(false); //edit?
-                this.getItemList().remove(i);
+                //this.getItemList().remove(i);
+                //this.getItemList().remove(ivo);
+                this.getItemList().remove(inventoryIndex);
             }
         }
         return ivo;
@@ -313,11 +326,6 @@ public class InventoryView extends View implements InventoryObserver {
             //this is okay
         }
         super.paintComponent(g);
-        /*
-        for(AbilityViewObject e: itemList) {
-            e.paintComponent(g);
-        }
-        */
     }
 
 }

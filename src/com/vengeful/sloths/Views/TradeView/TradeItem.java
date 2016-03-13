@@ -9,13 +9,13 @@ import java.awt.*;
  * Created by harrison on 3/13/16.
  */
 public class TradeItem extends ItemViewObject {
-    private int multiplier;
+    private int value;
 
     public TradeItem(ViewItem viewItem, int multiplier) {
         this.setViewItem(viewItem);
         this.setItemImage(this.getImageFactory().handleUnscaledItemImageGeneration(viewItem));
         this.setIsDisplayed(false);
-        this.multiplier = multiplier;
+        this.value = multiplier;
     }
 
     @Override
@@ -25,6 +25,6 @@ public class TradeItem extends ItemViewObject {
         g2d.setColor(new Color(0f,0f,0f,.4f));
         g2d.fillRect(x + 10,y + height/2,width - 20,height/2);
         g2d.setColor(Color.WHITE);
-        g2d.drawString("" + multiplier, x +10, y + height);
+        g2d.drawString("" + value, x +10, y + height);
     }
 }

@@ -3,6 +3,7 @@ package com.vengeful.sloths.Models.InventoryItems.EquippableItems;
 import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityFactory;
+import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
@@ -12,6 +13,7 @@ import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.ModelConfig;
 import com.vengeful.sloths.Utility.WeaponClass;
+import sun.security.x509.AVA;
 
 /**
  * Created by luluding on 2/22/16.
@@ -45,8 +47,4 @@ public class OneHandedWeapon extends Weapon implements ModelVisitable {
         modelVisitor.visitOneHandedWeapon(this);
     }
 
-    @Override
-    public void interact() {
-
-    }
 }

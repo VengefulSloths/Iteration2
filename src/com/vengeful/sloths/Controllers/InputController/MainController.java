@@ -219,10 +219,9 @@ public class MainController implements Tickable{
     public void setTradeControllerState(Entity target, Inventory targInv, int bargainSkill) {
 
         GridAvatarInvViewTrading avatarInvView = new GridAvatarInvViewTrading(Avatar.getInstance().getInventory(), bargainSkill);
-        //will need a different constructor and pass both bargin skills in and calculate based off that...or something...
-        GridEntityInvViewTrading entityInvView = new GridEntityInvViewTrading(targInv, bargainSkill);
+        GridEntityInvViewTrading entityInvView = new GridEntityInvViewTrading(targInv, bargainSkill, target.getName());
         TradeView tradeView = new TradeView(avatarInvView, entityInvView, bargainSkill);
-        this.tradeContollerState = new TradeControllerState(tradeView);
+        this.tradeContollerState = new TradeControllerState(tradeView, target);
         viewManager.setTradeView(tradeView);
         viewManager.openTradeView();
         this.state = this.tradeContollerState;
