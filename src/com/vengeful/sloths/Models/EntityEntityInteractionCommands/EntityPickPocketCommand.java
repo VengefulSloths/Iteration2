@@ -40,8 +40,7 @@ public class EntityPickPocketCommand {
             }
         }
         System.out.println("pick pocket FAILED");
-        target.setDead(false);
-        target.setActive(false);
+        target.setStunned(false);
         MainController.getInstance().setAvatarControllerState();
         target.enrage();
     }

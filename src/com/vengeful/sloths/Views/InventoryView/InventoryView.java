@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Views.InventoryView;
 
+import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.ObserverManager;
@@ -34,8 +35,10 @@ public class InventoryView extends View implements InventoryObserver {
     //private JPanel itemPanel; //use this perhaps if we are just adding and removing JComponents using this.add() and this.remove()
     protected JPanel titlePanel;
     protected JPanel itemPanel;
+    //private JLabel goldAmmount;
     private int numRows;
     private int numCols;
+    private GoldView goldPanel;
     private boolean isSelected;
 
     public boolean isSelected() {
@@ -213,9 +216,16 @@ public class InventoryView extends View implements InventoryObserver {
         this.setBackground(new Color(0f,0f,0f,0.3f));
         titlePanel = new JPanel();
         itemPanel = new JPanel();
+        //goldPanel = new JPanel();
         JLabel title = generateTitleLabel("Inventory", 22, Color.WHITE);
+
         //itemPanel.setBorder(new LineBorder(Color.BLACK));
         //this.itemPanel.setBorder(new BevelBorder(BevelBorder.RAISED,Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE));
+        goldPanel = new GoldView();
+        goldPanel.setBackground(new Color(0f, 0f, 0f, 0f));
+        goldPanel.setPreferredSize(new Dimension(this.getWidth(), 40));
+
+
         titlePanel.setBackground(new Color(0f, 0f, 0f, 0f));
         itemPanel.setBackground(new Color(0f, 0f, 0f, 0f));
         titlePanel.setLayout(new BorderLayout());
@@ -226,6 +236,7 @@ public class InventoryView extends View implements InventoryObserver {
         titlePanel.add(title, BorderLayout.SOUTH);
         this.add(titlePanel, BorderLayout.NORTH);
         this.add(itemPanel, BorderLayout.CENTER);
+        this.add(goldPanel, BorderLayout.SOUTH);
         //this.setBorder(new LineBorder(Color.WHITE));
     }
 
@@ -294,6 +305,13 @@ public class InventoryView extends View implements InventoryObserver {
     }
 
     public void paintComponent(Graphics g) {
+        try {
+            //g.setFont(new Font("Helvetica",1,40));
+            //g.setColor(Color.orange);
+            goldPanel.setText("Gold: " + Avatar.getInstance().getInventory().getGold());
+        }catch (NullPointerException e){
+            //this is okay
+        }
         super.paintComponent(g);
         /*
         for(AbilityViewObject e: itemList) {
