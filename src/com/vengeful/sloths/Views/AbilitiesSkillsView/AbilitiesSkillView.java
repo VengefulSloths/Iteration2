@@ -5,6 +5,7 @@ import com.vengeful.sloths.Views.AbilitiesView.AbilitiesView;
 import com.vengeful.sloths.Views.EquippedAbilitiesView.EquippedAbilitiesView;
 import com.vengeful.sloths.Views.SkillsView.SkillsView;
 import com.vengeful.sloths.Views.StatsView.StatsView;
+import com.vengeful.sloths.Views.View;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -13,7 +14,7 @@ import java.awt.*;
 /**
  * Created by zach on 3/11/16.
  */
-public class AbilitiesSkillView extends JPanel {
+public class AbilitiesSkillView extends View {
     // public class CharacterViewManager extends JPanel {
 
     private AbilitiesView abilitiesView;
