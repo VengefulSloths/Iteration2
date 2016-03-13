@@ -1,6 +1,7 @@
 package com.vengeful.sloths.Models.Observers;
 
 import com.vengeful.sloths.AreaView.ViewTime;
+import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.EquippableItems;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Hat;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Mount;

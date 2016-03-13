@@ -34,16 +34,17 @@ public class ProxyAbilityManagerObserver extends ProxyObserver
     }
 
     @Override
-    public void alertAbilityEquipped(Ability ability) {
+    public void alertAbilityEquipped(Ability ability, int index) {
         if (!deleteFlag) {
-            ViewTime.getInstance().registerAlert(0, () -> target.alertAbilityEquipped(ability));
+            ViewTime.getInstance().registerAlert(0, () -> target.alertAbilityEquipped(ability, index));
         }
     }
 
     @Override
-    public void alertAbilityUnset(Ability ability) {
+    public void alertAbilityUnequipped(Ability ability, int index) {
         if (!deleteFlag) {
-            ViewTime.getInstance().registerAlert(0, () -> target.alertAbilityUnset(ability));
+            ViewTime.getInstance().registerAlert(0, () -> target.alertAbilityUnequipped(ability, index));
         }
     }
+
 }

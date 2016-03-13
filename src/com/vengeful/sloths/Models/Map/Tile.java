@@ -1,6 +1,5 @@
 package com.vengeful.sloths.Models.Map;
 
-import com.vengeful.sloths.Models.Effects.EffectCommand;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Map.AreaEffects.AreaEffect;
 import com.vengeful.sloths.Models.Map.MapItems.*;
@@ -11,11 +10,9 @@ import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
 
-import java.lang.reflect.Array;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * Created by John on 2/21/2016.
@@ -245,12 +242,9 @@ public class Tile implements ModelVisitable {
 
     public void removeTrap(){
         if(this.trap != null){
-            if(this.trap.isVisible()){
+            if(this.trap.destroy()){
                 removeMapItem(this.trap);
-                this.trap.destroy();
                 this.trap = null;
-            }else{
-                System.out.println("Trap is not visible");
             }
         }else{
             System.out.println("No trap to be removed");
@@ -263,7 +257,11 @@ public class Tile implements ModelVisitable {
         }
     }
 
-
+    public void makeTrapUndetectable(){
+        if(this.trap != null){
+            this.trap.makeUndetectable();
+        }
+    }
 
     private void removeMapItem(MapItem item){
         mapItems.remove(item);

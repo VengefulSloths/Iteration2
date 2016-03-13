@@ -5,6 +5,7 @@ import com.vengeful.sloths.Models.Buff.Buff;
 import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Observers.EntityObserver;
+import com.vengeful.sloths.Models.TimeModel.TimeModel;
 
 import java.util.ArrayList;
 
@@ -23,7 +24,7 @@ public class RemoveBuffHook implements Hook {
 
     @Override
     public void execute(AbilityManager owner) {
-        buffManager.removeBuff(buff);
+        TimeModel.getInstance().registerAlertable( () -> buffManager.removeBuff(buff), 0);
         owner.removeAbilityHook(this);
     }
 }

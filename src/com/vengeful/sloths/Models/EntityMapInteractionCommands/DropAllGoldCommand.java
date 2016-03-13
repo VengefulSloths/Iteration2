@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Models.EntityMapInteractionCommands;
 
+import com.vengeful.sloths.AreaView.TemporaryVOCreationVisitor;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.Map.Map;
@@ -24,9 +25,10 @@ public class DropAllGoldCommand {
     public void execute() {
         //inventory was null
         if(inventory.getGold() > 0){
-            Gold gold = entity.dropGold();
+            Gold gold = inventory.dropAllGold();
             gold.setLocation(dest);
             Map.getInstance().getActiveMapArea().getTile(dest).addGold(gold);
+            gold.accept(TemporaryVOCreationVisitor.getInstance());
         }
     }
 }

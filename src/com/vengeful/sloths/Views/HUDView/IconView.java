@@ -1,5 +1,7 @@
 package com.vengeful.sloths.Views.HUDView;
 
+import com.vengeful.sloths.Models.Entity.Avatar;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -7,12 +9,20 @@ import java.awt.*;
  * Created by John on 3/12/2016.
  */
 public class IconView extends JComponent{
-    private Image occIcon = (new ImageIcon("resources/smasher_icon_64.png")).getImage();
+    private Image occIcon;// = (new ImageIcon("resources/smasher_icon_64.png")).getImage();
     private int level = 1;
 
     public IconView(){
         this.setPreferredSize(new Dimension(96,116));
-        //this.setBackground(new Color(0f,0f,0f,0f));
+        String occ =Avatar.getInstance().getOccupation().toString();
+        switch (occ){
+            case "Smasher": this.occIcon = (new ImageIcon("resources/smasher_icon_64.png")).getImage();
+                break;
+            case "Summoner": this.occIcon = (new ImageIcon("resources/wizard_icon.png")).getImage();
+                break;
+            case "Sneak": this.occIcon = (new ImageIcon("resources/sneak_icon.png")).getImage();
+                break;
+        }
     }
 
     @Override

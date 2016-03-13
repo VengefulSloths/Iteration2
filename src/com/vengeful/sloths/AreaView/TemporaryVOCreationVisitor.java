@@ -18,6 +18,7 @@ import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.*;
+import com.vengeful.sloths.Models.InventoryItems.UsableItems.PiggyTotem;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
 import com.vengeful.sloths.Models.Map.*;
 import com.vengeful.sloths.Models.Map.AreaEffects.HealDamageAE;
@@ -422,6 +423,10 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
      @Override
 
      public void visitTrap(Trap trap) {
+         String imagePath = "resources/trap/trap.xml";
+         TrapViewObject trapViewObject = factory.createTrapViewObject(trap.getLocation().getR(), trap.getLocation().getS(), imagePath);
+         new ProxyDestoyableObserver(trapViewObject, trap);
+         this.activeCameraView.addViewObject(trapViewObject);
      }
 
      public void visitAdaptableStrategy(AdaptableStrategy adaptableStrategy) {
@@ -437,6 +442,11 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
          new ProxyDestoyableObserver(tvo, gold);
          tvo.registerObserver(this.activeCameraView.getTileVO(tvo));
          this.activeCameraView.addViewObject(tvo);
+     }
+
+     @Override
+     public void visitPiggyTotem(PiggyTotem piggyTotem) {
+
      }
 
      @Override

@@ -14,19 +14,11 @@ import javax.xml.parsers.ParserConfigurationException;
  * It requires a map object right now, but could easily be changed so map is just passed into the save methods
  */
 public class SaveManager {
-    /**
-     * Private variables: Map
-     */
-    private Map map;
-
-    /**
-     * Constructors including the default constructor
-     */
+    private String fileName;
     public SaveManager(){
-
     }
-    public SaveManager(Map map){
-        this.map = map;
+    public SaveManager(String fileName){
+        this.fileName = fileName;
     }
 
     /**
@@ -36,6 +28,7 @@ public class SaveManager {
 
      */
     public void save(String fileName){
+        this.fileName = fileName;
         SaveVisitor sv = null;
         try {
             sv = new SaveVisitor(fileName);
@@ -43,41 +36,16 @@ public class SaveManager {
             e.printStackTrace();
         }
         sv.save();
-//        map.accept(sv);
-//        ((AdaptableStrategy)(MainController.getInstance().getInputStrategy())).accept(sv);
-//        sv.completeSave();
     }
 
     public void save(){
         SaveVisitor sv = null;
         try {
-            sv = new SaveVisitor();
+            sv = new SaveVisitor(fileName);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }
         sv.save();
-//        map.accept(sv);
-//        ((AdaptableStrategy)(MainController.getInstance().getInputStrategy())).accept(sv);
-//        sv.completeSave();
-    }
-//    public void save(Map map){
-//        SaveVisitor sv = null;
-//        try {
-//            sv = new SaveVisitor();
-//        } catch (ParserConfigurationException e) {
-//            e.printStackTrace();
-//        }
-//        map.accept(sv);
-//    }
-    /**
-     * Getter/Setters
-     */
-    public Map getMap() {
-        return map;
-    }
-
-    public void setMap(Map map) {
-        this.map = map;
     }
 
 }

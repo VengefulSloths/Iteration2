@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Models.Entity;
 
+import com.vengeful.sloths.Models.EntityMapInteractionCommands.DropAllGoldCommand;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityDieCommand;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteractionFactory;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.PiggyTotem;

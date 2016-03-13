@@ -6,10 +6,12 @@ import com.vengeful.sloths.AreaView.TemporaryVOCreationVisitor;
 import com.vengeful.sloths.Controllers.ControllerManagers.AggressiveNPCControllerManager;
 import com.vengeful.sloths.Controllers.ControllerManagers.PiggyControllerManager;
 import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
 import com.vengeful.sloths.Models.Ability.AbilityFactory;
 import com.vengeful.sloths.Models.Entity.AggressiveNPC;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.Piggy;
+import com.vengeful.sloths.Models.EntityMapInteractionCommands.DropAllGoldCommand;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
@@ -194,7 +196,7 @@ public class LevelFactory {
 
         testPiggy.setFacingDirection(Direction.S);
         testPiggy.getStats().add(new BonusHealthAddable(100));
-        testPiggy.getStats().setCurrentHealth(0);
+//        testPiggy.getStats().setCurrentHealth(0);
         Map.getInstance().addEntity(new Coord(3,5), testPiggy);
         testPiggy.baddOOReceiveGoldForTesting(new Gold(100, new Coord()));
         new PiggyControllerManager(Map.getInstance().getActiveMapArea(), testPiggy);
@@ -203,10 +205,9 @@ public class LevelFactory {
 
         TakeableItem piggyTotem = new TakeableItem("Piggy Totem", new PiggyTotem("Piggy Totem", testPiggy), new Coord(2,2));
 
-        //MeleeAttackAbility meleeAttackAbility = AbilityFactory.getInstance().createMeleeAttackAbility(Avatar.getInstance(), 150, 150);
-        //meleeAttackAbility.setItemName("Melee Attack");
-        //area1.getTile(new Coord(3,3)).addTakeableItem(new TakeableItem("redPotion", new AbilityItem(meleeAttackAbility), new Coord(3,3)));
-
+        FireBallAbility fireBallAbility = new FireBallAbility(Avatar.getInstance(), 150, 150, 150, 150);
+        fireBallAbility.setItemName("Melee Attack");
+        area1.getTile(new Coord(3,3)).addTakeableItem(new TakeableItem("meleeAttack", new AbilityItem(fireBallAbility), new Coord(3,3)));
 
         testPiggy.setPiggyTotem(piggyTotem);
 

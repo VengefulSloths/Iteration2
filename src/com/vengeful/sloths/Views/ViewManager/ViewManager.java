@@ -2,6 +2,7 @@ package com.vengeful.sloths.Views.ViewManager;
 
 import com.vengeful.sloths.Controllers.InputController.KeyBindingMenu.InputChangeMenu;
 import com.vengeful.sloths.Menu.InGameMenu.InGameScrollableMenu;
+import com.vengeful.sloths.Menu.SaveMenu.ChooseSaveMenu;
 import com.vengeful.sloths.Utility.Config;
 //import com.vengeful.sloths.Views.AreaView.AreaView;
 import com.vengeful.sloths.Views.AbilitiesSkillsView.AbilitiesSkillView;
@@ -27,6 +28,7 @@ public class ViewManager extends JPanel {
     private HUDView hudView;
     private InGameScrollableMenu menuView;
     private InputChangeMenu keyBindView;
+    private ChooseSaveMenu chooseSaveView;
     JPanel sidePanel;
 
     protected static final int AREA_VIEW_WIDTH =(int) Config.instance().getAreaViewWidth();
@@ -77,6 +79,7 @@ public class ViewManager extends JPanel {
         this.characterView = cv;
         menuView = new InGameScrollableMenu(80);
         this.keyBindView = new InputChangeMenu(40);
+        this.chooseSaveView = new ChooseSaveMenu(80);
         initializeViewManager();
     }
 
@@ -112,6 +115,14 @@ public class ViewManager extends JPanel {
 
     }
 
+    public void openChooseSaveView(){
+        addView(chooseSaveView);
+    }
+    public void closeChooseSaveView(){
+        remove(chooseSaveView);
+        this.revalidate();
+        this.repaint();
+    }
     public void openKeyBindView(){
         addView(keyBindView);
     }
@@ -187,5 +198,13 @@ public class ViewManager extends JPanel {
 
     public void setMenuView(InGameScrollableMenu menuView) {
         this.menuView = menuView;
+    }
+
+    public ChooseSaveMenu getChooseSaveView() {
+        return chooseSaveView;
+    }
+
+    public void setChooseSaveView(ChooseSaveMenu chooseSaveView) {
+        this.chooseSaveView = chooseSaveView;
     }
 }

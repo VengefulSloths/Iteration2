@@ -105,7 +105,7 @@ public class Equipped implements ViewObservable, ModelVisitable{
     }
 
     public void addWeapon(Weapon weapon){
-        this.entityStats.subtract(weapon.getItemStats());
+        this.entityStats.subtract(this.weapon.getItemStats());
         this.weapon = weapon;
         this.entityStats.add(this.weapon.getItemStats());
         this.entityStats.setOffensiveRating(getOffensiveRating());

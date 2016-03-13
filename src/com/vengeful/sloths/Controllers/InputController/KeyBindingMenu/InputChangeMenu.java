@@ -25,7 +25,7 @@ public class InputChangeMenu extends ScrollableMenu {
         adaptableStrategy = (AdaptableStrategy) MainController.getInstance().getInputStrategy();
         //create list here for main menu
         try {
-            bg = ImageIO.read(new File("resources/backgrounds/mainMenuBg.png"));
+            bg = ImageIO.read(new File("resources/backgrounds/clouds_bg.jpg"));
         }catch (Exception e){
             System.out.println("EXCEPTION");
             System.out.println(e);
@@ -33,13 +33,13 @@ public class InputChangeMenu extends ScrollableMenu {
         ScrollableMenuList list = new ScrollableMenuList();
         list.addItem(new KeyBindMenuItem("Abilities", KeyMapping.ABILITIES));
         list.addItem(new KeyBindMenuItem("Inventory", KeyMapping.INVENTORY));
-        list.addItem(new KeyBindMenuItem("Equipment", KeyMapping.INVENTORY));
         list.addItem(new KeyBindMenuItem("Move North", KeyMapping.NORTH));
         list.addItem(new KeyBindMenuItem("Move NorthEast", KeyMapping.NORTHEAST));
         list.addItem(new KeyBindMenuItem("Move NorthWest", KeyMapping.NORTHWEST));
         list.addItem(new KeyBindMenuItem("Move South", KeyMapping.SOUTH));
         list.addItem(new KeyBindMenuItem("Move SouthEast", KeyMapping.SOUTHEAST));
         list.addItem(new KeyBindMenuItem("Move SouthWest", KeyMapping.SOUTHWEST));
+        list.addItem(new KeyBindMenuItem("Attack", KeyMapping.SPACE));
         list.addItem(new KeyBindMenuItem("Ability 0", KeyMapping.ABILITY_0));
         list.addItem(new KeyBindMenuItem("Ability 1", KeyMapping.ABILITY_1));
         list.addItem(new KeyBindMenuItem("Ability 2", KeyMapping.ABILITY_2));

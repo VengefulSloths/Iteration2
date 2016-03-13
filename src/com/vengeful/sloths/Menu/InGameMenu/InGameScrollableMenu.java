@@ -6,6 +6,7 @@ import com.vengeful.sloths.Menu.MainMenu.ExitGameMenuItem;
 import com.vengeful.sloths.Menu.MainMenu.LoadGameMenuItem;
 import com.vengeful.sloths.Menu.MainMenu.MainMenuItem;
 import com.vengeful.sloths.Menu.MainMenu.NewGameMenuItem;
+import com.vengeful.sloths.Menu.SaveMenu.SaveGameMenuItem;
 import com.vengeful.sloths.Menu.ScrollableMenu;
 import com.vengeful.sloths.Menu.ScrollableMenuItem;
 import com.vengeful.sloths.Menu.ScrollableMenuList;
@@ -30,6 +31,7 @@ public class InGameScrollableMenu extends ScrollableMenu {
         //list.addItem(new NewGameMenuItem());
         //needs to be edited to select save file
         list.addItem(new EnterKeyBindViewMenuItem());//TODO change this to an actual keybinding item
+        list.addItem(new SaveGameMenuItem("Save Game"));
         list.addItem(new LoadGameMenuItem("Load Game"));
         list.addItem(new ExitGameMenuItem());
         list.addItem(new MainMenuItem("Quit Menu")); //TODO implement and actual quit menu thing

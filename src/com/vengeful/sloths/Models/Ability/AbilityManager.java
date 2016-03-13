@@ -82,12 +82,22 @@ public class AbilityManager implements ModelVisitable, ViewObservable {
         if(index < 0 || index >= activeAbilities.length)
             return false;
 
+        Iterator<AbilityManagerObserver> iter = this.abilityManagerObservers.iterator();
+
+        // First check if ability is being unequipped, notify observers
+        if (this.activeAbilities[index] != null) {
+            while (iter.hasNext()) {
+                AbilityManagerObserver abo = iter.next();
+                abo.alertAbilityUnequipped(ability, index);
+            }
+        }
+
         this.activeAbilities[index] = ability;
 
-        Iterator<AbilityManagerObserver> iter = this.abilityManagerObservers.iterator();
+        iter = this.abilityManagerObservers.iterator();
         while (iter.hasNext()) {
             AbilityManagerObserver abo = iter.next();
-            abo.alertAbilityEquipped(ability);
+            abo.alertAbilityEquipped(ability, index);
         }
 
         return true;

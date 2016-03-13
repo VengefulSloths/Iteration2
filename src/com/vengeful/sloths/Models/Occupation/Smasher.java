@@ -33,4 +33,9 @@ public class Smasher extends Occupation {
     public void accept(ModelVisitor mv){
         mv.visitSmasher(this);
     }
+
+    @Override
+    public String toString(){
+        return "Smasher";
+    }
 }

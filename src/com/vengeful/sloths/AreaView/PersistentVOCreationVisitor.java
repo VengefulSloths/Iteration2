@@ -27,6 +27,7 @@ import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.*;
+import com.vengeful.sloths.Models.InventoryItems.UsableItems.PiggyTotem;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
 import com.vengeful.sloths.Models.Map.*;
 import com.vengeful.sloths.Models.Map.AreaEffects.*;
@@ -139,6 +140,7 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
     public void visitTakeableItem(TakeableItem takeableItem) {
         //used to populate map with takeable item when game starts
         String imagePath = "resources/items/"+takeableItem.getItemName()+"/"+takeableItem.getItemName()+".xml";
+        System.out.println(imagePath);
         TakeableViewObject takeableViewObject = factory.createTakeableViewObject(r, s, imagePath);
         new ProxyDestoyableObserver(takeableViewObject, takeableItem);
         takeableViewObject.registerObserver(currentTile); //tileViewObject listen for takeable vo destroy
@@ -161,11 +163,12 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
 
     @Override
     public void visitTrap(Trap trap) {
+        /* will not be shown at beginning of the game
         String imagePath = "resources/trap/trap.xml";
         TrapViewObject trapViewObject = factory.createTrapViewObject(r, s, imagePath);
         new ProxyDestoyableObserver(trapViewObject, trap);
         currentTile.addChild(trapViewObject);
-
+        */
     }
 
     @Override
@@ -316,6 +319,11 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
         new ProxyDestoyableObserver(goldViewObject, gold);
         goldViewObject.registerObserver(currentTile); //tileViewObject listen for takeable vo destroy
         currentTile.addChild(goldViewObject);
+    }
+
+    @Override
+    public void visitPiggyTotem(PiggyTotem piggyTotem) {
+
     }
 
 
