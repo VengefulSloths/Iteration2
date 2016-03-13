@@ -12,6 +12,7 @@ import com.vengeful.sloths.Models.Entity.AggressiveNPC;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.Piggy;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.DropAllGoldCommand;
+import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
@@ -224,6 +225,11 @@ public class LevelFactory {
 
         //stuff to test enemy controllers
         AggressiveNPC testEnemy =  new AggressiveNPC("xXOG_SwaG_LorD_BlazE_MasteR_420_Xx", new Stats(new BaseStatsAddable(0,0,0,0,30)));
+//        testEnemy.getInventory().addItem(new Potion("Red Potion", new CurrentHealthAddable(10)));
+//        testEnemy.getInventory().addItem(new Potion("Red Potion", new CurrentHealthAddable(10)));
+//        testEnemy.getInventory().addItem(new Potion("Red Potion", new CurrentHealthAddable(10)));
+//        testEnemy.getInventory().addItem(new Potion("Red Potion", new CurrentHealthAddable(10)));
+//        testEnemy.getInventory().addItem(new Potion("Red Potion", new CurrentHealthAddable(10)));
         area2.getTile(new Coord(3,3)).addEntity(testEnemy);
         testEnemy.setLocation(new Coord(3,3));
         testEnemy.equip(new TwoHandedWeapon("cleaver", new StrengthAddable(1), 1));

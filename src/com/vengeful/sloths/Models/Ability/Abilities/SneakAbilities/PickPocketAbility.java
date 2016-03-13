@@ -14,6 +14,7 @@ public class PickPocketAbility extends Ability implements ModelVisitable{
     }
     @Override
     public int execute() {
+        new EntityInitiatePickPocketCommand().execute();
         return 0;
     }
 

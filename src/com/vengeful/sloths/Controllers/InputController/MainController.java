@@ -6,12 +6,14 @@ import com.vengeful.sloths.Menu.CharacterCreation.CharacterCreationView;
 import com.vengeful.sloths.Menu.ScrollableMenu;
 import com.vengeful.sloths.AreaView.ViewEngine;
 import com.vengeful.sloths.Models.Entity.Avatar;
+import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.ModelEngine;
 import com.vengeful.sloths.Models.SaveLoad.SaveManager;
 import com.vengeful.sloths.Models.TimeModel.Tickable;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
+import com.vengeful.sloths.Views.PickPocketView.PickPocketView;
 import com.vengeful.sloths.Views.ViewManager.ViewManager;
 import com.vengeful.sloths.Views.ViewManager.ViewObjectManager;
 
@@ -38,6 +40,7 @@ public class MainController implements Tickable{
     private AbilitySkillsControllerState abilitySkillsControllerState;
     private SetInputsControllerState setInputsControllerState;
     private CharacterCreationControllerState characterCreationControllerState;
+    private PickPocketControllerState pickPocketControllerState;
 
 
 
@@ -65,7 +68,7 @@ public class MainController implements Tickable{
         abilitySkillsControllerState = new AbilitySkillsControllerState();
         setInputsControllerState = new SetInputsControllerState(inputStrategy);
         characterCreationControllerState = new CharacterCreationControllerState();
-
+        pickPocketControllerState = new PickPocketControllerState();
         state = avatarControllerState;
 
         map = Map.getInstance();
@@ -106,7 +109,6 @@ public class MainController implements Tickable{
         this.state = characterCreationControllerState;
     }
 
-
     public void setAvatarControllerState(){
         ModelEngine.getInstance().unpauseGame();
         this.state = this.avatarControllerState;
@@ -115,6 +117,9 @@ public class MainController implements Tickable{
         viewManager.closeMenuView();
         viewManager.closeKeyBindView();
         viewManager.closeChooseSaveView();
+        if(!viewManager.getPickPocketView().equals(null)){
+            viewManager.closePickPocketView();
+        }
         System.out.println("Switching to avatar state");
     }
 
@@ -123,6 +128,18 @@ public class MainController implements Tickable{
         this.inventoryControllerState.resetInventoryView();
         viewManager.openCharacterView();
         System.out.println("Switching to inventory state");
+    }
+
+
+    public void setPickPocketControllerState(Entity e, Inventory inv, int pickPocketSkill){
+        //make a pickpocketView
+        PickPocketView pickPocketView = new PickPocketView(inv, e, pickPocketSkill);
+        viewManager.setPickPocketView(pickPocketView);
+        viewManager.openPickPocketView();
+        this.state = this.pickPocketControllerState;
+        pickPocketControllerState.initPickPocketValues(pickPocketView, inv,e);
+        //REMEMBER TO RESET ACTIVE
+        //PROBABLY GO IN A CALL IN PICKPOCKETVIEW
     }
 
     public void setMenuControllerState(ScrollableMenu menu) {

@@ -10,7 +10,7 @@ import com.vengeful.sloths.Views.ViewFactory.ViewItem;
  */
 public abstract class InventoryItem extends ViewItem {
     private String itemName;
-    private int value; //for trade
+    private int value = 10; //for trade
 
     public InventoryItem() {
         super();

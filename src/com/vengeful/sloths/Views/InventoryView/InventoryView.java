@@ -122,13 +122,13 @@ public class InventoryView extends View implements InventoryObserver {
 
     public int selectNorthItem() {
 
-        decrementInventoryIndex(numCols);;
+        decrementInventoryIndex(numCols);
 
         return inventoryIndex;
     }
 
     public int selectSouthItem() {
-        incrementInventoryIndex(numCols);;
+        incrementInventoryIndex(numCols);
 
         return inventoryIndex;
     }
@@ -152,6 +152,10 @@ public class InventoryView extends View implements InventoryObserver {
 
     public void setInventoryIndex(int inventoryIndex) {
         this.inventoryIndex = inventoryIndex;
+    }
+
+    protected int getInventoryIndex() {
+        return inventoryIndex;
     }
 
     public void useCurrentlySelectedItem() {

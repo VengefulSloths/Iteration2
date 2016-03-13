@@ -1,61 +1,43 @@
 package com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities;
 
-import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Inventory.Inventory;
-import com.vengeful.sloths.Models.Map.Map;
-import com.vengeful.sloths.Utility.Coord;
-import com.vengeful.sloths.Utility.Direction;
+import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
+
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by harrison on 3/12/16.
  */
 public class EntityPickPocketCommand {
-    private Entity target;
-    private Inventory targInv;
-    private int pickPocketSkill;
+    private int chanceToSucceed;
+    private Entity target = null;
+    private Inventory targInv = null;
+    private InventoryItem item = null;
 
-    public EntityPickPocketCommand(){
-        Avatar a = Avatar.getInstance();
-        Direction dir = a.getFacingDirection();
-        Coord c = a.getLocation();
+    public EntityPickPocketCommand(int chanceToSucceed, Entity target, Inventory targInv, InventoryItem item){
+        this.chanceToSucceed = chanceToSucceed;
+        this.target = target;
+        this.targInv = targInv;
+        this.item = item;
+    }
 
-        Coord dst = new Coord(c.getR(), c.getS());
-        switch (dir) {
-            case N:
-                dst.setS(dst.getS() - 1);
-                break;
-            case S:
-                dst.setS(dst.getS() + 1);
-                break;
-            case NE:
-                dst.setR(dst.getR() + 1);
-                dst.setS(dst.getS() - 1);
-                break;
-            case NW:
-                dst.setR(dst.getR() - 1);
-                break;
-            case SE:
-                dst.setR(dst.getR() + 1);
-                break;
-            case SW:
-                dst.setR(dst.getR() - 1);
-                dst.setS(dst.getS() + 1);
-                break;
-            default:
-                break;
-        }
-        Entity[] e = Map.getInstance().getTile(dst).getEntities();
-        this.target = e[0];
-        this.pickPocketSkill = a.getSkillManager().getPickPocketLevel();
-        target.setActive(true);
-        a.setActive(true);
+    public EntityPickPocketCommand(Entity e, Inventory inv, InventoryItem item){
+        this(100,e,inv,item);
     }
 
     public void execute(){
-        if(target != null){
-            MainController.getInstance().setPickpocketControllerState();
+        int r = ThreadLocalRandom.current().nextInt(0, 100 + 1);
+        if(r <= chanceToSucceed){
+            System.out.println("pick pocket will succeed");
+            if(targInv.removeItem(item)){
+                Avatar.getInstance().getInventory().addItem(item);
+                System.out.println("pickpocket SUCEEDED");
+            }
         }
+        System.out.println("pick pocket FAILED");
+
     }
 }
