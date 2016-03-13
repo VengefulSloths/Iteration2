@@ -73,6 +73,4 @@ public class ItemViewObject extends JPanel {
         super.paintComponent(g);
         g.drawImage(this.getItemImage(), x, y, width, height, this);
     }
-
-
 }

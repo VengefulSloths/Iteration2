@@ -107,8 +107,6 @@ public class Inventory implements ModelVisitable, ViewObservable {
         }else{
             return false;
         }
-
-
     }
 
 

@@ -20,13 +20,13 @@ public class SkillsViewObjectFactory {
         // Get skills from skill manager
         while (iter.hasNext()) {
             Skill skill = iter.next();
-            tmp = new SkillsViewObject(skill.getName(), skill.getLevel());
+            tmp = new SkillsViewObject(skill);
             tmpList.add(tmp);
         }
 
         // Get skill points
-        tmp = new SkillsViewObject("Skill Points", skillManager.getAvailableSkillPoints());
-        tmpList.add(tmp);
+//        tmp = new SkillsViewObject("Skill Points", skillManager.getAvailableSkillPoints());
+//        tmpList.add(tmp);
 
         return tmpList;
     }

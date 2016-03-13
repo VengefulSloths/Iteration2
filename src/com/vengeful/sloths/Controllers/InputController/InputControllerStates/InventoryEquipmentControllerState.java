@@ -160,10 +160,7 @@ public class InventoryEquipmentControllerState extends InputControllerState {
 
     }
 
-    @Override
-    public void handleAbility0Key() {
 
-    }
 
     @Override
     public void handleAbility1Key() {
@@ -188,8 +185,18 @@ public class InventoryEquipmentControllerState extends InputControllerState {
     }
 
     @Override
+    public void handleAbility4Key() {
+
+    }
+
+    @Override
     public boolean handleSpaceKey() {
         return false;
+    }
+
+    @Override
+    public void handleTalkKey() {
+
     }
 
     @Override
@@ -256,5 +263,10 @@ public class InventoryEquipmentControllerState extends InputControllerState {
     @Override
     public boolean handleReleaseUpKey() {
         return false;
+    }
+
+    @Override
+    public void resetView(boolean isActive) {
+
     }
 }

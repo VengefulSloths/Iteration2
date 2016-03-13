@@ -76,18 +76,29 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
             if (isStealthed) {
                 getNonVisibleSnapShot().paintComponent(g);
             } else {
+
                 if (isMounted) {
                     g.drawImage(mountImage.getImage(),
                             getXPixels() + getLocationXOffset() + mountImage.getXOffset(),
                             getYPixels() + getLocationYOffset() + mountImage.getYOffset(),
                             this);
                 }
+                paintBack(g);
+                paintBody(g);
+                paintFront(g);
                 if(healthBar != null) {
                     healthBar.paintComponent(g);
                 }
-                paintBody(g);
             }
         }
+    }
+
+    protected void paintBack(Graphics2D g) {
+        //default nothing
+    }
+
+    protected void paintFront(Graphics2D g) {
+        //default nothing
     }
 
     @Override
@@ -172,12 +183,12 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
 
     @Override
     public void alertAddBuff(String buffName) {
-        System.out.println("a buff was added");
+        healthBar.addBuff(buffName);
     }
 
     @Override
     public void alertRemoveBuff(String buffName) {
-        System.out.println("a buff was added");
+        healthBar.removeBuff(buffName);
     }
 
     @Override
@@ -224,6 +235,7 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     public final void alertMount(String mountName) {
         System.out.println("just mounted");
         this.setCustomYOffset(-20);
+        healthBar.setCustomYOffset(-20);
         mountImage = DynamicImageFactory.getInstance().loadDynamicImage("resources/mount/" + mountName + ".xml");
         this.isMounted = true;
         ViewTime.getInstance().registerAlert(0, () -> mountAnimation());
@@ -243,6 +255,7 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     @Override
     public void alertDemount() {
         this.setCustomYOffset(0);
+        healthBar.setCustomYOffset(-20);
         this.isMounted = false;
     }
 

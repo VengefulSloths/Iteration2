@@ -1,5 +1,7 @@
 package com.vengeful.sloths.Models.Entity;
 
+import com.vengeful.sloths.Models.DialogueTrade.DialogContainer;
+import com.vengeful.sloths.Models.DialogueTrade.TerminalDialogContainer;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.DropAllGoldCommand;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityDieCommand;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteractionFactory;
@@ -18,6 +20,9 @@ public class Piggy extends Pet {
 
     public Piggy(String name, Stats stats){
         super(name, stats);
+        DialogContainer piggyDialog = new TerminalDialogContainer(name);
+        piggyDialog.appendDialog("oink oink!!");
+        this.setDialogContainer(piggyDialog);
     }
 
     public Piggy() {}

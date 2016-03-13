@@ -10,6 +10,7 @@ public class NullAbility extends Ability {
 
     public NullAbility() {
         super(1, 2);
+
     }
 
     @Override
@@ -22,4 +23,7 @@ public class NullAbility extends Ability {
         System.out.println("THis is inside of accept NullAbility");
         modelVisitor.visitNullAbility(this);
     }
+
+    @Override
+    public String toString() { return "Null Ability"; }
 }

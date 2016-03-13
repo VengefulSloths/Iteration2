@@ -33,10 +33,12 @@ public class BuffManager implements Tickable, ModelVisitable {
     }
 
     public void addBuff(Buff buff){
-        if (!buffs.contains(buff)) {
-            buff.apply(entity.getStats());
-            this.buffs.add(buff);
+        if (buffs.contains(buff)) {
+            this.removeBuff(buff);
         }
+        buff.apply(entity.getStats());
+        this.buffs.add(buff);
+
     }
 
     public boolean removeBuff(Buff buff){
@@ -46,6 +48,13 @@ public class BuffManager implements Tickable, ModelVisitable {
         }
         return false;
     }
+
+    public void removeAllBuffs(){
+        for(int i = 0; i < buffs.size(); i++){
+            removeBuff(buffs.get(i));
+        }
+    }
+
     public void destroy(){
         TimeModel.getInstance().removeTickable(this);
     }
@@ -54,10 +63,8 @@ public class BuffManager implements Tickable, ModelVisitable {
 //    }
     @Override
     public void tick() {
-        //System.out.println("tick"); //THIS LINE WAS TOO HARD TO FIND
-        for (Iterator<Buff> iterator = buffs.iterator(); iterator.hasNext();) {
-            Buff buff = iterator.next();
-            buff.applyOnTick(entity.getStats());
+        for (int i = buffs.size() - 1; i >=0; i-- ) {
+            buffs.get(i).applyOnTick(entity.getStats());
         }
     }
 

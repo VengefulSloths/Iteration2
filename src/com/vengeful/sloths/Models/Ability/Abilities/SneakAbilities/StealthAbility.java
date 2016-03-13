@@ -43,4 +43,6 @@ public class StealthAbility extends SelfBuffAbility {
     public void accept(ModelVisitor visitor){
         visitor.visitStealthAbility(this);
     }
+
+    public String toString() { return "Stealth"; }
 }

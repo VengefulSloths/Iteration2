@@ -19,7 +19,7 @@ import java.util.Iterator;
 /**
  * Created by luluding on 3/7/16.
  */
-public class FireBallAbility extends Ability{
+public class FireBallAbility extends Ability {
     /* Summoner only, a type of bane spell */
 
     //NOTE: can't trust any entity internal attribute reference set in the constructor
@@ -43,6 +43,7 @@ public class FireBallAbility extends Ability{
         this.travelTime = travelTime;
         this.travelDistance = travelDistance;
         this.canGenerateVisitor = new DefaultCanGenerateVisitor();
+        this.name = "Fire Ball";
     }
 
     @Override
@@ -74,13 +75,17 @@ public class FireBallAbility extends Ability{
     }
 
     @Override
+    public String getItemName() {
+        return this.name;
+    }
+    @Override
     public String toString() {
-        return "FireBallAbility";
+        return "Fireball Ability";
     }
 
     private void doAbility(){
         //TODO: better formula.
-        int damage = entity.getStats().getOffensiveRating() * (1 + entity.getSkillManager().getBaneLevel());
+        int damage = (entity.getStats().getStrength() + entity.getEquipped().getWeapon().getBaseDamage()) * (2 + entity.getSkillManager().getBaneLevel());
 
         Coord firingLocation = HexMath.getNextFacingCoord(entity.getLocation(), entity.getFacingDirection());
         //If the attempt to fire the ability did not fail, then initial fireball hit target accuracy = 100

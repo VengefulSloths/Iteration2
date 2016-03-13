@@ -4,6 +4,8 @@ import com.vengeful.sloths.AreaView.CameraViewManager;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Map.Map;
+import com.vengeful.sloths.Models.Stats.StatAddables.BonusHealthAddable;
+import com.vengeful.sloths.Models.Stats.StatAddables.GenericStatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Models.TimeModel.Alertable;
 import com.vengeful.sloths.Utility.Coord;
@@ -34,6 +36,7 @@ public class LaunchNewGame implements LaunchGameHelper {
         return levelFactory.getCameras();
     }
     @Override
+
     public Avatar createAvatar(String avatarOccupation) {
         Avatar.getInstance().avatarInit(avatarOccupation, new Stats());
         return Avatar.getInstance();

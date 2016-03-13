@@ -89,10 +89,6 @@ public class InventoryControllerState extends InputControllerState{
         }
     }
 
-    @Override
-    public void handleAbility0Key() {
-
-    }
 
     @Override
     public void handleAbility1Key() {
@@ -106,6 +102,11 @@ public class InventoryControllerState extends InputControllerState{
 
     @Override
     public void handleAbility3Key() {
+
+    }
+
+    @Override
+    public void handleAbility4Key() {
 
     }
 
@@ -137,6 +138,11 @@ public class InventoryControllerState extends InputControllerState{
         this.inventoryView.useCurrentlySelectedItem();
 
         return true;
+
+    }
+
+    @Override
+    public void resetView(boolean isActive) {
 
     }
 
@@ -257,6 +263,11 @@ public class InventoryControllerState extends InputControllerState{
     @Override
     public void handleEnterKey() {
         this.inventoryView.useCurrentlySelectedItem();
+
+    }
+
+    @Override
+    public void handleTalkKey() {
 
     }
 }

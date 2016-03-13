@@ -139,6 +139,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
             customDeath();
             doRespawn();
             dropGold();
+            removeAllBuffs();
 
             return edc.execute();
 
@@ -156,6 +157,10 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         //create drop command
         EntityMapInteractionFactory.getInstance().createDropEntireInventoryCommand(this).execute();
         System.out.println("Dropping all items!");
+    }
+
+    protected void removeAllBuffs(){
+        buffManager.removeAllBuffs();
     }
 
     protected void doRespawn() {
@@ -223,10 +228,10 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
 
     public void takeDamage(int attackDamage){
         //do dmg calculations here (like lessening it for defense)
-
         StatsAddable damage = new CurrentHealthAddable(attackDamage);
         buffManager.modifyDamage(damage);
 
+        //TODO: take defensive rating into consideration
 
         getStats().subtract(damage);
         for (EntityObserver observer: observers) {

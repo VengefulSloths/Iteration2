@@ -8,6 +8,7 @@ import com.vengeful.sloths.AreaView.ViewObjects.NonVisibleViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.ViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.WeaponImageContainer;
 import com.vengeful.sloths.AreaView.ViewTime;
+import com.vengeful.sloths.Models.TimeModel.TimeController;
 import com.vengeful.sloths.Utility.Direction;
 
 import java.awt.*;
@@ -249,8 +250,10 @@ public class OneHandState implements HandState {
     public void alertMove(int r, int s, long duration) {
         leftHand.alertMove(r, s, duration);
         rightHand.alertMove(r, s, duration);
-        walkingStrategy.startWalking(leftHand, duration);
-        walkingStrategy.startWalking(rightHand, duration);
+        if (duration >= 15* TimeController.MODEL_TICK) {
+            walkingStrategy.startWalking(leftHand, duration);
+            walkingStrategy.startWalking(rightHand, duration);
+        }
     }
 
     @Override

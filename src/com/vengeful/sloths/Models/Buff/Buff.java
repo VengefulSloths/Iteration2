@@ -24,6 +24,7 @@ public abstract class Buff implements ModelVisitable{
         this.name = name;
     }
 
+
     public String getName() {
         return name;
     }
@@ -44,6 +45,7 @@ public abstract class Buff implements ModelVisitable{
             observer.alertRemoveBuff(getName());
         }
         doRemove(stats);
+
     }
 
     public abstract void doRemove(Stats stats);

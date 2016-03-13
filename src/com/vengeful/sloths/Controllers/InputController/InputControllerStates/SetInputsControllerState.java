@@ -47,7 +47,12 @@ public class SetInputsControllerState extends InputControllerState {
     public void onRegister() {
 
     }
-    
+
+    @Override
+    public void handleTalkKey() {
+
+    }
+
     @Override
     public boolean handleInventoryKey() {
 
@@ -57,11 +62,6 @@ public class SetInputsControllerState extends InputControllerState {
     @Override
     public boolean handleAbilitiesKey() {
         return false;
-    }
-
-    @Override
-    public void handleAbility0Key() {
-
     }
 
     @Override
@@ -76,6 +76,16 @@ public class SetInputsControllerState extends InputControllerState {
 
     @Override
     public void handleAbility3Key() {
+
+    }
+
+    @Override
+    public void handleAbility4Key() {
+
+    }
+
+    @Override
+    public void resetView(boolean isActive) {
 
     }
 

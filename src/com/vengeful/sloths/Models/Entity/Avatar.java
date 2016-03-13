@@ -3,6 +3,7 @@ package com.vengeful.sloths.Models.Entity;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteractionFactory;
+import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityTalkCommand;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.Map.Map;
@@ -101,10 +102,6 @@ public class Avatar extends Entity{
 
     }
 
-    @Override
-    public void takeDamage(int damage) {
-        super.takeDamage(damage);
-    }
 
     @Override
     public int attack(Direction dir) {
@@ -124,6 +121,8 @@ public class Avatar extends Entity{
 
     public void talk(){
         //create talk command
+        EntityTalkCommand etc = EntityMapInteractionFactory.getInstance().createEntityTalkCommand(this.getFacingDirection(),this.getLocation());
+        etc.execute();
     }
 
     public void consumeItem(ConsumableItems item){
@@ -228,8 +227,12 @@ public class Avatar extends Entity{
     }
 
     public void setPet(Pet pet) {
+        pet.alertAlive();
         this.pet = pet;
     }
 
-    public Pet removePet() { this.pet = null; return pet; }
+    public Pet removePet() {
+        this.pet.alertDead();
+        this.pet = null;
+        return pet; }
 }

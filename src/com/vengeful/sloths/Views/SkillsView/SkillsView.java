@@ -216,15 +216,15 @@ public class SkillsView extends View implements SkillManagerObserver {
         int x = this.getWidth()/2;
         int y, titleYOffset;
         Font font = new Font(Font.DIALOG, Font.BOLD, 20);
+        g.setFont(font);
+        g.setColor(Color.WHITE);
 
         int stringHeight = g.getFontMetrics().getHeight();
 
         titleYOffset = this.getTitlePanel().getHeight() + stringHeight + this.getSkillsPanel().getWidth()/10;
         y = titleYOffset;
 
-        for (int i=0; i<this.skillsList.size(); i++) {
-            g.setFont(font);
-            g.setColor(Color.WHITE);
+        for (int i=0; i < this.skillsList.size(); i++) {
 
             if (this.skillsList.get(i).isSelected()) {
                 Border b = BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.GREEN, Color.GREEN);
@@ -236,11 +236,14 @@ public class SkillsView extends View implements SkillManagerObserver {
                 this.skillsList.get(i).paintComponent(g,x,y);
             }
 
+            g.setFont(font);
+            g.setColor(Color.WHITE);
 
             y += calculateYCoordBasedOnIndex(i, y, stringHeight);
-
-//                    (stringHeight+15);
         }
+
+        int stringWidth = g.getFontMetrics().stringWidth("Skill Points:" + this.skillManager.getAvailableSkillPoints());
+        g.drawString("Skill Points: " + this.skillManager.getAvailableSkillPoints(), x - stringWidth/2, y);
     }
 
     public int calculateSlotHeight() {
@@ -257,6 +260,12 @@ public class SkillsView extends View implements SkillManagerObserver {
         return yCoord;
     }
 
+    public void useSkillPoint() {
+        if (this.skillManager.getAvailableSkillPoints() <= 0) return;
+
+        this.skillManager.updateSkillLevel(this.getFromItemList(this.viewIndex).getSkill(), 1);
+    }
+
     @Override
     public void alertSkillAdded(Skill skill) {
         SkillsViewObjectFactory factory = new SkillsViewObjectFactory();
@@ -265,8 +274,10 @@ public class SkillsView extends View implements SkillManagerObserver {
 
     @Override
     public void alertSkillLevelUpdated(Skill skill) {
+
         SkillsViewObjectFactory factory = new SkillsViewObjectFactory();
         this.skillsList = factory.generateSkillsViewObjects(skillManager);
+        this.getFromItemList(this.viewIndex).setSelected(true);
     }
 
     @Override

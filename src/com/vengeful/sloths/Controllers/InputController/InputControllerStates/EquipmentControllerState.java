@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Controllers.InputController.InputControllerStates;
 
+import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.Views.EquipmentView.EquipmentView;
 
 /**
@@ -51,7 +52,10 @@ public class EquipmentControllerState extends InputControllerState{
 
     @Override
     public boolean handleInventoryKey() {
-        return false;
+        MainController.getInstance().setAvatarControllerState();
+        //MainController.getInstance().setInventoryControllerState();
+        return true;
+
     }
 
     @Override
@@ -150,10 +154,7 @@ public class EquipmentControllerState extends InputControllerState{
 
     }
 
-    @Override
-    public void handleAbility0Key() {
 
-    }
 
     @Override
     public void handleAbility1Key() {
@@ -171,8 +172,18 @@ public class EquipmentControllerState extends InputControllerState{
     }
 
     @Override
+    public void handleAbility4Key() {
+
+    }
+
+    @Override
     public boolean handleSpaceKey() {
         return false;
+    }
+
+    @Override
+    public void handleTalkKey() {
+
     }
 
     @Override

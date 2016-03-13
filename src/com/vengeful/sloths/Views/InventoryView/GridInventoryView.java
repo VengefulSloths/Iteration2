@@ -24,6 +24,7 @@ public class GridInventoryView extends InventoryView implements InventoryObserve
         this.setNumRows(5); //default numRows
         this.setNumCols(4); //default numCols
     }
+    public GridInventoryView(){}
 
     public GridInventoryView(Inventory inventory, int numRows, int numCols) {
         super(inventory, numRows, numCols);

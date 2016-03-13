@@ -161,6 +161,10 @@ public class InventoryView extends View implements InventoryObserver {
         this.inventoryIndex = inventoryIndex;
     }
 
+    protected int getInventoryIndex() {
+        return inventoryIndex;
+    }
+
     public void useCurrentlySelectedItem() {
         if (this.inventory.getCurrentSize() <= 0) return;
 

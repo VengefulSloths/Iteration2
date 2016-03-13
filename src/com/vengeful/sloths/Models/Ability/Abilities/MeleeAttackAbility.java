@@ -34,6 +34,7 @@ public class MeleeAttackAbility extends Ability {
         this.stats = entity.getStats();
         this.relevantSkill = relevantSkill;
         this.baseDamage = baseDamage;
+        this.name = "Melee Attack";
     }
 
 
@@ -78,8 +79,6 @@ public class MeleeAttackAbility extends Ability {
 
         TimeModel.getInstance().registerAlertable(() -> {
             try {
-
-                System.out.println("Attacking Strength: " + entity.getStats().getStrength());
                 for (Entity entity : Map.getInstance().getTile(dst).getEntities()) {
                     entity.takeDamage(damage);
                 }
@@ -112,7 +111,7 @@ public class MeleeAttackAbility extends Ability {
     }
 
     public String toString() {
-        return "MeleeAttackAbility";
+        return "Melee Attack";
     }
 
     @Override

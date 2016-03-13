@@ -6,6 +6,7 @@ import com.vengeful.sloths.Controllers.Target.MapItemTarget;
 import com.vengeful.sloths.Controllers.Target.AggressiveNPCTarget;
 import com.vengeful.sloths.Controllers.Target.Target;
 import com.vengeful.sloths.Models.Ability.Abilities.*;
+import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.PickPocketAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.RemoveTrapAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.StealthAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.AngleSpellAbility;
@@ -435,6 +436,11 @@ public class PiggySearchingController extends SearchingController {
 
     @Override
     public void visitPiggyTotem(PiggyTotem piggyTotem) {
+
+    }
+
+    @Override
+    public void visitPickPocketAbility(PickPocketAbility pickPocketAbility) {
 
     }
 

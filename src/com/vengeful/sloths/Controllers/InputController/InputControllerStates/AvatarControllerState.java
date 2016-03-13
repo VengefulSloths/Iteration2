@@ -43,12 +43,12 @@ public class AvatarControllerState extends InputControllerState {
     }
 
     @Override
-    public void handleAbility0Key() {
+    public void handleAbility1Key() {
         Avatar.getInstance().doAbility(0);
     }
 
     @Override
-    public void handleAbility1Key() {
+    public void handleAbility2Key() {
         Avatar.getInstance().doAbility(1);
     }
 
@@ -59,12 +59,12 @@ public class AvatarControllerState extends InputControllerState {
     }
 
     @Override
-    public void handleAbility2Key() {
+    public void handleAbility3Key() {
         Avatar.getInstance().doAbility(2);
     }
 
     @Override
-    public void handleAbility3Key() {
+    public void handleAbility4Key() {
         Avatar.getInstance().doAbility(3);
     }
 
@@ -76,6 +76,10 @@ public class AvatarControllerState extends InputControllerState {
         return true;
     }
 
+    @Override
+    public void handleTalkKey() {
+        Avatar.getInstance().talk();
+    }
 
     @Override
     public boolean handleESCKey() {
@@ -91,6 +95,11 @@ public class AvatarControllerState extends InputControllerState {
         }
         this.currentMovementDirection = Direction.SW;
         return true;
+    }
+
+    @Override
+    public void resetView(boolean isActive) {
+
     }
 
     @Override

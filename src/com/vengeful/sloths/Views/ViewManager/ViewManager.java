@@ -7,8 +7,10 @@ import com.vengeful.sloths.Utility.Config;
 //import com.vengeful.sloths.Views.AreaView.AreaView;
 import com.vengeful.sloths.Views.AbilitiesSkillsView.AbilitiesSkillView;
 import com.vengeful.sloths.Views.CharacterView.CharacterView;
+import com.vengeful.sloths.Views.DialogView.DialogView;
 import com.vengeful.sloths.Views.HUDView.HUDView;
 import com.vengeful.sloths.AreaView.AreaView;
+import com.vengeful.sloths.Views.PickPocketView.PickPocketView;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -26,9 +28,13 @@ public class ViewManager extends JPanel {
     private AbilitiesSkillView abilitiesSkillView;
     private AreaView areaview;
     private HUDView hudView;
+    private DialogView dialogView;
     private InGameScrollableMenu menuView;
     private InputChangeMenu keyBindView;
     private ChooseSaveMenu chooseSaveView;
+    private PickPocketView pickPocketView;
+
+
     JPanel sidePanel;
 
     protected static final int AREA_VIEW_WIDTH =(int) Config.instance().getAreaViewWidth();
@@ -46,6 +52,14 @@ public class ViewManager extends JPanel {
 
     public void setAbilitiesSkillView(AbilitiesSkillView abilitiesSkillView) {
         this.abilitiesSkillView = abilitiesSkillView;
+    }
+
+    public DialogView getDialogView() {
+        return dialogView;
+    }
+
+    public void setDialogView(DialogView dialogView) {
+        this.dialogView = dialogView;
     }
 
     public void setCharacterView(CharacterView characterView) {
@@ -113,6 +127,17 @@ public class ViewManager extends JPanel {
         this.hudView.setBackground(new Color(0f,0f,0f,0.3f));
         this.areaview.setBackground(Color.blue);
 
+
+        this.dialogView = new DialogView();
+
+    }
+    public void openPickPocketView(){
+        addView(pickPocketView);
+    }
+    public void closePickPocketView(){
+        remove(pickPocketView);
+        this.revalidate();
+        this.repaint();
     }
 
     public void openChooseSaveView(){
@@ -145,6 +170,10 @@ public class ViewManager extends JPanel {
         addView(characterView);
     }
 
+    public void openDialogView() {
+        addView(dialogView);
+    }
+
     public void openAbilitiesSkillsView() {
         addView(abilitiesSkillView);
     }
@@ -160,6 +189,12 @@ public class ViewManager extends JPanel {
 
     public void closeAbilitiesSkillsView() {
         this.remove(abilitiesSkillView);
+        this.revalidate();
+        this.repaint();
+    }
+
+    public void closeDialogView() {
+        this.remove(dialogView);
         this.revalidate();
         this.repaint();
     }
@@ -206,5 +241,13 @@ public class ViewManager extends JPanel {
 
     public void setChooseSaveView(ChooseSaveMenu chooseSaveView) {
         this.chooseSaveView = chooseSaveView;
+    }
+
+    public PickPocketView getPickPocketView() {
+        return pickPocketView;
+    }
+
+    public void setPickPocketView(PickPocketView pickPocketView) {
+        this.pickPocketView = pickPocketView;
     }
 }

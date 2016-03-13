@@ -77,8 +77,8 @@ public class EquippedAbilitiesViewObject extends JPanel {
         int nameStringWidth = g.getFontMetrics().stringWidth(itemName);
         int descriptionStringWidth = g.getFontMetrics().stringWidth(itemDescription);
         int stringHeight = g.getFontMetrics().getHeight();
-        g.drawString(itemName, x+imageWidth+5, stringHeight);
-        g.drawString(itemDescription, x+imageWidth+5, 3*stringHeight);
+        g.drawString(itemName, x+imageWidth+5, y+stringHeight);
+        g.drawString(itemDescription, x+imageWidth+5, y+3*stringHeight);
     }
 
 }

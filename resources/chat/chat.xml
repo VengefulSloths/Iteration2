@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<repeating_animation>
+  <width>800</width>
+  <height>300</height>
+  <duration>4000</duration>
+  <rootPath>resources/chat/</rootPath>
+  <fileName>chat1.png</fileName>
+  <positioning>center</positioning>
+</repeating_animation>

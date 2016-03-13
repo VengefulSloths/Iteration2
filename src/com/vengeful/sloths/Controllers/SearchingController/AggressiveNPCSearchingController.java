@@ -3,6 +3,7 @@ package com.vengeful.sloths.Controllers.SearchingController;
 
 import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
 import com.vengeful.sloths.Models.Ability.Abilities.*;
+import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.PickPocketAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.RemoveTrapAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.StealthAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.AngleSpellAbility;
@@ -80,8 +81,8 @@ public class AggressiveNPCSearchingController extends SearchingController {
         //System.out.println("agressive npc sees the avatar :o");
 
         int roll = roller.nextInt(10);
-        System.out.println("I just rolled a " + roll);
-        System.out.println("I need > " + getCurrRing()*avatar.getStats().getConcealment());
+//        System.out.println("I just rolled a " + roll);
+//        System.out.println("I need > " + getCurrRing()*avatar.getStats().getConcealment());
         if (roll > getCurrRing()*avatar.getStats().getConcealment()) {
             Target currTarget = new AvatarTarget(0);
             currTarget.setCoord(this.getCurrentCoord());
@@ -422,6 +423,11 @@ public class AggressiveNPCSearchingController extends SearchingController {
 
     @Override
     public void visitPiggyTotem(PiggyTotem piggyTotem) {
+
+    }
+
+    @Override
+    public void visitPickPocketAbility(PickPocketAbility pickPocketAbility) {
 
     }
 
