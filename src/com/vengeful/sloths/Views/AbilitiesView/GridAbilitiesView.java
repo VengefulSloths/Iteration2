@@ -40,14 +40,9 @@ public class GridAbilitiesView extends AbilitiesView implements AbilityManagerOb
         int multipleY = 1;
 
         GridCalculationStrategy gcs = new GridCalculationStrategy();
-        System.out.println(this.getItemListSize());
-        System.out.println("ITEM LIST: ");
-        for (int i = 0; i < this.getItemListSize(); i++) {
-            System.out.println(this.getFromItemList(i));
-        }
+
         for(int i=0; i<this.getItemListSize(); i++) {
             this.getFromItemList(i).paintComponent(g, gcs.calculateXCoordBasedOnIndex(i), gcs.calculateYCoordBasedOnIndex(i), gcs.calculateSlotWidth(), gcs.calculateSlotHeight());
-            System.out.println("IS SELECTED??? " + this.getFromItemList(i).isSelected());
             if(this.getFromItemList(i).isSelected()) {
                 Border b = BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.GREEN, Color.GREEN);
                 b.paintBorder(this.getFromItemList(i), g, gcs.calculateXCoordBasedOnIndex(i), gcs.calculateYCoordBasedOnIndex(i), gcs.calculateSlotWidth(), gcs.calculateSlotHeight());
@@ -57,19 +52,6 @@ public class GridAbilitiesView extends AbilitiesView implements AbilityManagerOb
             }
         }
 
-        /*
-        for (int i = 0; i < this.getNumRows(); i++) { //for each column
-            for (int j = 0; j < this.getNumCols(); j++) { //for each row
-                y = ((boxHeight / 2) * multipleY) + titlePanelHeight; //the y coord to draw at is half the boxHeight * the Y multiple (which increments by 3)
-                x = (boxWidth / 2) * multipleX; //the x coord to draw at is half the boxWwidth * the X multiple
-                g.setColor(Color.BLACK);
-                g.drawRect(x, y, boxWidth, boxHeight);
-                multipleX +=3;
-            }
-            multipleX=1;
-            multipleY+=3;
-        }
-        */
     }
 
     private class GridCalculationStrategy {

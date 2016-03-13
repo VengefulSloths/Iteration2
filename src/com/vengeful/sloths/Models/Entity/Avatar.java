@@ -101,10 +101,6 @@ public class Avatar extends Entity{
 
     }
 
-    @Override
-    public void takeDamage(int damage) {
-        super.takeDamage(damage);
-    }
 
     @Override
     public int attack(Direction dir) {

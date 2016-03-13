@@ -36,4 +36,5 @@ public abstract class EquippableItems extends InventoryItem {
         this.itemStats = stats;
     }
 
+
 }

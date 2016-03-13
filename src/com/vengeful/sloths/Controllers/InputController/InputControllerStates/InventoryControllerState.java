@@ -12,7 +12,6 @@ import com.vengeful.sloths.Views.ViewManager.ViewManager;
  */
 public class InventoryControllerState extends InputControllerState{
     private InventoryView inventoryView;
-    private int inventoryIndex;
 
     public InventoryView getInventoryView() {
         return inventoryView;
@@ -22,7 +21,7 @@ public class InventoryControllerState extends InputControllerState{
     }
 
     public InventoryControllerState() {
-        this.inventoryIndex = 0;
+
     }
 
 

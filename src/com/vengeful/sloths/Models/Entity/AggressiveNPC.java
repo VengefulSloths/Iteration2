@@ -23,6 +23,6 @@ public class AggressiveNPC extends NPC{
 
     @Override
     protected void doRespawn() {
-        EntityMapInteractionFactory.getInstance().createRespawnCommand(this, this.getLocation(), timeToRespawn);
+//        EntityMapInteractionFactory.getInstance().createRespawnCommand(this, this.getLocation(), timeToRespawn);
     }
 }

@@ -9,7 +9,7 @@ import java.awt.*;
  */
 public class ViewEngine extends JFrame implements Runnable{
 
-    private JPanel target;
+    private JComponent target;
     private boolean gameisPaused = false;
 
     private static ViewEngine ourInstance = new ViewEngine();
@@ -65,7 +65,7 @@ public class ViewEngine extends JFrame implements Runnable{
 
 
 
-    public void registerView(JPanel jpanel){
+    public void registerView(JComponent jpanel){
         if(target != null) {
             killOldView();
         }

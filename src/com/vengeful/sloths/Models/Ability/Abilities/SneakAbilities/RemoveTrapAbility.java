@@ -58,4 +58,12 @@ public class RemoveTrapAbility extends Ability{
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitRemoveTrapAbility(this);
     }
+
+    public int getManaCost() {
+        return manaCost;
+    }
+
+    public void setManaCost(int manaCost) {
+        this.manaCost = manaCost;
+    }
 }

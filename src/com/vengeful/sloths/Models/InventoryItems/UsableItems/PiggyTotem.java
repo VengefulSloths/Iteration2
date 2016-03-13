@@ -5,6 +5,8 @@ import com.vengeful.sloths.Models.Entity.Piggy;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteractionFactory;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.Tile;
+import com.vengeful.sloths.Models.ModelVisitable;
+import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.HexMath;
 import com.vengeful.sloths.Utility.Location;
@@ -12,7 +14,7 @@ import com.vengeful.sloths.Utility.Location;
 /**
  * Created by zach on 3/11/16.
  */
-public class PiggyTotem extends UsableItems {
+public class PiggyTotem extends UsableItems implements ModelVisitable{
 
     Piggy pig;
 
@@ -30,5 +32,17 @@ public class PiggyTotem extends UsableItems {
         EntityMapInteractionFactory.getInstance().createRespawnCommand(this.pig, closestMovableCoord, 0);
 
         Avatar.getInstance().setPet(this.pig);
+    }
+
+    public void accept(ModelVisitor mv){
+        mv.visitPiggyTotem(this);
+    }
+
+    public Piggy getPig() {
+        return pig;
+    }
+
+    public void setPig(Piggy pig) {
+        this.pig = pig;
     }
 }

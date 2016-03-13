@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<single_frame_animation>
+    <width>78</width>
+    <height>126</height>
+    <rootPath>resources/AbilityItems/</rootPath>
+    <fileName>Melee Attack.png</fileName>
+    <positioning xOffset="-25" yOffset="-39">custom</positioning>
+</single_frame_animation>

@@ -39,10 +39,10 @@ public class AbilitiesView extends View implements AbilityManagerObserver {
     public AbilityManager getAbilityManager() {
         return this.abilityManager;
     }
+
     public JPanel getItemPanel() {
         return itemPanel;
     }
-
     public JPanel getTitlePanel() {
         return titlePanel;
     }
@@ -60,7 +60,7 @@ public class AbilitiesView extends View implements AbilityManagerObserver {
         this.numRows = numRows;
     }
 
-    public void resetView() {
+    public void resetView(boolean isActiveView) {
         if (this.abilityManager.getCurrentSize() > 0) {
             AbilityViewObject item = this.getFromItemList(this.viewIndex);
 
@@ -70,7 +70,7 @@ public class AbilitiesView extends View implements AbilityManagerObserver {
             this.viewIndex = 0;
 
             item = this.getFromItemList(this.viewIndex);
-            if (item != null)
+            if (item != null && isActiveView)
                 this.setSelected(this.getFromItemList(this.viewIndex));
         }
     }
@@ -261,13 +261,13 @@ public class AbilitiesView extends View implements AbilityManagerObserver {
     }
 
     @Override
-    public void alertAbilityEquipped(Ability ability) {
-        // @TODO: IMPLEMENT THIS!
+    public void alertAbilityEquipped(Ability ability, int index) {
+
     }
 
     @Override
-    public void alertAbilityUnset(Ability ability) {
-        // @TODO: IMPLEMENT THIS!
+    public void alertAbilityUnequipped(Ability ability, int index) {
+
     }
 
 }

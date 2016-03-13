@@ -2,8 +2,8 @@ package com.vengeful.sloths.Views.AbilitiesSkillsView;
 
 import com.vengeful.sloths.Utility.Config;
 import com.vengeful.sloths.Views.AbilitiesView.AbilitiesView;
-import com.vengeful.sloths.Views.EquipmentView.EquipmentView;
-import com.vengeful.sloths.Views.InventoryView.InventoryView;
+import com.vengeful.sloths.Views.EquippedAbilitiesView.EquippedAbilitiesView;
+import com.vengeful.sloths.Views.SkillsView.SkillsView;
 import com.vengeful.sloths.Views.StatsView.StatsView;
 
 import javax.swing.*;
@@ -17,19 +17,19 @@ public class AbilitiesSkillView extends JPanel {
     // public class CharacterViewManager extends JPanel {
 
     private AbilitiesView abilitiesView;
-    private EquipmentView equipmentView;
-    private StatsView statsView;
+    private EquippedAbilitiesView equippedAbilitiesView;
+    private SkillsView skillsView;
     private JPanel containerPanel;
     //private Inventory inventory;
 
     public AbilitiesView getAbilitiesView() {
         return abilitiesView;
     }
-    public EquipmentView getEquipmentView() {
-        return equipmentView;
+    public EquippedAbilitiesView getEquippedAbilitiesViewView() {
+        return equippedAbilitiesView;
     }
-    public StatsView getStatsView() {
-        return statsView;
+    public SkillsView getSkillsView() {
+        return this.skillsView;
     }
 
     protected static final int CHARACTER_VIEW_WIDTH =(int) Config.instance().getCharacterViewWidth();
@@ -42,10 +42,10 @@ public class AbilitiesSkillView extends JPanel {
         return CHARACTER_VIEW_HEIGHT;
     }
 
-    public AbilitiesSkillView(AbilitiesView av, EquipmentView ev, StatsView sv) {
+    public AbilitiesSkillView(AbilitiesView av, EquippedAbilitiesView ev, SkillsView sv) {
         this.abilitiesView = av;
-        this.equipmentView = ev;
-        this.statsView = sv;
+        this.equippedAbilitiesView = ev;
+        this.skillsView = sv;
 
         initDefaultUI();
 
@@ -77,8 +77,9 @@ public class AbilitiesSkillView extends JPanel {
         this.containerPanel.setPreferredSize(new Dimension(this.getCharacterViewWidth(),this.getCharacterViewHeight()));
         this.containerPanel.setLayout(new GridLayout(1,3));
         this.containerPanel.add(this.abilitiesView);
-//        this.containerPanel.add(this.equipmentView);
-//        this.containerPanel.add(this.statsView);
+        this.containerPanel.add(this.equippedAbilitiesView);
+        this.containerPanel.add(this.skillsView);
+
         this.add(pushPanel);
         this.add(containerPanel);
 

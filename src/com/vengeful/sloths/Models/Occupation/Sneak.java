@@ -33,4 +33,9 @@ public class Sneak extends Occupation {
     public void accept(ModelVisitor mv){
         mv.visitSneak(this);
     }
+
+    @Override
+    public String toString(){
+        return "Sneak";
+    }
 }

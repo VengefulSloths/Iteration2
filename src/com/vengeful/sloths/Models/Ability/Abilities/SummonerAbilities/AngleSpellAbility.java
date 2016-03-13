@@ -61,8 +61,30 @@ public class AngleSpellAbility extends Ability{
 
     @Override
     public void accept(ModelVisitor modelVisitor) {
-
+        modelVisitor.visitAngleSpellAbility(this);
     }
 
+    public int getExpandingTime() {
+        return expandingTime;
+    }
 
+    public void setExpandingTime(int expandingTime) {
+        this.expandingTime = expandingTime;
+    }
+
+    public int getExpandingDistance() {
+        return expandingDistance;
+    }
+
+    public void setExpandingDistance(int expandingDistance) {
+        this.expandingDistance = expandingDistance;
+    }
+
+    public int getManaCost() {
+        return manaCost;
+    }
+
+    public void setManaCost(int manaCost) {
+        this.manaCost = manaCost;
+    }
 }

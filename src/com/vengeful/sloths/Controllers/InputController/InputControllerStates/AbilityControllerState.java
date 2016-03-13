@@ -67,8 +67,8 @@ public class AbilityControllerState extends InputControllerState{
         return true;
     }
 
-    public void resetView() {
-        this.abilitiesView.resetView();
+    public void resetView(boolean isActiveView) {
+        this.abilitiesView.resetView(isActiveView);
     }
 
     @Override

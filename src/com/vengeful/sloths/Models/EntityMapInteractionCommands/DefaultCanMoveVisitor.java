@@ -17,6 +17,7 @@ import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.*;
+import com.vengeful.sloths.Models.InventoryItems.UsableItems.PiggyTotem;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
 import com.vengeful.sloths.Models.Map.*;
 import com.vengeful.sloths.Models.Map.AreaEffects.HealDamageAE;
@@ -236,6 +237,11 @@ public class DefaultCanMoveVisitor extends CanMoveVisitor {
 
     @Override
     public void visitGold(Gold gold) {
+
+    }
+
+    @Override
+    public void visitPiggyTotem(PiggyTotem piggyTotem) {
 
     }
 

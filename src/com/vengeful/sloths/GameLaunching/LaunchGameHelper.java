@@ -12,7 +12,7 @@ public interface LaunchGameHelper {
     Map createMap();
     Coord spawnPoint();
     CameraViewManager createCameras();
-    Avatar createAvatar();
+    Avatar createAvatar(String avatarOccupation);
     void populateMap();
 
 }

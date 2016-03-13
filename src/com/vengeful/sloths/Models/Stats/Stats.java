@@ -303,6 +303,22 @@ public class Stats implements ModelVisitable, ViewObservable {
         updateObservers();
     }
 
+    public void addNoCheck(StatsAddable stats){
+        setStrength(this.strength + stats.getStrength());
+        setAgility(this.agility + stats.getAgility());
+        setIntellect(this.intellect + stats.getIntellect());
+        setHardiness(this.hardiness + stats.getHardiness());
+        setMovement(this.movement + stats.getMovement());
+
+        this.bonusHealth += stats.getBonusHealth();
+        this.bonusMana += stats.getBonusMana();
+
+        setCurrentHealth(this.currentHealth + stats.getCurrentHealth());
+        setCurrentMana(this.currentMana + stats.getCurrentMana());
+        setCurrentExperience(this.currentExperience + stats.getCurrentExperience());
+    }
+
+
     public void subtract(StatsAddable stats){
         setStrength(this.strength - stats.getStrength());
         setAgility(this.agility - stats.getAgility());

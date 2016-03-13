@@ -20,6 +20,7 @@ import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.*;
+import com.vengeful.sloths.Models.InventoryItems.UsableItems.PiggyTotem;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.UsableItems;
 import com.vengeful.sloths.Models.Map.*;
 import com.vengeful.sloths.Models.Map.AreaEffects.HealDamageAE;
@@ -79,8 +80,8 @@ public class AggressiveNPCSearchingController extends SearchingController {
         //System.out.println("agressive npc sees the avatar :o");
 
         int roll = roller.nextInt(10);
-        System.out.println("I just rolled a " + roll);
-        System.out.println("I need > " + getCurrRing()*avatar.getStats().getConcealment());
+//        System.out.println("I just rolled a " + roll);
+//        System.out.println("I need > " + getCurrRing()*avatar.getStats().getConcealment());
         if (roll > getCurrRing()*avatar.getStats().getConcealment()) {
             Target currTarget = new AvatarTarget(0);
             currTarget.setCoord(this.getCurrentCoord());
@@ -416,6 +417,11 @@ public class AggressiveNPCSearchingController extends SearchingController {
     }
 
     public void visitGold(Gold gold) {
+
+    }
+
+    @Override
+    public void visitPiggyTotem(PiggyTotem piggyTotem) {
 
     }
 

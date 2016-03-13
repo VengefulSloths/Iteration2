@@ -6,10 +6,14 @@ import com.vengeful.sloths.Controllers.InputController.InputStrategies.Adaptable
 import com.vengeful.sloths.Controllers.InputController.KeyMapping;
 import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.RemoveTrapAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.StealthAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.AngleSpellAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.ExplosionAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
+import com.vengeful.sloths.Models.Ability.AbilityFactory;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.Entity.*;
@@ -18,16 +22,14 @@ import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.*;
+import com.vengeful.sloths.Models.InventoryItems.UsableItems.PiggyTotem;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
-import com.vengeful.sloths.Models.Map.MapItems.Gold;
+import com.vengeful.sloths.Models.Map.MapItems.*;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.InteractiveItem;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.DoDestroyObstacleQuest;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.HasItemQuest;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.Quest;
-import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
-import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
-import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.Map.Tile;
 import com.vengeful.sloths.Models.Occupation.*;
 import com.vengeful.sloths.Models.Skills.Skill;
@@ -117,6 +119,10 @@ public class Loader {
                                     Gold g = processGold(currObject);
                                     loading.getTile(g.getLocation()).addGold(g);
                                     break;
+                                case "Trap" :
+                                    Trap trap = processsTrap(currObject);
+                                    loading.getTile(trap.getLocation()).addTrap(trap);
+                                    break;
                                 default: System.out.println(currObject.getNodeName() + " doesn't have a case to handle it");
                             }
                         }
@@ -129,6 +135,24 @@ public class Loader {
             }
         }
         setActiveMapArea();
+    }
+
+    private Trap processsTrap(Node currObject) {
+        Element currElement = (Element) currObject;
+        int damageTaken = Integer.valueOf(currElement.getAttribute("damageTaken"));
+        boolean isVisible;
+        if(currElement.getAttribute("isVisible").equals("true")){
+            isVisible = true;
+        }
+        else {
+            isVisible = false;
+        }
+        String itemName = currElement.getAttribute("itemName");
+        Coord c = processLocation(currElement.getFirstChild());
+        Trap t = new Trap(c, damageTaken);
+        t.setItemName(itemName);
+        t.setVisible(isVisible);
+        return t;
     }
 
     private Gold processGold(Node currObject) {
@@ -178,7 +202,6 @@ private void setActiveMapArea() {
     }
 }
 
-    //untested
     private InteractiveItem processInteractiveItem(Node currObject) {
         InteractiveItem ii = new InteractiveItem();
         Element current = (Element) currObject;
@@ -453,6 +476,13 @@ private void setActiveMapArea() {
             case "TwoHandedWeapon" :
                 TwoHandedWeapon thw = processTwoHandedWeapon(invItemElement);
                 ti.setInventorpRep(thw);
+                break;
+            case "PiggyTotem" :
+                Piggy piggy = processPiggy(invItemElement.getFirstChild());
+                PiggyTotem pt = new PiggyTotem(invItemElement.getAttribute("itemName"), piggy);
+                ti.setInventorpRep(pt);
+                break;
+
             default:
                 System.out.println(invItemName + "isn't a supported inventoryItem representation");
         }
@@ -595,6 +625,28 @@ private void setActiveMapArea() {
                         exA.setManaCost(manaCostExA);
                         abm.addAbility(exA);
                         break;
+                    case "AngleSpellAbility" :
+                        int windASA = Integer.valueOf(currAbility.getAttribute("windTicks"));
+                        int coolASA = Integer.valueOf(currAbility.getAttribute("coolTicks"));
+                        int expandingTimeASA = Integer.valueOf(currAbility.getAttribute("expandingTime"));
+                        int expandingDistanceASA = Integer.valueOf(currAbility.getAttribute("expandingDistance"));
+                        int manaCostASA = Integer.valueOf(currAbility.getAttribute("manaCost"));
+                        AngleSpellAbility asa = new AngleSpellAbility(e,expandingTimeASA,expandingDistanceASA,windASA,coolASA);
+                        asa.setManaCost(manaCostASA);
+                        abm.addAbility(asa);
+                        break;
+                    case "RemoveTrapAbility" :
+                        int windRTA = Integer.valueOf(currAbility.getAttribute("windTicks"));
+                        int coolRTA = Integer.valueOf(currAbility.getAttribute("coolTicks"));
+                        int manaCostRTA = Integer.valueOf(currAbility.getAttribute("manaCost"));
+                        RemoveTrapAbility rta = new RemoveTrapAbility(e, windRTA, coolRTA);
+                        rta.setManaCost(manaCostRTA);
+                        abm.addAbility(rta);
+                        break;
+                    case "StealthAbility" :
+                        StealthAbility sa = AbilityFactory.getInstance().createStealthAbility(e);
+                        abm.addAbility(sa);
+                        break;
                     case "MountAbility" :
                         break;
                     case "DemountAbility" :
@@ -736,6 +788,11 @@ private void setActiveMapArea() {
                             case "Mount":
                                 Mount m = processMount(invItemElement);
                                 inv.addItem(m);
+                                break;
+                            case "PiggyTotem" :
+                                Piggy piggy = processPiggy(invItemElement.getFirstChild());
+                                PiggyTotem pt = new PiggyTotem(invItemElement.getAttribute("itemName"), piggy);
+                                inv.addItem(pt);
                                 break;
                             default:
                                 System.out.println(invItemName + "isn't a supported inventory item element");
