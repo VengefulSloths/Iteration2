@@ -2,6 +2,7 @@ package com.vengeful.sloths.Controllers.InputController;
 
 import com.vengeful.sloths.Controllers.InputController.InputControllerStates.*;
 import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
+import com.vengeful.sloths.Menu.CharacterCreation.CharacterCreationView;
 import com.vengeful.sloths.Menu.ScrollableMenu;
 import com.vengeful.sloths.AreaView.ViewEngine;
 import com.vengeful.sloths.Controllers.InputController.InputStrategies.InputStrategy;
@@ -40,6 +41,7 @@ public class MainController implements Tickable{
     private MenuControllerState menuControllerState;
     private AbilityControllerState abilityControllerState;
     private SetInputsControllerState setInputsControllerState;
+    private CharacterCreationControllerState characterCreationControllerState;
 
 
 
@@ -65,7 +67,8 @@ public class MainController implements Tickable{
         inventoryControllerState = new InventoryControllerState();
         menuControllerState = new MenuControllerState();
         abilityControllerState = new AbilityControllerState();
-        setInputsControllerState = new SetInputsControllerState((AdaptableStrategy) inputStrategy);
+        setInputsControllerState = new SetInputsControllerState(inputStrategy);
+        characterCreationControllerState = new CharacterCreationControllerState();
 
         state = avatarControllerState;
 
@@ -97,6 +100,14 @@ public class MainController implements Tickable{
 
     public void dispatchReleasedKey(int key){
         inputStrategy.interpretReleasedKey(key, state);
+    }
+
+    public void setCharacterCreationControllerState(){
+        ViewEngine.getInstance().killOldView();
+        CharacterCreationView view = new CharacterCreationView(500,400);
+        ViewEngine.getInstance().registerView(view);
+        characterCreationControllerState.setMenu(view);
+        this.state = characterCreationControllerState;
     }
 
 

@@ -40,7 +40,7 @@ public class driver {
         System.out.println("Starting driver");
 
         LaunchGameTemplate launcher = new LaunchGameTemplate(new LaunchNewGame());
-        launcher.launch();
+       // launcher.launch();
 
         //Below here is test code
 

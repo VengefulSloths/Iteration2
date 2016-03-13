@@ -68,7 +68,7 @@ public class LaunchSavedGame implements LaunchGameHelper {
         return this.getCameras();
     }
     @Override
-    public Avatar createAvatar() {
+    public Avatar createAvatar(String avatarOccupation) {
         return null;
     }
 
