@@ -17,9 +17,9 @@ public abstract class DialogContainer extends DialogObservable {
     }
 
     public void next(){
-        ++cursor;
         //check to see if terminal
         if(cursor == dialogList.size()){
+            cursor = 0;
             terminalAction();
             return;
         }
@@ -29,6 +29,7 @@ public abstract class DialogContainer extends DialogObservable {
             DialogObserver current = iter.next();
             current.alertDialogChange(dialogList.get(cursor));
         }
+        ++cursor;
     }
 
     protected abstract void terminalAction();
