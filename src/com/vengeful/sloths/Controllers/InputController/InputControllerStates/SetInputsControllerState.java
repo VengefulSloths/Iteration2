@@ -47,7 +47,12 @@ public class SetInputsControllerState extends InputControllerState {
     public void onRegister() {
 
     }
-    
+
+    @Override
+    public void handleTalkKey() {
+
+    }
+
     @Override
     public boolean handleInventoryKey() {
 

@@ -39,6 +39,11 @@ public class MenuControllerState extends InputControllerState {
     }
 
     @Override
+    public void handleTalkKey() {
+
+    }
+
+    @Override
     public void handleAbility1Key() {
 
     }

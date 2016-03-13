@@ -1,7 +1,9 @@
 package com.vengeful.sloths.Models.Entity;
 
 import com.vengeful.sloths.Controllers.ControllerManagers.NPCControllerManager;
+import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.Models.Buff.BuffManager;
+import com.vengeful.sloths.Models.DialogueTrade.DialogContainer;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Coord;
@@ -13,6 +15,7 @@ import com.vengeful.sloths.Utility.Location;
  */
 public abstract class NPC extends Entity{
 
+    private DialogContainer dialogContainer = null;
     protected int timeToRespawn;
     private NPCControllerManager controllerManager;
     //pass in stats
@@ -23,6 +26,11 @@ public abstract class NPC extends Entity{
 
     public void talk(){
         //create talk command
+        if(dialogContainer != null){
+            //do stuff, possibly alert controller
+            MainController.getInstance().setDialogControllerState(this.dialogContainer);
+            dialogContainer.next();
+        }
     }
     public NPC(){}
 
@@ -40,5 +48,13 @@ public abstract class NPC extends Entity{
 
     public void setControllerManager(NPCControllerManager controllerManager) {
         this.controllerManager = controllerManager;
+    }
+
+    public DialogContainer getDialogContainer() {
+        return dialogContainer;
+    }
+
+    public void setDialogContainer(DialogContainer dialogContainer) {
+        this.dialogContainer = dialogContainer;
     }
 }

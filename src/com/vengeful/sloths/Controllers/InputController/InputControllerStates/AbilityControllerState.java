@@ -44,6 +44,11 @@ public class AbilityControllerState extends InputControllerState{
     }
 
     @Override
+    public void handleTalkKey() {
+
+    }
+
+    @Override
     public boolean handleInventoryKey() {
         MainController.getInstance().setAvatarControllerState();
         //MainController.getInstance().setInventoryControllerState();

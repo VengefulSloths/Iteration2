@@ -156,6 +156,11 @@ public class CharacterCreationControllerState extends InputControllerState {
     }
 
     @Override
+    public void handleTalkKey() {
+
+    }
+
+    @Override
     public boolean handleSpaceKey() {
         return false;
     }

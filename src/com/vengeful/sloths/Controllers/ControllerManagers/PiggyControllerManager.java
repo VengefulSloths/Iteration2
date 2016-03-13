@@ -17,6 +17,8 @@ import com.vengeful.sloths.Models.TimeModel.TimeModel;
  */
 public class PiggyControllerManager extends NPCControllerManager {
 
+    private boolean dead = false;
+
     public PiggyControllerManager(MapArea mapArea, Entity entity){
 
         super(mapArea, entity);
@@ -28,22 +30,32 @@ public class PiggyControllerManager extends NPCControllerManager {
 
     @Override
     public void tick() {
-        if(this.getTicks() % 15 == 0) {
-            if(this.getMapArea().equals(Map.getInstance().getActiveMapArea())) {
-                //System.out.println("beginning of tick");
-                if(getSearchingController() != null) {
-                    this.getSearchingController().search(4);//hardcoded to 2 right now
+        if(!dead) {
+            if (this.getTicks() % 15 == 0) {
+                if (this.getMapArea().equals(Map.getInstance().getActiveMapArea())) {
+                    //System.out.println("beginning of tick");
+                    if (getSearchingController() != null) {
+                        this.getSearchingController().search(4);//hardcoded to 2 right now
+                    }
+                    //System.out.println("highest priority target is :" + searchingController.getHighestPriorityTarget());
+                    if (getActionController() != null) {
+                        this.getActionController().action(this.getSearchingController().getHighestPriorityTarget());
+                    }
+                    //movementController
+                } else {
+                    //you could put reset the npc logic here
                 }
-                //System.out.println("highest priority target is :" + searchingController.getHighestPriorityTarget());
-                if(getActionController() != null) {
-                    this.getActionController().action(this.getSearchingController().getHighestPriorityTarget());
-                }
-                //movementController
-            }else{
-                //you could put reset the npc logic here
             }
+            this.setTicks(this.getTicks() + 1);
         }
-        this.setTicks(this.getTicks()+ 1);
 
+    }
+
+    public boolean isDead() {
+        return dead;
+    }
+
+    public void setDead(boolean dead) {
+        this.dead = dead;
     }
 }

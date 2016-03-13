@@ -49,6 +49,11 @@ public class AbilitySkillsControllerState extends InputControllerState {
     }
 
     @Override
+    public void handleTalkKey() {
+
+    }
+
+    @Override
     public boolean handleAbilitiesKey() {
         MainController.getInstance().setAvatarControllerState();
         return true;

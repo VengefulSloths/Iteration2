@@ -259,4 +259,9 @@ public class InventoryControllerState extends InputControllerState{
     public void handleEnterKey() {
 
     }
+
+    @Override
+    public void handleTalkKey() {
+
+    }
 }

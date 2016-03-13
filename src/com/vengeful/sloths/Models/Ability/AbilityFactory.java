@@ -49,7 +49,7 @@ public class AbilityFactory {
     }
 
     public MountAbility createMountAbility( Entity entity, int moveSpeed, String mountName, int windTime, int coolTime) {
-        Buff mountBuff = new MountBuff("Mount", new MovementAddable(moveSpeed), entity.getBuffManager(), entity.getObservers(), mountName);
+        Buff mountBuff = new MountBuff("mount", new MovementAddable(moveSpeed), entity.getBuffManager(), entity.getObservers(), mountName);
         return new MountAbility(entity, mountBuff, mountName, windTime, coolTime);
     }
 
