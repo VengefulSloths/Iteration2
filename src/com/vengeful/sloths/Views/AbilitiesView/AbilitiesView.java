@@ -177,7 +177,6 @@ public class AbilitiesView extends View implements AbilityManagerObserver {
     }
 
     public void initDefaultUI() {
-        this.setBackgroundImageFileName("resources/inventoryBackground.png");
         //JPanel titlePanel = new JPanel();
         //JPanel itemPanel = new JPanel();
         titlePanel = new JPanel();
@@ -187,6 +186,7 @@ public class AbilitiesView extends View implements AbilityManagerObserver {
         //this.itemPanel.setBorder(new BevelBorder(BevelBorder.RAISED,Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE));
         titlePanel.setBackground(new Color(0f, 0f, 0f, 0f));
         itemPanel.setBackground(new Color(0f, 0f, 0f, 0f));
+        this.setBackground(new Color(0f,0f,0f,0.3f));
         titlePanel.setLayout(new BorderLayout());
         this.titlePanel.setPreferredSize(new Dimension(this.getWidth(), 50));
         //itemPanel.setLayout(new GridBagLayout());

@@ -20,7 +20,8 @@ public class AbilitiesSkillView extends View {
     private AbilitiesView abilitiesView;
     private EquippedAbilitiesView equippedAbilitiesView;
     private SkillsView skillsView;
-    private JPanel containerPanel;
+    //private JPanel containerPanel;
+    private View containerPanel;
     //private Inventory inventory;
 
     public AbilitiesView getAbilitiesView() {
@@ -71,8 +72,11 @@ public class AbilitiesSkillView extends View {
         pushPanel.setPreferredSize(new Dimension(Config.instance().getAreaViewWidth(), Config.instance().getAreaViewHeight()/6));
         pushPanel.setBackground(new Color(0f,0f,0f,0f)); //pushPanel needs to be invisible
 
-        this.containerPanel = new JPanel();
+
+       //this.containerPanel = new JPanel();
+        this.containerPanel = new View();
         this.setBackground(new Color(0f,0f,0f,0f));
+        this.containerPanel.setBackgroundImageFileName("resources/skyCharacterView.png");
         this.containerPanel.setBorder(new BevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK));
         this.setLayout(new FlowLayout());
         this.containerPanel.setPreferredSize(new Dimension(this.getCharacterViewWidth(),this.getCharacterViewHeight()));
@@ -80,7 +84,7 @@ public class AbilitiesSkillView extends View {
         this.containerPanel.add(this.abilitiesView);
         this.containerPanel.add(this.equippedAbilitiesView);
         this.containerPanel.add(this.skillsView);
-
+        this.containerPanel.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(15.0f)));
         this.add(pushPanel);
         this.add(containerPanel);
 
@@ -88,6 +92,7 @@ public class AbilitiesSkillView extends View {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+
     }
 
 }
