@@ -28,6 +28,7 @@ public class MovableHitBoxViewObject extends MovingViewObject implements HitBoxO
     private DynamicImage movingSE;
     private Direction direction;
     private DynamicImage currentDynamicImage;
+    //private int height = -75; //TODO: pass in
     private int height = -75; //TODO: pass in
 
 
@@ -36,7 +37,7 @@ public class MovableHitBoxViewObject extends MovingViewObject implements HitBoxO
         this.movingN = DynamicImageFactory.getInstance().loadDynamicImage("resources/effects/fireball/fireball_n.xml");
         this.movingN = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "fireball_n.xml");
         this.movingNE = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "fireball_ne.xml");
-        this.movingNW = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "fireball_we.xml");
+        this.movingNW = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "fireball_nw.xml");
         this.movingS = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "fireball_s.xml");
         this.movingSE = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "fireball_se.xml");
         this.movingSW = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "fireball_sw.xml");

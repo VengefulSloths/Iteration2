@@ -2,7 +2,10 @@ package com.vengeful.sloths.Models.Ability;
 
 import com.vengeful.sloths.Models.Ability.Abilities.*;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.StealthAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.AngleSpellAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.BoonBuffAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.ExplosionAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
 import com.vengeful.sloths.Models.Buff.*;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Observers.EntityObserver;
@@ -71,6 +74,18 @@ public class AbilityFactory {
     public SelfBuffAbility createHealOverTime(Entity entity){
         Buff healBuff = new HealOverTimeBuff(entity.getObservers(), entity.getBuffManager(), new CurrentHealthAddable(1), "healOverTime", 600, 60);
         return new BoonBuffAbility("Rejuvenation", entity, healBuff, 8, 15);
+    }
+
+    public FireBallAbility createFireBallAbility(Entity entity, int travelTime, int travelDistance, int startupTicks, int coolDownTicks){
+        return new FireBallAbility(entity, travelTime, travelDistance, startupTicks, coolDownTicks);
+    }
+
+    public ExplosionAbility createExplosionAbility(Entity entity, int expandingTime, int expandingDistance, int startupTicks, int coolDownTicks){
+        return new ExplosionAbility(entity, expandingTime, expandingDistance, startupTicks, coolDownTicks);
+    }
+
+    public AngleSpellAbility createAngleSpellAbility(Entity entity, int expandingTime, int expandingDistance, int startupTicks, int coolDownTicks){
+        return new AngleSpellAbility(entity, expandingTime, expandingDistance, startupTicks, coolDownTicks);
     }
 
 

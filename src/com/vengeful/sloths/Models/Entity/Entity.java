@@ -1,6 +1,7 @@
 package com.vengeful.sloths.Models.Entity;
 
 import com.vengeful.sloths.AreaView.TemporaryVOCreationVisitor;
+import com.vengeful.sloths.Controllers.ControllerManagers.AggressiveNPCControllerManager;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.*;
@@ -8,6 +9,7 @@ import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.EquippableItems;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
+import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapItems.Gold;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.ModelVisitable;
@@ -394,6 +396,9 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         //do nothing
     }
 
+    public void enrage(){
+        new AggressiveNPCControllerManager(Map.getInstance().getActiveMapArea(), this);
+    }
 
     public GenericStatsAddable getAllEntityStatEffects(){
         GenericStatsAddable gsa = new GenericStatsAddable();

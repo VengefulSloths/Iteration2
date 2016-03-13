@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Models.InventoryItems.ConsumableItems;
 
+import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
@@ -29,6 +30,6 @@ public class Potion extends ConsumableItems implements ModelVisitable{
 
     @Override
     public void interact() {
-
+        Avatar.getInstance().consumeItem(this);
     }
 }
