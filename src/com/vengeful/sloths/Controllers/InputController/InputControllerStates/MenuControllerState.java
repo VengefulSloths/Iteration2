@@ -34,7 +34,7 @@ public class MenuControllerState extends InputControllerState {
     }
 
     @Override
-    public void handleAbility0Key() {
+    public void resetView(boolean isActive) {
 
     }
 
@@ -55,6 +55,11 @@ public class MenuControllerState extends InputControllerState {
 
     @Override
     public void handleAbility3Key() {
+
+    }
+
+    @Override
+    public void handleAbility4Key() {
 
     }
 

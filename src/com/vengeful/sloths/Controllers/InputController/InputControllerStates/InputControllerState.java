@@ -31,10 +31,11 @@ public abstract class InputControllerState {
     public abstract void handleSaveKey();
     public abstract void handleEnterKey();
 
-    public abstract void handleAbility0Key();
     public abstract void handleAbility1Key();
     public abstract void handleAbility2Key();
     public abstract void handleAbility3Key();
+    public abstract void handleAbility4Key();
+
 
     public abstract boolean handleSpaceKey();
     public abstract void handleTalkKey();
@@ -53,5 +54,6 @@ public abstract class InputControllerState {
     public abstract boolean handleReleaseDownKey();
     public abstract boolean handleReleaseUpKey();
 
+    public abstract void resetView(boolean isActive);
 
 }

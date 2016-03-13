@@ -100,7 +100,9 @@ public class SkillsControllerState extends  InputControllerState {
 
     @Override
     public boolean handleNorthEastKey() {
-        return false;
+
+        this.skillsView.useSkillPoint();
+        return true;
     }
 
     @Override
@@ -146,11 +148,6 @@ public class SkillsControllerState extends  InputControllerState {
     }
 
     @Override
-    public void handleAbility0Key() {
-
-    }
-
-    @Override
     public void handleAbility1Key() {
 
     }
@@ -162,6 +159,11 @@ public class SkillsControllerState extends  InputControllerState {
 
     @Override
     public void handleAbility3Key() {
+
+    }
+
+    @Override
+    public void handleAbility4Key() {
 
     }
 

@@ -82,22 +82,23 @@ public class AbilityControllerState extends InputControllerState{
     }
 
     @Override
-    public void handleAbility0Key() {
-
-    }
-
-    @Override
     public void handleAbility1Key() {
-
+        this.abilitiesView.equipAbility(0);
     }
 
     @Override
     public void handleAbility2Key() {
-
+        this.abilitiesView.equipAbility(1);
     }
 
     @Override
     public void handleAbility3Key() {
+        this.abilitiesView.equipAbility(2);
+    }
+
+    @Override
+    public void handleAbility4Key() {
+        this.abilitiesView.equipAbility(3);
 
     }
 
@@ -112,6 +113,7 @@ public class AbilityControllerState extends InputControllerState{
         return true;
     }
 
+    // Equip ability
     @Override
     public boolean handleNorthWestKey() {
         return false;
@@ -126,7 +128,7 @@ public class AbilityControllerState extends InputControllerState{
 
     @Override
     public boolean handleNorthEastKey() {
-        // equip ability?
+
         return false;
 
     }

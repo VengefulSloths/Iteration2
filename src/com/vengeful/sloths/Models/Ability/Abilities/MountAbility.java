@@ -23,7 +23,7 @@ public class MountAbility extends SelfBuffAbility {
         this.mountName = mountName;
         this.entity = entity;
         this.buff = buff;
-
+        this.name = "Mount";
 
     }
 
@@ -51,4 +51,6 @@ public class MountAbility extends SelfBuffAbility {
     public void setMountName(String mountName) {
         this.mountName = mountName;
     }
+
+    public String toString() { return "Mount"; }
 }

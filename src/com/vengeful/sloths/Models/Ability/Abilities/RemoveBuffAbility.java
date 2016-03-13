@@ -18,6 +18,7 @@ public class RemoveBuffAbility extends Ability {
         this.buff = buff;
         this.buffManager = buffManager;
         this.entity = entity;
+        this.name = "Remove Buff";
     }
 
     @Override
@@ -39,4 +40,6 @@ public class RemoveBuffAbility extends Ability {
     public void setBuff(Buff buff) {
         this.buff = buff;
     }
+
+    public String toString() { return "Remove Buff"; }
 }

@@ -24,10 +24,10 @@ public enum KeyMapping {
     UP(17),
     DROP(18),
     SAVE(19),
-    ABILITY_0(20),
-    ABILITY_1(21),
-    ABILITY_2(22),
-    ABILITY_3(23),
+    ABILITY_1(20),
+    ABILITY_2(21),
+    ABILITY_3(22),
+    ABILITY_4(23),
     ABILITIES(24),
     TALK(25);
 

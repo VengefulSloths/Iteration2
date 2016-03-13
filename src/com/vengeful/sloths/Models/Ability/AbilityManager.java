@@ -23,21 +23,18 @@ public class AbilityManager implements ModelVisitable, ViewObservable {
     private Ability weaponAbility; //set when weapon is equipped.
     private Ability mountAbility; //set when mount is equipped
 
-
     private ArrayList<Hook> castAbilityHooks = new ArrayList<>();
 
     private ArrayList<AbilityManagerObserver> abilityManagerObservers;
 
     private Entity entity;
 
-
     public AbilityManager(Entity entity){
         this.abilities = new ArrayList<>();
+
         this.activeAbilities = new Ability[4]; //3 for occupation specific, 1 for common ability
         this.abilityManagerObservers = new ArrayList<>();
-        for(int i = 0; i != activeAbilities.length; ++i){
-            activeAbilities[i] = new NullAbility();
-        }
+
         this.entity = entity;
     }
 
@@ -69,11 +66,15 @@ public class AbilityManager implements ModelVisitable, ViewObservable {
     }
 
     public int doMountAbility() {
+        if (this.mountAbility == null) return 0;
+
         doAbilityHooks();
         return mountAbility.execute();
     }
 
     public int doWeaponAbility(){
+        if (this.weaponAbility == null) return 0;
+
         doAbilityHooks();
         return this.weaponAbility.execute();
     }
