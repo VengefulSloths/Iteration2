@@ -140,6 +140,7 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
     public void visitTakeableItem(TakeableItem takeableItem) {
         //used to populate map with takeable item when game starts
         String imagePath = "resources/items/"+takeableItem.getItemName()+"/"+takeableItem.getItemName()+".xml";
+        System.out.println(imagePath);
         TakeableViewObject takeableViewObject = factory.createTakeableViewObject(r, s, imagePath);
         new ProxyDestoyableObserver(takeableViewObject, takeableItem);
         takeableViewObject.registerObserver(currentTile); //tileViewObject listen for takeable vo destroy

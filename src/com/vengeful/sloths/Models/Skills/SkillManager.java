@@ -2,6 +2,10 @@ package com.vengeful.sloths.Models.Skills;
 
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
+import com.vengeful.sloths.Models.Observers.AbilityManagerObserver;
+import com.vengeful.sloths.Models.Observers.ModelObserver;
+import com.vengeful.sloths.Models.Observers.SkillManagerObserver;
+import com.vengeful.sloths.Models.ViewObservable;
 import com.vengeful.sloths.Utility.ModelConfig;
 
 import java.util.*;
@@ -9,31 +13,46 @@ import java.util.*;
 /**
  * Created by luluding on 3/6/16.
  */
-public class SkillManager implements ModelVisitable{
+public class SkillManager implements ModelVisitable, ViewObservable {
 
     //<skill name, skill>
     private Map<String, Skill> skills;
     private int availableSkillPoints;
+    private ArrayList<SkillManagerObserver> skillManagerObservers;
     private Skill dummySkill = new Skill();
 
     public SkillManager(){
         skills = new HashMap<>();
+        this.skillManagerObservers = new ArrayList<>();
         availableSkillPoints = ModelConfig.getInitialSkillpoint();
     }
 
     public SkillManager(int availableSkillPoints){
         skills = new HashMap<>();
         this.availableSkillPoints = availableSkillPoints;
+        this.skillManagerObservers = new ArrayList<>();
     }
 
     public void addSkill(Skill skill){
         this.skills.put(skill.getName(), skill);
+
+        Iterator<SkillManagerObserver> iter = this.skillManagerObservers.iterator();
+        while (iter.hasNext()) {
+            SkillManagerObserver smo = iter.next();
+            smo.alertSkillAdded(skill);
+        }
     }
 
     public boolean updateSkillLevel(Skill skill, int level){
         if(this.skills.containsValue(skill)){
             if(skill.addLevel(level, this.availableSkillPoints)){
                 //TODO: alert view of updated skill level
+
+                Iterator<SkillManagerObserver> iter = this.skillManagerObservers.iterator();
+                while (iter.hasNext()) {
+                    SkillManagerObserver smo = iter.next();
+                    smo.alertSkillLevelUpdated(skill);
+                }
 
                 this.setAvailableSkillPoint(this.availableSkillPoints - level);
                 System.out.println("Skill Level for " + skill.getName() + " increased");
@@ -50,7 +69,12 @@ public class SkillManager implements ModelVisitable{
 
     public void setAvailableSkillPoint(int availableSkillPoints){
         this.availableSkillPoints = availableSkillPoints;
-        //TODO: alert view
+
+        Iterator<SkillManagerObserver> iter = this.skillManagerObservers.iterator();
+        while (iter.hasNext()) {
+            SkillManagerObserver smo = iter.next();
+            smo.alertAvailableSkillPointsUpdated(this.availableSkillPoints);
+        }
     }
 
 
@@ -103,6 +127,10 @@ public class SkillManager implements ModelVisitable{
 
     public Iterator<Skill> getSkillsIter(){
         return this.skills.values().iterator();
+    }
+
+    public int getCurrentSize(){
+        return this.skills.size();
     }
 
     /* Getters for getting skill levels */
@@ -226,4 +254,13 @@ public class SkillManager implements ModelVisitable{
     }
     /*************************************/
 
+    @Override
+    public void registerObserver(ModelObserver modelObserver) {
+        this.skillManagerObservers.add((SkillManagerObserver) modelObserver);
+    }
+
+    @Override
+    public void deregisterObserver(ModelObserver modelObserver) {
+        this.skillManagerObservers.remove(modelObserver);
+    }
 }

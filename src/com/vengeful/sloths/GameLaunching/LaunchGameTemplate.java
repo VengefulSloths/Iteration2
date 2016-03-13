@@ -17,8 +17,12 @@ import com.vengeful.sloths.Views.AbilitiesSkillsView.AbilitiesSkillView;
 import com.vengeful.sloths.Views.AbilitiesView.GridAbilitiesView;
 import com.vengeful.sloths.Views.CharacterView.CharacterView;
 import com.vengeful.sloths.Views.EquipmentView.EquipmentView;
+import com.vengeful.sloths.Views.EquippedAbilitiesView.EquippedAbilitiesView;
 import com.vengeful.sloths.Views.HUDView.HUDView;
 import com.vengeful.sloths.Views.InventoryView.GridInventoryView;
+import com.vengeful.sloths.Views.InventoryView.InventoryView;
+import com.vengeful.sloths.Views.InventoryView.ListInventoryView;
+import com.vengeful.sloths.Views.SkillsView.SkillsView;
 import com.vengeful.sloths.Views.StatsView.StatsView;
 import com.vengeful.sloths.Views.ViewManager.ViewManager;
 
@@ -77,17 +81,16 @@ public class LaunchGameTemplate {
         //ViewManager vm = new ViewManager();
         HUDView hv = new HUDView(Config.instance().getHUDViewWidth(), Config.instance().getHUDViewHeight());
         GridInventoryView giv = new GridInventoryView(avatar.getInventory());
-        System.out.println("Ability manageR: ");
-        System.out.println(avatar.getAbilityManager());
-        GridAbilitiesView gav = new GridAbilitiesView(avatar.getAbilityManager());
 
         EquipmentView ev = new EquipmentView(avatar.getEquipped());
         StatsView sv = new StatsView(avatar.getStats());
         //ViewManager vm = new ViewManager(areaView, hv);
         CharacterView cv = new CharacterView(giv, ev, sv);
 
-        // @TODO: Create equipped abilities and skills view!
-        AbilitiesSkillView abilitiesSkillView = new AbilitiesSkillView(gav, null, null);
+        GridAbilitiesView gav = new GridAbilitiesView(avatar.getAbilityManager());
+        EquippedAbilitiesView equippedAbilitiesView = new EquippedAbilitiesView(avatar.getAbilityManager());
+        SkillsView skillsView = new SkillsView(avatar.getSkillManager());
+        AbilitiesSkillView abilitiesSkillView = new AbilitiesSkillView(gav, equippedAbilitiesView, skillsView);
 
         ViewManager vm = new ViewManager(areaView, hv, cv);
         vm.setAbilitiesSkillView(abilitiesSkillView);

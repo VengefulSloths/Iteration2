@@ -8,6 +8,6 @@ import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
  */
 public interface AbilityManagerObserver extends ModelObserver {
     void alertAbilityAdded(Ability ability);
-    void alertAbilityEquipped(Ability ability);
-    void alertAbilityUnset(Ability ability);
+    void alertAbilityEquipped(Ability ability, int index);
+    void alertAbilityUnequipped(Ability ability, int index);
 }

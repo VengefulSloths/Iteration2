@@ -54,7 +54,7 @@ public class AvatarControllerState extends InputControllerState {
 
     @Override
     public boolean handleAbilitiesKey() {
-        MainController.getInstance().setAbilityControllerState();
+        MainController.getInstance().setAbilitySkillsControllerState();
         return true;
     }
 

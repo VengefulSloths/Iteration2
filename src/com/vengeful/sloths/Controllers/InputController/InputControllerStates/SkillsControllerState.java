@@ -1,32 +1,24 @@
 package com.vengeful.sloths.Controllers.InputController.InputControllerStates;
 
-import com.vengeful.sloths.Controllers.InputController.MainController;
-import com.vengeful.sloths.Views.AbilitiesView.AbilitiesView;
-
+import com.vengeful.sloths.Views.SkillsView.SkillsView;
 
 /**
- * Created by zach on 3/11/16.
+ * Created by zach on 3/12/16.
  */
-public class AbilityControllerState extends InputControllerState{
-    private AbilitiesView abilitiesView;
+public class SkillsControllerState extends  InputControllerState {
+    private SkillsView skillsView;
 
-    public AbilitiesView getAbilitiesView() {
-        return abilitiesView;
-    }
-    public void setAbilitiesView(AbilitiesView abilitiesView) {
-        this.abilitiesView = abilitiesView;
-    }
-
-    @Override
-    public boolean handleAbilitiesKey() {
-        MainController.getInstance().setAvatarControllerState();
-        return true;
-    }
-
-    public AbilityControllerState() {
+    public SkillsControllerState() {
 
     }
 
+    public void setSkillsView(SkillsView skillsView) {
+        this.skillsView = skillsView;
+    }
+
+    public void resetView(boolean isActiveView) {
+        this.skillsView.resetView(isActiveView);
+    }
 
     @Override
     public void continuousFunction() {
@@ -44,12 +36,19 @@ public class AbilityControllerState extends InputControllerState{
     }
 
     @Override
-    public boolean handleInventoryKey() {
-        MainController.getInstance().setAvatarControllerState();
-        //MainController.getInstance().setInventoryControllerState();
-        return true;
+    public boolean handleAbilitiesKey() {
+        return false;
     }
 
+    @Override
+    public boolean handleInventoryKey() {
+        return false;
+    }
+
+    @Override
+    public boolean handleEquipmentKey() {
+        return false;
+    }
 
     @Override
     public boolean handleESCKey() {
@@ -61,19 +60,84 @@ public class AbilityControllerState extends InputControllerState{
         return false;
     }
 
-
+    @Override
     public boolean handleSouthKey() {
-        this.abilitiesView.selectSouthItem();
+        this.skillsView.selectSouthItem();
         return true;
-    }
-
-    public void resetView(boolean isActiveView) {
-        this.abilitiesView.resetView(isActiveView);
     }
 
     @Override
     public boolean handleSouthEastKey() {
         return false;
+    }
+
+    @Override
+    public boolean handleWestKey() {
+        return false;
+    }
+
+    @Override
+    public boolean handleEastKey() {
+        return false;
+    }
+
+    @Override
+    public boolean handleNorthWestKey() {
+        return false;
+    }
+
+    @Override
+    public boolean handleNorthKey() {
+
+        this.skillsView.selectNorthItem();
+        return true;
+    }
+
+    @Override
+    public boolean handleNorthEastKey() {
+        return false;
+    }
+
+    @Override
+    public boolean handleCenterKey() {
+        return false;
+    }
+
+    @Override
+    public boolean handleDropKey() {
+        return false;
+    }
+
+    @Override
+    public boolean handleLeftKey() {
+        return false;
+    }
+
+    @Override
+    public boolean handleRightKey() {
+        return false;
+    }
+
+    @Override
+    public boolean handleDownKey() {
+        this.skillsView.selectSouthItem();
+        return true;
+    }
+
+    @Override
+    public boolean handleUpKey() {
+        this.skillsView.selectNorthItem();
+        return true;
+    }
+
+    @Override
+    public void handleSaveKey() {
+
+    }
+
+    @Override
+    public void handleEnterKey() {
+
     }
 
     @Override
@@ -94,72 +158,6 @@ public class AbilityControllerState extends InputControllerState{
     @Override
     public void handleAbility3Key() {
 
-    }
-
-    public boolean handleWestKey() {
-        this.abilitiesView.selectWestItem();
-        return true;
-    }
-
-    @Override
-    public boolean handleEastKey() {
-        this.abilitiesView.selectEastItem();
-        return true;
-    }
-
-    @Override
-    public boolean handleNorthWestKey() {
-        return false;
-    }
-
-
-    public boolean handleNorthKey() {
-        // Move up an item
-        this.abilitiesView.selectNorthItem();
-        return true;
-    }
-
-    @Override
-    public boolean handleNorthEastKey() {
-        // equip ability?
-        return false;
-
-    }
-
-    @Override
-    public boolean handleCenterKey() {
-        return false;
-    }
-
-    @Override
-    public boolean handleDropKey() {
-        return false;
-    }
-
-    @Override
-    public boolean handleLeftKey() {
-        this.abilitiesView.selectWestItem();
-        return false;
-    }
-
-    @Override
-    public boolean handleRightKey() {
-
-        this.abilitiesView.selectEastItem();
-        return false;
-    }
-
-    @Override
-    public boolean handleDownKey() {
-
-        this.abilitiesView.selectSouthItem();
-        return false;
-    }
-
-    @Override
-    public boolean handleUpKey() {
-        this.abilitiesView.selectNorthItem();
-        return false;
     }
 
     @Override
@@ -212,10 +210,6 @@ public class AbilityControllerState extends InputControllerState{
 
     }
 
-    public void handleSaveKey(){
-
-    }
-
     @Override
     public boolean handleReleaseLeftKey() {
         return false;
@@ -234,15 +228,5 @@ public class AbilityControllerState extends InputControllerState{
     @Override
     public boolean handleReleaseUpKey() {
         return false;
-    }
-
-    @Override
-    public boolean handleEquipmentKey() {
-        return false;
-    }
-
-    @Override
-    public void handleEnterKey() {
-
     }
 }
