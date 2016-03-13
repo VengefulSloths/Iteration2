@@ -128,6 +128,8 @@ public class ViewManager extends JPanel {
         //show the areaview/gameplay behind it since the only real component in it is the hudview at the top*/
         //this.add(areaview);
         //areaview.add(menuView, BorderLayout.EAST);
+        this.areaview.setBackground(new Color(0f,0f,0f,0.3f));
+        areaview.add(abilityHUD);
         this.add(areaview, BorderLayout.CENTER);
         this.hudView.setBackground(new Color(0f,0f,0f,0.3f));
         this.areaview.setBackground(Color.blue);
@@ -278,5 +280,13 @@ public class ViewManager extends JPanel {
 
     public void setTradeView(TradeView tradeView) {
         this.tradeView = tradeView;
+    }
+
+    public AbilityHUD getAbilityHUD() {
+        return abilityHUD;
+    }
+
+    public void setAbilityHUD(AbilityHUD abilityHUD) {
+        this.abilityHUD = abilityHUD;
     }
 }
