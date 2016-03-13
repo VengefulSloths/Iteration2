@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Models.Entity;
 
+import com.vengeful.sloths.Controllers.ControllerManagers.PiggyControllerManager;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.Coord;
@@ -22,5 +23,12 @@ public abstract class Pet extends NPC{
 
     public void setTimeToRespawn(int timeToRespawn) {
         this.timeToRespawn = timeToRespawn;
+    }
+
+    public void alertDead(){
+        ((PiggyControllerManager)this.getControllerManager()).setDead(true);
+    }
+    public void alertAlive(){
+        ((PiggyControllerManager)this.getControllerManager()).setDead(false);
     }
 }
