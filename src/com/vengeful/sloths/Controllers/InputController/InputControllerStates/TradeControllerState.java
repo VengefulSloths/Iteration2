@@ -1,24 +1,22 @@
 package com.vengeful.sloths.Controllers.InputController.InputControllerStates;
 
 import com.vengeful.sloths.Controllers.InputController.MainController;
-import com.vengeful.sloths.Models.Entity.Entity;
-import com.vengeful.sloths.Models.EntityEntityInteractionCommands.EntityPickPocketCommand;
-import com.vengeful.sloths.Models.Inventory.Inventory;
-import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
+import com.vengeful.sloths.Views.TradeView.GridEntityInvViewTrading;
 import com.vengeful.sloths.Views.TradeView.TradeView;
 
 /**
  * Created by harrison on 3/13/16.
  */
 public class TradeControllerState extends InputControllerState{
-    private Inventory targInv = null;
+//    private Inventory targInv = null;
     //    private int pickPocketSkill = 0;
     private TradeView tradeView = null;
+    private GridEntityInvViewTrading active = null;
 
 
-    public void TradeView(TradeView tradeView, Inventory targInv) {
+    public void TradeView(TradeView tradeView) {
         this.tradeView = tradeView;
-        this.targInv = targInv;
+//        this.targInv = targInv;
     }
 
     @Override

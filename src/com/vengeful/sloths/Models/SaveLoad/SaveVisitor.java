@@ -10,6 +10,7 @@ import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.StealthAbilit
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.AngleSpellAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.ExplosionAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.NPCFallAsleepAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
@@ -404,6 +405,11 @@ public class SaveVisitor implements ModelVisitor {
         rtaElement.setAttribute("windTicks", stealthAbility.getWindTicks() + "");
         rtaElement.setAttribute("coolTicks", stealthAbility.getCoolTicks() + "");
         //use the abilityFactory to generate from here, no need to save buff
+    }
+
+    @Override
+    public void visitNPCFallAsleepAbility(NPCFallAsleepAbility npcFallAsleepAbility) {
+
     }
 
 

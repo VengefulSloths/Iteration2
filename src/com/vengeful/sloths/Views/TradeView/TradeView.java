@@ -13,7 +13,7 @@ import java.awt.*;
  */
 public class TradeView extends JPanel {
     private GridInventoryView avatarInvView;
-    private GridInvViewTrading entityInvView;
+    private GridEntityInvViewTrading entityInvView;
     private View containerPanel;
     private int bargainSkill;
     protected static final int CHARACTER_VIEW_WIDTH =(int) Config.instance().getCharacterViewWidth();
@@ -25,7 +25,7 @@ public class TradeView extends JPanel {
         return CHARACTER_VIEW_HEIGHT;
     }
 
-    public TradeView(GridInventoryView avatarInvView, GridInvViewTrading entityInvView, int bargainSkill) {
+    public TradeView(GridInventoryView avatarInvView, GridEntityInvViewTrading entityInvView, int bargainSkill) {
         this.avatarInvView = avatarInvView;
         this.entityInvView = entityInvView;
         this.bargainSkill = bargainSkill;
@@ -84,7 +84,7 @@ public class TradeView extends JPanel {
         return entityInvView;
     }
 
-    public void setEntityInvView(GridInvViewTrading entityInvView) {
+    public void setEntityInvView(GridEntityInvViewTrading entityInvView) {
         this.entityInvView = entityInvView;
     }
 

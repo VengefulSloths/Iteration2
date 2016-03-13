@@ -11,15 +11,13 @@ import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.ModelEngine;
-import com.vengeful.sloths.Models.SaveLoad.SaveManager;
 import com.vengeful.sloths.Models.TimeModel.Tickable;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
-import com.vengeful.sloths.Views.InventoryView.GridInventoryView;
 import com.vengeful.sloths.Views.PickPocketView.PickPocketView;
-import com.vengeful.sloths.Views.TradeView.GridInvViewTrading;
+import com.vengeful.sloths.Views.TradeView.GridAvatarInvViewTrading;
+import com.vengeful.sloths.Views.TradeView.GridEntityInvViewTrading;
 import com.vengeful.sloths.Views.TradeView.TradeView;
 import com.vengeful.sloths.Views.ViewManager.ViewManager;
-import com.vengeful.sloths.Views.ViewManager.ViewObjectManager;
 
 import java.awt.event.KeyEvent;
 
@@ -215,9 +213,9 @@ public class MainController implements Tickable{
 
     public void setTradeControllerState(Entity target, Inventory targInv, int bargainSkill) {
 
-        GridInvViewTrading avatarInvView = new GridInvViewTrading(Avatar.getInstance().getInventory(), bargainSkill);
+        GridAvatarInvViewTrading avatarInvView = new GridAvatarInvViewTrading(Avatar.getInstance().getInventory(), bargainSkill);
         //will need a different constructor and pass both bargin skills in and calculate based off that...or something...
-        GridInvViewTrading entityInvView = new GridInvViewTrading(targInv, bargainSkill);
+        GridEntityInvViewTrading entityInvView = new GridEntityInvViewTrading(targInv, bargainSkill);
         TradeView tradeView = new TradeView(avatarInvView, entityInvView, bargainSkill);
         viewManager.setTradeView(tradeView);
         viewManager.openTradeView();

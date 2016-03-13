@@ -101,10 +101,9 @@ public class DialogControllerState extends InputControllerState {
     }
 
     @Override
-    public boolean handleCenterKey() {
+    public void handleEnterKey() {
         System.out.println("DIALOGGING");
         dialogContainer.next();
-        return false;
     }
 
     @Override
@@ -138,10 +137,9 @@ public class DialogControllerState extends InputControllerState {
     }
 
     @Override
-    public void handleEnterKey() {
-
+    public boolean handleCenterKey() {
+        return false;
     }
-
 
     @Override
     public void handleAbility1Key() {
