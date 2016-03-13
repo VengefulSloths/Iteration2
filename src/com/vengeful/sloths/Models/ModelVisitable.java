@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Models;
 
+import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.PickPocketAbility;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 
 /**
@@ -8,6 +9,5 @@ import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 public interface ModelVisitable {
 
     void accept(ModelVisitor modelVisitor);
-
 
 }

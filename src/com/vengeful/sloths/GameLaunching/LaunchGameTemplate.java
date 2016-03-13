@@ -2,6 +2,7 @@ package com.vengeful.sloths.GameLaunching;
 
 import com.vengeful.sloths.AreaView.*;
 import com.vengeful.sloths.Controllers.InputController.MainController;
+import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.PickPocketAbility;
 import com.vengeful.sloths.Models.Ability.AbilityFactory;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteractionFactory;
@@ -74,10 +75,11 @@ public class LaunchGameTemplate {
 
         avatar.equip(new OneHandedWeapon("dagger", new StrengthAddable(5), 10));
         avatar.equip(new Hat("tophat", new StrengthAddable(0))); //edit
-        //avatar.equip(new Mount("mount", 10)); //edit
+        avatar.equip(new Mount("mount", 10)); //edit
 
-        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createStealthAbility(avatar), 0);
-        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createProtectFromEvil(avatar), 1);
+//        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createStealthAbility(avatar), 0);
+        avatar.getAbilityManager().equipAbility(new PickPocketAbility(), 1);
+//        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createProtectFromEvil(avatar), 1);
         avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createDamageBoost(avatar), 2);
         avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createHealOverTime(avatar), 3);
         /**************************/

@@ -2,42 +2,38 @@ package com.vengeful.sloths.Controllers.InputController.InputControllerStates;
 
 import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.Views.AbilitiesSkillsView.AbilitiesSkillView;
-
-import java.util.ArrayList;
+import com.vengeful.sloths.Views.CharacterView.CharacterView;
 
 /**
- * Created by zach on 3/12/16.
+ * Created by echristiansen on 3/12/2016.
  */
-public class AbilitySkillsControllerState extends InputControllerState {
-    private AbilitiesSkillView abilitiesSkillView;
+public class InventoryEquipmentControllerState extends InputControllerState {
 
-    private int currStateIndex = 0;
+    private CharacterView characterView;
+
     private InputControllerState state;
-    private ArrayList<InputControllerState> possibleStates;
 
-    private SkillsControllerState skillsControllerState;
-    private AbilityControllerState abilityControllerState;
+    private InventoryControllerState inventoryControllerState;
+    private EquipmentControllerState equipmentControllerState;
 
-    public AbilitySkillsControllerState() {
-        possibleStates = new ArrayList<>();
-        this.abilityControllerState = new AbilityControllerState();
-        this.skillsControllerState = new SkillsControllerState();
-        possibleStates.add(this.abilityControllerState);
-        possibleStates.add(this.skillsControllerState);
-
-        this.state = this.abilityControllerState;
+    public InventoryEquipmentControllerState() {
+        this.inventoryControllerState = new InventoryControllerState();
+        this.equipmentControllerState = new EquipmentControllerState();
+        this.state = this.inventoryControllerState;
     }
 
-    public void setAbilitiesSkillView(AbilitiesSkillView abilitiesSkillView) {
-        this.abilitiesSkillView = abilitiesSkillView;
-
-        this.skillsControllerState.setSkillsView(this.abilitiesSkillView.getSkillsView());
-        this.abilityControllerState.setAbilitiesView(this.abilitiesSkillView.getAbilitiesView());
+    public void setCharacterView(CharacterView characterView) {
+        this.characterView = characterView;
+        this.inventoryControllerState.setInventoryView(this.characterView.getInventoryView());
+        this.equipmentControllerState.setEquipmentView(this.characterView.getEquipmentView());
     }
 
     public void resetViews() {
-        this.abilityControllerState.resetView(true);
-        this.skillsControllerState.resetView(false);
+        this.state = inventoryControllerState;
+        this.inventoryControllerState.resetInventoryView();
+        this.inventoryControllerState.getInventoryView().setSelected(true);
+       //this.equipmentControllerState.resetView(false);
+        this.equipmentControllerState.getEquipmentView().setSelected(false);
     }
 
     @Override
@@ -56,19 +52,16 @@ public class AbilitySkillsControllerState extends InputControllerState {
     }
 
     @Override
-    public void handleTalkKey() {
-
-    }
-
-    @Override
     public boolean handleAbilitiesKey() {
         MainController.getInstance().setAvatarControllerState();
         return true;
+        //return false;
     }
 
     @Override
     public boolean handleInventoryKey() {
-        return false;
+        state.handleInventoryKey();
+        return true;
     }
 
     @Override
@@ -83,42 +76,44 @@ public class AbilitySkillsControllerState extends InputControllerState {
 
     @Override
     public boolean handleSouthWestKey() {
-        return state.handleSouthWestKey();
+        return false;
     }
 
     @Override
     public boolean handleSouthKey() {
-        return state.handleSouthKey();
+        state.handleSouthKey();
+        return true;
     }
 
     @Override
     public boolean handleSouthEastKey() {
-        return state.handleSouthEastKey();
+        state.handleSouthEastKey();
+        return true;
     }
 
     @Override
     public boolean handleWestKey() {
-        return state.handleWestKey();
+        return false;
     }
 
     @Override
     public boolean handleEastKey() {
-        return state.handleEastKey();
+        return false;
     }
 
     @Override
     public boolean handleNorthWestKey() {
-        return state.handleNorthWestKey();
+        return false;
     }
 
     @Override
     public boolean handleNorthKey() {
-        return state.handleNorthKey();
+        return false;
     }
 
     @Override
     public boolean handleNorthEastKey() {
-        return state.handleNorthEastKey();
+        return false;
     }
 
     @Override
@@ -133,22 +128,26 @@ public class AbilitySkillsControllerState extends InputControllerState {
 
     @Override
     public boolean handleLeftKey() {
-        return state.handleLeftKey();
+        state.handleLeftKey();
+        return true;
     }
 
     @Override
     public boolean handleRightKey() {
-        return state.handleRightKey();
+        state.handleRightKey();
+        return true;
     }
 
     @Override
     public boolean handleDownKey() {
-        return state.handleDownKey();
+        state.handleDownKey();
+        return true;
     }
 
     @Override
     public boolean handleUpKey() {
-        return state.handleUpKey();
+        state.handleUpKey();
+        return true;
     }
 
     @Override
@@ -161,42 +160,43 @@ public class AbilitySkillsControllerState extends InputControllerState {
 
     }
 
+
+
     @Override
     public void handleAbility1Key() {
-        state.handleAbility1Key();
+        this.state = this.inventoryControllerState;
+        this.inventoryControllerState.getInventoryView().setSelected(true);
+        this.inventoryControllerState.getInventoryView().resetInventoryView();
+        this.equipmentControllerState.getEquipmentView().setSelected(false);
+        System.out.println("Trying to handleability 1 key");
     }
 
     @Override
-
     public void handleAbility2Key() {
-        state.handleAbility2Key();
+
     }
 
     @Override
     public void handleAbility3Key() {
-        state.handleAbility3Key();
+        this.state = this.equipmentControllerState;
+        this.inventoryControllerState.getInventoryView().setSelected(false);
+        this.equipmentControllerState.getEquipmentView().setSelected(true);
+        System.out.println("Trying to handleability 3 key");
     }
 
     @Override
     public void handleAbility4Key() {
-        state.handleAbility4Key();
-    }
-
-    @Override
-    public void resetView(boolean isActive) {
 
     }
 
     @Override
     public boolean handleSpaceKey() {
+        return false;
+    }
 
-        currStateIndex = (currStateIndex + 1) % 2;
+    @Override
+    public void handleTalkKey() {
 
-        this.state = this.possibleStates.get(currStateIndex);
-        this.state.resetView(true);
-        this.possibleStates.get((currStateIndex+1)%2).resetView(false);
-
-        return true;
     }
 
     @Override
@@ -211,6 +211,7 @@ public class AbilitySkillsControllerState extends InputControllerState {
 
     @Override
     public void handleReleaseSouthEastKey() {
+
 
     }
 
@@ -262,5 +263,10 @@ public class AbilitySkillsControllerState extends InputControllerState {
     @Override
     public boolean handleReleaseUpKey() {
         return false;
+    }
+
+    @Override
+    public void resetView(boolean isActive) {
+
     }
 }

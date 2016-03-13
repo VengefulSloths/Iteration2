@@ -2,6 +2,7 @@ package com.vengeful.sloths.Models;
 
 import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
 import com.vengeful.sloths.Models.Ability.Abilities.*;
+import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.PickPocketAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.RemoveTrapAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.StealthAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.AngleSpellAbility;
@@ -147,4 +148,6 @@ public interface ModelVisitor {
     void visitGold(Gold gold);
 
     void visitPiggyTotem(PiggyTotem piggyTotem);
+
+    void visitPickPocketAbility(PickPocketAbility pickPocketAbility);
 }

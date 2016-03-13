@@ -25,7 +25,6 @@ public class Main {
         ScrollableMenu menu = new MainScrollableMenu(120);
 
 
-
         menu.setPreferredSize(new Dimension(80, 600));
         //menu.setBackground(Color.green);
         //menu.setBorder(BorderFactory.createBevelBorder(1, Color.ORANGE, Color.ORANGE));

@@ -35,7 +35,14 @@ public class InventoryView extends View implements InventoryObserver {
     protected JPanel itemPanel;
     private int numRows;
     private int numCols;
+    private boolean isSelected;
 
+    public boolean isSelected() {
+        return isSelected;
+    }
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
     public ArrayList<ItemViewObject> getItemList() {
         return itemList;
     }
@@ -122,13 +129,13 @@ public class InventoryView extends View implements InventoryObserver {
 
     public int selectNorthItem() {
 
-        decrementInventoryIndex(numCols);;
+        decrementInventoryIndex(numCols);
 
         return inventoryIndex;
     }
 
     public int selectSouthItem() {
-        incrementInventoryIndex(numCols);;
+        incrementInventoryIndex(numCols);
 
         return inventoryIndex;
     }
@@ -152,6 +159,10 @@ public class InventoryView extends View implements InventoryObserver {
 
     public void setInventoryIndex(int inventoryIndex) {
         this.inventoryIndex = inventoryIndex;
+    }
+
+    protected int getInventoryIndex() {
+        return inventoryIndex;
     }
 
     public void useCurrentlySelectedItem() {
@@ -219,17 +230,7 @@ public class InventoryView extends View implements InventoryObserver {
     /* Initializes the itemList by generating ItemViewObjects from inventoryItems. Maybe make a factory? */
     public void initWithInventory(Inventory inventory) {
         for (int i = 0; i < inventory.getCurrentSize(); ++i) {
-            //InventoryItem item = inventory.getItem(i);
-            //this.itemList.add(new AbilityViewObject(inventory.getItem(i)));
-            //this.itemList.add(new AbilityViewObject(inventory.getItem(i)));
-            System.out.println("THIS IS THE ITEM " + inventory.getItem(i).getItemName() );
             this.getItemList().add(new ItemViewObject(inventory.getItem(i)));
-            //this.getFromItemList(0).setSelected(true);
-            //if(i==0) {
-              //  this.getFromItemList(i).setSelected(true);
-            //}
-            //this.getItemList().add(new AbilityViewObject(inventory.getItem(i), this.getWidth(),this.getHeight()));
-            //ivoFactory.generateItemViewObject(inventory.getItem(i), this.getWidth(), this.getHeight(), )
         }
     }
 
