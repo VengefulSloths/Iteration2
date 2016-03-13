@@ -135,7 +135,11 @@ public class ViewManager extends JPanel {
         addView(pickPocketView);
     }
     public void closePickPocketView(){
-        remove(pickPocketView);
+        try {
+            remove(pickPocketView);
+        }catch(NullPointerException e){
+            //nbd
+        }
         this.revalidate();
         this.repaint();
     }
