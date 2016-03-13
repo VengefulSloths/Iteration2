@@ -23,7 +23,6 @@ public class Inventory implements ModelVisitable, ViewObservable {
     //leave it as an arrayList so that items can move over when previous one removed from inventory
     private ArrayList<InventoryItem> inventory;
     private int gold;
-    private int currentSize;
     private int maxSize;
 
     private ArrayList<InventoryObserver> inventoryObservers;
@@ -35,14 +34,12 @@ public class Inventory implements ModelVisitable, ViewObservable {
     public Inventory(int maxSize) {
         inventory = new ArrayList<>();
         this.inventoryObservers = new ArrayList<>();
-        this.currentSize = 0;
         this.maxSize = maxSize;
         this.gold = 0;
     }
 
-
     public InventoryItem getItem(int index){
-        if(index < 0 || index >= this.currentSize)
+        if(index < 0 || index >= this.getCurrentSize())
             return null;
 
         return inventory.get(index);
@@ -50,7 +47,6 @@ public class Inventory implements ModelVisitable, ViewObservable {
 
     public void clearInventory() {
         this.inventory = new ArrayList<>();
-        this.setCurrentSize(0);
     }
 
     public boolean hasItem(InventoryItem item){
@@ -70,20 +66,17 @@ public class Inventory implements ModelVisitable, ViewObservable {
 
 
     public boolean addItem(InventoryItem item) {
-        if(currentSize >= maxSize)
+        if(this.getCurrentSize() >= maxSize)
             return false;
         else{
-            ++this.currentSize;
+            inventory.add(item);
 
-
-            //@TODO: REMOVE REMOVE REMOVE
             Iterator<InventoryObserver> iter = this.inventoryObservers.iterator();
             while (iter.hasNext()) {
                 InventoryObserver io = iter.next();
                 io.alertItemAdded(item);
             }
 
-            inventory.add(item);
         }
         return true;
     }
@@ -91,12 +84,6 @@ public class Inventory implements ModelVisitable, ViewObservable {
     public boolean removeItem(InventoryItem item) {
 
         if(inventory.remove(item)){
-            --this.currentSize;
-
-            if (this.currentSize <= 0){
-                System.out.println("Inventory size went below 0");
-                this.currentSize = 0;
-            }
 
         Iterator<InventoryObserver> iter = this.inventoryObservers.iterator();
         while (iter.hasNext()) {
@@ -109,13 +96,8 @@ public class Inventory implements ModelVisitable, ViewObservable {
         }
     }
 
-
-    public void setCurrentSize(int currentSize) {
-        this.currentSize = currentSize;
-    }
-
     public int getCurrentSize() {
-        return this.currentSize;
+        return this.inventory.size();
     }
 
     public void setMaxSize(int maxSize){
