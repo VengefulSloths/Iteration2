@@ -206,6 +206,17 @@ public class TradeControllerState extends InputControllerState{
 
     @Override
     public boolean handleSpaceKey() {
+        if(this.activeState.equals(buyState)){
+            this.activeState = sellState;
+            buyState.resetView(false);
+            activeState.resetView(true);
+        }
+        else{
+            this.activeState = buyState;
+            sellState.resetView(false);
+            activeState.resetView(true);
+        }
+
         return false;
     }
 
