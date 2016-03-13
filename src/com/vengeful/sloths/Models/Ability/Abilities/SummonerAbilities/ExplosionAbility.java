@@ -26,7 +26,7 @@ public class ExplosionAbility extends Ability{
 
 
     public ExplosionAbility(Entity entity, int expandingTime, int expandingDistance, int startupTicks, int coolDownTicks){
-        super(startupTicks, coolDownTicks);
+        super("Explosion", startupTicks, coolDownTicks);
         this.entity = entity;
         this.expandingTime = expandingTime;
         this.expandingDistance = expandingDistance;
