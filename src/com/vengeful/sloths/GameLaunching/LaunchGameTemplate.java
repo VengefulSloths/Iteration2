@@ -78,7 +78,7 @@ public class LaunchGameTemplate {
         System.out.println("After equipped...");
 
         avatar.equip(new OneHandedWeapon("dagger", new StrengthAddable(5), 10));
-        avatar.equip(new Hat("tophat", new StrengthAddable(0))); //edit
+        avatar.equip(new Hat("tophat", new StrengthAddable(15))); //edit
         //avatar.equip(new Mount("mount", 10)); //edit
         System.out.println("AVATAR HAS " + avatar.getInventory().getCurrentSize() + " items");
 //        avatar.equip(new Mount("mount", 10)); //edit

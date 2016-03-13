@@ -27,6 +27,8 @@ public class Hat extends EquippableItems implements ModelVisitable {
     @Override
     public void removeFromEquipped(Equipped equipped) {
         equipped.removeHat(this);
+        System.out.println("TRYING TO REMOVE A HAT FROM Equipped");
+
     }
 
     @Override
