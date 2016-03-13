@@ -12,8 +12,10 @@ public abstract class DialogContainer extends DialogObservable {
     private ArrayList<String> dialogList = new ArrayList<>();
     Iterator<DialogObserver> iter;
 
+    private String name;
 
-    public DialogContainer(){
+    public DialogContainer(String name){
+        this.name = name;
     }
 
     public void next(){
@@ -27,7 +29,7 @@ public abstract class DialogContainer extends DialogObservable {
         iter = this.getObserversIterator();
         while(iter.hasNext()){
             DialogObserver current = iter.next();
-            current.alertDialogChange(dialogList.get(cursor));
+            current.alertDialogChange(dialogList.get(cursor), name);
         }
         ++cursor;
     }

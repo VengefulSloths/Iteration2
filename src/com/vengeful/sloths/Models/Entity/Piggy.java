@@ -20,7 +20,7 @@ public class Piggy extends Pet {
 
     public Piggy(String name, Stats stats){
         super(name, stats);
-        DialogContainer piggyDialog = new TerminalDialogContainer();
+        DialogContainer piggyDialog = new TerminalDialogContainer(name);
         piggyDialog.appendDialog("oink oink!!");
         this.setDialogContainer(piggyDialog);
     }

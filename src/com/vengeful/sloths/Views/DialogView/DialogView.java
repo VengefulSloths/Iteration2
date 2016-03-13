@@ -8,6 +8,7 @@ import com.vengeful.sloths.Utility.StringUtils;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 /**
@@ -20,6 +21,7 @@ public class DialogView extends JPanel implements DialogObserver{
     private String currentDialog = "";
     private int index = 0;
     private Font font = new Font("verdana", 0, 16);
+    private String name;
 
     public DialogView() {
         this.dialogBox = DynamicImageFactory.getInstance().loadDynamicImage("resources/chat/chat.xml");
@@ -29,6 +31,17 @@ public class DialogView extends JPanel implements DialogObserver{
     public void paintComponent(Graphics g) {
         g.drawImage(dialogBox.getImage(), dialogBox.getXOffset() + Config.getAreaViewWidth()/2, dialogBox.getYOffset() + Config.getAreaViewHeight()-200, this);
 
+        //Draw the NPCs name
+        g.setColor(new Color(0x872323));
+        g.setFont(new Font("verdana", Font.BOLD, 18));
+
+        FontMetrics fm = g.getFontMetrics();
+        Rectangle2D rect = fm.getStringBounds(name, g);
+        g.drawString(name,
+                (int) (Config.getAreaViewWidth()/2 - rect.getWidth()/2),
+                (int) (Config.getAreaViewHeight() - 290 - rect.getHeight()/2));
+
+
         //Draw the dialog
         g.setColor(new Color(0x2e2b25));
         g.setFont(font);
@@ -36,7 +49,7 @@ public class DialogView extends JPanel implements DialogObserver{
         for (int i = 0; i<lines.size(); i++) {
             g.drawString(lines.get(i),
                     Config.getAreaViewWidth()/2-325,
-                    Config.getAreaViewHeight()-300 + i*22);
+                    Config.getAreaViewHeight()-300 +45 + i*22);
         }
 
         if (index < endDialog.length) {
@@ -46,11 +59,14 @@ public class DialogView extends JPanel implements DialogObserver{
 
     }
 
+
     @Override
-    public void alertDialogChange(String dialog) {
+    public void alertDialogChange(String dialog, String name) {
         this.currentDialog = "";
         this.endDialog = dialog.split(" ");
         this.index = 0;
+
+        this.name = name;
     }
 
 }

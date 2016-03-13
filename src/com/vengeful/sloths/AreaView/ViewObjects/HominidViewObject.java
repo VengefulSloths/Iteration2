@@ -41,28 +41,40 @@ public class HominidViewObject extends EntityViewObject {
         this.hat.setDefaultHatPath("resources/equipment/" + defaultHatName + "/");
     }
 
+
     @Override
-    public void paintComponent(Graphics2D g) {
-        if (isMounted() && !dead) {
-            super.paintComponent(g);
-            hat.paintComponent(g);
-        } else {
-            if (isStealthed()) {
-                getNonVisibleSnapShot().paintComponent(g);
-            } else {
-                if (!dead) {
-                    hands.paintBack(g);
-                }
-
-                super.paintComponent(g);
-
-                if (!dead) {
-                    hat.paintComponent(g);
-                    hands.paintFront(g);
-                }
-            }
-        }
+    protected void paintBack(Graphics2D g) {
+        hands.paintBack(g);
     }
+
+    @Override
+    protected void paintFront(Graphics2D g) {
+        hat.paintComponent(g);
+        hands.paintFront(g);
+    }
+
+//    @Override
+//    public void paintComponent(Graphics2D g) {
+//        if (isMounted() && !dead) {
+//            super.paintComponent(g);
+//            hat.paintComponent(g);
+//        } else {
+//            if (isStealthed()) {
+//                getNonVisibleSnapShot().paintComponent(g);
+//            } else {
+//                if (!dead) {
+//                    hands.paintBack(g);
+//                }
+//
+//                super.paintComponent(g);
+//
+//                if (!dead) {
+//                    hat.paintComponent(g);
+//                    hands.paintFront(g);
+//                }
+//            }
+//        }
+//    }
 
     @Override
     public NonVisibleViewObject getNonVisibleSnapShot() {
@@ -115,6 +127,8 @@ public class HominidViewObject extends EntityViewObject {
         super.movementHook(r, s, duration);
 
         hands.alertMove(r, s, duration);
+
+
         hat.alertMove(r, s, duration);
 
 

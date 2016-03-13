@@ -76,18 +76,29 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
             if (isStealthed) {
                 getNonVisibleSnapShot().paintComponent(g);
             } else {
+
                 if (isMounted) {
                     g.drawImage(mountImage.getImage(),
                             getXPixels() + getLocationXOffset() + mountImage.getXOffset(),
                             getYPixels() + getLocationYOffset() + mountImage.getYOffset(),
                             this);
                 }
+                paintBack(g);
                 paintBody(g);
+                paintFront(g);
                 if(healthBar != null) {
                     healthBar.paintComponent(g);
                 }
             }
         }
+    }
+
+    protected void paintBack(Graphics2D g) {
+        //default nothing
+    }
+
+    protected void paintFront(Graphics2D g) {
+        //default nothing
     }
 
     @Override
