@@ -4,7 +4,9 @@ package com.vengeful.sloths.Views.EquipmentView;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.EquippableItems;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Views.InventoryView.ItemViewObject;
+import com.vengeful.sloths.Views.ViewFactory.EquipmentImageFactory;
 import com.vengeful.sloths.Views.ViewFactory.ItemImageFactory;
+import com.vengeful.sloths.Views.ViewFactory.ViewItem;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,11 +14,11 @@ import java.awt.*;
 /**
  * Created by echristiansen on 2/21/2016.
  */
-public class EquipmentViewObject extends JPanel {
+public class EquipmentViewObject extends ItemViewObject {
 
     private EquippableItems equipmentItem;
     private Image itemImage;
-    protected ItemImageFactory imageFactory = new ItemImageFactory(); //edit
+    private EquipmentImageFactory imageFactory = new EquipmentImageFactory();
     private boolean isSelected;
 
     public EquippableItems getEquipmentItem() {
@@ -40,26 +42,18 @@ public class EquipmentViewObject extends JPanel {
     public ItemImageFactory getImageFactory() {
         return imageFactory;
     }
-    public void setImageFactory(ItemImageFactory imageFactory) {
+    public void setImageFactory(EquipmentImageFactory imageFactory) {
         this.imageFactory = imageFactory;
     }
 
     public EquipmentViewObject() { }
 
-    public EquipmentViewObject(EquippableItems equipmentItem) {
-        this.setEquipmentItem(equipmentItem);
-        this.setItemImage(this.getImageFactory().handleUnscaledItemImageGeneration(equipmentItem));
+    public EquipmentViewObject(EquippableItems viewItem) {
+        this.setViewItem(viewItem);
+        this.setEquipmentItem(viewItem);
+        this.setItemImage(this.getImageFactory().handleUnscaledItemImageGeneration(viewItem));
+        this.setIsDisplayed(false);
     }
-
-    public EquipmentViewObject(EquippableItems equipmentItem, int width, int height) {
-        this.setEquipmentItem(equipmentItem);
-        this.setItemImage(this.getImageFactory().handleScaledItemImageGeneration(equipmentItem,width,height));
-    }
-
-    public void initDisplay() {
-
-    }
-
 
     public void paintComponent(Graphics g, int x, int y, int containerWidth, int containerHeight) {
         super.paintComponent(g);
@@ -67,20 +61,38 @@ public class EquipmentViewObject extends JPanel {
         int imageHeight=containerHeight;
 
         g.drawImage(this.getItemImage(), x, y, imageWidth, imageHeight, this);
-        g.setColor(Color.RED);
+        g.setColor(Color.WHITE);
         g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 14));
-        String itemName = "Item: " + this.getEquipmentItem().getItemName();
-        String itemStats = "Stats: " + this.getEquipmentItem().getItemStats();
-        String itemDescription = "Description: " ;
+        //String itemName = "Item: " + this.getEquipmentItem().getItemName();
+        String itemName = this.getViewItem().getItemName();
+        String itemStats = this.getEquipmentItem().getItemStats().toString();
+        //String itemStats = "Stats: ";
+        String itemDescription = "A lovely " + this.getViewItem().getItemName();
         int nameStringWidth = g.getFontMetrics().stringWidth(itemName);
         int statsStringWidth = g.getFontMetrics().stringWidth(itemStats);
         int descriptionStringWidth = g.getFontMetrics().stringWidth(itemDescription);
         int stringHeight = g.getFontMetrics().getHeight();
-        g.drawString(itemName, x+imageWidth+5, stringHeight);
-        g.drawString(itemStats, x+imageWidth+5, 2*stringHeight);
-        g.drawString(itemDescription, x+imageWidth+5, 3*stringHeight);
+        int stringXCoord = x+imageWidth+15;
+        if(stringXCoord + descriptionStringWidth > x+containerWidth) {
+            itemDescription = "A lovely " + this.getViewItem().getItemName();
+        }
 
-
+        if(this.getViewItem().getItemName()!=null) {
+            g.drawString(itemName, stringXCoord, y+stringHeight);
+            if(this.getEquipmentItem().getItemStats().toString().length()>0) {
+                g.drawString(itemStats, stringXCoord, y+2*stringHeight + containerHeight/10);
+                g.drawString(itemDescription, stringXCoord, y+3*stringHeight + 2*containerHeight/10);
+            } else {
+                g.drawString(itemDescription, stringXCoord, y+2*stringHeight + containerHeight/10);
+            }
+        } else {
+            String notEquipped = new String("Not equipped");
+            g.setColor(Color.WHITE);
+            g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
+            int notEquippedStringWidth = g.getFontMetrics().stringWidth(notEquipped);
+            int notEquippedStringHeight = g.getFontMetrics().getHeight();
+            g.drawString(notEquipped, x + containerWidth/2 - notEquippedStringWidth/2, y + containerHeight/2);
+        }
 
     }
 

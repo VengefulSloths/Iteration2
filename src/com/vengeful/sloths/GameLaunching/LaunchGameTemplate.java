@@ -6,6 +6,7 @@ import com.vengeful.sloths.Models.Ability.AbilityFactory;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteractionFactory;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Hat;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Mount;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon;
 import com.vengeful.sloths.Models.Map.Map;
@@ -72,7 +73,8 @@ public class LaunchGameTemplate {
 
 
         avatar.equip(new OneHandedWeapon("dagger", new StrengthAddable(5), 10));
-
+        avatar.equip(new Hat("tophat", new StrengthAddable(0))); //edit
+        //avatar.equip(new Mount("mount", 10)); //edit
 
         avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createStealthAbility(avatar), 0);
         /**************************/
