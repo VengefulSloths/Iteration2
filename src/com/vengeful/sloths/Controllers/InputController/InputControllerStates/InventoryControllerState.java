@@ -85,7 +85,9 @@ public class InventoryControllerState extends InputControllerState{
         if(inventory.getCurrentSize() > 0){
             //MainController.getInstance().getPlayer().drop(inventory.getItem(0)); //edit: think this was working before
 
+            System.out.println("About to dorp item: " + this.inventoryView.getCurrentItem().getItemName());
             MainController.getInstance().getPlayer().drop(this.inventoryView.getCurrentItem());
+            this.inventoryView.dropViewItem();
             return true;
         }else{
             System.out.println("Nothing in inventory");
