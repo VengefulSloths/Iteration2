@@ -33,20 +33,20 @@ public class MainController implements Tickable{
 
     //states
     private AvatarControllerState avatarControllerState;
-    private InventoryControllerState inventoryControllerState;
+    //private InventoryControllerState inventoryControllerState;
+    private InventoryEquipmentControllerState inventoryEquipmentControllerState;
+
     private MenuControllerState menuControllerState;
     private AbilitySkillsControllerState abilitySkillsControllerState;
     private SetInputsControllerState setInputsControllerState;
     private CharacterCreationControllerState characterCreationControllerState;
 
-
-
-    public InventoryControllerState getInventoryControllerState() {
-        return inventoryControllerState;
+    public InventoryEquipmentControllerState getInventoryEquipmentControllerState() {
+        return inventoryEquipmentControllerState;
     }
 
-    public void setInventoryControllerState(InventoryControllerState inventoryControllerState) {
-        this.inventoryControllerState = inventoryControllerState;
+    public void setInventoryEquipmentControllerState(InventoryEquipmentControllerState inventoryEquipmentControllerState) {
+        this.inventoryEquipmentControllerState = inventoryEquipmentControllerState;
     }
 
     private static MainController ourInstance = new MainController();
@@ -60,7 +60,8 @@ public class MainController implements Tickable{
         player = Avatar.getInstance();
         inventory = player.getInventory();
         avatarControllerState = new AvatarControllerState();
-        inventoryControllerState = new InventoryControllerState();
+        //inventoryControllerState = new InventoryControllerState();
+        inventoryEquipmentControllerState = new InventoryEquipmentControllerState();
         menuControllerState = new MenuControllerState();
         abilitySkillsControllerState = new AbilitySkillsControllerState();
         setInputsControllerState = new SetInputsControllerState(inputStrategy);
@@ -78,7 +79,8 @@ public class MainController implements Tickable{
 
     public void init(ViewManager vm) {
         this.viewManager = vm;
-        inventoryControllerState.setInventoryView(this.viewManager.getCharacterView().getInventoryView());
+        //inventoryControllerState.setInventoryView(this.viewManager.getCharacterView().getInventoryView());
+        inventoryEquipmentControllerState.setCharacterView(this.viewManager.getCharacterView()); //edit?
         abilitySkillsControllerState.setAbilitiesSkillView(this.viewManager.getAbilitiesSkillView());
     }
 
@@ -118,12 +120,21 @@ public class MainController implements Tickable{
         System.out.println("Switching to avatar state");
     }
 
+    public void setInventoryEquipmentControllerState() {
+        this.state = this.inventoryEquipmentControllerState;
+        this.inventoryEquipmentControllerState.resetViews();
+        viewManager.openCharacterView();
+        System.out.println("Switching to Inventory Equipment state");
+    }
+
+    /*
     public void setInventoryControllerState(){
         this.state = this.inventoryControllerState;
         this.inventoryControllerState.resetInventoryView();
         viewManager.openCharacterView();
         System.out.println("Switching to inventory state");
     }
+    */
 
     public void setMenuControllerState(ScrollableMenu menu) {
         this.menuControllerState.setScrollableMenu(menu);

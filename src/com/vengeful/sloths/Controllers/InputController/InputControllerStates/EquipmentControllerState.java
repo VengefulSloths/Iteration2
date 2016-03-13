@@ -1,37 +1,33 @@
 package com.vengeful.sloths.Controllers.InputController.InputControllerStates;
 
-import com.vengeful.sloths.Controllers.InputController.MainController;
-import com.vengeful.sloths.Views.AbilitiesSkillsView.AbilitiesSkillView;
+import com.vengeful.sloths.Views.EquipmentView.EquipmentView;
 
 /**
- * Created by zach on 3/12/16.
+ * Created by echristiansen on 3/12/2016.
  */
-public class AbilitySkillsControllerState extends InputControllerState {
-    private AbilitiesSkillView abilitiesSkillView;
+public class EquipmentControllerState extends InputControllerState{
+    private EquipmentView equipmentView;
 
-    private InputControllerState state;
-
-    private SkillsControllerState skillsControllerState;
-    private AbilityControllerState abilityControllerState;
-
-    public AbilitySkillsControllerState() {
-        this.abilityControllerState = new AbilityControllerState();
-        this.skillsControllerState = new SkillsControllerState();
-
-        this.state = this.abilityControllerState;
+    public EquipmentView getEquipmentView() {
+        return equipmentView;
+    }
+    public void setEquipmentView(EquipmentView equipmentView) {
+        this.equipmentView = equipmentView;
     }
 
-    public void setAbilitiesSkillView(AbilitiesSkillView abilitiesSkillView) {
-        this.abilitiesSkillView = abilitiesSkillView;
+    public EquipmentControllerState() {
 
-        this.skillsControllerState.setSkillsView(this.abilitiesSkillView.getSkillsView());
-        this.abilityControllerState.setAbilitiesView(this.abilitiesSkillView.getAbilitiesView());
     }
 
-    public void resetViews() {
-        this.abilityControllerState.resetView(true);
-        this.skillsControllerState.resetView(false);
+    public void setEquipmentViewSelected() {
+        this.getEquipmentView().setSelected(true);
     }
+
+
+    public void resetView(boolean isActiveView) {
+        this.equipmentView.resetView(isActiveView);
+    }
+
 
     @Override
     public void continuousFunction() {
@@ -50,8 +46,7 @@ public class AbilitySkillsControllerState extends InputControllerState {
 
     @Override
     public boolean handleAbilitiesKey() {
-        MainController.getInstance().setAvatarControllerState();
-        return true;
+        return false;
     }
 
     @Override
@@ -71,42 +66,44 @@ public class AbilitySkillsControllerState extends InputControllerState {
 
     @Override
     public boolean handleSouthWestKey() {
-        return state.handleSouthWestKey();
+        return false;
     }
 
     @Override
     public boolean handleSouthKey() {
-        return state.handleSouthKey();
+
+        return false;
     }
 
     @Override
     public boolean handleSouthEastKey() {
-        return state.handleSouthEastKey();
+        return false;
     }
 
     @Override
     public boolean handleWestKey() {
-        return state.handleWestKey();
+        return false;
     }
 
     @Override
     public boolean handleEastKey() {
-        return state.handleEastKey();
+        return false;
     }
 
     @Override
     public boolean handleNorthWestKey() {
-        return state.handleNorthWestKey();
+        return false;
     }
 
     @Override
     public boolean handleNorthKey() {
-        return state.handleNorthKey();
+
+        return false;
     }
 
     @Override
     public boolean handleNorthEastKey() {
-        return state.handleNorthEastKey();
+        return false;
     }
 
     @Override
@@ -131,12 +128,16 @@ public class AbilitySkillsControllerState extends InputControllerState {
 
     @Override
     public boolean handleDownKey() {
-        return false;
+        this.equipmentView.selectSouthItem();
+        System.out.println("TRYING EQUIPMENT VIEW DOWN KEY");
+        return true;
     }
 
     @Override
     public boolean handleUpKey() {
-        return false;
+        this.equipmentView.selectNorthItem();
+        System.out.println("TRYING EQUIPMENT VIEW UP KEY");
+        return true;
     }
 
     @Override
@@ -154,13 +155,8 @@ public class AbilitySkillsControllerState extends InputControllerState {
 
     }
 
-    // Set state to AbilityControllerState
     @Override
     public void handleAbility1Key() {
-        // @TODO: Set state selected!
-        this.state = this.abilityControllerState;
-        this.skillsControllerState.resetView(false);
-        this.abilityControllerState.resetView(true);
 
     }
 
@@ -171,11 +167,7 @@ public class AbilitySkillsControllerState extends InputControllerState {
 
     @Override
     public void handleAbility3Key() {
-        // @TODO: Set state selected!
 
-        this.state = this.skillsControllerState;
-        this.skillsControllerState.resetView(true);
-        this.abilityControllerState.resetView(false);
     }
 
     @Override

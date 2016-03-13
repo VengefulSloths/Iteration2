@@ -71,7 +71,8 @@ public class AvatarControllerState extends InputControllerState {
     ///////////////////////handle key presses
     @Override
     public boolean handleInventoryKey() {
-        MainController.getInstance().setInventoryControllerState();
+        //MainController.getInstance().setInventoryControllerState();
+        MainController.getInstance().setInventoryEquipmentControllerState();
         return true;
     }
 

@@ -10,13 +10,16 @@ import com.vengeful.sloths.Models.Observers.EquipmentObserver;
 import com.vengeful.sloths.Models.Observers.ProxyEquipmentObserver;
 import com.vengeful.sloths.Models.Observers.ProxyInventoryObserver;
 import com.vengeful.sloths.Models.Observers.ProxyObserver;
+import com.vengeful.sloths.Views.AbilitiesView.AbilityViewObject;
 import com.vengeful.sloths.Views.InventoryView.ItemViewObject;
 import com.vengeful.sloths.Views.View;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -32,32 +35,53 @@ public class EquipmentView extends View implements EquipmentObserver {
     private EquipmentViewObject weapon;
     private MountViewObject mount;
 
+    private ArrayList<EquipmentViewObject> equipmentViewObjectList = new ArrayList<>(3); //needed?
+    private EquipmentViewObject equipmentViewObjectArray[] = new EquipmentViewObject[3];
+    private int selectionIndex;
+    private boolean isSelected;
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+    public int getSelectionIndex() {
+        return selectionIndex;
+    }
+    public void setSelectionIndex(int selectionIndex) {
+        this.selectionIndex = selectionIndex;
+    }
+    public ArrayList<EquipmentViewObject> getEquipmentViewObjectList() {
+        return equipmentViewObjectList;
+    }
     public Equipped getEquipment() {
         return equipment;
     }
-
     public void setEquipment(Equipped equipment) {
         this.equipment = equipment;
     }
-
-
     public EquipmentViewObject getHat() {
         return hat;
     }
     public void setHat(EquipmentViewObject hat) {
         this.hat = hat;
+        this.equipmentViewObjectArray[0] = this.hat;
     }
     public EquipmentViewObject getWeapon() {
         return weapon;
     }
     public void setWeapon(EquipmentViewObject weapon) {
         this.weapon = weapon;
+        this.equipmentViewObjectArray[1] = this.weapon;
     }
     public MountViewObject getMount() {
         return mount;
+
     }
     public void setMount(MountViewObject mount) {
         this.mount = mount;
+        this.equipmentViewObjectArray[2] = this.mount;
     }
 
 
@@ -67,41 +91,78 @@ public class EquipmentView extends View implements EquipmentObserver {
         ProxyObserver pio = new ProxyEquipmentObserver(this, equipment);
         ObserverManager.getInstance().addProxyObserver(pio);
         initDefaultUI();
+        this.selectionIndex=0;
+    }
+
+    public void resetView(boolean isActiveView) {
+        this.selectionIndex = 0;
     }
 
     public void initializeEquipment(Equipped equipment) {
-        this.hat = new EquipmentViewObject(equipment.getHat());
-        this.weapon = new EquipmentViewObject(equipment.getWeapon());
-        this.mount = new MountViewObject(equipment.getMount());
+        if (equipment.getHat()!=null) {
+            this.setHat(new EquipmentViewObject(equipment.getHat()));
+        }
+        if (equipment.getWeapon()!=null) {
+            this.setWeapon(new EquipmentViewObject(equipment.getWeapon()));
+        }
+        if (equipment.getMount()!=null) {
+            this.setMount(new MountViewObject(equipment.getMount()));
+        }
+
     }
 
     public void initDefaultUI() {
         this.titlePanel = new JPanel();
         this.itemPanel = new JPanel();
-
-        //this.setBackgroundImageFileName("resources/skyInventory2.png");
         this.setBackground(new Color(0f,0f,0f,0.3f));
         JLabel title = generateTitleLabel("Equipment", 22, Color.WHITE);
         this.add(title);
-
         this.titlePanel.setBackground(new Color(0f,0f,0f,0f));
         this.itemPanel.setBackground(new Color(0f,0f,0f,0f));
-
         this.setLayout(new BorderLayout());
         GridLayout grid = new GridLayout(10,1); //adjust this if want different arrangements
         this.itemPanel.setLayout(grid);
         this.titlePanel.setLayout(new BorderLayout());
-
         this.titlePanel.setPreferredSize(new Dimension(this.getWidth(), 50));
-
         this.titlePanel.add(title, BorderLayout.SOUTH);
         this.add(titlePanel, BorderLayout.NORTH);
         this.add(itemPanel, BorderLayout.CENTER);
-        //this.setBorder(new LineBorder(Color.WHITE));
     }
 
     public void addItem(ItemViewObject item) {
         this.itemPanel.add(item);
+    }
+
+    public int selectNorthItem() {
+        if(this.selectionIndex < 1) {
+            return this.getSelectionIndex();
+        } else {
+            if(this.equipmentViewObjectArray[selectionIndex]!=null) {
+                this.equipmentViewObjectArray[selectionIndex].setSelected(false);
+            }
+            this.selectionIndex--;
+            if(this.equipmentViewObjectArray[selectionIndex]!=null) {
+                this.equipmentViewObjectArray[selectionIndex].setSelected(true);
+            }
+            System.out.println("THE SELECTION INDEX IS NOW!!: " + this.getSelectionIndex());
+            return this.getSelectionIndex();
+        }
+    }
+
+    public int selectSouthItem() {
+        if(this.selectionIndex>1) {
+            return this.getSelectionIndex();
+        } else {
+            if(this.equipmentViewObjectArray[selectionIndex]!=null) {
+                this.equipmentViewObjectArray[selectionIndex].setSelected(false);
+            }
+            this.selectionIndex++;
+            if(this.equipmentViewObjectArray[selectionIndex]!=null) {
+                this.equipmentViewObjectArray[selectionIndex].setSelected(true);
+            }
+            System.out.println("THE SELECTION INDEX IS NOW!!: " + this.getSelectionIndex());
+            return this.getSelectionIndex();
+        }
     }
 
     public void paintComponent(Graphics g) {
@@ -121,6 +182,7 @@ public class EquipmentView extends View implements EquipmentObserver {
         int boxWidth = 14 * lineHor;
         int boxHeight = 2 * lineVert;
         int drawStringHorMultiple = (int) ((1 / 2.0) * widthDivisor);
+
         g.setColor(Color.WHITE);
         g.drawRect(boxXCoord, box1Y, boxWidth, boxHeight);
         g.drawRect(boxXCoord, box2Y, boxWidth, boxHeight);
@@ -137,51 +199,82 @@ public class EquipmentView extends View implements EquipmentObserver {
         g.drawString(headGearString, lineHor * drawStringHorMultiple - (int) ((1.0 / 2) * headGearStringWidth), box1Y - 10);
         g.drawString(weaponString, lineHor * drawStringHorMultiple - (int) ((1.0 / 2) * weaponStringWidth), box2Y - 10);
         g.drawString(mountString, lineHor * drawStringHorMultiple - (int) ((1.0 / 2) * mountStringWidth), box3Y - 10);
-        g.drawLine(lineDrawX, box1Y+boxHeight, lineDrawX, box1Y+2*boxHeight - stringHeight);
-        g.drawLine(lineDrawX, box2Y+boxHeight, lineDrawX, box2Y+2*boxHeight - stringHeight);
+        g.drawLine(lineDrawX, box1Y + boxHeight, lineDrawX, box1Y + 2 * boxHeight - stringHeight);
+        g.drawLine(lineDrawX, box2Y + boxHeight, lineDrawX, box2Y + 2 * boxHeight - stringHeight);
+
+
         /* end vertically aligned box drawing */
 
-        if(this.getHat()!=null) {
-            this.getHat().paintComponent(g, boxXCoord, box1Y, boxWidth, boxHeight);
+        if (this.equipmentViewObjectArray[0] != null) {
+            this.equipmentViewObjectArray[0].paintComponent(g, boxXCoord, box1Y, boxWidth, boxHeight);
         }
-        if(this.getWeapon()!=null) {
-            this.getWeapon().paintComponent(g, boxXCoord, box2Y, boxWidth, boxHeight);
+        if (this.equipmentViewObjectArray[1] != null) {
+            this.equipmentViewObjectArray[1].paintComponent(g, boxXCoord, box2Y, boxWidth, boxHeight);
         }
-        if((this.getMount()!=null)) {
-            this.getMount().paintComponent(g, boxXCoord, box3Y, boxWidth, boxHeight);
+        if (this.equipmentViewObjectArray[2] != null) {
+            this.equipmentViewObjectArray[2].paintComponent(g, boxXCoord, box3Y, boxWidth, boxHeight);
         }
 
+            Border b = BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.WHITE, Color.WHITE);
+            if (this.selectionIndex == 0 && this.isSelected()) { //edit
+                b.paintBorder(this.getHat(), g, boxXCoord, box1Y, boxWidth, boxHeight);
+            }
+
+        /*
+            if (this.selectionIndex == 0 && this.getHat() != null) {
+                this.getHat().setSelected(true);
+            } else if (this.selectionIndex == 1 && this.getWeapon() != null) {
+                this.getWeapon().setSelected(true);
+            } else if (this.selectionIndex == 2 && this.getMount() != null) {
+                this.getMount().setSelected(true);
+            }
+            */
+
+        }
+
+
+        @Override
+        public void alertWeaponEquipped(Weapon weapon) {
+            this.setWeapon(new EquipmentViewObject(weapon));
+        }
+
+        @Override
+        public void alertWeaponUnequipped(Weapon weapon) {
+            this.setWeapon(null);
+        }
+
+        @Override
+        public void alertHatEquipped(Hat hat) {
+            this.setHat(new EquipmentViewObject(hat));
+        }
+
+        @Override
+        public void alertHatUnequipped(Hat hat) {
+            this.setHat(null);
+        }
+
+        @Override
+        public void alertMountEquipped(Mount mount) {
+            this.setMount(new MountViewObject(mount));
+        }
+
+        @Override
+        public void alertMountUnequipped(Mount mount) {
+            this.setMount(null);
+        }
+
+    public void setSelected(EquipmentViewObject equipment){
+        //give a border
+        equipment.setSelected(true);
     }
 
-    @Override
-    public void alertWeaponEquipped(Weapon weapon) {
-        this.setWeapon(new EquipmentViewObject(weapon));
+    public void setDeselected(EquipmentViewObject equipment){
+        //give a border
+        equipment.setSelected(false);
     }
 
-    @Override
-    public void alertWeaponUnequipped(Weapon weapon) {
-        this.setWeapon(null);
-    }
 
-    @Override
-    public void alertHatEquipped(Hat hat) {
-        this.setHat(new EquipmentViewObject(hat));
-    }
 
-    @Override
-    public void alertHatUnequipped(Hat hat) {
-        this.setHat(null);
-    }
-
-    @Override
-    public void alertMountEquipped(Mount mount) {
-        this.setMount(new MountViewObject(mount));
-    }
-
-    @Override
-    public void alertMountUnequipped(Mount mount) {
-        this.setMount(null);
-    }
 
 }
 

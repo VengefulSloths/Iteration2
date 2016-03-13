@@ -72,8 +72,8 @@ public class LaunchGameTemplate {
         avatar.getInventory().addItem(new Potion("redPotion", new HealthManaExperienceAddable(5,0,0,0,0)));
 
 
-        avatar.equip(new OneHandedWeapon("dagger", new StrengthAddable(5), 10));
-        avatar.equip(new Hat("tophat", new StrengthAddable(0))); //edit
+        //avatar.equip(new OneHandedWeapon("dagger", new StrengthAddable(5), 10));
+        //avatar.equip(new Hat("tophat", new StrengthAddable(0))); //edit
         //avatar.equip(new Mount("mount", 10)); //edit
 
         avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createStealthAbility(avatar), 0);
