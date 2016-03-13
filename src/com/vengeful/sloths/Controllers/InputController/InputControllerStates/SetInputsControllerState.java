@@ -65,11 +65,6 @@ public class SetInputsControllerState extends InputControllerState {
     }
 
     @Override
-    public void handleAbility0Key() {
-
-    }
-
-    @Override
     public void handleAbility1Key() {
 
     }
@@ -81,6 +76,16 @@ public class SetInputsControllerState extends InputControllerState {
 
     @Override
     public void handleAbility3Key() {
+
+    }
+
+    @Override
+    public void handleAbility4Key() {
+
+    }
+
+    @Override
+    public void resetView(boolean isActive) {
 
     }
 

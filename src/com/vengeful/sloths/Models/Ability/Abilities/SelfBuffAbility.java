@@ -22,6 +22,7 @@ public class SelfBuffAbility extends Ability {
         super(windTicks, coolTicks);
         this.buff = buff;
         this.target = entity;
+        this.name = "Self Buff";
     }
 
     @Override
@@ -64,5 +65,9 @@ public class SelfBuffAbility extends Ability {
 
     public void setTarget(Entity target) {
         this.target = target;
+    }
+
+    public String toString() {
+        return "Self Buff";
     }
 }

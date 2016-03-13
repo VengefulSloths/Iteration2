@@ -129,10 +129,10 @@ public class EquippedAbilitiesView extends View implements AbilityManagerObserve
         g.drawLine(lineDrawX, box3Y+boxHeight, lineDrawX, box3Y+2*boxHeight);
         g.setColor(Color.WHITE);
         g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 18));
-        String ability0String = "Ability 0";
-        String ability1String = "Ability 1";
-        String ability2String = "Ability 2";
-        String ability3String = "Ability 3";
+        String ability0String = "Ability 1";
+        String ability1String = "Ability 2";
+        String ability2String = "Ability 3";
+        String ability3String = "Ability 4";
         int ability0StringWidth = g.getFontMetrics().stringWidth(ability0String);
         int ability1StringWidth = g.getFontMetrics().stringWidth(ability1String);
         int ability2StringWidth = g.getFontMetrics().stringWidth(ability2String);
@@ -153,7 +153,7 @@ public class EquippedAbilitiesView extends View implements AbilityManagerObserve
             this.getSlot2().paintComponent(g, boxXCoord, box3Y, boxWidth, boxHeight);
         }
         if((this.getSlot3()!=null)) {
-            this.getSlot3().paintComponent(g, boxXCoord, box3Y, boxWidth, boxHeight);
+            this.getSlot3().paintComponent(g, boxXCoord, box4Y, boxWidth, boxHeight);
         }
     }
 
@@ -166,15 +166,19 @@ public class EquippedAbilitiesView extends View implements AbilityManagerObserve
     public void alertAbilityEquipped(Ability ability, int index) {
         switch (index) {
             case 0:
+                System.out.println("Equipping to slot 0");
                 this.setSlot0(new EquippedAbilitiesViewObject(ability));
                 break;
             case 1:
+                System.out.println("Equipping to slot 1");
                 this.setSlot1(new EquippedAbilitiesViewObject(ability));
                 break;
             case 2:
+                System.out.println("Equipping to slot 2");
                 this.setSlot2(new EquippedAbilitiesViewObject(ability));
                 break;
             case 3:
+                System.out.println("Equipping to slot 3");
                 this.setSlot3(new EquippedAbilitiesViewObject(ability));
                 break;
         }

@@ -17,6 +17,7 @@ public class DemountAbility extends RemoveBuffAbility {
     public DemountAbility(Buff buff, BuffManager buffManager, Entity entity, ArrayList<EntityObserver> observers) {
         super(buff, buffManager, entity);
         this.observers = observers;
+        this.name = "Demount";
     }
 
     @Override
@@ -30,5 +31,10 @@ public class DemountAbility extends RemoveBuffAbility {
     @Override
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitDemountAbility(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Demount Ability";
     }
 }

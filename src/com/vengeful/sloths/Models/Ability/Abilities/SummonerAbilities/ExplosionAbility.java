@@ -31,6 +31,7 @@ public class ExplosionAbility extends Ability{
         this.expandingTime = expandingTime;
         this.expandingDistance = expandingDistance;
         this.canGenerateVisitor = new OnTileCanGenerateVisitor();
+        this.name = "Explosion";
     }
 
 
@@ -68,12 +69,9 @@ public class ExplosionAbility extends Ability{
         reg.createRangedEffect();
     }
 
-
-
-
     @Override
     public String toString() {
-        return "ExplosionAbility";
+        return "Explosion Ability";
     }
 
     @Override

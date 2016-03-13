@@ -25,12 +25,14 @@ public class BindWoundsAbility extends Ability {
         super(startupTicks, cooldownTicks);
         this.entity = entity;
         this.skillManager = skillManager;
+        this.name = "Bind Wounds";
 
     }
 
     public BindWoundsAbility(){
         super.setCoolTicks(5);
         super.setWindTicks(60);
+        this.name = "Bind Wounds";
     }
 
     @Override
@@ -79,7 +81,9 @@ public class BindWoundsAbility extends Ability {
     public void setSkillManager(SkillManager skillManager) {
         this.skillManager = skillManager;
     }
+
+    @Override
     public String toString(){
-        return "BindWoundsAbility";
+        return "Bind Wounds";
     }
 }

@@ -31,6 +31,7 @@ public class AngleSpellAbility extends Ability{
         this.expandingTime = expandingTime;
         this.expandingDistance = expandingDistance;
         this.canGenerateVisitor = new OnTileCanGenerateVisitor();
+        this.name = "Angel Spell";
     }
 
 
@@ -87,4 +88,10 @@ public class AngleSpellAbility extends Ability{
     public void setManaCost(int manaCost) {
         this.manaCost = manaCost;
     }
+
+    @Override
+    public String toString() {
+        return "Angel Spell Ability";
+    }
+
 }
