@@ -33,7 +33,8 @@ public class PiggyViewObject extends EntityViewObject implements EntityObserver 
         this.walkingSW = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "south_west_moving.xml");
         this.direction = Direction.S;
         this.currentDynamicImage = walkingS;
-        this.setHealthBar(null);
+
+        this.getHealthBar().setCustomYOffset(30);
     }
 
     private void paintBody(Graphics2D g) {
@@ -45,6 +46,8 @@ public class PiggyViewObject extends EntityViewObject implements EntityObserver 
 
     @Override
     public void movementHook(int r, int s, long duration) {
+
+        super.movementHook(r, s, duration);
         ((DynamicTimedImage) currentDynamicImage).start(duration);
     }
 

@@ -181,6 +181,12 @@ public class ViewManager extends JPanel {
         this.repaint();
     }
 
+    public void closeDialogView() {
+        this.remove(dialogView);
+        this.revalidate();
+        this.repaint();
+    }
+
     public void removeView(JComponent component) {
         this.remove(component);
         this.revalidate();
