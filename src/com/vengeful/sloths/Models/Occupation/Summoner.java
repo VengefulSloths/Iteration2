@@ -33,4 +33,9 @@ public class Summoner extends Occupation {
     public void accept(ModelVisitor mv){
         mv.visitSummoner(this);
     }
+
+    @Override
+    public String toString(){
+        return "Summoner";
+    }
 }

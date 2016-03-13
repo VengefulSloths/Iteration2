@@ -36,11 +36,11 @@ public class LaunchGameTemplate {
     }
 
 
-    public void launch() {
+    public void launch(String avatarOccupation) {
         map = helper.createMap();
         cameras = helper.createCameras();
         helper.populateMap();
-        avatar = helper.createAvatar();
+        avatar = helper.createAvatar(avatarOccupation);
         // Set avatar time to respawn (150/30 --> 5 seconds)
         avatar.setTimeToRespawn(150);
         avatar.getStats().setMovement(45);
