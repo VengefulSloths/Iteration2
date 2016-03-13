@@ -24,6 +24,16 @@ public class DialogControllerState extends InputControllerState {
     }
 
     @Override
+    public void handleAbility4Key() {
+
+    }
+
+    @Override
+    public void resetView(boolean isActive) {
+
+    }
+
+    @Override
     public boolean handleAbilitiesKey() {
         return false;
     }
@@ -132,10 +142,6 @@ public class DialogControllerState extends InputControllerState {
 
     }
 
-    @Override
-    public void handleAbility0Key() {
-
-    }
 
     @Override
     public void handleAbility1Key() {

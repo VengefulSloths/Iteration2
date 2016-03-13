@@ -6,7 +6,7 @@ import com.vengeful.sloths.Views.View;
  * Created by zach on 3/11/16.
  */
 public abstract class ViewItem {
-    String name;
+    protected String name;
 
     public ViewItem() {}
 

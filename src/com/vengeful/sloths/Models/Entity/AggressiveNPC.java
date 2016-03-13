@@ -25,4 +25,8 @@ public class AggressiveNPC extends NPC{
     protected void doRespawn() {
 //        EntityMapInteractionFactory.getInstance().createRespawnCommand(this, this.getLocation(), timeToRespawn);
     }
+
+    protected void customDeath() {
+        Avatar.getInstance().gainXP(this.getStats().getLevel());
+    }
 }

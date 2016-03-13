@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Views.SkillsView;
 
+import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Views.ViewFactory.TextLabelFactory;
 
 import javax.swing.*;
@@ -13,8 +14,10 @@ public class SkillsViewObject extends JPanel {
     JLabel skillName;
     JLabel skillValue;
     private JPanel statsObjectPanel;
-    private String skill;
+    private String name;
     private String value;
+    private Skill skill;
+
     private TextLabelFactory labelFactory = new TextLabelFactory();
     private boolean isSelected;
 
@@ -25,13 +28,10 @@ public class SkillsViewObject extends JPanel {
         isSelected = selected;
     }
 
+    public String getName() { return this.name; }
 
-    public String getSkill() {
-        return skill;
-    }
-    public void setSkill(String stat) {
-        this.skill = skill;
-    }
+    public Skill getSkill() { return this.skill; }
+
     public String getValue() {
         return value;
     }
@@ -39,12 +39,11 @@ public class SkillsViewObject extends JPanel {
         this.value = value;
     }
 
-    public SkillsViewObject(String skill, int value){
+    public SkillsViewObject(Skill skill){
         this.skill = skill;
-        this.value = String.valueOf(value);
+        this.name = skill.getName();
+        this.value = String.valueOf(this.skill.getLevel());
     }
-
-
 
     public void paintComponent(Graphics2D g2d) {
         super.paintComponent(g2d);
@@ -53,10 +52,9 @@ public class SkillsViewObject extends JPanel {
 
     public void paintComponent(Graphics g, int x, int y) {
         super.paintComponent(g);
-        String skillString = this.getSkill() + ": " + this.getValue();
-        int stringWidth = g.getFontMetrics().stringWidth(skillString);
-        g.drawString(skillString, x - stringWidth/2, y);
-
+        String skillString = this.getName() + ": " + this.getValue();
+//        int stringWidth = g.getFontMetrics().stringWidth(skillString);
+        g.drawString(skillString, 30, y-5);
     }
 
 

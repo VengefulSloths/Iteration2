@@ -31,6 +31,7 @@ public class AngleSpellAbility extends Ability{
         this.expandingTime = expandingTime;
         this.expandingDistance = expandingDistance;
         this.canGenerateVisitor = new OnTileCanGenerateVisitor();
+        this.name = "Angel Spell";
     }
 
 
@@ -47,7 +48,7 @@ public class AngleSpellAbility extends Ability{
         this.entity.decMana(this.manaCost);
 
         TimeModel.getInstance().registerAlertable(() ->{
-            int damage = entity.getStats().getOffensiveRating() * (1 + entity.getSkillManager().getBaneLevel());
+            int damage = (entity.getStats().getStrength() + entity.getEquipped().getWeapon().getBaseDamage()) * (2 + entity.getSkillManager().getBaneLevel());
             RangedEffectGenerator reg = new AngularEffectGenerator("explosion", entity.getLocation(), this.expandingDistance, this.expandingTime, damage, 100, canGenerateVisitor, entity.getFacingDirection());
             reg.createRangedEffect();
         }, this.getWindTicks());
@@ -87,4 +88,10 @@ public class AngleSpellAbility extends Ability{
     public void setManaCost(int manaCost) {
         this.manaCost = manaCost;
     }
+
+    @Override
+    public String toString() {
+        return "Angel Spell Ability";
+    }
+
 }
