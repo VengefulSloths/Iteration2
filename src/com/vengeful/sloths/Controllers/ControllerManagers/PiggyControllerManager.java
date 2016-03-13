@@ -57,5 +57,6 @@ public class PiggyControllerManager extends NPCControllerManager {
 
     public void setDead(boolean dead) {
         this.dead = dead;
+
     }
 }
