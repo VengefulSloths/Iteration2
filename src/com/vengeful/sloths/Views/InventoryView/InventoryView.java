@@ -240,12 +240,16 @@ public class InventoryView extends View implements InventoryObserver {
         //We can sort on iterator because it will be called less
         int index = 0;
         ItemViewObject ivo = null;
+        System.out.println("YOU ARE TRYING TO DROP " + item.getItemName());
 
         for (int i = 0; i < this.getItemList().size(); i++) {
             if (this.getItemList().get(i).getViewItem().equals(item)) {
                 ivo = (ItemViewObject) this.getItemList().get(i);
+                System.out.println("ACTUALLY DROPPING " + ivo.getViewItem().getItemName());
                 ivo.setIsDisplayed(false); //edit?
-                this.getItemList().remove(i);
+                //this.getItemList().remove(i);
+                //this.getItemList().remove(ivo);
+                this.getItemList().remove(inventoryIndex);
             }
         }
         return ivo;
@@ -289,11 +293,6 @@ public class InventoryView extends View implements InventoryObserver {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        /*
-        for(AbilityViewObject e: itemList) {
-            e.paintComponent(g);
-        }
-        */
     }
 
 }
