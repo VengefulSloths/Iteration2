@@ -47,6 +47,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     private Stats stats;
     private SkillManager skillManager;
     private boolean dead = false;
+    private boolean stunned = false;
 
     private CanMoveVisitor movementValidator;
 
@@ -58,7 +59,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     }
 
     public void setActive(boolean active) {
-        if(!dead) {
+        if(!(dead || stunned)) {
             isActive = active;
         }else{isActive = true;}
     }
@@ -276,7 +277,25 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     }
 
     public void setDead(boolean dead) {
-        this.dead = dead;
+        if(dead == true) {
+            this.dead = dead;
+            this.isActive = true;
+        }else{
+            this.dead = dead;
+            this.isActive = false;
+        }
+    }
+    public boolean getStunned(boolean stunned){
+        return this.stunned;
+    }
+    public void setStunned(boolean stunned) {
+        if(stunned == true) {
+            this.stunned = stunned;
+            this.isActive = true;
+        }else{
+            this.stunned = stunned;
+            this.isActive = false;
+        }
     }
 
     /********** Getters and Setters *************/
