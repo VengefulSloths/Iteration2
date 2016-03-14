@@ -435,7 +435,7 @@ public class LevelFactory {
         NonAggressiveNPC Dan = new NonAggressiveNPC("Dan", new Stats( new BaseStatsAddable(0,0,0,10,20)));
         town.getTile(new Coord(6,4)).addEntity(Dan);
         Dan.setLocation(new Coord(6,4));
-        Dan.setShirt("pink_shirt");
+        Dan.setShirt("grey_shirt");
         new NonAggressiveNPCControllerManager(town, Dan, Direction.S, 1);
         TerminalDialogContainer saveFriend = new TerminalDialogContainer(Dan.getName());
         saveFriend.appendDialog("Cyclop's have kidnapped my beautiful wife! Please go rescue her!");
@@ -488,6 +488,7 @@ public class LevelFactory {
         Avatar.getInstance().initialSetPet(piggy);
 
         NonAggressiveNPC Pete = new NonAggressiveNPC("Pete", new Stats( new BaseStatsAddable(0,0,0,10,20)));
+        Pete.setShirt("blue_shirt");
         Inventory PeteInventory = Pete.getInventory();
         PiggyTotem pt = new PiggyTotem("Piggy Totem", piggy);
         pt.setValue(1);
