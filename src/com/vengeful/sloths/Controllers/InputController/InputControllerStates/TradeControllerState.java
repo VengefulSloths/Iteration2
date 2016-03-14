@@ -11,11 +11,18 @@ public class TradeControllerState extends InputControllerState{
 //    private Inventory targInv = null;
     //    private int pickPocketSkill = 0;
     private TradeView tradeView = null;
-    private GridEntityInvViewTrading active = null;
-
-
-    public void TradeView(TradeView tradeView) {
+//    private GridEntityInvViewTrading active = null;
+    private InventoryControllerState activeState = null;
+    private TradeBuyState buyState = null;
+    private TradeSellState sellState = null;
+//Might need a reset view method
+    public TradeControllerState(TradeView tradeView) {
         this.tradeView = tradeView;
+        this.buyState = new TradeBuyState();
+        this.sellState = new TradeSellState();
+        this.sellState.setInventoryView(tradeView.getAvatarInvView());
+        this.buyState.setInventoryView(tradeView.getEntityInvView());
+        this.activeState = buyState;
 //        this.targInv = targInv;
     }
 
@@ -76,6 +83,7 @@ public class TradeControllerState extends InputControllerState{
 
     public boolean handleSouthKey() {
 //        this.tradeView.selectSouthItem();
+        activeState.getInventoryView().selectSouthItem();
         return true;
     }
 
@@ -121,12 +129,14 @@ public class TradeControllerState extends InputControllerState{
 
     public boolean handleWestKey() {
 //        this.tradeView.selectWestItem();
+        activeState.getInventoryView().selectWestItem();
         return true;
     }
 
     @Override
     public boolean handleEastKey() {
 //        this.pickPocketView.selectEastItem();
+        activeState.getInventoryView().selectEastItem();
         return true;
     }
 
@@ -139,6 +149,7 @@ public class TradeControllerState extends InputControllerState{
     public boolean handleNorthKey() {
         // Move up an item
 //        this.tradeView.selectNorthItem();
+        activeState.getInventoryView().selectNorthItem();
         return true;
     }
 
@@ -147,6 +158,8 @@ public class TradeControllerState extends InputControllerState{
 //        this.pickPocketView.useCurrentlySelectedItem();
 //        InventoryItem item = this.tradeView.getCurrentItem();
         //ENTITY TRADE COMMAND
+        //right now just uses item
+        activeState.handleNorthEastKey();
         return true;
 
     }
@@ -164,6 +177,7 @@ public class TradeControllerState extends InputControllerState{
     @Override
     public boolean handleLeftKey() {
 //        this.tradeView.selectWestItem();
+        activeState.getInventoryView().selectWestItem();
         return false;
     }
 
@@ -171,6 +185,7 @@ public class TradeControllerState extends InputControllerState{
     public boolean handleRightKey() {
 
 //        this.tradeView.selectEastItem();
+        activeState.getInventoryView().selectEastItem();
         return false;
     }
 
@@ -178,12 +193,14 @@ public class TradeControllerState extends InputControllerState{
     public boolean handleDownKey() {
 
 //        this.tradeView.selectSouthItem();
+        activeState.getInventoryView().selectSouthItem();
         return false;
     }
 
     @Override
     public boolean handleUpKey() {
 //        this.tradeView.selectNorthItem();
+        activeState.getInventoryView().selectNorthItem();
         return false;
     }
 

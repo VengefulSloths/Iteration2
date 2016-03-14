@@ -19,8 +19,10 @@ import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Bow;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.TwoHandedWeapon;
+
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.*;
+
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Hat;
 import com.vengeful.sloths.Models.InventoryItems.UsableItems.PiggyTotem;
 import com.vengeful.sloths.Models.Map.AreaEffects.HealDamageAE;
 import com.vengeful.sloths.Models.Map.AreaEffects.InstantDeathAE;
@@ -224,7 +226,12 @@ public class LevelFactory {
 
         area1.getTile(new Coord(7,7)).addTakeableItem(new TakeableItem("Roids", new AbilityItem(roids), new Coord(7,7)));
 
+
 //        testPiggy.setPiggyTotem(piggyTotem);
+
+        TakeableItem katarTakeeable = new TakeableItem("Katar", new Knuckle("Katar", new StrengthAddable(5), 10), new Coord(8,8));
+
+        area1.getTile(new Coord(8,8)).addTakeableItem(katarTakeeable);
 
         //dialog test on piggy
 

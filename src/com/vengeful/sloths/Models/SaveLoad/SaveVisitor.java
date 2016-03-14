@@ -1032,4 +1032,7 @@ public class SaveVisitor implements ModelVisitor {
     }
 
 
+    public void visitRangedAttact(RangedAttackAbility attack) {
+        System.out.println("Ian you must save this");
+    }
 }

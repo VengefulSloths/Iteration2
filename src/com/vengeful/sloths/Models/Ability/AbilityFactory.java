@@ -12,6 +12,7 @@ import com.vengeful.sloths.Models.Stats.StatAddables.CurrentHealthAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.GenericStatsAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.MovementAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.StrengthAddable;
+import com.vengeful.sloths.Utility.ModelConfig;
 
 import java.util.ArrayList;
 
@@ -87,6 +88,10 @@ public class AbilityFactory {
 
     public NPCFallAsleepAbility createNPCFallAsleepAbility(Entity entity){
         return new NPCFallAsleepAbility(entity, 8, 15, 360);
+    }
+
+    public RangedAttackAbility createRangedAttackAbility(Entity entity, int baseDamage, int windTicks, int coolTicks) {
+        return new RangedAttackAbility(entity, entity.getSkillManager().getRangedWeaponSkill(), baseDamage, windTicks, coolTicks);
     }
 
 }

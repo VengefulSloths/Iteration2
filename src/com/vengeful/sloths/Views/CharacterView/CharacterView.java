@@ -24,6 +24,7 @@ public class CharacterView extends JPanel {
     private InventoryView inventoryView;
     private EquipmentView equipmentView;
     private StatsView statsView;
+    private JPanel pushPanel;
     //rivate JPanel containerPanel;
     private View containerPanel;
     //private Inventory inventory;
@@ -78,7 +79,7 @@ public class CharacterView extends JPanel {
 
     public void initDefaultUI() {
 
-        JPanel pushPanel = new JPanel(); //this JPanel is used to center the CharacterView in the ViewManager. It "pushes" down the CharacterView in the ViewManager
+        pushPanel = new JPanel(); //this JPanel is used to center the CharacterView in the ViewManager. It "pushes" down the CharacterView in the ViewManager
         pushPanel.setPreferredSize(new Dimension(Config.instance().getAreaViewWidth(), Config.instance().getAreaViewHeight()/6));
         pushPanel.setBackground(new Color(0f,0f,0f,0f)); //pushPanel needs to be invisible
 
@@ -123,6 +124,10 @@ public class CharacterView extends JPanel {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        Border b = BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.WHITE, Color.WHITE);
+        if (this.getInventoryView().isSelected()) {
+            b.paintBorder(this.getInventoryView(), g, 0 , pushPanel.getHeight(), inventoryView.getWidth(), inventoryView.getViewHeight());
+        }
     }
 
 }

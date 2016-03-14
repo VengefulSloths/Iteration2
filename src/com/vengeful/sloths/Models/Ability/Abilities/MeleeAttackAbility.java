@@ -83,7 +83,7 @@ public class MeleeAttackAbility extends Ability {
                     entity.takeDamage(damage);
                 }
             } catch (Exception e) {
-                    //do nothing its fine
+                e.printStackTrace();
             }
         }, getWindTicks());
 

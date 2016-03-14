@@ -128,6 +128,7 @@ public class MainController implements Tickable{
         viewManager.closeChooseSaveView();
         viewManager.closePickPocketView();
         viewManager.closeDialogView();
+        viewManager.closeTradeView();
         System.out.println("Switching to avatar state");
     }
 
@@ -217,6 +218,7 @@ public class MainController implements Tickable{
         //will need a different constructor and pass both bargin skills in and calculate based off that...or something...
         GridEntityInvViewTrading entityInvView = new GridEntityInvViewTrading(targInv, bargainSkill);
         TradeView tradeView = new TradeView(avatarInvView, entityInvView, bargainSkill);
+        this.tradeContollerState = new TradeControllerState(tradeView);
         viewManager.setTradeView(tradeView);
         viewManager.openTradeView();
         this.state = this.tradeContollerState;

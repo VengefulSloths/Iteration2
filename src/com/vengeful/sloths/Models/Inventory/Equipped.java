@@ -112,7 +112,6 @@ public class Equipped implements ViewObservable, ModelVisitable{
 
         abilityManager.setWeaponAbility(this.weapon.getAttackAbility(entity));
 
-
         for (EntityObserver observer: entity.getObservers()) {
             observer.alertEquipWeapon(this.weapon.getItemName(), this.weapon.getWeaponClassification());
         }
@@ -138,7 +137,7 @@ public class Equipped implements ViewObservable, ModelVisitable{
         for (EntityObserver observer: entity.getObservers()) {
             observer.alertUnequipHat();
         }
-        alertHatEquipped(hat);
+        alertHatUnequipped(hat);
     }
 
     public void removeWeapon(Weapon weapon){
@@ -180,6 +179,7 @@ public class Equipped implements ViewObservable, ModelVisitable{
             EquipmentObserver io = iter.next();
             io.alertHatUnequipped(hat);
         }
+        this.entity.getInventory().addItem(hat);
     }
 
     public void alertWeaponEquipped(Weapon weapon){
@@ -196,6 +196,7 @@ public class Equipped implements ViewObservable, ModelVisitable{
             EquipmentObserver io = iter.next();
             io.alertWeaponUnequipped(weapon);
         }
+        this.entity.getInventory().addItem(weapon);
     }
 
     public void alertMountEquipped(Mount mount){
@@ -212,6 +213,7 @@ public class Equipped implements ViewObservable, ModelVisitable{
             EquipmentObserver io = iter.next();
             io.alertMountUnequipped(mount);
         }
+        this.entity.getInventory().addItem(mount);
     }
 
 

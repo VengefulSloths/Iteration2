@@ -28,7 +28,7 @@ public class Inventory implements ModelVisitable, ViewObservable {
     private ArrayList<InventoryObserver> inventoryObservers;
 
     public Inventory() {
-        this(50); //default size 50
+        this(20); //default size 50
     }
 
     public Inventory(int maxSize) {

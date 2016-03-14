@@ -51,7 +51,7 @@ public class EntityInitiatePickPocketCommand {
             if(e.length > 0){
                 this.target = e[0];
                 this.pickPocketSkill = a.getSkillManager().getPickPocketLevel();
-                target.setDead(true);
+                target.setStunned(true);
                 //a.setDead(true);
                 targInv = target.getInventory();
             }

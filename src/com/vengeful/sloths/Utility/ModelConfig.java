@@ -67,4 +67,8 @@ public class ModelConfig {
         return MANA_COST_HIGH;
     }
 
+    public static int calcuateDamage(int baseDamage, int statLevel, int skillLevel) {
+        return (baseDamage + statLevel)*(1+skillLevel);
+    }
+
 }

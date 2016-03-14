@@ -157,6 +157,8 @@ public class EquipmentControllerState extends InputControllerState{
 
     @Override
     public void handleEnterKey() {
+        this.equipmentView.unequipItem();
+        System.out.println("REGISTERING THAT ENTER IS PRESSED FROM EQUIPMENTCONTROLLERSTATE, SHOULD BE UNEQUIPPING");
 
     }
 
