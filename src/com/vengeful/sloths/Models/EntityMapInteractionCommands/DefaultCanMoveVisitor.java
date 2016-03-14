@@ -74,6 +74,11 @@ public class DefaultCanMoveVisitor extends CanMoveVisitor {
     }
 
     @Override
+    public void visitShuriken(Shuriken shuriken) {
+
+    }
+
+    @Override
     public void visitStaff(Staff staff) {
 
     }
@@ -216,6 +221,16 @@ public class DefaultCanMoveVisitor extends CanMoveVisitor {
 
     @Override
     public void visitSelfBuffAbility(SelfBuffAbility selfBuffAbility) {
+
+    }
+
+    @Override
+    public void visitWeakenNPCAbility(WeakenNPCAbility weakenNPCAbility) {
+
+    }
+
+    @Override
+    public void visitPoisonNPCAbility(PoisonNPCAbility poisonNPCAbility) {
 
     }
 

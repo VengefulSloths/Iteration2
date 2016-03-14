@@ -15,6 +15,8 @@ public class ModelConfig {
     private static final int KNUCKLE_SPEED = 8;
     public static final int BOW_WINDUP = 15;
     public static final int BOW_SPEED = 25;
+    public static final int THROW_WINDUP = 4;
+    public static final int THROW_SPEED = 10;
 
     private static final int MANA_COST_LOW = 2;
     private static final int MANA_COST_MID = 4;

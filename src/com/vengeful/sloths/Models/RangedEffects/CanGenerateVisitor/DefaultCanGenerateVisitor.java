@@ -81,6 +81,11 @@ public class DefaultCanGenerateVisitor implements ModelVisitor{
     }
 
     @Override
+    public void visitShuriken(Shuriken shuriken) {
+        
+    }
+
+    @Override
     public void visitWater(Water water) {
 
     }
@@ -202,6 +207,16 @@ public class DefaultCanGenerateVisitor implements ModelVisitor{
 
     @Override
     public void visitSelfBuffAbility(SelfBuffAbility selfBuffAbility) {
+
+    }
+
+    @Override
+    public void visitWeakenNPCAbility(WeakenNPCAbility weakenNPCAbility) {
+
+    }
+
+    @Override
+    public void visitPoisonNPCAbility(PoisonNPCAbility poisonNPCAbility) {
 
     }
 

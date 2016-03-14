@@ -74,6 +74,11 @@ public class AggressiveNPCSearchingController extends SearchingController {
     }
 
     @Override
+    public void visitShuriken(Shuriken shuriken) {
+
+    }
+
+    @Override
     public void visitAvatar(Avatar avatar) {
         // set priority yadyadyayd
         //System.out.println("agressive npc sees the avatar :o");
@@ -381,6 +386,16 @@ public class AggressiveNPCSearchingController extends SearchingController {
 
     @Override
     public void visitSelfBuffAbility(SelfBuffAbility selfBuffAbility) {
+
+    }
+
+    @Override
+    public void visitWeakenNPCAbility(WeakenNPCAbility weakenNPCAbility) {
+
+    }
+
+    @Override
+    public void visitPoisonNPCAbility(PoisonNPCAbility poisonNPCAbility) {
 
     }
 

@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Views.EquipmentView;
 
+import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.EquippableItems;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Hat;
@@ -208,9 +209,6 @@ public class EquipmentView extends View implements EquipmentObserver {
         if (this.equipmentViewObjectArray[0] != null) {
             this.equipmentViewObjectArray[0].paintComponent(g, boxXCoord, box1Y, boxWidth, boxHeight);
         }
-
-        //this.equipmentViewObjectArray[0].paintComponent(g, boxXCoord, box1Y, boxWidth, boxHeight);
-
         if (this.equipmentViewObjectArray[1] != null) {
             this.equipmentViewObjectArray[1].paintComponent(g, boxXCoord, box2Y, boxWidth, boxHeight);
         }
@@ -220,22 +218,13 @@ public class EquipmentView extends View implements EquipmentObserver {
 
         //want to call paintComponent even on null slots because then they can say nothing displayed??
 
-        /*
-            Border b = BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.WHITE, Color.WHITE);
+            Border b = BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.GREEN, Color.GREEN);
             if (this.selectionIndex == 0 && this.isSelected()) { //edit
                 b.paintBorder(this.getHat(), g, boxXCoord, box1Y, boxWidth, boxHeight);
+            } else if (this.selectionIndex==0 && !this.isSelected()) {
+                b = BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.WHITE, Color. WHITE);
+                b.paintBorder(this.getHat(), g, boxXCoord, box1Y, boxWidth, boxHeight);
             }
-            */
-
-        /*
-            if (this.selectionIndex == 0 && this.getHat() != null) {
-                this.getHat().setSelected(true);
-            } else if (this.selectionIndex == 1 && this.getWeapon() != null) {
-                this.getWeapon().setSelected(true);
-            } else if (this.selectionIndex == 2 && this.getMount() != null) {
-                this.getMount().setSelected(true);
-            }
-            */
 
         }
 
@@ -251,6 +240,7 @@ public class EquipmentView extends View implements EquipmentObserver {
             this.equipmentViewObjectArray[1]=null;
         } else if(selectionIndex==2 && this.equipmentViewObjectArray[2]!=null) {
             //this.getMount().getEquipmentItem().removeFromEquipped(this.equipment);
+            System.out.println("remioving " + this.getMount().getMount() + " from equipment");
             this.getMount().getMount().removeFromEquipped(this.equipment);
             this.equipmentViewObjectArray[2]=null;
         }
@@ -259,6 +249,9 @@ public class EquipmentView extends View implements EquipmentObserver {
 
         @Override
         public void alertWeaponEquipped(Weapon weapon) {
+            if (this.getWeapon() != null) {
+                Avatar.getInstance().getInventory().addItem(this.getWeapon().getEquipmentItem());
+            }
             this.setWeapon(new EquipmentViewObject(weapon));
         }
 
@@ -269,6 +262,9 @@ public class EquipmentView extends View implements EquipmentObserver {
 
         @Override
         public void alertHatEquipped(Hat hat) {
+            if (this.getHat() != null) {
+                Avatar.getInstance().getInventory().addItem(this.getHat().getEquipmentItem());
+            }
             this.setHat(new EquipmentViewObject(hat));
         }
 
@@ -279,6 +275,10 @@ public class EquipmentView extends View implements EquipmentObserver {
 
         @Override
         public void alertMountEquipped(Mount mount) {
+            if (this.getMount() != null) {
+                System.out.println("MOUNT  IS: " + this.getMount().getEquipmentItem());
+                Avatar.getInstance().getInventory().addItem(this.getMount().getEquipmentItem());
+            }
             this.setMount(new MountViewObject(mount));
         }
 

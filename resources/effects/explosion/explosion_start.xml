@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<dynamic_timed_animation>
+    <width>255</width>
+    <height>255</height>
+    <rootPath>resources/effects/explosion/</rootPath>
+    <startConfig>null.xml</startConfig>
+    <endConfig>null.xml</endConfig>
+    <fileName>explosion01.png</fileName>
+    <fileName>explosion02.png</fileName>
+    <fileName>explosion03.png</fileName>
+    <fileName>explosion04.png</fileName>
+    <fileName>explosion05.png</fileName>
+    <fileName>explosion06.png</fileName>
+    <fileName>explosion07.png</fileName>
+    <fileName>explosion08.png</fileName>
+    <fileName>explosion09.png</fileName>
+    <fileName>explosion10.png</fileName>
+    <fileName>explosion11.png</fileName>
+    <fileName>explosion12.png</fileName>
+    <fileName>explosion13.png</fileName>
+    <fileName>explosion14.png</fileName>
+    <fileName>explosion15.png</fileName>
+    <fileName>explosion16.png</fileName>
+    <fileName>explosion17.png</fileName>
+    <fileName>explosion18.png</fileName>
+    <fileName>explosion19.png</fileName>
+    <fileName>explosion20.png</fileName>
+    <fileName>explosion21.png</fileName>
+    <fileName>explosion22.png</fileName>
+    <fileName>explosion23.png</fileName>
+    <fileName>explosion24.png</fileName>
+    <fileName>explosion25.png</fileName>
+    <fileName>explosion26.png</fileName>
+    <fileName>explosion27.png</fileName>
+    <fileName>explosion28.png</fileName>
+    <fileName>explosion29.png</fileName>
+
+    <positioning xOffset="-25" yOffset="-39">custom</positioning>
+</dynamic_timed_animation>

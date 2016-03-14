@@ -81,6 +81,11 @@ public class PiggySearchingController extends SearchingController {
     }
 
     @Override
+    public void visitShuriken(Shuriken shuriken) {
+
+    }
+
+    @Override
     public void visitPiggy(Piggy piggy) {
         // Do nada!
 
@@ -405,6 +410,16 @@ public class PiggySearchingController extends SearchingController {
 
     @Override
     public void visitSelfBuffAbility(SelfBuffAbility selfBuffAbility) {
+
+    }
+
+    @Override
+    public void visitWeakenNPCAbility(WeakenNPCAbility weakenNPCAbility) {
+
+    }
+
+    @Override
+    public void visitPoisonNPCAbility(PoisonNPCAbility poisonNPCAbility) {
 
     }
 

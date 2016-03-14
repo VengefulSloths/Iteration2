@@ -66,6 +66,8 @@ public class ViewEngine extends JFrame implements Runnable{
 
 
 
+
+
     public void registerView(JComponent jpanel){
         if(target != null) {
             killOldView();

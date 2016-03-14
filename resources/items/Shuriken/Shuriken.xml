@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<single_frame_animation>
+    <width>60</width>
+    <height>60</height>
+    <rootPath>resources/items/Shuriken/</rootPath>
+    <fileName>Shuriken.png</fileName>
+    <positioning xOffset="-25" yOffset="-39">custom</positioning>
+</single_frame_animation>

@@ -93,6 +93,7 @@ public class Stats implements ModelVisitable, ViewObservable {
     }
     private void calculateMaxHealth(){
         this.maxHealth = (1 + this.level + (2*this.hardiness)) + bonusHealth;
+        //this.maxHealth = (10 + this.level + (2*this.hardiness)) + bonusHealth; //TODO: remove, test
     }
     private void calculateMaxExperience(){
         this.maxExperience = (int)Math.pow(((double)this.level), 2); //calculates experience to next level as level^2

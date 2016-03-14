@@ -1,8 +1,16 @@
 <?xml version="1.0"?>
-<single_frame_animation>
+<repeating_animation>
     <width>255</width>
     <height>255</height>
+    <duration>500</duration>
     <rootPath>resources/effects/fireball/</rootPath>
-    <fileName>fireball.png</fileName>
+    <fileName>fireball01.png</fileName>
+    <fileName>fireball02.png</fileName>
+    <fileName>fireball03.png</fileName>
+    <fileName>fireball04.png</fileName>
+    <fileName>fireball05.png</fileName>
+    <fileName>fireball06.png</fileName>
+    <fileName>fireball07.png</fileName>
+    <fileName>fireball08.png</fileName>
     <positioning xOffset="-10" yOffset="-10">custom</positioning>
-</single_frame_animation>
+</repeating_animation>
