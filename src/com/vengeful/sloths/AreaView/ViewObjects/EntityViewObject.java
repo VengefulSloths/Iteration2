@@ -123,6 +123,9 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
                 visibleImages.add(mountImage);
             }
             visibleImages.add(currentDynamicImage);
+            if (shirt != null) {
+                visibleImages.add(shirt);
+            }
         }
         NonVisibleViewObject output = new NonVisibleViewObject(getR(), getS(), getCoordinateStrategy(), getLocationStrategy(), visibleImages, getXPixels(), getYPixels());
         return output;
