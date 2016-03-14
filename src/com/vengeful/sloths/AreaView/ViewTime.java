@@ -51,7 +51,7 @@ public class ViewTime {
 
     public void registerAlert(long timeTillAlert, vCommand command) {
         staging.add(new RealTuple<>(timeTillAlert + this.currentTimeMilli, command));
-
+ 
     }
 
     public void reset(){
