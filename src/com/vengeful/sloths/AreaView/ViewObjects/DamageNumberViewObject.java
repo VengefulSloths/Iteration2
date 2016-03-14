@@ -17,11 +17,13 @@ public class DamageNumberViewObject extends ViewObject {
     private int height = 100;
     private float transparency = 1f;
     private boolean isDone = false;
+    private boolean isHealing;
     private String damage;
 
     public DamageNumberViewObject(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy, int damage) {
         super(r, s, coordinateStrategy, locationStrategy);
         this.damage = String.valueOf(damage);
+        this.isHealing = damage < 0;
         adjust();
     }
 
@@ -38,7 +40,11 @@ public class DamageNumberViewObject extends ViewObject {
     @Override
     public void paintComponent(Graphics2D g) {
         if (!isDone) {
-            g.setColor(Color.yellow);
+            if (isHealing) {
+                g.setColor(Color.GREEN);
+            } else {
+                g.setColor(Color.yellow);
+            }
             try {
                 Composite c = g.getComposite();
                 g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, transparency));

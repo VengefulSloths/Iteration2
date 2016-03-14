@@ -67,7 +67,7 @@ public class AbilityFactory {
     }
 
     public SelfBuffAbility createHealOverTime(Entity entity){
-        Buff healBuff = new HealOverTimeBuff(entity.getObservers(), entity.getBuffManager(), new CurrentHealthAddable(1), "healOverTime", 600, 60);
+        Buff healBuff = new HealOverTimeBuff(entity, entity.getObservers(), entity.getBuffManager(), new CurrentHealthAddable(3), "healOverTime", 600, 60);
         return new BoonBuffAbility("Rejuvenation", entity, healBuff, 8, 15);
     }
 
