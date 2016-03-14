@@ -92,7 +92,7 @@ public class LaunchGameTemplate {
 //        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createProtectFromEvil(avatar), 1);
         //avatar.getAbilityManager().equipAbility(new PickPocketAbility(), 1);
         //avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createNPCFallAsleepAbility(avatar), 1);
-        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createPoisonNPCAbility(avatar), 1);
+        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createHealOverTime(avatar), 1);
         //avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createExplosionAbility(avatar, 10, 3, 5, 5), 2);
         avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createWeakenNPCAbility(avatar), 2);
         //avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createDamageBoost(avatar), 2);
@@ -102,6 +102,7 @@ public class LaunchGameTemplate {
 //        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createNPCFallAsleepAbility(avatar), 1);
 
         avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createDamageBoost(avatar), 2);
+
         //avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createHealOverTime(avatar), 3);
         /**************************/
 

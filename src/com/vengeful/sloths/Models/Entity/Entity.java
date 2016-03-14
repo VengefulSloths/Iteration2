@@ -259,7 +259,9 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         //TODO: take defensive rating into consideration
         System.out.println("hardiness is " + this.getStats().getHardiness());
         System.out.println("damage reduction is : " + (10f/ (10f + (float)this.getStats().getHardiness())));
-        attackDamage = (int)((float)attackDamage * (10f/ (10f + (float)this.getStats().getHardiness())));
+        if (attackDamage > 0) {
+            attackDamage = (int)((float)attackDamage * (10f/ (10f + (float)this.getStats().getHardiness())));
+        }
         getStats().subtract(new CurrentHealthAddable(attackDamage));
         for (EntityObserver observer: observers) {
             observer.alertTakeDamage(attackDamage);
