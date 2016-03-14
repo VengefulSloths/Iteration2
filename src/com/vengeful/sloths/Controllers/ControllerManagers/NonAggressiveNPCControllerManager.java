@@ -9,11 +9,15 @@ import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
 import com.vengeful.sloths.Utility.Direction;
 
+import java.util.Random;
+
 /**
  * Created by John on 3/14/2016.
  */
 public class NonAggressiveNPCControllerManager extends NPCControllerManager {
     private boolean dead = false;
+
+    private int controlTicks = 30 + (new Random()).nextInt(10);
 
     public NonAggressiveNPCControllerManager(MapArea mapArea, Entity entity, Direction dir, int numSteps){
 
@@ -27,7 +31,7 @@ public class NonAggressiveNPCControllerManager extends NPCControllerManager {
     @Override
     public void tick() {
         if(!dead) {
-            if (this.getTicks() % 30 == 0) {
+            if (this.getTicks() % controlTicks == 0) {
                 if (this.getMapArea().equals(Map.getInstance().getActiveMapArea())) {
                     //System.out.println("beginning of tick");
                     if (getSearchingController() != null) {

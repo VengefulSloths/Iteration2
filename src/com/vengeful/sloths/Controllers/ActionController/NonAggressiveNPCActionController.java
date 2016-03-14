@@ -4,12 +4,14 @@ import com.vengeful.sloths.Controllers.Target.*;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Utility.Direction;
 
+import java.util.Random;
+
 /**
  * Created by John on 3/14/2016.
  */
 public class NonAggressiveNPCActionController extends ActionController {
 
-    private int counter = 0;
+    private int counter =(int) (new Random()).nextInt(21) ;
     private Direction dir;
     private int numSteps = 0;
 
@@ -29,6 +31,8 @@ public class NonAggressiveNPCActionController extends ActionController {
                 this.changeDirection();
             }
             this.getEntity().move(dir);
+
+
             ++counter;
         }
     }
