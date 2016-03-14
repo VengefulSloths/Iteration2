@@ -1,41 +1,29 @@
-package com.vengeful.sloths.Menu.InGameMenu;
+package com.vengeful.sloths.Menu.MainMenu.LoadMenu;
 
-import com.vengeful.sloths.Controllers.InputController.KeyBindingMenu.EnterKeyBindViewMenuItem;
-import com.vengeful.sloths.Controllers.InputController.KeyBindingMenu.KeyBindMenuItem;
-import com.vengeful.sloths.Menu.MainMenu.ExitGameMenuItem;
-
-import com.vengeful.sloths.Menu.MainMenu.LoadMenu.LoadGameMenuItem;
-import com.vengeful.sloths.Menu.MainMenu.MainMenuItem;
-import com.vengeful.sloths.Menu.MainMenu.NewGameMenuItem;
-import com.vengeful.sloths.Menu.SaveMenu.SaveGameMenuItem;
+import com.vengeful.sloths.Menu.SaveMenu.ChooseSaveMenuItem;
 import com.vengeful.sloths.Menu.ScrollableMenu;
 import com.vengeful.sloths.Menu.ScrollableMenuItem;
 import com.vengeful.sloths.Menu.ScrollableMenuList;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.Iterator;
 
 /**
- * Created by John on 3/11/2016.
+ * Created by harrison on 3/13/16.
  */
-public class InGameScrollableMenu extends ScrollableMenu {
-    //private BufferedImage bg;
+public class LoadGameMenu extends ScrollableMenu{
 
-    public InGameScrollableMenu(int height){
+    public LoadGameMenu(int height){
         super(height);
         //create list here for main menu
 
         ScrollableMenuList list = new ScrollableMenuList();
         //list.addItem(new NewGameMenuItem());
         //needs to be edited to select save file
-        list.addItem(new EnterKeyBindViewMenuItem());//TODO change this to an actual keybinding item
-        list.addItem(new SaveGameMenuItem("Save Game"));
-        list.addItem(new LoadGameMenuItem("Load Game"));
-        list.addItem(new ExitGameMenuItem());
-        list.addItem(new MainMenuItem("Quit Menu")); //TODO implement and actual quit menu thing
+        list.addItem(new ChooseLoadMenuItem("Save 1"));
+        list.addItem(new ChooseLoadMenuItem("Save 2"));
+        list.addItem(new ChooseLoadMenuItem("Save 3"));
+
         this.setList(list);
         //this.setBackground(Color.GRAY);
         this.setPreferredSize(new Dimension(1200,1000));

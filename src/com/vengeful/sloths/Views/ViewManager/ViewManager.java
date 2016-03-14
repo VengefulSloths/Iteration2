@@ -2,6 +2,8 @@ package com.vengeful.sloths.Views.ViewManager;
 
 import com.vengeful.sloths.Controllers.InputController.KeyBindingMenu.InputChangeMenu;
 import com.vengeful.sloths.Menu.InGameMenu.InGameScrollableMenu;
+import com.vengeful.sloths.Menu.MainMenu.LoadMenu.ChooseLoadMenuItem;
+import com.vengeful.sloths.Menu.MainMenu.LoadMenu.LoadGameMenu;
 import com.vengeful.sloths.Menu.SaveMenu.ChooseSaveMenu;
 import com.vengeful.sloths.Utility.Config;
 //import com.vengeful.sloths.Views.AreaView.AreaView;
@@ -35,6 +37,7 @@ public class ViewManager extends JPanel {
     private InGameScrollableMenu menuView;
     private InputChangeMenu keyBindView;
     private ChooseSaveMenu chooseSaveView;
+    private LoadGameMenu loadGameMenu;
     private PickPocketView pickPocketView;
     private PickPocketViewContainer pickPocketViewContainer;
     private TradeView tradeView;
@@ -102,6 +105,7 @@ public class ViewManager extends JPanel {
         this.chooseSaveView = new ChooseSaveMenu(80);
         this.abilityHUD = new AbilityHUD(400,100);
         this.pickPocketViewContainer = new PickPocketViewContainer();
+        this.loadGameMenu = new LoadGameMenu(80);
         initializeViewManager();
     }
 
@@ -138,6 +142,19 @@ public class ViewManager extends JPanel {
 
         this.dialogView = new DialogView();
 
+    }
+
+    public void openChooseLoadMenu(){
+        addView(loadGameMenu);
+    }
+    public void closeChooseLoadMenu(){
+        try {
+            remove(loadGameMenu);
+        }catch(NullPointerException e){
+            //nbd
+        }
+        this.revalidate();
+        this.repaint();
     }
     public void openPickPocketView(){
         addView(pickPocketViewContainer);
@@ -282,5 +299,13 @@ public class ViewManager extends JPanel {
 
     public void setTradeView(TradeView tradeView) {
         this.tradeView = tradeView;
+    }
+
+    public LoadGameMenu getLoadGameMenu() {
+        return loadGameMenu;
+    }
+
+    public void setLoadGameMenu(LoadGameMenu loadGameMenu) {
+        this.loadGameMenu = loadGameMenu;
     }
 }

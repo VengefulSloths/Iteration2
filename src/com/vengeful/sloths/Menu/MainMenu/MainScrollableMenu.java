@@ -1,5 +1,7 @@
 package com.vengeful.sloths.Menu.MainMenu;
 
+import com.vengeful.sloths.Menu.MainMenu.LoadMenu.ChooseLoadMenuItem;
+import com.vengeful.sloths.Menu.MainMenu.LoadMenu.LoadGameMenuItem;
 import com.vengeful.sloths.Menu.ScrollableMenu;
 import com.vengeful.sloths.Menu.ScrollableMenuItem;
 import com.vengeful.sloths.Menu.ScrollableMenuList;
@@ -30,7 +32,7 @@ public class MainScrollableMenu extends ScrollableMenu {
         ScrollableMenuList list = new ScrollableMenuList();
         list.addItem(new NewGameMenuItem());
         //needs to be edited to select save file
-        list.addItem(new LoadGameMenuItem("Load Game"));
+        list.addItem(new MainMenuLoadItem("Load Game", this));
         list.addItem(new ExitGameMenuItem());
         this.setList(list);
         //this.setBackground(Color.GRAY);
@@ -65,5 +67,30 @@ public class MainScrollableMenu extends ScrollableMenu {
             offset += itemHeight;
             index++;
         }
+    }
+
+    public BufferedImage getBg() {
+        return bg;
+    }
+
+    public void setBg(BufferedImage bg) {
+        this.bg = bg;
+    }
+
+    public void setMenuList(){
+        ScrollableMenuList list = new ScrollableMenuList();
+        list.addItem(new NewGameMenuItem());
+        //needs to be edited to select save file
+        list.addItem(new MainMenuLoadItem("Load Game", this));
+        list.addItem(new ExitGameMenuItem());
+        this.setList(list);
+    }
+    public void setLoadList(){
+        ScrollableMenuList list = new ScrollableMenuList();
+        list.addItem(new ChooseLoadMenuItem("Save 1"));
+        //needs to be edited to select save file
+        list.addItem(new ChooseLoadMenuItem("Save 2"));
+        list.addItem(new ChooseLoadMenuItem("Save 3"));
+        this.setList(list);
     }
 }
