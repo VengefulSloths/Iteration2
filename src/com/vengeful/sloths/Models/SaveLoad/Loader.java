@@ -2,6 +2,7 @@ package com.vengeful.sloths.Models.SaveLoad;
 
 import com.sun.org.apache.regexp.internal.RE;
 import com.vengeful.sloths.Controllers.ControllerManagers.AggressiveNPCControllerManager;
+import com.vengeful.sloths.Controllers.ControllerManagers.NonAggressiveNPCControllerManager;
 import com.vengeful.sloths.Controllers.ControllerManagers.PiggyControllerManager;
 import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
 import com.vengeful.sloths.Controllers.InputController.KeyMapping;
@@ -109,6 +110,11 @@ public class Loader {
                                     PiggyControllerManager pcm = new PiggyControllerManager(loading,p);
                                     loading.getTile(p.getLocation()).addEntity(p);
                                     break;
+                                case "NonAggressiveNPC" :
+                                    NonAggressiveNPC n = processNonAggressiveNPC(currObject);
+                                    NonAggressiveNPCControllerManager non = new NonAggressiveNPCControllerManager(loading,n,n.getFacingDirection(),1);
+                                    loading.getTile(n.getLocation()).addEntity(n);
+                                    break;
                                 case "AggressiveNPC" :
                                     AggressiveNPC aNPC = processAggressiveNPC(currObject);
                                     AggressiveNPCControllerManager ancm = new AggressiveNPCControllerManager(loading, aNPC);
@@ -140,9 +146,7 @@ public class Loader {
         setActiveMapArea();
     }
 
-
-
-//MAP ITEMS
+    //MAP ITEMS
     private InteractiveItem processInteractiveItem(Node currObject) {
         InteractiveItem ii = new InteractiveItem();
         Element current = (Element) currObject;
@@ -215,6 +219,10 @@ public class Loader {
             case "TwoHandedWeapon" :
                 TwoHandedWeapon thw = processTwoHandedWeapon(invItemElement);
                 ti.setInventorpRep(thw);
+                break;
+            case "Staff" :
+                Staff staff = processStaff(invItemElement);
+                ti.setInventorpRep(staff);
                 break;
             case "PiggyTotem" :
                 Piggy piggy = processPiggy(invItemElement.getFirstChild());
@@ -492,6 +500,114 @@ public class Loader {
                             dir = Direction.NE;
                             break;
                         case "Nw":
+                            dir = Direction.NW;
+                            break;
+                        case "SE":
+                            dir = Direction.SE;
+                            break;
+                        case "SW":
+                            dir = Direction.SW;
+                            break;
+                        default:
+                            System.out.println(value + "is not a supporterd direction");
+                    }
+                    p.setFacingDirection(dir);
+                    break;
+                case "Name":
+                    p.setName(value);
+                    break;
+                default:
+                    System.out.println(attributeName + "is not a supported avatar attribute");
+            }
+        }
+        NodeList avatarObjects = currObject.getChildNodes();
+        for(int i = 0; i != avatarObjects.getLength(); ++i){
+            Node avatarObject = avatarObjects.item(i);
+            if(avatarObject.getNodeType() != Node.ELEMENT_NODE){
+                System.out.println("Avatar object isn't an element type");
+                continue;
+            }
+            String objectName = avatarObject.getNodeName();
+            switch (objectName){
+                case "Location" :
+                    Coord c = processLocation(avatarObject);
+                    p.setLocation(c);
+                    break;
+                case "Sneak" :
+                    Sneak sn = new Sneak();
+                    p.setOccupation(sn);
+                    break;
+                case "Smasher" :
+                    Smasher sm = new Smasher();
+                    p.setOccupation(sm);
+                    break;
+                case "Summoner" :
+                    Summoner sr = new Summoner();
+                    p.setOccupation(sr);
+                    break;
+                case "DummyOccupation" :
+                    DummyOccupation d = new DummyOccupation();
+                    p.setOccupation(d);
+                    break;
+                case "Stats" :
+                    Stats s = processStats(avatarObject);
+                    p.setStats(s);
+                    break;
+                case "AbilityManager" :
+                    AbilityManager abm = processAbilityManager(avatarObject,p);
+                    p.setAbilityManager(abm);
+                    break;
+                case "BuffManager" :
+                    p.setBuffManager(new BuffManager(p));
+                    break;
+                case "Inventory" :
+                    Inventory inv = processInventory(avatarObject);
+                    p.setInventory(inv);
+                    break;
+                case "Equipped" :
+                    Equipped eq = processEquipped(avatarObject,p);
+                    p.setEquipped(eq);
+//                    eq.init(a);
+                    break;
+                case "SkillManager" :
+                    SkillManager sk = processSkillManager(avatarObject);
+                    p.setSkillManager(sk);
+                    break;
+                case "TradeDialogueContainer" :
+                    TradeDialogContainer tradeDC = processTradeDialogContainer(avatarObject, p);
+                    p.setDialogContainer(tradeDC);
+                    break;
+                case "TerminalDialogContainer" :
+                    TerminalDialogContainer terminalDC = processTerminalDialogContainer(avatarObject , p);
+                    p.setDialogContainer(terminalDC);
+                    break;
+                default:
+                    System.out.println(objectName + "is not a supported avatar object");
+            }
+        }
+        return p;
+    }
+    private NonAggressiveNPC processNonAggressiveNPC(Node currObject) {
+        NonAggressiveNPC p = new NonAggressiveNPC();
+        NamedNodeMap avatarAttributes = currObject.getAttributes();
+        for(int i = 0; i != avatarAttributes.getLength(); ++i){
+            Node attribute = avatarAttributes.item(i);
+            String attributeName = attribute.getNodeName();
+            String value = attribute.getNodeValue();
+            switch (attributeName){
+                case "Direction":
+                    Direction dir = Direction.N;
+                    switch(value){
+                        case "N":
+                            dir = Direction.N;
+                            break;
+                        case "S":
+                            dir = Direction.S;
+                            break;
+                        case "NE":
+                            dir = Direction.NE;
+                            break;
+                        case "NW":
                             dir = Direction.NW;
                             break;
                         case "SE":

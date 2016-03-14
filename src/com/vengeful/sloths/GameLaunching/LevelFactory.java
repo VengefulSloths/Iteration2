@@ -141,6 +141,14 @@ public class LevelFactory {
         TeleportSenderTile areaThreeToTown = new TeleportSenderTile(town, townFromAreaThree);
         area3.addTile(new Coord(1,1), areaThreeToTown);
 
+        TeleportDestinationTile summonerAreaFromTown = new TeleportDestinationTile(new Coord(3,3));
+        summonerArea.addTile(new Coord(3,3), summonerAreaFromTown);
+        TeleportSenderTile townToSummonerArea = new TeleportSenderTile(summonerArea, summonerAreaFromTown);
+        town.addTile(new Coord(10,1), townToSummonerArea);
+
+        TeleportSenderTile toTownFromSummonerArea = new TeleportSenderTile(town, townDstFromRescue);
+        summonerArea.addTile(new Coord(1,5), toTownFromSummonerArea);
+
 
 
 
@@ -336,16 +344,12 @@ public class LevelFactory {
         camera3.init(area3);
         camera4.init(summonerArea);
 
-        //CameraView camera2 = new PlainsCameraView();
-        //camera2.init(summonerArea);
+
         cameras.addCameraView(town, camera1);
+        cameras.addCameraView(rescue, camera2);
+        cameras.addCameraView(area3, camera3);
         cameras.addCameraView(summonerArea, camera4);
-        //cameras.addCameraView(town, camera1);
-        //cameras.addCameraView(summonerArea, camera2);
 
-
-        //cameras.addCameraView(town, camera1);
-        //cameras.addCameraView(rescue, camera1);
 
 
 
@@ -429,14 +433,13 @@ public class LevelFactory {
         Quest quest1_b = new DoDestroyObstacleQuest(new Coord(3,2));
         Quest quest1_a = new HasItemQuest(quest1_b, "Blue Potion");
         town.getTile(new Coord(4,2)).addInteractiveItem(new InteractiveItem(quest1_a, new Coord(4,2)));
-        //NPCS
 
         //CAMERAS
         CameraView camera1 = new PlainsCameraView();
         camera1.init(town);
         cameras.addCameraView(town, camera1);
 
-
+        //NPCS
         NonAggressiveNPC Dan = new NonAggressiveNPC("Dan", new Stats( new BaseStatsAddable(0,0,0,10,20)));
         town.getTile(new Coord(4,3)).addEntity(Dan);
         Dan.setLocation(new Coord(6,4));
@@ -447,10 +450,13 @@ public class LevelFactory {
         Dan.setDialogContainer(saveFriend);
 
 
-        NonAggressiveNPC Bob = new NonAggressiveNPC("Bob", new Stats( new BaseStatsAddable(0,0,0,10,20)));
-        town.getTile(new Coord(2,1)).addEntity(Bob);
-        Bob.setLocation(new Coord(2,1));
-        new NonAggressiveNPCControllerManager(town, Bob, Direction.SE, 1);
+        NonAggressiveNPC Richie = new NonAggressiveNPC("Richie", new Stats( new BaseStatsAddable(0,0,0,10,20)));
+        town.getTile(new Coord(2,1)).addEntity(Richie);
+        Richie.setLocation(new Coord(2,1));
+        Inventory RichieInventory = Richie.getInventory();
+        RichieInventory.addGold(new Gold(1000));
+        //@ // TODO: 3/14/16 ADD LOTS OF GOOD ITMES HERE
+        new NonAggressiveNPCControllerManager(town, Richie, Direction.SE, 1);
 
         NonAggressiveNPC BobSmith = new NonAggressiveNPC("BobSmith", new Stats( new BaseStatsAddable(0,0,0,10,20)));
         Inventory BobSmithInventoryInv = BobSmith.getInventory();

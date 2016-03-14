@@ -601,7 +601,7 @@ public class SaveVisitor implements ModelVisitor {
         ptElement.setAttribute("itemName", piggyTotem.getItemName());
         ptElement.setAttribute("value", piggyTotem.getValue() + "");
         piggyTotem.getPig().accept(this);
-        if(currentParent.peek().equals(ptElement)){
+        if(!currentParent.peek().equals(ptElement)){
             System.out.println("error saving piggy totem");
         }
         currentParent.pop();
@@ -695,7 +695,7 @@ public class SaveVisitor implements ModelVisitor {
 
     @Override
     public void visitSmasher(Smasher s) {
-        Element occElement = doc.createElement("Sneak");
+        Element occElement = doc.createElement("Smasher");
         currentParent.peek().appendChild(occElement);
         //right now occupation doesn't hold anything add additional save logic here when it does
     }
