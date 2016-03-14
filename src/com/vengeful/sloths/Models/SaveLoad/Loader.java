@@ -687,6 +687,12 @@ public class Loader {
                         NPCFallAsleepAbility nfaa = AbilityFactory.getInstance().createNPCFallAsleepAbility(e);
                         abm.addAbility(nfaa);
                         break;
+                    case "PoisonNPCAbility" :
+                        abm.addAbility(AbilityFactory.getInstance().createPoisonNPCAbility(e));
+                        break;
+                    case "WeakenNPCAbility" :
+                        abm.addAbility(AbilityFactory.getInstance().createWeakenNPCAbility(e));
+                        break;
                     case "MountAbility" :
                         break;
                     case "DemountAbility" :
@@ -902,6 +908,12 @@ public class Loader {
                 int sleepTime = Integer.valueOf(currAbility.getAttribute("sleepTime"));
                 NPCFallAsleepAbility nfaa = AbilityFactory.getInstance().createNPCFallAsleepAbility(a);
                 ab = nfaa;
+                break;
+            case "PoisonNPCAbility" :
+                ab = (AbilityFactory.getInstance().createPoisonNPCAbility(a));
+                break;
+            case "WeakenNPCAbility" :
+                ab = (AbilityFactory.getInstance().createWeakenNPCAbility(a));
                 break;
             case "MountAbility" :
                 break;

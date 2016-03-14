@@ -50,6 +50,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     private SkillManager skillManager;
     private boolean dead = false;
     private boolean stunned = false;
+    private String shirt = "";
 
     private DialogContainer dialogContainer = null;
     public void talk(){
@@ -59,6 +60,14 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
             MainController.getInstance().setDialogControllerState(this.dialogContainer);
             dialogContainer.next();
         }
+    }
+
+    public void setShirt(String shirt) {
+        this.shirt = shirt;
+    }
+
+    public String getShirt() {
+        return this.shirt;
     }
 
     private CanMoveVisitor movementValidator;
@@ -117,9 +126,9 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     }
 
     public final int move(Direction dir){
-        System.out.println("bloop1");
+//        System.out.println("bloop1");
         if(!isActive) {
-            System.out.println("bloop2");
+//            System.out.println("bloop2");
             this.setFacingDirection(dir);
 
             EntityMovementCommand emc = EntityMapInteractionFactory.getInstance().createMovementCommand(

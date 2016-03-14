@@ -185,14 +185,28 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
         ObserverManager.getInstance().addProxyObserver(new ProxyStatsObserver(ebvo.getHealthBar(), aNPC.getStats()));
         aNPC.getStats().updateObservers();
         aNPC.getEquipped().alertAllEntityObserversEverything();
+
+        if (!aNPC.getShirt().isEmpty()) {
+            ebvo.wearShirt(aNPC.getShirt());
+        }
         this.activeCameraView.addViewObject(ebvo);
     }
 
 
 
     @Override
-    public void visitNonAggressiveNPC(NonAggressiveNPC nonANPC) {
-
+    public void visitNonAggressiveNPC(NonAggressiveNPC aNPC) {
+        EvilBlobViewObject ebvo = factory.createEvilBlobViewObject(aNPC.getLocation().getR(), aNPC.getLocation().getS(), "resources/entities/cyclops/");
+        ObserverManager.getInstance().addProxyObserver(new ProxyEntityObserver(ebvo, aNPC));
+        //new ProxyEntityObserver(ebvo, aNPC);
+        ebvo.registerObserver(activeCameraView);
+        ObserverManager.getInstance().addProxyObserver(new ProxyStatsObserver(ebvo.getHealthBar(), aNPC.getStats()));
+        aNPC.getStats().updateObservers();
+        aNPC.getEquipped().alertAllEntityObserversEverything();
+        if (!aNPC.getShirt().isEmpty()) {
+            ebvo.wearShirt(aNPC.getShirt());
+        }
+        this.activeCameraView.addViewObject(ebvo);
     }
 
     @Override

@@ -18,6 +18,7 @@ public class PlainsPersistantViewObjectFactory extends ViewObjectFactory {
         super(cs, ls);
     }
 
+
     @Override
     public GrassViewObject createGrassViewObject(int r, int s) {
         return new GrassViewObject(r, s, getCoordinateStrategy(), getLocationStrategy(), "resources/terrain/grass.xml");

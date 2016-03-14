@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<single_frame_animation>
+    <width>54</width>
+    <height>76</height>
+    <rootPath>resources/items/Rejuvination/</rootPath>
+    <fileName>Rejuvination.png</fileName>
+    <positioning>centered</positioning>
+</single_frame_animation>
