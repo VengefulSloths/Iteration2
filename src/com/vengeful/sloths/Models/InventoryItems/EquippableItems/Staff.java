@@ -19,10 +19,16 @@ public class Staff extends Weapon {
         super(name, stats, baseDamage);
         this.weaponClass = weaponClass;
     }
+    public Staff(){
+
+    }
 
     @Override
+//    public WeaponClass getWeaponClassification() {
+//        return weaponClass;
+//    }
     public WeaponClass getWeaponClassification() {
-        return weaponClass;
+        return WeaponClass.TWO_HAND;
     }
 
 

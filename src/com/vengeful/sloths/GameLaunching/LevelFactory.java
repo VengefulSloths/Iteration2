@@ -248,20 +248,20 @@ public class LevelFactory {
 
 
         //stuff to test enemy controllers
-//        AggressiveNPC testEnemy =  new AggressiveNPC("xXOG_SwaG_LorD_BlazE_MasteR_420_Xx", new Stats(new BaseStatsAddable(0,0,0,0,30)));
+        AggressiveNPC testEnemy =  new AggressiveNPC("xXOG_SwaG_LorD_BlazE_MasteR_420_Xx", new Stats(new BaseStatsAddable(0,0,0,20,30)));
 //        testEnemy.getInventory().addItem(p);
 //        testEnemy.getInventory().addItem(p);
 //        testEnemy.getInventory().addItem(p);
 //        testEnemy.getInventory().addItem(p);
 //        testEnemy.getInventory().addItem(p);
-//        area2.getTile(new Coord(3,3)).addEntity(testEnemy);
-//        testEnemy.setLocation(new Coord(3,3));
-//        testEnemy.equip(new TwoHandedWeapon("cleaver", new StrengthAddable(1), 1));
-//
-//        //testEnemy.accept(TemporaryVOCreationVisitor.getInstance());
-//        new AggressiveNPCControllerManager(area2, testEnemy);
-//
-//        testEnemy.getStats().subtract(new CurrentHealthAddable(1));
+        area2.getTile(new Coord(3,3)).addEntity(testEnemy);
+        testEnemy.setLocation(new Coord(3,3));
+        testEnemy.equip(new TwoHandedWeapon("cleaver", new StrengthAddable(1), 1));
+
+        //testEnemy.accept(TemporaryVOCreationVisitor.getInstance());
+        new AggressiveNPCControllerManager(area2, testEnemy);
+
+        testEnemy.getStats().subtract(new CurrentHealthAddable(1));
 
 //        map.getActiveMapArea().getTile(spawnPoint).addEntity(Avatar.getInstance());
         cameras.addCameraView(area2, camera2);

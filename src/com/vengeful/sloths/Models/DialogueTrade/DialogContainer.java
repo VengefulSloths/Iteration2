@@ -47,6 +47,15 @@ public abstract class DialogContainer extends DialogObservable implements ModelV
         dialogList.add(nextDialog);
     }
 
+    public String[] getDialog(){
+        String[] diag = new String[dialogList.size()];
+        int i = 0;
+        for(String d : dialogList){
+            diag[i++] = d;
+        }
+        return diag;
+    }
+
     public Entity getSpeaker() {
         return speaker;
     }

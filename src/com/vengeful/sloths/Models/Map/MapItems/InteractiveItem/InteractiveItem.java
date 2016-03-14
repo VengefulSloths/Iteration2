@@ -1,6 +1,6 @@
 package com.vengeful.sloths.Models.Map.MapItems.InteractiveItem;
 
-import com.vengeful.sloths.Models.Effects.EffectCommand;
+
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Map.MapItems.InteractiveItem.Quest.Quest;
 import com.vengeful.sloths.Models.Map.MapItems.MapItem;

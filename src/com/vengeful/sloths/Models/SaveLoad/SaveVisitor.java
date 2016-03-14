@@ -11,6 +11,7 @@ import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.*;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.*;
+import com.vengeful.sloths.Models.DialogueTrade.DialogContainer;
 import com.vengeful.sloths.Models.DialogueTrade.TerminalDialogContainer;
 import com.vengeful.sloths.Models.DialogueTrade.TradeDialogContainer;
 import com.vengeful.sloths.Models.Entity.*;
@@ -115,10 +116,10 @@ public class SaveVisitor implements ModelVisitor {
         }
         if(currentParent.peek().equals(mapElement)){
 //            System.out.println("stack cleared after map saved");
-            currentParent.pop();
         }else {
             System.out.println("some error within saving Map");
         }
+        currentParent.pop();
 
     }
 
@@ -128,8 +129,10 @@ public class SaveVisitor implements ModelVisitor {
         currentParent.push(root);
         Map.getInstance().accept(this);
         ((AdaptableStrategy)(MainController.getInstance().getInputStrategy())).accept(this);
-        if(currentParent.peek().equals(currentParent)){
+        if(currentParent.peek().equals(root)){
             System.out.println("Stack cleared at end of save");
+        }else{
+            System.out.println("stack not cleared at end of save");
         }
         currentParent.pop();
         completeSave();
@@ -152,11 +155,6 @@ public class SaveVisitor implements ModelVisitor {
         }
 
         System.out.println("File saved!");
-    }
-
-    @Override
-    public void visitAbilityItem(AbilityItem abilityItem) {
-
     }
 
     @Override
@@ -188,6 +186,10 @@ public class SaveVisitor implements ModelVisitor {
         e.getStats().accept(this);
         gsa.invert();
         e.getStats().addNoCheck(gsa);
+        DialogContainer d = e.getDialogContainer();
+        if(d != null){
+            d.accept(this);
+        }
         e.getSkillManager().accept(this);
         e.getBuffManager().accept(this);
         e.getAbilityManager().accept(this);
@@ -347,9 +349,15 @@ public class SaveVisitor implements ModelVisitor {
         abElement.setAttribute("coolTicks", meleeAttackAbility.getCoolTicks() +"");
     }
 
+    public void visitRangedAttact(RangedAttackAbility attack) {
+        //not gonna save equipping should set...
+    }
+
+
     public void visitBindWounds(BindWoundsAbility bindWoundsAbility) {
         //will entity and skillmanager when loading
         Element abElement = doc.createElement("BindWoundsAbility");
+        abElement.setAttribute("name", bindWoundsAbility.getItemName());
         currentParent.peek().appendChild(abElement);
     }
 
@@ -362,6 +370,8 @@ public class SaveVisitor implements ModelVisitor {
         fbaElement.setAttribute("travelDistance", fireBallAbility.getTravelDistance() +"");
         fbaElement.setAttribute("travelTime", fireBallAbility.getTravelTime() +"");
         fbaElement.setAttribute("manaCost", fireBallAbility.getManaCost() +"");
+        fbaElement.setAttribute("name", fireBallAbility.getItemName());
+
     }
 
     public void visitExplosionAbility(ExplosionAbility explosionAbility) {
@@ -372,6 +382,7 @@ public class SaveVisitor implements ModelVisitor {
         exA.setAttribute("expandingTime", explosionAbility.getExpandingTime() +"");
         exA.setAttribute("expandingDistance", explosionAbility.getExpandingDistance() +"");
         exA.setAttribute("manaCost", explosionAbility.getManaCost() +"");
+        exA.setAttribute("name", explosionAbility.getItemName());
     }
 
     @Override
@@ -383,6 +394,7 @@ public class SaveVisitor implements ModelVisitor {
         asaElement.setAttribute("expandingTime", flameThrowerAbility.getExpandingTime() +"");
         asaElement.setAttribute("expandingDistance", flameThrowerAbility.getExpandingDistance() +"");
         asaElement.setAttribute("manaCost", flameThrowerAbility.getManaCost() +"");
+        asaElement.setAttribute("name", flameThrowerAbility.getItemName());
     }
 
     @Override
@@ -392,6 +404,8 @@ public class SaveVisitor implements ModelVisitor {
         rtaElement.setAttribute("windTicks", removeTrapAbility.getWindTicks() + "");
         rtaElement.setAttribute("coolTicks", removeTrapAbility.getCoolTicks() + "");
         rtaElement.setAttribute("manaCost", removeTrapAbility.getManaCost() +"");
+        rtaElement.setAttribute("name", removeTrapAbility.getItemName());
+
     }
 
     @Override
@@ -400,6 +414,7 @@ public class SaveVisitor implements ModelVisitor {
         currentParent.peek().appendChild(rtaElement);
         rtaElement.setAttribute("windTicks", stealthAbility.getWindTicks() + "");
         rtaElement.setAttribute("coolTicks", stealthAbility.getCoolTicks() + "");
+        rtaElement.setAttribute("name", stealthAbility.getItemName());
         //use the abilityFactory to generate from here, no need to save buff
     }
 
@@ -411,6 +426,7 @@ public class SaveVisitor implements ModelVisitor {
         faa.setAttribute("coolTicks", npcFallAsleepAbility.getCoolTicks() + "");
         faa.setAttribute("sleepTime", npcFallAsleepAbility.getSleepTime() + "");
         faa.setAttribute("manaCost", npcFallAsleepAbility.getManaCost() +"");
+        faa.setAttribute("name", npcFallAsleepAbility.getItemName());
         //ability manager to generate rest
     }
 
@@ -458,6 +474,7 @@ public class SaveVisitor implements ModelVisitor {
         currentParent.push(sba);
         sba.setAttribute("windTicks", selfBuffAbility.getWindTicks() + "");
         sba.setAttribute("coolTicks", selfBuffAbility.getCoolTicks() + "");
+        sba.setAttribute("name", selfBuffAbility.getItemName());
         selfBuffAbility.getBuff().accept(this);
         if(!currentParent.peek().equals(sba)){
             System.out.println("error saving selfBuffAbility");
@@ -524,6 +541,7 @@ public class SaveVisitor implements ModelVisitor {
         currentParent.peek().appendChild(mE);
         mE.setAttribute("name", mount.getName());
         mE.setAttribute("moveSpeed", mount.getMoveSpeed() + "");
+        mE.setAttribute("value", mount.getValue() + "");
     }
 
     @Override
@@ -577,6 +595,7 @@ public class SaveVisitor implements ModelVisitor {
         currentParent.peek().appendChild(ptElement);
         currentParent.push(ptElement);
         ptElement.setAttribute("itemName", piggyTotem.getItemName());
+        ptElement.setAttribute("value", piggyTotem.getValue() + "");
         piggyTotem.getPig().accept(this);
         if(currentParent.peek().equals(ptElement)){
             System.out.println("error saving piggy totem");
@@ -585,18 +604,33 @@ public class SaveVisitor implements ModelVisitor {
     }
 
     @Override
-    public void visitBoonBuffAbility(BoonBuffAbility boonBuffAbility) {
-        Element bbaElement = doc.createElement("BoonBuffAbility");
-        currentParent.peek().appendChild(bbaElement);
-        bbaElement.setAttribute("windTicks", boonBuffAbility.getWindTicks() +"");
-        bbaElement.setAttribute("coolTicks", boonBuffAbility.getCoolTicks() + "");
-        bbaElement.setAttribute("manaCost", boonBuffAbility.getManaCost() + "");
-        currentParent.push(bbaElement);
-        boonBuffAbility.getBuff().accept(this);
-        if(currentParent.peek().equals(bbaElement)){
-           System.out.println("error saving boonbuff ability");
+    public void visitAbilityItem(AbilityItem abilityItem) {
+        Element abilityItemElement = doc.createElement("AbilityItem");
+        currentParent.peek().appendChild(abilityItemElement);
+        abilityItemElement.setAttribute("itemName", abilityItem.getItemName());
+        abilityItemElement.setAttribute("value", abilityItem.getValue() + "");
+        currentParent.push(abilityItemElement);
+        abilityItem.getAbility().accept(this);
+        if(!currentParent.peek().equals(abilityItemElement)){
+            System.out.println("error saving ability item");
         }
         currentParent.pop();
+    }
+
+    @Override
+    public void visitBoonBuffAbility(BoonBuffAbility boonBuffAbility) {
+        String buffName = boonBuffAbility.getBuff().getName();
+        Element bbaElement = doc.createElement(buffName);
+        currentParent.peek().appendChild(bbaElement);
+//        bbaElement.setAttribute("windTicks", boonBuffAbility.getWindTicks() +"");
+//        bbaElement.setAttribute("coolTicks", boonBuffAbility.getCoolTicks() + "");
+//        bbaElement.setAttribute("manaCost", boonBuffAbility.getManaCost() + "");
+//        currentParent.push(bbaElement);
+//        bbaElement.setAttribute("buffName", buffName);
+//        if(currentParent.peek().equals(bbaElement)){
+//           System.out.println("error saving boonbuff ability");
+//        }
+//        currentParent.pop();
     }
 
     @Override
@@ -616,12 +650,20 @@ public class SaveVisitor implements ModelVisitor {
 
     @Override
     public void visitTradeDialogueContainer(TradeDialogContainer tradeDialogContainer) {
-
+        Element tdcElement = doc.createElement("TradeDialogueContainer");
+        String[] dialog = tradeDialogContainer.getDialog();
+        for(String d : dialog){
+            tdcElement.setAttribute("dialog", d);
+        }
     }
 
     @Override
     public void visitTerminalDialogueContainer(TerminalDialogContainer terminalDialogContainer) {
-
+        Element tdcElement = doc.createElement("TerminalDialogContainer");
+        String[] dialog = terminalDialogContainer.getDialog();
+        for(String d : dialog){
+            tdcElement.setAttribute("dialog", d);
+        }
     }
 
     @Override
@@ -686,6 +728,7 @@ public class SaveVisitor implements ModelVisitor {
         currentParent.peek().appendChild(eElement);
         currentParent.push(eElement);
         eElement.setAttribute("itemName", p.getItemName());
+        eElement.setAttribute("value", p.getValue() + "");
         p.getItemStats().accept(this);
         if(currentParent.peek().equals(eElement)){
 //            System.out.println("Potion saved with stack at proper element");
@@ -701,6 +744,7 @@ public class SaveVisitor implements ModelVisitor {
         currentParent.peek().appendChild(eElement);
         currentParent.push(eElement);
         eElement.setAttribute("itemName", ui.getItemName());
+        eElement.setAttribute("value", ui.getValue() + "");
         if(currentParent.peek().equals(eElement)){
 //            System.out.println("UsableItem saved with stack at proper element");
             currentParent.pop();
@@ -759,6 +803,7 @@ public class SaveVisitor implements ModelVisitor {
         currentParent.push(hElement);
         hElement.setAttribute("itemName", h.getItemName());
         h.getItemStats().accept(this);
+        hElement.setAttribute("value", h.getValue() + "");
         if(currentParent.peek().equals(hElement)){
 //            System.out.println("Hat saved with stack at proper element");
             currentParent.pop();
@@ -774,6 +819,7 @@ public class SaveVisitor implements ModelVisitor {
         currentParent.push(ohwElement);
         ohwElement.setAttribute("itemName", ohw.getItemName());
         ohwElement.setAttribute("baseDamage", ohw.getBaseDamage() +"");
+        ohwElement.setAttribute("value", ohw.getValue() + "");
         ohw.getItemStats().accept(this);
         if(currentParent.peek().equals(ohwElement)){
 //            System.out.println("OneHandedWeap saved with stack at proper element");
@@ -790,6 +836,7 @@ public class SaveVisitor implements ModelVisitor {
         currentParent.push(thwElement);
         thwElement.setAttribute("itemName", thw.getItemName());
         thwElement.setAttribute("baseDamage", thw.getBaseDamage() +"");
+        thwElement.setAttribute("value", thw.getValue() + "");
         thw.getItemStats().accept(this);
         if(currentParent.peek().equals(thwElement)){
 //            System.out.println("TwoHandedWeap saved with stack at proper element");
@@ -806,6 +853,7 @@ public class SaveVisitor implements ModelVisitor {
         currentParent.push(thwElement);
         thwElement.setAttribute("itemName", thw.getItemName());
         thwElement.setAttribute("baseDamage", thw.getBaseDamage() +"");
+        thwElement.setAttribute("value", thw.getValue() + "");
         thw.getItemStats().accept(this);
         if(currentParent.peek().equals(thwElement)){
 //            System.out.println("Knuckle saved with stack at proper element");
@@ -816,19 +864,43 @@ public class SaveVisitor implements ModelVisitor {
     }
 
     @Override
-    public void visitBow(Bow bow) {
-
+    public void visitBow(Bow thw) {
+        Element thwElement = doc.createElement("Bow");
+        currentParent.peek().appendChild(thwElement);
+        currentParent.push(thwElement);
+        thwElement.setAttribute("itemName", thw.getItemName());
+        thwElement.setAttribute("baseDamage", thw.getBaseDamage() +"");
+        thwElement.setAttribute("value", thw.getValue() + "");
+        thw.getItemStats().accept(this);
+        if(currentParent.peek().equals(thwElement)){
+//            System.out.println("Knuckle saved with stack at proper element");
+            currentParent.pop();
+        }else{
+            System.out.println("some error saving Bow, stack not at the proper element");
+        }
     }
 
     @Override
+    public void visitStaff(Staff thw) {
+        Element thwElement = doc.createElement("Staff");
+        currentParent.peek().appendChild(thwElement);
+        currentParent.push(thwElement);
+        thwElement.setAttribute("itemName", thw.getItemName());
+        thwElement.setAttribute("baseDamage", thw.getBaseDamage() + "");
+        thwElement.setAttribute("value", thw.getValue() + "");
+        thw.getItemStats().accept(this);
+        if (currentParent.peek().equals(thwElement)) {
+//            System.out.println("Knuckle saved with stack at proper element");
+            currentParent.pop();
+        } else {
+            System.out.println("some error saving Staff, stack not at the proper element");
+        }
+    }
+
     public void visitShuriken(Shuriken shuriken) {
 
     }
 
-    @Override
-    public void visitStaff(Staff staff) {
-
-    }
 
     public void visitStatsAddable(StatsAddable sa) {
         Element saElement = doc.createElement("StatsAddable");
@@ -1093,8 +1165,4 @@ public class SaveVisitor implements ModelVisitor {
         parent.setAttribute("Direction", d + "");
     }
 
-
-    public void visitRangedAttact(RangedAttackAbility attack) {
-        System.out.println("Ian you must save this");
-    }
 }
