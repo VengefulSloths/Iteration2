@@ -26,12 +26,12 @@ public class FlameThrowerAbility extends Ability{
     private DefaultCanGenerateVisitor canGenerateVisitor;
 
     public FlameThrowerAbility(Entity entity, int expandingTime, int expandingDistance, int startupTicks, int coolDownTicks){
-        super("Cone of Death", startupTicks, coolDownTicks);
+        super("Flame Thrower", startupTicks, coolDownTicks);
         this.entity = entity;
         this.expandingTime = expandingTime;
         this.expandingDistance = expandingDistance;
         this.canGenerateVisitor = new OnTileCanGenerateVisitor();
-        this.name = "Angel Spell";
+        this.name = "Flame Thrower";
     }
 
 
