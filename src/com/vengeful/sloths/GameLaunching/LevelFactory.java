@@ -115,68 +115,103 @@ public class LevelFactory {
         MapArea rescue = new MapArea(rows, cols);
         rescue.setName("Rescue Mission");
 
-        int row = 0;
-        int col = 0;
+        int row;
+        int col;
+        /*
         for (col = 0; col < cols; col++) {
             for (row = 0; row < rows - (rows - row); row++) {
                 rescue.addTile(new Coord(row, col), new Tile(new Grass()));
             }
             rescue.addTile(new Coord(row, col), new Tile(new Water()));
         }
+        */
 
+        /*
+        for (int i = 0; i < cols; i++) {
+            for (int j = 0; i < rows; j++) {
+                if (j < 5 && i > 6) {
+                    rescue.addTile(new Coord(i, j), new Tile(new Grass()));
+                } else {
+                    rescue.addTile(new Coord(i, j), new Tile(new Water()));
+                }
+            }
+
+        }
+        */
+        for (int i = 0; i < cols; i++) {
+            for (int j = 0; j < rows; j++) {
+                rescue.addTile(new Coord(i, j), new Tile(new Grass()));
+            }
+        }
         return rescue;
     }
 
-    public void createDemoMap() {
 
 
-/*
+    public void createDemoMap(){
+        this.cameras = new CameraViewManager();
+        //call create each area
+        MapArea town = createAreaTown();
+        //link areas with teleport tiles
+
+        MapArea rescue = createArea2();
+
         //SETTING MAPAREAS
         MapArea[] areas = new MapArea[2];
-        areas[0] = createAreaTown();
-        areas[1] = createArea2();
+        areas[0] = town;
+        areas[1] = rescue;
 
         this.map = Map.getInstance();
         this.map.setMapAreas(areas);
-        this.map.setRespawnPoint(new Location(town, new Coord(3,3)));
-        this.map.setActiveMapArea(town);
+        //this.map.setRespawnPoint(new Location(town, new Coord(3,3)));
+        //this.map.setActiveMapArea(town);
+        //this.spawnPoint = new Coord(9,1);
+
+        this.map.setRespawnPoint(new Location(rescue, new Coord(3,3)));
+        this.map.setActiveMapArea(rescue);
         this.spawnPoint = new Coord(9,1);
 
-*/
     }
 
-    public MapArea createAreaTown() {
 
-        //Area1 Safe Area
-        MapArea town = new MapArea(11, 11);
+
+    public MapArea createAreaTown(){
+        MapArea town = new MapArea(11,11);
         town.setName("town");
-        for (int i = 2; i < 10; i++) {
+        for (int i=2;i<10;i++) {
             for (int j = 1; j < 10; j++) {
-                town.addTile(new Coord(i, j), new Tile(j > 7 ? new Water() : new Grass()));
+                town.addTile(new Coord(i,j), new  Tile( j > 7 ? new Water() : new Grass()));
             }
         }
-        for (int j = 1; j != 10; ++j) {
-            town.addTile(new Coord(1, j), new Tile(new Mountain()));
+        for(int j = 1; j != 10; ++j){
+            town.addTile(new Coord(1,j), new Tile(new Mountain()));
         }
-        town.getTile(new Coord(2, 2)).setTerrain(new Mountain());
-        for (int i = 3; i != 6; ++i) {
-            for (int j = 3; j != 6; ++j) {
-                town.getTile(new Coord(i, j)).setTerrain(new DummyTerrain());
+        town.getTile(new Coord(2,2)).setTerrain(new Mountain());
+        for(int i = 3; i != 6; ++i){
+            for(int j = 3; j !=6; ++j ){
+                town.getTile(new Coord(i,j)).setTerrain(new DummyTerrain());
             }
         }
-
-
         return town;
     }
 
-
-
-
-
     public void populateDemoMap(){
         MapArea[] areas = Map.getInstance().getMapAreas();
-        //**************************************TOWN**********************************************88
         MapArea town = areas[0];
+        MapArea rescue = areas[1];
+        populateAreaTown(town);
+
+        //CAMERAS
+        CameraView camera1 = new PlainsCameraView();
+        //camera1.init(town);
+        camera1.init(rescue);
+        //cameras.addCameraView(town, camera1);
+        cameras.addCameraView(rescue, camera1);
+
+
+    }
+
+    public void populateAreaTown(MapArea town){
         //ITEMS AND QUESTS
         town.getTile(new Coord(3,2)).addObstacle(new Obstacle(new Coord(3,2)));
         Quest quest1_b = new DoDestroyObstacleQuest(new Coord(3,2));
@@ -193,6 +228,7 @@ public class LevelFactory {
         town.getTile(new Coord(2,1)).addEntity(testNPC2);
         testNPC2.setLocation(new Coord(2,1));
         new NonAggressiveNPCControllerManager(town, testNPC, Direction.S);
+
         //CAMERAS
         CameraView camera1 = new PlainsCameraView();
         camera1.init(town);
@@ -200,11 +236,9 @@ public class LevelFactory {
         //***********************************END TOWN********************************************************88
 
 
-        MapArea rescue = areas[1];
 
 
     }
-
     public void createTestMap() {
         this.cameras = new CameraViewManager();
 

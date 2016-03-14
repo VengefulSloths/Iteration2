@@ -27,9 +27,16 @@ public class HUDView extends View implements StatsObserver {
     private double leftPanelProportion = 0.25;
     private double rightPanelProportion = 0.20;
     private double centerPanelProportion = 1.0 - leftPanelProportion - rightPanelProportion;
+    Image hudBG = (new ImageIcon("resources/hud_bg_fix.png")).getImage();
 
     public HUDView() {
 
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        g.drawImage(hudBG,0,0,this);
+        super.paintComponent(g);
     }
 
     public HUDView(int viewWidth, int viewHeight) {
