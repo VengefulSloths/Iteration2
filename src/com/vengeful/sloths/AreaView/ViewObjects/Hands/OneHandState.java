@@ -108,9 +108,7 @@ public class OneHandState implements HandState {
         AttackViewObject attack = TemporaryVOCreationVisitor.getInstance().createAttack(r, s, "resources/effects/slash/slash.xml", windUpTime);
         ViewTime.getInstance().registerAlert(0, () -> {
             attack.start();
-            System.out.println("Slashing");
             (new SoundEffect("resources/audio/slash2.wav")).play();
-            System.out.println("Slashing");
         });
     }
 
