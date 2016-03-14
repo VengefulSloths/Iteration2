@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Views.InventoryView;
 
+import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.Observers.InventoryObserver;
@@ -41,6 +42,8 @@ public class GridInventoryView extends InventoryView implements InventoryObserve
         int multipleX = 1;
         int multipleY = 1;
 
+        g.setFont(new Font("Helvetica",1,12));
+
         GridCalculationStrategy gcs = new GridCalculationStrategy();
         for(int i=0; i<this.getItemListSize(); i++) { //edit: change the gridwidth to be 1 less?
             g.setColor(Color.WHITE);
@@ -54,7 +57,9 @@ public class GridInventoryView extends InventoryView implements InventoryObserve
                 //g.drawString(this.getFromItemList(i).getViewItem().getItemName(), gcs.calculateXCoordBasedOnIndex(i), gcs.calculateYCoordBasedOnIndex(i) + gcs.calculateSlotHeight() + boxHeight/4);
             }
         }
-
+//        g.setFont(new Font("Helvetica",1,40));
+//        g.setColor(Color.orange);
+//        g.drawString("Gold: "+ Avatar.getInstance().getInventory().getGold(),100,86);
         /*
         for (int i = 0; i < this.getNumRows(); i++) { //for each column
             for (int j = 0; j < this.getNumCols(); j++) { //for each row
@@ -113,7 +118,6 @@ public class GridInventoryView extends InventoryView implements InventoryObserve
             int slotHeight = (int)((getItemPanel().getHeight()) * (2.0/((3*getNumRows())+1)));
             return slotHeight;
         }
-
 
 
     }

@@ -34,6 +34,7 @@ public class MovableHitBoxViewObject extends MovingViewObject implements HitBoxO
 
     public MovableHitBoxViewObject(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy, String resourcePath, Direction d) {
         super(r, s, coordinateStrategy, locationStrategy);
+        System.out.println(resourcePath + "fireball_n.xml");
         this.movingN = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "fireball_n.xml");
         this.movingNE = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "fireball_ne.xml");
         this.movingNW = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "fireball_nw.xml");

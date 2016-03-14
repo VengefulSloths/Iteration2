@@ -15,7 +15,7 @@ import com.vengeful.sloths.Utility.ModelConfig;
  * Created by luluding on 3/11/16.
  */
 //TODO: not sure what to call it now. Can refactor later to rename it
-public class AngleSpellAbility extends Ability{
+public class FlameThrowerAbility extends Ability{
     /* Summoner only, a type of bane spell */
     private Entity entity;
     private int expandingTime;
@@ -25,7 +25,7 @@ public class AngleSpellAbility extends Ability{
 
     private DefaultCanGenerateVisitor canGenerateVisitor;
 
-    public AngleSpellAbility(Entity entity, int expandingTime, int expandingDistance, int startupTicks, int coolDownTicks){
+    public FlameThrowerAbility(Entity entity, int expandingTime, int expandingDistance, int startupTicks, int coolDownTicks){
         super("Cone of Death", startupTicks, coolDownTicks);
         this.entity = entity;
         this.expandingTime = expandingTime;

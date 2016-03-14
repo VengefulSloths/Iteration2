@@ -47,6 +47,7 @@ public class MainController implements Tickable{
     private PickPocketControllerState pickPocketControllerState;
     private DialogControllerState dialogControllerState;
     private TradeControllerState tradeContollerState;
+    private MainMenuControllerState mainMenuControllerState;
 
     public InventoryEquipmentControllerState getInventoryEquipmentControllerState() {
         return inventoryEquipmentControllerState;
@@ -75,6 +76,8 @@ public class MainController implements Tickable{
         characterCreationControllerState = new CharacterCreationControllerState();
         pickPocketControllerState = new PickPocketControllerState();
         dialogControllerState = new DialogControllerState();
+        mainMenuControllerState = new MainMenuControllerState();
+
 
         state = avatarControllerState;
 
@@ -105,6 +108,10 @@ public class MainController implements Tickable{
         }
     }
 
+    public void setAbilityActive(int abilityNumber){
+        viewManager.getAbilityHUD().setAbilityactive(abilityNumber);
+    }
+
     public void dispatchReleasedKey(int key){
         inputStrategy.interpretReleasedKey(key, state);
     }
@@ -128,6 +135,8 @@ public class MainController implements Tickable{
         viewManager.closeChooseSaveView();
         viewManager.closePickPocketView();
         viewManager.closeDialogView();
+        viewManager.closeTradeView();
+        viewManager.closeChooseLoadMenu();
         System.out.println("Switching to avatar state");
     }
 
@@ -151,6 +160,11 @@ public class MainController implements Tickable{
     public void setMenuControllerState(ScrollableMenu menu) {
         this.menuControllerState.setScrollableMenu(menu);
         this.state = this.menuControllerState;
+
+    }
+    public void setMainMenuControllerState(ScrollableMenu menu) {
+        this.mainMenuControllerState.setScrollableMenu(menu);
+        this.state = this.mainMenuControllerState;
 
     }
 
@@ -182,6 +196,13 @@ public class MainController implements Tickable{
         this.state = menuControllerState;
     }
 
+    public void setChooseLoadControllerState(){
+        viewManager.closeMenuView();
+        this.menuControllerState.setScrollableMenu(viewManager.getLoadGameMenu());
+        viewManager.openChooseLoadMenu();
+        this.state = menuControllerState;
+    }
+
     public Inventory getInventory(){
         return this.inventory;
     }
@@ -203,6 +224,7 @@ public class MainController implements Tickable{
         this.inputStrategy = inputStrategy;
     }
 
+
     public void setCharacterCreationControllerState(){
         ViewEngine.getInstance().killOldView();
         CharacterCreationView view = new CharacterCreationView(500,400);
@@ -214,9 +236,9 @@ public class MainController implements Tickable{
     public void setTradeControllerState(Entity target, Inventory targInv, int bargainSkill) {
 
         GridAvatarInvViewTrading avatarInvView = new GridAvatarInvViewTrading(Avatar.getInstance().getInventory(), bargainSkill);
-        //will need a different constructor and pass both bargin skills in and calculate based off that...or something...
-        GridEntityInvViewTrading entityInvView = new GridEntityInvViewTrading(targInv, bargainSkill);
+        GridEntityInvViewTrading entityInvView = new GridEntityInvViewTrading(targInv, bargainSkill, target.getName());
         TradeView tradeView = new TradeView(avatarInvView, entityInvView, bargainSkill);
+        this.tradeContollerState = new TradeControllerState(tradeView, target);
         viewManager.setTradeView(tradeView);
         viewManager.openTradeView();
         this.state = this.tradeContollerState;

@@ -12,7 +12,7 @@ import java.awt.*;
  * Created by harrison on 3/13/16.
  */
 public class TradeView extends JPanel {
-    private GridInventoryView avatarInvView;
+    private GridAvatarInvViewTrading avatarInvView;
     private GridEntityInvViewTrading entityInvView;
     private View containerPanel;
     private int bargainSkill;
@@ -25,7 +25,7 @@ public class TradeView extends JPanel {
         return CHARACTER_VIEW_HEIGHT;
     }
 
-    public TradeView(GridInventoryView avatarInvView, GridEntityInvViewTrading entityInvView, int bargainSkill) {
+    public TradeView(GridAvatarInvViewTrading avatarInvView, GridEntityInvViewTrading entityInvView, int bargainSkill) {
         this.avatarInvView = avatarInvView;
         this.entityInvView = entityInvView;
         this.bargainSkill = bargainSkill;
@@ -72,15 +72,15 @@ public class TradeView extends JPanel {
         this.containerPanel.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(15.0f)));
     }
 
-    public InventoryView getAvatarInvView() {
+    public GridAvatarInvViewTrading getAvatarInvView() {
         return avatarInvView;
     }
 
-    public void setAvatarInvView(GridInventoryView avatarInvView) {
+    public void setAvatarInvView(GridAvatarInvViewTrading avatarInvView) {
         this.avatarInvView = avatarInvView;
     }
 
-    public InventoryView getEntityInvView() {
+    public GridEntityInvViewTrading getEntityInvView() {
         return entityInvView;
     }
 

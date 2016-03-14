@@ -1,6 +1,7 @@
 package com.vengeful.sloths.Models.DialogueTrade;
 
 import com.vengeful.sloths.Models.Entity.Entity;
+import com.vengeful.sloths.Models.ModelVisitable;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -8,7 +9,7 @@ import java.util.Iterator;
 /**
  * Created by John on 3/12/2016.
  */
-public abstract class DialogContainer extends DialogObservable {
+public abstract class DialogContainer extends DialogObservable implements ModelVisitable{
     private Entity speaker;
     private int cursor = 0;
     private ArrayList<String> dialogList = new ArrayList<>();

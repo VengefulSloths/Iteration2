@@ -3,7 +3,8 @@ package com.vengeful.sloths.Menu.InGameMenu;
 import com.vengeful.sloths.Controllers.InputController.KeyBindingMenu.EnterKeyBindViewMenuItem;
 import com.vengeful.sloths.Controllers.InputController.KeyBindingMenu.KeyBindMenuItem;
 import com.vengeful.sloths.Menu.MainMenu.ExitGameMenuItem;
-import com.vengeful.sloths.Menu.MainMenu.LoadGameMenuItem;
+
+import com.vengeful.sloths.Menu.MainMenu.LoadMenu.LoadGameMenuItem;
 import com.vengeful.sloths.Menu.MainMenu.MainMenuItem;
 import com.vengeful.sloths.Menu.MainMenu.NewGameMenuItem;
 import com.vengeful.sloths.Menu.SaveMenu.SaveGameMenuItem;

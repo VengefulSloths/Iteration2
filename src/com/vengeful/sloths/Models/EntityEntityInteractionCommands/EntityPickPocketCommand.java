@@ -14,6 +14,7 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class EntityPickPocketCommand {
     private int chanceToSucceed;
+
     private Entity target = null;
     private Inventory targInv = null;
     private InventoryItem item = null;
@@ -39,8 +40,7 @@ public class EntityPickPocketCommand {
             }
         }
         System.out.println("pick pocket FAILED");
-        target.setDead(false);
-        target.setActive(false);
+        target.setStunned(false);
         MainController.getInstance().setAvatarControllerState();
         target.enrage();
     }

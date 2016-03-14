@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Views.InventoryView;
 
+import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
 import com.vengeful.sloths.Models.ObserverManager;
@@ -34,8 +35,10 @@ public class InventoryView extends View implements InventoryObserver {
     //private JPanel itemPanel; //use this perhaps if we are just adding and removing JComponents using this.add() and this.remove()
     protected JPanel titlePanel;
     protected JPanel itemPanel;
+    //private JLabel goldAmmount;
     private int numRows;
     private int numCols;
+    private GoldView goldPanel;
     private boolean isSelected;
 
     public boolean isSelected() {
@@ -213,9 +216,17 @@ public class InventoryView extends View implements InventoryObserver {
         this.setBackground(new Color(0f,0f,0f,0.3f));
         titlePanel = new JPanel();
         itemPanel = new JPanel();
-        JLabel title = generateTitleLabel("Inventory", 22, Color.WHITE);
+        //goldPanel = new JPanel();
+        String label = getInvLabel();
+        JLabel title = generateTitleLabel(label, 22, Color.WHITE);
+
         //itemPanel.setBorder(new LineBorder(Color.BLACK));
         //this.itemPanel.setBorder(new BevelBorder(BevelBorder.RAISED,Color.BLACK, Color.WHITE, Color.BLACK, Color.WHITE));
+        goldPanel = new GoldView(inventory);
+        goldPanel.setBackground(new Color(0f, 0f, 0f, 0f));
+        goldPanel.setPreferredSize(new Dimension(this.getWidth(), 40));
+
+
         titlePanel.setBackground(new Color(0f, 0f, 0f, 0f));
         itemPanel.setBackground(new Color(0f, 0f, 0f, 0f));
         titlePanel.setLayout(new BorderLayout());
@@ -226,7 +237,16 @@ public class InventoryView extends View implements InventoryObserver {
         titlePanel.add(title, BorderLayout.SOUTH);
         this.add(titlePanel, BorderLayout.NORTH);
         this.add(itemPanel, BorderLayout.CENTER);
+        this.add(goldPanel, BorderLayout.SOUTH);
         //this.setBorder(new LineBorder(Color.WHITE));
+    }
+
+    protected void setString(String s) {
+        //do nothing
+    }
+
+    protected String getInvLabel() {
+        return "Inventory";
     }
 
     /* Initializes the itemList by generating ItemViewObjects from inventoryItems. Maybe make a factory? */
@@ -242,12 +262,16 @@ public class InventoryView extends View implements InventoryObserver {
         //We can sort on iterator because it will be called less
         int index = 0;
         ItemViewObject ivo = null;
+        System.out.println("YOU ARE TRYING TO DROP " + item.getItemName());
 
         for (int i = 0; i < this.getItemList().size(); i++) {
             if (this.getItemList().get(i).getViewItem().equals(item)) {
                 ivo = (ItemViewObject) this.getItemList().get(i);
+                System.out.println("ACTUALLY DROPPING " + ivo.getViewItem().getItemName());
                 ivo.setIsDisplayed(false); //edit?
-                this.getItemList().remove(i);
+                //this.getItemList().remove(i);
+                //this.getItemList().remove(ivo);
+                this.getItemList().remove(inventoryIndex);
             }
         }
         return ivo;
@@ -294,12 +318,14 @@ public class InventoryView extends View implements InventoryObserver {
     }
 
     public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        /*
-        for(AbilityViewObject e: itemList) {
-            e.paintComponent(g);
+        try {
+            //g.setFont(new Font("Helvetica",1,40));
+            //g.setColor(Color.orange);
+            goldPanel.setText("Gold: " + inventory.getGold());
+        }catch (NullPointerException e){
+            //this is okay
         }
-        */
+        super.paintComponent(g);
     }
 
 }

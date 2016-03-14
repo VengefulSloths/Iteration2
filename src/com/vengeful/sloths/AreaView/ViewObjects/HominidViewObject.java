@@ -141,7 +141,13 @@ public class HominidViewObject extends EntityViewObject {
 
     @Override
     public void alertEquipWeapon(String name, WeaponClass weaponClass) {
-        WeaponImageContainer weapon = new WeaponImageContainer("resources/weapons/" + name + "/", direction);
+        WeaponImageContainer weapon;
+        if (weaponClass == WeaponClass.BOW) {
+            weapon = new BowImageContainter("resources/weapons/" + name + "/", direction, 12, -12, -10);
+        } else {
+            weapon = new WeaponImageContainer("resources/weapons/" + name + "/", direction);
+
+        }
         hands.equipWeapon(weapon, weaponClass);
     }
 

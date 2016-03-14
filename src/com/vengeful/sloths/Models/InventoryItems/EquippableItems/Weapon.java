@@ -1,6 +1,7 @@
 package com.vengeful.sloths.Models.InventoryItems.EquippableItems;
 
 import com.vengeful.sloths.Models.Ability.Ability;
+import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Skills.SkillManager;
@@ -44,6 +45,11 @@ public abstract class Weapon extends EquippableItems {
     @Override
     public void removeFromEquipped(Equipped equipped) {
         equipped.removeWeapon(this);
+    }
+
+    @Override
+    public void interact() {
+        this.addToEquipped(Avatar.getInstance().getEquipped());
     }
 
 }

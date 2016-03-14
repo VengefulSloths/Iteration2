@@ -29,10 +29,11 @@ public class LaunchSavedGame implements LaunchGameHelper {
         fileName = "Save 2.xml";
 //        this.populateMap();
     }
-    public LaunchSavedGame(String fileName){
-        this.fileName = fileName;
+
+    public LaunchSavedGame(String saveFile){
         this.levelFactory = new LevelFactory();
         levelFactory.init("test");
+        fileName = saveFile +".xml";
     }
 
     @Override

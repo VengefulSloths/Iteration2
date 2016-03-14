@@ -10,6 +10,7 @@ import com.vengeful.sloths.Models.Stats.StatAddables.CurrentHealthAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.GenericStatsAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.MovementAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.StrengthAddable;
+import com.vengeful.sloths.Utility.ModelConfig;
 
 /**
  * Created by luluding on 3/7/16.
@@ -77,20 +78,25 @@ public class AbilityFactory {
         return new ExplosionAbility(entity, expandingTime, expandingDistance, startupTicks, coolDownTicks);
     }
 
-    public AngleSpellAbility createAngleSpellAbility(Entity entity, int expandingTime, int expandingDistance, int startupTicks, int coolDownTicks){
-        return new AngleSpellAbility(entity, expandingTime, expandingDistance, startupTicks, coolDownTicks);
+    public FlameThrowerAbility createAngleSpellAbility(Entity entity, int expandingTime, int expandingDistance, int startupTicks, int coolDownTicks){
+        return new FlameThrowerAbility(entity, expandingTime, expandingDistance, startupTicks, coolDownTicks);
     }
 
     public NPCFallAsleepAbility createNPCFallAsleepAbility(Entity entity){
         return new NPCFallAsleepAbility(entity, 8, 15, 360);
     }
 
+
     public PoisonNPCAbility createPoisonNPCAbility(Entity entity){
         return new PoisonNPCAbility(entity, 8, 15);
     }
 
-    public WeakenNPCAbility createWeakenNPCAbility(Entity entity){
+    public WeakenNPCAbility createWeakenNPCAbility(Entity entity) {
         return new WeakenNPCAbility(entity, 8, 15);
+    }
+
+    public RangedAttackAbility createRangedAttackAbility(Entity entity, int baseDamage, int windTicks, int coolTicks) {
+        return new RangedAttackAbility(entity, entity.getSkillManager().getRangedWeaponSkill(), baseDamage, windTicks, coolTicks);
     }
 
 }

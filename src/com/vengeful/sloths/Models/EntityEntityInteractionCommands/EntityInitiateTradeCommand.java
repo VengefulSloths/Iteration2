@@ -20,7 +20,7 @@ public class EntityInitiateTradeCommand {
         Avatar a = Avatar.getInstance();
                 this.target = target;
                 this.bargainSkill = a.getSkillManager().getBargainLevel();
-                target.setDead(true);
+                target.setStunned(true);
                 targInv = target.getInventory();
     }
 

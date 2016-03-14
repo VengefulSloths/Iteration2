@@ -7,14 +7,13 @@ import com.vengeful.sloths.Models.Ability.AbilityFactory;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteractionFactory;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Hat;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Mount;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.*;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.ModelEngine;
 import com.vengeful.sloths.Models.Stats.StatAddables.HealthManaExperienceAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.StrengthAddable;
 import com.vengeful.sloths.Utility.Config;
+import com.vengeful.sloths.Utility.WeaponClass;
 import com.vengeful.sloths.Views.AbilitiesSkillsView.AbilitiesSkillView;
 import com.vengeful.sloths.Views.AbilitiesView.GridAbilitiesView;
 import com.vengeful.sloths.Views.CharacterView.CharacterView;
@@ -65,20 +64,20 @@ public class LaunchGameTemplate {
         avatar.getInventory().addItem(new Potion("redPotion", new HealthManaExperienceAddable(5,0,0,0,0)));
         avatar.getInventory().addItem(new Potion("bluePotion", new HealthManaExperienceAddable(0,0,5,0,0)));
         avatar.getInventory().addItem(new Potion("bluePotion", new HealthManaExperienceAddable(0,0,5,0,0)));
-        avatar.getInventory().addItem(new Potion("bluePotion", new HealthManaExperienceAddable(0,0,5,0,0)));
-        avatar.getInventory().addItem(new Potion("bluePotion", new HealthManaExperienceAddable(0,0,5,0,0)));
-        avatar.getInventory().addItem(new Potion("bluePotion", new HealthManaExperienceAddable(0,0,5,0,0)));
-        avatar.getInventory().addItem(new Potion("redPotion", new HealthManaExperienceAddable(5,0,0,0,0)));
-        avatar.getInventory().addItem(new Potion("redPotion", new HealthManaExperienceAddable(5,0,0,0,0)));
-        avatar.getInventory().addItem(new Potion("redPotion", new HealthManaExperienceAddable(5,0,0,0,0)));
-        avatar.getInventory().addItem(new Potion("redPotion", new HealthManaExperienceAddable(5,0,0,0,0)));
 
         System.out.println("AVATAR HAS " + avatar.getInventory().getCurrentSize() + " items");
 
         System.out.println("After equipped...");
 
-        avatar.equip(new OneHandedWeapon("dagger", new StrengthAddable(5), 10));
+        avatar.equip(new Shuriken("shuriken", new StrengthAddable(5), 10, WeaponClass.THROW));
+
+
+        avatar.equip(new Hat("tophat", new StrengthAddable(15))); //edit
+        //avatar.equip(new Mount("mount", 10)); //edit
+
+//        avatar.equip(new Bow("Bow", new StrengthAddable(5), 10, WeaponClass.BOW));
         avatar.equip(new Hat("tophat", new StrengthAddable(0))); //edit
+
         System.out.println("AVATAR HAS " + avatar.getInventory().getCurrentSize() + " items");
 //        avatar.equip(new Mount("mount", 10)); //edit
 
@@ -98,6 +97,11 @@ public class LaunchGameTemplate {
         //avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createDamageBoost(avatar), 2);
         //avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createHealOverTime(avatar), 3);
         avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createFireBallAbility(avatar, 10, 3, 5, 5), 3);
+        avatar.getAbilityManager().equipAbility(new PickPocketAbility(), 1);
+//        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createNPCFallAsleepAbility(avatar), 1);
+
+        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createDamageBoost(avatar), 2);
+        //avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createHealOverTime(avatar), 3);
         /**************************/
 
         AreaView areaView = new AreaView(cameras);
