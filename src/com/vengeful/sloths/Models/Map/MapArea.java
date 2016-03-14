@@ -17,6 +17,7 @@ public class MapArea implements ModelVisitable{
     /**
      * All private variables
      */
+    private Coord respawnPoint;
     private int maxR;
     private int maxS;
     private Tile[][] tiles;
@@ -153,5 +154,13 @@ public class MapArea implements ModelVisitable{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Coord getRespawnPoint() {
+        return respawnPoint;
+    }
+
+    public void setRespawnPoint(Coord respawnPoint) {
+        this.respawnPoint = respawnPoint;
     }
 }
