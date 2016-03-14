@@ -42,12 +42,18 @@ public class GridInventoryView extends InventoryView implements InventoryObserve
         int multipleX = 1;
         int multipleY = 1;
 
-        g.setFont(new Font("Helvetica",1,13));
+        g.setFont(new Font("Helvetica",1,12));
+
         GridCalculationStrategy gcs = new GridCalculationStrategy();
         for(int i=0; i<this.getItemListSize(); i++) { //edit: change the gridwidth to be 1 less?
             g.setColor(Color.WHITE);
             this.getFromItemList(i).paintComponent(g, gcs.calculateXCoordBasedOnIndex(i), gcs.calculateYCoordBasedOnIndex(i), gcs.calculateSlotWidth(), gcs.calculateSlotHeight());
-            g.drawString(this.getFromItemList(i).getViewItem().getItemName(), gcs.calculateXCoordBasedOnIndex(i), gcs.calculateYCoordBasedOnIndex(i) + gcs.calculateSlotHeight() + boxHeight/4);
+
+            String nameStr = "";
+            if (this.getFromItemList(i).getViewItem().getItemName() != null) {
+                nameStr = this.getFromItemList(i).getViewItem().getItemName();
+            }
+            g.drawString(nameStr, gcs.calculateXCoordBasedOnIndex(i), gcs.calculateYCoordBasedOnIndex(i) + gcs.calculateSlotHeight() + boxHeight/4);
             if(this.getFromItemList(i).isSelected()) { //edit?
                 Border b = BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.WHITE, Color.WHITE);
                 b.paintBorder(this.getFromItemList(i), g, gcs.calculateXCoordBasedOnIndex(i), gcs.calculateYCoordBasedOnIndex(i), gcs.calculateSlotWidth(), gcs.calculateSlotHeight());

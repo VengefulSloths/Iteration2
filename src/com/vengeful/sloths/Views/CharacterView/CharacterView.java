@@ -124,10 +124,6 @@ public class CharacterView extends JPanel {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Border b = BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.WHITE, Color.WHITE);
-        if (this.getInventoryView().isSelected()) {
-            b.paintBorder(this.getInventoryView(), g, 0 , pushPanel.getHeight(), inventoryView.getWidth(), inventoryView.getViewHeight());
-        }
     }
 
 }

@@ -105,7 +105,9 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     }
 
     public final int move(Direction dir){
+        System.out.println("bloop1");
         if(!isActive) {
+            System.out.println("bloop2");
             this.setFacingDirection(dir);
 
             EntityMovementCommand emc = EntityMapInteractionFactory.getInstance().createMovementCommand(
@@ -131,13 +133,12 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     }
 
 
-    public final int die(){
+    public int die(){
         if(!this.dead) {
             this.setDead(true);
             System.out.println("dying bruh");
 
             EntityDieCommand edc = EntityMapInteractionFactory.getInstance().createDeathCommand(this, observers.iterator());
-
             dropAllItems();
             customDeath();
             doRespawn();
@@ -395,6 +396,9 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         return this.observers;
     }
 
+    public void setObservers(ArrayList<EntityObserver> observers) {
+        this.observers = observers;
+    }
 
     @Deprecated
     public boolean getMoving(){

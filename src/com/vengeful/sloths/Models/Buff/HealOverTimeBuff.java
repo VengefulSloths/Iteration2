@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Models.Buff;
 
+import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Observers.EntityObserver;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
@@ -45,5 +46,9 @@ public class HealOverTimeBuff extends TimedBuff{
         System.out.println("Heal Over Time Buff Ended");
         setDuration(0);
         owner = null; //won't affect superclass's owner
+    }
+
+    public void accept(ModelVisitor mv){
+        mv.visitHealOverTimeBuff(this);
     }
 }

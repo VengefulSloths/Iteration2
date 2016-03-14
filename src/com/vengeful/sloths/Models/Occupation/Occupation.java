@@ -1,13 +1,7 @@
 package com.vengeful.sloths.Models.Occupation;
 
 
-import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.RemoveTrapAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.AngleSpellAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.ExplosionAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
-import com.vengeful.sloths.Models.Ability.AbilityFactory;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
-import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
@@ -52,7 +46,7 @@ public abstract class Occupation implements ModelVisitable{
         abilityManager.equipAbility(ea, 1);
 
 
-        AngleSpellAbility ea = new AngleSpellAbility(entity, 10, 5, 5, 5);
+        FlameThrowerAbility ea = new FlameThrowerAbility(entity, 10, 5, 5, 5);
         ea.setItemName("AngelSpell");
         abilityManager.addAbility(ea);
         abilityManager.equipAbility(ea, 0);

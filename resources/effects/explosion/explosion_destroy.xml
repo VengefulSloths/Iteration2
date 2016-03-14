@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<dynamic_timed_animation>
+    <width>255</width>
+    <height>255</height>
+    <rootPath>resources/effects/explosion/</rootPath>
+    <startConfig>null.xml</startConfig>
+    <endConfig>null.xml</endConfig>
+    <fileName>explosion_destroy01.png</fileName>
+    <fileName>explosion_destroy02.png</fileName>
+    <fileName>explosion_destroy03.png</fileName>
+    <fileName>explosion_destroy04.png</fileName>
+    <fileName>explosion_destroy05.png</fileName>
+    <fileName>explosion_destroy06.png</fileName>
+    <fileName>explosion_destroy07.png</fileName>
+    <fileName>explosion_destroy08.png</fileName>
+    <fileName>explosion_destroy09.png</fileName>
+    <fileName>explosion_destroy10.png</fileName>
+
+    <positioning xOffset="-30" yOffset="-35">custom</positioning>
+</dynamic_timed_animation>

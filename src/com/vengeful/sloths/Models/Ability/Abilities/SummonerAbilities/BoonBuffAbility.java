@@ -4,6 +4,7 @@ import com.vengeful.sloths.Models.Ability.Abilities.SelfBuffAbility;
 import com.vengeful.sloths.Models.Buff.Buff;
 import com.vengeful.sloths.Models.Buff.ProtectFromEvilBuff;
 import com.vengeful.sloths.Models.Entity.Entity;
+import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Observers.EntityObserver;
 import com.vengeful.sloths.Models.Stats.StatAddables.GenericStatsAddable;
 import com.vengeful.sloths.Models.TimeModel.TimeController;
@@ -46,5 +47,9 @@ public class BoonBuffAbility extends SelfBuffAbility{
 
     public void setManaCost(int manaCost) {
         this.manaCost = manaCost;
+    }
+
+    public void accept(ModelVisitor mv){
+        mv.visitBoonBuffAbility(this);
     }
 }

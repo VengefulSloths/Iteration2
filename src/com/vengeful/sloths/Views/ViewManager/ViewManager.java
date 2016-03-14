@@ -2,6 +2,8 @@ package com.vengeful.sloths.Views.ViewManager;
 
 import com.vengeful.sloths.Controllers.InputController.KeyBindingMenu.InputChangeMenu;
 import com.vengeful.sloths.Menu.InGameMenu.InGameScrollableMenu;
+import com.vengeful.sloths.Menu.MainMenu.LoadMenu.ChooseLoadMenuItem;
+import com.vengeful.sloths.Menu.MainMenu.LoadMenu.LoadGameMenu;
 import com.vengeful.sloths.Menu.SaveMenu.ChooseSaveMenu;
 import com.vengeful.sloths.Utility.Config;
 //import com.vengeful.sloths.Views.AreaView.AreaView;
@@ -12,6 +14,7 @@ import com.vengeful.sloths.Views.DialogView.DialogView;
 import com.vengeful.sloths.Views.HUDView.HUDView;
 import com.vengeful.sloths.AreaView.AreaView;
 import com.vengeful.sloths.Views.PickPocketView.PickPocketView;
+import com.vengeful.sloths.Views.PickPocketView.PickPocketViewContainer;
 import com.vengeful.sloths.Views.TradeView.TradeView;
 
 import javax.swing.*;
@@ -34,7 +37,9 @@ public class ViewManager extends JPanel {
     private InGameScrollableMenu menuView;
     private InputChangeMenu keyBindView;
     private ChooseSaveMenu chooseSaveView;
+    private LoadGameMenu loadGameMenu;
     private PickPocketView pickPocketView;
+    private PickPocketViewContainer pickPocketViewContainer;
     private TradeView tradeView;
     private AbilityHUD abilityHUD;
 
@@ -99,6 +104,8 @@ public class ViewManager extends JPanel {
         this.keyBindView = new InputChangeMenu(40);
         this.chooseSaveView = new ChooseSaveMenu(80);
         this.abilityHUD = new AbilityHUD(400,100);
+        this.pickPocketViewContainer = new PickPocketViewContainer();
+        this.loadGameMenu = new LoadGameMenu(80);
         initializeViewManager();
     }
 
@@ -138,12 +145,25 @@ public class ViewManager extends JPanel {
         this.dialogView = new DialogView();
 
     }
+
+    public void openChooseLoadMenu(){
+        addView(loadGameMenu);
+    }
+    public void closeChooseLoadMenu(){
+        try {
+            remove(loadGameMenu);
+        }catch(NullPointerException e){
+            //nbd
+        }
+        this.revalidate();
+        this.repaint();
+    }
     public void openPickPocketView(){
-        addView(pickPocketView);
+        addView(pickPocketViewContainer);
     }
     public void closePickPocketView(){
         try {
-            remove(pickPocketView);
+            remove(pickPocketViewContainer);
         }catch(NullPointerException e){
             //nbd
         }
@@ -271,6 +291,7 @@ public class ViewManager extends JPanel {
     }
 
     public void setPickPocketView(PickPocketView pickPocketView) {
+        this.pickPocketViewContainer.setPpv(pickPocketView);
         this.pickPocketView = pickPocketView;
     }
 
@@ -281,6 +302,13 @@ public class ViewManager extends JPanel {
     public void setTradeView(TradeView tradeView) {
         this.tradeView = tradeView;
     }
+
+    public LoadGameMenu getLoadGameMenu() {
+        return loadGameMenu;
+    }
+
+    public void setLoadGameMenu(LoadGameMenu loadGameMenu) {
+        this.loadGameMenu = loadGameMenu;}
 
     public AbilityHUD getAbilityHUD() {
         return abilityHUD;

@@ -6,17 +6,14 @@ import com.vengeful.sloths.Models.Ability.Abilities.*;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.PickPocketAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.RemoveTrapAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.StealthAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.AngleSpellAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.ExplosionAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.NPCFallAsleepAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.*;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
-import com.vengeful.sloths.Models.Buff.Buff;
-import com.vengeful.sloths.Models.Buff.BuffManager;
-import com.vengeful.sloths.Models.Buff.BuffOverTime;
+import com.vengeful.sloths.Models.Buff.*;
 import com.vengeful.sloths.Controllers.Target.AvatarTarget;
 import com.vengeful.sloths.Controllers.Target.Target;
+import com.vengeful.sloths.Models.DialogueTrade.TerminalDialogContainer;
+import com.vengeful.sloths.Models.DialogueTrade.TradeDialogContainer;
 import com.vengeful.sloths.Models.Entity.*;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
@@ -73,6 +70,11 @@ public class AggressiveNPCSearchingController extends SearchingController {
 
     @Override
     public void visitAbilityItem(AbilityItem abilityItem) {
+
+    }
+
+    @Override
+    public void visitShuriken(Shuriken shuriken) {
 
     }
 
@@ -363,7 +365,7 @@ public class AggressiveNPCSearchingController extends SearchingController {
     }
 
     @Override
-    public void visitAngleSpellAbility(AngleSpellAbility angleSpellAbility) {
+    public void visitAngleSpellAbility(FlameThrowerAbility flameThrowerAbility) {
 
     }
 
@@ -384,6 +386,16 @@ public class AggressiveNPCSearchingController extends SearchingController {
 
     @Override
     public void visitSelfBuffAbility(SelfBuffAbility selfBuffAbility) {
+
+    }
+
+    @Override
+    public void visitWeakenNPCAbility(WeakenNPCAbility weakenNPCAbility) {
+
+    }
+
+    @Override
+    public void visitPoisonNPCAbility(PoisonNPCAbility poisonNPCAbility) {
 
     }
 
@@ -439,6 +451,36 @@ public class AggressiveNPCSearchingController extends SearchingController {
 
     @Override
     public void visitPiggyTotem(PiggyTotem piggyTotem) {
+
+    }
+
+    @Override
+    public void visitBoonBuffAbility(BoonBuffAbility boonBuffAbility) {
+
+    }
+
+    @Override
+    public void visitProtectFromEvilBuff(ProtectFromEvilBuff protectFromEvilBuff) {
+
+    }
+
+    @Override
+    public void visitTimedBuff(TimedBuff timedBuff) {
+
+    }
+
+    @Override
+    public void visitHealOverTimeBuff(HealOverTimeBuff healOverTimeBuff) {
+
+    }
+
+    @Override
+    public void visitTradeDialogueContainer(TradeDialogContainer tradeDialogContainer) {
+
+    }
+
+    @Override
+    public void visitTerminalDialogueContainer(TerminalDialogContainer terminalDialogContainer) {
 
     }
 

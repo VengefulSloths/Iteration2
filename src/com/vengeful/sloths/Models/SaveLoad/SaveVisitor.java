@@ -7,15 +7,12 @@ import com.vengeful.sloths.Models.Ability.Abilities.*;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.PickPocketAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.RemoveTrapAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.StealthAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.AngleSpellAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.ExplosionAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.NPCFallAsleepAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.*;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
-import com.vengeful.sloths.Models.Buff.Buff;
-import com.vengeful.sloths.Models.Buff.BuffManager;
-import com.vengeful.sloths.Models.Buff.BuffOverTime;
+import com.vengeful.sloths.Models.Buff.*;
+import com.vengeful.sloths.Models.DialogueTrade.TerminalDialogContainer;
+import com.vengeful.sloths.Models.DialogueTrade.TradeDialogContainer;
 import com.vengeful.sloths.Models.Entity.*;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
@@ -73,7 +70,6 @@ import java.util.*;
  * these parameters are for properly formatting the save file
  */
 public class SaveVisitor implements ModelVisitor {
-
 
     /**
      * Private variables
@@ -379,14 +375,14 @@ public class SaveVisitor implements ModelVisitor {
     }
 
     @Override
-    public void visitAngleSpellAbility(AngleSpellAbility angleSpellAbility) {
-        Element asaElement = doc.createElement("AngleSpellAbility");
+    public void visitAngleSpellAbility(FlameThrowerAbility flameThrowerAbility) {
+        Element asaElement = doc.createElement("FlameThrowerAbility");
         currentParent.peek().appendChild(asaElement);
-        asaElement.setAttribute("windTicks", angleSpellAbility.getWindTicks() + "");
-        asaElement.setAttribute("coolTicks", angleSpellAbility.getCoolTicks() + "");
-        asaElement.setAttribute("expandingTime", angleSpellAbility.getExpandingTime() +"");
-        asaElement.setAttribute("expandingDistance", angleSpellAbility.getExpandingDistance() +"");
-        asaElement.setAttribute("manaCost", angleSpellAbility.getManaCost() +"");
+        asaElement.setAttribute("windTicks", flameThrowerAbility.getWindTicks() + "");
+        asaElement.setAttribute("coolTicks", flameThrowerAbility.getCoolTicks() + "");
+        asaElement.setAttribute("expandingTime", flameThrowerAbility.getExpandingTime() +"");
+        asaElement.setAttribute("expandingDistance", flameThrowerAbility.getExpandingDistance() +"");
+        asaElement.setAttribute("manaCost", flameThrowerAbility.getManaCost() +"");
     }
 
     @Override
@@ -409,7 +405,13 @@ public class SaveVisitor implements ModelVisitor {
 
     @Override
     public void visitNPCFallAsleepAbility(NPCFallAsleepAbility npcFallAsleepAbility) {
-
+        Element faa = doc.createElement("NPCFallAsleepAbility");
+        currentParent.peek().appendChild(faa);
+        faa.setAttribute("windTicks", npcFallAsleepAbility.getWindTicks() + "");
+        faa.setAttribute("coolTicks", npcFallAsleepAbility.getCoolTicks() + "");
+        faa.setAttribute("sleepTime", npcFallAsleepAbility.getSleepTime() + "");
+        faa.setAttribute("manaCost", npcFallAsleepAbility.getManaCost() +"");
+        //ability manager to generate rest
     }
 
 
@@ -462,6 +464,17 @@ public class SaveVisitor implements ModelVisitor {
         }
         currentParent.pop();
     }
+
+    @Override
+    public void visitWeakenNPCAbility(WeakenNPCAbility weakenNPCAbility) {
+
+    }
+
+    @Override
+    public void visitPoisonNPCAbility(PoisonNPCAbility poisonNPCAbility) {
+
+    }
+
     //mount ability needs to get observers from avatar once its loaded
     //save buff here
     @Override
@@ -572,7 +585,51 @@ public class SaveVisitor implements ModelVisitor {
     }
 
     @Override
+    public void visitBoonBuffAbility(BoonBuffAbility boonBuffAbility) {
+        Element bbaElement = doc.createElement("BoonBuffAbility");
+        currentParent.peek().appendChild(bbaElement);
+        bbaElement.setAttribute("windTicks", boonBuffAbility.getWindTicks() +"");
+        bbaElement.setAttribute("coolTicks", boonBuffAbility.getCoolTicks() + "");
+        bbaElement.setAttribute("manaCost", boonBuffAbility.getManaCost() + "");
+        currentParent.push(bbaElement);
+        boonBuffAbility.getBuff().accept(this);
+        if(currentParent.peek().equals(bbaElement)){
+           System.out.println("error saving boonbuff ability");
+        }
+        currentParent.pop();
+    }
+
+    @Override
+    public void visitProtectFromEvilBuff(ProtectFromEvilBuff protectFromEvilBuff) {
+
+    }
+
+    @Override
+    public void visitTimedBuff(TimedBuff timedBuff) {
+
+    }
+
+    @Override
+    public void visitHealOverTimeBuff(HealOverTimeBuff healOverTimeBuff) {
+
+    }
+
+    @Override
+    public void visitTradeDialogueContainer(TradeDialogContainer tradeDialogContainer) {
+
+    }
+
+    @Override
+    public void visitTerminalDialogueContainer(TerminalDialogContainer terminalDialogContainer) {
+
+    }
+
+    @Override
     public void visitPickPocketAbility(PickPocketAbility pickPocketAbility) {
+        Element ppElement = doc.createElement("PickPocketAbility");
+        currentParent.peek().appendChild(ppElement);
+        ppElement.setAttribute("windTicks", pickPocketAbility.getWindTicks()+ "");
+        ppElement.setAttribute("coolTicks", pickPocketAbility.getCoolTicks() + "");
 
     }
 
@@ -760,6 +817,11 @@ public class SaveVisitor implements ModelVisitor {
 
     @Override
     public void visitBow(Bow bow) {
+
+    }
+
+    @Override
+    public void visitShuriken(Shuriken shuriken) {
 
     }
 
