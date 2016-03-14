@@ -4,6 +4,7 @@ import com.vengeful.sloths.AreaView.CameraView;
 import com.vengeful.sloths.AreaView.CameraViewManager;
 import com.vengeful.sloths.AreaView.TemporaryVOCreationVisitor;
 import com.vengeful.sloths.Controllers.ControllerManagers.AggressiveNPCControllerManager;
+import com.vengeful.sloths.Controllers.ControllerManagers.NonAggressiveNPCControllerManager;
 import com.vengeful.sloths.Controllers.ControllerManagers.PiggyControllerManager;
 import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SelfBuffAbility;
@@ -13,6 +14,7 @@ import com.vengeful.sloths.Models.DialogueTrade.DialogContainer;
 import com.vengeful.sloths.Models.DialogueTrade.TerminalDialogContainer;
 import com.vengeful.sloths.Models.Entity.AggressiveNPC;
 import com.vengeful.sloths.Models.Entity.Avatar;
+import com.vengeful.sloths.Models.Entity.NonAggressiveNPC;
 import com.vengeful.sloths.Models.Entity.Piggy;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.DropAllGoldCommand;
 import com.vengeful.sloths.Models.Inventory.Inventory;
@@ -242,13 +244,15 @@ public class LevelFactory {
 
         TemporaryVOCreationVisitor.getInstance().setActiveCameraView(camera2);
 
-
-
+        NonAggressiveNPC testNPC = new NonAggressiveNPC("greg", new Stats( new BaseStatsAddable(0,0,0,10,20)));
+        area2.getTile(new Coord(5,5)).addEntity(testNPC);
+        testNPC.setLocation(new Coord(5,5));
+        new NonAggressiveNPCControllerManager(area2, testNPC, Direction.S);
 
 
 
         //stuff to test enemy controllers
-        AggressiveNPC testEnemy =  new AggressiveNPC("xXOG_SwaG_LorD_BlazE_MasteR_420_Xx", new Stats(new BaseStatsAddable(0,0,0,20,30)));
+        AggressiveNPC testEnemy =  new AggressiveNPC("xXOG_SwaG_LorD_BlazE_MasteR_420_Xx", new Stats(new BaseStatsAddable(0,0,0,15,30)));
 //        testEnemy.getInventory().addItem(p);
 //        testEnemy.getInventory().addItem(p);
 //        testEnemy.getInventory().addItem(p);
