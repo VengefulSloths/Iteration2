@@ -111,15 +111,27 @@ public class LevelFactory {
         this.cameras = new CameraViewManager();
         //call create each area
         MapArea town = createAreaTown();
-        //link areas with teleport tiles
-//        TeleportSenderTile tst = new TeleportSenderTile()
-//        town.addTile(new Coord(2,3), tst);
-//        TeleportSenderTile tst2 = new TeleportSenderTile();
-//        town.addTile(new Coord(12,4), tst2);
-
         MapArea rescue = createArea2();
-
         MapArea area3 = createArea3();
+        //link areas with teleport tiles
+//        TeleportSenderTile tst = new TeleportSenderTile(area3, )
+//        town.addTile(new Coord(2,3), tst);
+
+        TeleportDestinationTile rescueDstTile = new TeleportDestinationTile(new Coord(1,1));
+        rescue.addTile(new Coord(3,3), rescueDstTile);
+        TeleportSenderTile tst2 = new TeleportSenderTile(rescue, rescueDstTile);
+        town.addTile(new Coord(12,4), tst2);
+
+        TeleportDestinationTile townDstFromRescue = new TeleportDestinationTile(new Coord(10,4));
+        town.addTile(townDstFromRescue.getLocation(), townDstFromRescue);
+        TeleportSenderTile tst3 = new TeleportSenderTile(town, townDstFromRescue);
+        rescue.addTile(new Coord(1,1), tst3);
+
+
+
+
+
+
         //SETTING MAPAREAS
         MapArea[] areas = new MapArea[3];
         areas[0] = town;
@@ -129,14 +141,14 @@ public class LevelFactory {
         this.map = Map.getInstance();
         this.map.setMapAreas(areas);
         //this.map.setRespawnPoint(new Location(town, new Coord(3,3)));
-        //this.map.setActiveMapArea(town);
-        //this.spawnPoint = new Coord(9,1);
+        this.map.setActiveMapArea(town);
+        this.spawnPoint = new Coord(9,1);
 
         //this.map.setRespawnPoint(new Location(rescue, new Coord(1,1)));
         //this.map.setActiveMapArea(rescue);
-        this.map.setRespawnPoint(new Location(area3, new Coord(1,1)));
-        this.map.setActiveMapArea(area3);
-        this.spawnPoint = new Coord(1,1);
+//        this.map.setRespawnPoint(new Location(area3, new Coord(1,1)));
+//        this.map.setActiveMapArea(area3);
+//        this.spawnPoint = new Coord(1,1);
 
 
 
@@ -289,19 +301,21 @@ public class LevelFactory {
         MapArea town = areas[0];
         MapArea rescue = areas[1];
         MapArea area3 = areas[2];
-        //populateAreaTown(town);
-        //populateRescueMap(rescue);
+        populateAreaTown(town);
+        populateRescueMap(rescue);
         populateArea3Map(area3);
 
 
         //CAMERAS
         CameraView camera1 = new PlainsCameraView();
-        //camera1.init(town);
-        //camera1.init(rescue);
-        camera1.init(area3);
+        CameraView camera2 = new PlainsCameraView();
+        CameraView camera3 = new PlainsCameraView();
+        camera1.init(town);
+        camera2.init(rescue);
+        camera3.init(area3);
         //cameras.addCameraView(town, camera1);
         //cameras.addCameraView(rescue, camera1);
-        cameras.addCameraView(area3, camera1);
+        cameras.addCameraView(town, camera1);
 
 
     }
@@ -390,8 +404,6 @@ public class LevelFactory {
         CameraView camera1 = new PlainsCameraView();
         camera1.init(town);
         cameras.addCameraView(town, camera1);
-        //***********************************END TOWN********************************************************88
-
 
 
         NonAggressiveNPC Dan = new NonAggressiveNPC("Dan", new Stats( new BaseStatsAddable(0,0,0,10,20)));
