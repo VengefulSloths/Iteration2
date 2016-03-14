@@ -20,7 +20,7 @@ public class EquipmentViewObject extends ItemViewObject {
 
     private EquippableItems equipmentItem;
     private Image itemImage;
-    private EquipmentImageFactory imageFactory = new EquipmentImageFactory();
+    private ItemImageFactory imageFactory = new ItemImageFactory();
     private boolean isSelected;
 
     public EquippableItems getEquipmentItem() {

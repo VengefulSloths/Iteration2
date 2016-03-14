@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Views.EquipmentView;
 
+import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.EquippableItems;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Hat;
@@ -259,6 +260,9 @@ public class EquipmentView extends View implements EquipmentObserver {
 
         @Override
         public void alertWeaponEquipped(Weapon weapon) {
+            if (this.getWeapon() != null) {
+                Avatar.getInstance().getInventory().addItem(this.getWeapon().getEquipmentItem());
+            }
             this.setWeapon(new EquipmentViewObject(weapon));
         }
 
@@ -269,6 +273,9 @@ public class EquipmentView extends View implements EquipmentObserver {
 
         @Override
         public void alertHatEquipped(Hat hat) {
+            if (this.getHat() != null) {
+                Avatar.getInstance().getInventory().addItem(this.getHat().getEquipmentItem());
+            }
             this.setHat(new EquipmentViewObject(hat));
         }
 
@@ -279,6 +286,9 @@ public class EquipmentView extends View implements EquipmentObserver {
 
         @Override
         public void alertMountEquipped(Mount mount) {
+            if (this.getMount() != null) {
+                Avatar.getInstance().getInventory().addItem(this.getMount().getEquipmentItem());
+            }
             this.setMount(new MountViewObject(mount));
         }
 
