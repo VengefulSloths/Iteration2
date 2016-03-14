@@ -103,8 +103,21 @@ public class LevelFactory {
 
     public void createDemoMap(){
         this.cameras = new CameraViewManager();
+        //call create each area
+        MapArea town = createAreaTown();
+        //link areas with teleport tiles
 
-        //Area1 Safe Area
+        //SETTING MAPAREAS
+        MapArea[] areas = new MapArea[1];
+        areas[0] = town;
+
+        this.map = Map.getInstance();
+        this.map.setMapAreas(areas);
+        this.map.setRespawnPoint(new Location(town, new Coord(3,3)));
+        this.map.setActiveMapArea(town);
+        this.spawnPoint = new Coord(9,1);
+    }
+    public MapArea createAreaTown(){
         MapArea town = new MapArea(11,11);
         town.setName("town");
         for (int i=2;i<10;i++) {
@@ -121,39 +134,20 @@ public class LevelFactory {
                 town.getTile(new Coord(i,j)).setTerrain(new DummyTerrain());
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//SETTING MAPAREAS
-        MapArea[] areas = new MapArea[1];
-        areas[0] = town;
-
-        this.map = Map.getInstance();
-        this.map.setMapAreas(areas);
-        this.map.setRespawnPoint(new Location(town, new Coord(3,3)));
-        this.map.setActiveMapArea(town);
-        this.spawnPoint = new Coord(9,1);
+        return town;
     }
 
     public void populateDemoMap(){
         MapArea[] areas = Map.getInstance().getMapAreas();
-        //**************************************TOWN**********************************************88
         MapArea town = areas[0];
+        populateAreaTown(town);
+
+        //CAMERAS
+        CameraView camera1 = new PlainsCameraView();
+        camera1.init(town);
+        cameras.addCameraView(town, camera1);
+    }
+    public void populateAreaTown(MapArea town){
         //ITEMS AND QUESTS
         town.getTile(new Coord(3,2)).addObstacle(new Obstacle(new Coord(3,2)));
         Quest quest1_b = new DoDestroyObstacleQuest(new Coord(3,2));
@@ -170,13 +164,7 @@ public class LevelFactory {
         town.getTile(new Coord(2,1)).addEntity(testNPC2);
         testNPC2.setLocation(new Coord(2,1));
         new NonAggressiveNPCControllerManager(town, testNPC, Direction.S);
-        //CAMERAS
-        CameraView camera1 = new PlainsCameraView();
-        camera1.init(town);
-        cameras.addCameraView(town, camera1);
-        //***********************************END TOWN********************************************************88
     }
-
     public void createTestMap() {
         this.cameras = new CameraViewManager();
 
