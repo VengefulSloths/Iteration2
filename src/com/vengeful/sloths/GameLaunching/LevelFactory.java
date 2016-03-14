@@ -111,8 +111,12 @@ public class LevelFactory {
         this.cameras = new CameraViewManager();
         //call create each area
         MapArea town = createAreaTown();
+
+        MapArea summonerArea = createSummonerArea();
+
         MapArea rescue = createArea2();
         MapArea area3 = createArea3();
+
         //link areas with teleport tiles
 //        TeleportSenderTile tst = new TeleportSenderTile(area3, )
 //        town.addTile(new Coord(2,3), tst);
@@ -142,16 +146,18 @@ public class LevelFactory {
 
 
 
-        //SETTING MAPAREAS
-        MapArea[] areas = new MapArea[3];
+
+        MapArea[] areas = new MapArea[4];
         areas[0] = town;
         areas[1] = rescue;
         areas[2] = area3;
+        areas[3] = summonerArea;
 
         this.map = Map.getInstance();
         this.map.setMapAreas(areas);
         //this.map.setRespawnPoint(new Location(town, new Coord(3,3)));
         this.map.setActiveMapArea(town);
+
         this.spawnPoint = new Coord(9,1);
 
         //this.map.setRespawnPoint(new Location(rescue, new Coord(1,1)));
@@ -163,7 +169,6 @@ public class LevelFactory {
 
 
     }
-
 
 
     public MapArea createAreaTown(){
@@ -198,6 +203,7 @@ public class LevelFactory {
         }
         return town;
     }
+
 
 
     public MapArea createArea2() {
@@ -306,11 +312,15 @@ public class LevelFactory {
 
     }
 
+
     public void populateDemoMap(){
         MapArea[] areas = Map.getInstance().getMapAreas();
         MapArea town = areas[0];
         MapArea rescue = areas[1];
         MapArea area3 = areas[2];
+        MapArea summonerArea = areas[3];
+
+        populateSummonerArea(summonerArea);
         populateAreaTown(town);
         populateRescueMap(rescue);
         populateArea3Map(area3);
@@ -320,12 +330,23 @@ public class LevelFactory {
         CameraView camera1 = new PlainsCameraView();
         CameraView camera2 = new PlainsCameraView();
         CameraView camera3 = new PlainsCameraView();
+        CameraView camera4 = new PlainsCameraView();
         camera1.init(town);
         camera2.init(rescue);
         camera3.init(area3);
+        camera4.init(summonerArea);
+
+        //CameraView camera2 = new PlainsCameraView();
+        //camera2.init(summonerArea);
+        cameras.addCameraView(town, camera1);
+        cameras.addCameraView(summonerArea, camera4);
+        //cameras.addCameraView(town, camera1);
+        //cameras.addCameraView(summonerArea, camera2);
+
+
         //cameras.addCameraView(town, camera1);
         //cameras.addCameraView(rescue, camera1);
-        cameras.addCameraView(town, camera1);
+
 
 
     }
@@ -479,13 +500,107 @@ public class LevelFactory {
 //        town.getTile(new Coord(5,2)).addTakeableItem(new TakeableItem("Rejuvination", new AbilityItem(hot), new Coord(5,2)));
     }
 
+
     public MapArea createSummonerArea(){
-        return null;
+
+        MapArea summonerArea = new MapArea(20, 20);
+        summonerArea.setName("entity field");
+
+        for(int i = 1; i < 19; i++){
+            for(int j = 1; j < 19; j++){
+                summonerArea.addTile(new Coord(i, j), new Tile(new Grass()));
+            }
+        }
+
+        Iterator<Coord> lake = HexMath.hexagon(new Coord(12, 11), 2);
+        while(lake.hasNext()){
+            summonerArea.getTile(lake.next()).setTerrain(new Water());
+        }
+
+        summonerArea.getTile(new Coord(1,1)).setTerrain(new Mountain());
+        summonerArea.getTile(new Coord(1,2)).setTerrain(new Mountain());
+        summonerArea.getTile(new Coord(2,1)).setTerrain(new Mountain());
+        summonerArea.getTile(new Coord(2,2)).setTerrain(new Mountain());
+        summonerArea.getTile(new Coord(2,3)).setTerrain(new Mountain());
+        summonerArea.getTile(new Coord(1,3)).setTerrain(new Mountain());
+        summonerArea.getTile(new Coord(1,4)).setTerrain(new Mountain());
+        summonerArea.getTile(new Coord(3,1)).setTerrain(new Mountain());
+
+
+        return summonerArea;
     }
 
-    public void populateSummonerArea(){
+    public void populateSummonerArea(MapArea summonerArea){
+        //AE
+        summonerArea.getTile(new Coord(3,2)).addAreaEffect(new LevelUpAE(5));
+        summonerArea.getTile(new Coord(4,1)).addAreaEffect(new LevelUpAE(5));
+        summonerArea.getTile(new Coord(4,2)).addAreaEffect(new LevelUpAE(5));
+        summonerArea.getTile(new Coord(5,1)).addAreaEffect(new LevelUpAE(5));
+
+
+        //ITEMS
+        summonerArea.getTile(new Coord(4,3)).addTakeableItem(new TakeableItem("Blue Potion", new Potion("Blue Potion",new BaseStatsAddable(10,0,0,0,0)), new Coord(4,3)));
+        summonerArea.getTile(new Coord(12,1)).addTakeableItem(new TakeableItem("Blue Potion", new Potion("Blue Potion",new BaseStatsAddable(10,0,0,0,0)), new Coord(12,1)));
+        summonerArea.getTile(new Coord(16,8)).addTakeableItem(new TakeableItem("Blue Potion", new Potion("Blue Potion",new BaseStatsAddable(10,0,0,0,0)), new Coord(16,8)));
+
+
+        summonerArea.getTile(new Coord(11,3)).addTakeableItem(new TakeableItem("Water Staff", new Staff("Water Staff", new IntellectAddable(5), 10), new Coord(11,3)));
+        summonerArea.getTile(new Coord(8,14)).addTakeableItem(new TakeableItem("Obsidian Staff", new Staff("Obsidian Staff", new IntellectAddable(5), 10), new Coord(8,14)));
+        summonerArea.getTile(new Coord(11,9)).addTakeableItem(new TakeableItem("Dragon Staff", new Staff("Dragon Staff", new IntellectAddable(5), 10), new Coord(11,9)));
+
+
+
+        //NPCS
+        AggressiveNPC npc1 = new AggressiveNPC("npc1", new Stats( new BaseStatsAddable(5,0,0,0,30)));
+        summonerArea.getTile(new Coord(18,1)).addEntity(npc1);
+        npc1.setLocation(new Coord(18,1));
+        npc1.equip(new TwoHandedWeapon("Iron 2H", new StrengthAddable(1), 1));
+        new AggressiveNPCControllerManager(summonerArea, npc1);
+
+        NonAggressiveNPC npc2 = new NonAggressiveNPC("npc2", new Stats( new BaseStatsAddable(5,0,0,0,30)));
+        summonerArea.getTile(new Coord(4,12)).addEntity(npc2);
+        npc2.setLocation(new Coord(4,12));
+        new NonAggressiveNPCControllerManager(summonerArea, npc2, Direction.S, 1);
+
+
+        NonAggressiveNPC npc3 = new NonAggressiveNPC("npc3", new Stats( new BaseStatsAddable(5,0,0,0,30)));
+        summonerArea.getTile(new Coord(3,16)).addEntity(npc3);
+        npc3.setLocation(new Coord(3,16));
+        new NonAggressiveNPCControllerManager(summonerArea, npc3, Direction.N, 1);
+
+
+        AggressiveNPC npc4 = new AggressiveNPC("npc4", new Stats( new BaseStatsAddable(5,0,0,0,30)));
+        summonerArea.getTile(new Coord(17,17)).addEntity(npc4);
+        npc4.setLocation(new Coord(17,17));
+        npc4.equip(new TwoHandedWeapon("dagger", new StrengthAddable(1), 1));
+        new AggressiveNPCControllerManager(summonerArea, npc4);
+
+
+        NonAggressiveNPC testNPC = new NonAggressiveNPC("greg", new Stats( new BaseStatsAddable(0,0,0,10,20)));
+        summonerArea.getTile(new Coord(8,3)).addEntity(testNPC);
+        testNPC.setLocation(new Coord(8,3));
+        new NonAggressiveNPCControllerManager(summonerArea, testNPC, Direction.S, 1);
+
+        /*
+        NonAggressiveNPC testNPC2 = new NonAggressiveNPC("Bob", new Stats( new BaseStatsAddable(0,0,0,10,20)));
+        summonerArea.getTile(new Coord(2,1)).addEntity(testNPC2);
+        testNPC2.setLocation(new Coord(2,1));
+        new NonAggressiveNPCControllerManager(summonerArea, testNPC, Direction.S);
+        */
+
+
+        //ABILITIES TODO
+        //NPC fall asleep, flame thrower, explosion
+        //summonerArea.getTile(new Coord(8,5)).addTakeableItem(new TakeableItem("Fire Ball", new AbilityItem(fireBallAbility), new Coord(3,3)));
+        
+
+
 
     }
+
+
+
+
     public void createTestMap() {
         this.cameras = new CameraViewManager();
 
