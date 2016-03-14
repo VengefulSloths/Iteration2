@@ -151,10 +151,6 @@ public class LevelFactory {
 
 
 
-
-
-
-
         MapArea[] areas = new MapArea[4];
         areas[0] = town;
         areas[1] = rescue;
@@ -163,19 +159,13 @@ public class LevelFactory {
 
         this.map = Map.getInstance();
         this.map.setMapAreas(areas);
-        //this.map.setRespawnPoint(new Location(town, new Coord(3,3)));
+        this.map.setRespawnPoint(new Location(town, new Coord(9,1)));
+        this.map.setRespawnPoint(new Location(rescue, new Coord(3,3)));
+        this.map.setRespawnPoint(new Location(area3, new Coord(2,4))); //smasher
+        this.map.setRespawnPoint(new Location(summonerArea, new Coord(3,3)));
         this.map.setActiveMapArea(town);
 
         this.spawnPoint = new Coord(9,1);
-
-        //this.map.setRespawnPoint(new Location(rescue, new Coord(1,1)));
-        //this.map.setActiveMapArea(rescue);
-//        this.map.setRespawnPoint(new Location(area3, new Coord(1,1)));
-//        this.map.setActiveMapArea(area3);
-//        this.spawnPoint = new Coord(1,1);
-
-
-
     }
 
 
