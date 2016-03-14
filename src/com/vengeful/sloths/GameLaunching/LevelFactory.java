@@ -571,14 +571,14 @@ public class LevelFactory {
         summonerArea.getTile(new Coord(4,12)).addEntity(npc2);
         npc2.equip(new TwoHandedWeapon("Iron 2H", new StrengthAddable(1), 1));
         npc2.setLocation(new Coord(4,12));
-        new NonAggressiveNPCControllerManager(summonerArea, npc2, Direction.S, 1);
+        new AggressiveNPCControllerManager(summonerArea, npc2);
 
 
         AggressiveNPC npc3 = new AggressiveNPC("npc3", new Stats( new BaseStatsAddable(5,0,0,0,30)));
         summonerArea.getTile(new Coord(3,16)).addEntity(npc3);
         npc3.equip(new TwoHandedWeapon("Iron 2H", new StrengthAddable(1), 1));
         npc3.setLocation(new Coord(3,16));
-        new NonAggressiveNPCControllerManager(summonerArea, npc3, Direction.N, 1);
+        new AggressiveNPCControllerManager(summonerArea, npc3);
 
 
         AggressiveNPC npc4 = new AggressiveNPC("npc4", new Stats( new BaseStatsAddable(5,0,0,0,30)));
