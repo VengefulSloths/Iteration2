@@ -30,7 +30,13 @@ public abstract class Ability extends ViewItem implements ModelVisitable {
         }
 
         System.out.println("ATTEMPT TO DO ABILITY FAILED! " + " skillLevel: " + skillLevel + " accu: " + accuracy);
+        abilityFailHook();
         return false;
+    }
+
+    //for adding consequences after ability fails
+    protected void abilityFailHook(){
+
     }
 
     public int getWindTicks() {

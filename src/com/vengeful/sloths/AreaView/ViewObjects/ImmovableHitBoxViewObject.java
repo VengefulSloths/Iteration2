@@ -16,20 +16,26 @@ import java.util.ArrayList;
  * Created by luluding on 3/10/16.
  */
 public class ImmovableHitBoxViewObject extends ViewObject implements HitBoxObserver{
+    private DynamicImage imageOnCreation;
+    private DynamicImage imageOnDestroy;
 
     private DynamicImage itemImage;
 
 
     public ImmovableHitBoxViewObject(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy, String resourcePath) {
         super(r, s, coordinateStrategy, locationStrategy);
-        itemImage = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath);
-
+        imageOnCreation = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath+"_start.xml");
+        imageOnDestroy = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath+"_destroy.xml");
+        itemImage = imageOnCreation;
+        ((DynamicTimedImage) itemImage).start(1000);
     }
 
 
     @Override
     public void alertDestroyed() {
-        ((DynamicTimedImage) itemImage).start(20);
+        //itemImage = imageOnDestroy;
+        //((DynamicTimedImage) itemImage).start(5000);
+        //TODO: restore
     }
 
     @Override

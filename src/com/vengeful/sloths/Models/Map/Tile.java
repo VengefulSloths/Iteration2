@@ -221,7 +221,8 @@ public class Tile implements ModelVisitable {
     }
 
     public void removeGold(Gold gold){
-        TimeModel.getInstance().registerAlertable(() -> removeMapItem(gold), 0);
+        removeMapItem(gold);
+        this.gold = null;
     }
 
     public void removeObstacle() {

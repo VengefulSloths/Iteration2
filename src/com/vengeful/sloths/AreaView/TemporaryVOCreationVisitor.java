@@ -6,10 +6,7 @@ import com.vengeful.sloths.Models.Ability.Abilities.*;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.PickPocketAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.RemoveTrapAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.StealthAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.AngleSpellAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.ExplosionAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.NPCFallAsleepAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.*;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
@@ -160,6 +157,8 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
         this.petPeo = new ProxyEntityObserver(pvo, piggy);
         ObserverManager.getInstance().addProxyObserver(this.petPeo);
         pvo.registerObserver(activeCameraView);
+
+        ObserverManager.getInstance().addProxyObserver(new ProxyStatsObserver(pvo.getHealthBar(), piggy.getStats()));
 
         piggy.getStats().updateObservers();
         activeCameraView.addViewObject(pvo);
@@ -403,6 +402,16 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
      }
 
      @Override
+     public void visitWeakenNPCAbility(WeakenNPCAbility weakenNPCAbility) {
+
+     }
+
+     @Override
+     public void visitPoisonNPCAbility(PoisonNPCAbility poisonNPCAbility) {
+
+     }
+
+     @Override
      public void visitMountAbility(MountAbility mountAbility) {
 
      }
@@ -513,11 +522,10 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
     @Override
     public void visitImmovableHitBox(ImmovableHitBox immovableHitBox) {
-        String imagePath = "resources/effects/"+immovableHitBox.getName()+"/"+immovableHitBox.getName()+".xml";
+        //String imagePath = "resources/effects/"+immovableHitBox.getName()+"/"+immovableHitBox.getName()+".xml";
+        String imagePath = "resources/effects/"+immovableHitBox.getName()+"/"+immovableHitBox.getName();
         ImmovableHitBoxViewObject hbvo = factory.createImmovableHitBoxViewObject(immovableHitBox.getLocation().getR(), immovableHitBox.getLocation().getS(), imagePath);
         new ProxyHitBoxObserver(hbvo, immovableHitBox);
-        //hbvo.registerObserver(this.activeCameraView); //register for Movement observer
-        //hbvo.registerObserver(this.activeCameraView.getTileVO(hbvo)); //register for destroyableObserver
         this.activeCameraView.addViewObject(hbvo);
     }
 

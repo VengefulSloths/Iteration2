@@ -5,15 +5,11 @@ import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.StealthAbilit
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.*;
 import com.vengeful.sloths.Models.Buff.*;
 import com.vengeful.sloths.Models.Entity.Entity;
-import com.vengeful.sloths.Models.Observers.EntityObserver;
 import com.vengeful.sloths.Models.Skills.Skill;
-import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.CurrentHealthAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.GenericStatsAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.MovementAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.StrengthAddable;
-
-import java.util.ArrayList;
 
 /**
  * Created by luluding on 3/7/16.
@@ -87,6 +83,14 @@ public class AbilityFactory {
 
     public NPCFallAsleepAbility createNPCFallAsleepAbility(Entity entity){
         return new NPCFallAsleepAbility(entity, 8, 15, 360);
+    }
+
+    public PoisonNPCAbility createPoisonNPCAbility(Entity entity){
+        return new PoisonNPCAbility(entity, 8, 15);
+    }
+
+    public WeakenNPCAbility createWeakenNPCAbility(Entity entity){
+        return new WeakenNPCAbility(entity, 8, 15);
     }
 
 }

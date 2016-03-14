@@ -3,6 +3,6 @@
     <width>255</width>
     <height>255</height>
     <rootPath>resources/effects/explosion/</rootPath>
-    <fileName>explosion.png</fileName>
-    <positioning xOffset="-10" yOffset="-10">custom</positioning>
+    <fileName>explosion_destroy01.png</fileName>
+    <positioning xOffset="-20" yOffset="10">custom</positioning>
 </single_frame_animation>

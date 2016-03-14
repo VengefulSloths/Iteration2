@@ -34,7 +34,6 @@ public class MovableHitBoxViewObject extends MovingViewObject implements HitBoxO
 
     public MovableHitBoxViewObject(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy, String resourcePath, Direction d) {
         super(r, s, coordinateStrategy, locationStrategy);
-        this.movingN = DynamicImageFactory.getInstance().loadDynamicImage("resources/effects/fireball/fireball_n.xml");
         this.movingN = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "fireball_n.xml");
         this.movingNE = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "fireball_ne.xml");
         this.movingNW = DynamicImageFactory.getInstance().loadDynamicImage(resourcePath + "fireball_nw.xml");
@@ -59,7 +58,7 @@ public class MovableHitBoxViewObject extends MovingViewObject implements HitBoxO
         return new NonVisibleViewObject(getR(), getS(), getCoordinateStrategy(), getLocationStrategy(), visibleImages);
     }
 
-    //TODO: how to pass in the correct direction for this to fire
+
     public void changeDirection(Direction d) {
         this.direction = d;
         switch (d) {
@@ -97,10 +96,6 @@ public class MovableHitBoxViewObject extends MovingViewObject implements HitBoxO
 
     @Override
     public void alertDestroyed() {
-        //TODO: TELL TILE TO DESTROY VO
-        //for(DestroyVOObserver dvoo : this.observers){
-        //    dvoo.alertDestroyVO(this);
-        //}
         ((DynamicTimedImage) currentDynamicImage).start(20);
     }
 

@@ -11,6 +11,7 @@ import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
 import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.Buff.BuffOverTime;
+import com.vengeful.sloths.Models.Buff.PoisonBuff;
 import com.vengeful.sloths.Models.Entity.*;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
@@ -121,6 +122,8 @@ public interface ModelVisitor {
     void visitNPCFallAsleepAbility(NPCFallAsleepAbility npcFallAsleepAbility);
     void visitPickPocketAbility(PickPocketAbility pickPocketAbility);
     void visitSelfBuffAbility(SelfBuffAbility selfBuffAbility);
+    void visitWeakenNPCAbility(WeakenNPCAbility weakenNPCAbility);
+    void visitPoisonNPCAbility(PoisonNPCAbility poisonNPCAbility);
 
     void visitBreakBoxQuest(BreakBoxQuest breakBoxQuest);
 
