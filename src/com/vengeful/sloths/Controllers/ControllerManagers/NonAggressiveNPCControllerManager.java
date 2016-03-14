@@ -15,11 +15,11 @@ import com.vengeful.sloths.Utility.Direction;
 public class NonAggressiveNPCControllerManager extends NPCControllerManager {
     private boolean dead = false;
 
-    public NonAggressiveNPCControllerManager(MapArea mapArea, Entity entity, Direction dir){
+    public NonAggressiveNPCControllerManager(MapArea mapArea, Entity entity, Direction dir, int numSteps){
 
         super(mapArea, entity);
         this.setSearchingController(new NonAggresssiveNPCSearchingController(mapArea, entity));
-        this.setActionController(new NonAggressiveNPCActionController(entity, dir));
+        this.setActionController(new NonAggressiveNPCActionController(entity, dir, numSteps));
         this.setMapArea(mapArea);
     }
 
