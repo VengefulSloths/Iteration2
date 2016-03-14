@@ -50,6 +50,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     private SkillManager skillManager;
     private boolean dead = false;
     private boolean stunned = false;
+    private String shirt = "";
 
     private DialogContainer dialogContainer = null;
     public void talk(){
@@ -59,6 +60,14 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
             MainController.getInstance().setDialogControllerState(this.dialogContainer);
             dialogContainer.next();
         }
+    }
+
+    public void setShirt(String shirt) {
+        this.shirt = shirt;
+    }
+
+    public String getShirt() {
+        return this.shirt;
     }
 
     private CanMoveVisitor movementValidator;

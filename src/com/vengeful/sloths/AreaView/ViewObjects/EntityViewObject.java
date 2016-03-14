@@ -68,6 +68,19 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
                 this.getXPixels() + currentDynamicImage.getXOffset() + this.getLocationXOffset(),
                 this.getYPixels() + currentDynamicImage.getYOffset() + this.getLocationYOffset(), this);
 
+        if (shirt != null) {
+            g.drawImage(shirt.getImage(),
+                    this.getXPixels() + shirt.getXOffset() + this.getLocationXOffset(),
+                    this.getYPixels() + shirt.getYOffset() + this.getLocationYOffset(),
+                    this);
+        }
+
+    }
+
+
+    private DynamicImage shirt;
+    public void wearShirt(String shirt) {
+        this.shirt = DynamicImageFactory.getInstance().loadDynamicImage("resources/shirts/" + shirt + ".xml");
     }
 
     @Override

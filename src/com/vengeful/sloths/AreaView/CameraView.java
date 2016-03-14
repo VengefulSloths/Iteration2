@@ -32,6 +32,10 @@ public abstract class CameraView implements MovingVOObserver{
         this.factory = factory;
     }
 
+    public void addDecal(Coord coord, String resourcePath){
+        this.addViewObject(factory.createDecalViewObject(coord.getR(), coord.getS(), resourcePath));
+    }
+
     public void addViewObject(ViewObject vo) {
         int     x = findX(vo.getR(), vo.getS()),
                 y = findY(vo.getR(), vo.getS());

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<repeating_animation>
+    <duration>1000</duration>
+    <width>32</width>
+    <height>32</height>
+    <rootPath>resources/decals/</rootPath>
+    <fileName>Roses_1.png</fileName>
+    <fileName>Roses_2.png</fileName>
+    <positioning xOffset="-16" yOffset="-22">custom</positioning>
+</repeating_animation>

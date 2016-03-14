@@ -3,12 +3,15 @@ package com.vengeful.sloths.GameLaunching;
 import com.vengeful.sloths.AreaView.CameraView;
 import com.vengeful.sloths.AreaView.CameraViewManager;
 import com.vengeful.sloths.AreaView.TemporaryVOCreationVisitor;
+import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.SimpleHexCoordinateStrategy;
+import com.vengeful.sloths.AreaView.ViewObjects.DecalViewObject;
 import com.vengeful.sloths.Controllers.ControllerManagers.AggressiveNPCControllerManager;
 import com.vengeful.sloths.Controllers.ControllerManagers.NonAggressiveNPCControllerManager;
 import com.vengeful.sloths.Controllers.ControllerManagers.PiggyControllerManager;
 import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SelfBuffAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
+import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityFactory;
 import com.vengeful.sloths.Models.DialogueTrade.DialogContainer;
 import com.vengeful.sloths.Models.DialogueTrade.TerminalDialogContainer;
@@ -283,7 +286,7 @@ public class LevelFactory {
 
         CameraView camera2 = new PlainsCameraView();
         CameraView camera1 = new PlainsCameraView();
-
+//
         Potion p = new Potion("Red Potion", new CurrentHealthAddable(20));
         p.setValue(100000);
 //        Piggy testPiggy = new Piggy("Bart", new Stats(new MovementAddable(30)));
@@ -302,7 +305,7 @@ public class LevelFactory {
 
 //        TakeableItem piggyTotem = new TakeableItem("Piggy Totem", new PiggyTotem("Piggy Totem", testPiggy), new Coord(2,2));
 
-        FireBallAbility fireBallAbility = new FireBallAbility(Avatar.getInstance(), 150, 150, 150, 150);
+        FireBallAbility fireBallAbility = AbilityFactory.getInstance().createFireBallAbility(Avatar.getInstance());
         fireBallAbility.setItemName("Fire Ball");
         area1.getTile(new Coord(3,3)).addTakeableItem(new TakeableItem("Fire Ball", new AbilityItem(fireBallAbility), new Coord(3,3)));
 
@@ -327,6 +330,13 @@ public class LevelFactory {
         camera1.init(area1);
 
 
+        camera1.addDecal(new Coord(3, 3), "resources/decals/Hydrangeas_fast.xml");
+        camera2.addDecal(new Coord(3, 3), "resources/decals/Hydrangeas_fast.xml");
+        camera2.addDecal(new Coord(4,4), "resources/decals/Hydrangeas_med.xml");
+//        camera2.addDecal(new Coord(5,5), "resources/decals/Hydrangeas_slow.xml");
+        camera2.addDecal(new Coord(5,5), "resources/decals/Roses_slow.xml");
+
+
         TemporaryVOCreationVisitor.getInstance().setActiveCameraView(camera2);
 
         NonAggressiveNPC testNPC = new NonAggressiveNPC("greg", new Stats( new BaseStatsAddable(0,0,0,10,20)));
@@ -349,8 +359,10 @@ public class LevelFactory {
 
         //testEnemy.accept(TemporaryVOCreationVisitor.getInstance());
         new AggressiveNPCControllerManager(area2, testEnemy);
-
+        testEnemy.setShirt("pink_shirt");
         testEnemy.getStats().subtract(new CurrentHealthAddable(1));
+        camera1.addDecal(new Coord(2,2), "resources/terrain/cracked_sand.xml" );
+        camera2.addDecal(new Coord(2,2), "resources/terrain/cracked_sand.xml" );
 
 //        map.getActiveMapArea().getTile(spawnPoint).addEntity(Avatar.getInstance());
         cameras.addCameraView(area2, camera2);
