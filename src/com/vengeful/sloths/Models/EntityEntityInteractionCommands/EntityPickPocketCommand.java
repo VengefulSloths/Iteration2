@@ -14,6 +14,7 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class EntityPickPocketCommand {
     private int chanceToSucceed;
+
     private Entity target = null;
     private Inventory targInv = null;
     private InventoryItem item = null;

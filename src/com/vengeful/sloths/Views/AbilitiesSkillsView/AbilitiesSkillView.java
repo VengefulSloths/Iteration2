@@ -5,6 +5,7 @@ import com.vengeful.sloths.Views.AbilitiesView.AbilitiesView;
 import com.vengeful.sloths.Views.EquippedAbilitiesView.EquippedAbilitiesView;
 import com.vengeful.sloths.Views.SkillsView.SkillsView;
 import com.vengeful.sloths.Views.StatsView.StatsView;
+import com.vengeful.sloths.Views.View;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -13,13 +14,14 @@ import java.awt.*;
 /**
  * Created by zach on 3/11/16.
  */
-public class AbilitiesSkillView extends JPanel {
+public class AbilitiesSkillView extends View {
     // public class CharacterViewManager extends JPanel {
 
     private AbilitiesView abilitiesView;
     private EquippedAbilitiesView equippedAbilitiesView;
     private SkillsView skillsView;
-    private JPanel containerPanel;
+    //private JPanel containerPanel;
+    private View containerPanel;
     //private Inventory inventory;
 
     public AbilitiesView getAbilitiesView() {
@@ -70,8 +72,11 @@ public class AbilitiesSkillView extends JPanel {
         pushPanel.setPreferredSize(new Dimension(Config.instance().getAreaViewWidth(), Config.instance().getAreaViewHeight()/6));
         pushPanel.setBackground(new Color(0f,0f,0f,0f)); //pushPanel needs to be invisible
 
-        this.containerPanel = new JPanel();
+
+       //this.containerPanel = new JPanel();
+        this.containerPanel = new View();
         this.setBackground(new Color(0f,0f,0f,0f));
+        this.containerPanel.setBackgroundImageFileName("resources/skyCharacterView.png");
         this.containerPanel.setBorder(new BevelBorder(BevelBorder.RAISED, Color.BLACK, Color.BLACK));
         this.setLayout(new FlowLayout());
         this.containerPanel.setPreferredSize(new Dimension(this.getCharacterViewWidth(),this.getCharacterViewHeight()));
@@ -79,7 +84,7 @@ public class AbilitiesSkillView extends JPanel {
         this.containerPanel.add(this.abilitiesView);
         this.containerPanel.add(this.equippedAbilitiesView);
         this.containerPanel.add(this.skillsView);
-
+        this.containerPanel.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(15.0f)));
         this.add(pushPanel);
         this.add(containerPanel);
 
@@ -87,6 +92,7 @@ public class AbilitiesSkillView extends JPanel {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+
     }
 
 }

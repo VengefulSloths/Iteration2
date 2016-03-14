@@ -231,7 +231,7 @@ public class SkillsView extends View implements SkillManagerObserver {
                 this.skillsList.get(i).paintComponent(g,x,y);
                 b.paintBorder(this.skillsList.get(i), g, 0, (y - stringHeight - 4) , this.getWidth(), stringHeight + 10 );
                 g.setFont(new Font(Font.DIALOG, Font.BOLD, 10));
-                g.setColor(Color.GREEN);
+                g.setColor(Color.WHITE);
             } else {
                 this.skillsList.get(i).paintComponent(g,x,y);
             }

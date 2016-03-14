@@ -9,6 +9,7 @@ import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.SaveLoad.SaveManager;
 import com.vengeful.sloths.Utility.CartesionDirection;
 import com.vengeful.sloths.Utility.Direction;
+import com.vengeful.sloths.Views.ViewManager.ViewManager;
 
 /**
  * Created by John on 2/29/2016.
@@ -44,11 +45,13 @@ public class AvatarControllerState extends InputControllerState {
 
     @Override
     public void handleAbility1Key() {
+        MainController.getInstance().setAbilityActive(0);
         Avatar.getInstance().doAbility(0);
     }
 
     @Override
     public void handleAbility2Key() {
+        MainController.getInstance().setAbilityActive(1);
         Avatar.getInstance().doAbility(1);
     }
 
@@ -60,11 +63,14 @@ public class AvatarControllerState extends InputControllerState {
 
     @Override
     public void handleAbility3Key() {
+
+        MainController.getInstance().setAbilityActive(2);
         Avatar.getInstance().doAbility(2);
     }
 
     @Override
     public void handleAbility4Key() {
+        MainController.getInstance().setAbilityActive(3);
         Avatar.getInstance().doAbility(3);
     }
 

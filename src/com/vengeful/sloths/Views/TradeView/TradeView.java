@@ -72,7 +72,7 @@ public class TradeView extends JPanel {
         this.containerPanel.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(15.0f)));
     }
 
-    public InventoryView getAvatarInvView() {
+    public GridAvatarInvViewTrading getAvatarInvView() {
         return avatarInvView;
     }
 
