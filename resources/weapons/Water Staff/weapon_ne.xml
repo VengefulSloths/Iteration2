@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<single_frame_animation>
+  <width>40</width>
+  <height>100</height>
+  <rootPath>resources/weapons/Water Staff/</rootPath>
+  <fileName>weapon_omni.png</fileName>
+  <positioning xOffset="-21" yOffset="-69">custom</positioning>
+</single_frame_animation>

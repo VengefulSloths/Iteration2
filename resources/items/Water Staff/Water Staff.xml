@@ -2,7 +2,7 @@
 <single_frame_animation>
     <width>54</width>
     <height>76</height>
-    <rootPath>resources/items/Bow/</rootPath>
-    <fileName>bow.png</fileName>
+    <rootPath>resources/items/Water Staff/</rootPath>
+    <fileName>Water Staff.png</fileName>
     <positioning xOffset="-27" yOffset="-76">custom</positioning>
 </single_frame_animation>
