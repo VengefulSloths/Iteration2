@@ -99,4 +99,8 @@ public class AbilityFactory {
         return new RangedAttackAbility(entity, entity.getSkillManager().getRangedWeaponSkill(), baseDamage, windTicks, coolTicks);
     }
 
+    public ObservationAbility createObservationAbility(Entity e){
+        return new ObservationAbility(e);
+    }
+
 }

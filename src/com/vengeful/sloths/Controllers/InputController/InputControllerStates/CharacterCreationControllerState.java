@@ -156,6 +156,11 @@ public class CharacterCreationControllerState extends InputControllerState {
     }
 
     @Override
+    public void handleObservationKey() {
+
+    }
+
+    @Override
     public void handleTalkKey() {
 
     }

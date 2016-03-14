@@ -36,6 +36,7 @@ public abstract class InputControllerState {
     public abstract void handleAbility3Key();
     public abstract void handleAbility4Key();
 
+    public abstract void handleObservationKey();
 
     public abstract boolean handleSpaceKey();
     public abstract void handleTalkKey();

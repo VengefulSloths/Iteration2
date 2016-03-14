@@ -64,6 +64,11 @@ public class MenuControllerState extends InputControllerState {
     }
 
     @Override
+    public void handleObservationKey() {
+
+    }
+
+    @Override
     public boolean handleInventoryKey() {
         return false;
     }

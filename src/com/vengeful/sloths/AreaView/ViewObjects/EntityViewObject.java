@@ -192,6 +192,16 @@ public class EntityViewObject extends MovingViewObject implements EntityObserver
     }
 
     @Override
+    public void alertObservationInfo(int damage, int speed) {
+        healthBar.updateObservationInfo(damage, speed);
+    }
+
+    @Override
+    public void alertRemoveObservationInf() {
+        healthBar.removeObservationInfo();
+    }
+
+    @Override
     public void alertAttack(int r, int s, long windUpTime, long coolDownTime) {
         AttackViewObject attack = TemporaryVOCreationVisitor.getInstance().createAttack(r, s, "resources/effects/punch/punch.xml", windUpTime);
         ViewTime.getInstance().registerAlert(windUpTime, () ->attack.start());

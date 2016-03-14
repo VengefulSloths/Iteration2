@@ -62,10 +62,10 @@ public class WeakenNPCAbility extends Ability{
             if(target != null){
                 for(int i = 0; i < target.length; i++){
                     int strength = (int)Math.round(target[i].getStats().getStrength() / 2.0);
-                    int agility = (int)Math.round(target[i].getStats().getAgility() / 2);
-                    int intellect = (int)Math.round(target[i].getStats().getAgility() / 2);
-                    int hardiness = (int)Math.round(target[i].getStats().getHardiness() / 2);
-                    int movement = (int)Math.round(target[i].getStats().getMovement() / 2);
+                    int agility = (int)Math.round(target[i].getStats().getAgility() / 2.0);
+                    int intellect = (int)Math.round(target[i].getStats().getAgility() / 2.0);
+                    int hardiness = (int)Math.round(target[i].getStats().getHardiness() / 2.0);
+                    int movement = (int)Math.round(target[i].getStats().getMovement() / 2.0);
                     target[i].getBuffManager().addBuff(new TimedBuff(target[i].getObservers(),
                                                                         target[i].getBuffManager(),
                                                                         new BaseStatsAddable(-strength, -agility, -intellect, -hardiness, -movement),
@@ -91,6 +91,19 @@ public class WeakenNPCAbility extends Ability{
 
         return t.getEntities();
     }
+
+
+    @Override
+    protected void abilityFailHook() {
+        Entity[] target = getTarget();
+        if(target != null){
+            for(int i = 0; i < target.length; i++){
+                target[i].enrage();
+                System.out.println("ABILITY FAILED, NPC IS ANGRYYYYY");
+            }
+        }
+    }
+
 
 
     @Override

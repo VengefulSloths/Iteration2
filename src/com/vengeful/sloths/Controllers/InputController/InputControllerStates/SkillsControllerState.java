@@ -168,6 +168,11 @@ public class SkillsControllerState extends  InputControllerState {
     }
 
     @Override
+    public void handleObservationKey() {
+
+    }
+
+    @Override
     public boolean handleSpaceKey() {
         return false;
     }

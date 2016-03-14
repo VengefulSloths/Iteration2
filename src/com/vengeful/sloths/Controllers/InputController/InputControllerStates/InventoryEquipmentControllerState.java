@@ -188,6 +188,11 @@ public class InventoryEquipmentControllerState extends InputControllerState {
     }
 
     @Override
+    public void handleObservationKey() {
+
+    }
+
+    @Override
     public boolean handleSpaceKey() {
         currStateIndex = (currStateIndex + 1) % 2;
         this.state = this.possibleStates.get(currStateIndex);

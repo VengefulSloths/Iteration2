@@ -102,6 +102,11 @@ public class AbilityControllerState extends InputControllerState{
 
     }
 
+    @Override
+    public void handleObservationKey() {
+
+    }
+
     public boolean handleWestKey() {
         this.abilitiesView.selectWestItem();
         return true;

@@ -185,6 +185,11 @@ public class EquipmentControllerState extends InputControllerState{
     }
 
     @Override
+    public void handleObservationKey() {
+
+    }
+
+    @Override
     public boolean handleSpaceKey() {
         return false;
     }
