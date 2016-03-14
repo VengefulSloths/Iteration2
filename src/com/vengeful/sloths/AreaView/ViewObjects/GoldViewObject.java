@@ -47,6 +47,7 @@ public class GoldViewObject extends ViewObject implements DestroyableObserver {
         (new SoundEffect("resources/audio/pickup.wav")).play();
         for(DestroyVOObserver dvoo : this.observers){
             dvoo.alertDestroyVO(this);
+            System.out.println("GOLD VO ALERT OBSERVER DESTROY");
         }
     }
 

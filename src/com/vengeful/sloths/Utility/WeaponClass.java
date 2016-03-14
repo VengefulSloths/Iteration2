@@ -7,7 +7,8 @@ public enum WeaponClass {
     ONE_HAND(0),
     TWO_HAND(1),
     FISTS(2),
-    BOW(3);
+    BOW(3),
+    THROW(4);
 
     private int value;
 

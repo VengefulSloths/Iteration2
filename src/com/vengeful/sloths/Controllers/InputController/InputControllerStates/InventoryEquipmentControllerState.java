@@ -80,11 +80,14 @@ public class InventoryEquipmentControllerState extends InputControllerState {
 
     @Override
     public boolean handleESCKey() {
+        MainController.getInstance().setAvatarControllerState();
         return false;
     }
 
     @Override
     public boolean handleSouthWestKey() {
+
+        state.handleSouthWestKey();
         return false;
     }
 
@@ -112,7 +115,9 @@ public class InventoryEquipmentControllerState extends InputControllerState {
 
     @Override
     public boolean handleNorthWestKey() {
-        return false;
+
+        state.handleNorthWestKey();
+        return true;
     }
 
     @Override
@@ -122,6 +127,7 @@ public class InventoryEquipmentControllerState extends InputControllerState {
 
     @Override
     public boolean handleNorthEastKey() {
+        state.handleNorthEastKey();
         return false;
     }
 

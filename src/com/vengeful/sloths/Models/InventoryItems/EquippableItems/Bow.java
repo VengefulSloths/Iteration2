@@ -47,9 +47,4 @@ public class Bow extends Weapon {
         modelVisitor.visitBow(this);
     }
 
-    @Override
-    public void interact() {
-
-    }
-
 }

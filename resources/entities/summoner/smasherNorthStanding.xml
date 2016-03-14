@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<single_frame_animation>
+  <width>78</width>
+  <height>126</height>
+  <rootPath>resources/entities/summoner/</rootPath>
+  <fileName>smasher_north_standing.png</fileName>
+  <positioning>occupying</positioning>
+</single_frame_animation>

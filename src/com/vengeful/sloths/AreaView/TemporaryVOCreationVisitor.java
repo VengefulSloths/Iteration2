@@ -82,6 +82,11 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     }
 
      @Override
+     public void visitShuriken(Shuriken shuriken) {
+
+     }
+
+     @Override
      public void visitAbilityItem(AbilityItem abilityItem) {
 
      }
@@ -117,14 +122,19 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     private AvatarViewObject avo;
     private ProxyEntityObserver peo;
     private ProxyEntityObserver petPeo;
+
+
+    private String avatarOccupation;
     @Override
     public void visitAvatar(Avatar avatar) {
         if (peo != null) {
             peo.deregister();
         }
+        avatar.getOccupation().accept(this);
+
         this.avo = factory.createAvatarViewObject(avatar.getLocation().getR(),
                 avatar.getLocation().getS(),
-                "resources/entities/smasher/");
+                "resources/entities/" + avatarOccupation + "/");
 
 
         //Let avo observe avatar through a proxy
@@ -157,6 +167,8 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
         this.petPeo = new ProxyEntityObserver(pvo, piggy);
         ObserverManager.getInstance().addProxyObserver(this.petPeo);
         pvo.registerObserver(activeCameraView);
+
+        ObserverManager.getInstance().addProxyObserver(new ProxyStatsObserver(pvo.getHealthBar(), piggy.getStats()));
 
         piggy.getStats().updateObservers();
         activeCameraView.addViewObject(pvo);
@@ -215,17 +227,17 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
     @Override
     public void visitSummoner(Summoner s) {
-
+        this.avatarOccupation = "summoner";
     }
 
     @Override
     public void visitSneak(Sneak s) {
-
+        this.avatarOccupation = "sneak";
     }
 
     @Override
     public void visitSmasher(Smasher s) {
-
+        this.avatarOccupation = "smasher";
     }
 
     @Override
@@ -410,6 +422,16 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
      }
 
      @Override
+     public void visitWeakenNPCAbility(WeakenNPCAbility weakenNPCAbility) {
+
+     }
+
+     @Override
+     public void visitPoisonNPCAbility(PoisonNPCAbility poisonNPCAbility) {
+
+     }
+
+     @Override
      public void visitMountAbility(MountAbility mountAbility) {
 
      }
@@ -550,11 +572,10 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
     @Override
     public void visitImmovableHitBox(ImmovableHitBox immovableHitBox) {
-        String imagePath = "resources/effects/"+immovableHitBox.getName()+"/"+immovableHitBox.getName()+".xml";
+        //String imagePath = "resources/effects/"+immovableHitBox.getName()+"/"+immovableHitBox.getName()+".xml";
+        String imagePath = "resources/effects/"+immovableHitBox.getName()+"/"+immovableHitBox.getName();
         ImmovableHitBoxViewObject hbvo = factory.createImmovableHitBoxViewObject(immovableHitBox.getLocation().getR(), immovableHitBox.getLocation().getS(), imagePath);
         new ProxyHitBoxObserver(hbvo, immovableHitBox);
-        //hbvo.registerObserver(this.activeCameraView); //register for Movement observer
-        //hbvo.registerObserver(this.activeCameraView.getTileVO(hbvo)); //register for destroyableObserver
         this.activeCameraView.addViewObject(hbvo);
     }
 

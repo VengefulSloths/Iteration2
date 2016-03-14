@@ -481,6 +481,17 @@ public class SaveVisitor implements ModelVisitor {
         }
         currentParent.pop();
     }
+
+    @Override
+    public void visitWeakenNPCAbility(WeakenNPCAbility weakenNPCAbility) {
+
+    }
+
+    @Override
+    public void visitPoisonNPCAbility(PoisonNPCAbility poisonNPCAbility) {
+
+    }
+
     //mount ability needs to get observers from avatar once its loaded
     //save buff here
     @Override
@@ -875,16 +886,21 @@ public class SaveVisitor implements ModelVisitor {
         currentParent.peek().appendChild(thwElement);
         currentParent.push(thwElement);
         thwElement.setAttribute("itemName", thw.getItemName());
-        thwElement.setAttribute("baseDamage", thw.getBaseDamage() +"");
+        thwElement.setAttribute("baseDamage", thw.getBaseDamage() + "");
         thwElement.setAttribute("value", thw.getValue() + "");
         thw.getItemStats().accept(this);
-        if(currentParent.peek().equals(thwElement)){
+        if (currentParent.peek().equals(thwElement)) {
 //            System.out.println("Knuckle saved with stack at proper element");
             currentParent.pop();
-        }else{
+        } else {
             System.out.println("some error saving Staff, stack not at the proper element");
         }
     }
+
+    public void visitShuriken(Shuriken shuriken) {
+
+    }
+
 
     public void visitStatsAddable(StatsAddable sa) {
         Element saElement = doc.createElement("StatsAddable");

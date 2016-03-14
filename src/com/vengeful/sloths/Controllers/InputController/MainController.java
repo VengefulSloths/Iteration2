@@ -88,6 +88,10 @@ public class MainController implements Tickable{
         TimeModel.getInstance().registerTickable(this);
     }
 
+    public void reRegisterTickable(){
+        TimeModel.getInstance().registerTickable(this);
+    }
+
 
     public void init(ViewManager vm) {
         this.viewManager = vm;

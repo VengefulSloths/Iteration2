@@ -23,7 +23,7 @@ public class TimeController {
         try {
             Thread.sleep(deltaTime);
         }catch(InterruptedException e){
-            //suck 1000 dicks
+
         }
     }
 }

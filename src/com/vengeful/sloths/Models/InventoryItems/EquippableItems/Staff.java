@@ -47,8 +47,4 @@ public class Staff extends Weapon {
         modelVisitor.visitStaff(this);
     }
 
-    @Override
-    public void interact() {
-
-    }
 }

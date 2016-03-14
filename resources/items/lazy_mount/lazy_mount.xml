@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<single_frame_animation>
+    <width>60</width>
+    <height>60</height>
+    <rootPath>resources/items/lazy_mount/</rootPath>
+    <fileName>lazy_mount.png</fileName>
+    <positioning>centered</positioning>
+</single_frame_animation>

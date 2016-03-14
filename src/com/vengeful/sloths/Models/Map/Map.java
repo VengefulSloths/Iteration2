@@ -93,6 +93,10 @@ public class Map implements ModelVisitable, ViewObservable{
         }
     }
 
+    public void reset(){
+        observers = new ArrayList<>();
+    }
+
     @Override
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitMap(this);

@@ -3,6 +3,7 @@ package com.vengeful.sloths.Controllers.InputController.InputControllerStates;
 import com.vengeful.sloths.GameLaunching.LaunchGameTemplate;
 import com.vengeful.sloths.GameLaunching.LaunchNewGame;
 import com.vengeful.sloths.Menu.CharacterCreation.CharacterCreationView;
+import com.vengeful.sloths.Models.ModelEngine;
 
 /**
  * Created by John on 3/12/2016.
@@ -131,6 +132,7 @@ public class CharacterCreationControllerState extends InputControllerState {
     @Override
     public void handleEnterKey() {
         System.out.println("launch game");
+        ModelEngine.getInstance().unpauseGame();
         LaunchGameTemplate launcher = new LaunchGameTemplate(new LaunchNewGame());
         launcher.launch(menu.getOccupation());
     }
