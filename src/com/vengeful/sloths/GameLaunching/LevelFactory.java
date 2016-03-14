@@ -10,6 +10,7 @@ import com.vengeful.sloths.Controllers.ControllerManagers.NonAggressiveNPCContro
 import com.vengeful.sloths.Controllers.ControllerManagers.PiggyControllerManager;
 import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SelfBuffAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.ExplosionAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityFactory;
@@ -86,7 +87,7 @@ public class LevelFactory {
         this.levelName = levelName;
         switch (levelName) {
             case "test":
-                createTestMap();
+//                createTestMap();
                 break;
             case "demo":
                 createDemoMap();
@@ -97,7 +98,7 @@ public class LevelFactory {
     public void populate() {
         switch (levelName) {
             case "test":
-                populateTestMap();
+//                populateTestMap();
                 break;
             case "demo":
                 populateDemoMap();
@@ -111,37 +112,64 @@ public class LevelFactory {
         this.cameras = new CameraViewManager();
         //call create each area
         MapArea town = createAreaTown();
-        //link areas with teleport tiles
-//        TeleportSenderTile tst = new TeleportSenderTile()
-//        town.addTile(new Coord(2,3), tst);
-//        TeleportSenderTile tst2 = new TeleportSenderTile();
-//        town.addTile(new Coord(12,4), tst2);
+
+        MapArea summonerArea = createSummonerArea();
 
         MapArea rescue = createArea2();
-
         MapArea area3 = createArea3();
-        //SETTING MAPAREAS
-        MapArea[] areas = new MapArea[3];
+
+        //link areas with teleport tiles
+//        TeleportSenderTile tst = new TeleportSenderTile(area3, )
+//        town.addTile(new Coord(2,3), tst);
+
+        TeleportDestinationTile rescueDstTile = new TeleportDestinationTile(new Coord(3,3));
+        rescue.addTile(new Coord(3,3), rescueDstTile);
+        TeleportSenderTile tst2 = new TeleportSenderTile(rescue, rescueDstTile);
+        town.addTile(new Coord(12,4), tst2);
+
+        TeleportDestinationTile townDstFromRescue = new TeleportDestinationTile(new Coord(10,4));
+        town.addTile(townDstFromRescue.getLocation(), townDstFromRescue);
+        TeleportSenderTile tst3 = new TeleportSenderTile(town, townDstFromRescue);
+        rescue.addTile(new Coord(1,1), tst3);
+
+        TeleportDestinationTile areaThreeFromTown = new TeleportDestinationTile(new Coord(2,1));
+        area3.addTile(new Coord(2,1), areaThreeFromTown);
+        TeleportSenderTile toArea3FromTown = new TeleportSenderTile(area3, areaThreeFromTown);
+        town.addTile(new Coord(2,3), toArea3FromTown);
+
+        TeleportDestinationTile townFromAreaThree = new TeleportDestinationTile(new Coord(4,1));
+        town.addTile(new Coord(4,1), townFromAreaThree);
+        TeleportSenderTile areaThreeToTown = new TeleportSenderTile(town, townFromAreaThree);
+        area3.addTile(new Coord(1,1), areaThreeToTown);
+
+        TeleportDestinationTile summonerAreaFromTown = new TeleportDestinationTile(new Coord(3,3));
+        summonerArea.addTile(new Coord(3,3), summonerAreaFromTown);
+        TeleportSenderTile townToSummonerArea = new TeleportSenderTile(summonerArea, summonerAreaFromTown);
+        town.addTile(new Coord(10,1), townToSummonerArea);
+
+        TeleportSenderTile toTownFromSummonerArea = new TeleportSenderTile(town, townDstFromRescue);
+        summonerArea.addTile(new Coord(1,5), toTownFromSummonerArea);
+
+
+
+        MapArea[] areas = new MapArea[4];
         areas[0] = town;
         areas[1] = rescue;
         areas[2] = area3;
+        areas[3] = summonerArea;
 
         this.map = Map.getInstance();
         this.map.setMapAreas(areas);
-        //this.map.setRespawnPoint(new Location(town, new Coord(3,3)));
-        //this.map.setActiveMapArea(town);
-        //this.spawnPoint = new Coord(9,1);
 
-        //this.map.setRespawnPoint(new Location(rescue, new Coord(1,1)));
-        //this.map.setActiveMapArea(rescue);
-        this.map.setRespawnPoint(new Location(area3, new Coord(1,1)));
-        this.map.setActiveMapArea(area3);
-        this.spawnPoint = new Coord(1,1);
+        this.map.setRespawnPoint(new Location(town, new Coord(7,1)));
+        this.map.setRespawnPoint(new Location(rescue, new Coord(3,3)));
+        this.map.setRespawnPoint(new Location(area3, new Coord(2,4))); //smasher
+        this.map.setRespawnPoint(new Location(summonerArea, new Coord(3,3)));
 
+        this.map.setActiveMapArea(town);
 
-
+        this.spawnPoint = new Coord(9,1);
     }
-
 
 
     public MapArea createAreaTown(){
@@ -155,7 +183,7 @@ public class LevelFactory {
         for(int j = 1; j != 10; ++j){
             town.addTile(new Coord(1,j), new Tile(new Mountain()));
         }
-        for(int j = 1; j != 10; ++j){
+        for(int j = 1; j != 11; ++j){
             town.addTile(new Coord(11,j), new Tile(new DummyTerrain()));
             town.addTile(new Coord(12,j), new Tile(new DummyTerrain()));
         }
@@ -176,6 +204,7 @@ public class LevelFactory {
         }
         return town;
     }
+
 
 
     public MapArea createArea2() {
@@ -237,10 +266,6 @@ public class LevelFactory {
         rescue.getTile(new Coord(11,16)).setTerrain(new Mountain());
 
 
-        //rescue.getTile(new Coord(10,10)).setTerrain(new Grass());
-        //rescue.getTile(new Coord(10,11)).setTerrain(new Grass());
-
-
         return rescue;
     }
 
@@ -284,24 +309,37 @@ public class LevelFactory {
 
     }
 
+
     public void populateDemoMap(){
         MapArea[] areas = Map.getInstance().getMapAreas();
         MapArea town = areas[0];
         MapArea rescue = areas[1];
         MapArea area3 = areas[2];
-        //populateAreaTown(town);
-        //populateRescueMap(rescue);
+        MapArea summonerArea = areas[3];
+
+        populateSummonerArea(summonerArea);
+        populateAreaTown(town);
+        populateRescueMap(rescue);
         populateArea3Map(area3);
 
 
         //CAMERAS
         CameraView camera1 = new PlainsCameraView();
-        //camera1.init(town);
-        //camera1.init(rescue);
-        camera1.init(area3);
-        //cameras.addCameraView(town, camera1);
-        //cameras.addCameraView(rescue, camera1);
-        cameras.addCameraView(area3, camera1);
+        CameraView camera2 = new PlainsCameraView();
+        CameraView camera3 = new PlainsCameraView();
+        CameraView camera4 = new PlainsCameraView();
+        camera1.init(town);
+        camera2.init(rescue);
+        camera3.init(area3);
+        camera4.init(summonerArea);
+
+
+        cameras.addCameraView(town, camera1);
+        cameras.addCameraView(rescue, camera2);
+        cameras.addCameraView(area3, camera3);
+        cameras.addCameraView(summonerArea, camera4);
+
+
 
 
     }
@@ -335,10 +373,14 @@ public class LevelFactory {
         //camera1.addDecal(new Coord(1,11),"Roses_slow.xml");
         cameras.addCameraView(area3, camera1);
 
+
     }
 
     public void populateRescueMap(MapArea rescue) {
         rescue.getTile(new Coord(5,2)).addObstacle(new Obstacle(new Coord(5,2)));
+        Trap t = new Trap(new Coord(5,1), 2);
+        t.setItemName("trap");
+        rescue.getTile(new Coord(5,1)).addTrap(t);
 
 
         NonAggressiveNPC Jana = new NonAggressiveNPC("Jana", new Stats( new BaseStatsAddable(0,0,0,10,20)));
@@ -352,7 +394,6 @@ public class LevelFactory {
         Potion p = new Potion("Blue Potion", new StrengthAddable(5));
         p.setValue(0);
         Jana.getInventory().addItem(p);
-
         Jana.setDialogContainer(rescueFriend);
 
         AggressiveNPC agroNPC1 = new AggressiveNPC("Mons", new Stats(new BaseStatsAddable(2,2,2,2,2)));
@@ -372,13 +413,9 @@ public class LevelFactory {
 
 
         AggressiveNPC agroNPC4 = new AggressiveNPC("Mons", new Stats(new BaseStatsAddable(2,2,2,2,2)));
-        rescue.getTile(new Coord(3,18)).addEntity(agroNPC3);
-        agroNPC3.setLocation(new Coord(3,18));
-        new AggressiveNPCControllerManager(rescue, agroNPC3);
-
-        CameraView camera1 = new PlainsCameraView();
-        camera1.init(rescue);
-        cameras.addCameraView(rescue, camera1);
+        rescue.getTile(new Coord(3,18)).addEntity(agroNPC4);
+        agroNPC4.setLocation(new Coord(3,18));
+        new AggressiveNPCControllerManager(rescue, agroNPC4);
 
     }
 
@@ -388,19 +425,17 @@ public class LevelFactory {
         Quest quest1_b = new DoDestroyObstacleQuest(new Coord(3,2));
         Quest quest1_a = new HasItemQuest(quest1_b, "Blue Potion");
         town.getTile(new Coord(4,2)).addInteractiveItem(new InteractiveItem(quest1_a, new Coord(4,2)));
-        //NPCS
 
         //CAMERAS
-        CameraView camera1 = new PlainsCameraView();
-        camera1.init(town);
-        cameras.addCameraView(town, camera1);
-        //***********************************END TOWN********************************************************88
+//        CameraView camera1 = new PlainsCameraView();
+//        camera1.init(town);
+//        cameras.addCameraView(town, camera1);
 
-
-
+        //NPCS
         NonAggressiveNPC Dan = new NonAggressiveNPC("Dan", new Stats( new BaseStatsAddable(0,0,0,10,20)));
-        town.getTile(new Coord(4,3)).addEntity(Dan);
+        town.getTile(new Coord(6,4)).addEntity(Dan);
         Dan.setLocation(new Coord(6,4));
+        Dan.setShirt("pink_shirt");
         new NonAggressiveNPCControllerManager(town, Dan, Direction.S, 1);
         TerminalDialogContainer saveFriend = new TerminalDialogContainer(Dan.getName());
         saveFriend.appendDialog("Cyclop's have kidnapped my beautiful wife! Please go rescue her!");
@@ -408,16 +443,35 @@ public class LevelFactory {
         Dan.setDialogContainer(saveFriend);
 
 
-        NonAggressiveNPC Bob = new NonAggressiveNPC("Bob", new Stats( new BaseStatsAddable(0,0,0,10,20)));
-        town.getTile(new Coord(2,1)).addEntity(Bob);
-        Bob.setLocation(new Coord(2,1));
-        new NonAggressiveNPCControllerManager(town, Bob, Direction.SE, 1);
+        NonAggressiveNPC Richie = new NonAggressiveNPC("Richie", new Stats( new BaseStatsAddable(0,0,0,10,20)));
+        town.getTile(new Coord(2,1)).addEntity(Richie);
+        Richie.setShirt("pink_shirt");
+        Richie.setLocation(new Coord(2,1));
+        Inventory RichieInventory = Richie.getInventory();
+        RichieInventory.addGold(new Gold(1000));
+        Potion p = new Potion("bluePotion", new GenericStatsAddable(10,10,10,10,10,10,10,10,10,0));
+        TwoHandedWeapon thw = new TwoHandedWeapon("Dragon 2H", new StrengthAddable(1),3);
+        thw.setValue(10000);
+        RichieInventory.addItem(thw);
+        OneHandedWeapon owh = new OneHandedWeapon("Dragon Dagger", new StrengthAddable(3),3);
+        owh.setValue(10000);
+        RichieInventory.addItem(owh);
+        Staff staff = new Staff("Dragon Staff", new IntellectAddable(5), 3);
+        staff.setValue(10000);
+        RichieInventory.addItem(staff);
+        Shuriken shuriken = new Shuriken("Dragon Shuriken", new AgilityAddable(3),3, WeaponClass.THROW);
+        shuriken.setValue(10000);
+        RichieInventory.addItem(shuriken);
+        TradeDialogContainer jerk = new TradeDialogContainer(Richie);
+        jerk.appendDialog("HueHueHue, you could never afford what I have");
+        Richie.setDialogContainer(jerk);
+        new NonAggressiveNPCControllerManager(town, Richie, Direction.SE, 1);
 
         NonAggressiveNPC BobSmith = new NonAggressiveNPC("BobSmith", new Stats( new BaseStatsAddable(0,0,0,10,20)));
         BobSmith.setShirt("brown_shirt");
         Inventory BobSmithInventoryInv = BobSmith.getInventory();
         BobSmithInventoryInv.addItem(new Bow("Bow", new AgilityAddable(1),2));
-        BobSmithInventoryInv.addItem(new OneHandedWeapon("Dagger", new StrengthAddable(1),2));
+        BobSmithInventoryInv.addItem(new OneHandedWeapon("Mystical Dagger", new StrengthAddable(1),2));
         BobSmithInventoryInv.addItem(new TwoHandedWeapon("Mystical 2H", new StrengthAddable(1),3));
         BobSmithInventoryInv.addGold(new Gold(100));
         town.getTile(new Coord(9,7)).addEntity(BobSmith);
@@ -433,10 +487,11 @@ public class LevelFactory {
         new PiggyControllerManager(Map.getInstance().getActiveMapArea(), piggy);
         Avatar.getInstance().initialSetPet(piggy);
 
-
         NonAggressiveNPC Pete = new NonAggressiveNPC("Pete", new Stats( new BaseStatsAddable(0,0,0,10,20)));
         Inventory PeteInventory = Pete.getInventory();
-        PeteInventory.addItem(new PiggyTotem("Piggy Totem", piggy));
+        PiggyTotem pt = new PiggyTotem("Piggy Totem", piggy);
+        pt.setValue(1);
+        PeteInventory.addItem(pt);
         PeteInventory.addGold(new Gold(30));
         town.getTile(new Coord(3,7)).addEntity(Pete);
         Pete.setLocation(new Coord(3,7));
@@ -461,215 +516,314 @@ public class LevelFactory {
 //        town.getTile(new Coord(5,2)).addTakeableItem(new TakeableItem("Rejuvination", new AbilityItem(hot), new Coord(5,2)));
     }
 
+
     public MapArea createSummonerArea(){
-        return null;
-    }
 
-    public void populateSummonerArea(){
+        MapArea summonerArea = new MapArea(20, 20);
+        summonerArea.setName("entity field");
 
-    }
-    public void createTestMap() {
-        this.cameras = new CameraViewManager();
-
-
-        //Area 1
-        int max = 20;
-        MapArea area1 = new MapArea(max,max);
-        area1.setName("area1");
-        for (int i=1;i<max-1;i++) {
-            for (int j=1;j<max-1;j++) {
-                boolean mountainFlag = false;
-                boolean waterFlag = false;
-                Coord c = new Coord(i, j);
-                Iterator<Coord> iter = HexMath.ring(new Coord(3,4), 2);
-                while (iter.hasNext()) {
-                    if (iter.next().equals(c)) {
-                        mountainFlag = true;
-                        break;
-                    }
-                }
-                Iterator<Coord> iter2 = HexMath.ring(new Coord(3,3), 1);
-                while (iter2.hasNext()) {
-                    if (iter2.next().equals(c)) {
-                        waterFlag = true;
-                        break;
-                    }
-                }
-                if (waterFlag) {
-                    area1.addTile(new Coord(i,j), new Tile(new Grass()));
-
-                } else {
-                    area1.addTile(new Coord(i, j), mountainFlag ? new Tile(new Mountain()) : new Tile(new Grass()));
-                }
+        for(int i = 1; i < 19; i++){
+            for(int j = 1; j < 19; j++){
+                summonerArea.addTile(new Coord(i, j), new Tile(new Grass()));
             }
         }
 
-
-
-        //Area 2
-        MapArea area2 = new MapArea(10,10);
-        area2.setName("area2");
-        for (int i=1;i<9;i++) {
-            for (int j = 1; j < 9; j++) {
-                area2.addTile(new Coord(i,j), new  Tile( j > 6 ? new Water() : new Grass()));
-            }
+        Iterator<Coord> lake = HexMath.hexagon(new Coord(12, 11), 2);
+        while(lake.hasNext()){
+            summonerArea.getTile(lake.next()).setTerrain(new Water());
         }
 
-        TeleportDestinationTile d1 = new TeleportDestinationTile(new Coord(1,2));
-        TeleportSenderTile s1 = new TeleportSenderTile(area1, d1);
-        area1.addTile(d1.getLocation(), d1);
-        area2.addTile(new Coord(1,1), s1);
-
-        TeleportDestinationTile d2 = new TeleportDestinationTile(new Coord(2,1));
-        TeleportSenderTile s2 = new TeleportSenderTile(area2, d2);
-        area2.addTile(d2.getLocation(), d2);
-
-        area1.getTile(new Coord(2,3)).addObstacle(new Obstacle(new Coord(2,3)));
-
-        area1.getTile(new Coord(6,6)).addAreaEffect(new TakeDamageAE(1));
-        area1.getTile(new Coord(6,7)).addAreaEffect(new HealDamageAE(1));
-        area1.getTile(new Coord(6,8)).addAreaEffect(new LevelUpAE(1));
-        area1.getTile(new Coord(6,9)).addAreaEffect(new InstantDeathAE());
-
-        //Test Trap:
-        area1.getTile(new Coord(6,5)).addTrap(new Trap(new Coord(6,5)));
+        summonerArea.getTile(new Coord(1,1)).setTerrain(new Mountain());
+        summonerArea.getTile(new Coord(1,2)).setTerrain(new Mountain());
+        summonerArea.getTile(new Coord(2,1)).setTerrain(new Mountain());
+        summonerArea.getTile(new Coord(2,2)).setTerrain(new Mountain());
+        summonerArea.getTile(new Coord(2,3)).setTerrain(new Mountain());
+        summonerArea.getTile(new Coord(1,3)).setTerrain(new Mountain());
+        summonerArea.getTile(new Coord(1,4)).setTerrain(new Mountain());
+        summonerArea.getTile(new Coord(3,1)).setTerrain(new Mountain());
 
 
-        area1.addTile(new Coord(1,1), s2);
-
-
-        MapArea[] areas = new MapArea[2];
-        areas[0] = area1;
-        areas[1] = area2;
-
-        this.map = Map.getInstance();
-        this.map.setMapAreas(areas);
-        this.map.setRespawnPoint(new Location(area1, new Coord(3,3)));
-        this.map.setActiveMapArea(area2);
-
-        this.spawnPoint = new Coord(2,1);
+        return summonerArea;
     }
 
-
-    public void populateTestMap() {
-        MapArea[] areas = Map.getInstance().getMapAreas();
-        MapArea area1 = areas[0];
-        MapArea area2 = areas[1];
-        area1.getTile(new Coord(5,5)).addOneShotItem(new OneShotItem(new Coord(5,5)));
-        area1.getTile(new Coord(5,5)).addGold(new Gold(1000000000,new Coord(5,5)));
-        area1.getTile(new Coord(5,6)).addGold(new Gold(10, new Coord(5,6)));
-        area1.getTile(new Coord(6,4)).addOneShotItem(new OneShotItem(new Coord(6,4)));
-        area1.getTile(new Coord(7,3)).addOneShotItem(new OneShotItem(new Coord(7,3)));
-        area1.getTile(new Coord(8,2)).addOneShotItem(new OneShotItem(new Coord(8,2)));
-        area1.getTile(new Coord(9,1)).addOneShotItem(new OneShotItem(new Coord(9,1)));
-        area1.getTile(new Coord(11,1)).addOneShotItem(new OneShotItem(new Coord(11,1)));
+    public void populateSummonerArea(MapArea summonerArea){
+        //AE
+        summonerArea.getTile(new Coord(3,2)).addAreaEffect(new LevelUpAE(5));
+        summonerArea.getTile(new Coord(4,1)).addAreaEffect(new LevelUpAE(5));
+        summonerArea.getTile(new Coord(4,2)).addAreaEffect(new LevelUpAE(5));
+        summonerArea.getTile(new Coord(5,1)).addAreaEffect(new LevelUpAE(5));
 
 
-        area2.getTile(new Coord(6,5)).addTakeableItem(new TakeableItem("Water Staff", new Staff("Water Staff", new IntellectAddable(5), 10), new Coord(6,5)));
-        area2.getTile(new Coord(6,7)).addTakeableItem(new TakeableItem("Obsidian Staff", new Staff("Obsidian Staff", new IntellectAddable(5), 10), new Coord(6,3)));
-        area2.getTile(new Coord(7,6)).addTakeableItem(new TakeableItem("Dragon Staff", new Staff("Dragon Staff", new IntellectAddable(5), 10), new Coord(7,6)));
-        area2.getTile(new Coord(3,3)).addTakeableItem(new TakeableItem("Bow", new Bow("Bow", new IntellectAddable(5), 10), new Coord(3,3)));
+        //ITEMS
+        summonerArea.getTile(new Coord(4,3)).addTakeableItem(new TakeableItem("Blue Potion", new Potion("Blue Potion",new BaseStatsAddable(10,0,0,0,0)), new Coord(4,3)));
+        summonerArea.getTile(new Coord(12,1)).addTakeableItem(new TakeableItem("Blue Potion", new Potion("Blue Potion",new BaseStatsAddable(10,0,0,0,0)), new Coord(12,1)));
+        summonerArea.getTile(new Coord(16,8)).addTakeableItem(new TakeableItem("Blue Potion", new Potion("Blue Potion",new BaseStatsAddable(10,0,0,0,0)), new Coord(16,8)));
 
 
-        area1.getTile(new Coord(2,2)).addTakeableItem(new TakeableItem("Red Potion", new Potion("Red Potion",new BaseStatsAddable(5,0,0,0,0)), new Coord(2,2)));
-        area1.getTile(new Coord(11,10)).addTakeableItem(new TakeableItem("Blue Potion", new Potion("Blue Potion",new BaseStatsAddable(0,0,5,0,0)), new Coord(11,10)));
-//        area2.getTile(new Coord(2,2)).addTakeableItem(new TakeableItem("redPotion", new Potion("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(2,2)));
+        summonerArea.getTile(new Coord(11,3)).addTakeableItem(new TakeableItem("Water Staff", new Staff("Water Staff", new IntellectAddable(5), 10), new Coord(11,3)));
+        summonerArea.getTile(new Coord(8,14)).addTakeableItem(new TakeableItem("Obsidian Staff", new Staff("Obsidian Staff", new IntellectAddable(5), 10), new Coord(8,14)));
+        summonerArea.getTile(new Coord(11,9)).addTakeableItem(new TakeableItem("Dragon Staff", new Staff("Dragon Staff", new IntellectAddable(5), 10), new Coord(11,9)));
 
 
-        area1.getTile(new Coord(9, 2)).addTakeableItem(new TakeableItem("Bow", new Bow("Bow", new AgilityAddable(3), 3), new Coord(9,2)));
 
-        Quest quest1_b = new DoDestroyObstacleQuest(new Coord(2,3));
-        Quest quest1_a = new HasItemQuest(quest1_b, "Blue Potion");
-        area1.getTile(new Coord(2,2)).addInteractiveItem(new InteractiveItem(quest1_a, new Coord(2,2)));
+        //NPCS
+        AggressiveNPC npc1 = new AggressiveNPC("npc1", new Stats( new BaseStatsAddable(5,0,0,0,30)));
+        summonerArea.getTile(new Coord(18,1)).addEntity(npc1);
+        npc1.setLocation(new Coord(18,1));
+        npc1.equip(new TwoHandedWeapon("Iron 2H", new StrengthAddable(1), 1));
+        ExplosionAbility explosionAbility = AbilityFactory.getInstance().createExplosionAbility(Avatar.getInstance(), 10, 3, 8, 15);
+        npc1.getInventory().addItem(new AbilityItem(explosionAbility));
+        new AggressiveNPCControllerManager(summonerArea, npc1);
 
-        CameraView camera2 = new PlainsCameraView();
-        CameraView camera1 = new PlainsCameraView();
-//
-        Potion p = new Potion("Red Potion", new CurrentHealthAddable(20));
-        p.setValue(100000);
-//        Piggy testPiggy = new Piggy("Bart", new Stats(new MovementAddable(30)));
-//        testPiggy.getInventory().addItem(p);
-//        testPiggy.getInventory().addItem(p);
-//        testPiggy.getInventory().addItem(p);
-//        testPiggy.getInventory().addItem(p);
-//        testPiggy.setFacingDirection(Direction.S);
-//        testPiggy.getStats().add(new BonusHealthAddable(100));
-////        testPiggy.getStats().setCurrentHealth(0);
-//        Map.getInstance().addEntity(new Coord(3,5), testPiggy);
-//        testPiggy.baddOOReceiveGoldForTesting(new Gold(100, new Coord()));
-//        new PiggyControllerManager(Map.getInstance().getActiveMapArea(), testPiggy);
-
-//        Avatar.getInstance().setPet(testPiggy);
-
-//        TakeableItem piggyTotem = new TakeableItem("Piggy Totem", new PiggyTotem("Piggy Totem", testPiggy), new Coord(2,2));
-
-        FireBallAbility fireBallAbility = AbilityFactory.getInstance().createFireBallAbility(Avatar.getInstance());
-        fireBallAbility.setItemName("Fire Ball");
-        area1.getTile(new Coord(3,3)).addTakeableItem(new TakeableItem("Fire Ball", new AbilityItem(fireBallAbility), new Coord(3,3)));
-
-        SelfBuffAbility hot = AbilityFactory.getInstance().createHealOverTime(Avatar.getInstance());
-
-        SelfBuffAbility roids = AbilityFactory.getInstance().createDamageBoost(Avatar.getInstance());
-        roids.setItemName("Roids");
-
-        area1.getTile(new Coord(7,7)).addTakeableItem(new TakeableItem("Roids", new AbilityItem(roids), new Coord(7,7)));
+        AggressiveNPC npc2 = new AggressiveNPC("npc2", new Stats( new BaseStatsAddable(5,0,0,0,30)));
+        summonerArea.getTile(new Coord(4,12)).addEntity(npc2);
+        npc2.equip(new TwoHandedWeapon("Iron 2H", new StrengthAddable(1), 1));
+        npc2.setLocation(new Coord(4,12));
+        new NonAggressiveNPCControllerManager(summonerArea, npc2, Direction.S, 1);
 
 
-//        testPiggy.setPiggyTotem(piggyTotem);
-
-        TakeableItem katarTakeeable = new TakeableItem("Katar", new Knuckle("Katar", new StrengthAddable(5), 10), new Coord(8,8));
-
-        area1.getTile(new Coord(8,8)).addTakeableItem(katarTakeeable);
-
-        //dialog test on piggy
+        AggressiveNPC npc3 = new AggressiveNPC("npc3", new Stats( new BaseStatsAddable(5,0,0,0,30)));
+        summonerArea.getTile(new Coord(3,16)).addEntity(npc3);
+        npc3.equip(new TwoHandedWeapon("Iron 2H", new StrengthAddable(1), 1));
+        npc3.setLocation(new Coord(3,16));
+        new NonAggressiveNPCControllerManager(summonerArea, npc3, Direction.N, 1);
 
 
-        camera2.init(area2);
-        camera1.init(area1);
+        AggressiveNPC npc4 = new AggressiveNPC("npc4", new Stats( new BaseStatsAddable(5,0,0,0,30)));
+        summonerArea.getTile(new Coord(17,17)).addEntity(npc4);
+        npc4.setLocation(new Coord(17,17));
+        npc4.equip(new TwoHandedWeapon("dagger", new StrengthAddable(1), 1));
+        new AggressiveNPCControllerManager(summonerArea, npc4);
 
-
-        camera1.addDecal(new Coord(3, 3), "resources/decals/Hydrangeas_fast.xml");
-        camera2.addDecal(new Coord(3, 3), "resources/decals/Hydrangeas_fast.xml");
-        camera2.addDecal(new Coord(4,4), "resources/decals/Hydrangeas_med.xml");
-//        camera2.addDecal(new Coord(5,5), "resources/decals/Hydrangeas_slow.xml");
-        camera2.addDecal(new Coord(5,5), "resources/decals/Roses_slow.xml");
-
-
-        TemporaryVOCreationVisitor.getInstance().setActiveCameraView(camera2);
 
         NonAggressiveNPC testNPC = new NonAggressiveNPC("greg", new Stats( new BaseStatsAddable(0,0,0,10,20)));
-        area2.getTile(new Coord(5,5)).addEntity(testNPC);
-        testNPC.setLocation(new Coord(5,5));
-        new NonAggressiveNPCControllerManager(area2, testNPC, Direction.S, 2);
+        summonerArea.getTile(new Coord(8,3)).addEntity(testNPC);
+        testNPC.setLocation(new Coord(8,3));
+        new NonAggressiveNPCControllerManager(summonerArea, testNPC, Direction.S, 1);
+
+        /*
+        NonAggressiveNPC testNPC2 = new NonAggressiveNPC("Bob", new Stats( new BaseStatsAddable(0,0,0,10,20)));
+        summonerArea.getTile(new Coord(2,1)).addEntity(testNPC2);
+        testNPC2.setLocation(new Coord(2,1));
+        new NonAggressiveNPCControllerManager(summonerArea, testNPC, Direction.S);
+        */
+
+
+        //ABILITIES TODO
+        //NPC fall asleep, flame thrower, explosion
+        //summonerArea.getTile(new Coord(8,5)).addTakeableItem(new TakeableItem("Fire Ball", new AbilityItem(fireBallAbility), new Coord(3,3)));
+
+
+
+
+
+    }
+
+
+
+
+//    public void createTestMap() {
+//        this.cameras = new CameraViewManager();
+//
+//
+//        //Area 1
+//        int max = 20;
+//        MapArea area1 = new MapArea(max,max);
+//        area1.setName("area1");
+//        for (int i=1;i<max-1;i++) {
+//            for (int j=1;j<max-1;j++) {
+//                boolean mountainFlag = false;
+//                boolean waterFlag = false;
+//                Coord c = new Coord(i, j);
+//                Iterator<Coord> iter = HexMath.ring(new Coord(3,4), 2);
+//                while (iter.hasNext()) {
+//                    if (iter.next().equals(c)) {
+//                        mountainFlag = true;
+//                        break;
+//                    }
+//                }
+//                Iterator<Coord> iter2 = HexMath.ring(new Coord(3,3), 1);
+//                while (iter2.hasNext()) {
+//                    if (iter2.next().equals(c)) {
+//                        waterFlag = true;
+//                        break;
+//                    }
+//                }
+//                if (waterFlag) {
+//                    area1.addTile(new Coord(i,j), new Tile(new Grass()));
+//
+//                } else {
+//                    area1.addTile(new Coord(i, j), mountainFlag ? new Tile(new Mountain()) : new Tile(new Grass()));
+//                }
+//            }
+//        }
+//
+//
+//
+//        //Area 2
+//        MapArea area2 = new MapArea(10,10);
+//        area2.setName("area2");
+//        for (int i=1;i<9;i++) {
+//            for (int j = 1; j < 9; j++) {
+//                area2.addTile(new Coord(i,j), new  Tile( j > 6 ? new Water() : new Grass()));
+//            }
+//        }
+//
+//        TeleportDestinationTile d1 = new TeleportDestinationTile(new Coord(1,2));
+//        TeleportSenderTile s1 = new TeleportSenderTile(area1, d1);
+//        area1.addTile(d1.getLocation(), d1);
+//        area2.addTile(new Coord(1,1), s1);
+//
+//        TeleportDestinationTile d2 = new TeleportDestinationTile(new Coord(2,1));
+//        TeleportSenderTile s2 = new TeleportSenderTile(area2, d2);
+//        area2.addTile(d2.getLocation(), d2);
+//
+//        area1.getTile(new Coord(2,3)).addObstacle(new Obstacle(new Coord(2,3)));
+//
+//        area1.getTile(new Coord(6,6)).addAreaEffect(new TakeDamageAE(1));
+//        area1.getTile(new Coord(6,7)).addAreaEffect(new HealDamageAE(1));
+//        area1.getTile(new Coord(6,8)).addAreaEffect(new LevelUpAE(1));
+//        area1.getTile(new Coord(6,9)).addAreaEffect(new InstantDeathAE());
+//
+//        //Test Trap:
+//        area1.getTile(new Coord(6,5)).addTrap(new Trap(new Coord(6,5)));
+//
+//
+//        area1.addTile(new Coord(1,1), s2);
+//
+//
+//        MapArea[] areas = new MapArea[2];
+//        areas[0] = area1;
+//        areas[1] = area2;
+//
+//        this.map = Map.getInstance();
+//        this.map.setMapAreas(areas);
+//        this.map.setRespawnPoint(new Location(area1, new Coord(3,3)));
+//        this.map.setActiveMapArea(area2);
+//
+//        this.spawnPoint = new Coord(2,1);
+//    }
+//
+//
+//    public void populateTestMap() {
+//        MapArea[] areas = Map.getInstance().getMapAreas();
+//        MapArea area1 = areas[0];
+//        MapArea area2 = areas[1];
+//        area1.getTile(new Coord(5,5)).addOneShotItem(new OneShotItem(new Coord(5,5)));
+//        area1.getTile(new Coord(5,5)).addGold(new Gold(1000000000,new Coord(5,5)));
+//        area1.getTile(new Coord(5,6)).addGold(new Gold(10, new Coord(5,6)));
+//        area1.getTile(new Coord(6,4)).addOneShotItem(new OneShotItem(new Coord(6,4)));
+//        area1.getTile(new Coord(7,3)).addOneShotItem(new OneShotItem(new Coord(7,3)));
+//        area1.getTile(new Coord(8,2)).addOneShotItem(new OneShotItem(new Coord(8,2)));
+//        area1.getTile(new Coord(9,1)).addOneShotItem(new OneShotItem(new Coord(9,1)));
+//        area1.getTile(new Coord(11,1)).addOneShotItem(new OneShotItem(new Coord(11,1)));
+//
+//
+//        area2.getTile(new Coord(6,5)).addTakeableItem(new TakeableItem("Water Staff", new Staff("Water Staff", new IntellectAddable(5), 10), new Coord(6,5)));
+//        area2.getTile(new Coord(6,7)).addTakeableItem(new TakeableItem("Obsidian Staff", new Staff("Obsidian Staff", new IntellectAddable(5), 10), new Coord(6,3)));
+//        area2.getTile(new Coord(7,6)).addTakeableItem(new TakeableItem("Dragon Staff", new Staff("Dragon Staff", new IntellectAddable(5), 10), new Coord(7,6)));
+//        area2.getTile(new Coord(3,3)).addTakeableItem(new TakeableItem("Bow", new Bow("Bow", new IntellectAddable(5), 10), new Coord(3,3)));
+//
+//
+//        area1.getTile(new Coord(2,2)).addTakeableItem(new TakeableItem("Red Potion", new Potion("Red Potion",new BaseStatsAddable(5,0,0,0,0)), new Coord(2,2)));
+//        area1.getTile(new Coord(11,10)).addTakeableItem(new TakeableItem("Blue Potion", new Potion("Blue Potion",new BaseStatsAddable(0,0,5,0,0)), new Coord(11,10)));
+////        area2.getTile(new Coord(2,2)).addTakeableItem(new TakeableItem("redPotion", new Potion("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(2,2)));
+//
+//
+//        area1.getTile(new Coord(9, 2)).addTakeableItem(new TakeableItem("Bow", new Bow("Bow", new AgilityAddable(3), 3), new Coord(9,2)));
+//
+//        Quest quest1_b = new DoDestroyObstacleQuest(new Coord(2,3));
+//        Quest quest1_a = new HasItemQuest(quest1_b, "Blue Potion");
+//        area1.getTile(new Coord(2,2)).addInteractiveItem(new InteractiveItem(quest1_a, new Coord(2,2)));
+//
+//        CameraView camera2 = new PlainsCameraView();
+//        CameraView camera1 = new PlainsCameraView();
+////
+//        Potion p = new Potion("Red Potion", new CurrentHealthAddable(20));
+//        p.setValue(100000);
+////        Piggy testPiggy = new Piggy("Bart", new Stats(new MovementAddable(30)));
+////        testPiggy.getInventory().addItem(p);
+////        testPiggy.getInventory().addItem(p);
+////        testPiggy.getInventory().addItem(p);
+////        testPiggy.getInventory().addItem(p);
+////        testPiggy.setFacingDirection(Direction.S);
+////        testPiggy.getStats().add(new BonusHealthAddable(100));
+//////        testPiggy.getStats().setCurrentHealth(0);
+////        Map.getInstance().addEntity(new Coord(3,5), testPiggy);
+////        testPiggy.baddOOReceiveGoldForTesting(new Gold(100, new Coord()));
+////        new PiggyControllerManager(Map.getInstance().getActiveMapArea(), testPiggy);
+//
+////        Avatar.getInstance().setPet(testPiggy);
+//
+////        TakeableItem piggyTotem = new TakeableItem("Piggy Totem", new PiggyTotem("Piggy Totem", testPiggy), new Coord(2,2));
+//
+//        FireBallAbility fireBallAbility = AbilityFactory.getInstance().createFireBallAbility(Avatar.getInstance());
+//        fireBallAbility.setItemName("Fire Ball");
+//        area1.getTile(new Coord(3,3)).addTakeableItem(new TakeableItem("Fire Ball", new AbilityItem(fireBallAbility), new Coord(3,3)));
+//
+//        SelfBuffAbility hot = AbilityFactory.getInstance().createHealOverTime(Avatar.getInstance());
+//
+//        SelfBuffAbility roids = AbilityFactory.getInstance().createDamageBoost(Avatar.getInstance());
+//        roids.setItemName("Roids");
+//
+//        area1.getTile(new Coord(7,7)).addTakeableItem(new TakeableItem("Roids", new AbilityItem(roids), new Coord(7,7)));
+//
+//
+////        testPiggy.setPiggyTotem(piggyTotem);
+//
+//        TakeableItem katarTakeeable = new TakeableItem("Katar", new Knuckle("Katar", new StrengthAddable(5), 10), new Coord(8,8));
+//
+//        area1.getTile(new Coord(8,8)).addTakeableItem(katarTakeeable);
+//
+//        //dialog test on piggy
+//
+//
+//        camera2.init(area2);
+//        camera1.init(area1);
+//
+//
+//        camera1.addDecal(new Coord(3, 3), "resources/decals/Hydrangeas_fast.xml");
+//        camera2.addDecal(new Coord(3, 3), "resources/decals/Hydrangeas_fast.xml");
+//        camera2.addDecal(new Coord(4,4), "resources/decals/Hydrangeas_med.xml");
+////        camera2.addDecal(new Coord(5,5), "resources/decals/Hydrangeas_slow.xml");
+//        camera2.addDecal(new Coord(5,5), "resources/decals/Roses_slow.xml");
+//
+//
+//        TemporaryVOCreationVisitor.getInstance().setActiveCameraView(camera2);
 //
 //        NonAggressiveNPC testNPC = new NonAggressiveNPC("greg", new Stats( new BaseStatsAddable(0,0,0,10,20)));
 //        area2.getTile(new Coord(5,5)).addEntity(testNPC);
 //        testNPC.setLocation(new Coord(5,5));
-//        new NonAggressiveNPCControllerManager(area2, testNPC, Direction.S);
-
-
-
-        //stuff to test enemy controllers
-
-//        AggressiveNPC testEnemy =  new AggressiveNPC("xXOG_SwaG_LorD_BlazE_MasteR_420_Xx", new Stats(new BaseStatsAddable(0,0,0,15,30)));
-////        testEnemy.getInventory().addItem(p);
-////        testEnemy.getInventory().addItem(p);
-////        testEnemy.getInventory().addItem(p);
-////        testEnemy.getInventory().addItem(p);
-////        testEnemy.getInventory().addItem(p);
-//        area2.getTile(new Coord(3,3)).addEntity(testEnemy);
-//        testEnemy.setLocation(new Coord(3,3));
-//        testEnemy.equip(new TwoHandedWeapon("Iron 2H", new StrengthAddable(1), 1));
+//        new NonAggressiveNPCControllerManager(area2, testNPC, Direction.S, 2);
+////
+////        NonAggressiveNPC testNPC = new NonAggressiveNPC("greg", new Stats( new BaseStatsAddable(0,0,0,10,20)));
+////        area2.getTile(new Coord(5,5)).addEntity(testNPC);
+////        testNPC.setLocation(new Coord(5,5));
+////        new NonAggressiveNPCControllerManager(area2, testNPC, Direction.S);
 //
-//        //testEnemy.accept(TemporaryVOCreationVisitor.getInstance());
-//        new AggressiveNPCControllerManager(area2, testEnemy);
-//        testEnemy.setShirt("pink_shirt");
-//        testEnemy.getStats().subtract(new CurrentHealthAddable(1));
-        camera1.addDecal(new Coord(2,2), "resources/terrain/cracked_sand.xml" );
-        camera2.addDecal(new Coord(2,2), "resources/terrain/cracked_sand.xml" );
-
-//        map.getActiveMapArea().getTile(spawnPoint).addEntity(Avatar.getInstance());
-        cameras.addCameraView(area2, camera2);
-        cameras.addCameraView(area1, camera1);
-    }
+//
+//
+//        //stuff to test enemy controllers
+//
+////        AggressiveNPC testEnemy =  new AggressiveNPC("xXOG_SwaG_LorD_BlazE_MasteR_420_Xx", new Stats(new BaseStatsAddable(0,0,0,15,30)));
+//////        testEnemy.getInventory().addItem(p);
+//////        testEnemy.getInventory().addItem(p);
+//////        testEnemy.getInventory().addItem(p);
+//////        testEnemy.getInventory().addItem(p);
+//////        testEnemy.getInventory().addItem(p);
+////        area2.getTile(new Coord(3,3)).addEntity(testEnemy);
+////        testEnemy.setLocation(new Coord(3,3));
+////        testEnemy.equip(new TwoHandedWeapon("Iron 2H", new StrengthAddable(1), 1));
+////
+////        //testEnemy.accept(TemporaryVOCreationVisitor.getInstance());
+////        new AggressiveNPCControllerManager(area2, testEnemy);
+////        testEnemy.setShirt("pink_shirt");
+////        testEnemy.getStats().subtract(new CurrentHealthAddable(1));
+//        camera1.addDecal(new Coord(2,2), "resources/terrain/cracked_sand.xml" );
+//        camera2.addDecal(new Coord(2,2), "resources/terrain/cracked_sand.xml" );
+//
+////        map.getActiveMapArea().getTile(spawnPoint).addEntity(Avatar.getInstance());
+//        cameras.addCameraView(area2, camera2);
+//        cameras.addCameraView(area1, camera1);
+//    }
 }

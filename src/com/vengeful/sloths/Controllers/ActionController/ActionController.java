@@ -70,35 +70,38 @@ public abstract class ActionController implements TargetVisitor {
         parentMap.put(entity.getLocation(), null);
 
         while(!queue.isEmpty()){
-            Coord currCoord = queue.remove();
-            visited.add(currCoord);
-            //System.out.println("Comparing R's: " + currCoord.getR() + "=" + targetCoord.getR() + " and S's: " + currCoord.getS() + "=" + targetCoord.getS());
-            if(currCoord.equals(targetCoord)){
-                //we found the thing
-                Coord prev = null;
-                Coord curr = currCoord;
 
-                while(!curr.equals(entity.getLocation())) {
-                    prev = curr;
-                    curr = parentMap.get(curr);
-                }
-                return HexMath.getCoordDirection(entity.getLocation(), prev);
-            }
-            iter = HexMath.sortedRing(currCoord,1);
-            while(iter.hasNext()){
-                Coord tmpCoord = iter.next();
-                try {
-                    map.getTile(tmpCoord).accept(canMoveVisitor);
-                    if ((canMoveVisitor.canMove() && !visited.contains(tmpCoord)) || tmpCoord.equals(targetCoord)) {
-                        if(!parentMap.containsKey(tmpCoord)) {
-                            queue.add(tmpCoord);
-                        }
-                        if(!parentMap.containsKey(tmpCoord)) {
-                            parentMap.put(tmpCoord, currCoord);
-                        }
+            Coord currCoord = queue.remove();
+            if(!visited.contains(currCoord)) {
+                visited.add(currCoord);
+                //System.out.println("Comparing R's: " + currCoord.getR() + "=" + targetCoord.getR() + " and S's: " + currCoord.getS() + "=" + targetCoord.getS());
+                if (currCoord.equals(targetCoord)) {
+                    //we found the thing
+                    Coord prev = null;
+                    Coord curr = currCoord;
+
+                    while (!curr.equals(entity.getLocation())) {
+                        prev = curr;
+                        curr = parentMap.get(curr);
                     }
-                }catch(Exception e){
-                    //System.out.println("out of map bounds");
+                    return HexMath.getCoordDirection(entity.getLocation(), prev);
+                }
+                iter = HexMath.sortedRing(currCoord, 1);
+                while (iter.hasNext()) {
+                    Coord tmpCoord = iter.next();
+                    try {
+                        map.getTile(tmpCoord).accept(canMoveVisitor);
+                        if ((canMoveVisitor.canMove() && !visited.contains(tmpCoord)) || tmpCoord.equals(targetCoord)) {
+                            if (!parentMap.containsKey(tmpCoord)) {
+                                queue.add(tmpCoord);
+                            }
+                            if (!parentMap.containsKey(tmpCoord)) {
+                                parentMap.put(tmpCoord, currCoord);
+                            }
+                        }
+                    } catch (Exception e) {
+                        //System.out.println("out of map bounds");
+                    }
                 }
             }
         }

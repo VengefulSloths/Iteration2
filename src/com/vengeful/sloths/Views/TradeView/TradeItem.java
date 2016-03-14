@@ -25,6 +25,7 @@ public class TradeItem extends ItemViewObject {
         g2d.setColor(new Color(0f,0f,0f,.4f));
         //g2d.fillRect(x + 10,y + height/2,width - 20,height/2);
         g2d.setColor(Color.WHITE);
+        g2d.setFont(new Font("Helvetica",1,15));
         g2d.drawString("" + value, x +10, y + height);
     }
 }

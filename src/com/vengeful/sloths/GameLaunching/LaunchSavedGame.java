@@ -32,7 +32,8 @@ public class LaunchSavedGame implements LaunchGameHelper {
 
     public LaunchSavedGame(String saveFile){
         this.levelFactory = new LevelFactory();
-        levelFactory.init("test");
+        cameras = new CameraViewManager();
+        levelFactory.init("demo");
         fileName = saveFile +".xml";
     }
 
@@ -44,13 +45,19 @@ public class LaunchSavedGame implements LaunchGameHelper {
             MapArea[] mapAreas = Map.getInstance().getMapAreas();
             l.loadAreas(mapAreas);
 //            Avatar.getInstance().getLocation()
-            CameraView camera2 = new PlainsCameraView();
             CameraView camera1 = new PlainsCameraView();
-            camera2.init(mapAreas[1]);
+            CameraView camera2 = new PlainsCameraView();
+            CameraView camera3 = new PlainsCameraView();
+            CameraView camera4=  new PlainsCameraView();
             camera1.init(mapAreas[0]);
-            cameras = new CameraViewManager();
-            cameras.addCameraView(mapAreas[1], camera2);
+            camera2.init(mapAreas[1]);
+            camera3.init(mapAreas[2]);
+            camera4.init(mapAreas[3]);
+//            cameras = new CameraViewManager();
             cameras.addCameraView(mapAreas[0], camera1);
+            cameras.addCameraView(mapAreas[1], camera2);
+            cameras.addCameraView(mapAreas[2], camera3);
+            cameras.addCameraView(mapAreas[3], camera4);
 
         } catch (ParserConfigurationException e) {
             System.out.println("error with parser when creating loader");
@@ -111,4 +118,7 @@ public class LaunchSavedGame implements LaunchGameHelper {
     public CameraViewManager getCameras() {
         return cameras;
     }
+//    public CameraViewManager getCameras(){
+//        return this.getCameras();
+//    }
 }

@@ -15,6 +15,9 @@ public class NonAggressiveNPC extends NPC{
     public NonAggressiveNPC(String name, Stats stats){
         super(name, stats);
     }
+    public NonAggressiveNPC(){
+
+    }
 
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitNonAggressiveNPC(this);

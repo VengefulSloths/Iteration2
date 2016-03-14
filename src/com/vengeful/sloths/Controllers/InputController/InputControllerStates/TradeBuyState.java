@@ -87,9 +87,9 @@ public class TradeBuyState  extends InventoryControllerState{
         if(inventory.getCurrentSize() > 0){
             //MainController.getInstance().getPlayer().drop(inventory.getItem(0)); //edit: think this was working before
 
-            System.out.println("About to dorp item: " + this.inventoryView.getCurrentItem().getItemName());
-            MainController.getInstance().getPlayer().drop(this.inventoryView.getCurrentItem());
-            this.inventoryView.dropViewItem();
+//            System.out.println("About to dorp item: " + this.inventoryView.getCurrentItem().getItemName());
+//            MainController.getInstance().getPlayer().drop(this.inventoryView.getCurrentItem());
+//            this.inventoryView.dropViewItem();
             return true;
         }else{
             System.out.println("Nothing in inventory");
@@ -144,8 +144,13 @@ public class TradeBuyState  extends InventoryControllerState{
     @Override
     public boolean handleNorthEastKey() {
 //        this.inventoryView.useCurrentlySelectedItem();
-        InventoryItem item = this.inventoryView.getCurrentItem();
-        new AvatarBuyCommand(this.inventoryView.getInventory(), item).execute();
+        if(this.inventoryView.getCurrentItem() != null) {
+            InventoryItem item = this.inventoryView.getCurrentItem();
+
+            if(new AvatarBuyCommand(this.inventoryView.getInventory(), item).execute()){
+                this.inventoryView.dropViewItem();
+            }
+        }
         return true;
 
     }

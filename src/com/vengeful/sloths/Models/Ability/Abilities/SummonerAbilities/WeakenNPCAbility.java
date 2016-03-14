@@ -32,7 +32,7 @@ public class WeakenNPCAbility extends Ability{
     private int coolDownTicks;
 
     public WeakenNPCAbility(Entity entity, int windupTicks, int coolDownTicks){
-        super("Pacify", windupTicks, coolDownTicks);
+        super("Weaken", windupTicks, coolDownTicks);
         this.entity = entity;
         this.windupTicks = windupTicks;
         this.coolDownTicks = coolDownTicks;

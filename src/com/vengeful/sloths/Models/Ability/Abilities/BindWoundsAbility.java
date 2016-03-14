@@ -63,7 +63,7 @@ public class BindWoundsAbility extends Ability {
         int skillLevel = this.skillManager.getBindWoundsLevel();
         int health = skillLevel * 2;
 
-        this.entity.gainHealth(health);
+        this.entity.takeDamage(-health);
     }
 
     public void accept(ModelVisitor sv){

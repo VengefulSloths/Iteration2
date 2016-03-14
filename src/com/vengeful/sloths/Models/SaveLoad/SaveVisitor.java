@@ -601,7 +601,7 @@ public class SaveVisitor implements ModelVisitor {
         ptElement.setAttribute("itemName", piggyTotem.getItemName());
         ptElement.setAttribute("value", piggyTotem.getValue() + "");
         piggyTotem.getPig().accept(this);
-        if(currentParent.peek().equals(ptElement)){
+        if(!currentParent.peek().equals(ptElement)){
             System.out.println("error saving piggy totem");
         }
         currentParent.pop();
@@ -655,18 +655,22 @@ public class SaveVisitor implements ModelVisitor {
     @Override
     public void visitTradeDialogueContainer(TradeDialogContainer tradeDialogContainer) {
         Element tdcElement = doc.createElement("TradeDialogueContainer");
+        currentParent.peek().appendChild(tdcElement);
         String[] dialog = tradeDialogContainer.getDialog();
+        int i = 0;
         for(String d : dialog){
-            tdcElement.setAttribute("dialog", d);
+            tdcElement.setAttribute("dialog" + i++, d);
         }
     }
 
     @Override
     public void visitTerminalDialogueContainer(TerminalDialogContainer terminalDialogContainer) {
         Element tdcElement = doc.createElement("TerminalDialogContainer");
+        currentParent.peek().appendChild(tdcElement);
         String[] dialog = terminalDialogContainer.getDialog();
+        int i = 0;
         for(String d : dialog){
-            tdcElement.setAttribute("dialog", d);
+            tdcElement.setAttribute("dialog" + i++, d);
         }
     }
 
@@ -695,7 +699,7 @@ public class SaveVisitor implements ModelVisitor {
 
     @Override
     public void visitSmasher(Smasher s) {
-        Element occElement = doc.createElement("Sneak");
+        Element occElement = doc.createElement("Smasher");
         currentParent.peek().appendChild(occElement);
         //right now occupation doesn't hold anything add additional save logic here when it does
     }

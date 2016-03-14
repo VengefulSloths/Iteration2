@@ -245,6 +245,10 @@ public class InventoryView extends View implements InventoryObserver {
         //do nothing
     }
 
+    public int getIndex(){
+        return this.inventoryIndex;
+    }
+
     protected String getInvLabel() {
         return "Inventory";
     }
@@ -293,6 +297,13 @@ public class InventoryView extends View implements InventoryObserver {
 
     public void dropViewItem(){
         itemList.remove(inventoryIndex);
+    }
+    public void dropViewItem(int index){
+        try {
+            itemList.remove(index);
+        }catch (IndexOutOfBoundsException e){
+            System.out.println("oh boy!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        }
     }
     public int getItemListSize(){
         return this.itemList.size();

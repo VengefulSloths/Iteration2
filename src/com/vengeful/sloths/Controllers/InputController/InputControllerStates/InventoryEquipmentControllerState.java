@@ -20,6 +20,10 @@ public class InventoryEquipmentControllerState extends InputControllerState {
     private InventoryControllerState inventoryControllerState;
     private EquipmentControllerState equipmentControllerState;
 
+    public InventoryControllerState getInventoryControllerState() {
+        return inventoryControllerState;
+    }
+
     public InventoryEquipmentControllerState() {
         possibleStates = new ArrayList<>();
 

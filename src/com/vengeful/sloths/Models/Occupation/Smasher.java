@@ -17,7 +17,7 @@ import com.vengeful.sloths.Models.Stats.Stats;
 public class Smasher extends Occupation {
 
     public Smasher(Stats stats, SkillManager skillManager, AbilityManager abilityManager, Entity entity) {
-        stats.add(new BaseStatsAddable(10, 0, 0, 0, 0));
+        stats.add(new BaseStatsAddable(10, 1, 1, 5, 0));
         this.addSharedSkills(skillManager);
         skillManager.addSkill(new Skill("one-handed weapon"));
         skillManager.addSkill(new Skill("two-handed weapon"));

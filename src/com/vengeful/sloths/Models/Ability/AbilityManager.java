@@ -2,7 +2,9 @@ package com.vengeful.sloths.Models.Ability;
 
 import com.vengeful.sloths.Models.Ability.Abilities.NullAbility;
 import com.vengeful.sloths.Models.Ability.Hooks.Hook;
+import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.Entity;
+import com.vengeful.sloths.Models.EntityMapInteractionCommands.WaterAndLandMoveVisitor;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Observers.AbilityManagerObserver;

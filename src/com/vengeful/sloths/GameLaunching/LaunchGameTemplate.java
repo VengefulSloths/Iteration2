@@ -61,6 +61,8 @@ public class LaunchGameTemplate {
          * AVATAR STARTING INVENTORY
          */
         avatar.getInventory().addGold(new Gold(100));
+        Potion p = new Potion("Blue Potion", new StrengthAddable(5));
+//        avatar.getInventory().addItem(p);
         avatar.equip(new Mount("Hover", 10));
 
         //************************END AVATAR STARING INVENTORY
@@ -117,44 +119,67 @@ public class LaunchGameTemplate {
 
     public void launchLoaded(){
         map = helper.createMap();
-        helper.populateMap();
         cameras = helper.createCameras();
+        helper.populateMap();
         avatar = Avatar.getInstance();
         initSingletons();
+//        AreaView areaView = new AreaView(cameras);
+//        //ViewManager vm = new ViewManager();
+//        HUDView hv = new HUDView(Config.instance().getHUDViewWidth(), Config.instance().getHUDViewHeight());
+//        GridInventoryView giv = new GridInventoryView(avatar.getInventory());
+//        GridAbilitiesView gridAbilitiesView = new GridAbilitiesView(avatar.getAbilityManager());
+//        EquipmentView ev = new EquipmentView(avatar.getEquipped());
+//        StatsView sv = new StatsView(avatar.getStats());
+//        //ViewManager vm = new ViewManager(areaView, hv);
+//        CharacterView cv = new CharacterView(giv, ev, sv);
+//        EquippedAbilitiesView equippedAbilitiesView = new EquippedAbilitiesView(avatar.getAbilityManager());
+//        SkillsView skillsView = new SkillsView(avatar.getSkillManager());
+//        AbilitiesSkillView abilitiesSkillView = new AbilitiesSkillView(gridAbilitiesView, equippedAbilitiesView, skillsView);
+//        ViewManager vm = new ViewManager(areaView, hv, cv);
+//        vm.setAbilitiesSkillView(abilitiesSkillView);
+//
+//        //ViewEngine viewEngine = new ViewEngine(areaView);
+//        ViewEngine viewEngine = ViewEngine.getInstance();
+//        viewEngine.registerView(vm);
+//
+//
+//        //viewEngine.registerView(cv);
+//
+//
+//        //ViewEngine viewEngine = new ViewEngine(areaView);
+//        //ViewEngine viewEngine = ViewEngine.getInstance();
+//        //viewEngine.killOldView();
+//        //viewEngine.registerView(areaView);
+//
+//        //ModelEngine modelEngine = new ModelEngine();
+//        ModelEngine modelEngine = ModelEngine.getInstance();
+//        MainController controller = MainController.getInstance();
+//        controller.init(vm);
+//        controller.setAvatarControllerState();
+//
+//        modelEngine.start();
+
         AreaView areaView = new AreaView(cameras);
-        //ViewManager vm = new ViewManager();
+        //above line is what fails to find xmls..doesn't do this when starting a new game...
         HUDView hv = new HUDView(Config.instance().getHUDViewWidth(), Config.instance().getHUDViewHeight());
         GridInventoryView giv = new GridInventoryView(avatar.getInventory());
-        GridAbilitiesView gridAbilitiesView = new GridAbilitiesView(avatar.getAbilityManager());
+
         EquipmentView ev = new EquipmentView(avatar.getEquipped());
         StatsView sv = new StatsView(avatar.getStats());
-        //ViewManager vm = new ViewManager(areaView, hv);
         CharacterView cv = new CharacterView(giv, ev, sv);
+        GridAbilitiesView gav = new GridAbilitiesView(avatar.getAbilityManager());
         EquippedAbilitiesView equippedAbilitiesView = new EquippedAbilitiesView(avatar.getAbilityManager());
         SkillsView skillsView = new SkillsView(avatar.getSkillManager());
-        AbilitiesSkillView abilitiesSkillView = new AbilitiesSkillView(gridAbilitiesView, equippedAbilitiesView, skillsView);
+        AbilitiesSkillView abilitiesSkillView = new AbilitiesSkillView(gav, equippedAbilitiesView, skillsView);
+
         ViewManager vm = new ViewManager(areaView, hv, cv);
         vm.setAbilitiesSkillView(abilitiesSkillView);
-
-        //ViewEngine viewEngine = new ViewEngine(areaView);
         ViewEngine viewEngine = ViewEngine.getInstance();
         viewEngine.registerView(vm);
-
-
-        //viewEngine.registerView(cv);
-
-
-        //ViewEngine viewEngine = new ViewEngine(areaView);
-        //ViewEngine viewEngine = ViewEngine.getInstance();
-        //viewEngine.killOldView();
-        //viewEngine.registerView(areaView);
-
-        //ModelEngine modelEngine = new ModelEngine();
         ModelEngine modelEngine = ModelEngine.getInstance();
         MainController controller = MainController.getInstance();
         controller.init(vm);
         controller.setAvatarControllerState();
-
         modelEngine.start();
     }
 
