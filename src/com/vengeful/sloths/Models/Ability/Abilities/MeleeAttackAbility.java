@@ -34,7 +34,6 @@ public class MeleeAttackAbility extends Ability {
         this.stats = entity.getStats();
         this.relevantSkill = relevantSkill;
         this.baseDamage = baseDamage;
-        this.name = "Melee Attack";
     }
 
 

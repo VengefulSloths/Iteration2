@@ -25,8 +25,6 @@ public class BindWoundsAbility extends Ability {
         super("Bind Wounds", 45, 60);
         this.entity = entity;
         this.skillManager = entity.getSkillManager();
-        this.name = "Bind Wounds";
-
     }
 
 

@@ -33,7 +33,6 @@ public class RangedAttackAbility extends Ability{
         this.entity = entity;
         this.relevantSkill = relevantSkill;
         this.baseDamage = baseDamage;
-        this.name = "Ranged Attack";
     }
 
     @Override

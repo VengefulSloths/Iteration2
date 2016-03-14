@@ -1,6 +1,8 @@
 package com.vengeful.sloths.Models.Occupation;
 
 
+import com.vengeful.sloths.Models.Ability.Ability;
+import com.vengeful.sloths.Models.Ability.AbilityFactory;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.ModelVisitor;
@@ -21,6 +23,18 @@ public class Sneak extends Occupation {
         //skillManager.addSkill(new Skill("remove trap")); //TODO: uncomment after testing
         skillManager.addSkill(new Skill("creep"));
         skillManager.addSkill(new Skill("ranged weapon"));
+        Ability a1 = AbilityFactory.getInstance().createStealthAbility(entity);
+        abilityManager.addAbility(a1);
+        abilityManager.equipAbility(a1,0);
+
+        Ability a2 = AbilityFactory.getInstance().createPoisonNPCAbility(entity);
+        abilityManager.addAbility(a2);
+        abilityManager.equipAbility(a2,1);
+
+        Ability a3 = AbilityFactory.getInstance().createPickPocketAbility();
+        abilityManager.addAbility(a3);
+        abilityManager.equipAbility(a3,2);
+
 
         this.addSharedAbility(abilityManager, entity);
     }

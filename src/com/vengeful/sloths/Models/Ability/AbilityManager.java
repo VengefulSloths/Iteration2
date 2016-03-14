@@ -135,6 +135,7 @@ public class AbilityManager implements ModelVisitable, ViewObservable {
         return abArray;
     }
 
+
     public Entity getEntity() {
         return entity;
     }

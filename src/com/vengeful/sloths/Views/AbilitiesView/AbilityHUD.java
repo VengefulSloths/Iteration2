@@ -36,20 +36,22 @@ public class AbilityHUD extends View implements AbilityManagerObserver {
         this.startY = 965 - this.height;
         Avatar.getInstance().getAbilityManager().registerObserver(this);
 
+        Ability[] activeAbilities = Avatar.getInstance().getAbilityManager().getActiveAbilities();
+
         for(int i = 0; i < 4; ++i){
-            try {
-                abilities[i] = new AbilityViewObject(Avatar.getInstance().getAbilityManager().getAbilityByIndex(i));
-                windup[i] = Avatar.getInstance().getAbilityManager().getAbilityByIndex(i).getWindTicks();
-            }catch (NullPointerException e){
-                abilities[i] = null;
-            }
+            abilities[i] = null;
             active[i] = 0;
         }
-        //try to set pre-existing abilities
-        try {
-            abilities[0] = new AbilityViewObject(Avatar.getInstance().getAbilityManager().getAbilityByIndex(0));
-        }catch (NullPointerException e){}
 
+        for (int i = 0; i < activeAbilities.length; i++) {
+            if(activeAbilities[i] != null) {
+                abilities[i] = new AbilityViewObject(activeAbilities[i]);
+                windup[i] = activeAbilities[i].getWindTicks();
+            }
+        }
+
+
+        //try to set pre-existing abilities
 
 
     }
