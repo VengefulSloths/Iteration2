@@ -453,7 +453,7 @@ public class LevelFactory {
         TwoHandedWeapon thw = new TwoHandedWeapon("Dragon 2H", new StrengthAddable(1),3);
         thw.setValue(10000);
         RichieInventory.addItem(thw);
-        OneHandedWeapon owh = new OneHandedWeapon("Dragon Dagger", new StrengthAddable(3),3);
+        OneHandedWeapon owh = new OneHandedWeapon("Mystical Dagger", new StrengthAddable(3),3);
         owh.setValue(10000);
         RichieInventory.addItem(owh);
         Staff staff = new Staff("Dragon Staff", new IntellectAddable(5), 3);
@@ -562,7 +562,7 @@ public class LevelFactory {
 
 
         summonerArea.getTile(new Coord(11,3)).addTakeableItem(new TakeableItem("Water Staff", new Staff("Water Staff", new IntellectAddable(5), 10), new Coord(11,3)));
-        summonerArea.getTile(new Coord(8,14)).addTakeableItem(new TakeableItem("Obsidian Staff", new Staff("Obsidian Staff", new IntellectAddable(5), 10), new Coord(8,14)));
+//        summonerArea.getTile(new Coord(8,14)).addTakeableItem(new TakeableItem("Obsidian Staff", new Staff("Obsidian Staff", new IntellectAddable(5), 10), new Coord(8,14)));
         summonerArea.getTile(new Coord(11,9)).addTakeableItem(new TakeableItem("Dragon Staff", new Staff("Dragon Staff", new IntellectAddable(5), 10), new Coord(11,9)));
 
 
