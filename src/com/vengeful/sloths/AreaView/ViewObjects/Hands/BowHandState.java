@@ -90,10 +90,10 @@ public class BowHandState implements HandState {
 
     @Override
     public NonVisibleViewObject getNonVisibleBack() {
-        if (foreground.size() > 0) {
-            NonVisibleViewObject nonVisibleViewObject = foreground.get(0).getNonVisibleSnapShot();
-            if (foreground.size() > 1) {
-                nonVisibleViewObject.addNonVisibleViewObject(foreground.get(1).getNonVisibleSnapShot());
+        if (background.size() > 0) {
+            NonVisibleViewObject nonVisibleViewObject = background.get(0).getNonVisibleSnapShot();
+            if (background.size() > 1) {
+                nonVisibleViewObject.addNonVisibleViewObject(background.get(1).getNonVisibleSnapShot());
             }
             return nonVisibleViewObject;
         } else {

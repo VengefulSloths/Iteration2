@@ -440,7 +440,6 @@ public class LevelFactory {
         new PiggyControllerManager(Map.getInstance().getActiveMapArea(), piggy);
         Avatar.getInstance().initialSetPet(piggy);
 
-
         NonAggressiveNPC Pete = new NonAggressiveNPC("Pete", new Stats( new BaseStatsAddable(0,0,0,10,20)));
         Inventory PeteInventory = Pete.getInventory();
         PiggyTotem pt = new PiggyTotem("Piggy Totem", piggy);
