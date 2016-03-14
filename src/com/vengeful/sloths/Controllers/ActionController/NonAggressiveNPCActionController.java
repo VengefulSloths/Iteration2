@@ -11,10 +11,12 @@ public class NonAggressiveNPCActionController extends ActionController {
 
     private int counter = 0;
     private Direction dir;
+    private int numSteps = 0;
 
-    public NonAggressiveNPCActionController(Entity entity, Direction initDirection){
+    public NonAggressiveNPCActionController(Entity entity, Direction initDirection, int numSteps){
         super(entity);
         dir = initDirection;
+        this.numSteps = 2 * numSteps;
     }
 
     private void changeDirection(){
@@ -22,11 +24,13 @@ public class NonAggressiveNPCActionController extends ActionController {
     }
     @Override
     public void action(Target target) {
-        if(counter % 4 == 0){
-            this.changeDirection();
+        if(numSteps != 0){
+            if(counter % numSteps == 0){
+                this.changeDirection();
+            }
+            this.getEntity().move(dir);
+            ++counter;
         }
-        this.getEntity().move(dir);
-        ++counter;
     }
 
     @Override
