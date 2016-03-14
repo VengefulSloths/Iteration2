@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <single_frame_animation>
-    <width>52</width>
-    <height>80</height>
+    <width>54</width>
+    <height>76</height>
     <rootPath>resources/items/Roids/</rootPath>
     <fileName>Roids.png</fileName>
     <positioning>centered</positioning>

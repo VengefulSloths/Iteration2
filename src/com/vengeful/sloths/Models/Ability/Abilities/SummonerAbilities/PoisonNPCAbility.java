@@ -97,6 +97,6 @@ public class PoisonNPCAbility extends Ability{
 
     @Override
     public void accept(ModelVisitor modelVisitor) {
-        //TODO: add to visitor
+        modelVisitor.visitPoisonNPCAbility(this);
     }
 }

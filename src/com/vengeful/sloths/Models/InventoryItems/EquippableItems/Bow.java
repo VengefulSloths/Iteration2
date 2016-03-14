@@ -19,15 +19,18 @@ import java.util.Iterator;
  * Created by Alex on 3/13/2016.
  */
 public class Bow extends Weapon {
-    private WeaponClass weaponClass;
+//    private WeaponClass weaponClass;
 
-    public Bow(String name, StatsAddable stats, int baseDamage, WeaponClass weaponClass) {
+    public Bow(String name, StatsAddable stats, int baseDamage) {
         super(name, stats, baseDamage);
-        this.weaponClass = weaponClass;
+//        this.weaponClass = weaponClass;
+    }
+
+    public Bow (){
     }
 
     @Override
-    public WeaponClass getWeaponClassification() { return weaponClass;}
+    public WeaponClass getWeaponClassification() { return WeaponClass.BOW;}
 
     @Override
     public int calculateOffsensiveRating(Stats stats, SkillManager skills) {

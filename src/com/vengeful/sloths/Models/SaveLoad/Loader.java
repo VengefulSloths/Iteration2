@@ -1,20 +1,24 @@
 package com.vengeful.sloths.Models.SaveLoad;
 
+import com.sun.org.apache.regexp.internal.RE;
 import com.vengeful.sloths.Controllers.ControllerManagers.AggressiveNPCControllerManager;
 import com.vengeful.sloths.Controllers.ControllerManagers.PiggyControllerManager;
 import com.vengeful.sloths.Controllers.InputController.InputStrategies.AdaptableStrategy;
 import com.vengeful.sloths.Controllers.InputController.KeyMapping;
 import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SelfBuffAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.PickPocketAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.RemoveTrapAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.StealthAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FlameThrowerAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.ExplosionAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.*;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityFactory;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.BuffManager;
+import com.vengeful.sloths.Models.DialogueTrade.DialogContainer;
+import com.vengeful.sloths.Models.DialogueTrade.TerminalDialogContainer;
+import com.vengeful.sloths.Models.DialogueTrade.TradeDialogContainer;
 import com.vengeful.sloths.Models.Entity.*;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Inventory.Equipped;
@@ -136,6 +140,100 @@ public class Loader {
         setActiveMapArea();
     }
 
+
+
+//MAP ITEMS
+    private InteractiveItem processInteractiveItem(Node currObject) {
+        InteractiveItem ii = new InteractiveItem();
+        Element current = (Element) currObject;
+        ii.setItemName(current.getAttribute("itemName"));
+        ii.setLocation(processLocation(currObject.getChildNodes().item(0)));
+        ii.setQuest(processQuest(current.getChildNodes().item(1)));
+        return ii;
+    }
+    private Quest processQuest(Node item) {
+        Element current = (Element) item;
+        Quest q = null;
+        switch (current.getNodeName()){
+            case "HasItemQuest" :
+                Quest q2 = processQuest(current.getChildNodes().item(0));
+                q = new HasItemQuest(q2, current.getAttribute("itemName"));
+                break;
+            case"DoDestroyObstacleQuest":
+                q = new DoDestroyObstacleQuest(processLocation(current.getChildNodes().item(0)));
+                break;
+            default:
+                System.out.println(current.getNodeName() + "isn't a supported quest type");
+        }
+        return q;
+    }
+    private OneShotItem processOneShotItem(Node currObject) {
+        OneShotItem osi = new OneShotItem();
+        Element current = (Element) currObject;
+        osi.setItemName(current.getAttribute("itemName"));
+
+        Node locatioNode = current.getChildNodes().item(0);
+        osi.setLocation(processLocation(locatioNode));
+        return osi;
+    }
+    private Obstacle processObstacle(Node currObject) {
+        Obstacle o = new Obstacle();
+        Element current = (Element) currObject;
+        o.setItemName(current.getAttribute("itemName"));
+
+        Node locatioNode = current.getChildNodes().item(0);
+        o.setLocation(processLocation(locatioNode));
+        return o;
+    }
+    private TakeableItem processTakeable(Node currObject) {
+        TakeableItem ti = new TakeableItem();
+        Element current = (Element) currObject;
+        ti.setItemName(current.getAttribute("itemName"));
+
+        Node locatioNode = current.getChildNodes().item(0);
+        ti.setLocation(processLocation(locatioNode));
+
+        Element invItemElement = (Element) current.getChildNodes().item(1);
+        String invItemName = invItemElement.getNodeName();
+        switch(invItemName){
+            case "Potion" :
+                Potion p = processPotion(invItemElement);
+                ti.setInventorpRep(p);
+                break;
+            case "Hat":
+                Hat h = processHat(invItemElement);
+                ti.setInventorpRep(h);
+                break;
+            case "Knuckle" :
+                Knuckle k = processKnuckle(invItemElement);
+                ti.setInventorpRep(k);
+                break;
+            case "OneHandedWeapon" :
+                OneHandedWeapon ohw = processOneHandedWeapon(invItemElement);
+                ti.setInventorpRep(ohw);
+                break;
+            case "TwoHandedWeapon" :
+                TwoHandedWeapon thw = processTwoHandedWeapon(invItemElement);
+                ti.setInventorpRep(thw);
+                break;
+            case "PiggyTotem" :
+                Piggy piggy = processPiggy(invItemElement.getFirstChild());
+                PiggyTotem pt = new PiggyTotem(invItemElement.getAttribute("itemName"), piggy);
+                ti.setInventorpRep(pt);
+                break;
+            case "Bow" :
+                Bow b = processBow(invItemElement);
+                ti.setInventorpRep(b);
+                break;
+            case "AbilityItem" :
+                AbilityItem ab= processAbilityItem(invItemElement);
+                ti.setInventorpRep(ab);
+                break;
+            default:
+                System.out.println(invItemName + "isn't a supported inventoryItem representation");
+        }
+        return ti;
+    }
     private Trap processsTrap(Node currObject) {
         Element currElement = (Element) currObject;
         int damageTaken = Integer.valueOf(currElement.getAttribute("damageTaken"));
@@ -153,7 +251,6 @@ public class Loader {
         t.setVisible(isVisible);
         return t;
     }
-
     private Gold processGold(Node currObject) {
         Gold g = new Gold();
         Element gElement = (Element) currObject;
@@ -162,71 +259,110 @@ public class Loader {
         g.setLocation(processLocation(gElement.getFirstChild()));
         return g;
     }
-
-    private AdaptableStrategy processInputStrategy(Element item) {
-        boolean createFromLoad = true;
-        AdaptableStrategy as = new AdaptableStrategy(createFromLoad);
-//        HashMap<Integer, KeyMapping> hs= as.getKeyMappings();
-        NodeList entryElements = item.getChildNodes();
-        for(int i =0; i != entryElements.getLength(); ++i){
-            Element entryElement = (Element)(entryElements.item(i));
-            int key = Integer.valueOf(entryElement.getAttribute("key"));
-            KeyMapping value = KeyMapping.fromInt(Integer.valueOf(entryElement.getAttribute("value")));
-            as.setKeyMappings(key,value);
-        }
-        return as;
-    }
-
-    //DANK QUADRA-FOR-LOOP TRIANGLE FUNCTION
-private void setActiveMapArea() {
-    Map m = Map.getInstance();
-        MapArea[] mas = m.getMapAreas();
-            Avatar a = Avatar.getInstance();
-                for(MapArea ma : mas){
-                    for(Tile[] tiles : ma.getTiles()){
-                        for(Tile tile : tiles){
-                            if(tile != null){
-                                Entity[] es = tile.getEntities();
-                                    if(es.length != 0){
-                                        for(Entity e : es){
-                                            if(e.equals(a)){
-                                                m.setActiveMapArea(ma);
-                                                    return;
-                                            }
-                                    }
-                                }
-                            }
-                        }
+//ENTITYS
+    private Avatar processAvatar(Node currObject) {
+        Avatar a = Avatar.getInstance();
+        NamedNodeMap avatarAttributes = currObject.getAttributes();
+        for(int i = 0; i != avatarAttributes.getLength(); ++i){
+            Node attribute = avatarAttributes.item(i);
+            String attributeName = attribute.getNodeName();
+            String value = attribute.getNodeValue();
+            switch (attributeName){
+                case "Direction":
+                    Direction dir = Direction.N;
+                    switch(value){
+                        case "N":
+                            dir = Direction.N;
+                            break;
+                        case "S":
+                            dir = Direction.S;
+                            break;
+                        case "NE":
+                            dir = Direction.NE;
+                            break;
+                        case "Nw":
+                            dir = Direction.NW;
+                            break;
+                        case "SE":
+                            dir = Direction.SE;
+                            break;
+                        case "SW":
+                            dir = Direction.SW;
+                            break;
+                        default:
+                            System.out.println(value + "is not a supporterd direction");
+                    }
+                    a.setFacingDirection(dir);
+                    break;
+                case "Name":
+                    a.setName(value);
+                    break;
+                default:
+                    System.out.println(attributeName + "is not a supported avatar attribute");
             }
-    }
-}
-
-    private InteractiveItem processInteractiveItem(Node currObject) {
-        InteractiveItem ii = new InteractiveItem();
-        Element current = (Element) currObject;
-        ii.setItemName(current.getAttribute("itemName"));
-        ii.setLocation(processLocation(currObject.getChildNodes().item(0)));
-        ii.setQuest(processQuest(current.getChildNodes().item(1)));
-        return ii;
-    }
-
-    private Quest processQuest(Node item) {
-        Element current = (Element) item;
-        Quest q = null;
-        switch (current.getNodeName()){
-            case "HasItemQuest" :
-                Quest q2 = processQuest(current.getChildNodes().item(0));
-                q = new HasItemQuest(q2, current.getAttribute("itemName"));
-                break;
-            case"DoDestroyObstacleQuest":
-                q = new DoDestroyObstacleQuest(processLocation(current.getChildNodes().item(0)));
-                break;
-            default:
-                System.out.println(current.getNodeName() + "isn't a supported quest type");
         }
-        return q;
+        NodeList avatarObjects = currObject.getChildNodes();
+        for(int i = 0; i != avatarObjects.getLength(); ++i){
+            Node avatarObject = avatarObjects.item(i);
+            if(avatarObject.getNodeType() != Node.ELEMENT_NODE){
+                System.out.println("Avatar object isn't an element type");
+                continue;
+            }
+            String objectName = avatarObject.getNodeName();
+            switch (objectName){
+                case "Location" :
+                    Coord c = processLocation(avatarObject);
+                    a.setLocation(c);
+                    break;
+                case "Sneak" :
+                    Sneak sn = new Sneak();
+                    a.setOccupation(sn);
+                    break;
+                case "Smasher" :
+                    Smasher sm = new Smasher();
+                    a.setOccupation(sm);
+                    break;
+                case "Summoner" :
+                    Summoner sr = new Summoner();
+                    a.setOccupation(sr);
+                    break;
+                case "Stats" :
+                    Stats s = processStats(avatarObject);
+                    a.setStats(s);
+                    break;
+                case "AbilityManager" :
+                    AbilityManager abm = processAbilityManager(avatarObject,a);
+                    a.setAbilityManager(abm);
+                    break;
+                case "BuffManager" :
+                    break;
+                case "Inventory" :
+                    Inventory inv = processInventory(avatarObject);
+                    a.setInventory(inv);
+                    break;
+                case "Equipped" :
+                    Equipped eq = processEquipped(avatarObject,a);
+                    a.setEquipped(eq);
+//                    eq.init(a);
+                    break;
+                case "SkillManager" :
+                    SkillManager sk = processSkillManager(avatarObject);
+                    a.setSkillManager(sk);
+                    break;
+                case "TradeDialogueContainer" :
+                    TradeDialogContainer tradeDC = processTradeDialogContainer(avatarObject, a);
+                    a.setDialogContainer(tradeDC);
+                    break;
+                case "TerminalDialogContainer" :
+                    TerminalDialogContainer terminalDC = processTerminalDialogContainer(avatarObject , a);
+                    a.setDialogContainer(terminalDC);
+                    break;
+                default:
+                    System.out.println(objectName + "is not a supported avatar object");
+            }
+        }
+        return a;
     }
-
     private Piggy processPiggy(Node currObject) {
         Piggy p = new Piggy();
         NamedNodeMap avatarAttributes = currObject.getAttributes();
@@ -320,6 +456,14 @@ private void setActiveMapArea() {
                 case "SkillManager" :
                     SkillManager sk = processSkillManager(avatarObject);
                     p.setSkillManager(sk);
+                    break;
+                case "TradeDialogueContainer" :
+                    TradeDialogContainer tradeDC = processTradeDialogContainer(avatarObject, p);
+                    p.setDialogContainer(tradeDC);
+                    break;
+                case "TerminalDialogContainer" :
+                    TerminalDialogContainer terminalDC = processTerminalDialogContainer(avatarObject , p);
+                    p.setDialogContainer(terminalDC);
                     break;
                 default:
                     System.out.println(objectName + "is not a supported avatar object");
@@ -421,167 +565,41 @@ private void setActiveMapArea() {
                     SkillManager sk = processSkillManager(avatarObject);
                     p.setSkillManager(sk);
                     break;
+                case "TradeDialogueContainer" :
+                    TradeDialogContainer tradeDC = processTradeDialogContainer(avatarObject, p);
+                    p.setDialogContainer(tradeDC);
+                    break;
+                case "TerminalDialogContainer" :
+                    TerminalDialogContainer terminalDC = processTerminalDialogContainer(avatarObject , p);
+                    p.setDialogContainer(terminalDC);
+                    break;
                 default:
                     System.out.println(objectName + "is not a supported avatar object");
             }
         }
         return p;
     }
-    private OneShotItem processOneShotItem(Node currObject) {
-        OneShotItem osi = new OneShotItem();
-        Element current = (Element) currObject;
-        osi.setItemName(current.getAttribute("itemName"));
-
-        Node locatioNode = current.getChildNodes().item(0);
-        osi.setLocation(processLocation(locatioNode));
-        return osi;
-    }
-    private Obstacle processObstacle(Node currObject) {
-        Obstacle o = new Obstacle();
-        Element current = (Element) currObject;
-        o.setItemName(current.getAttribute("itemName"));
-
-        Node locatioNode = current.getChildNodes().item(0);
-        o.setLocation(processLocation(locatioNode));
-        return o;
-    }
-    private TakeableItem processTakeable(Node currObject) {
-        TakeableItem ti = new TakeableItem();
-        Element current = (Element) currObject;
-        ti.setItemName(current.getAttribute("itemName"));
-
-        Node locatioNode = current.getChildNodes().item(0);
-        ti.setLocation(processLocation(locatioNode));
-
-        Element invItemElement = (Element) current.getChildNodes().item(1);
-        String invItemName = invItemElement.getNodeName();
-        switch(invItemName){
-            case "Potion" :
-                Potion p = processPotion(invItemElement);
-                ti.setInventorpRep(p);
-                break;
-            case "Hat":
-                Hat h = processHat(invItemElement);
-                ti.setInventorpRep(h);
-                break;
-//            case "Knuckle" :
-//                Knuckle k = processKnuckle(invItemElement);
-//                ti.setInventorpRep(p);
-//                break;
-            case "OneHandedWeapon" :
-                OneHandedWeapon ohw = processOneHandedWeapon(invItemElement);
-                ti.setInventorpRep(ohw);
-                break;
-            case "TwoHandedWeapon" :
-                TwoHandedWeapon thw = processTwoHandedWeapon(invItemElement);
-                ti.setInventorpRep(thw);
-                break;
-            case "PiggyTotem" :
-                Piggy piggy = processPiggy(invItemElement.getFirstChild());
-                PiggyTotem pt = new PiggyTotem(invItemElement.getAttribute("itemName"), piggy);
-                ti.setInventorpRep(pt);
-                break;
-
-            default:
-                System.out.println(invItemName + "isn't a supported inventoryItem representation");
+//DIALOG
+    private TerminalDialogContainer processTerminalDialogContainer(Node avatarObject, Entity e) {
+        TerminalDialogContainer tdc = new TerminalDialogContainer(e.getName());
+        Element objectElement = (Element) avatarObject;
+        NamedNodeMap dialogLines = objectElement.getAttributes();
+        for(int i  = 0; i != dialogLines.getLength(); ++i){
+            tdc.appendDialog(dialogLines.item(i).getNodeValue());
         }
-        return ti;
+        return tdc;
     }
-    private Avatar processAvatar(Node currObject) {
-        Avatar a = Avatar.getInstance();
-        NamedNodeMap avatarAttributes = currObject.getAttributes();
-        for(int i = 0; i != avatarAttributes.getLength(); ++i){
-            Node attribute = avatarAttributes.item(i);
-            String attributeName = attribute.getNodeName();
-            String value = attribute.getNodeValue();
-            switch (attributeName){
-                case "Direction":
-                    Direction dir = Direction.N;
-                    switch(value){
-                        case "N":
-                            dir = Direction.N;
-                            break;
-                        case "S":
-                            dir = Direction.S;
-                            break;
-                        case "NE":
-                            dir = Direction.NE;
-                            break;
-                        case "Nw":
-                            dir = Direction.NW;
-                            break;
-                        case "SE":
-                            dir = Direction.SE;
-                            break;
-                        case "SW":
-                            dir = Direction.SW;
-                            break;
-                        default:
-                            System.out.println(value + "is not a supporterd direction");
-                    }
-                    a.setFacingDirection(dir);
-                    break;
-                case "Name":
-                    a.setName(value);
-                    break;
-                default:
-                    System.out.println(attributeName + "is not a supported avatar attribute");
-            }
+    private TradeDialogContainer processTradeDialogContainer(Node avatarObject,Entity e) {
+        TradeDialogContainer tdc = new TradeDialogContainer(e);
+        Element objectElement = (Element) avatarObject;
+        NamedNodeMap dialogLines = objectElement.getAttributes();
+        for(int i  = 0; i != dialogLines.getLength(); ++i){
+            tdc.appendDialog(dialogLines.item(i).getNodeValue());
         }
-        NodeList avatarObjects = currObject.getChildNodes();
-        for(int i = 0; i != avatarObjects.getLength(); ++i){
-            Node avatarObject = avatarObjects.item(i);
-            if(avatarObject.getNodeType() != Node.ELEMENT_NODE){
-                System.out.println("Avatar object isn't an element type");
-                continue;
-            }
-            String objectName = avatarObject.getNodeName();
-            switch (objectName){
-                case "Location" :
-                    Coord c = processLocation(avatarObject);
-                    a.setLocation(c);
-                    break;
-                case "Sneak" :
-                    Sneak sn = new Sneak();
-                    a.setOccupation(sn);
-                    break;
-                case "Smasher" :
-                    Smasher sm = new Smasher();
-                    a.setOccupation(sm);
-                    break;
-                case "Summoner" :
-                    Summoner sr = new Summoner();
-                    a.setOccupation(sr);
-                    break;
-                case "Stats" :
-                    Stats s = processStats(avatarObject);
-                    a.setStats(s);
-                    break;
-                case "AbilityManager" :
-                    AbilityManager abm = processAbilityManager(avatarObject,a);
-                    a.setAbilityManager(abm);
-                    break;
-                case "BuffManager" :
-                    break;
-                case "Inventory" :
-                    Inventory inv = processInventory(avatarObject);
-                    a.setInventory(inv);
-                    break;
-                case "Equipped" :
-                    Equipped eq = processEquipped(avatarObject,a);
-                    a.setEquipped(eq);
-//                    eq.init(a);
-                    break;
-                case "SkillManager" :
-                    SkillManager sk = processSkillManager(avatarObject);
-                    a.setSkillManager(sk);
-                    break;
-                default:
-                    System.out.println(objectName + "is not a supported avatar object");
-            }
-        }
-        return a;
+
+        return tdc;
     }
+//ENTITY SKILL / ABILITY MANAGERS
     private AbilityManager processAbilityManager(Node avatarObject, Entity e) {
         AbilityManager abm = new AbilityManager(e);
         if(avatarObject.getNodeType() == Node.ELEMENT_NODE){
@@ -646,6 +664,35 @@ private void setActiveMapArea() {
                         StealthAbility sa = AbilityFactory.getInstance().createStealthAbility(e);
                         abm.addAbility(sa);
                         break;
+                    case "PickPocket" :
+                        PickPocketAbility ppa = new PickPocketAbility();
+                        abm.addAbility(ppa);
+                    case "Protect From Evil" :
+                        BoonBuffAbility protect = (BoonBuffAbility) AbilityFactory.getInstance().createProtectFromEvil(e);
+                        abm.addAbility(protect);
+                        break;
+                    case "Roids" :
+                        BoonBuffAbility roids= (BoonBuffAbility) AbilityFactory.getInstance().createDamageBoost(e);
+                        abm.addAbility(roids);
+                        break;
+                    case "Rejuvenation":
+                        BoonBuffAbility Rejuv = (BoonBuffAbility) AbilityFactory.getInstance().createHealOverTime(e);
+                        abm.addAbility(Rejuv);
+                        break;
+                    case "NPCFallAsleepAbility" :
+                        int windFAA = Integer.valueOf(currAbility.getAttribute("windTicks"));
+                        int coolFAA = Integer.valueOf(currAbility.getAttribute("coolTicks"));
+                        int manaCostFAA = Integer.valueOf(currAbility.getAttribute("manaCost"));
+                        int sleepTime = Integer.valueOf(currAbility.getAttribute("sleepTime"));
+                        NPCFallAsleepAbility nfaa = AbilityFactory.getInstance().createNPCFallAsleepAbility(e);
+                        abm.addAbility(nfaa);
+                        break;
+                    case "PoisonNPCAbility" :
+                        abm.addAbility(AbilityFactory.getInstance().createPoisonNPCAbility(e));
+                        break;
+                    case "WeakenNPCAbility" :
+                        abm.addAbility(AbilityFactory.getInstance().createWeakenNPCAbility(e));
+                        break;
                     case "MountAbility" :
                         break;
                     case "DemountAbility" :
@@ -693,63 +740,7 @@ private void setActiveMapArea() {
         }
         return sk;
     }
-    private Equipped processEquipped(Node avatarObject, Entity e) {
-        Equipped eq = new Equipped();
-        eq.init(e);
-        if(avatarObject.getNodeType() == Node.ELEMENT_NODE) {
-            Element eqElement = (Element) avatarObject;
-            if(avatarObject.hasChildNodes()){
-                NodeList eqItems = avatarObject.getChildNodes();
-                for(int i = 0; i != eqItems.getLength();++i){
-                    Node eqItem = eqItems.item(i);
-                    if(eqItem.getNodeType() == Node.ELEMENT_NODE){
-                        Element eqItemElement = (Element) eqItem;
-                        String eqItemName = eqItemElement.getNodeName();
-                        switch(eqItemName){
-                            case "Hat":
-                                Hat h = processHat(eqItemElement);
-                                eq.addHat(h);
-                                break;
-                            case "Knuckle" :
-                                //do nothing for knuckle equipped makes its own on creation
-//                                Knuckle k = processKnuckle(eqItemElement);
-//                                eq.addWeapon(k);
-                                break;
-                            case "OneHandedWeapon" :
-                                OneHandedWeapon ohw = processOneHandedWeapon(eqItemElement);
-                                eq.addWeapon(ohw);
-                                break;
-                            case "TwoHandedWeapon" :
-                                TwoHandedWeapon thw = processTwoHandedWeapon(eqItemElement);
-                                eq.addWeapon(thw);
-                                break;
-                            case "Mount":
-                                Mount m = processMount(eqItemElement);
-                                eq.addMount(m);
-                                break;
-                            default:
-                                System.out.println(eqItemName + "isn't a supported equipped item element");
-                        }
-                    }
-                    else{
-                        System.out.println("the eqItem node isn't an element");
-                    }
-                }
-            }
-            else{
-                System.out.println("Equipped element has no child nodes- its empty");
-            }
-        }
-        return eq;
-    }
-
-    private Mount processMount(Element eqItemElement) {
-        int move = Integer.valueOf(eqItemElement.getAttribute("moveSpeed"));
-        String name = eqItemElement.getAttribute("name");
-        Mount m = new Mount(name, move);
-        return m;
-    }
-
+//INVENTORY AND INVENTORY SPECIFIC ITEMS
     private Inventory processInventory(Node avatarObject) {
         Inventory inv = new Inventory();
         if(avatarObject.getNodeType() == Node.ELEMENT_NODE){
@@ -784,6 +775,14 @@ private void setActiveMapArea() {
                                 TwoHandedWeapon thw = processTwoHandedWeapon(invItemElement);
                                 inv.addItem(thw);
                                 break;
+                            case "Bow" :
+                                Bow b = processBow(invItemElement);
+                                inv.addItem(b);
+                                break;
+                            case "Staff" :
+                                Staff s  = processStaff(invItemElement);
+                                inv.addItem(s);
+                                break;
                             case "Mount":
                                 Mount m = processMount(invItemElement);
                                 inv.addItem(m);
@@ -792,6 +791,10 @@ private void setActiveMapArea() {
                                 Piggy piggy = processPiggy(invItemElement.getFirstChild());
                                 PiggyTotem pt = new PiggyTotem(invItemElement.getAttribute("itemName"), piggy);
                                 inv.addItem(pt);
+                                break;
+                            case "AbilityItem" :
+                                AbilityItem ab= processAbilityItem(invItemElement);
+                                inv.addItem(ab);
                                 break;
                             default:
                                 System.out.println(invItemName + "isn't a supported inventory item element");
@@ -811,10 +814,213 @@ private void setActiveMapArea() {
         }
         return inv;
     }
+    private Potion processPotion(Element invItemElement) {
+        Potion p  = new Potion();
+        p.setItemName(invItemElement.getAttribute("itemName"));
+        p.setValue(Integer.valueOf(invItemElement.getAttribute("value")));
+        Node statsAddNode = invItemElement.getChildNodes().item(0);
+        StatsAddable sa = processStatsAddable(statsAddNode);
+        p.setItemStats(sa);
+        return p;
+    }
+    private AbilityItem processAbilityItem(Element invItemElement) {
+        String itemName = invItemElement.getAttribute("itemName");
+        int value = Integer.valueOf(invItemElement.getAttribute("value"));
+        Element currAbility = (Element) invItemElement.getFirstChild();
+        Ability ab = null;
+        Avatar a = Avatar.getInstance();
+        switch (currAbility.getNodeName()){
+            case "BindWoundsAbility" :
+                BindWoundsAbility bwa = AbilityFactory.getInstance().createBindWoundsAbility(Avatar.getInstance());
+                bwa.setEntity(a);
+                bwa.setSkillManager(a.getSkillManager());
+                ab = bwa;
+                break;
+//                    case "MeleeAttackAbility" :
+//                        int wind = Integer.valueOf(currAbility.getAttribute("windTicks"));
+//                        int cool = Integer.valueOf(currAbility.getAttribute("coolTicks"));
+//                        MeleeAttackAbility maa = new MeleeAttackAbility(e,wind,cool);
+//                        maa.setStats(e.getStats());
+//                        abm.addAbility(maa);
+//                        break;
+            case "FireBallAbility" :
+                int start = Integer.valueOf(currAbility.getAttribute("startUpTicks"));
+                int coolDown = Integer.valueOf(currAbility.getAttribute("coolDownTicks"));
+                int travelDistance = Integer.valueOf(currAbility.getAttribute("travelDistance"));
+                int traveTime = Integer.valueOf(currAbility.getAttribute("travelTime"));
+                int manaCost = Integer.valueOf(currAbility.getAttribute("manaCost"));
+                FireBallAbility fba = new FireBallAbility(a, traveTime, travelDistance, start, coolDown);
+                fba.setManaCost(manaCost);
+                ab = fba;
+                break;
+            case "ExplosionAbility":
+                int windExA = Integer.valueOf(currAbility.getAttribute("windTicks"));
+                int coolExA = Integer.valueOf(currAbility.getAttribute("coolTicks"));
+                int expandingTime = Integer.valueOf(currAbility.getAttribute("expandingTime"));
+                int expandingDistance = Integer.valueOf(currAbility.getAttribute("expandingDistance"));
+                int manaCostExA = Integer.valueOf(currAbility.getAttribute("manaCost"));
+                ExplosionAbility exA = new ExplosionAbility(a,expandingTime,expandingDistance,windExA,coolExA);
+                exA.setManaCost(manaCostExA);
+                ab = exA;
+                break;
+            case "FlameThrowerAbility" :
+                int windASA = Integer.valueOf(currAbility.getAttribute("windTicks"));
+                int coolASA = Integer.valueOf(currAbility.getAttribute("coolTicks"));
+                int expandingTimeASA = Integer.valueOf(currAbility.getAttribute("expandingTime"));
+                int expandingDistanceASA = Integer.valueOf(currAbility.getAttribute("expandingDistance"));
+                int manaCostASA = Integer.valueOf(currAbility.getAttribute("manaCost"));
+                FlameThrowerAbility asa = new FlameThrowerAbility(a,expandingTimeASA,expandingDistanceASA,windASA,coolASA);
+                asa.setManaCost(manaCostASA);
+                ab = asa;
+                break;
+            case "RemoveTrapAbility" :
+                int windRTA = Integer.valueOf(currAbility.getAttribute("windTicks"));
+                int coolRTA = Integer.valueOf(currAbility.getAttribute("coolTicks"));
+                int manaCostRTA = Integer.valueOf(currAbility.getAttribute("manaCost"));
+                RemoveTrapAbility rta = new RemoveTrapAbility(a, windRTA, coolRTA);
+                rta.setManaCost(manaCostRTA);
+                ab = rta;
+                break;
+            case "StealthAbility" :
+                StealthAbility sa = AbilityFactory.getInstance().createStealthAbility(a);
+                ab = sa;
+                break;
+            case "PickPocket" :
+                PickPocketAbility ppa = new PickPocketAbility();
+                ab = ppa;
+            case "Protect From Evil" :
+                BoonBuffAbility protect = (BoonBuffAbility) AbilityFactory.getInstance().createProtectFromEvil(a);
+                ab = protect;
+                break;
+            case "damageBoost":
+            case "Roids" :
+                BoonBuffAbility roids= (BoonBuffAbility) AbilityFactory.getInstance().createDamageBoost(a);
+                ab = roids;
+                break;
+            case "Rejuvenation":
+                BoonBuffAbility rejuv = (BoonBuffAbility) AbilityFactory.getInstance().createHealOverTime(a);
+                ab = rejuv;
+                break;
+            case "NPCFallAsleepAbility" :
+                int windFAA = Integer.valueOf(currAbility.getAttribute("windTicks"));
+                int coolFAA = Integer.valueOf(currAbility.getAttribute("coolTicks"));
+                int manaCostFAA = Integer.valueOf(currAbility.getAttribute("manaCost"));
+                int sleepTime = Integer.valueOf(currAbility.getAttribute("sleepTime"));
+                NPCFallAsleepAbility nfaa = AbilityFactory.getInstance().createNPCFallAsleepAbility(a);
+                ab = nfaa;
+                break;
+            case "PoisonNPCAbility" :
+                ab = (AbilityFactory.getInstance().createPoisonNPCAbility(a));
+                break;
+            case "WeakenNPCAbility" :
+                ab = (AbilityFactory.getInstance().createWeakenNPCAbility(a));
+                break;
+            case "MountAbility" :
+                break;
+            case "DemountAbility" :
+                break;
+            case "NullAbility" :
+                break;
+            case "RemoveBuffAbility" :
+                break;
+            case "SelfBuffAbility" :
+                break;
+            default:
+                System.out.println(currAbility.getNodeName() + "isn't a supported ability to load");
+        }
+        AbilityItem abItem = new AbilityItem(ab);
+        abItem.setValue(value);
+        abItem.setItemName(itemName);
+        return abItem;
+    }
+//EQUIPPED AND ITEMS
+    private Equipped processEquipped(Node avatarObject, Entity e) {
+        Equipped eq = new Equipped();
+        eq.init(e);
+        if(avatarObject.getNodeType() == Node.ELEMENT_NODE) {
+            Element eqElement = (Element) avatarObject;
+            if(avatarObject.hasChildNodes()){
+                NodeList eqItems = avatarObject.getChildNodes();
+                for(int i = 0; i != eqItems.getLength();++i){
+                    Node eqItem = eqItems.item(i);
+                    if(eqItem.getNodeType() == Node.ELEMENT_NODE){
+                        Element eqItemElement = (Element) eqItem;
+                        String eqItemName = eqItemElement.getNodeName();
+                        switch(eqItemName){
+                            case "Hat":
+                                Hat h = processHat(eqItemElement);
+                                eq.addHat(h);
+                                break;
+                            case "Knuckle" :
+                                Knuckle k = processKnuckle(eqItemElement);
+                                eq.addWeapon(k);
+                                break;
+                            case "OneHandedWeapon" :
+                                OneHandedWeapon ohw = processOneHandedWeapon(eqItemElement);
+                                eq.addWeapon(ohw);
+                                break;
+                            case "TwoHandedWeapon" :
+                                TwoHandedWeapon thw = processTwoHandedWeapon(eqItemElement);
+                                eq.addWeapon(thw);
+                                break;
+                            case "Mount":
+                                Mount m = processMount(eqItemElement);
+                                eq.addMount(m);
+                                break;
+                            case "Bow" :
+                                Bow b = processBow(eqItemElement);
+                                eq.addWeapon(b);
+                                break;
+                            case "Staff" :
+                                Staff s = processStaff(eqItemElement);
+                                eq.addWeapon(s);
+                                break;
+                            default:
+                                System.out.println(eqItemName + "isn't a supported equipped item element");
+                        }
+                    }
+                    else{
+                        System.out.println("the eqItem node isn't an element");
+                    }
+                }
+            }
+            else{
+                System.out.println("Equipped element has no child nodes- its empty");
+            }
+        }
+        return eq;
+    }
+    private Bow processBow(Element invItemElement) {
+        Bow thw = new Bow();
+        thw.setItemName(invItemElement.getAttribute("itemName"));
+        thw.setBaseDamage(Integer.valueOf(invItemElement.getAttribute("baseDamage")));
+        thw.setValue(Integer.valueOf(invItemElement.getAttribute("value")));
+        Node statsAddNode = invItemElement.getChildNodes().item(0);
+        thw.setItemStats(processStatsAddable(statsAddNode));
+        return thw;
+    }
+    private Staff processStaff(Element invItemElement){
+        Staff thw = new Staff();
+        thw.setItemName(invItemElement.getAttribute("itemName"));
+        thw.setBaseDamage(Integer.valueOf(invItemElement.getAttribute("baseDamage")));
+        thw.setValue(Integer.valueOf(invItemElement.getAttribute("value")));
+        Node statsAddNode = invItemElement.getChildNodes().item(0);
+        thw.setItemStats(processStatsAddable(statsAddNode));
+        return thw;
+    }
+    private Hat processHat(Element invItemElement) {
+        Hat h = new Hat();
+        h.setItemName(invItemElement.getAttribute("itemName"));
+        h.setValue(Integer.valueOf(invItemElement.getAttribute("value")));
+        Node statsAddNode = invItemElement.getChildNodes().item(0);
+        h.setItemStats(processStatsAddable(statsAddNode));
+        return h;
+    }
     private Knuckle processKnuckle(Element invItemElement) {
         Knuckle k = new Knuckle();
         k.setItemName(invItemElement.getAttribute("itemName"));
         k.setBaseDamage(Integer.valueOf(invItemElement.getAttribute("baseDamage")));
+        k.setValue(Integer.valueOf(invItemElement.getAttribute("value")));
         Node statsAddNode = invItemElement.getChildNodes().item(0);
         k.setItemStats(processStatsAddable(statsAddNode));
         return k;
@@ -823,6 +1029,7 @@ private void setActiveMapArea() {
         OneHandedWeapon ohw = new OneHandedWeapon();
         ohw.setItemName(invItemElement.getAttribute("itemName"));
         ohw.setBaseDamage(Integer.valueOf(invItemElement.getAttribute("baseDamage")));
+        ohw.setValue(Integer.valueOf(invItemElement.getAttribute("value")));
         Node statsAddNode = invItemElement.getChildNodes().item(0);
         ohw.setItemStats(processStatsAddable(statsAddNode));
         return ohw;
@@ -831,25 +1038,19 @@ private void setActiveMapArea() {
         TwoHandedWeapon thw = new TwoHandedWeapon();
         thw.setItemName(invItemElement.getAttribute("itemName"));
         thw.setBaseDamage(Integer.valueOf(invItemElement.getAttribute("baseDamage")));
+        thw.setValue(Integer.valueOf(invItemElement.getAttribute("value")));
         Node statsAddNode = invItemElement.getChildNodes().item(0);
         thw.setItemStats(processStatsAddable(statsAddNode));
         return thw;
     }
-    private Hat processHat(Element invItemElement) {
-        Hat h = new Hat();
-        h.setItemName(invItemElement.getAttribute("itemName"));
-        Node statsAddNode = invItemElement.getChildNodes().item(0);
-        h.setItemStats(processStatsAddable(statsAddNode));
-        return h;
+    private Mount processMount(Element eqItemElement) {
+        int move = Integer.valueOf(eqItemElement.getAttribute("moveSpeed"));
+        String name = eqItemElement.getAttribute("name");
+        int value = Integer.valueOf(eqItemElement.getAttribute("value"));
+        Mount m = new Mount(name, move);
+        return m;
     }
-    private Potion processPotion(Element invItemElement) {
-        Potion p  = new Potion();
-        p.setItemName(invItemElement.getAttribute("itemName"));
-        Node statsAddNode = invItemElement.getChildNodes().item(0);
-        StatsAddable sa = processStatsAddable(statsAddNode);
-        p.setItemStats(sa);
-        return p;
-    }
+//OTHER
     private StatsAddable processStatsAddable(Node statsAddNode) {
         StatsAddable sa = new GenericStatsAddable();
         if(statsAddNode.getNodeType() == Node.ELEMENT_NODE){
@@ -902,5 +1103,41 @@ private void setActiveMapArea() {
             System.out.println("node passed to process location wasn't an element");
         }
         return c;
+    }
+    private AdaptableStrategy processInputStrategy(Element item) {
+        boolean createFromLoad = true;
+        AdaptableStrategy as = new AdaptableStrategy(createFromLoad);
+//        HashMap<Integer, KeyMapping> hs= as.getKeyMappings();
+        NodeList entryElements = item.getChildNodes();
+        for(int i =0; i != entryElements.getLength(); ++i){
+            Element entryElement = (Element)(entryElements.item(i));
+            int key = Integer.valueOf(entryElement.getAttribute("key"));
+            KeyMapping value = KeyMapping.fromInt(Integer.valueOf(entryElement.getAttribute("value")));
+            as.setKeyMappings(key,value);
+        }
+        return as;
+    }
+    //DANK QUADRA-FOR-LOOP TRIANGLE FUNCTION
+    private void setActiveMapArea() {
+        Map m = Map.getInstance();
+        MapArea[] mas = m.getMapAreas();
+        Avatar a = Avatar.getInstance();
+        for(MapArea ma : mas){
+            for(Tile[] tiles : ma.getTiles()){
+                for(Tile tile : tiles){
+                    if(tile != null){
+                        Entity[] es = tile.getEntities();
+                        if(es.length != 0){
+                            for(Entity e : es){
+                                if(e.equals(a)){
+                                    m.setActiveMapArea(ma);
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

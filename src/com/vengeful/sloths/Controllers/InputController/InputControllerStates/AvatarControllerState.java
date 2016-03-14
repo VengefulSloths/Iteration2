@@ -28,7 +28,6 @@ public class AvatarControllerState extends InputControllerState {
 
         follower.move(currentFollowerDirection.getDirection());
 
-
         if(currentMovementDirection != null){
             avatar.move(currentMovementDirection);
         }
@@ -63,7 +62,7 @@ public class AvatarControllerState extends InputControllerState {
 
     @Override
     public void handleAbility3Key() {
-
+        System.out.println("333333333333333333333333333");
         MainController.getInstance().setAbilityActive(2);
         Avatar.getInstance().doAbility(2);
     }
@@ -105,6 +104,7 @@ public class AvatarControllerState extends InputControllerState {
             avatar.changeDirection(Direction.SW);
         }
         this.currentMovementDirection = Direction.SW;
+        System.out.println("southwest");
         return true;
     }
 

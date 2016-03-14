@@ -207,7 +207,11 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
 
     @Override
     public void visitWater(Water water) {
-        currentTile.addChild(factory.createWaterTerrainViewObject(r, s));
+        if(!water.isSky()){
+            currentTile.addChild(factory.createWaterTerrainViewObject(r, s));
+        }else{
+        }
+
     }
 
     @Override

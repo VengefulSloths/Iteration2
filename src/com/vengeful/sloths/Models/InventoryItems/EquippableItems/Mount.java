@@ -15,11 +15,11 @@ import com.vengeful.sloths.Models.Stats.StatAddables.MovementAddable;
  * Created by Alex on 3/10/2016.
  */
 public class Mount extends EquippableItems {
-    private String name;
     private int moveSpeed;
 
     public Mount(String name, int moveSpeed) {
         this.moveSpeed = moveSpeed;
+        this.setItemName(name);
         this.name = name;
     }
 
@@ -39,7 +39,7 @@ public class Mount extends EquippableItems {
 
     @Override
     public void removeFromEquipped(Equipped equipped) {
-        equipped.removeMount();
+        equipped.removeMount(this);
     }
 
     @Override
@@ -59,8 +59,4 @@ public class Mount extends EquippableItems {
         this.moveSpeed = moveSpeed;
     }
 
-    @Override
-    public void interact() {
-
-    }
 }

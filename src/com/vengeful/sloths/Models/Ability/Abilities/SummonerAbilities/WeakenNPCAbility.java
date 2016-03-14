@@ -108,6 +108,6 @@ public class WeakenNPCAbility extends Ability{
 
     @Override
     public void accept(ModelVisitor modelVisitor) {
-        //TODO: add to visitor
+        modelVisitor.visitWeakenNPCAbility(this);
     }
 }

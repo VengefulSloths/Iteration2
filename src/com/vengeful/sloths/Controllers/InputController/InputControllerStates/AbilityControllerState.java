@@ -58,6 +58,7 @@ public class AbilityControllerState extends InputControllerState{
 
     @Override
     public boolean handleESCKey() {
+        MainController.getInstance().setAvatarControllerState();
         return false;
     }
 

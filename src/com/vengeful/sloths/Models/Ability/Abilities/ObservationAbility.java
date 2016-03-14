@@ -97,8 +97,8 @@ public class ObservationAbility extends Ability{
 
 
         System.out.println("========== OBSERVE ==========");
-        System.out.println("REAL DMG: " + realDmg + "REAL SPD: " + realSpeed);
-        System.out.println("SHOW DMG: " + showDmg + "SHOW SPD: " + showSpeed);
+        System.out.println("REAL DMG: " + realDmg + " REAL SPD: " + realSpeed);
+        System.out.println("SHOW DMG: " + showDmg + " SHOW SPD: " + showSpeed);
         System.out.println("MIN: " + observationFactor_L);
         System.out.println("MAX: " + observationFactor_U);
         System.out.println("DISC: " + (radiusAcc * distanceFactor));

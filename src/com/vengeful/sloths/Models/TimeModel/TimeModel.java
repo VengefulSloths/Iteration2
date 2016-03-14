@@ -40,6 +40,7 @@ public class TimeModel {
     }
     //decremenets timedobjects and calls alterables execute when ticks == 0
     public void tick(){
+        //System.out.println("TIME MODEL TICK");
         for (Iterator<TimedObject> iterator = alertables.iterator(); iterator.hasNext();){
             TimedObject object = iterator.next();
             if(object.decrement()){// if its time to execute the object
@@ -71,6 +72,11 @@ public class TimeModel {
 
     public static TimeModel getInstance() {
         return instance;
+    }
+
+    public void reset(){
+        alertables = Collections.synchronizedList(new CopyOnWriteArrayList<TimedObject>()); //copy on write for concurrent access of 2 threads
+       // tickables = Collections.synchronizedList(new CopyOnWriteArrayList<Tickable>());  //dont uncomment this
     }
 
 

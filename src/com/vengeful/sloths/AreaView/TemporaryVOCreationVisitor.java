@@ -122,14 +122,19 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     private AvatarViewObject avo;
     private ProxyEntityObserver peo;
     private ProxyEntityObserver petPeo;
+
+
+    private String avatarOccupation;
     @Override
     public void visitAvatar(Avatar avatar) {
         if (peo != null) {
             peo.deregister();
         }
+        avatar.getOccupation().accept(this);
+
         this.avo = factory.createAvatarViewObject(avatar.getLocation().getR(),
                 avatar.getLocation().getS(),
-                "resources/entities/smasher/");
+                "resources/entities/" + avatarOccupation + "/");
 
 
         //Let avo observe avatar through a proxy
@@ -180,14 +185,28 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
         ObserverManager.getInstance().addProxyObserver(new ProxyStatsObserver(ebvo.getHealthBar(), aNPC.getStats()));
         aNPC.getStats().updateObservers();
         aNPC.getEquipped().alertAllEntityObserversEverything();
+
+        if (!aNPC.getShirt().isEmpty()) {
+            ebvo.wearShirt(aNPC.getShirt());
+        }
         this.activeCameraView.addViewObject(ebvo);
     }
 
 
 
     @Override
-    public void visitNonAggressiveNPC(NonAggressiveNPC nonANPC) {
-
+    public void visitNonAggressiveNPC(NonAggressiveNPC aNPC) {
+        EvilBlobViewObject ebvo = factory.createEvilBlobViewObject(aNPC.getLocation().getR(), aNPC.getLocation().getS(), "resources/entities/cyclops/");
+        ObserverManager.getInstance().addProxyObserver(new ProxyEntityObserver(ebvo, aNPC));
+        //new ProxyEntityObserver(ebvo, aNPC);
+        ebvo.registerObserver(activeCameraView);
+        ObserverManager.getInstance().addProxyObserver(new ProxyStatsObserver(ebvo.getHealthBar(), aNPC.getStats()));
+        aNPC.getStats().updateObservers();
+        aNPC.getEquipped().alertAllEntityObserversEverything();
+        if (!aNPC.getShirt().isEmpty()) {
+            ebvo.wearShirt(aNPC.getShirt());
+        }
+        this.activeCameraView.addViewObject(ebvo);
     }
 
     @Override
@@ -222,17 +241,17 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
     @Override
     public void visitSummoner(Summoner s) {
-
+        this.avatarOccupation = "summoner";
     }
 
     @Override
     public void visitSneak(Sneak s) {
-
+        this.avatarOccupation = "sneak";
     }
 
     @Override
     public void visitSmasher(Smasher s) {
-
+        this.avatarOccupation = "smasher";
     }
 
     @Override

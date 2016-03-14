@@ -78,6 +78,7 @@ public class AbilitySkillsControllerState extends InputControllerState {
 
     @Override
     public boolean handleESCKey() {
+        state.handleESCKey();
         return false;
     }
 

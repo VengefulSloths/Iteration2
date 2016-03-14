@@ -65,12 +65,12 @@ public class Map implements ModelVisitable, ViewObservable{
      */
     public void setRespawnPoint(Location coord){
 
-        this.respawnPoint = coord;
+        coord.getMapArea().setRespawnPoint(coord.getCoord());
     }
 
     public Location getRespawnPoint(){
 
-        return this.respawnPoint;
+        return new Location(activeMapArea , activeMapArea.getRespawnPoint());
     }
 
     public MapArea[] getMapAreas() {
@@ -91,6 +91,10 @@ public class Map implements ModelVisitable, ViewObservable{
         while (iter.hasNext()) {
             iter.next().alertMapAreaChange(activeMapArea);
         }
+    }
+
+    public void reset(){
+        observers = new ArrayList<>();
     }
 
     @Override

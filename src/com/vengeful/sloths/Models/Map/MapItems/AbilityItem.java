@@ -37,4 +37,5 @@ public class AbilityItem extends InventoryItem {
     public void setAbility(Ability ability) {
         this.ability = ability;
     }
+
 }

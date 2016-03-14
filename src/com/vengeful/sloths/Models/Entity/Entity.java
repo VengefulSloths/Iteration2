@@ -2,8 +2,10 @@ package com.vengeful.sloths.Models.Entity;
 
 import com.vengeful.sloths.AreaView.TemporaryVOCreationVisitor;
 import com.vengeful.sloths.Controllers.ControllerManagers.AggressiveNPCControllerManager;
+import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.BuffManager;
+import com.vengeful.sloths.Models.DialogueTrade.DialogContainer;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.*;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
@@ -48,6 +50,25 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     private SkillManager skillManager;
     private boolean dead = false;
     private boolean stunned = false;
+    private String shirt = "";
+
+    private DialogContainer dialogContainer = null;
+    public void talk(){
+        //create talk command
+        if(dialogContainer != null){
+            //do stuff, possibly alert controller
+            MainController.getInstance().setDialogControllerState(this.dialogContainer);
+            dialogContainer.next();
+        }
+    }
+
+    public void setShirt(String shirt) {
+        this.shirt = shirt;
+    }
+
+    public String getShirt() {
+        return this.shirt;
+    }
 
     private CanMoveVisitor movementValidator;
 
@@ -105,7 +126,9 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     }
 
     public final int move(Direction dir){
+//        System.out.println("bloop1");
         if(!isActive) {
+//            System.out.println("bloop2");
             this.setFacingDirection(dir);
 
             EntityMovementCommand emc = EntityMapInteractionFactory.getInstance().createMovementCommand(
@@ -131,13 +154,12 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     }
 
 
-    public final int die(){
+    public int die(){
         if(!this.dead) {
             this.setDead(true);
             System.out.println("dying bruh");
 
             EntityDieCommand edc = EntityMapInteractionFactory.getInstance().createDeathCommand(this, observers.iterator());
-
             dropAllItems();
             customDeath();
             doRespawn();
@@ -235,10 +257,14 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         buffManager.modifyDamage(damage);
 
         //TODO: take defensive rating into consideration
-
-        getStats().subtract(damage);
+        System.out.println("hardiness is " + this.getStats().getHardiness());
+        System.out.println("damage reduction is : " + (10f/ (10f + (float)this.getStats().getHardiness())));
+        if (attackDamage > 0) {
+            attackDamage = (int)((float)attackDamage * (10f/ (10f + (float)this.getStats().getHardiness())));
+        }
+        getStats().subtract(new CurrentHealthAddable(attackDamage));
         for (EntityObserver observer: observers) {
-            observer.alertTakeDamage(damage.getCurrentHealth());
+            observer.alertTakeDamage(attackDamage);
         }
     }
 
@@ -395,6 +421,9 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         return this.observers;
     }
 
+    public void setObservers(ArrayList<EntityObserver> observers) {
+        this.observers = observers;
+    }
 
     @Deprecated
     public boolean getMoving(){
@@ -428,4 +457,11 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         return  gsa;
     }
 
+    public DialogContainer getDialogContainer() {
+        return dialogContainer;
+    }
+
+    public void setDialogContainer(DialogContainer dialogContainer) {
+        this.dialogContainer = dialogContainer;
+    }
 }

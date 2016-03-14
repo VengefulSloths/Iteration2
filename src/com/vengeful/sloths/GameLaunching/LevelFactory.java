@@ -3,16 +3,21 @@ package com.vengeful.sloths.GameLaunching;
 import com.vengeful.sloths.AreaView.CameraView;
 import com.vengeful.sloths.AreaView.CameraViewManager;
 import com.vengeful.sloths.AreaView.TemporaryVOCreationVisitor;
+import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.SimpleHexCoordinateStrategy;
+import com.vengeful.sloths.AreaView.ViewObjects.DecalViewObject;
 import com.vengeful.sloths.Controllers.ControllerManagers.AggressiveNPCControllerManager;
+import com.vengeful.sloths.Controllers.ControllerManagers.NonAggressiveNPCControllerManager;
 import com.vengeful.sloths.Controllers.ControllerManagers.PiggyControllerManager;
 import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SelfBuffAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
+import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityFactory;
 import com.vengeful.sloths.Models.DialogueTrade.DialogContainer;
 import com.vengeful.sloths.Models.DialogueTrade.TerminalDialogContainer;
 import com.vengeful.sloths.Models.Entity.AggressiveNPC;
 import com.vengeful.sloths.Models.Entity.Avatar;
+import com.vengeful.sloths.Models.Entity.NonAggressiveNPC;
 import com.vengeful.sloths.Models.Entity.Piggy;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.DropAllGoldCommand;
 import com.vengeful.sloths.Models.Inventory.Inventory;
@@ -41,6 +46,7 @@ import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
 import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.Map.MapItems.Trap;
+import com.vengeful.sloths.Models.Map.Terrains.DummyTerrain;
 import com.vengeful.sloths.Models.Map.Terrains.Grass;
 import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
@@ -77,6 +83,10 @@ public class LevelFactory {
         switch (levelName) {
             case "test":
                 createTestMap();
+                break;
+            case "demo" :
+                createDemoMap();
+                break;
         }
     }
 
@@ -84,9 +94,82 @@ public class LevelFactory {
         switch (levelName) {
             case "test":
                 populateTestMap();
+                break;
+            case"demo":
+                populateDemoMap();
+                break;
         }
     }
 
+    public void createDemoMap(){
+        this.cameras = new CameraViewManager();
+        //call create each area
+        MapArea town = createAreaTown();
+        //link areas with teleport tiles
+
+        //SETTING MAPAREAS
+        MapArea[] areas = new MapArea[1];
+        areas[0] = town;
+
+        this.map = Map.getInstance();
+        this.map.setMapAreas(areas);
+        this.map.setRespawnPoint(new Location(town, new Coord(3,3)));
+        this.map.setActiveMapArea(town);
+        this.spawnPoint = new Coord(9,1);
+    }
+    public MapArea createAreaTown(){
+        MapArea town = new MapArea(11,11);
+        town.setName("town");
+        for (int i=2;i<10;i++) {
+            for (int j = 1; j < 10; j++) {
+                town.addTile(new Coord(i,j), new  Tile( j > 7 ? new Water() : new Grass()));
+            }
+        }
+        for(int j = 1; j != 10; ++j){
+            town.addTile(new Coord(1,j), new Tile(new Mountain()));
+        }
+        town.getTile(new Coord(2,2)).setTerrain(new Mountain());
+        for(int i = 3; i != 6; ++i){
+            for(int j = 3; j !=6; ++j ){
+                town.getTile(new Coord(i,j)).setTerrain(new DummyTerrain());
+            }
+        }
+        return town;
+    }
+
+    public void populateDemoMap(){
+        MapArea[] areas = Map.getInstance().getMapAreas();
+        MapArea town = areas[0];
+        populateAreaTown(town);
+
+        //CAMERAS
+        CameraView camera1 = new PlainsCameraView();
+        camera1.init(town);
+        cameras.addCameraView(town, camera1);
+    }
+    public void populateAreaTown(MapArea town){
+        //ITEMS AND QUESTS
+        town.getTile(new Coord(3,2)).addObstacle(new Obstacle(new Coord(3,2)));
+        Quest quest1_b = new DoDestroyObstacleQuest(new Coord(3,2));
+        Quest quest1_a = new HasItemQuest(quest1_b, "Blue Potion");
+        town.getTile(new Coord(4,2)).addInteractiveItem(new InteractiveItem(quest1_a, new Coord(4,2)));
+
+        //NPCS
+        NonAggressiveNPC testNPC = new NonAggressiveNPC("greg", new Stats( new BaseStatsAddable(0,0,0,10,20)));
+        town.getTile(new Coord(8,3)).addEntity(testNPC);
+        testNPC.setLocation(new Coord(8,3));
+        new NonAggressiveNPCControllerManager(town, testNPC, Direction.S);
+
+        NonAggressiveNPC testNPC2 = new NonAggressiveNPC("Bob", new Stats( new BaseStatsAddable(0,0,0,10,20)));
+        town.getTile(new Coord(2,1)).addEntity(testNPC2);
+        testNPC2.setLocation(new Coord(2,1));
+        new NonAggressiveNPCControllerManager(town, testNPC, Direction.S);
+
+
+        town.getTile(new Coord(6,2)).addAreaEffect(new TakeDamageAE(2));
+        Ability hot = AbilityFactory.getInstance().createHealOverTime(Avatar.getInstance());
+        town.getTile(new Coord(5,2)).addTakeableItem(new TakeableItem("Rejuvination", new AbilityItem(hot), new Coord(5,2)));
+    }
     public void createTestMap() {
         this.cameras = new CameraViewManager();
 
@@ -183,21 +266,27 @@ public class LevelFactory {
         area1.getTile(new Coord(11,1)).addOneShotItem(new OneShotItem(new Coord(11,1)));
 
 
-        area1.getTile(new Coord(2,2)).addTakeableItem(new TakeableItem("redPotion", new Potion("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(2,2)));
-        area1.getTile(new Coord(11,10)).addTakeableItem(new TakeableItem("bluePotion", new Potion("bluePotion",new BaseStatsAddable(0,0,5,0,0)), new Coord(11,10)));
+        area2.getTile(new Coord(6,5)).addTakeableItem(new TakeableItem("Water Staff", new Staff("Water Staff", new IntellectAddable(5), 10), new Coord(6,5)));
+        area2.getTile(new Coord(6,7)).addTakeableItem(new TakeableItem("Obsidian Staff", new Staff("Obsidian Staff", new IntellectAddable(5), 10), new Coord(6,3)));
+        area2.getTile(new Coord(7,6)).addTakeableItem(new TakeableItem("Dragon Staff", new Staff("Dragon Staff", new IntellectAddable(5), 10), new Coord(7,6)));
+        area2.getTile(new Coord(3,3)).addTakeableItem(new TakeableItem("Bow", new Bow("Bow", new IntellectAddable(5), 10), new Coord(3,3)));
+
+
+        area1.getTile(new Coord(2,2)).addTakeableItem(new TakeableItem("Red Potion", new Potion("Red Potion",new BaseStatsAddable(5,0,0,0,0)), new Coord(2,2)));
+        area1.getTile(new Coord(11,10)).addTakeableItem(new TakeableItem("Blue Potion", new Potion("Blue Potion",new BaseStatsAddable(0,0,5,0,0)), new Coord(11,10)));
 //        area2.getTile(new Coord(2,2)).addTakeableItem(new TakeableItem("redPotion", new Potion("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(2,2)));
 
 
-        area1.getTile(new Coord(9, 2)).addTakeableItem(new TakeableItem("Bow", new Bow("Bow", new AgilityAddable(3), 3, WeaponClass.BOW), new Coord(9,2)));
+        area1.getTile(new Coord(9, 2)).addTakeableItem(new TakeableItem("Bow", new Bow("Bow", new AgilityAddable(3), 3), new Coord(9,2)));
 
         Quest quest1_b = new DoDestroyObstacleQuest(new Coord(2,3));
-        Quest quest1_a = new HasItemQuest(quest1_b, "bluePotion");
+        Quest quest1_a = new HasItemQuest(quest1_b, "Blue Potion");
         area1.getTile(new Coord(2,2)).addInteractiveItem(new InteractiveItem(quest1_a, new Coord(2,2)));
 
         CameraView camera2 = new PlainsCameraView();
         CameraView camera1 = new PlainsCameraView();
-
-        Potion p = new Potion("redPotion", new CurrentHealthAddable(20));
+//
+        Potion p = new Potion("Red Potion", new CurrentHealthAddable(20));
         p.setValue(100000);
 //        Piggy testPiggy = new Piggy("Bart", new Stats(new MovementAddable(30)));
 //        testPiggy.getInventory().addItem(p);
@@ -215,14 +304,14 @@ public class LevelFactory {
 
 //        TakeableItem piggyTotem = new TakeableItem("Piggy Totem", new PiggyTotem("Piggy Totem", testPiggy), new Coord(2,2));
 
-        FireBallAbility fireBallAbility = new FireBallAbility(Avatar.getInstance(), 150, 150, 150, 150);
+        FireBallAbility fireBallAbility = AbilityFactory.getInstance().createFireBallAbility(Avatar.getInstance());
         fireBallAbility.setItemName("Fire Ball");
         area1.getTile(new Coord(3,3)).addTakeableItem(new TakeableItem("Fire Ball", new AbilityItem(fireBallAbility), new Coord(3,3)));
 
         SelfBuffAbility hot = AbilityFactory.getInstance().createHealOverTime(Avatar.getInstance());
 
         SelfBuffAbility roids = AbilityFactory.getInstance().createDamageBoost(Avatar.getInstance());
-
+        roids.setItemName("Roids");
 
         area1.getTile(new Coord(7,7)).addTakeableItem(new TakeableItem("Roids", new AbilityItem(roids), new Coord(7,7)));
 
@@ -240,29 +329,42 @@ public class LevelFactory {
         camera1.init(area1);
 
 
+        camera1.addDecal(new Coord(3, 3), "resources/decals/Hydrangeas_fast.xml");
+        camera2.addDecal(new Coord(3, 3), "resources/decals/Hydrangeas_fast.xml");
+        camera2.addDecal(new Coord(4,4), "resources/decals/Hydrangeas_med.xml");
+//        camera2.addDecal(new Coord(5,5), "resources/decals/Hydrangeas_slow.xml");
+        camera2.addDecal(new Coord(5,5), "resources/decals/Roses_slow.xml");
+
+
         TemporaryVOCreationVisitor.getInstance().setActiveCameraView(camera2);
-
-
-
+//
+//        NonAggressiveNPC testNPC = new NonAggressiveNPC("greg", new Stats( new BaseStatsAddable(0,0,0,10,20)));
+//        area2.getTile(new Coord(5,5)).addEntity(testNPC);
+//        testNPC.setLocation(new Coord(5,5));
+//        new NonAggressiveNPCControllerManager(area2, testNPC, Direction.S);
 
 
 
         //stuff to test enemy controllers
-        AggressiveNPC testEnemy =  new AggressiveNPC("xXOG_SwaG_LorD_BlazE_MasteR_420_Xx", new Stats(new BaseStatsAddable(0,0,0,0,30)));
-        //testEnemy.getInventory().addItem(p);
-        area2.getTile(new Coord(3,3)).addEntity(testEnemy);
-        testEnemy.setLocation(new Coord(3,3));
-        testEnemy.equip(new TwoHandedWeapon("cleaver", new StrengthAddable(1), 1));
 
-        //testEnemy.accept(TemporaryVOCreationVisitor.getInstance());
-        new AggressiveNPCControllerManager(area2, testEnemy);
+//        AggressiveNPC testEnemy =  new AggressiveNPC("xXOG_SwaG_LorD_BlazE_MasteR_420_Xx", new Stats(new BaseStatsAddable(0,0,0,15,30)));
+////        testEnemy.getInventory().addItem(p);
+////        testEnemy.getInventory().addItem(p);
+////        testEnemy.getInventory().addItem(p);
+////        testEnemy.getInventory().addItem(p);
+////        testEnemy.getInventory().addItem(p);
+//        area2.getTile(new Coord(3,3)).addEntity(testEnemy);
+//        testEnemy.setLocation(new Coord(3,3));
+//        testEnemy.equip(new TwoHandedWeapon("Iron 2H", new StrengthAddable(1), 1));
+//
+//        //testEnemy.accept(TemporaryVOCreationVisitor.getInstance());
+//        new AggressiveNPCControllerManager(area2, testEnemy);
+//        testEnemy.setShirt("pink_shirt");
+//        testEnemy.getStats().subtract(new CurrentHealthAddable(1));
+        camera1.addDecal(new Coord(2,2), "resources/terrain/cracked_sand.xml" );
+        camera2.addDecal(new Coord(2,2), "resources/terrain/cracked_sand.xml" );
 
-        testEnemy.getStats().subtract(new CurrentHealthAddable(1));
-
-        //map.getActiveMapArea().getTile(spawnPoint).addEntity(Avatar.getInstance());
-
-
-
+//        map.getActiveMapArea().getTile(spawnPoint).addEntity(Avatar.getInstance());
         cameras.addCameraView(area2, camera2);
         cameras.addCameraView(area1, camera1);
     }

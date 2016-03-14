@@ -58,24 +58,25 @@ public class LaunchGameTemplate {
         initSingletons();
 
         /*****Test avatar drop******/
-        avatar.equip(new Mount("lazy_mount", 10));
 
-        avatar.getInventory().addItem(new Potion("redPotion", new HealthManaExperienceAddable(5,0,0,0,0)));
-        avatar.getInventory().addItem(new Potion("bluePotion", new HealthManaExperienceAddable(0,0,5,0,0)));
-        avatar.getInventory().addItem(new Potion("bluePotion", new HealthManaExperienceAddable(0,0,5,0,0)));
+        avatar.equip(new Mount("Hover", 10));
+
+        avatar.getInventory().addItem(new Potion("Red Potion", new HealthManaExperienceAddable(5,0,0,0,0)));
+        avatar.getInventory().addItem(new Potion("Blue Potion", new HealthManaExperienceAddable(0,0,5,0,0)));
+        avatar.getInventory().addItem(new Potion("Blue Potion", new HealthManaExperienceAddable(0,0,5,0,0)));
+        avatar.getInventory().addItem(new TwoHandedWeapon("Mystical 2H", new StrengthAddable(15), 15));
 
         System.out.println("AVATAR HAS " + avatar.getInventory().getCurrentSize() + " items");
 
         System.out.println("After equipped...");
 
-        avatar.equip(new Shuriken("shuriken", new StrengthAddable(5), 10, WeaponClass.THROW));
+        avatar.equip(new Shuriken("Dragon Shuriken", new StrengthAddable(5), 10, WeaponClass.THROW));
 
 
-        avatar.equip(new Hat("tophat", new StrengthAddable(15))); //edit
+        avatar.equip(new Hat("Tophat", new StrengthAddable(15))); //edit
         //avatar.equip(new Mount("mount", 10)); //edit
 
 //        avatar.equip(new Bow("Bow", new StrengthAddable(5), 10, WeaponClass.BOW));
-        avatar.equip(new Hat("tophat", new StrengthAddable(0))); //edit
 
         System.out.println("AVATAR HAS " + avatar.getInventory().getCurrentSize() + " items");
 //        avatar.equip(new Mount("mount", 10)); //edit
@@ -90,17 +91,24 @@ public class LaunchGameTemplate {
 //        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createProtectFromEvil(avatar), 1);
         //avatar.getAbilityManager().equipAbility(new PickPocketAbility(), 1);
         //avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createNPCFallAsleepAbility(avatar), 1);
-        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createPoisonNPCAbility(avatar), 1);
+        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createHealOverTime(avatar), 1);
         //avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createExplosionAbility(avatar, 10, 3, 5, 5), 2);
 
         //avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createDamageBoost(avatar), 2);
         //avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createHealOverTime(avatar), 3);
-        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createFireBallAbility(avatar, 10, 3, 5, 5), 3);
+
         avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createWeakenNPCAbility(avatar), 3);
         avatar.getAbilityManager().equipAbility(new PickPocketAbility(), 1);
 //        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createNPCFallAsleepAbility(avatar), 1);
 
         //avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createDamageBoost(avatar), 2);
+
+        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createFireBallAbility(avatar), 3);
+        avatar.getAbilityManager().equipAbility(new PickPocketAbility(), 1);
+//        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createNPCFallAsleepAbility(avatar), 1);
+
+        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createDamageBoost(avatar), 2);
+
         //avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createHealOverTime(avatar), 3);
 
         avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createObservationAbility(avatar), 0);
@@ -170,7 +178,9 @@ public class LaunchGameTemplate {
         StatsView sv = new StatsView(avatar.getStats());
         //ViewManager vm = new ViewManager(areaView, hv);
         CharacterView cv = new CharacterView(giv, ev, sv);
-        AbilitiesSkillView abilitiesSkillView = new AbilitiesSkillView(gridAbilitiesView, null, null);
+        EquippedAbilitiesView equippedAbilitiesView = new EquippedAbilitiesView(avatar.getAbilityManager());
+        SkillsView skillsView = new SkillsView(avatar.getSkillManager());
+        AbilitiesSkillView abilitiesSkillView = new AbilitiesSkillView(gridAbilitiesView, equippedAbilitiesView, skillsView);
         ViewManager vm = new ViewManager(areaView, hv, cv);
         vm.setAbilitiesSkillView(abilitiesSkillView);
 

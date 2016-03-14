@@ -1,6 +1,12 @@
 package com.vengeful.sloths.Models.Entity;
 
+
 import com.vengeful.sloths.Models.Ability.AbilityFactory;
+
+import com.vengeful.sloths.AreaView.ViewEngine;
+import com.vengeful.sloths.AreaView.ViewTime;
+import com.vengeful.sloths.Controllers.InputController.MainController;
+import com.vengeful.sloths.Menu.MainMenu.MenuTester;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteractionFactory;
@@ -9,6 +15,7 @@ import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.Tile;
+import com.vengeful.sloths.Models.ModelEngine;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.ConsumableItems;
 import com.vengeful.sloths.Models.Observers.EntityObserver;
@@ -24,8 +31,13 @@ import com.vengeful.sloths.Utility.*;
 
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import javax.swing.text.View;
+import java.util.ArrayList;
+
 import java.util.Iterator;
 
 /**
@@ -173,7 +185,7 @@ public class Avatar extends Entity{
 
     @Override
     protected void doRespawn() {
-        EntityMapInteractionFactory.getInstance().createRespawnCommand(this, this.getLocation(), timeToRespawn);
+        EntityMapInteractionFactory.getInstance().createRespawnCommand(this, Map.getInstance().getRespawnPoint().getCoord(), timeToRespawn);
     }
 
     @Override
@@ -240,6 +252,21 @@ public class Avatar extends Entity{
     public Pet removePet() {
         this.pet.alertDead();
         this.pet = null;
-        return pet;
+
+        return pet; }
+
+    @Override
+    public int die(){
+        super.die();
+
+        if(this.getStats().getLives() <= 0){
+            //end the game
+           GameResetter.reset();
+        }
+        return 0;
+    }
+
+    public void reset(){
+        this.setObservers(new ArrayList<EntityObserver>());
     }
 }

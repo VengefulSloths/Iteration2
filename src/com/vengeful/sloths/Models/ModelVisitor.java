@@ -170,4 +170,5 @@ public interface ModelVisitor {
     void visitTradeDialogueContainer(TradeDialogContainer tradeDialogContainer);
 
     void visitTerminalDialogueContainer(TerminalDialogContainer terminalDialogContainer);
+
 }
