@@ -24,17 +24,18 @@ public class GridEntityInvViewTrading extends GridInventoryView implements Inven
     }
     public GridEntityInvViewTrading(Inventory inv, int bargainSkill, String entityName){
         //this.itemList = new ArrayList<AbilityViewObject>();
-        this.setItemList(new ArrayList<ItemViewObject>());
-        this.setInventory(inv);
-        //Create a proxy for the observer, regester the proxy w/ entity, add proxy to manager
-        ProxyObserver pio = new ProxyInventoryObserver(this, inv);
-        ObserverManager.getInstance().addProxyObserver(pio);
-
-        initWithInventory(this.getInventory());
-        this.entityName = entityName;
-        initDefaultUI();
-        this.setNumRows(5); //default numRows
-        this.setNumCols(4); //default numCols
+        super(inv);
+//        this.setItemList(new ArrayList<ItemViewObject>());
+//        this.setInventory(inv);
+//        //Create a proxy for the observer, regester the proxy w/ entity, add proxy to manager
+//        ProxyObserver pio = new ProxyInventoryObserver(this, inv);
+//        ObserverManager.getInstance().addProxyObserver(pio);
+//
+//        initWithInventory(this.getInventory());
+//        this.entityName = entityName;
+//        initDefaultUI();
+//        this.setNumRows(5); //default numRows
+//        this.setNumCols(4); //default numCols
     }
 
 

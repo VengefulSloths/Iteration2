@@ -23,7 +23,7 @@ public class TradeItem extends ItemViewObject {
         super.paintComponent(g, x, y, width, height);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(new Color(0f,0f,0f,.4f));
-        g2d.fillRect(x + 10,y + height/2,width - 20,height/2);
+        //g2d.fillRect(x + 10,y + height/2,width - 20,height/2);
         g2d.setColor(Color.WHITE);
         g2d.drawString("" + value, x +10, y + height);
     }
