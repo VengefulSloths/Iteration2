@@ -43,6 +43,7 @@ import com.vengeful.sloths.Models.Map.MapItems.Obstacle;
 import com.vengeful.sloths.Models.Map.MapItems.OneShotItem;
 import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.Map.MapItems.Trap;
+import com.vengeful.sloths.Models.Map.Terrains.DummyTerrain;
 import com.vengeful.sloths.Models.Map.Terrains.Grass;
 import com.vengeful.sloths.Models.Map.Terrains.Mountain;
 import com.vengeful.sloths.Models.Map.Terrains.Water;
@@ -79,6 +80,10 @@ public class LevelFactory {
         switch (levelName) {
             case "test":
                 createTestMap();
+                break;
+            case "demo" :
+                createDemoMap();
+                break;
         }
     }
 
@@ -86,7 +91,87 @@ public class LevelFactory {
         switch (levelName) {
             case "test":
                 populateTestMap();
+                break;
+            case"demo":
+                populateDemoMap();
+                break;
         }
+    }
+
+    public void createDemoMap(){
+        this.cameras = new CameraViewManager();
+
+        //Area1 Safe Area
+        MapArea town = new MapArea(11,11);
+        town.setName("town");
+        for (int i=2;i<10;i++) {
+            for (int j = 1; j < 10; j++) {
+                town.addTile(new Coord(i,j), new  Tile( j > 7 ? new Water() : new Grass()));
+            }
+        }
+        for(int j = 1; j != 10; ++j){
+            town.addTile(new Coord(1,j), new Tile(new Mountain()));
+        }
+        town.getTile(new Coord(2,2)).setTerrain(new Mountain());
+        for(int i = 3; i != 6; ++i){
+            for(int j = 3; j !=6; ++j ){
+                town.getTile(new Coord(i,j)).setTerrain(new DummyTerrain());
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//SETTING MAPAREAS
+        MapArea[] areas = new MapArea[1];
+        areas[0] = town;
+
+        this.map = Map.getInstance();
+        this.map.setMapAreas(areas);
+        this.map.setRespawnPoint(new Location(town, new Coord(3,3)));
+        this.map.setActiveMapArea(town);
+        this.spawnPoint = new Coord(9,1);
+    }
+
+    public void populateDemoMap(){
+        MapArea[] areas = Map.getInstance().getMapAreas();
+        //**************************************TOWN**********************************************88
+        MapArea town = areas[0];
+        //ITEMS AND QUESTS
+        town.getTile(new Coord(3,2)).addObstacle(new Obstacle(new Coord(3,2)));
+        Quest quest1_b = new DoDestroyObstacleQuest(new Coord(3,2));
+        Quest quest1_a = new HasItemQuest(quest1_b, "Blue Potion");
+        town.getTile(new Coord(4,2)).addInteractiveItem(new InteractiveItem(quest1_a, new Coord(4,2)));
+
+        //NPCS
+        NonAggressiveNPC testNPC = new NonAggressiveNPC("greg", new Stats( new BaseStatsAddable(0,0,0,10,20)));
+        town.getTile(new Coord(8,3)).addEntity(testNPC);
+        testNPC.setLocation(new Coord(8,3));
+        new NonAggressiveNPCControllerManager(town, testNPC, Direction.S);
+
+        NonAggressiveNPC testNPC2 = new NonAggressiveNPC("Bob", new Stats( new BaseStatsAddable(0,0,0,10,20)));
+        town.getTile(new Coord(2,1)).addEntity(testNPC2);
+        testNPC2.setLocation(new Coord(2,1));
+        new NonAggressiveNPCControllerManager(town, testNPC, Direction.S);
+        //CAMERAS
+        CameraView camera1 = new PlainsCameraView();
+        camera1.init(town);
+        cameras.addCameraView(town, camera1);
+        //***********************************END TOWN********************************************************88
     }
 
     public void createTestMap() {

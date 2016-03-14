@@ -117,9 +117,9 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     }
 
     public final int move(Direction dir){
-        System.out.println("bloop1");
+//        System.out.println("bloop1");
         if(!isActive) {
-            System.out.println("bloop2");
+//            System.out.println("bloop2");
             this.setFacingDirection(dir);
 
             EntityMovementCommand emc = EntityMapInteractionFactory.getInstance().createMovementCommand(
