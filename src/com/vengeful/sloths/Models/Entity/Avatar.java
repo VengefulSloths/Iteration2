@@ -158,11 +158,13 @@ public class Avatar extends Entity{
     }
 
 
+
     //called by levelUp AE
     public void levelUp() {
         this.getStats().add(new HealthManaExperienceAddable(0, 0, 0, 0, this.getStats().getMaxExperience() - this.getStats().getCurrentExperience()));
         this.getOccupation().levelUp(this.getStats());
         this.getSkillManager().setAvailableSkillPoint(this.getSkillManager().getAvailableSkillPoints() + 2); //hard coded to gain 2 sp every level
+        System.out.println("SKILL POINTS: " + this.getSkillManager().getAvailableSkillPoints());
     }
 
     public void gainXP(int xp) {
@@ -232,12 +234,11 @@ public class Avatar extends Entity{
     private boolean canSeeTrap(){
         int skillLevel =  this.getSkillManager().getRemoveTrapLevel();
         int maxSkillLevel = this.getSkillManager().getMaxRemoveTrapLevel();
-        int probability = (int)Math.round(((double)skillLevel / maxSkillLevel) * 70); //probability of seeing trap is not capped
+        int probability = (int)Math.round(((double)skillLevel / maxSkillLevel) * 94); //probability of seeing trap is not capped
         int randomNum = 1 + (int)(Math.random() * 100); //[1-100]
         if(randomNum <= probability){
             return true;
         }
-
         return false;
     }
 

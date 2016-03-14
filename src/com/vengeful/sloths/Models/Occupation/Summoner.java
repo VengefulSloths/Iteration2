@@ -3,6 +3,7 @@ package com.vengeful.sloths.Models.Occupation;
 
 import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.ObservationAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.NPCFallAsleepAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityFactory;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
@@ -38,12 +39,14 @@ public class Summoner extends Occupation {
         abilityManager.addAbility(a3);
         abilityManager.equipAbility(a3,2);
 
-        Ability a4 = AbilityFactory.getInstance().createWeakenNPCAbility(entity);
+        Ability a4 = AbilityFactory.getInstance().createPoisonNPCAbility(entity);
         abilityManager.addAbility(a4);
         abilityManager.equipAbility(a4,3);
 
+        abilityManager.addAbility(new NPCFallAsleepAbility(entity, 8, 15, 360));
         abilityManager.addAbility(new BindWoundsAbility(entity));
         abilityManager.addAbility(new ObservationAbility(entity));
+
 
         this.addSharedAbility(abilityManager, entity);
     }
