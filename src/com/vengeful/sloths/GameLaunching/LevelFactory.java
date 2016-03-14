@@ -165,6 +165,14 @@ public class LevelFactory {
         testNPC2.setLocation(new Coord(2,1));
         new NonAggressiveNPCControllerManager(town, testNPC, Direction.S);
     }
+
+    public MapArea createSummonerArea(){
+        return null;
+    }
+
+    public void populateSummonerArea(){
+
+    }
     public void createTestMap() {
         this.cameras = new CameraViewManager();
 
@@ -246,6 +254,7 @@ public class LevelFactory {
 
         this.spawnPoint = new Coord(2,1);
     }
+
 
     public void populateTestMap() {
         MapArea[] areas = Map.getInstance().getMapAreas();
