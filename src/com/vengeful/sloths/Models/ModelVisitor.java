@@ -11,6 +11,10 @@ import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.Buff;
 import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.Buff.BuffOverTime;
+import com.vengeful.sloths.Models.Buff.PoisonBuff;
+import com.vengeful.sloths.Models.Buff.*;
+import com.vengeful.sloths.Models.DialogueTrade.TerminalDialogContainer;
+import com.vengeful.sloths.Models.DialogueTrade.TradeDialogContainer;
 import com.vengeful.sloths.Models.Entity.*;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
@@ -82,6 +86,9 @@ public interface ModelVisitor {
     void visitOneHandedWeapon(OneHandedWeapon ohw);
     void visitTwoHandedWeapon(TwoHandedWeapon thw);
     void visitKnuckle(Knuckle thw);
+    void visitBow(Bow bow);
+    void visitShuriken(Shuriken shuriken);
+    void visitStaff(Staff staff);
     void visitStatsAddable(StatsAddable sa);
 
     void visitMapArea(MapArea mapArea);
@@ -115,12 +122,14 @@ public interface ModelVisitor {
     void visitMeleeAttackAbility(MeleeAttackAbility meleeAttackAbility);
     void visitFireBallAbility(FireBallAbility fireBallAbility);
     void visitExplosionAbility(ExplosionAbility explosionAbility);
-    void visitAngleSpellAbility(AngleSpellAbility angleSpellAbility);
+    void visitAngleSpellAbility(FlameThrowerAbility flameThrowerAbility);
     void visitRemoveTrapAbility(RemoveTrapAbility removeTrapAbility);
     void visitStealthAbility(StealthAbility stealthAbility);
     void visitNPCFallAsleepAbility(NPCFallAsleepAbility npcFallAsleepAbility);
     void visitPickPocketAbility(PickPocketAbility pickPocketAbility);
     void visitSelfBuffAbility(SelfBuffAbility selfBuffAbility);
+    void visitWeakenNPCAbility(WeakenNPCAbility weakenNPCAbility);
+    void visitPoisonNPCAbility(PoisonNPCAbility poisonNPCAbility);
 
     void visitBreakBoxQuest(BreakBoxQuest breakBoxQuest);
 
@@ -150,4 +159,15 @@ public interface ModelVisitor {
     void visitPiggyTotem(PiggyTotem piggyTotem);
 
 
+    void visitBoonBuffAbility(BoonBuffAbility boonBuffAbility);
+
+    void visitProtectFromEvilBuff(ProtectFromEvilBuff protectFromEvilBuff);
+
+    void visitTimedBuff(TimedBuff timedBuff);
+
+    void visitHealOverTimeBuff(HealOverTimeBuff healOverTimeBuff);
+
+    void visitTradeDialogueContainer(TradeDialogContainer tradeDialogContainer);
+
+    void visitTerminalDialogueContainer(TerminalDialogContainer terminalDialogContainer);
 }

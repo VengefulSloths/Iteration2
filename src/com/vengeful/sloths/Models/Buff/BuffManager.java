@@ -33,9 +33,18 @@ public class BuffManager implements Tickable, ModelVisitable {
     }
 
     public void addBuff(Buff buff){
-        if (buffs.contains(buff)) {
-            this.removeBuff(buff);
+        System.out.println(buff.getName());
+        for(Buff b : buffs){
+            System.out.println(b.getName());
+            if(b.getName() == buff.getName()){
+                this.removeBuff(b);
+                break;
+            }
         }
+
+        //if (buffs.contains(buff)) {
+        //    this.removeBuff(buff);
+        //}
         buff.apply(entity.getStats());
         this.buffs.add(buff);
 

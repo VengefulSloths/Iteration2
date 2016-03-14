@@ -6,15 +6,12 @@ import com.vengeful.sloths.Models.Ability.Abilities.*;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.PickPocketAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.RemoveTrapAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.StealthAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.AngleSpellAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.ExplosionAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
-import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.NPCFallAsleepAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.*;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
-import com.vengeful.sloths.Models.Buff.Buff;
-import com.vengeful.sloths.Models.Buff.BuffManager;
-import com.vengeful.sloths.Models.Buff.BuffOverTime;
+import com.vengeful.sloths.Models.Buff.*;
+import com.vengeful.sloths.Models.DialogueTrade.TerminalDialogContainer;
+import com.vengeful.sloths.Models.DialogueTrade.TradeDialogContainer;
 import com.vengeful.sloths.Models.Entity.*;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
@@ -83,6 +80,11 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
         this.activeCameraView = activeCameraView;
         this.factory = activeCameraView.getFactory();
     }
+
+     @Override
+     public void visitShuriken(Shuriken shuriken) {
+
+     }
 
      @Override
      public void visitAbilityItem(AbilityItem abilityItem) {
@@ -160,6 +162,8 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
         this.petPeo = new ProxyEntityObserver(pvo, piggy);
         ObserverManager.getInstance().addProxyObserver(this.petPeo);
         pvo.registerObserver(activeCameraView);
+
+        ObserverManager.getInstance().addProxyObserver(new ProxyStatsObserver(pvo.getHealthBar(), piggy.getStats()));
 
         piggy.getStats().updateObservers();
         activeCameraView.addViewObject(pvo);
@@ -296,7 +300,17 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
     }
 
-    @Override
+     @Override
+     public void visitBow(Bow bow) {
+
+     }
+
+     @Override
+     public void visitStaff(Staff staff) {
+
+     }
+
+     @Override
     public void visitStatsAddable(StatsAddable sa) {
 
     }
@@ -363,7 +377,7 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
      }
 
      @Override
-     public void visitAngleSpellAbility(AngleSpellAbility angleSpellAbility) {
+     public void visitAngleSpellAbility(FlameThrowerAbility flameThrowerAbility) {
 
      }
 
@@ -399,6 +413,16 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
      @Override
      public void visitSelfBuffAbility(SelfBuffAbility selfBuffAbility) {
+
+     }
+
+     @Override
+     public void visitWeakenNPCAbility(WeakenNPCAbility weakenNPCAbility) {
+
+     }
+
+     @Override
+     public void visitPoisonNPCAbility(PoisonNPCAbility poisonNPCAbility) {
 
      }
 
@@ -453,6 +477,36 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
      @Override
      public void visitPiggyTotem(PiggyTotem piggyTotem) {
+
+     }
+
+     @Override
+     public void visitBoonBuffAbility(BoonBuffAbility boonBuffAbility) {
+
+     }
+
+     @Override
+     public void visitProtectFromEvilBuff(ProtectFromEvilBuff protectFromEvilBuff) {
+
+     }
+
+     @Override
+     public void visitTimedBuff(TimedBuff timedBuff) {
+
+     }
+
+     @Override
+     public void visitHealOverTimeBuff(HealOverTimeBuff healOverTimeBuff) {
+
+     }
+
+     @Override
+     public void visitTradeDialogueContainer(TradeDialogContainer tradeDialogContainer) {
+
+     }
+
+     @Override
+     public void visitTerminalDialogueContainer(TerminalDialogContainer terminalDialogContainer) {
 
      }
 
@@ -513,11 +567,10 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
     @Override
     public void visitImmovableHitBox(ImmovableHitBox immovableHitBox) {
-        String imagePath = "resources/effects/"+immovableHitBox.getName()+"/"+immovableHitBox.getName()+".xml";
+        //String imagePath = "resources/effects/"+immovableHitBox.getName()+"/"+immovableHitBox.getName()+".xml";
+        String imagePath = "resources/effects/"+immovableHitBox.getName()+"/"+immovableHitBox.getName();
         ImmovableHitBoxViewObject hbvo = factory.createImmovableHitBoxViewObject(immovableHitBox.getLocation().getR(), immovableHitBox.getLocation().getS(), imagePath);
         new ProxyHitBoxObserver(hbvo, immovableHitBox);
-        //hbvo.registerObserver(this.activeCameraView); //register for Movement observer
-        //hbvo.registerObserver(this.activeCameraView.getTileVO(hbvo)); //register for destroyableObserver
         this.activeCameraView.addViewObject(hbvo);
     }
 

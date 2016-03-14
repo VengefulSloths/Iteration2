@@ -47,6 +47,7 @@ public class MainController implements Tickable{
     private PickPocketControllerState pickPocketControllerState;
     private DialogControllerState dialogControllerState;
     private TradeControllerState tradeContollerState;
+    private MainMenuControllerState mainMenuControllerState;
 
     public InventoryEquipmentControllerState getInventoryEquipmentControllerState() {
         return inventoryEquipmentControllerState;
@@ -75,6 +76,8 @@ public class MainController implements Tickable{
         characterCreationControllerState = new CharacterCreationControllerState();
         pickPocketControllerState = new PickPocketControllerState();
         dialogControllerState = new DialogControllerState();
+        mainMenuControllerState = new MainMenuControllerState();
+
 
         state = avatarControllerState;
 
@@ -133,6 +136,7 @@ public class MainController implements Tickable{
         viewManager.closePickPocketView();
         viewManager.closeDialogView();
         viewManager.closeTradeView();
+        viewManager.closeChooseLoadMenu();
         System.out.println("Switching to avatar state");
     }
 
@@ -156,6 +160,11 @@ public class MainController implements Tickable{
     public void setMenuControllerState(ScrollableMenu menu) {
         this.menuControllerState.setScrollableMenu(menu);
         this.state = this.menuControllerState;
+
+    }
+    public void setMainMenuControllerState(ScrollableMenu menu) {
+        this.mainMenuControllerState.setScrollableMenu(menu);
+        this.state = this.mainMenuControllerState;
 
     }
 
@@ -187,6 +196,13 @@ public class MainController implements Tickable{
         this.state = menuControllerState;
     }
 
+    public void setChooseLoadControllerState(){
+        viewManager.closeMenuView();
+        this.menuControllerState.setScrollableMenu(viewManager.getLoadGameMenu());
+        viewManager.openChooseLoadMenu();
+        this.state = menuControllerState;
+    }
+
     public Inventory getInventory(){
         return this.inventory;
     }
@@ -207,6 +223,7 @@ public class MainController implements Tickable{
     public void setInputStrategy(AdaptableStrategy inputStrategy) {
         this.inputStrategy = inputStrategy;
     }
+
 
     public void setCharacterCreationControllerState(){
         ViewEngine.getInstance().killOldView();

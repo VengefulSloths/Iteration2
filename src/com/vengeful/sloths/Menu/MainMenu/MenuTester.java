@@ -30,7 +30,7 @@ public class MenuTester {
 
         MainController mainController = MainController.getInstance();
 
-        mainController.setMenuControllerState(menu);
+        mainController.setMainMenuControllerState(menu);
 
         window.start();
     }
