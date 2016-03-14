@@ -188,12 +188,18 @@ public class LevelFactory {
         area1.getTile(new Coord(11,1)).addOneShotItem(new OneShotItem(new Coord(11,1)));
 
 
+        area2.getTile(new Coord(6,5)).addTakeableItem(new TakeableItem("Water Staff", new Staff("Water Staff", new IntellectAddable(5), 10), new Coord(6,5)));
+        area2.getTile(new Coord(6,7)).addTakeableItem(new TakeableItem("Obsidian Staff", new Staff("Obsidian Staff", new IntellectAddable(5), 10), new Coord(6,3)));
+        area2.getTile(new Coord(7,6)).addTakeableItem(new TakeableItem("Dragon Staff", new Staff("Dragon Staff", new IntellectAddable(5), 10), new Coord(7,6)));
+        area2.getTile(new Coord(3,3)).addTakeableItem(new TakeableItem("Bow", new Bow("Bow", new IntellectAddable(5), 10), new Coord(3,3)));
+
+
         area1.getTile(new Coord(2,2)).addTakeableItem(new TakeableItem("Red Potion", new Potion("Red Potion",new BaseStatsAddable(5,0,0,0,0)), new Coord(2,2)));
         area1.getTile(new Coord(11,10)).addTakeableItem(new TakeableItem("Blue Potion", new Potion("Blue Potion",new BaseStatsAddable(0,0,5,0,0)), new Coord(11,10)));
 //        area2.getTile(new Coord(2,2)).addTakeableItem(new TakeableItem("redPotion", new Potion("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(2,2)));
 
 
-        area1.getTile(new Coord(9, 2)).addTakeableItem(new TakeableItem("Bow", new Bow("Bow", new AgilityAddable(3), 3, WeaponClass.BOW), new Coord(9,2)));
+        area1.getTile(new Coord(9, 2)).addTakeableItem(new TakeableItem("Bow", new Bow("Bow", new AgilityAddable(3), 3), new Coord(9,2)));
 
         Quest quest1_b = new DoDestroyObstacleQuest(new Coord(2,3));
         Quest quest1_a = new HasItemQuest(quest1_b, "Blue Potion");
@@ -253,29 +259,29 @@ public class LevelFactory {
 
 
         TemporaryVOCreationVisitor.getInstance().setActiveCameraView(camera2);
-
-        NonAggressiveNPC testNPC = new NonAggressiveNPC("greg", new Stats( new BaseStatsAddable(0,0,0,10,20)));
-        area2.getTile(new Coord(5,5)).addEntity(testNPC);
-        testNPC.setLocation(new Coord(5,5));
-        new NonAggressiveNPCControllerManager(area2, testNPC, Direction.S);
+//
+//        NonAggressiveNPC testNPC = new NonAggressiveNPC("greg", new Stats( new BaseStatsAddable(0,0,0,10,20)));
+//        area2.getTile(new Coord(5,5)).addEntity(testNPC);
+//        testNPC.setLocation(new Coord(5,5));
+//        new NonAggressiveNPCControllerManager(area2, testNPC, Direction.S);
 
 
 
         //stuff to test enemy controllers
-        AggressiveNPC testEnemy =  new AggressiveNPC("xXOG_SwaG_LorD_BlazE_MasteR_420_Xx", new Stats(new BaseStatsAddable(0,0,0,15,30)));
-//        testEnemy.getInventory().addItem(p);
-//        testEnemy.getInventory().addItem(p);
-//        testEnemy.getInventory().addItem(p);
-//        testEnemy.getInventory().addItem(p);
-//        testEnemy.getInventory().addItem(p);
-        area2.getTile(new Coord(3,3)).addEntity(testEnemy);
-        testEnemy.setLocation(new Coord(3,3));
-        testEnemy.equip(new TwoHandedWeapon("Iron 2H", new StrengthAddable(1), 1));
-
-        //testEnemy.accept(TemporaryVOCreationVisitor.getInstance());
-        new AggressiveNPCControllerManager(area2, testEnemy);
-        testEnemy.setShirt("pink_shirt");
-        testEnemy.getStats().subtract(new CurrentHealthAddable(1));
+//        AggressiveNPC testEnemy =  new AggressiveNPC("xXOG_SwaG_LorD_BlazE_MasteR_420_Xx", new Stats(new BaseStatsAddable(0,0,0,15,30)));
+////        testEnemy.getInventory().addItem(p);
+////        testEnemy.getInventory().addItem(p);
+////        testEnemy.getInventory().addItem(p);
+////        testEnemy.getInventory().addItem(p);
+////        testEnemy.getInventory().addItem(p);
+//        area2.getTile(new Coord(3,3)).addEntity(testEnemy);
+//        testEnemy.setLocation(new Coord(3,3));
+//        testEnemy.equip(new TwoHandedWeapon("Iron 2H", new StrengthAddable(1), 1));
+//
+//        //testEnemy.accept(TemporaryVOCreationVisitor.getInstance());
+//        new AggressiveNPCControllerManager(area2, testEnemy);
+//        testEnemy.setShirt("pink_shirt");
+//        testEnemy.getStats().subtract(new CurrentHealthAddable(1));
         camera1.addDecal(new Coord(2,2), "resources/terrain/cracked_sand.xml" );
         camera2.addDecal(new Coord(2,2), "resources/terrain/cracked_sand.xml" );
 
