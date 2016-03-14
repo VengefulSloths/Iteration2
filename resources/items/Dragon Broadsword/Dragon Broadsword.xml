@@ -4,5 +4,5 @@
     <height>76</height>
     <rootPath>resources/items/Dragon Broadsword/</rootPath>
     <fileName>Dragon Broadsword.png</fileName>
-    <positioning>centered</positioning>
+    <positioning xOffset="-24" yOffset="-76">custom</positioning>
 </single_frame_animation>

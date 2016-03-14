@@ -8,6 +8,7 @@ import com.vengeful.sloths.AreaView.ViewTime;
 import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.Menu.MainMenu.MenuTester;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
+import com.vengeful.sloths.Models.Buff.AvatarManaRegen;
 import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteractionFactory;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityTalkCommand;
@@ -52,6 +53,7 @@ public class Avatar extends Entity{
     private Avatar(){
         super("Phill", new Stats());
         this.getStats().setLives(3);
+        TimeModel.getInstance().registerTickable(new AvatarManaRegen());
     }
 
     public static Avatar getInstance(){
@@ -78,6 +80,8 @@ public class Avatar extends Entity{
         this.setSkillManager(skillManager);
         //this.setStats(stats);
         this.setEquipped(new Equipped(this));
+        this.getStats().setLives(3);
+
 
         switch (occupationString) {
             case "Smasher":
@@ -91,6 +95,7 @@ public class Avatar extends Entity{
                 break;
             default:
                 this.setOccupation(new Summoner(this.getStats(), this.getSkillManager(), this.getAbilityManager(), this));
+
         }
 
         this.getAbilityManager().setObservationAbility(AbilityFactory.getInstance().createObservationAbility(this));
