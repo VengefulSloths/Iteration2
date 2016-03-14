@@ -76,7 +76,8 @@ public class LaunchGameTemplate {
         avatar.equip(new Hat("Tophat", new StrengthAddable(15))); //edit
         //avatar.equip(new Mount("mount", 10)); //edit
 
-//        avatar.equip(new Bow("Bow", new StrengthAddable(5), 10, WeaponClass.BOW));
+
+//        avatar.equip(new Bow("Bow", new StrengthAddable(5), 10));
 
         System.out.println("AVATAR HAS " + avatar.getInventory().getCurrentSize() + " items");
 //        avatar.equip(new Mount("mount", 10)); //edit
