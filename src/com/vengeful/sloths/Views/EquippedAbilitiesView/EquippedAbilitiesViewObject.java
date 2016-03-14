@@ -76,7 +76,7 @@ public class EquippedAbilitiesViewObject extends JPanel {
         g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 14));
         String itemName = "Item: " + this.getEquippedAbility().getItemName();
 
-        ArrayList<String> itemDescription = StringUtils.wrap("Description: " + this.getEquippedAbility().getDescription(), g.getFontMetrics(), containerWidth);
+        ArrayList<String> itemDescription = StringUtils.wrap("Description: " + this.getEquippedAbility().getDescription(), g.getFontMetrics(), containerWidth-15 -imageWidth);
 
         int nameStringWidth = g.getFontMetrics().stringWidth(itemName);
         //int descriptionStringWidth = g.getFontMetrics().stringWidth(itemDescription);
@@ -84,7 +84,7 @@ public class EquippedAbilitiesViewObject extends JPanel {
         g.drawString(itemName, x+imageWidth+15, y+stringHeight);
         int i = 0;
         for (String text: itemDescription) {
-            g.drawString(text, x+imageWidth+15, y+(3+ i++)*(stringHeight+3));
+            g.drawString(text, x+imageWidth+15, y+(2+ i++)*(stringHeight+3));
         }
 
     }

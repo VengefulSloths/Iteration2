@@ -17,7 +17,7 @@ import com.vengeful.sloths.Models.TimeModel.TimeModel;
  */
 public class PiggyControllerManager extends NPCControllerManager {
 
-    private boolean dead = false;
+    private boolean dead;
 
     public PiggyControllerManager(MapArea mapArea, Entity entity){
 
@@ -25,11 +25,17 @@ public class PiggyControllerManager extends NPCControllerManager {
         this.setSearchingController(new PiggySearchingController(mapArea, entity));
         this.setActionController(new PiggyActionController(entity));
         this.setMapArea(mapArea);
+//        System.out.println("is he dead: "+ entity.isDead());
+        if(entity.isDead()){
+//            System.out.println("is he dead: "+ entity.isDead());
+            this.setDead(true);
+        }
     }
 
 
     @Override
     public void tick() {
+//        System.out.println("is he dead: "+ this.isDead());
         if(!dead) {
             if (this.getTicks() % 15 == 0) {
                 if (this.getMapArea().equals(Map.getInstance().getActiveMapArea())) {

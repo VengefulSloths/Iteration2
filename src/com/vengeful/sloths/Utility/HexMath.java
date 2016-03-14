@@ -5,6 +5,7 @@ import com.vengeful.sloths.Models.EntityMapInteractionCommands.CanMoveVisitor;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.NonTeleMoveVisitor;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.Map.MapArea;
+import com.vengeful.sloths.Models.Map.Tile;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -319,6 +320,19 @@ public class HexMath {
         addTileToAngle(coords, expectedTiles, getNextFacingCoord(coord, direction), direction);
         coords.add(coord);
         //return expectedTiles;
+    }
+
+
+    public static boolean checkTileValidExists(Coord coord, int maxR, int maxS){
+        if(!isValidTile(coord, maxR, maxS))
+            return false;
+        else{
+            Tile t = Map.getInstance().getActiveMapArea().getTile(coord);
+            if(t == null)
+                return false;
+        }
+
+        return true;
     }
 
 }

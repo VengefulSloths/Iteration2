@@ -17,7 +17,6 @@ public class DemountAbility extends RemoveBuffAbility {
     public DemountAbility(Buff buff, BuffManager buffManager, Entity entity, ArrayList<EntityObserver> observers) {
         super("Demount", buff, buffManager, entity);
         this.observers = observers;
-        this.name = "Demount";
     }
 
     @Override

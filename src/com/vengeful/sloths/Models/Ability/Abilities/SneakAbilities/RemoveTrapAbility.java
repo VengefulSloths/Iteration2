@@ -37,6 +37,9 @@ public class RemoveTrapAbility extends Ability{
         if(!shouldDoAbility(entity.getSkillManager().getRemoveTrapLevel(), entity.getSkillManager().getRemoveTrapLevel()))
             return 0;
 
+        if(entity.getStats().getCurrentMana() < manaCost)
+            return 0;
+
 
         this.entity.setActive(true);
         this.entity.decMana(this.manaCost);

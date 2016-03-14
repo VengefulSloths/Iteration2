@@ -22,8 +22,10 @@ public class SelfBuffAbility extends Ability {
         super(name, windTicks, coolTicks);
         this.buff = buff;
         this.target = entity;
+
         this.name = name;
         this.description = description;
+
     }
 
 
