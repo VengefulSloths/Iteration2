@@ -32,6 +32,7 @@ public class LaunchSavedGame implements LaunchGameHelper {
 
     public LaunchSavedGame(String saveFile){
         this.levelFactory = new LevelFactory();
+        cameras = new CameraViewManager();
         levelFactory.init("demo");
         fileName = saveFile +".xml";
     }
@@ -52,7 +53,7 @@ public class LaunchSavedGame implements LaunchGameHelper {
             camera2.init(mapAreas[1]);
             camera3.init(mapAreas[2]);
             camera4.init(mapAreas[3]);
-            cameras = new CameraViewManager();
+//            cameras = new CameraViewManager();
             cameras.addCameraView(mapAreas[0], camera1);
             cameras.addCameraView(mapAreas[1], camera2);
             cameras.addCameraView(mapAreas[2], camera3);
@@ -117,4 +118,7 @@ public class LaunchSavedGame implements LaunchGameHelper {
     public CameraViewManager getCameras() {
         return cameras;
     }
+//    public CameraViewManager getCameras(){
+//        return this.getCameras();
+//    }
 }

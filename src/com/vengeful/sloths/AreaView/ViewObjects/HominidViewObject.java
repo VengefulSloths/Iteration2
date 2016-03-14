@@ -145,10 +145,12 @@ public class HominidViewObject extends EntityViewObject {
         if (weaponClass == WeaponClass.BOW) {
             weapon = new BowImageContainter("resources/weapons/" + name + "/", direction, 12, -12, -10);
         } else {
-            weapon = new WeaponImageContainer("resources/weapons/" + name + "/", direction);
+            if(!name.equals("hands")){
+                weapon = new WeaponImageContainer("resources/weapons/" + name + "/", direction);
+                hands.equipWeapon(weapon, weaponClass);
+            }
 
         }
-        hands.equipWeapon(weapon, weaponClass);
     }
 
 

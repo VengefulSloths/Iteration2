@@ -50,6 +50,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by Ian on 3/7/2016.
@@ -68,6 +69,7 @@ public class Loader {
     public void loadAreas(MapArea[] areas){
         Node root = doc.getDocumentElement();
         NodeList mapAreas = root.getChildNodes().item(0).getChildNodes();
+//        ArrayList<MapArea> mapAreaArrayList = new ArrayList<>();
         if(root.hasChildNodes()){
             for(int i = 0; i != mapAreas.getLength(); ++i){
                 Node currMA = mapAreas.item(i);
@@ -135,7 +137,7 @@ public class Loader {
                                 default: System.out.println(currObject.getNodeName() + " doesn't have a case to handle it");
                             }
                         }
-
+//                        mapAreaArrayList.add(loading);
                     }
                 }
                 else{
@@ -143,6 +145,12 @@ public class Loader {
                 }
             }
         }
+//        MapArea[] mas = new MapArea[mapAreaArrayList.size()];
+//        int i = 0;
+//        for(MapArea ma : mapAreaArrayList){
+//            mas[i++] = ma;
+//        }
+//        Map.getInstance().setMapAreas(mas);
         setActiveMapArea();
     }
 
@@ -780,7 +788,7 @@ public class Loader {
                         StealthAbility sa = AbilityFactory.getInstance().createStealthAbility(e);
                         abm.addAbility(sa);
                         break;
-                    case "PickPocket" :
+                    case "PickPocketAbility" :
                         PickPocketAbility ppa = new PickPocketAbility();
                         abm.addAbility(ppa);
                     case "Protect From Evil" :

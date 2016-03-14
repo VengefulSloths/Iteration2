@@ -655,18 +655,22 @@ public class SaveVisitor implements ModelVisitor {
     @Override
     public void visitTradeDialogueContainer(TradeDialogContainer tradeDialogContainer) {
         Element tdcElement = doc.createElement("TradeDialogueContainer");
+        currentParent.peek().appendChild(tdcElement);
         String[] dialog = tradeDialogContainer.getDialog();
+        int i = 0;
         for(String d : dialog){
-            tdcElement.setAttribute("dialog", d);
+            tdcElement.setAttribute("dialog" + i++, d);
         }
     }
 
     @Override
     public void visitTerminalDialogueContainer(TerminalDialogContainer terminalDialogContainer) {
         Element tdcElement = doc.createElement("TerminalDialogContainer");
+        currentParent.peek().appendChild(tdcElement);
         String[] dialog = terminalDialogContainer.getDialog();
+        int i = 0;
         for(String d : dialog){
-            tdcElement.setAttribute("dialog", d);
+            tdcElement.setAttribute("dialog" + i++, d);
         }
     }
 

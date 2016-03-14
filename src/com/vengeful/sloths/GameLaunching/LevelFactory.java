@@ -376,14 +376,17 @@ public class LevelFactory {
         agroNPC3.getInventory().addItem(new TwoHandedWeapon("Dragon 2H", new StrengthAddable(5), 5));
         agroNPC2.getInventory().addItem(new Knuckle("Katar", new StrengthAddable(5), 5));
 
-        CameraView camera1 = new PlainsCameraView();
-        camera1.init(area3);
-        cameras.addCameraView(area3, camera1);
+//        CameraView camera1 = new PlainsCameraView();
+//        camera1.init(area3);
+//        cameras.addCameraView(area3, camera1);
 
     }
 
     public void populateRescueMap(MapArea rescue) {
         rescue.getTile(new Coord(5,2)).addObstacle(new Obstacle(new Coord(5,2)));
+        Trap t = new Trap(new Coord(5,1), 2);
+        t.setItemName("trap");
+        rescue.getTile(new Coord(5,1)).addTrap(t);
 
 
         NonAggressiveNPC Jana = new NonAggressiveNPC("Jana", new Stats( new BaseStatsAddable(0,0,0,10,20)));
@@ -417,13 +420,13 @@ public class LevelFactory {
 
 
         AggressiveNPC agroNPC4 = new AggressiveNPC("Mons", new Stats(new BaseStatsAddable(2,2,2,2,2)));
-        rescue.getTile(new Coord(3,18)).addEntity(agroNPC3);
-        agroNPC3.setLocation(new Coord(3,18));
-        new AggressiveNPCControllerManager(rescue, agroNPC3);
+        rescue.getTile(new Coord(3,18)).addEntity(agroNPC4);
+        agroNPC4.setLocation(new Coord(3,18));
+        new AggressiveNPCControllerManager(rescue, agroNPC4);
 
-        CameraView camera1 = new PlainsCameraView();
-        camera1.init(rescue);
-        cameras.addCameraView(rescue, camera1);
+//        CameraView camera1 = new PlainsCameraView();
+//        camera1.init(rescue);
+//        cameras.addCameraView(rescue, camera1);
 
     }
 
@@ -435,13 +438,13 @@ public class LevelFactory {
         town.getTile(new Coord(4,2)).addInteractiveItem(new InteractiveItem(quest1_a, new Coord(4,2)));
 
         //CAMERAS
-        CameraView camera1 = new PlainsCameraView();
-        camera1.init(town);
-        cameras.addCameraView(town, camera1);
+//        CameraView camera1 = new PlainsCameraView();
+//        camera1.init(town);
+//        cameras.addCameraView(town, camera1);
 
         //NPCS
         NonAggressiveNPC Dan = new NonAggressiveNPC("Dan", new Stats( new BaseStatsAddable(0,0,0,10,20)));
-        town.getTile(new Coord(4,3)).addEntity(Dan);
+        town.getTile(new Coord(6,4)).addEntity(Dan);
         Dan.setLocation(new Coord(6,4));
         new NonAggressiveNPCControllerManager(town, Dan, Direction.S, 1);
         TerminalDialogContainer saveFriend = new TerminalDialogContainer(Dan.getName());
