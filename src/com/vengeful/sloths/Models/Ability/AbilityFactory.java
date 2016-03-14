@@ -85,8 +85,6 @@ public class AbilityFactory {
     public NPCFallAsleepAbility createNPCFallAsleepAbility(Entity entity){
         return new NPCFallAsleepAbility(entity, 8, 15, 360);
     }
-
-
     public PoisonNPCAbility createPoisonNPCAbility(Entity entity){
         return new PoisonNPCAbility(entity, 8, 15);
     }
