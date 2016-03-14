@@ -190,7 +190,7 @@ public class LevelFactory {
         for(int j = 1; j != 10; ++j){
             town.addTile(new Coord(1,j), new Tile(new Mountain()));
         }
-        for(int j = 1; j != 10; ++j){
+        for(int j = 1; j != 11; ++j){
             town.addTile(new Coord(11,j), new Tile(new DummyTerrain()));
             town.addTile(new Coord(12,j), new Tile(new DummyTerrain()));
         }
@@ -450,15 +450,27 @@ public class LevelFactory {
         Inventory RichieInventory = Richie.getInventory();
         RichieInventory.addGold(new Gold(1000));
         Potion p = new Potion("bluePotion", new GenericStatsAddable(10,10,10,10,10,10,10,10,10,0));
-//        RichieInventory.addItem();
-//        RichieInventory.addItem();
-//        RichieInventory.addItem();
+        TwoHandedWeapon thw = new TwoHandedWeapon("Dragon 2H", new StrengthAddable(1),3);
+        thw.setValue(10000);
+        RichieInventory.addItem(thw);
+        OneHandedWeapon owh = new OneHandedWeapon("Dragon Dagger", new StrengthAddable(3),3);
+        owh.setValue(10000);
+        RichieInventory.addItem(owh);
+        Staff staff = new Staff("Dragon Staff", new IntellectAddable(5), 3);
+        staff.setValue(10000);
+        RichieInventory.addItem(staff);
+        Shuriken shuriken = new Shuriken("Dragon Shuriken", new AgilityAddable(3),3, WeaponClass.THROW);
+        shuriken.setValue(10000);
+        RichieInventory.addItem(shuriken);
+        TradeDialogContainer jerk = new TradeDialogContainer(Richie);
+        jerk.appendDialog("HueHueHue, you could never afford what I have");
+        Richie.setDialogContainer(jerk);
         new NonAggressiveNPCControllerManager(town, Richie, Direction.SE, 1);
 
         NonAggressiveNPC BobSmith = new NonAggressiveNPC("BobSmith", new Stats( new BaseStatsAddable(0,0,0,10,20)));
         Inventory BobSmithInventoryInv = BobSmith.getInventory();
         BobSmithInventoryInv.addItem(new Bow("Bow", new AgilityAddable(1),2));
-        BobSmithInventoryInv.addItem(new OneHandedWeapon("Dagger", new StrengthAddable(1),2));
+        BobSmithInventoryInv.addItem(new OneHandedWeapon("Mystical Dagger", new StrengthAddable(1),2));
         BobSmithInventoryInv.addItem(new TwoHandedWeapon("Mystical 2H", new StrengthAddable(1),3));
         BobSmithInventoryInv.addGold(new Gold(100));
         town.getTile(new Coord(9,7)).addEntity(BobSmith);
@@ -560,14 +572,16 @@ public class LevelFactory {
         npc1.equip(new TwoHandedWeapon("Iron 2H", new StrengthAddable(1), 1));
         new AggressiveNPCControllerManager(summonerArea, npc1);
 
-        NonAggressiveNPC npc2 = new NonAggressiveNPC("npc2", new Stats( new BaseStatsAddable(5,0,0,0,30)));
+        AggressiveNPC npc2 = new AggressiveNPC("npc2", new Stats( new BaseStatsAddable(5,0,0,0,30)));
         summonerArea.getTile(new Coord(4,12)).addEntity(npc2);
+        npc2.equip(new TwoHandedWeapon("Iron 2H", new StrengthAddable(1), 1));
         npc2.setLocation(new Coord(4,12));
         new NonAggressiveNPCControllerManager(summonerArea, npc2, Direction.S, 1);
 
 
-        NonAggressiveNPC npc3 = new NonAggressiveNPC("npc3", new Stats( new BaseStatsAddable(5,0,0,0,30)));
+        AggressiveNPC npc3 = new AggressiveNPC("npc3", new Stats( new BaseStatsAddable(5,0,0,0,30)));
         summonerArea.getTile(new Coord(3,16)).addEntity(npc3);
+        npc3.equip(new TwoHandedWeapon("Iron 2H", new StrengthAddable(1), 1));
         npc3.setLocation(new Coord(3,16));
         new NonAggressiveNPCControllerManager(summonerArea, npc3, Direction.N, 1);
 

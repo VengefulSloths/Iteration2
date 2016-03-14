@@ -88,11 +88,11 @@ public class TradeSellState extends InventoryControllerState {
         //test code
         Inventory inventory = Avatar.getInstance().getInventory();
         if(inventory.getCurrentSize() > 0){
-            //MainController.getInstance().getPlayer().drop(inventory.getItem(0)); //edit: think this was working before
-
-            System.out.println("About to dorp item: " + this.inventoryView.getCurrentItem().getItemName());
-            MainController.getInstance().getPlayer().drop(this.inventoryView.getCurrentItem());
-            this.inventoryView.dropViewItem();
+//            //MainController.getInstance().getPlayer().drop(inventory.getItem(0)); //edit: think this was working before
+//
+//            System.out.println("About to dorp item: " + this.inventoryView.getCurrentItem().getItemName());
+//            MainController.getInstance().getPlayer().drop(this.inventoryView.getCurrentItem());
+//            this.inventoryView.dropViewItem();
             return true;
         }else{
             System.out.println("Nothing in inventory");
@@ -149,9 +149,10 @@ public class TradeSellState extends InventoryControllerState {
 
         if(this.inventoryView.getCurrentItem() != null) {
             InventoryItem item = this.inventoryView.getCurrentItem();
-            new AvatarSellCommand(this.sellersInvView.getInventory(), item).execute();
-            this.inventoryView.dropViewItem();
-            MainController.getInstance().getInventoryEquipmentControllerState().getInventoryControllerState().getInventoryView().dropViewItem(this.inventoryView.getIndex());
+            if(new AvatarSellCommand(this.sellersInvView.getInventory(), item).execute()){
+                this.inventoryView.dropViewItem();
+                MainController.getInstance().getInventoryEquipmentControllerState().getInventoryControllerState().getInventoryView().dropViewItem(this.inventoryView.getIndex());
+            }
             //this is not the right inventory
 
         }

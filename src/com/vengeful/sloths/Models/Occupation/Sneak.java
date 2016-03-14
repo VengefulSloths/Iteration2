@@ -25,7 +25,7 @@ public class Sneak extends Occupation {
         skillManager.addSkill(new Skill("pick pocket"));
         Skill remove = new Skill("remove trap");
         remove.setLevel(10);
-        skillManager.addSkill(remove); //TODO: uncomment after testing
+        skillManager.addSkill(remove);
         skillManager.addSkill(new Skill("creep"));
         skillManager.addSkill(new Skill("ranged weapon"));
 
