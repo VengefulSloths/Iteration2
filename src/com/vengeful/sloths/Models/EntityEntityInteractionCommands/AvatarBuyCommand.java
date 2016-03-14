@@ -20,13 +20,14 @@ public class AvatarBuyCommand {
         this.item = item;
     }
 
-    public void execute(){
+    public boolean execute(){
         int itemValue = item.getValue();
         itemValue = CalculateBuySellPickPocket.CalculateBuyPrice(itemValue, Avatar.getInstance().getSkillManager().getBargainLevel());
         Inventory avatarInventory = Avatar.getInstance().getInventory();
         if(itemValue > avatarInventory.getGold()){
             SoundEffect fail = new SoundEffect("resources/audio/buzzerFail.wav");
             fail.play();
+            return false;
         }
         else{
             SoundEffect success = new SoundEffect("resources/audio/tradeSuccesfulchCaChing.wav");
@@ -38,7 +39,7 @@ public class AvatarBuyCommand {
             tradersInventory.removeItem(item);
             avatarInventory.addItem(item);
             System.out.println("REmoving item: " + item.getItemName());
-
+            return true;
         }
     }
 }
