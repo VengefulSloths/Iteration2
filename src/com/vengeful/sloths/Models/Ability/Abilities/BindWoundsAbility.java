@@ -38,7 +38,11 @@ public class BindWoundsAbility extends Ability {
         if(!shouldDoAbility(entity.getSkillManager().getBindWoundsLevel(), entity.getSkillManager().getBindWoundsLevel()))
             return 0;
 
+        if(entity.getStats().getCurrentMana() < manaCost)
+            return 0;
+
         this.entity.setActive(true);
+        this.entity.decMana(manaCost);
 
         System.out.println("DOING BINDWOUNDS ABILITY");
 
@@ -58,7 +62,6 @@ public class BindWoundsAbility extends Ability {
         int health = skillLevel * 2;
 
         this.entity.gainHealth(health);
-        this.entity.decMana(manaCost);
     }
 
     public void accept(ModelVisitor sv){

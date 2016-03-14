@@ -47,6 +47,9 @@ public class PoisonNPCAbility extends Ability{
         if(!shouldDoAbility(entity.getSkillManager().getEnchantment(), entity.getSkillManager().getMaxEnchantment()))
             return 0;
 
+        if(entity.getStats().getCurrentMana() < manaCost)
+            return 0;
+
         this.entity.setActive(true);
         this.entity.decMana(this.manaCost);
 

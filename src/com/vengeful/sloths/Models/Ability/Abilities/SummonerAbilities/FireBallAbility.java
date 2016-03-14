@@ -47,6 +47,9 @@ public class FireBallAbility extends Ability {
         if(!shouldDoAbility(entity.getSkillManager().getBaneLevel(), entity.getSkillManager().getMaxBaneLevel()))
             return 0;
 
+        if(entity.getStats().getCurrentMana() < manaCost)
+            return 0;
+
         this.entity.setActive(true);
         this.entity.decMana(this.manaCost);
 
