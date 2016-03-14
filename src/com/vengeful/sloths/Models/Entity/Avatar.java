@@ -232,7 +232,7 @@ public class Avatar extends Entity{
     private boolean canSeeTrap(){
         int skillLevel =  this.getSkillManager().getRemoveTrapLevel();
         int maxSkillLevel = this.getSkillManager().getMaxRemoveTrapLevel();
-        int probability = (int)Math.round(((double)skillLevel / maxSkillLevel) * 70); //probability of seeing trap is not capped
+        int probability = (int)Math.round(((double)skillLevel / maxSkillLevel) * 94); //probability of seeing trap is not capped
         int randomNum = 1 + (int)(Math.random() * 100); //[1-100]
         if(randomNum <= probability){
             return true;
