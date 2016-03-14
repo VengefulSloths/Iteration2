@@ -9,6 +9,7 @@ import com.vengeful.sloths.AreaView.ViewObjects.ViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.WeaponImageContainer;
 import com.vengeful.sloths.AreaView.ViewTime;
 import com.vengeful.sloths.Models.TimeModel.TimeController;
+import com.vengeful.sloths.Sound.SoundEffect;
 import com.vengeful.sloths.Utility.Direction;
 
 import java.awt.*;
@@ -107,7 +108,11 @@ public class TwoHandState implements  HandState {
 
         AttackViewObject attackBack = TemporaryVOCreationVisitor.getInstance().createAttack(r, s, "resources/effects/bash/bash_back.xml", coolDownTime - windUpTime, false);
         AttackViewObject attackFront = TemporaryVOCreationVisitor.getInstance().createAttack(r, s, "resources/effects/bash/bash_front.xml", coolDownTime - windUpTime, true);
-        ViewTime.getInstance().registerAlert(windUpTime, () -> {attackFront.start(); attackBack.start(); });
+        ViewTime.getInstance().registerAlert(windUpTime, () -> {
+            attackFront.start();
+            attackBack.start();
+            (new SoundEffect("resources/audio/slash2.wav")).play();
+        });
     }
 
     @Override
