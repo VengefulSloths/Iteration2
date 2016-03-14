@@ -7,10 +7,7 @@ import com.vengeful.sloths.Models.Ability.AbilityFactory;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteractionFactory;
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Bow;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Hat;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Mount;
-import com.vengeful.sloths.Models.InventoryItems.EquippableItems.OneHandedWeapon;
+import com.vengeful.sloths.Models.InventoryItems.EquippableItems.*;
 import com.vengeful.sloths.Models.Map.Map;
 import com.vengeful.sloths.Models.ModelEngine;
 import com.vengeful.sloths.Models.Stats.StatAddables.HealthManaExperienceAddable;
@@ -72,8 +69,13 @@ public class LaunchGameTemplate {
 
         System.out.println("After equipped...");
 
+        avatar.equip(new Shuriken("shuriken", new StrengthAddable(5), 10, WeaponClass.THROW));
 
-        avatar.equip(new Bow("Bow", new StrengthAddable(5), 10, WeaponClass.BOW));
+
+        avatar.equip(new Hat("tophat", new StrengthAddable(15))); //edit
+        //avatar.equip(new Mount("mount", 10)); //edit
+
+//        avatar.equip(new Bow("Bow", new StrengthAddable(5), 10, WeaponClass.BOW));
         avatar.equip(new Hat("tophat", new StrengthAddable(0))); //edit
 
         System.out.println("AVATAR HAS " + avatar.getInventory().getCurrentSize() + " items");

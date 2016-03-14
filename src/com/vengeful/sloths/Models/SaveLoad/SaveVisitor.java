@@ -810,6 +810,11 @@ public class SaveVisitor implements ModelVisitor {
     }
 
     @Override
+    public void visitShuriken(Shuriken shuriken) {
+
+    }
+
+    @Override
     public void visitStaff(Staff staff) {
 
     }

@@ -81,6 +81,11 @@ public class PiggySearchingController extends SearchingController {
     }
 
     @Override
+    public void visitShuriken(Shuriken shuriken) {
+
+    }
+
+    @Override
     public void visitPiggy(Piggy piggy) {
         // Do nada!
 

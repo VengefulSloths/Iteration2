@@ -81,6 +81,11 @@ public class DefaultCanGenerateVisitor implements ModelVisitor{
     }
 
     @Override
+    public void visitShuriken(Shuriken shuriken) {
+        
+    }
+
+    @Override
     public void visitWater(Water water) {
 
     }

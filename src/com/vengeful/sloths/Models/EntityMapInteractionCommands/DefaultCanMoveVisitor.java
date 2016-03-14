@@ -74,6 +74,11 @@ public class DefaultCanMoveVisitor extends CanMoveVisitor {
     }
 
     @Override
+    public void visitShuriken(Shuriken shuriken) {
+
+    }
+
+    @Override
     public void visitStaff(Staff staff) {
 
     }

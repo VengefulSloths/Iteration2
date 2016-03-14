@@ -4,24 +4,19 @@ import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityFactory;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.ModelVisitor;
-import com.vengeful.sloths.Models.Observers.EntityObserver;
 import com.vengeful.sloths.Models.Skills.SkillManager;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
-import com.vengeful.sloths.Models.TimeModel.TimeController;
-import com.vengeful.sloths.Utility.Coord;
 import com.vengeful.sloths.Utility.ModelConfig;
 import com.vengeful.sloths.Utility.WeaponClass;
 
-import java.util.Iterator;
-
 /**
- * Created by Alex on 3/13/2016.
+ * Created by zach on 3/13/16.
  */
-public class Bow extends Weapon {
+public class Shuriken extends Weapon {
     private WeaponClass weaponClass;
 
-    public Bow(String name, StatsAddable stats, int baseDamage, WeaponClass weaponClass) {
+    public Shuriken(String name, StatsAddable stats, int baseDamage, WeaponClass weaponClass) {
         super(name, stats, baseDamage);
         this.weaponClass = weaponClass;
     }
@@ -36,12 +31,11 @@ public class Bow extends Weapon {
 
     @Override
     public Ability getAttackAbility(Entity entity) {
-        return AbilityFactory.getInstance().createRangedAttackAbility(entity, getBaseDamage(), ModelConfig.BOW_WINDUP, ModelConfig.BOW_SPEED);
+        return AbilityFactory.getInstance().createRangedAttackAbility(entity, getBaseDamage(), ModelConfig.THROW_WINDUP, ModelConfig.THROW_SPEED);
     }
 
     @Override
     public void accept(ModelVisitor modelVisitor) {
-        modelVisitor.visitBow(this);
+        modelVisitor.visitShuriken(this);
     }
-
 }

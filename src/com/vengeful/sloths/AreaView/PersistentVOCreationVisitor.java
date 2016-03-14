@@ -181,6 +181,11 @@ public class PersistentVOCreationVisitor implements ModelVisitor{
     }
 
     @Override
+    public void visitShuriken(Shuriken shuriken) {
+
+    }
+
+    @Override
     public void visitInstantDeathAE(InstantDeathAE i) {
         currentTile.addChild(factory.createAEViewObject(r, s, "resources/aoe/aoe_death.xml"));
     }

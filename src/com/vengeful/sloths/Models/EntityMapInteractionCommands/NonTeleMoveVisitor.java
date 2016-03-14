@@ -73,6 +73,11 @@ public class NonTeleMoveVisitor extends CanMoveVisitor{
     }
 
     @Override
+    public void visitShuriken(Shuriken shuriken) {
+
+    }
+
+    @Override
     public void visitPiggy(Piggy piggy) {
         setCanMove(false);
     }

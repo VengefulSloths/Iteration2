@@ -82,6 +82,11 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     }
 
      @Override
+     public void visitShuriken(Shuriken shuriken) {
+
+     }
+
+     @Override
      public void visitAbilityItem(AbilityItem abilityItem) {
 
      }
