@@ -2,8 +2,10 @@ package com.vengeful.sloths.Models.Entity;
 
 import com.vengeful.sloths.AreaView.TemporaryVOCreationVisitor;
 import com.vengeful.sloths.Controllers.ControllerManagers.AggressiveNPCControllerManager;
+import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Buff.BuffManager;
+import com.vengeful.sloths.Models.DialogueTrade.DialogContainer;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.*;
 import com.vengeful.sloths.Models.Inventory.Equipped;
 import com.vengeful.sloths.Models.Inventory.Inventory;
@@ -48,6 +50,16 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     private SkillManager skillManager;
     private boolean dead = false;
     private boolean stunned = false;
+
+    private DialogContainer dialogContainer = null;
+    public void talk(){
+        //create talk command
+        if(dialogContainer != null){
+            //do stuff, possibly alert controller
+            MainController.getInstance().setDialogControllerState(this.dialogContainer);
+            dialogContainer.next();
+        }
+    }
 
     private CanMoveVisitor movementValidator;
 
@@ -434,4 +446,11 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         return  gsa;
     }
 
+    public DialogContainer getDialogContainer() {
+        return dialogContainer;
+    }
+
+    public void setDialogContainer(DialogContainer dialogContainer) {
+        this.dialogContainer = dialogContainer;
+    }
 }

@@ -15,7 +15,6 @@ import com.vengeful.sloths.Utility.Location;
  */
 public abstract class NPC extends Entity{
 
-    private DialogContainer dialogContainer = null;
     protected int timeToRespawn;
     private NPCControllerManager controllerManager;
     //pass in stats
@@ -24,14 +23,6 @@ public abstract class NPC extends Entity{
         this.setTimeToRespawn(100);
     }
 
-    public void talk(){
-        //create talk command
-        if(dialogContainer != null){
-            //do stuff, possibly alert controller
-            MainController.getInstance().setDialogControllerState(this.dialogContainer);
-            dialogContainer.next();
-        }
-    }
     public NPC(){}
 
     public int getTimeToRespawn() {
@@ -50,11 +41,4 @@ public abstract class NPC extends Entity{
         this.controllerManager = controllerManager;
     }
 
-    public DialogContainer getDialogContainer() {
-        return dialogContainer;
-    }
-
-    public void setDialogContainer(DialogContainer dialogContainer) {
-        this.dialogContainer = dialogContainer;
-    }
 }
