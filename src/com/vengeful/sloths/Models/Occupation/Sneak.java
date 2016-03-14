@@ -38,9 +38,11 @@ public class Sneak extends Occupation {
         abilityManager.equipAbility(a3,2);
 
         abilityManager.addAbility(new BindWoundsAbility(entity));
+        abilityManager.addAbility(new ObservationAbility(entity));
 
 
         this.addSharedAbility(abilityManager, entity);
+
     }
     public Sneak (){}
     @Override
