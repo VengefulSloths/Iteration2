@@ -23,10 +23,10 @@ public class Sneak extends Occupation {
         this.addSharedSkills(skillManager);
         skillManager.addSkill(new Skill("pick pocket"));
         //the remove trap being set so high is for demo purposes
-//        Skill remove = new Skill("remove trap");
-//        remove.setLevel(10);
-//        skillManager.addSkill(remove); //TODO: uncomment after testing
-        skillManager.addSkill(new Skill("remove trap"));
+        Skill remove = new Skill("remove trap");
+        remove.setLevel(8);
+        skillManager.addSkill(remove); //TODO: uncomment after testing
+        //skillManager.addSkill(new Skill("remove trap"));
         skillManager.addSkill(new Skill("creep"));
         skillManager.addSkill(new Skill("ranged weapon"));
         Ability a1 = AbilityFactory.getInstance().createStealthAbility(entity);

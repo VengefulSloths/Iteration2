@@ -237,7 +237,6 @@ public class Avatar extends Entity{
         if(randomNum <= probability){
             return true;
         }
-
         return false;
     }
 
