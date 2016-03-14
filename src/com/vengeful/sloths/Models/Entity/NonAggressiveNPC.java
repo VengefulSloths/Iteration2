@@ -20,5 +20,11 @@ public class NonAggressiveNPC extends NPC{
         modelVisitor.visitNonAggressiveNPC(this);
     }
 
+    @Override
+    public void takeDamage(int atkDmg){
+        super.takeDamage(atkDmg);
+        enrage();
+    }
+
 
 }
