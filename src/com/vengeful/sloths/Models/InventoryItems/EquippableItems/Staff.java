@@ -14,10 +14,9 @@ import com.vengeful.sloths.Utility.WeaponClass;
  * Created by Alex on 3/13/2016.
  */
 public class Staff extends Weapon {
-    private WeaponClass weaponClass;
-    public Staff(String name, StatsAddable stats, int baseDamage, WeaponClass weaponClass) {
+
+    public Staff(String name, StatsAddable stats, int baseDamage) {
         super(name, stats, baseDamage);
-        this.weaponClass = weaponClass;
     }
     public Staff(){
 

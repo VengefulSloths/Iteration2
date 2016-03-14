@@ -29,7 +29,9 @@ public enum KeyMapping {
     ABILITY_3(22),
     ABILITY_4(23),
     ABILITIES(24),
-    TALK(25);
+    TALK(25),
+    OBSERVE(26);
+
 
     private int value;
 

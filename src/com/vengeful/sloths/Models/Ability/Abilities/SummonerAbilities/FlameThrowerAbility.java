@@ -26,12 +26,17 @@ public class FlameThrowerAbility extends Ability{
     private DefaultCanGenerateVisitor canGenerateVisitor;
 
     public FlameThrowerAbility(Entity entity, int expandingTime, int expandingDistance, int startupTicks, int coolDownTicks){
-        super("Flame Thrower", startupTicks, coolDownTicks);
+        super("Fire Wave", startupTicks, coolDownTicks);
         this.entity = entity;
         this.expandingTime = expandingTime;
         this.expandingDistance = expandingDistance;
         this.canGenerateVisitor = new OnTileCanGenerateVisitor();
-        this.name = "Flame Thrower";
+
+    }
+
+    @Override
+    public String getDescription() {
+        return "A great cone of fire";
     }
 
 
@@ -43,6 +48,9 @@ public class FlameThrowerAbility extends Ability{
         if(!shouldDoAbility(entity.getSkillManager().getBaneLevel(), entity.getSkillManager().getMaxBaneLevel()))
             return 0;
 
+
+        if(entity.getStats().getCurrentMana() < manaCost)
+            return 0;
 
         this.entity.setActive(true);
         this.entity.decMana(this.manaCost);

@@ -112,6 +112,10 @@ public class LevelFactory {
         //call create each area
         MapArea town = createAreaTown();
         //link areas with teleport tiles
+//        TeleportSenderTile tst = new TeleportSenderTile()
+//        town.addTile(new Coord(2,3), tst);
+//        TeleportSenderTile tst2 = new TeleportSenderTile();
+//        town.addTile(new Coord(12,4), tst2);
 
         MapArea rescue = createArea2();
 
@@ -141,17 +145,30 @@ public class LevelFactory {
 
 
     public MapArea createAreaTown(){
-        MapArea town = new MapArea(11,11);
+        MapArea town = new MapArea(14,12);
         town.setName("town");
-        for (int i=2;i<10;i++) {
-            for (int j = 1; j < 10; j++) {
-                town.addTile(new Coord(i,j), new  Tile( j > 7 ? new Water() : new Grass()));
+        for (int i=2;i<13;i++) {
+            for (int j = 1; j < 11; j++) {
+                town.addTile(new Coord(i,j), new  Tile( j > 8 ? new Water() : new Grass()));
             }
         }
         for(int j = 1; j != 10; ++j){
             town.addTile(new Coord(1,j), new Tile(new Mountain()));
         }
+        for(int j = 1; j != 10; ++j){
+            town.addTile(new Coord(11,j), new Tile(new DummyTerrain()));
+            town.addTile(new Coord(12,j), new Tile(new DummyTerrain()));
+        }
+//        for(int i = 1; i != 13; ++i){
+//            town.addTile(new Coord(i,1), new Tile(i< 7 ? new Mountain() : new Grass()));
+//        }
         town.getTile(new Coord(2,2)).setTerrain(new Mountain());
+        town.getTile(new Coord(2,4)).setTerrain(new Mountain());
+        town.getTile(new Coord(2,5)).setTerrain(new Mountain());
+        town.getTile(new Coord(1,5)).setTerrain(new DummyTerrain());
+        town.getTile(new Coord(1,4)).setTerrain(new DummyTerrain());
+        town.getTile(new Coord(11,4)).setTerrain(new Grass());
+//        town.getTile(new Coord(12,4)).setTerrain(new Grass());
         for(int i = 3; i != 6; ++i){
             for(int j = 3; j !=6; ++j ){
                 town.getTile(new Coord(i,j)).setTerrain(new DummyTerrain());
@@ -324,7 +341,7 @@ public class LevelFactory {
         rescue.getTile(new Coord(16,16)).addEntity(Jana);
         Jana.setLocation(new Coord(16,16));
         Jana.setShirt("pink_shirt");
-        new NonAggressiveNPCControllerManager(rescue, Jana, Direction.S);
+        new NonAggressiveNPCControllerManager(rescue, Jana, Direction.S,1);
         TradeDialogContainer rescueFriend = new TradeDialogContainer(Jana);
         rescueFriend.appendDialog("Thank you thank you! You saved me from these monsters");
         rescueFriend.appendDialog("Here, have a tasty blue strength potion!");
@@ -367,17 +384,7 @@ public class LevelFactory {
         Quest quest1_b = new DoDestroyObstacleQuest(new Coord(3,2));
         Quest quest1_a = new HasItemQuest(quest1_b, "Blue Potion");
         town.getTile(new Coord(4,2)).addInteractiveItem(new InteractiveItem(quest1_a, new Coord(4,2)));
-
         //NPCS
-        NonAggressiveNPC testNPC = new NonAggressiveNPC("greg", new Stats( new BaseStatsAddable(0,0,0,10,20)));
-        town.getTile(new Coord(8,3)).addEntity(testNPC);
-        testNPC.setLocation(new Coord(8,3));
-        new NonAggressiveNPCControllerManager(town, testNPC, Direction.S);
-
-        NonAggressiveNPC testNPC2 = new NonAggressiveNPC("Bob", new Stats( new BaseStatsAddable(0,0,0,10,20)));
-        town.getTile(new Coord(2,1)).addEntity(testNPC2);
-        testNPC2.setLocation(new Coord(2,1));
-        new NonAggressiveNPCControllerManager(town, testNPC, Direction.S);
 
         //CAMERAS
         CameraView camera1 = new PlainsCameraView();
@@ -387,6 +394,73 @@ public class LevelFactory {
 
 
 
+        NonAggressiveNPC Dan = new NonAggressiveNPC("Dan", new Stats( new BaseStatsAddable(0,0,0,10,20)));
+        town.getTile(new Coord(4,3)).addEntity(Dan);
+        Dan.setLocation(new Coord(6,4));
+        new NonAggressiveNPCControllerManager(town, Dan, Direction.S, 1);
+        TerminalDialogContainer saveFriend = new TerminalDialogContainer(Dan.getName());
+        saveFriend.appendDialog("Cyclop's have kidnapped my beautiful wife! Please go rescue her!");
+        saveFriend.appendDialog("Those cyclops' are tough though. You should probably go get some gear");
+        Dan.setDialogContainer(saveFriend);
+
+
+        NonAggressiveNPC Bob = new NonAggressiveNPC("Bob", new Stats( new BaseStatsAddable(0,0,0,10,20)));
+        town.getTile(new Coord(2,1)).addEntity(Bob);
+        Bob.setLocation(new Coord(2,1));
+        new NonAggressiveNPCControllerManager(town, Bob, Direction.SE, 1);
+
+        NonAggressiveNPC BobSmith = new NonAggressiveNPC("BobSmith", new Stats( new BaseStatsAddable(0,0,0,10,20)));
+        Inventory BobSmithInventoryInv = BobSmith.getInventory();
+        BobSmithInventoryInv.addItem(new Bow("Bow", new AgilityAddable(1),2));
+        BobSmithInventoryInv.addItem(new OneHandedWeapon("Dagger", new StrengthAddable(1),2));
+        BobSmithInventoryInv.addItem(new TwoHandedWeapon("Mystical 2H", new StrengthAddable(1),3));
+        BobSmithInventoryInv.addGold(new Gold(100));
+        town.getTile(new Coord(9,7)).addEntity(BobSmith);
+        BobSmith.setLocation(new Coord(9,7));
+        new NonAggressiveNPCControllerManager(town, BobSmith, Direction.NW, 1);
+        TradeDialogContainer buyEquipment = new TradeDialogContainer(BobSmith);
+        buyEquipment.appendDialog("I'm the finest blacksmith in town.");
+        buyEquipment.appendDialog("Have a look at my wares.");
+        BobSmith.setDialogContainer(buyEquipment);
+
+        Piggy piggy = new Piggy("Perro The Pig", new Stats( new BaseStatsAddable(1,0,0,10,20) ) );
+        piggy.setDead(true);
+        new PiggyControllerManager(Map.getInstance().getActiveMapArea(), piggy);
+        Avatar.getInstance().initialSetPet(piggy);
+
+
+        NonAggressiveNPC Pete = new NonAggressiveNPC("Pete", new Stats( new BaseStatsAddable(0,0,0,10,20)));
+        Inventory PeteInventory = Pete.getInventory();
+        PeteInventory.addItem(new PiggyTotem("Piggy Totem", piggy));
+        PeteInventory.addGold(new Gold(30));
+        town.getTile(new Coord(3,7)).addEntity(Pete);
+        Pete.setLocation(new Coord(3,7));
+        new NonAggressiveNPCControllerManager(town, Pete, Direction.NW, 1);
+        TradeDialogContainer buyPet = new TradeDialogContainer(Pete);
+        buyPet.appendDialog("It's always good to have a pet");
+        Pete.setDialogContainer(buyPet);
+
+//        NonAggressiveNPC testNPC = new NonAggressiveNPC("greg", new Stats( new BaseStatsAddable(0,0,0,10,20)));
+//        town.getTile(new Coord(8,3)).addEntity(testNPC);
+//        testNPC.setLocation(new Coord(8,3));
+//        new NonAggressiveNPCControllerManager(town, testNPC, Direction.S,2);
+//
+//        NonAggressiveNPC testNPC2 = new NonAggressiveNPC("Bob", new Stats( new BaseStatsAddable(0,0,0,10,20)));
+//        town.getTile(new Coord(2,1)).addEntity(testNPC2);
+//        testNPC2.setLocation(new Coord(2,1));
+//        new NonAggressiveNPCControllerManager(town, testNPC, Direction.S,2);
+
+
+//        town.getTile(new Coord(6,2)).addAreaEffect(new TakeDamageAE(2));
+//        Ability hot = AbilityFactory.getInstance().createHealOverTime(Avatar.getInstance());
+//        town.getTile(new Coord(5,2)).addTakeableItem(new TakeableItem("Rejuvination", new AbilityItem(hot), new Coord(5,2)));
+    }
+
+    public MapArea createSummonerArea(){
+        return null;
+    }
+
+    public void populateSummonerArea(){
 
     }
     public void createTestMap() {
@@ -471,6 +545,7 @@ public class LevelFactory {
         this.spawnPoint = new Coord(2,1);
     }
 
+
     public void populateTestMap() {
         MapArea[] areas = Map.getInstance().getMapAreas();
         MapArea area1 = areas[0];
@@ -485,12 +560,18 @@ public class LevelFactory {
         area1.getTile(new Coord(11,1)).addOneShotItem(new OneShotItem(new Coord(11,1)));
 
 
+        area2.getTile(new Coord(6,5)).addTakeableItem(new TakeableItem("Water Staff", new Staff("Water Staff", new IntellectAddable(5), 10), new Coord(6,5)));
+        area2.getTile(new Coord(6,7)).addTakeableItem(new TakeableItem("Obsidian Staff", new Staff("Obsidian Staff", new IntellectAddable(5), 10), new Coord(6,3)));
+        area2.getTile(new Coord(7,6)).addTakeableItem(new TakeableItem("Dragon Staff", new Staff("Dragon Staff", new IntellectAddable(5), 10), new Coord(7,6)));
+        area2.getTile(new Coord(3,3)).addTakeableItem(new TakeableItem("Bow", new Bow("Bow", new IntellectAddable(5), 10), new Coord(3,3)));
+
+
         area1.getTile(new Coord(2,2)).addTakeableItem(new TakeableItem("Red Potion", new Potion("Red Potion",new BaseStatsAddable(5,0,0,0,0)), new Coord(2,2)));
         area1.getTile(new Coord(11,10)).addTakeableItem(new TakeableItem("Blue Potion", new Potion("Blue Potion",new BaseStatsAddable(0,0,5,0,0)), new Coord(11,10)));
 //        area2.getTile(new Coord(2,2)).addTakeableItem(new TakeableItem("redPotion", new Potion("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(2,2)));
 
 
-        area1.getTile(new Coord(9, 2)).addTakeableItem(new TakeableItem("Bow", new Bow("Bow", new AgilityAddable(3), 3, WeaponClass.BOW), new Coord(9,2)));
+        area1.getTile(new Coord(9, 2)).addTakeableItem(new TakeableItem("Bow", new Bow("Bow", new AgilityAddable(3), 3), new Coord(9,2)));
 
         Quest quest1_b = new DoDestroyObstacleQuest(new Coord(2,3));
         Quest quest1_a = new HasItemQuest(quest1_b, "Blue Potion");
@@ -554,25 +635,31 @@ public class LevelFactory {
         NonAggressiveNPC testNPC = new NonAggressiveNPC("greg", new Stats( new BaseStatsAddable(0,0,0,10,20)));
         area2.getTile(new Coord(5,5)).addEntity(testNPC);
         testNPC.setLocation(new Coord(5,5));
-        new NonAggressiveNPCControllerManager(area2, testNPC, Direction.S);
+        new NonAggressiveNPCControllerManager(area2, testNPC, Direction.S, 2);
+//
+//        NonAggressiveNPC testNPC = new NonAggressiveNPC("greg", new Stats( new BaseStatsAddable(0,0,0,10,20)));
+//        area2.getTile(new Coord(5,5)).addEntity(testNPC);
+//        testNPC.setLocation(new Coord(5,5));
+//        new NonAggressiveNPCControllerManager(area2, testNPC, Direction.S);
 
 
 
         //stuff to test enemy controllers
-        AggressiveNPC testEnemy =  new AggressiveNPC("xXOG_SwaG_LorD_BlazE_MasteR_420_Xx", new Stats(new BaseStatsAddable(0,0,0,15,30)));
-//        testEnemy.getInventory().addItem(p);
-//        testEnemy.getInventory().addItem(p);
-//        testEnemy.getInventory().addItem(p);
-//        testEnemy.getInventory().addItem(p);
-//        testEnemy.getInventory().addItem(p);
-        area2.getTile(new Coord(3,3)).addEntity(testEnemy);
-        testEnemy.setLocation(new Coord(3,3));
-        testEnemy.equip(new TwoHandedWeapon("Iron 2H", new StrengthAddable(1), 1));
 
-        //testEnemy.accept(TemporaryVOCreationVisitor.getInstance());
-        new AggressiveNPCControllerManager(area2, testEnemy);
-        testEnemy.setShirt("pink_shirt");
-        testEnemy.getStats().subtract(new CurrentHealthAddable(1));
+//        AggressiveNPC testEnemy =  new AggressiveNPC("xXOG_SwaG_LorD_BlazE_MasteR_420_Xx", new Stats(new BaseStatsAddable(0,0,0,15,30)));
+////        testEnemy.getInventory().addItem(p);
+////        testEnemy.getInventory().addItem(p);
+////        testEnemy.getInventory().addItem(p);
+////        testEnemy.getInventory().addItem(p);
+////        testEnemy.getInventory().addItem(p);
+//        area2.getTile(new Coord(3,3)).addEntity(testEnemy);
+//        testEnemy.setLocation(new Coord(3,3));
+//        testEnemy.equip(new TwoHandedWeapon("Iron 2H", new StrengthAddable(1), 1));
+//
+//        //testEnemy.accept(TemporaryVOCreationVisitor.getInstance());
+//        new AggressiveNPCControllerManager(area2, testEnemy);
+//        testEnemy.setShirt("pink_shirt");
+//        testEnemy.getStats().subtract(new CurrentHealthAddable(1));
         camera1.addDecal(new Coord(2,2), "resources/terrain/cracked_sand.xml" );
         camera2.addDecal(new Coord(2,2), "resources/terrain/cracked_sand.xml" );
 

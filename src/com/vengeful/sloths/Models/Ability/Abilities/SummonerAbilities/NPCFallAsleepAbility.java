@@ -39,11 +39,19 @@ public class NPCFallAsleepAbility extends Ability{
     }
 
     @Override
+    public String getDescription() {
+        return "Shhhh ... Just go to sleep";
+    }
+
+    @Override
     public int execute() {
         if(this.entity.isActive())
             return 0;
 
         if(!shouldDoAbility(entity.getSkillManager().getEnchantment(), entity.getSkillManager().getMaxEnchantment()))
+            return 0;
+
+        if(entity.getStats().getCurrentMana() < manaCost)
             return 0;
 
         this.entity.setActive(true);

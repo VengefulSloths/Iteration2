@@ -184,6 +184,11 @@ public class AbilitySkillsControllerState extends InputControllerState {
     }
 
     @Override
+    public void handleObservationKey() {
+
+    }
+
+    @Override
     public void resetView(boolean isActive) {
 
     }

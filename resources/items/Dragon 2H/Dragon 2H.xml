@@ -2,7 +2,13 @@
 <single_frame_animation>
     <width>54</width>
     <height>76</height>
+<<<<<<< HEAD:resources/items/Dragon 2H/Dragon 2H.xml
     <rootPath>resources/items/Dragon 2H/</rootPath>
     <fileName>Dragon 2H.png</fileName>
     <positioning>centered</positioning>
+=======
+    <rootPath>resources/items/Dragon Broadsword/</rootPath>
+    <fileName>Dragon Broadsword.png</fileName>
+    <positioning xOffset="-24" yOffset="-76">custom</positioning>
+>>>>>>> 666f0197c1fd22018ebccd6a043c0ee28fc9d404:resources/items/Dragon Broadsword/Dragon Broadsword.xml
 </single_frame_animation>

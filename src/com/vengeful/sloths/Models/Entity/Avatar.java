@@ -1,10 +1,14 @@
 package com.vengeful.sloths.Models.Entity;
 
+
+import com.vengeful.sloths.Models.Ability.AbilityFactory;
+
 import com.vengeful.sloths.AreaView.ViewEngine;
 import com.vengeful.sloths.AreaView.ViewTime;
 import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.Menu.MainMenu.MenuTester;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
+import com.vengeful.sloths.Models.Buff.AvatarManaRegen;
 import com.vengeful.sloths.Models.Buff.BuffManager;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteractionFactory;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityTalkCommand;
@@ -21,14 +25,20 @@ import com.vengeful.sloths.Models.Occupation.Sneak;
 import com.vengeful.sloths.Models.Occupation.Summoner;
 import com.vengeful.sloths.Models.Skills.Skill;
 import com.vengeful.sloths.Models.Skills.SkillManager;
+import com.vengeful.sloths.Models.Stats.StatAddables.BaseStatsAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.HealthManaExperienceAddable;
 import com.vengeful.sloths.Models.Stats.Stats;
 import com.vengeful.sloths.Utility.*;
 
 import com.vengeful.sloths.Models.TimeModel.TimeModel;
 
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import javax.swing.text.View;
 import java.util.ArrayList;
+
 import java.util.Iterator;
 
 /**
@@ -40,10 +50,10 @@ public class Avatar extends Entity{
     private int timeToRespawn;
     private Pet pet;
 
-
     private Avatar(){
-        super("Phill", new Stats());
+        super("Sloth Whisperer", new Stats());
         this.getStats().setLives(3);
+        TimeModel.getInstance().registerTickable(new AvatarManaRegen());
     }
 
     public static Avatar getInstance(){
@@ -70,6 +80,8 @@ public class Avatar extends Entity{
         this.setSkillManager(skillManager);
         //this.setStats(stats);
         this.setEquipped(new Equipped(this));
+        this.getStats().setLives(3);
+
 
         switch (occupationString) {
             case "Smasher":
@@ -83,9 +95,10 @@ public class Avatar extends Entity{
                 break;
             default:
                 this.setOccupation(new Summoner(this.getStats(), this.getSkillManager(), this.getAbilityManager(), this));
+
         }
 
-
+        this.getAbilityManager().setObservationAbility(AbilityFactory.getInstance().createObservationAbility(this));
 
         //TODO: test ability, remove
         Iterator<Skill> iter = skillManager.getSkillsIter();
@@ -193,7 +206,6 @@ public class Avatar extends Entity{
     }
 
 
-
     protected void movementHook(){
         Iterator<Coord> visibleCoord = HexMath.hexagon(getLocation(), ModelConfig.getRadiusOfVisibility());
         Tile t = null;
@@ -212,6 +224,7 @@ public class Avatar extends Entity{
                     t.makeTrapUndetectable();
             }
         }
+
     }
 
 
@@ -221,19 +234,24 @@ public class Avatar extends Entity{
         int probability = (int)Math.round(((double)skillLevel / maxSkillLevel) * 70); //probability of seeing trap is not capped
         int randomNum = 1 + (int)(Math.random() * 100); //[1-100]
         if(randomNum <= probability){
-            //System.out.println("ATTEMPT TO SEE TRAP SUCCEED! " + " skillLevel: " + skillLevel + " accu: " + probability);
             return true;
         }
 
-        //System.out.println("ATTEMPT TO SEE TRAP FAILED! " + " skillLevel: " + skillLevel + " accu: " + probability);
         return false;
     }
 
+
+    public void observe(){
+        this.getAbilityManager().doObservationAbility();
+    }
 
     public Pet getPet() {
         return pet;
     }
 
+    public void initialSetPet(Pet pet){
+        this.pet = pet;
+    }
     public void setPet(Pet pet) {
         pet.alertAlive();
         this.pet = pet;
@@ -242,6 +260,7 @@ public class Avatar extends Entity{
     public Pet removePet() {
         this.pet.alertDead();
         this.pet = null;
+
         return pet; }
 
     @Override

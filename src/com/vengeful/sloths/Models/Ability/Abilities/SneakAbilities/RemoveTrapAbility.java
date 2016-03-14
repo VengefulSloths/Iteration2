@@ -24,7 +24,10 @@ public class RemoveTrapAbility extends Ability{
         super("Remove Trap", windTicks, coolTicks);
         this.entity = entity;
     }
-
+    @Override
+    public String getDescription() {
+        return "ITS A TRAP";
+    }
 
     @Override
     public int execute() {
@@ -32,6 +35,9 @@ public class RemoveTrapAbility extends Ability{
             return 0;
 
         if(!shouldDoAbility(entity.getSkillManager().getRemoveTrapLevel(), entity.getSkillManager().getRemoveTrapLevel()))
+            return 0;
+
+        if(entity.getStats().getCurrentMana() < manaCost)
             return 0;
 
 

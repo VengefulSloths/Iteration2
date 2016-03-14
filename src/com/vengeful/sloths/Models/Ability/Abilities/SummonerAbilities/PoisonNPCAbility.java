@@ -32,12 +32,16 @@ public class PoisonNPCAbility extends Ability{
     private int coolDownTicks;
 
     public PoisonNPCAbility(Entity entity, int windupTicks, int coolDownTicks){
-        super("Slow NPC", windupTicks, coolDownTicks);
+        super("Poison", windupTicks, coolDownTicks);
         this.entity = entity;
         this.windupTicks = windupTicks;
         this.coolDownTicks = coolDownTicks;
     }
 
+    @Override
+    public String getDescription() {
+        return "Deal damage and slow, just watch them suffer";
+    }
 
     @Override
     public int execute() {
@@ -45,6 +49,9 @@ public class PoisonNPCAbility extends Ability{
             return 0;
 
         if(!shouldDoAbility(entity.getSkillManager().getEnchantment(), entity.getSkillManager().getMaxEnchantment()))
+            return 0;
+
+        if(entity.getStats().getCurrentMana() < manaCost)
             return 0;
 
         this.entity.setActive(true);
@@ -55,7 +62,6 @@ public class PoisonNPCAbility extends Ability{
             System.out.println("alerting cast spells");
             observers.next().alertCast(getWindTicks()* TimeController.MODEL_TICK, getCoolTicks()*TimeController.MODEL_TICK);
         }
-
 
         TimeModel.getInstance().registerAlertable(() -> {
             Entity[] target = getTarget();
@@ -82,6 +88,17 @@ public class PoisonNPCAbility extends Ability{
             return null;
 
         return t.getEntities();
+    }
+
+    @Override
+    protected void abilityFailHook() {
+        Entity[] target = getTarget();
+        if(target != null){
+            for(int i = 0; i < target.length; i++){
+                target[i].enrage();
+                System.out.println("ABILITY FAILED, NPC IS ANGRYYYYY");
+            }
+        }
     }
 
 

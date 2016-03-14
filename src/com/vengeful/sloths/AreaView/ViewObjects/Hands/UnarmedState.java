@@ -10,6 +10,7 @@ import com.vengeful.sloths.AreaView.ViewObjects.ViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.WeaponImageContainer;
 import com.vengeful.sloths.AreaView.ViewTime;
 import com.vengeful.sloths.Models.TimeModel.TimeController;
+import com.vengeful.sloths.Sound.SoundEffect;
 import com.vengeful.sloths.Utility.Direction;
 import com.vengeful.sloths.Utility.WeaponClass;
 
@@ -130,7 +131,10 @@ public class UnarmedState implements HandState{
         cast(windUpTime, coolDownTime);
 
         AttackViewObject attack = TemporaryVOCreationVisitor.getInstance().createAttack(r, s, "resources/effects/punch/punch.xml", windUpTime);
-        ViewTime.getInstance().registerAlert(windUpTime, () ->attack.start());
+        ViewTime.getInstance().registerAlert(windUpTime, () -> {
+            attack.start();
+            (new SoundEffect("resources/audio/punch.wav")).play();
+        });
 
 
     }

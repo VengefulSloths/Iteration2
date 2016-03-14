@@ -34,6 +34,10 @@ public class ExplosionAbility extends Ability{
         this.name = "Explosion";
     }
 
+    @Override
+    public String getDescription() {
+        return "3 .. 2 .. 1 .. BOOM!!!";
+    }
 
 
     @Override
@@ -44,6 +48,8 @@ public class ExplosionAbility extends Ability{
         if(!shouldDoAbility(entity.getSkillManager().getBaneLevel(), entity.getSkillManager().getMaxBaneLevel()))
             return 0;
 
+        if(entity.getStats().getCurrentMana() < manaCost)
+            return 0;
 
         this.entity.setActive(true);
         this.entity.decMana(this.manaCost);

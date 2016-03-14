@@ -2,8 +2,10 @@ package com.vengeful.sloths.Views.EquippedAbilitiesView;
 
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
+import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.ObserverManager;
 import com.vengeful.sloths.Models.Observers.*;
+import com.vengeful.sloths.Views.AbilitiesView.AbilityViewObject;
 import com.vengeful.sloths.Views.InventoryView.ItemViewObject;
 import com.vengeful.sloths.Views.View;
 
@@ -68,6 +70,29 @@ public class EquippedAbilitiesView extends View implements AbilityManagerObserve
         this.abilityManager = abilityManager;
         ProxyObserver pio = new ProxyAbilityManagerObserver(this, abilityManager);
         ObserverManager.getInstance().addProxyObserver(pio);
+
+        Ability[] activeAbilities = Avatar.getInstance().getAbilityManager().getActiveAbilities();
+
+        try {
+            if (activeAbilities[0] != null)
+                slot0 = new EquippedAbilitiesViewObject(activeAbilities[0]);
+        }catch (IndexOutOfBoundsException e){}
+        try {
+            if (activeAbilities[1] != null)
+                slot1 = new EquippedAbilitiesViewObject(activeAbilities[1]);
+        }catch (IndexOutOfBoundsException e){}
+        try {
+            if (activeAbilities[2] != null)
+                slot2 = new EquippedAbilitiesViewObject(activeAbilities[2]);
+        }catch (IndexOutOfBoundsException e){}
+        try {
+            if (activeAbilities[3] != null)
+                slot3 = new EquippedAbilitiesViewObject(activeAbilities[3]);
+        }catch (IndexOutOfBoundsException e){}
+
+
+
+
         initDefaultUI();
     }
 
@@ -186,20 +211,7 @@ public class EquippedAbilitiesView extends View implements AbilityManagerObserve
 
     @Override
     public void alertAbilityUnequipped(Ability ability, int index) {
-        switch (index) {
-            case 0:
-                this.setSlot0(null);
-                break;
-            case 1:
-                this.setSlot1(null);
-                break;
-            case 2:
-                this.setSlot2(null);
-                break;
-            case 3:
-                this.setSlot3(null);
-                break;
-        }
+
     }
 }
 

@@ -23,14 +23,19 @@ public class BoonBuffAbility extends SelfBuffAbility{
 
     private int manaCost = ModelConfig.getManaCostMid();
 
-    public BoonBuffAbility(String name, Entity entity, Buff buff, int windTicks, int coolTicks){
-        super(name, entity, buff, windTicks, coolTicks);
+    public BoonBuffAbility(String name, String description, Entity entity, Buff buff, int windTicks, int coolTicks){
+        super(name, description, entity, buff, windTicks, coolTicks);
         //Buff timedBuff = new ProtectFromEvilBuff(getTarget().getObservers(), getTarget().getBuffManager(), new GenericStatsAddable(), "protection", 2, 300);
     }
+
+
 
     @Override
     public int execute() {
         if(!shouldDoAbility(getTarget().getSkillManager().getBoonLevel(), getTarget().getSkillManager().getMaxBoonLevel()))
+            return 0;
+
+        if(getTarget().getStats().getCurrentMana() < manaCost)
             return 0;
 
         int output = super.execute();

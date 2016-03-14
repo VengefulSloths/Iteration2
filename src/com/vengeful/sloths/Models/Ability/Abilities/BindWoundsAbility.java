@@ -25,10 +25,12 @@ public class BindWoundsAbility extends Ability {
         super("Bind Wounds", 45, 60);
         this.entity = entity;
         this.skillManager = entity.getSkillManager();
-        this.name = "Bind Wounds";
-
     }
 
+    @Override
+    public String getDescription() {
+        return "This will only hurt a little";
+    }
 
     @Override
     public int execute() {
@@ -38,9 +40,13 @@ public class BindWoundsAbility extends Ability {
         if(!shouldDoAbility(entity.getSkillManager().getBindWoundsLevel(), entity.getSkillManager().getBindWoundsLevel()))
             return 0;
 
-        this.entity.setActive(true);
+        if(entity.getStats().getCurrentMana() < manaCost)
+            return 0;
 
-        System.out.println("DOING BINDWOUNDS ABILITY");
+        this.entity.setActive(true);
+        this.entity.decMana(manaCost);
+
+        //ystem.out.println("DOING BINDWOUNDS ABILITY");
 
         TimeModel.getInstance().registerAlertable(() -> {
             this.doHeal();
@@ -55,15 +61,9 @@ public class BindWoundsAbility extends Ability {
 
     private void doHeal(){
         int skillLevel = this.skillManager.getBindWoundsLevel();
-        System.out.println("YOUR SKILL LEVEL: " + skillLevel);
-        System.out.println("YOUR HEALTH: " + this.entity.getStats().getCurrentHealth());
         int health = skillLevel * 2;
 
         this.entity.gainHealth(health);
-        this.entity.decMana(manaCost);
-
-        System.out.println("HEAL " + health + " HP");
-        System.out.println("YOUR HEALTH NOW: " + this.entity.getStats().getCurrentHealth());
     }
 
     public void accept(ModelVisitor sv){

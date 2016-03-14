@@ -85,6 +85,11 @@ public class SetInputsControllerState extends InputControllerState {
     }
 
     @Override
+    public void handleObservationKey() {
+
+    }
+
+    @Override
     public void resetView(boolean isActive) {
 
     }

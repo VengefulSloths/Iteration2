@@ -20,6 +20,14 @@ public class HealthBarViewObject extends MovingViewObject implements StatsObserv
     private int currentHealth = 50;
     private int maxHealth = 100;
 
+    private int observedDmg = 0;
+    private int observedSpeed = 0;
+    private boolean drawObservation = false;
+
+    private static Font font = new Font("Futura", Font.BOLD, 15);
+
+
+
     private ArrayList<RealTuple<String, DynamicImage>> buffs = new ArrayList<>();
 
     public HealthBarViewObject(int r, int s, CoordinateStrategy coordinateStrategy, LocationStrategy locationStrategy){
@@ -47,6 +55,10 @@ public class HealthBarViewObject extends MovingViewObject implements StatsObserv
         }
 
 
+        if(this.drawObservation)
+            drawObservation(g);
+
+
     }
 
     public void addBuff(String name) {
@@ -63,6 +75,39 @@ public class HealthBarViewObject extends MovingViewObject implements StatsObserv
         }
     }
 
+    private void drawObservation(Graphics2D g){
+            g.setColor(Color.yellow);
+            try {
+                String damage = String.valueOf(observedDmg);
+                String speed = String.valueOf(observedSpeed);
+                Composite c = g.getComposite();
+                g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+                g.setFont(font);
+                FontMetrics metrics = g.getFontMetrics();
+                g.drawString("ATT", getLocationXOffset() + getXPixels() + 45 - metrics.stringWidth("ATT:")/2, getYPixels() + getLocationYOffset() - 110);
+                g.drawString(damage, getLocationXOffset() + getXPixels() + 75 - metrics.stringWidth(damage)/2, getYPixels() + getLocationYOffset() - 110);
+                g.drawString("SPD", getLocationXOffset() + getXPixels() + 45 - metrics.stringWidth("SPD:")/2, getYPixels() + getLocationYOffset() - 90);
+                g.drawString(speed, getLocationXOffset() + getXPixels() + 75 - metrics.stringWidth(speed)/2, getYPixels() + getLocationYOffset() - 90);
+
+                g.setComposite(c);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+    }
+
+
+    public void updateObservationInfo(int dmg, int speed){
+        if(drawObservation == false)
+            drawObservation = true;
+
+        this.observedDmg = dmg;
+        this.observedSpeed = speed;
+    }
+
+    public void removeObservationInfo(){
+        drawObservation = false;
+    }
 
 
     @Override

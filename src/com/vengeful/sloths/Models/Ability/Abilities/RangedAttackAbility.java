@@ -33,7 +33,6 @@ public class RangedAttackAbility extends Ability{
         this.entity = entity;
         this.relevantSkill = relevantSkill;
         this.baseDamage = baseDamage;
-        this.name = "Ranged Attack";
     }
 
     @Override
@@ -90,6 +89,11 @@ public class RangedAttackAbility extends Ability{
         }, getCoolTicks());
 
         return getCoolTicks();
+    }
+
+    @Override
+    public String getDescription() {
+        return "A long range attack";
     }
 
     public void accept(SaveVisitor sv){

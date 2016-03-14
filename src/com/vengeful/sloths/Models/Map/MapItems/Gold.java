@@ -25,6 +25,10 @@ public class Gold extends MapItem implements ModelVisitable, ViewObservable {
         this.setItemName("gold");
         this.value = 0;
     }
+    public Gold(int value){
+        this.setItemName("gold");
+        this.value = value;
+    }
     @Override
     public void interact(Entity entity) {
         entity.getGold(this);
