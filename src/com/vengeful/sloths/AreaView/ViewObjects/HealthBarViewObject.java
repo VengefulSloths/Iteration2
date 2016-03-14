@@ -85,8 +85,8 @@ public class HealthBarViewObject extends MovingViewObject implements StatsObserv
                 g.setFont(font);
                 FontMetrics metrics = g.getFontMetrics();
                 g.drawString("ATT", getLocationXOffset() + getXPixels() + 45 - metrics.stringWidth("ATT:")/2, getYPixels() + getLocationYOffset() - 110);
-                g.drawString(damage, getLocationXOffset() + getXPixels() + 65 - metrics.stringWidth(damage)/2, getYPixels() + getLocationYOffset() - 110);
-                g.drawString("SPEED", getLocationXOffset() + getXPixels() + 45 - metrics.stringWidth("SPEED:")/2, getYPixels() + getLocationYOffset() - 90);
+                g.drawString(damage, getLocationXOffset() + getXPixels() + 75 - metrics.stringWidth(damage)/2, getYPixels() + getLocationYOffset() - 110);
+                g.drawString("SPD", getLocationXOffset() + getXPixels() + 45 - metrics.stringWidth("SPD:")/2, getYPixels() + getLocationYOffset() - 90);
                 g.drawString(speed, getLocationXOffset() + getXPixels() + 75 - metrics.stringWidth(speed)/2, getYPixels() + getLocationYOffset() - 90);
 
                 g.setComposite(c);

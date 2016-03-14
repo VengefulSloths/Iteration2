@@ -211,20 +211,7 @@ public class EquippedAbilitiesView extends View implements AbilityManagerObserve
 
     @Override
     public void alertAbilityUnequipped(Ability ability, int index) {
-        switch (index) {
-            case 0:
-                this.setSlot0(null);
-                break;
-            case 1:
-                this.setSlot1(null);
-                break;
-            case 2:
-                this.setSlot2(null);
-                break;
-            case 3:
-                this.setSlot3(null);
-                break;
-        }
+
     }
 }
 

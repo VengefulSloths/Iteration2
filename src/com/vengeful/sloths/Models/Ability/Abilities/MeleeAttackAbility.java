@@ -36,6 +36,10 @@ public class MeleeAttackAbility extends Ability {
         this.baseDamage = baseDamage;
     }
 
+    @Override
+    public String getDescription() {
+        return "Doing damage";
+    }
 
     @Override
     public int execute() {

@@ -91,6 +91,11 @@ public class RangedAttackAbility extends Ability{
         return getCoolTicks();
     }
 
+    @Override
+    public String getDescription() {
+        return "A long range attack";
+    }
+
     public void accept(SaveVisitor sv){
 
         sv.visitRangedAttact(this);

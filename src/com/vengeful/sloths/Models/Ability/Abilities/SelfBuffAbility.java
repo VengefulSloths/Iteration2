@@ -17,13 +17,22 @@ import java.util.Iterator;
 public class SelfBuffAbility extends Ability {
     private Entity target;
     private Buff buff;
-
-    public SelfBuffAbility(String name, Entity entity, Buff buff, int windTicks, int coolTicks) {
+    private String description;
+    public SelfBuffAbility(String name, String description, Entity entity, Buff buff, int windTicks, int coolTicks) {
         super(name, windTicks, coolTicks);
         this.buff = buff;
         this.target = entity;
+
+        this.name = name;
+        this.description = description;
+
     }
 
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
     @Override
     public int execute() {
         if (target.isActive()) return 0;

@@ -14,6 +14,11 @@ public class NullAbility extends Ability {
     }
 
     @Override
+    public String getDescription() {
+        return "";
+    }
+
+    @Override
     public int execute() {
         return 0;
     }
