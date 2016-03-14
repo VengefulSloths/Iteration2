@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<single_frame_animation>
+  <width>50</width>
+  <height>50</height>
+  <rootPath>resources/weapons/Mystical Dagger/</rootPath>
+  <fileName>weapon_s.png</fileName>
+  <positioning>center</positioning>
+</single_frame_animation>
