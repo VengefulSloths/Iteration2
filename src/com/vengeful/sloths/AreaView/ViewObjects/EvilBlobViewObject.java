@@ -23,7 +23,7 @@ public class EvilBlobViewObject extends HominidViewObject  {
     @Override
     public void alertDeath(){
         super.alertDeath();
-        (new SoundEffect("resources/audio/cyclops_death.wav")).play();
+        (new SoundEffect("resources/audio/grunt.wav")).play();
 
     }
 }
