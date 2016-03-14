@@ -2,7 +2,7 @@
 <single_frame_animation>
     <width>54</width>
     <height>76</height>
-    <rootPath>resources/items/Dragon Broadsword/</rootPath>
-    <fileName>Dragon Broadsword.png</fileName>
+    <rootPath>resources/items/Dragon 2H/</rootPath>
+    <fileName>Dragon 2H.png</fileName>
     <positioning>centered</positioning>
 </single_frame_animation>

@@ -15,6 +15,7 @@ import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityFactory;
 import com.vengeful.sloths.Models.DialogueTrade.DialogContainer;
 import com.vengeful.sloths.Models.DialogueTrade.TerminalDialogContainer;
+import com.vengeful.sloths.Models.DialogueTrade.TradeDialogContainer;
 import com.vengeful.sloths.Models.Entity.AggressiveNPC;
 import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.NonAggressiveNPC;
@@ -105,48 +106,6 @@ public class LevelFactory {
     }
 
 
-    public MapArea createArea2() {
-
-        int rows = 14;
-        int cols = 14;
-        int numWaterSides = 14;
-        int numGrass = cols - 2 * numWaterSides;
-
-        MapArea rescue = new MapArea(rows, cols);
-        rescue.setName("Rescue Mission");
-
-        int row;
-        int col;
-        /*
-        for (col = 0; col < cols; col++) {
-            for (row = 0; row < rows - (rows - row); row++) {
-                rescue.addTile(new Coord(row, col), new Tile(new Grass()));
-            }
-            rescue.addTile(new Coord(row, col), new Tile(new Water()));
-        }
-        */
-
-        /*
-        for (int i = 0; i < cols; i++) {
-            for (int j = 0; i < rows; j++) {
-                if (j < 5 && i > 6) {
-                    rescue.addTile(new Coord(i, j), new Tile(new Grass()));
-                } else {
-                    rescue.addTile(new Coord(i, j), new Tile(new Water()));
-                }
-            }
-
-        }
-        */
-        for (int i = 0; i < cols; i++) {
-            for (int j = 0; j < rows; j++) {
-                rescue.addTile(new Coord(i, j), new Tile(new Grass()));
-            }
-        }
-        return rescue;
-    }
-
-
 
     public void createDemoMap(){
         this.cameras = new CameraViewManager();
@@ -156,10 +115,12 @@ public class LevelFactory {
 
         MapArea rescue = createArea2();
 
+        MapArea area3 = createArea3();
         //SETTING MAPAREAS
-        MapArea[] areas = new MapArea[2];
+        MapArea[] areas = new MapArea[3];
         areas[0] = town;
         areas[1] = rescue;
+        areas[2] = area3;
 
         this.map = Map.getInstance();
         this.map.setMapAreas(areas);
@@ -167,9 +128,13 @@ public class LevelFactory {
         //this.map.setActiveMapArea(town);
         //this.spawnPoint = new Coord(9,1);
 
-        this.map.setRespawnPoint(new Location(rescue, new Coord(3,3)));
-        this.map.setActiveMapArea(rescue);
-        this.spawnPoint = new Coord(9,1);
+        //this.map.setRespawnPoint(new Location(rescue, new Coord(1,1)));
+        //this.map.setActiveMapArea(rescue);
+        this.map.setRespawnPoint(new Location(area3, new Coord(1,1)));
+        this.map.setActiveMapArea(area3);
+        this.spawnPoint = new Coord(1,1);
+
+
 
     }
 
@@ -195,19 +160,204 @@ public class LevelFactory {
         return town;
     }
 
+
+    public MapArea createArea2() {
+
+        int rows = 19;
+        int cols = 19;
+
+        MapArea rescue = new MapArea(rows, cols);
+        rescue.setName("Rescue Mission");
+
+        for(int i = 1; i<rows; i++) {
+            for (int j=1; j<cols; j++) {
+                rescue.addTile(new Coord(i,j), new Tile(new Grass()));
+            }
+        }
+
+        for(int i=7; i<14; i++) {
+            for(int j=7; j<14;j++){
+                rescue.getTile(new Coord(i,j)).setTerrain(new DummyTerrain());
+            }
+        }
+
+        for(int i=9; i<11; i++) {
+            rescue.getTile(new Coord(10,i)).setTerrain(new Grass());
+            rescue.getTile(new Coord(11,i)).setTerrain(new Grass());
+        }
+
+        rescue.getTile(new Coord(9,9)).setTerrain(new Mountain());
+        rescue.getTile(new Coord(2,6)).setTerrain(new Mountain());
+        rescue.getTile(new Coord(7,2)).setTerrain(new Mountain());
+        rescue.getTile(new Coord(8,4)).setTerrain(new Mountain());
+        rescue.getTile(new Coord(14,4)).setTerrain(new Mountain());
+        rescue.getTile(new Coord(12,5)).setTerrain(new Mountain());
+        rescue.getTile(new Coord(17,7)).setTerrain(new Mountain());
+        rescue.getTile(new Coord(14,1)).setTerrain(new Mountain());
+        rescue.getTile(new Coord(12,1)).setTerrain(new Mountain());
+        rescue.getTile(new Coord(9,5)).setTerrain(new Mountain());
+        rescue.getTile(new Coord(1,7)).setTerrain(new Water());
+        rescue.getTile(new Coord(2,7)).setTerrain(new Water());
+        rescue.getTile(new Coord(3,7)).setTerrain(new Water());
+        rescue.getTile(new Coord(2,6)).setTerrain(new Water());
+        rescue.getTile(new Coord(3,6)).setTerrain(new Water());
+        rescue.getTile(new Coord(3,14)).setTerrain(new Water());
+        rescue.getTile(new Coord(3,15)).setTerrain(new Water());
+        rescue.getTile(new Coord(3,16)).setTerrain(new Water());
+        rescue.getTile(new Coord(4,15)).setTerrain(new Water());
+        rescue.getTile(new Coord(4,16)).setTerrain(new Water());
+        rescue.getTile(new Coord(16,8)).setTerrain(new Water());
+        rescue.getTile(new Coord(16,7)).setTerrain(new Water());
+        rescue.getTile(new Coord(16,6)).setTerrain(new Water());
+        rescue.getTile(new Coord(15,7)).setTerrain(new Water());
+        rescue.getTile(new Coord(15,6)).setTerrain(new Water());
+        rescue.getTile(new Coord(5,17)).setTerrain(new Mountain());
+        rescue.getTile(new Coord(3,8)).setTerrain(new Mountain());
+        rescue.getTile(new Coord(4,12)).setTerrain(new Mountain());
+        rescue.getTile(new Coord(2,9)).setTerrain(new Mountain());
+        rescue.getTile(new Coord(14,14)).setTerrain(new Mountain());
+        rescue.getTile(new Coord(15,12)).setTerrain(new Mountain());
+        rescue.getTile(new Coord(11,16)).setTerrain(new Mountain());
+
+
+        //rescue.getTile(new Coord(10,10)).setTerrain(new Grass());
+        //rescue.getTile(new Coord(10,11)).setTerrain(new Grass());
+
+
+        return rescue;
+    }
+
+    public MapArea createArea3() {
+        int rows = 12;
+        int cols = 12;
+
+        MapArea area3 = new MapArea(rows, cols);
+        area3.setName("Area 3");
+
+        for(int i = 1; i<rows; i++) {
+            for (int j=1; j<cols; j++) {
+                area3.addTile(new Coord(i,j), new Tile(new Grass()));
+            }
+        }
+
+        for(int i=4; i<6; i++) {
+            for(int j=4; j<6;j++){
+                area3.getTile(new Coord(i,j)).setTerrain(new DummyTerrain());
+            }
+        }
+
+
+        area3.getTile(new Coord(3,2)).setTerrain(new Mountain());
+        area3.getTile(new Coord(7,2)).setTerrain(new Mountain());
+        area3.getTile(new Coord(9,9)).setTerrain(new Mountain());
+        area3.getTile(new Coord(11,10)).setTerrain(new Mountain());
+        area3.getTile(new Coord(9,2)).setTerrain(new Water());
+        area3.getTile(new Coord(9,3)).setTerrain(new Water());
+        area3.getTile(new Coord(9,4)).setTerrain(new Water());
+        area3.getTile(new Coord(8,3)).setTerrain(new Water());
+        area3.getTile(new Coord(8,2)).setTerrain(new Water());
+
+        area3.getTile(new Coord(3,8)).setTerrain(new Water());
+        area3.getTile(new Coord(3,9)).setTerrain(new Water());
+        area3.getTile(new Coord(3,10)).setTerrain(new Water());
+        area3.getTile(new Coord(4,9)).setTerrain(new Water());
+
+
+        return area3;
+
+    }
+
     public void populateDemoMap(){
         MapArea[] areas = Map.getInstance().getMapAreas();
         MapArea town = areas[0];
         MapArea rescue = areas[1];
-        populateAreaTown(town);
+        MapArea area3 = areas[2];
+        //populateAreaTown(town);
+        //populateRescueMap(rescue);
+        populateArea3Map(area3);
+
 
         //CAMERAS
         CameraView camera1 = new PlainsCameraView();
         //camera1.init(town);
-        camera1.init(rescue);
+        //camera1.init(rescue);
+        camera1.init(area3);
         //cameras.addCameraView(town, camera1);
-        cameras.addCameraView(rescue, camera1);
+        //cameras.addCameraView(rescue, camera1);
+        cameras.addCameraView(area3, camera1);
 
+
+    }
+
+    public void populateArea3Map(MapArea area3) {
+        area3.getTile(new Coord(5,2)).addObstacle(new Obstacle(new Coord(5,2)));
+
+        AggressiveNPC agroNPC3 = new AggressiveNPC("Mons", new Stats(new BaseStatsAddable(2,2,2,2,2)));
+        area3.getTile(new Coord(3,4)).addEntity(agroNPC3);
+        agroNPC3.setLocation(new Coord(3,4));
+        new AggressiveNPCControllerManager(area3, agroNPC3);
+
+        AggressiveNPC agroNPC1 = new AggressiveNPC("Mons", new Stats(new BaseStatsAddable(2,2,2,2,2)));
+        area3.getTile(new Coord(10,10)).addEntity(agroNPC1);
+        agroNPC1.setLocation(new Coord(10,10));
+        new AggressiveNPCControllerManager(area3, agroNPC1);
+
+        AggressiveNPC agroNPC2 = new AggressiveNPC("Mons", new Stats(new BaseStatsAddable(2,2,2,2,2)));
+        area3.getTile(new Coord(11,3)).addEntity(agroNPC2);
+        agroNPC2.setLocation(new Coord(11,3));
+        new AggressiveNPCControllerManager(area3, agroNPC2);
+
+        agroNPC3.getInventory().addItem(new TwoHandedWeapon("Dragon 2H", new StrengthAddable(5), 5));
+        agroNPC2.getInventory().addItem(new Knuckle("Katar", new StrengthAddable(5), 5));
+
+        CameraView camera1 = new PlainsCameraView();
+        camera1.init(area3);
+        cameras.addCameraView(area3, camera1);
+
+    }
+
+    public void populateRescueMap(MapArea rescue) {
+        rescue.getTile(new Coord(5,2)).addObstacle(new Obstacle(new Coord(5,2)));
+
+
+        NonAggressiveNPC Jana = new NonAggressiveNPC("Jana", new Stats( new BaseStatsAddable(0,0,0,10,20)));
+        rescue.getTile(new Coord(16,16)).addEntity(Jana);
+        Jana.setLocation(new Coord(16,16));
+        Jana.setShirt("pink_shirt");
+        new NonAggressiveNPCControllerManager(rescue, Jana, Direction.S);
+        TradeDialogContainer rescueFriend = new TradeDialogContainer(Jana);
+        rescueFriend.appendDialog("Thank you thank you! You saved me from these monsters");
+        rescueFriend.appendDialog("Here, have a tasty blue strength potion!");
+        Potion p = new Potion("Blue Potion", new StrengthAddable(5));
+        p.setValue(0);
+        Jana.getInventory().addItem(p);
+
+        Jana.setDialogContainer(rescueFriend);
+
+        AggressiveNPC agroNPC1 = new AggressiveNPC("Mons", new Stats(new BaseStatsAddable(2,2,2,2,2)));
+        rescue.getTile(new Coord(10,10)).addEntity(agroNPC1);
+        agroNPC1.setLocation(new Coord(10,10));
+        new AggressiveNPCControllerManager(rescue, agroNPC1);
+
+        AggressiveNPC agroNPC2 = new AggressiveNPC("Mons", new Stats(new BaseStatsAddable(2,2,2,2,2)));
+        rescue.getTile(new Coord(13,5)).addEntity(agroNPC2);
+        agroNPC2.setLocation(new Coord(13,5));
+        new AggressiveNPCControllerManager(rescue, agroNPC2);
+
+        AggressiveNPC agroNPC3 = new AggressiveNPC("Mons", new Stats(new BaseStatsAddable(2,2,2,2,2)));
+        rescue.getTile(new Coord(16,12)).addEntity(agroNPC3);
+        agroNPC3.setLocation(new Coord(16,12));
+        new AggressiveNPCControllerManager(rescue, agroNPC3);
+
+
+        AggressiveNPC agroNPC4 = new AggressiveNPC("Mons", new Stats(new BaseStatsAddable(2,2,2,2,2)));
+        rescue.getTile(new Coord(3,18)).addEntity(agroNPC3);
+        agroNPC3.setLocation(new Coord(3,18));
+        new AggressiveNPCControllerManager(rescue, agroNPC3);
+
+        CameraView camera1 = new PlainsCameraView();
+        camera1.init(rescue);
+        cameras.addCameraView(rescue, camera1);
 
     }
 
