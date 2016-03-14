@@ -222,7 +222,7 @@ public class LevelFactory {
         SelfBuffAbility hot = AbilityFactory.getInstance().createHealOverTime(Avatar.getInstance());
 
         SelfBuffAbility roids = AbilityFactory.getInstance().createDamageBoost(Avatar.getInstance());
-
+        roids.setItemName("Roids");
 
         area1.getTile(new Coord(7,7)).addTakeableItem(new TakeableItem("Roids", new AbilityItem(roids), new Coord(7,7)));
 
@@ -256,7 +256,7 @@ public class LevelFactory {
 //        testEnemy.getInventory().addItem(p);
         area2.getTile(new Coord(3,3)).addEntity(testEnemy);
         testEnemy.setLocation(new Coord(3,3));
-        testEnemy.equip(new TwoHandedWeapon("cleaver", new StrengthAddable(1), 1));
+        testEnemy.equip(new TwoHandedWeapon("Iron 2H", new StrengthAddable(1), 1));
 
         //testEnemy.accept(TemporaryVOCreationVisitor.getInstance());
         new AggressiveNPCControllerManager(area2, testEnemy);
