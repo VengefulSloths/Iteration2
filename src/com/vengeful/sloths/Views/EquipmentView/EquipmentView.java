@@ -208,9 +208,6 @@ public class EquipmentView extends View implements EquipmentObserver {
         if (this.equipmentViewObjectArray[0] != null) {
             this.equipmentViewObjectArray[0].paintComponent(g, boxXCoord, box1Y, boxWidth, boxHeight);
         }
-
-        //this.equipmentViewObjectArray[0].paintComponent(g, boxXCoord, box1Y, boxWidth, boxHeight);
-
         if (this.equipmentViewObjectArray[1] != null) {
             this.equipmentViewObjectArray[1].paintComponent(g, boxXCoord, box2Y, boxWidth, boxHeight);
         }
@@ -220,22 +217,13 @@ public class EquipmentView extends View implements EquipmentObserver {
 
         //want to call paintComponent even on null slots because then they can say nothing displayed??
 
-        /*
-            Border b = BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.WHITE, Color.WHITE);
+            Border b = BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.GREEN, Color.GREEN);
             if (this.selectionIndex == 0 && this.isSelected()) { //edit
                 b.paintBorder(this.getHat(), g, boxXCoord, box1Y, boxWidth, boxHeight);
+            } else if (this.selectionIndex==0 && !this.isSelected()) {
+                b = BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.WHITE, Color. WHITE);
+                b.paintBorder(this.getHat(), g, boxXCoord, box1Y, boxWidth, boxHeight);
             }
-            */
-
-        /*
-            if (this.selectionIndex == 0 && this.getHat() != null) {
-                this.getHat().setSelected(true);
-            } else if (this.selectionIndex == 1 && this.getWeapon() != null) {
-                this.getWeapon().setSelected(true);
-            } else if (this.selectionIndex == 2 && this.getMount() != null) {
-                this.getMount().setSelected(true);
-            }
-            */
 
         }
 

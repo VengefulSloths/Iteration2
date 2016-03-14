@@ -65,7 +65,7 @@ public class MountViewObject extends EquipmentViewObject {
             g.drawString(itemStats, stringXCoord, y+2*stringHeight + containerHeight/10);
             g.drawString(itemDescription, stringXCoord, y+3*stringHeight + 2*containerHeight/10);
             if (this.isSelected()) {
-                Border b = BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.WHITE, Color.WHITE);
+                Border b = BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.GREEN, Color.GREEN);
                 b.paintBorder(this, g, x, y, containerWidth, containerHeight);
             }
         } else {
