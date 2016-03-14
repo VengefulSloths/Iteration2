@@ -272,9 +272,9 @@ public class LevelFactory {
         testEnemy.setLocation(new Coord(3,3));
         testEnemy.equip(new TwoHandedWeapon("Iron 2H", new StrengthAddable(1), 1));
 
-        testEnemy.accept(TemporaryVOCreationVisitor.getInstance());
+        //testEnemy.accept(TemporaryVOCreationVisitor.getInstance());
         new AggressiveNPCControllerManager(area2, testEnemy);
-
+        testEnemy.setShirt("pink_shirt");
         testEnemy.getStats().subtract(new CurrentHealthAddable(1));
         camera1.addDecal(new Coord(2,2), "resources/terrain/cracked_sand.xml" );
         camera2.addDecal(new Coord(2,2), "resources/terrain/cracked_sand.xml" );

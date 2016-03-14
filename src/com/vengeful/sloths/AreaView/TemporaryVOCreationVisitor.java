@@ -185,6 +185,10 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
         ObserverManager.getInstance().addProxyObserver(new ProxyStatsObserver(ebvo.getHealthBar(), aNPC.getStats()));
         aNPC.getStats().updateObservers();
         aNPC.getEquipped().alertAllEntityObserversEverything();
+
+        if (!aNPC.getShirt().isEmpty()) {
+            ebvo.wearShirt(aNPC.getShirt());
+        }
         this.activeCameraView.addViewObject(ebvo);
     }
 
@@ -199,6 +203,9 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
         ObserverManager.getInstance().addProxyObserver(new ProxyStatsObserver(ebvo.getHealthBar(), aNPC.getStats()));
         aNPC.getStats().updateObservers();
         aNPC.getEquipped().alertAllEntityObserversEverything();
+        if (!aNPC.getShirt().isEmpty()) {
+            ebvo.wearShirt(aNPC.getShirt());
+        }
         this.activeCameraView.addViewObject(ebvo);
     }
 
