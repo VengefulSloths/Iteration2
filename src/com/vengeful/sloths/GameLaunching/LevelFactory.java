@@ -170,6 +170,14 @@ public class LevelFactory {
         Ability hot = AbilityFactory.getInstance().createHealOverTime(Avatar.getInstance());
         town.getTile(new Coord(5,2)).addTakeableItem(new TakeableItem("Rejuvination", new AbilityItem(hot), new Coord(5,2)));
     }
+
+    public MapArea createSummonerArea(){
+        return null;
+    }
+
+    public void populateSummonerArea(){
+
+    }
     public void createTestMap() {
         this.cameras = new CameraViewManager();
 
@@ -251,6 +259,7 @@ public class LevelFactory {
 
         this.spawnPoint = new Coord(2,1);
     }
+
 
     public void populateTestMap() {
         MapArea[] areas = Map.getInstance().getMapAreas();

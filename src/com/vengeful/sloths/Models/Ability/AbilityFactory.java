@@ -1,6 +1,7 @@
 package com.vengeful.sloths.Models.Ability;
 
 import com.vengeful.sloths.Models.Ability.Abilities.*;
+import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.PickPocketAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.StealthAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.*;
 import com.vengeful.sloths.Models.Buff.*;
@@ -78,8 +79,8 @@ public class AbilityFactory {
         return new ExplosionAbility(entity, expandingTime, expandingDistance, startupTicks, coolDownTicks);
     }
 
-    public FlameThrowerAbility createAngleSpellAbility(Entity entity, int expandingTime, int expandingDistance, int startupTicks, int coolDownTicks){
-        return new FlameThrowerAbility(entity, expandingTime, expandingDistance, startupTicks, coolDownTicks);
+    public FlameThrowerAbility createAngleSpellAbility(Entity entity){
+        return new FlameThrowerAbility(entity, 5, 4, 50, 55);
     }
 
     public NPCFallAsleepAbility createNPCFallAsleepAbility(Entity entity){
@@ -95,6 +96,9 @@ public class AbilityFactory {
 
     public RangedAttackAbility createRangedAttackAbility(Entity entity, int baseDamage, int windTicks, int coolTicks) {
         return new RangedAttackAbility(entity, entity.getSkillManager().getRangedWeaponSkill(), baseDamage, windTicks, coolTicks);
+    }
+    public PickPocketAbility createPickPocketAbility(){
+        return new PickPocketAbility();
     }
 
     public ObservationAbility createObservationAbility(Entity e){

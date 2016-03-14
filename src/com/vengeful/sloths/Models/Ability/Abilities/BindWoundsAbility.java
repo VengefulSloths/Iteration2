@@ -25,8 +25,6 @@ public class BindWoundsAbility extends Ability {
         super("Bind Wounds", 45, 60);
         this.entity = entity;
         this.skillManager = entity.getSkillManager();
-        this.name = "Bind Wounds";
-
     }
 
 
@@ -44,7 +42,7 @@ public class BindWoundsAbility extends Ability {
         this.entity.setActive(true);
         this.entity.decMana(manaCost);
 
-        System.out.println("DOING BINDWOUNDS ABILITY");
+        //ystem.out.println("DOING BINDWOUNDS ABILITY");
 
         TimeModel.getInstance().registerAlertable(() -> {
             this.doHeal();

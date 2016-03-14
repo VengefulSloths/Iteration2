@@ -13,7 +13,7 @@ public class PickPocketAbility extends Ability implements ModelVisitable{
 
     //this ability initiates the command to start the pickpocketing window and controller
     public PickPocketAbility(){
-        super("PickPocketAbility", 1,1);
+        super("Pick Pocket", 1,1);
 
     }
     @Override
