@@ -72,7 +72,7 @@ public class AbilityFactory {
     }
 
     public FireBallAbility createFireBallAbility(Entity entity){
-        return new FireBallAbility(entity, 30, 5, 30, 35);
+        return new FireBallAbility(entity, 10, 5, 30, 35);
     }
 
     public ExplosionAbility createExplosionAbility(Entity entity, int expandingTime, int expandingDistance, int startupTicks, int coolDownTicks){
