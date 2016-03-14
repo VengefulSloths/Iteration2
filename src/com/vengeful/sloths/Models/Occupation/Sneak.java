@@ -2,6 +2,7 @@ package com.vengeful.sloths.Models.Occupation;
 
 
 import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.ObservationAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityFactory;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
@@ -37,6 +38,7 @@ public class Sneak extends Occupation {
         abilityManager.equipAbility(a3,2);
 
         abilityManager.addAbility(new BindWoundsAbility(entity));
+
 
         this.addSharedAbility(abilityManager, entity);
     }

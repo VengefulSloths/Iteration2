@@ -50,6 +50,11 @@ public class TradeControllerState extends InputControllerState{
     }
 
     @Override
+    public void handleObservationKey() {
+
+    }
+
+    @Override
     public void handleTalkKey() {
 
     }

@@ -29,6 +29,11 @@ public class DialogControllerState extends InputControllerState {
     }
 
     @Override
+    public void handleObservationKey() {
+
+    }
+
+    @Override
     public void resetView(boolean isActive) {
 
     }

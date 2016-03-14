@@ -133,6 +133,20 @@ public class ProxyEntityObserver extends ProxyObserver
     }
 
     @Override
+    public void alertObservationInfo(int damage, int speed) {
+        if (!deleteFlag) {
+            ViewTime.getInstance().registerAlert(0, () -> target.alertObservationInfo(damage, speed));
+        }
+    }
+
+    @Override
+    public void alertRemoveObservationInf() {
+        if (!deleteFlag) {
+            ViewTime.getInstance().registerAlert(0, () -> target.alertRemoveObservationInf());
+        }
+    }
+
+    @Override
     public void alertCast(long windUpTime, long coolDownTime) {
         if (!deleteFlag) {
             ViewTime.getInstance().registerAlert(0, () -> target.alertCast(windUpTime, coolDownTime));

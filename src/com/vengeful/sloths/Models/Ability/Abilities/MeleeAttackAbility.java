@@ -69,6 +69,7 @@ public class MeleeAttackAbility extends Ability {
             default:
                 break;
         }
+
         Iterator<EntityObserver> iter = entity.getObservers().iterator();
         while (iter.hasNext()) {
             iter.next().alertAttack(dst.getR(), dst.getS(), getWindTicks()* TimeController.MODEL_TICK, getCoolTicks()* TimeController.MODEL_TICK);

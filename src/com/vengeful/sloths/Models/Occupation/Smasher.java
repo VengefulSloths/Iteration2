@@ -27,9 +27,9 @@ public class Smasher extends Occupation {
         abilityManager.addAbility(a1);
         abilityManager.equipAbility(a1,0);
 
-//        Ability a2 = AbilityFactory.getInstance().create(entity);
-//        abilityManager.addAbility(a2);
-//        abilityManager.equipAbility(a2,1);
+        Ability a2 = AbilityFactory.getInstance().createObservationAbility(entity);
+        abilityManager.addAbility(a2);
+        abilityManager.equipAbility(a2,1);
 
         this.addSharedAbility(abilityManager, entity);
     }

@@ -73,6 +73,11 @@ public class AvatarControllerState extends InputControllerState {
         Avatar.getInstance().doAbility(3);
     }
 
+    @Override
+    public void handleObservationKey() {
+        Avatar.getInstance().observe();
+    }
+
     ///////////////////////handle key presses
     @Override
     public boolean handleInventoryKey() {

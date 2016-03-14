@@ -101,4 +101,8 @@ public class AbilityFactory {
         return new PickPocketAbility();
     }
 
+    public ObservationAbility createObservationAbility(Entity e){
+        return new ObservationAbility(e);
+    }
+
 }
