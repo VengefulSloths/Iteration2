@@ -31,7 +31,7 @@ public class NPCFallAsleepAbility extends Ability{
     private int manaCost = ModelConfig.getManaCostHigh();
 
     public NPCFallAsleepAbility(Entity entity, int windup, int cooldown, int sleepTime){
-        super("NPC Go To Sleep", windup, cooldown);
+        super("Pacify", windup, cooldown);
         this.entity = entity;
         this.windupTicks = windup;
         this.coolDownTicks = cooldown;
