@@ -76,6 +76,7 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
         this.movementValidator = new DefaultCanMoveVisitor();
     }
     public boolean isActive() {
+
         return isActive;
     }
 
