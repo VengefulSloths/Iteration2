@@ -86,9 +86,12 @@ public class EquipmentView extends View implements EquipmentObserver {
     }
 
 
+    private EquipmentViewObject fists;
+
     public EquipmentView(Equipped equipment) {
         this.equipment = equipment;
         initializeEquipment(equipment);
+        this.fists = new EquipmentViewObject(equipment.getFists());
         ProxyObserver pio = new ProxyEquipmentObserver(this, equipment);
         ObserverManager.getInstance().addProxyObserver(pio);
         initDefaultUI();
@@ -211,6 +214,8 @@ public class EquipmentView extends View implements EquipmentObserver {
         }
         if (this.equipmentViewObjectArray[1] != null) {
             this.equipmentViewObjectArray[1].paintComponent(g, boxXCoord, box2Y, boxWidth, boxHeight);
+        } else {
+            this.fists.paintComponent(g, boxXCoord, box2Y, boxWidth, boxHeight);
         }
         if (this.equipmentViewObjectArray[2] != null) {
             this.equipmentViewObjectArray[2].paintComponent(g, boxXCoord, box3Y, boxWidth, boxHeight);
@@ -236,8 +241,11 @@ public class EquipmentView extends View implements EquipmentObserver {
             //this.revalidate();
             //this.repaint();
         } else if(selectionIndex==1 && this.equipmentViewObjectArray[1]!=null) {
+            if (this.getWeapon().getEquipmentItem() == this.equipment.getFists())
+                return;
             this.getWeapon().getEquipmentItem().removeFromEquipped(this.equipment);
-            this.equipmentViewObjectArray[1]=null;
+
+            this.equipmentViewObjectArray[1]= null;
         } else if(selectionIndex==2 && this.equipmentViewObjectArray[2]!=null) {
             //this.getMount().getEquipmentItem().removeFromEquipped(this.equipment);
             System.out.println("remioving " + this.getMount().getMount() + " from equipment");
@@ -249,7 +257,8 @@ public class EquipmentView extends View implements EquipmentObserver {
 
         @Override
         public void alertWeaponEquipped(Weapon weapon) {
-            if (this.getWeapon() != null) {
+            if (this.getWeapon() != null && this.getWeapon().getEquipmentItem() != equipment.getFists()) {
+
                 Avatar.getInstance().getInventory().addItem(this.getWeapon().getEquipmentItem());
             }
             this.setWeapon(new EquipmentViewObject(weapon));

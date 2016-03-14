@@ -27,6 +27,10 @@ public class BindWoundsAbility extends Ability {
         this.skillManager = entity.getSkillManager();
     }
 
+    @Override
+    public String getDescription() {
+        return "This will only hurt a little";
+    }
 
     @Override
     public int execute() {

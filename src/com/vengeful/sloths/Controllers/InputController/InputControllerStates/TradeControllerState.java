@@ -22,7 +22,7 @@ public class TradeControllerState extends InputControllerState{
         this.tradeView = tradeView;
         this.buyState = new TradeBuyState();
         this.sellState = new TradeSellState();
-        this.sellState.setInventoryView(tradeView.getAvatarInvView());
+        this.sellState.setInventoryView(tradeView.getAvatarInvView(),tradeView.getEntityInvView());
         this.buyState.setInventoryView(tradeView.getEntityInvView());
         this.target = target;
         this.activeState = buyState;

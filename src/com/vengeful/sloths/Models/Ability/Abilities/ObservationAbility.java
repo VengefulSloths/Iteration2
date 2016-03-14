@@ -28,6 +28,10 @@ public class ObservationAbility extends Ability{
         this.entity = entity;
     }
 
+    @Override
+    public String getDescription() {
+        return "Look at the little details";
+    }
 
     @Override
     public int execute() {

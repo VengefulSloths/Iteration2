@@ -9,6 +9,7 @@ import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteract
 import com.vengeful.sloths.Models.InventoryItems.ConsumableItems.Potion;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.*;
 import com.vengeful.sloths.Models.Map.Map;
+import com.vengeful.sloths.Models.Map.MapItems.Gold;
 import com.vengeful.sloths.Models.ModelEngine;
 import com.vengeful.sloths.Models.Stats.StatAddables.HealthManaExperienceAddable;
 import com.vengeful.sloths.Models.Stats.StatAddables.StrengthAddable;
@@ -56,53 +57,14 @@ public class LaunchGameTemplate {
 //        map.getActiveMapArea().getTile(helper.spawnPoint()).addEntity(Avatar.getInstance());
 
         initSingletons();
-
-        /*****Test avatar drop******/
-
+        /**
+         * AVATAR STARTING INVENTORY
+         */
+        avatar.getInventory().addGold(new Gold(100));
         avatar.equip(new Mount("Hover", 10));
 
-        avatar.getInventory().addItem(new Potion("Red Potion", new HealthManaExperienceAddable(5,0,0,0,0)));
-        avatar.getInventory().addItem(new Potion("Blue Potion", new HealthManaExperienceAddable(0,0,5,0,0)));
-        avatar.getInventory().addItem(new Potion("Blue Potion", new HealthManaExperienceAddable(0,0,5,0,0)));
-        avatar.getInventory().addItem(new TwoHandedWeapon("Mystical 2H", new StrengthAddable(15), 15));
+        //************************END AVATAR STARING INVENTORY
 
-        System.out.println("AVATAR HAS " + avatar.getInventory().getCurrentSize() + " items");
-
-        System.out.println("After equipped...");
-
-        avatar.equip(new OneHandedWeapon("Dragon Dagger", new StrengthAddable(5), 10));
-
-
-        avatar.equip(new Hat("Tophat", new StrengthAddable(15))); //edit
-        //avatar.equip(new Mount("mount", 10)); //edit
-
-//        avatar.equip(new Bow("Bow", new StrengthAddable(5), 10, WeaponClass.BOW));
-
-        System.out.println("AVATAR HAS " + avatar.getInventory().getCurrentSize() + " items");
-//        avatar.equip(new Mount("mount", 10)); //edit
-
-
-        //avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createStealthAbility(avatar), 0);
-        //avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createProtectFromEvil(avatar), 1);
-        //avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createExplosionAbility(avatar, 10, 3, 5, 5), 1);
-        //avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createFireBallAbility(avatar, 10, 3, 5, 5), 1);
-
-//        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createStealthAbility(avatar), 0);
-//        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createProtectFromEvil(avatar), 1);
-        //avatar.getAbilityManager().equipAbility(new PickPocketAbility(), 1);
-        //avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createNPCFallAsleepAbility(avatar), 1);
-        //avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createPoisonNPCAbility(avatar), 1);
-
-        //avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createExplosionAbility(avatar, 10, 3, 5, 5), 2);
-
-//        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createNPCFallAsleepAbility(avatar), 1);
-
-        //avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createDamageBoost(avatar), 2);
-
-        //avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createHealOverTime(avatar), 3);
-
-        //avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createObservationAbility(avatar), 0);
-        /**************************/
 
         AreaView areaView = new AreaView(cameras);
         //ViewManager vm = new ViewManager();

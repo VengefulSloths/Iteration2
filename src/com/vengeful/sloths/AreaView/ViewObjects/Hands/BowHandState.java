@@ -8,6 +8,7 @@ import com.vengeful.sloths.AreaView.ViewObjects.ViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.WeaponImageContainer;
 import com.vengeful.sloths.AreaView.ViewTime;
 import com.vengeful.sloths.Models.TimeModel.TimeController;
+import com.vengeful.sloths.Sound.SoundEffect;
 import com.vengeful.sloths.Utility.Direction;
 
 import java.awt.*;
@@ -89,10 +90,10 @@ public class BowHandState implements HandState {
 
     @Override
     public NonVisibleViewObject getNonVisibleBack() {
-        if (foreground.size() > 0) {
-            NonVisibleViewObject nonVisibleViewObject = foreground.get(0).getNonVisibleSnapShot();
-            if (foreground.size() > 1) {
-                nonVisibleViewObject.addNonVisibleViewObject(foreground.get(1).getNonVisibleSnapShot());
+        if (background.size() > 0) {
+            NonVisibleViewObject nonVisibleViewObject = background.get(0).getNonVisibleSnapShot();
+            if (background.size() > 1) {
+                nonVisibleViewObject.addNonVisibleViewObject(background.get(1).getNonVisibleSnapShot());
             }
             return nonVisibleViewObject;
         } else {
@@ -119,7 +120,11 @@ public class BowHandState implements HandState {
 
     @Override
     public void attack(int r, int s, long windUpTime, long coolDownTime) {
+
         cast(windUpTime, coolDownTime);
+        ViewTime.getInstance().registerAlert(windUpTime, () -> {
+            (new SoundEffect("resources/audio/bow2.wav")).play();
+        });
     }
 
     @Override

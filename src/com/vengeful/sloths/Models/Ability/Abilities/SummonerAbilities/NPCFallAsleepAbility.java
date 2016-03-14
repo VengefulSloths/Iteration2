@@ -39,6 +39,11 @@ public class NPCFallAsleepAbility extends Ability{
     }
 
     @Override
+    public String getDescription() {
+        return "Shhhh ... Just go to sleep";
+    }
+
+    @Override
     public int execute() {
         if(this.entity.isActive())
             return 0;

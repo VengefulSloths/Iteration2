@@ -34,6 +34,11 @@ public class FlameThrowerAbility extends Ability{
 
     }
 
+    @Override
+    public String getDescription() {
+        return "A great cone of fire";
+    }
+
 
     @Override
     public int execute() {

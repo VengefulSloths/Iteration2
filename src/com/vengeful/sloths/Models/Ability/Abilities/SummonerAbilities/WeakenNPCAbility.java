@@ -38,6 +38,10 @@ public class WeakenNPCAbility extends Ability{
         this.coolDownTicks = coolDownTicks;
     }
 
+    @Override
+    public String getDescription() {
+        return "Because he wasn't weak enough already";
+    }
 
     @Override
     public int execute() {

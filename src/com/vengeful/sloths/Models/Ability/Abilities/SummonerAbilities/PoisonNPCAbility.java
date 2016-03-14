@@ -38,6 +38,10 @@ public class PoisonNPCAbility extends Ability{
         this.coolDownTicks = coolDownTicks;
     }
 
+    @Override
+    public String getDescription() {
+        return "Deal damage and slow, just watch them suffer";
+    }
 
     @Override
     public int execute() {

@@ -92,6 +92,7 @@ public class Inventory implements ModelVisitable, ViewObservable {
         }
             return true;
         }else{
+            System.out.println("faiels asdrtjhklfasdjfalksdjdsfkjklsksdafjkjdsaf");
             return false;
         }
     }

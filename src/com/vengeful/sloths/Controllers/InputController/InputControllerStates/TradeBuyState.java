@@ -144,8 +144,11 @@ public class TradeBuyState  extends InventoryControllerState{
     @Override
     public boolean handleNorthEastKey() {
 //        this.inventoryView.useCurrentlySelectedItem();
-        InventoryItem item = this.inventoryView.getCurrentItem();
-        new AvatarBuyCommand(this.inventoryView.getInventory(), item).execute();
+        if(this.inventoryView.getCurrentItem() != null) {
+            InventoryItem item = this.inventoryView.getCurrentItem();
+            new AvatarBuyCommand(this.inventoryView.getInventory(), item).execute();
+            this.inventoryView.dropViewItem();
+        }
         return true;
 
     }

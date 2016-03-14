@@ -28,13 +28,22 @@ public class Equipped implements ViewObservable, ModelVisitable{
     private AbilityManager abilityManager;
 
     private Hat hat;
-    private final Weapon fists = new Knuckle("hands", new StrengthAddable(0), 0);
+    private final Weapon fists = new Knuckle("hands", new StrengthAddable(0), 0) {
+        @Override
+        public void removeFromEquipped(Equipped equipped) {
+
+        }
+    };
 
     private Weapon weapon = fists;
 
     private Mount mount;
 
     //private EquippableItems mount;
+
+    public Weapon getFists() {
+        return  fists;
+    }
 
     protected ArrayList<EquipmentObserver> equipmentObserver;
 
@@ -117,6 +126,7 @@ public class Equipped implements ViewObservable, ModelVisitable{
         for (EntityObserver observer: entity.getObservers()) {
             observer.alertEquipWeapon(this.weapon.getItemName(), this.weapon.getWeaponClassification());
         }
+
         alertWeaponEquipped(weapon);
     }
 
@@ -194,11 +204,15 @@ public class Equipped implements ViewObservable, ModelVisitable{
     }
 
     public void alertWeaponUnequipped(Weapon weapon){
+        if (fists == weapon)
+            return;
+
         Iterator<EquipmentObserver> iter = this.equipmentObserver.iterator();
         while (iter.hasNext()) {
             EquipmentObserver io = iter.next();
             io.alertWeaponUnequipped(weapon);
         }
+
         this.entity.getInventory().addItem(weapon);
     }
 

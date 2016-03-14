@@ -23,6 +23,11 @@ public class PickPocketAbility extends Ability implements ModelVisitable{
     }
 
     @Override
+    public String getDescription() {
+        return "Steal some items";
+    }
+
+    @Override
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitPickPocketAbility(this);
     }
