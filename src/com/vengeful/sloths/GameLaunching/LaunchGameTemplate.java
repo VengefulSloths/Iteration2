@@ -71,7 +71,7 @@ public class LaunchGameTemplate {
 
         System.out.println("After equipped...");
 
-        avatar.equip(new OneHandedWeapon("Dragon Dagger", new StrengthAddable(5), 10));
+        avatar.equip(new Shuriken("Shuriken", new StrengthAddable(5), 10, WeaponClass.THROW));
 
 
         avatar.equip(new Hat("Tophat", new StrengthAddable(15))); //edit

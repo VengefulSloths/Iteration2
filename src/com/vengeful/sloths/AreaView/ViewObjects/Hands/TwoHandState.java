@@ -111,7 +111,7 @@ public class TwoHandState implements  HandState {
         ViewTime.getInstance().registerAlert(windUpTime, () -> {
             attackFront.start();
             attackBack.start();
-            (new SoundEffect("resources/audio/slash2.wav")).play();
+            (new SoundEffect("resources/audio/bash2.aiff")).play();
         });
     }
 
