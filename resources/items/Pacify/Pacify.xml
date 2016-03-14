@@ -2,7 +2,7 @@
 <single_frame_animation>
     <width>52</width>
     <height>80</height>
-    <rootPath>resources/items/Roids/</rootPath>
-    <fileName>Roids.png</fileName>
+    <rootPath>resources/items/Pacify/</rootPath>
+    <fileName>Pacify.png</fileName>
     <positioning>centered</positioning>
 </single_frame_animation>
