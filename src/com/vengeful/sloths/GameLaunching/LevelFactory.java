@@ -11,6 +11,7 @@ import com.vengeful.sloths.Controllers.ControllerManagers.PiggyControllerManager
 import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SelfBuffAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
+import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityFactory;
 import com.vengeful.sloths.Models.DialogueTrade.DialogContainer;
 import com.vengeful.sloths.Models.DialogueTrade.TerminalDialogContainer;
@@ -200,7 +201,7 @@ public class LevelFactory {
 
         CameraView camera2 = new PlainsCameraView();
         CameraView camera1 = new PlainsCameraView();
-
+//
         Potion p = new Potion("Red Potion", new CurrentHealthAddable(20));
         p.setValue(100000);
 //        Piggy testPiggy = new Piggy("Bart", new Stats(new MovementAddable(30)));
@@ -219,7 +220,7 @@ public class LevelFactory {
 
 //        TakeableItem piggyTotem = new TakeableItem("Piggy Totem", new PiggyTotem("Piggy Totem", testPiggy), new Coord(2,2));
 
-        FireBallAbility fireBallAbility = new FireBallAbility(Avatar.getInstance(), 150, 150, 150, 150);
+        FireBallAbility fireBallAbility = AbilityFactory.getInstance().createFireBallAbility(Avatar.getInstance());
         fireBallAbility.setItemName("Fire Ball");
         area1.getTile(new Coord(3,3)).addTakeableItem(new TakeableItem("Fire Ball", new AbilityItem(fireBallAbility), new Coord(3,3)));
 
@@ -242,6 +243,13 @@ public class LevelFactory {
 
         camera2.init(area2);
         camera1.init(area1);
+
+
+        camera1.addDecal(new Coord(3, 3), "resources/decals/Hydrangeas_fast.xml");
+        camera2.addDecal(new Coord(3, 3), "resources/decals/Hydrangeas_fast.xml");
+        camera2.addDecal(new Coord(4,4), "resources/decals/Hydrangeas_med.xml");
+//        camera2.addDecal(new Coord(5,5), "resources/decals/Hydrangeas_slow.xml");
+        camera2.addDecal(new Coord(5,5), "resources/decals/Roses_slow.xml");
 
 
         TemporaryVOCreationVisitor.getInstance().setActiveCameraView(camera2);
