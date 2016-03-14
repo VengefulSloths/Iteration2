@@ -329,6 +329,10 @@ public class LevelFactory {
 
         CameraView camera1 = new PlainsCameraView();
         camera1.init(area3);
+        camera1.addDecal(new Coord(4,4),"resources/decals/Hydrangeas_slow.xml");
+        camera1.addDecal(new Coord(4,7),"resources/decals/Hydrangeas_slow.xml");
+        camera1.addDecal(new Coord(1,11),"resources/decals/Roses_slow.xml");
+        //camera1.addDecal(new Coord(1,11),"Roses_slow.xml");
         cameras.addCameraView(area3, camera1);
 
     }
@@ -410,6 +414,7 @@ public class LevelFactory {
         new NonAggressiveNPCControllerManager(town, Bob, Direction.SE, 1);
 
         NonAggressiveNPC BobSmith = new NonAggressiveNPC("BobSmith", new Stats( new BaseStatsAddable(0,0,0,10,20)));
+        BobSmith.setShirt("brown_shirt");
         Inventory BobSmithInventoryInv = BobSmith.getInventory();
         BobSmithInventoryInv.addItem(new Bow("Bow", new AgilityAddable(1),2));
         BobSmithInventoryInv.addItem(new OneHandedWeapon("Dagger", new StrengthAddable(1),2));
