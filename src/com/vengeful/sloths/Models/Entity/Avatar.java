@@ -249,6 +249,9 @@ public class Avatar extends Entity{
         return pet;
     }
 
+    public void initialSetPet(Pet pet){
+        this.pet = pet;
+    }
     public void setPet(Pet pet) {
         pet.alertAlive();
         this.pet = pet;
