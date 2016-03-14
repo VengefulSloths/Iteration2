@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<dynamic_timed_animation>
+  <width>78</width>
+  <height>126</height>
+  <rootPath>resources/entities/sneak/</rootPath>
+  <startConfig>smasherSouthEastStanding.xml</startConfig>
+  <endConfig>smasherSouthEastStanding.xml</endConfig>
+  <fileName>smasher_southeast_standing.png</fileName>
+  <fileName>smasher_southeast_right.png</fileName>
+  <fileName>smasher_southeast_standing.png</fileName>
+  <fileName>smasher_southeast_left.png</fileName>
+  <fileName>smasher_southeast_standing.png</fileName>
+  <positioning>occupying</positioning>
+</dynamic_timed_animation>

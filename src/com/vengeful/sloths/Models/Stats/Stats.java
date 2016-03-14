@@ -1,9 +1,11 @@
 package com.vengeful.sloths.Models.Stats;
 
+import com.vengeful.sloths.Menu.MainMenu.MenuTester;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Stats.StatAddables.StatsAddable;
+import com.vengeful.sloths.Models.TimeModel.TimeModel;
 import com.vengeful.sloths.Models.ViewObservable;
 import com.vengeful.sloths.Models.Observers.EntityObserver;
 import com.vengeful.sloths.Models.Observers.ModelObserver;
@@ -55,7 +57,7 @@ public class Stats implements ModelVisitable, ViewObservable {
         this.movement = 45;//might need to modify this (done)
         this.level = 1;
         this.currentHealth = 1;
-        this.lives = 1;
+        this.lives = 3;
         calculateStats();
 
         this.currentHealth = this.maxHealth;
@@ -69,7 +71,7 @@ public class Stats implements ModelVisitable, ViewObservable {
         setHardiness(stats.getHardiness());
         setMovement(stats.getMovement());
         this.level = 1;
-        this.lives = 1;
+        this.lives = 3;
 
         calculateStats();
 
@@ -108,8 +110,10 @@ public class Stats implements ModelVisitable, ViewObservable {
 
     private void checkIfDead(){
         if(this.entity != null) {
-            if (currentHealth <= 0) {
-                this.entity.die();
+            if (currentHealth <= 0 && !entity.isDead()) {
+                    this.lives -= 1;
+                    System.out.println(lives);
+                    this.entity.die();
             }
         }
     }

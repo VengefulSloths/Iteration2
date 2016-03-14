@@ -17,6 +17,7 @@ public class ItemViewObject extends JPanel {
     protected ItemImageFactory imageFactory = new ItemImageFactory(); //edit
     private ViewItem viewItem;
     private boolean isSelected;
+    private String name;
 
     public boolean isSelected() {
         return isSelected;
@@ -30,6 +31,13 @@ public class ItemViewObject extends JPanel {
     }
     public void setItemImage(Image itemImage) {
         this.itemImage = itemImage;
+    }
+
+    public String getItemName() {
+        return this.name;
+    }
+    public void setItemName(String name) {
+        this.name = name;
     }
 
     public boolean isDisplayed() {

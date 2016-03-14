@@ -122,14 +122,19 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
     private AvatarViewObject avo;
     private ProxyEntityObserver peo;
     private ProxyEntityObserver petPeo;
+
+
+    private String avatarOccupation;
     @Override
     public void visitAvatar(Avatar avatar) {
         if (peo != null) {
             peo.deregister();
         }
+        avatar.getOccupation().accept(this);
+
         this.avo = factory.createAvatarViewObject(avatar.getLocation().getR(),
                 avatar.getLocation().getS(),
-                "resources/entities/smasher/");
+                "resources/entities/" + avatarOccupation + "/");
 
 
         //Let avo observe avatar through a proxy
@@ -222,17 +227,17 @@ public class TemporaryVOCreationVisitor implements ModelVisitor {
 
     @Override
     public void visitSummoner(Summoner s) {
-
+        this.avatarOccupation = "summoner";
     }
 
     @Override
     public void visitSneak(Sneak s) {
-
+        this.avatarOccupation = "sneak";
     }
 
     @Override
     public void visitSmasher(Smasher s) {
-
+        this.avatarOccupation = "smasher";
     }
 
     @Override
