@@ -24,7 +24,7 @@ public class ObservationAbility extends Ability{
     private Entity entity;
 
     public ObservationAbility(Entity entity){
-        super("observation", 0, 0);
+        super("Observation", 0, 0);
         this.entity = entity;
     }
 
