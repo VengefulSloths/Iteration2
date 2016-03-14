@@ -37,6 +37,8 @@ public class AvatarBuyCommand {
             tradersInventory.addGold(g);
             tradersInventory.removeItem(item);
             avatarInventory.addItem(item);
+            System.out.println("REmoving item: " + item.getItemName());
+
         }
     }
 }

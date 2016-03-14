@@ -35,6 +35,7 @@ public class AvatarSellCommand {
             g.setValue(itemValue);
             tradersInventory.setGold(tradersInventory.getGold() - itemValue);
             avatarInventory.addGold(g);
+            System.out.println("Ya boy sold a:" + item.getItemName());
             avatarInventory.removeItem(item);
             tradersInventory.addItem(item);
         }
