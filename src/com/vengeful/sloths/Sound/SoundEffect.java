@@ -25,7 +25,7 @@ public class SoundEffect {
             clip = AudioSystem.getClip();
             clip.open(AudioSystem.getAudioInputStream(file));
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 
