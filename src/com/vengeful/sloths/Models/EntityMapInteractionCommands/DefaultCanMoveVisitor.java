@@ -69,6 +69,16 @@ public class DefaultCanMoveVisitor extends CanMoveVisitor {
     }
 
     @Override
+    public void visitBow(Bow bow) {
+
+    }
+
+    @Override
+    public void visitStaff(Staff staff) {
+
+    }
+
+    @Override
     public void visitTrap(Trap trap) {
 
     }

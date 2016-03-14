@@ -66,19 +66,19 @@ public class EquippedAbilitiesViewObject extends JPanel {
 
     public void paintComponent(Graphics g, int x, int y, int containerWidth, int containerHeight) {
         super.paintComponent(g);
-        int imageWidth=containerWidth/4;
+        int imageWidth=containerWidth/6;
         int imageHeight=containerHeight;
 
-        g.drawImage(this.getItemImage(), x, y, imageWidth, imageHeight, this);
-        g.setColor(Color.RED);
+        g.drawImage(this.getItemImage(), x + 5, y, imageWidth, imageHeight, this);
+        g.setColor(Color.WHITE);
         g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 14));
         String itemName = "Item: " + this.getEquippedAbility().getItemName();
         String itemDescription = "Description: " ;
         int nameStringWidth = g.getFontMetrics().stringWidth(itemName);
         int descriptionStringWidth = g.getFontMetrics().stringWidth(itemDescription);
         int stringHeight = g.getFontMetrics().getHeight();
-        g.drawString(itemName, x+imageWidth+5, y+stringHeight);
-        g.drawString(itemDescription, x+imageWidth+5, y+3*stringHeight);
+        g.drawString(itemName, x+imageWidth+15, y+stringHeight);
+        g.drawString(itemDescription, x+imageWidth+15, y+3*stringHeight);
     }
 
 }

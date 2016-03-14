@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<dynamic_timed_animation>
+    <width>255</width>
+    <height>255</height>
+    <rootPath>resources/effects/physical_projectile/</rootPath>
+    <startConfig>proj_ne.xml</startConfig>
+    <endConfig>null.xml</endConfig>
+    <fileName>null.png</fileName>
+    <positioning xOffset="-16" yOffset="30">custom</positioning>
+</dynamic_timed_animation>

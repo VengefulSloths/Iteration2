@@ -43,6 +43,7 @@ public class GridInventoryView extends InventoryView implements InventoryObserve
         int multipleY = 1;
 
         g.setFont(new Font("Helvetica",1,12));
+
         GridCalculationStrategy gcs = new GridCalculationStrategy();
         for(int i=0; i<this.getItemListSize(); i++) { //edit: change the gridwidth to be 1 less?
             g.setColor(Color.WHITE);

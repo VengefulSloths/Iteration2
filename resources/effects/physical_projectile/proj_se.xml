@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<repeating_animation>
+    <width>32</width>
+    <height>32</height>
+    <duration>100</duration>
+    <rootPath>resources/effects/physical_projectile/</rootPath>
+    <fileName>ranged_se_1.png</fileName>
+    <fileName>ranged_se_2.png</fileName>
+    <positioning xOffset="-37" yOffset="-39">custom</positioning>
+</repeating_animation>

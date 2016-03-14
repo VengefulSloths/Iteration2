@@ -42,10 +42,10 @@ public class GridAbilitiesView extends AbilitiesView implements AbilityManagerOb
         for(int i=0; i<this.getItemListSize(); i++) {
             this.getFromItemList(i).paintComponent(g, gcs.calculateXCoordBasedOnIndex(i), gcs.calculateYCoordBasedOnIndex(i), gcs.calculateSlotWidth(), gcs.calculateSlotHeight());
             if(this.getFromItemList(i).isSelected()) {
-                Border b = BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.GREEN, Color.GREEN);
+                Border b = BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.WHITE, Color.WHITE);
                 b.paintBorder(this.getFromItemList(i), g, gcs.calculateXCoordBasedOnIndex(i), gcs.calculateYCoordBasedOnIndex(i), gcs.calculateSlotWidth(), gcs.calculateSlotHeight());
                 g.setFont(new Font(Font.DIALOG, Font.BOLD, 10));
-                g.setColor(Color.GREEN);
+                g.setColor(Color.WHITE);
                 g.drawString(this.getFromItemList(i).getItemName(), gcs.calculateXCoordBasedOnIndex(i), gcs.calculateYCoordBasedOnIndex(i) + gcs.calculateSlotHeight() + boxHeight/4);
             }
         }

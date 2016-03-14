@@ -224,6 +224,16 @@ public class NonTeleMoveVisitor extends CanMoveVisitor{
     }
 
     @Override
+    public void visitBow(Bow bow) {
+
+    }
+
+    @Override
+    public void visitStaff(Staff staff) {
+
+    }
+
+    @Override
     public void visitStatsAddable(StatsAddable sa) {
 
     }

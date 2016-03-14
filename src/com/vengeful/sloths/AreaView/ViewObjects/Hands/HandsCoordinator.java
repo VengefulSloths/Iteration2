@@ -49,6 +49,8 @@ public class HandsCoordinator {
             case TWO_HAND:
                 this.state = new TwoHandState(r, s, coordinateStrategy, locationStrategy, resourcePath, direction);
                 break;
+            case BOW:
+                this.state = new BowHandState(r, s, coordinateStrategy, locationStrategy, resourcePath, direction);
         }
         state.addWeapon(weapon);
     }

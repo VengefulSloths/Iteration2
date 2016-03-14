@@ -108,6 +108,10 @@ public class MainController implements Tickable{
         }
     }
 
+    public void setAbilityActive(int abilityNumber){
+        viewManager.getAbilityHUD().setAbilityactive(abilityNumber);
+    }
+
     public void dispatchReleasedKey(int key){
         inputStrategy.interpretReleasedKey(key, state);
     }
