@@ -26,9 +26,9 @@ public class TeleportSenderTile extends Tile {
     @Override
     public void interact(Entity entity) {
 
-        //System.out.println("Teleporitng");
+        System.out.println("Teleporitng");
         this.removeEntity(entity);
-        //System.out.println("Teleporitng1");
+        System.out.println("Teleporitng1");
 
         // @TODO:
         //  Check if Avatar has a piggy, if so, remove him from the tile
@@ -36,14 +36,14 @@ public class TeleportSenderTile extends Tile {
 
 
         destinationTile.addEntity(entity);
-        //System.out.println("Teleporitng2");
+        System.out.println("Teleporitng2");
 
         entity.setLocation(destinationTile.getLocation());
 
         entity.teleportPet(new Location(destinationMapArea, destinationTile.getLocation()));
 
         Map.getInstance().setActiveMapArea(destinationMapArea);
-        //System.out.println("Teleporitng4");
+        System.out.println("Teleporitng4");
 
     }
 

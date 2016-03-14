@@ -13,6 +13,8 @@ import com.vengeful.sloths.Views.ViewManager.ViewManager;
 public class InventoryControllerState extends InputControllerState{
     private InventoryView inventoryView;
 
+
+
     public InventoryView getInventoryView() {
         return inventoryView;
     }

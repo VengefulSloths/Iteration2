@@ -157,6 +157,7 @@ public class PickPocketControllerState extends InputControllerState{
 //        this.pickPocketView.useCurrentlySelectedItem();
         InventoryItem item = this.pickPocketView.getCurrentItem();
         new EntityPickPocketCommand(target,targInv,item).execute();
+        this.pickPocketView.dropViewItem();
         return true;
 
     }

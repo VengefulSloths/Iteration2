@@ -4,6 +4,7 @@ import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.Piggy;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.EntityMapInteractionFactory;
 import com.vengeful.sloths.Models.Map.Map;
+import com.vengeful.sloths.Models.Map.MapItems.TakeableItem;
 import com.vengeful.sloths.Models.Map.Tile;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.ModelVisitor;
@@ -21,6 +22,8 @@ public class PiggyTotem extends UsableItems implements ModelVisitable{
     public PiggyTotem(String name, Piggy pig) {
         super(name);
         this.pig = pig;
+        TakeableItem item = new TakeableItem("Piggy Totem", this, new Coord(1,1));
+        pig.setPiggyTotem(item);
     }
 
     @Override

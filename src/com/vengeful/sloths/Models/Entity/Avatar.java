@@ -196,7 +196,7 @@ public class Avatar extends Entity{
 
     @Override
     public void teleportPet(Location location){
-        if(pet != null){
+        if(!pet.isDead()){
             System.out.println("squaaaaaaa");
             Coord coord = HexMath.getClosestMovableTile(location);
             Map.getInstance().getTile(pet.getLocation()).removeEntity(pet);
