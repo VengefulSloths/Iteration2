@@ -5,6 +5,7 @@ import com.vengeful.sloths.Models.Entity.Avatar;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Inventory.Inventory;
 import com.vengeful.sloths.Models.InventoryItems.InventoryItem;
+import com.vengeful.sloths.Utility.CalculateBuySellPickPocket;
 
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -31,6 +32,7 @@ public class EntityPickPocketCommand {
     }
 
     public void execute(){
+        chanceToSucceed = CalculateBuySellPickPocket.CalculatePickpocketChance(item.getValue(), Avatar.getInstance().getSkillManager().getPickPocketLevel());
         int r = ThreadLocalRandom.current().nextInt(0, 100 + 1);
         if(r <= chanceToSucceed){
             System.out.println("pick pocket will succeed");
@@ -39,9 +41,12 @@ public class EntityPickPocketCommand {
                 System.out.println("pickpocket SUCEEDED");
             }
         }
-        System.out.println("pick pocket FAILED");
-        target.setStunned(false);
-        MainController.getInstance().setAvatarControllerState();
-        target.enrage();
+        else{
+            System.out.println("pick pocket FAILED");
+            MainController.getInstance().setAvatarControllerState();
+            target.setStunned(false);
+            target.enrage();
+        }
+
     }
 }

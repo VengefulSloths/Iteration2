@@ -97,6 +97,7 @@ public class Avatar extends Entity{
                 this.setOccupation(new Summoner(this.getStats(), this.getSkillManager(), this.getAbilityManager(), this));
 
         }
+        this.getStats().setCurrentHealth(1000);
 
         this.getAbilityManager().setObservationAbility(AbilityFactory.getInstance().createObservationAbility(this));
 

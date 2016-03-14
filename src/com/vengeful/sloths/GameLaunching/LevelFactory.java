@@ -210,7 +210,9 @@ public class LevelFactory {
 
         NonAggressiveNPC Pete = new NonAggressiveNPC("Pete", new Stats( new BaseStatsAddable(0,0,0,10,20)));
         Inventory PeteInventory = Pete.getInventory();
-        PeteInventory.addItem(new PiggyTotem("Piggy Totem", piggy));
+        PiggyTotem pt = new PiggyTotem("Piggy Totem", piggy);
+        pt.setValue(1);
+        PeteInventory.addItem(pt);
         PeteInventory.addGold(new Gold(30));
         town.getTile(new Coord(3,7)).addEntity(Pete);
         Pete.setLocation(new Coord(3,7));
