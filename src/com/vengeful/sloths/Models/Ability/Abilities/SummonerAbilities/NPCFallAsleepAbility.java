@@ -1,6 +1,5 @@
 package com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities;
 
-import com.sun.deploy.security.DeployManifestChecker;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.Map.Map;
