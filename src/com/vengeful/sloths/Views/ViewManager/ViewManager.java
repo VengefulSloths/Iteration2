@@ -138,7 +138,7 @@ public class ViewManager extends JPanel {
         this.areaview.setBackground(new Color(0f,0f,0f,0.3f));
         areaview.add(abilityHUD);
         this.add(areaview, BorderLayout.CENTER);
-        this.hudView.setBackground(new Color(0f,0f,0f,0.3f));
+        //this.hudView.setBackground(new Color(0f,0f,0f,0.3f));
         this.areaview.setBackground(Color.blue);
 
 
