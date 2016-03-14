@@ -1,7 +1,6 @@
 package com.vengeful.sloths.Models.Map.AreaEffects;
 
-import com.vengeful.sloths.Models.Effects.EffectCommand;
-import com.vengeful.sloths.Models.Effects.EffectCommandFactory;
+
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.ModelVisitable;
 import com.vengeful.sloths.Models.TimeModel.TimeModel;

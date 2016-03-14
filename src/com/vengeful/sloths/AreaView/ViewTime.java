@@ -55,7 +55,7 @@ public class ViewTime {
     }
 
     public void reset(){
-        //staging = new ArrayList<>();
+        staging = new ArrayList<>();
         waitingList = new PriorityQueue<>(10, comparator);
     }
 }
