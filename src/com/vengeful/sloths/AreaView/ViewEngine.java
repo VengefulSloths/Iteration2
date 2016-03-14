@@ -11,6 +11,7 @@ public class ViewEngine extends JFrame implements Runnable{
 
     private JComponent target;
     private boolean gameisPaused = false;
+    private Thread thread;
 
     private static ViewEngine ourInstance = new ViewEngine();
     public static ViewEngine getInstance(){return ourInstance;}
@@ -61,7 +62,11 @@ public class ViewEngine extends JFrame implements Runnable{
         }
     }
     public void start() {
-        new Thread(this).start();
+
+        if(thread == null) {
+            thread = new Thread(this);
+            thread.start();
+        }
     }
 
 
