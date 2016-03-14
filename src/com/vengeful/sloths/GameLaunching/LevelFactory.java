@@ -598,6 +598,7 @@ public class LevelFactory {
 
 
         NonAggressiveNPC testNPC = new NonAggressiveNPC("greg", new Stats( new BaseStatsAddable(0,0,0,10,20)));
+        testNPC.setShirt("blue_shirt");
         summonerArea.getTile(new Coord(8,3)).addEntity(testNPC);
         testNPC.setLocation(new Coord(8,3));
         new NonAggressiveNPCControllerManager(summonerArea, testNPC, Direction.S, 1);
