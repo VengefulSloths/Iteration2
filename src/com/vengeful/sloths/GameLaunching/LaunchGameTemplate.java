@@ -62,18 +62,19 @@ public class LaunchGameTemplate {
 
         avatar.equip(new Mount("Hover", 10));
 
-        avatar.getInventory().addItem(new Potion("redPotion", new HealthManaExperienceAddable(5,0,0,0,0)));
-        avatar.getInventory().addItem(new Potion("bluePotion", new HealthManaExperienceAddable(0,0,5,0,0)));
-        avatar.getInventory().addItem(new Potion("bluePotion", new HealthManaExperienceAddable(0,0,5,0,0)));
+        avatar.getInventory().addItem(new Potion("Red Potion", new HealthManaExperienceAddable(5,0,0,0,0)));
+        avatar.getInventory().addItem(new Potion("Blue Potion", new HealthManaExperienceAddable(0,0,5,0,0)));
+        avatar.getInventory().addItem(new Potion("Blue Potion", new HealthManaExperienceAddable(0,0,5,0,0)));
+        avatar.getInventory().addItem(new TwoHandedWeapon("Mystical 2H", new StrengthAddable(15), 15));
 
         System.out.println("AVATAR HAS " + avatar.getInventory().getCurrentSize() + " items");
 
         System.out.println("After equipped...");
 
-        avatar.equip(new Shuriken("shuriken", new StrengthAddable(5), 10, WeaponClass.THROW));
+        avatar.equip(new Shuriken("Shuriken", new StrengthAddable(5), 10, WeaponClass.THROW));
 
 
-        avatar.equip(new Hat("tophat", new StrengthAddable(15))); //edit
+        avatar.equip(new Hat("Tophat", new StrengthAddable(15))); //edit
         //avatar.equip(new Mount("mount", 10)); //edit
 
 //        avatar.equip(new Bow("Bow", new StrengthAddable(5), 10, WeaponClass.BOW));
