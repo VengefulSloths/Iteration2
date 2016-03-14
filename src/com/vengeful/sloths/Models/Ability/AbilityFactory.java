@@ -39,7 +39,7 @@ public class AbilityFactory {
     }
 
     public SelfBuffAbility createSelfBuffAbility(String name, Entity entity, Buff buff, int windTime, int coolTime) {
-        return new SelfBuffAbility(name, entity, buff, windTime, coolTime);
+        return new SelfBuffAbility(name, "Blame the coders for this", entity, buff, windTime, coolTime);
     }
 
     public RemoveBuffAbility createRemoveBuffAbility(String name, Buff buff, BuffManager buffManager, Entity entity) {
@@ -58,17 +58,17 @@ public class AbilityFactory {
 
     public SelfBuffAbility createProtectFromEvil(Entity entity) {
         Buff timedBuff = new ProtectFromEvilBuff(entity.getObservers(), entity.getBuffManager(), new GenericStatsAddable(), "protection", 2, 300);
-        return new BoonBuffAbility("Protect From Evil", entity, timedBuff, 8, 15);
+        return new BoonBuffAbility("Mana Shield", "Block two hits from the enemy", entity, timedBuff, 8, 15);
     }
 
     public SelfBuffAbility createDamageBoost(Entity entity){
         Buff damageBuff = new TimedBuff(entity.getObservers(), entity.getBuffManager(), new StrengthAddable(entity.getStats().getStrength()*2), "damageBoost", 300);
-        return new BoonBuffAbility("Roids", entity, damageBuff, 8, 15);
+        return new BoonBuffAbility("Roids", "Because you weren't strong enough already", entity, damageBuff, 8, 15);
     }
 
     public SelfBuffAbility createHealOverTime(Entity entity){
         Buff healBuff = new HealOverTimeBuff(entity, entity.getObservers(), entity.getBuffManager(), new CurrentHealthAddable(3), "healOverTime", 600, 60);
-        return new BoonBuffAbility("Rejuvenation", entity, healBuff, 8, 15);
+        return new BoonBuffAbility("Rejuvenation", "A nice slow heal", entity, healBuff, 8, 15);
     }
 
     public FireBallAbility createFireBallAbility(Entity entity){

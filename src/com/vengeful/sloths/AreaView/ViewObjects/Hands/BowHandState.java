@@ -8,6 +8,7 @@ import com.vengeful.sloths.AreaView.ViewObjects.ViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.WeaponImageContainer;
 import com.vengeful.sloths.AreaView.ViewTime;
 import com.vengeful.sloths.Models.TimeModel.TimeController;
+import com.vengeful.sloths.Sound.SoundEffect;
 import com.vengeful.sloths.Utility.Direction;
 
 import java.awt.*;
@@ -119,7 +120,11 @@ public class BowHandState implements HandState {
 
     @Override
     public void attack(int r, int s, long windUpTime, long coolDownTime) {
+
         cast(windUpTime, coolDownTime);
+        ViewTime.getInstance().registerAlert(windUpTime, () -> {
+            (new SoundEffect("resources/audio/bow2.wav")).play();
+        });
     }
 
     @Override

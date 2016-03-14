@@ -2,6 +2,8 @@ package com.vengeful.sloths.AreaView.ViewObjects.Hands;
 
 import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.CoordinateStrategy;
 import com.vengeful.sloths.AreaView.ViewObjects.LocationStrategies.LocationStrategy;
+import com.vengeful.sloths.AreaView.ViewTime;
+import com.vengeful.sloths.Sound.SoundEffect;
 import com.vengeful.sloths.Utility.Direction;
 
 /**
@@ -15,6 +17,10 @@ public class ThrowHandState extends OneHandState {
 
     @Override
     public void attack(int r, int s, long windUpTime, long coolDownTime) {
+
         cast(windUpTime, coolDownTime);
+        ViewTime.getInstance().registerAlert(windUpTime, () -> {
+            (new SoundEffect("resources/audio/slash2.wav")).play();
+        });
     }
 }

@@ -47,6 +47,7 @@ public abstract class Ability extends ViewItem implements ModelVisitable {
         return coolTicks;
     }
 
+    public abstract String getDescription();
 
     //TODO: put this at a lower level for saving
     @Override

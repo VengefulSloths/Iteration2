@@ -28,6 +28,11 @@ public class DemountAbility extends RemoveBuffAbility {
     }
 
     @Override
+    public String getDescription() {
+        return "Lol what";
+    }
+
+    @Override
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitDemountAbility(this);
     }
