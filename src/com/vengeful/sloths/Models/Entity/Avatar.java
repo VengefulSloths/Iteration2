@@ -51,7 +51,7 @@ public class Avatar extends Entity{
     private Pet pet;
 
     private Avatar(){
-        super("Phill", new Stats());
+        super("Sloth Whisperer", new Stats());
         this.getStats().setLives(3);
         TimeModel.getInstance().registerTickable(new AvatarManaRegen());
     }
