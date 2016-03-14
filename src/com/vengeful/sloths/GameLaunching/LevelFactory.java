@@ -87,6 +87,30 @@ public class LevelFactory {
         }
     }
 
+
+    public void createDemoMap() {
+
+        this.cameras = new CameraViewManager();
+        int rows = 14;
+        int cols = 14;
+        int numWaterSides = 14;
+        int numGrass = cols - 2 * numWaterSides;
+
+        MapArea rescue = new MapArea(rows, cols);
+        rescue.setName("Rescue Mission");
+
+        int row = 0;
+        int col = 0;
+        for (col = 0; col < cols; col++) {
+            for (row = 0; row < rows - (rows - row); row++) {
+                rescue.addTile(new Coord(row, col), new Tile(new Grass()));
+            }
+            rescue.addTile(new Coord(row, col), new Tile(new Water()));
+        }
+    }
+
+
+
     public void createTestMap() {
         this.cameras = new CameraViewManager();
 
