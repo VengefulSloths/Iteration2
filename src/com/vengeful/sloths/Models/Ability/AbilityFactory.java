@@ -52,7 +52,7 @@ public class AbilityFactory {
     }
 
     public StealthAbility createStealthAbility(Entity entity) {
-        Buff stealthBuff = new StealthBuff(entity.getObservers(), "Creep", new StrengthAddable(30), entity.getBuffManager());
+        Buff stealthBuff = new StealthBuff(entity.getObservers(), "Creep", new GenericStatsAddable(30,20,0,0,0,0,0,0,0,0), entity.getBuffManager());
         return new StealthAbility(entity, stealthBuff, 20,25);
     }
 
