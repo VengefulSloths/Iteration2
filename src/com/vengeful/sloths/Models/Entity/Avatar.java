@@ -177,7 +177,7 @@ public class Avatar extends Entity{
 
     @Override
     protected void doRespawn() {
-        EntityMapInteractionFactory.getInstance().createRespawnCommand(this, this.getLocation(), timeToRespawn);
+        EntityMapInteractionFactory.getInstance().createRespawnCommand(this, Map.getInstance().getRespawnPoint().getCoord(), timeToRespawn);
     }
 
     @Override

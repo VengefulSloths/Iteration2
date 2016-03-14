@@ -2,7 +2,7 @@
 <single_frame_animation>
     <width>54</width>
     <height>76</height>
-    <rootPath>resources/items/Roids/</rootPath>
-    <fileName>Roids.png</fileName>
+    <rootPath>resources/items/Explosion/</rootPath>
+    <fileName>Explosion.png</fileName>
     <positioning>centered</positioning>
 </single_frame_animation>

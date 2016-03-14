@@ -4,6 +4,7 @@ import com.vengeful.sloths.AreaView.CameraView;
 import com.vengeful.sloths.AreaView.CameraViewManager;
 import com.vengeful.sloths.AreaView.TemporaryVOCreationVisitor;
 import com.vengeful.sloths.Controllers.ControllerManagers.AggressiveNPCControllerManager;
+import com.vengeful.sloths.Controllers.ControllerManagers.NonAggressiveNPCControllerManager;
 import com.vengeful.sloths.Controllers.ControllerManagers.PiggyControllerManager;
 import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SelfBuffAbility;
@@ -13,6 +14,7 @@ import com.vengeful.sloths.Models.DialogueTrade.DialogContainer;
 import com.vengeful.sloths.Models.DialogueTrade.TerminalDialogContainer;
 import com.vengeful.sloths.Models.Entity.AggressiveNPC;
 import com.vengeful.sloths.Models.Entity.Avatar;
+import com.vengeful.sloths.Models.Entity.NonAggressiveNPC;
 import com.vengeful.sloths.Models.Entity.Piggy;
 import com.vengeful.sloths.Models.EntityMapInteractionCommands.DropAllGoldCommand;
 import com.vengeful.sloths.Models.Inventory.Inventory;
@@ -183,21 +185,21 @@ public class LevelFactory {
         area1.getTile(new Coord(11,1)).addOneShotItem(new OneShotItem(new Coord(11,1)));
 
 
-        area1.getTile(new Coord(2,2)).addTakeableItem(new TakeableItem("redPotion", new Potion("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(2,2)));
-        area1.getTile(new Coord(11,10)).addTakeableItem(new TakeableItem("bluePotion", new Potion("bluePotion",new BaseStatsAddable(0,0,5,0,0)), new Coord(11,10)));
+        area1.getTile(new Coord(2,2)).addTakeableItem(new TakeableItem("Red Potion", new Potion("Red Potion",new BaseStatsAddable(5,0,0,0,0)), new Coord(2,2)));
+        area1.getTile(new Coord(11,10)).addTakeableItem(new TakeableItem("Blue Potion", new Potion("Blue Potion",new BaseStatsAddable(0,0,5,0,0)), new Coord(11,10)));
 //        area2.getTile(new Coord(2,2)).addTakeableItem(new TakeableItem("redPotion", new Potion("redPotion",new BaseStatsAddable(5,0,0,0,0)), new Coord(2,2)));
 
 
         area1.getTile(new Coord(9, 2)).addTakeableItem(new TakeableItem("Bow", new Bow("Bow", new AgilityAddable(3), 3, WeaponClass.BOW), new Coord(9,2)));
 
         Quest quest1_b = new DoDestroyObstacleQuest(new Coord(2,3));
-        Quest quest1_a = new HasItemQuest(quest1_b, "bluePotion");
+        Quest quest1_a = new HasItemQuest(quest1_b, "Blue Potion");
         area1.getTile(new Coord(2,2)).addInteractiveItem(new InteractiveItem(quest1_a, new Coord(2,2)));
 
         CameraView camera2 = new PlainsCameraView();
         CameraView camera1 = new PlainsCameraView();
 
-        Potion p = new Potion("redPotion", new CurrentHealthAddable(20));
+        Potion p = new Potion("Red Potion", new CurrentHealthAddable(20));
         p.setValue(100000);
 //        Piggy testPiggy = new Piggy("Bart", new Stats(new MovementAddable(30)));
 //        testPiggy.getInventory().addItem(p);
@@ -222,7 +224,7 @@ public class LevelFactory {
         SelfBuffAbility hot = AbilityFactory.getInstance().createHealOverTime(Avatar.getInstance());
 
         SelfBuffAbility roids = AbilityFactory.getInstance().createDamageBoost(Avatar.getInstance());
-
+        roids.setItemName("Roids");
 
         area1.getTile(new Coord(7,7)).addTakeableItem(new TakeableItem("Roids", new AbilityItem(roids), new Coord(7,7)));
 
@@ -242,26 +244,28 @@ public class LevelFactory {
 
         TemporaryVOCreationVisitor.getInstance().setActiveCameraView(camera2);
 
-
-
+        NonAggressiveNPC testNPC = new NonAggressiveNPC("greg", new Stats( new BaseStatsAddable(0,0,0,10,20)));
+        area2.getTile(new Coord(5,5)).addEntity(testNPC);
+        testNPC.setLocation(new Coord(5,5));
+        new NonAggressiveNPCControllerManager(area2, testNPC, Direction.S);
 
 
 
         //stuff to test enemy controllers
-//        AggressiveNPC testEnemy =  new AggressiveNPC("xXOG_SwaG_LorD_BlazE_MasteR_420_Xx", new Stats(new BaseStatsAddable(0,0,0,0,30)));
+        AggressiveNPC testEnemy =  new AggressiveNPC("xXOG_SwaG_LorD_BlazE_MasteR_420_Xx", new Stats(new BaseStatsAddable(0,0,0,15,30)));
 //        testEnemy.getInventory().addItem(p);
 //        testEnemy.getInventory().addItem(p);
 //        testEnemy.getInventory().addItem(p);
 //        testEnemy.getInventory().addItem(p);
 //        testEnemy.getInventory().addItem(p);
-//        area2.getTile(new Coord(3,3)).addEntity(testEnemy);
-//        testEnemy.setLocation(new Coord(3,3));
-//        testEnemy.equip(new TwoHandedWeapon("cleaver", new StrengthAddable(1), 1));
-//
-//        //testEnemy.accept(TemporaryVOCreationVisitor.getInstance());
-//        new AggressiveNPCControllerManager(area2, testEnemy);
-//
-//        testEnemy.getStats().subtract(new CurrentHealthAddable(1));
+        area2.getTile(new Coord(3,3)).addEntity(testEnemy);
+        testEnemy.setLocation(new Coord(3,3));
+        testEnemy.equip(new TwoHandedWeapon("Iron 2H", new StrengthAddable(1), 1));
+
+        //testEnemy.accept(TemporaryVOCreationVisitor.getInstance());
+        new AggressiveNPCControllerManager(area2, testEnemy);
+
+        testEnemy.getStats().subtract(new CurrentHealthAddable(1));
 
 //        map.getActiveMapArea().getTile(spawnPoint).addEntity(Avatar.getInstance());
         cameras.addCameraView(area2, camera2);
