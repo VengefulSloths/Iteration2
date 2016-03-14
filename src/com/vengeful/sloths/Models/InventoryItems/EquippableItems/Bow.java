@@ -21,7 +21,7 @@ import java.util.Iterator;
 public class Bow extends Weapon {
 //    private WeaponClass weaponClass;
 
-    public Bow(String name, StatsAddable stats, int baseDamage, WeaponClass weaponClass) {
+    public Bow(String name, StatsAddable stats, int baseDamage) {
         super(name, stats, baseDamage);
 //        this.weaponClass = weaponClass;
     }

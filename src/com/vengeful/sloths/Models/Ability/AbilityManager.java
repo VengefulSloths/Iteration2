@@ -23,6 +23,10 @@ public class AbilityManager implements ModelVisitable, ViewObservable {
     private Ability weaponAbility; //set when weapon is equipped.
     private Ability mountAbility; //set when mount is equipped
 
+
+
+    private Ability observationAbility; //set observation ability
+
     private ArrayList<Hook> castAbilityHooks = new ArrayList<>();
 
     private ArrayList<AbilityManagerObserver> abilityManagerObservers;
@@ -79,6 +83,23 @@ public class AbilityManager implements ModelVisitable, ViewObservable {
         return this.weaponAbility.execute();
     }
 
+    public int doObservationAbility(){
+        if(this.observationAbility == null) return 0;
+
+        doAbilityHooks();
+        return this.observationAbility.execute();
+    }
+
+
+    public Ability getObservationAbility() {
+        return observationAbility;
+    }
+
+    public void setObservationAbility(Ability observationAbility) {
+        this.observationAbility = observationAbility;
+    }
+
+
     public boolean equipAbility(Ability ability, int index){
         if(index < 0 || index >= activeAbilities.length)
             return false;
@@ -134,6 +155,7 @@ public class AbilityManager implements ModelVisitable, ViewObservable {
         }
         return abArray;
     }
+
 
     public Entity getEntity() {
         return entity;

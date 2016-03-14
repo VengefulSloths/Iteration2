@@ -24,7 +24,7 @@ public class MainScrollableMenu extends ScrollableMenu {
         super(height);
         //create list here for main menu
         try {
-            bg = ImageIO.read(new File("resources/backgrounds/mainMenuBg.png"));
+            bg = ImageIO.read(new File("resources/backgrounds/sky_main_title.png"));
         }catch (Exception e){
             System.out.println("EXCEPTION");
             System.out.println(e);

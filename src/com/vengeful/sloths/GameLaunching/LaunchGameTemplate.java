@@ -57,7 +57,12 @@ public class LaunchGameTemplate {
 //        map.getActiveMapArea().getTile(helper.spawnPoint()).addEntity(Avatar.getInstance());
 
         initSingletons();
+        /**
+         * AVATAR STARTING INVENTORY
+         */
         avatar.getInventory().addGold(new Gold(100));
+        avatar.equip(new Mount("Hover", 10));
+        //************************END AVATAR STARING INVENTORY
 
         AreaView areaView = new AreaView(cameras);
         //ViewManager vm = new ViewManager();

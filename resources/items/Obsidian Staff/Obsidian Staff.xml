@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<single_frame_animation>
+  <width>54</width>
+  <height>76</height>
+  <rootPath>resources/items/Obsidian Staff/</rootPath>
+  <fileName>Obsidian Staff.png</fileName>
+  <positioning xOffset="-27" yOffset="-76">custom</positioning>
+</single_frame_animation>

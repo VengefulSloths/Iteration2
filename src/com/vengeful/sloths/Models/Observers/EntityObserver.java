@@ -28,4 +28,7 @@ public interface EntityObserver extends ModelObserver {
 	void alertAddBuff(String buffName);
 	void alertRemoveBuff(String buffName);
 
+	void alertObservationInfo(int damage, int speed);
+	void alertRemoveObservationInf();
+
 }

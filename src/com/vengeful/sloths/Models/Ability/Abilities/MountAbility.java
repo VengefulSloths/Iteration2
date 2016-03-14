@@ -23,8 +23,6 @@ public class MountAbility extends SelfBuffAbility {
         this.mountName = mountName;
         this.entity = entity;
         this.buff = buff;
-        this.name = "Mount";
-
     }
 
     @Override

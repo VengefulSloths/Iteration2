@@ -27,15 +27,8 @@ public class FireBallAbility extends Ability {
     private Entity entity;
     private int travelTime;
     private int travelDistance;
-
     private int manaCost = ModelConfig.getManaCostLow();
-
     private DefaultCanGenerateVisitor canGenerateVisitor;
-    /*
-        Linear Effect -> mana cost = Low
-        Angular Effect -> mana cost = Medium
-        Radial Effect -> mana cost = High
-    */
 
     public FireBallAbility(Entity entity, int travelTime, int travelDistance, int startupTicks, int coolDownTicks){
         super("Fire Ball", startupTicks, coolDownTicks);
@@ -54,6 +47,9 @@ public class FireBallAbility extends Ability {
         if(!shouldDoAbility(entity.getSkillManager().getBaneLevel(), entity.getSkillManager().getMaxBaneLevel()))
             return 0;
 
+        if(entity.getStats().getCurrentMana() < manaCost)
+            return 0;
+
         this.entity.setActive(true);
         this.entity.decMana(this.manaCost);
 
@@ -62,6 +58,7 @@ public class FireBallAbility extends Ability {
             System.out.println("alerting cast spells");
             observers.next().alertCast(getWindTicks()* TimeController.MODEL_TICK, getCoolTicks()*TimeController.MODEL_TICK);
         }
+
         TimeModel.getInstance().registerAlertable(() ->{
             doAbility();
         }, getWindTicks());

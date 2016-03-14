@@ -18,7 +18,6 @@ public class RemoveBuffAbility extends Ability {
         this.buff = buff;
         this.buffManager = buffManager;
         this.entity = entity;
-        this.name = "Remove Buff";
     }
 
     @Override

@@ -34,7 +34,7 @@ public class CharacterCreationView extends JComponent {
 
     public CharacterCreationView(){
         try {
-            bg = ImageIO.read(new File("resources/backgrounds/mainMenuBg.png"));
+            bg = ImageIO.read(new File("resources/backgrounds/sky_main_title.png"));
         }catch (Exception e){
             System.out.println("EXCEPTION");
             System.out.println(e);
@@ -58,11 +58,11 @@ public class CharacterCreationView extends JComponent {
         int vertical_offset = yPadding;
 
         g2d.setFont(new Font("Helvetica",1,80));
-        g2d.setColor(Color.WHITE);
+        g2d.setColor(Color.GRAY);
         g2d.drawString("Character Creation", horizontal_offset - 180, vertical_offset);
         vertical_offset += 90;
         g2d.setFont(new Font("Helvetica",1,50));
-        g2d.setColor(Color.GRAY);
+        g2d.setColor(Color.BLACK);
         g2d.drawString("Choose Your Class:", horizontal_offset - 50, vertical_offset);
         vertical_offset+= 40;
 

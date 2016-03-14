@@ -33,6 +33,9 @@ public class BoonBuffAbility extends SelfBuffAbility{
         if(!shouldDoAbility(getTarget().getSkillManager().getBoonLevel(), getTarget().getSkillManager().getMaxBoonLevel()))
             return 0;
 
+        if(getTarget().getStats().getCurrentMana() < manaCost)
+            return 0;
+
         int output = super.execute();
         if(output > 0){
             getTarget().decMana(manaCost);
