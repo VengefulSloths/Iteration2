@@ -3,6 +3,8 @@ package com.vengeful.sloths.GameLaunching;
 import com.vengeful.sloths.AreaView.CameraView;
 import com.vengeful.sloths.AreaView.CameraViewManager;
 import com.vengeful.sloths.AreaView.TemporaryVOCreationVisitor;
+import com.vengeful.sloths.AreaView.ViewObjects.CoordinateStrategies.SimpleHexCoordinateStrategy;
+import com.vengeful.sloths.AreaView.ViewObjects.DecalViewObject;
 import com.vengeful.sloths.Controllers.ControllerManagers.AggressiveNPCControllerManager;
 import com.vengeful.sloths.Controllers.ControllerManagers.NonAggressiveNPCControllerManager;
 import com.vengeful.sloths.Controllers.ControllerManagers.PiggyControllerManager;
@@ -266,6 +268,8 @@ public class LevelFactory {
         new AggressiveNPCControllerManager(area2, testEnemy);
 
         testEnemy.getStats().subtract(new CurrentHealthAddable(1));
+        camera1.addDecal(new Coord(2,2), "resources/terrain/cracked_sand.xml" );
+        camera2.addDecal(new Coord(2,2), "resources/terrain/cracked_sand.xml" );
 
 //        map.getActiveMapArea().getTile(spawnPoint).addEntity(Avatar.getInstance());
         cameras.addCameraView(area2, camera2);
