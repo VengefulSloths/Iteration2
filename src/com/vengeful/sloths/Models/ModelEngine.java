@@ -2,6 +2,7 @@ package com.vengeful.sloths.Models;
 
 import com.vengeful.sloths.AreaView.ViewEngine;
 import com.vengeful.sloths.Models.TimeModel.TimeController;
+import com.vengeful.sloths.Models.TimeModel.TimeModel;
 
 /**
  * Created by John on 1/30/2016.
@@ -21,10 +22,12 @@ public class ModelEngine implements Runnable {
 
     @Override
     public void run() {
-            while (!paused){
-                //controller.continuousFunction();
-                timeController.tick();
-            }
+
+        while (!paused) {
+            //controller.continuousFunction();
+            //System.out.println("tick");
+            timeController.tick();
+        }
     }
 
 //    public void setController(MainController controller) {

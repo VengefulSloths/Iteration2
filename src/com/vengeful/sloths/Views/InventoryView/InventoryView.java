@@ -319,8 +319,6 @@ public class InventoryView extends View implements InventoryObserver {
 
     public void paintComponent(Graphics g) {
         try {
-            //g.setFont(new Font("Helvetica",1,40));
-            //g.setColor(Color.orange);
             goldPanel.setText("Gold: " + inventory.getGold());
         }catch (NullPointerException e){
             //this is okay

@@ -34,8 +34,7 @@ public class InGameScrollableMenu extends ScrollableMenu {
         list.addItem(new EnterKeyBindViewMenuItem());//TODO change this to an actual keybinding item
         list.addItem(new SaveGameMenuItem("Save Game"));
         list.addItem(new LoadGameMenuItem("Load Game"));
-        list.addItem(new ExitGameMenuItem());
-        list.addItem(new MainMenuItem("Quit Menu")); //TODO implement and actual quit menu thing
+        list.addItem(new ExitToMainMenuItem());
         this.setList(list);
         //this.setBackground(Color.GRAY);
         this.setPreferredSize(new Dimension(1200,1000));
