@@ -158,11 +158,13 @@ public class Avatar extends Entity{
     }
 
 
+
     //called by levelUp AE
     public void levelUp() {
         this.getStats().add(new HealthManaExperienceAddable(0, 0, 0, 0, this.getStats().getMaxExperience() - this.getStats().getCurrentExperience()));
         this.getOccupation().levelUp(this.getStats());
         this.getSkillManager().setAvailableSkillPoint(this.getSkillManager().getAvailableSkillPoints() + 2); //hard coded to gain 2 sp every level
+        System.out.println("SKILL POINTS: " + this.getSkillManager().getAvailableSkillPoints());
     }
 
     public void gainXP(int xp) {

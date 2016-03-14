@@ -10,6 +10,7 @@ import com.vengeful.sloths.Controllers.ControllerManagers.NonAggressiveNPCContro
 import com.vengeful.sloths.Controllers.ControllerManagers.PiggyControllerManager;
 import com.vengeful.sloths.Models.Ability.Abilities.MeleeAttackAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SelfBuffAbility;
+import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.ExplosionAbility;
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.FireBallAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityFactory;
@@ -550,6 +551,8 @@ public class LevelFactory {
         summonerArea.getTile(new Coord(18,1)).addEntity(npc1);
         npc1.setLocation(new Coord(18,1));
         npc1.equip(new TwoHandedWeapon("Iron 2H", new StrengthAddable(1), 1));
+        ExplosionAbility explosionAbility = AbilityFactory.getInstance().createExplosionAbility(Avatar.getInstance(), 10, 3, 8, 15);
+        npc1.getInventory().addItem(new AbilityItem(explosionAbility));
         new AggressiveNPCControllerManager(summonerArea, npc1);
 
         NonAggressiveNPC npc2 = new NonAggressiveNPC("npc2", new Stats( new BaseStatsAddable(5,0,0,0,30)));
@@ -587,7 +590,8 @@ public class LevelFactory {
         //ABILITIES TODO
         //NPC fall asleep, flame thrower, explosion
         //summonerArea.getTile(new Coord(8,5)).addTakeableItem(new TakeableItem("Fire Ball", new AbilityItem(fireBallAbility), new Coord(3,3)));
-        
+
+
 
 
 

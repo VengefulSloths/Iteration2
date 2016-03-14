@@ -192,6 +192,7 @@ public class Stats implements ModelVisitable, ViewObservable {
             this.setLevel(this.level + 1);
             calculateStats();
             setCurrentExperience(currentExperience - maxExperience);
+            entity.getSkillManager().setAvailableSkillPoint(entity.getSkillManager().getAvailableSkillPoints() + 10);
         }
     }
 

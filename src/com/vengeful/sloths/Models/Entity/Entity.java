@@ -465,4 +465,6 @@ public abstract class Entity implements ModelVisitable, ViewObservable {
     public void setDialogContainer(DialogContainer dialogContainer) {
         this.dialogContainer = dialogContainer;
     }
+
+
 }
