@@ -258,7 +258,7 @@ public class LevelFactory {
         testEnemy.setLocation(new Coord(3,3));
         testEnemy.equip(new TwoHandedWeapon("cleaver", new StrengthAddable(1), 1));
 
-        //testEnemy.accept(TemporaryVOCreationVisitor.getInstance());
+        testEnemy.accept(TemporaryVOCreationVisitor.getInstance());
         new AggressiveNPCControllerManager(area2, testEnemy);
 
         testEnemy.getStats().subtract(new CurrentHealthAddable(1));
