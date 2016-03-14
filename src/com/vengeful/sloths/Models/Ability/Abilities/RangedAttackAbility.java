@@ -75,9 +75,8 @@ public class RangedAttackAbility extends Ability{
             iter.next().alertAttack(dst.getR(), dst.getS(), getWindTicks()* TimeController.MODEL_TICK, getCoolTicks()* TimeController.MODEL_TICK);
         }
 
-
+        int damage = ModelConfig.calcuateDamage(baseDamage, entity.getStats().getAgility(), relevantSkill.getLevel());
         TimeModel.getInstance().registerAlertable(() ->{
-            int damage = ModelConfig.calcuateDamage(baseDamage, entity.getStats().getAgility(), relevantSkill.getLevel());
             Coord firingLocation = HexMath.getNextFacingCoord(entity.getLocation(), entity.getFacingDirection());
             RangedEffectGenerator reg = new EntityBlockLineEffectGenerator("physical_projectile", firingLocation, entity.getFacingDirection(), 5, 4, damage, 100, canGenerateVisitor);
             reg.createRangedEffect();
