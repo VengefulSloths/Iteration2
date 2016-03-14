@@ -66,7 +66,7 @@ public class AbilityFactory {
     }
 
     public SelfBuffAbility createHealOverTime(Entity entity){
-        Buff healBuff = new HealOverTimeBuff(entity.getObservers(), entity.getBuffManager(), new CurrentHealthAddable(1), "healOverTime", 600, 60);
+        Buff healBuff = new HealOverTimeBuff(entity, entity.getObservers(), entity.getBuffManager(), new CurrentHealthAddable(3), "healOverTime", 600, 60);
         return new BoonBuffAbility("Rejuvenation", entity, healBuff, 8, 15);
     }
 
@@ -95,6 +95,10 @@ public class AbilityFactory {
 
     public RangedAttackAbility createRangedAttackAbility(Entity entity, int baseDamage, int windTicks, int coolTicks) {
         return new RangedAttackAbility(entity, entity.getSkillManager().getRangedWeaponSkill(), baseDamage, windTicks, coolTicks);
+    }
+
+    public ObservationAbility createObservationAbility(Entity e){
+        return new ObservationAbility(e);
     }
 
 }

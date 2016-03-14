@@ -109,6 +109,11 @@ public class InventoryControllerState extends InputControllerState{
 
     }
 
+    @Override
+    public void handleObservationKey() {
+
+    }
+
     public boolean handleWestKey() {
         this.inventoryView.selectWestItem();
         return true;

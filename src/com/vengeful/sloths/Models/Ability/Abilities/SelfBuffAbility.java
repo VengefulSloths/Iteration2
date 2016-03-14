@@ -22,7 +22,7 @@ public class SelfBuffAbility extends Ability {
         super(name, windTicks, coolTicks);
         this.buff = buff;
         this.target = entity;
-        this.name = "Self Buff";
+        this.name = name;
     }
 
     @Override

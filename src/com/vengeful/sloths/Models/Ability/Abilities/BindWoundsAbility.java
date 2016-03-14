@@ -55,15 +55,10 @@ public class BindWoundsAbility extends Ability {
 
     private void doHeal(){
         int skillLevel = this.skillManager.getBindWoundsLevel();
-        System.out.println("YOUR SKILL LEVEL: " + skillLevel);
-        System.out.println("YOUR HEALTH: " + this.entity.getStats().getCurrentHealth());
         int health = skillLevel * 2;
 
         this.entity.gainHealth(health);
         this.entity.decMana(manaCost);
-
-        System.out.println("HEAL " + health + " HP");
-        System.out.println("YOUR HEALTH NOW: " + this.entity.getStats().getCurrentHealth());
     }
 
     public void accept(ModelVisitor sv){

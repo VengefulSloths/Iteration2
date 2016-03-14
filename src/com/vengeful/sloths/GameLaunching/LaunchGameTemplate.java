@@ -57,7 +57,6 @@ public class LaunchGameTemplate {
 
         initSingletons();
 
-
         /*****Test avatar drop******/
 
         avatar.equip(new Mount("Hover", 10));
@@ -71,7 +70,7 @@ public class LaunchGameTemplate {
 
         System.out.println("After equipped...");
 
-        avatar.equip(new Shuriken("Dragon Shuriken", new StrengthAddable(5), 10, WeaponClass.THROW));
+        avatar.equip(new OneHandedWeapon("Dragon Dagger", new StrengthAddable(5), 10));
 
 
         avatar.equip(new Hat("Tophat", new StrengthAddable(15))); //edit
@@ -92,17 +91,27 @@ public class LaunchGameTemplate {
 //        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createProtectFromEvil(avatar), 1);
         //avatar.getAbilityManager().equipAbility(new PickPocketAbility(), 1);
         //avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createNPCFallAsleepAbility(avatar), 1);
-        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createPoisonNPCAbility(avatar), 1);
+        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createHealOverTime(avatar), 1);
         //avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createExplosionAbility(avatar, 10, 3, 5, 5), 2);
-        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createWeakenNPCAbility(avatar), 2);
+
         //avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createDamageBoost(avatar), 2);
         //avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createHealOverTime(avatar), 3);
+
+        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createWeakenNPCAbility(avatar), 3);
+        avatar.getAbilityManager().equipAbility(new PickPocketAbility(), 1);
+//        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createNPCFallAsleepAbility(avatar), 1);
+
+        //avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createDamageBoost(avatar), 2);
+
         avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createFireBallAbility(avatar), 3);
         avatar.getAbilityManager().equipAbility(new PickPocketAbility(), 1);
 //        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createNPCFallAsleepAbility(avatar), 1);
 
         avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createDamageBoost(avatar), 2);
+
         //avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createHealOverTime(avatar), 3);
+
+        avatar.getAbilityManager().equipAbility(AbilityFactory.getInstance().createObservationAbility(avatar), 0);
         /**************************/
 
         AreaView areaView = new AreaView(cameras);

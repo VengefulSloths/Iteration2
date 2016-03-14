@@ -56,7 +56,6 @@ public class PoisonNPCAbility extends Ability{
             observers.next().alertCast(getWindTicks()* TimeController.MODEL_TICK, getCoolTicks()*TimeController.MODEL_TICK);
         }
 
-
         TimeModel.getInstance().registerAlertable(() -> {
             Entity[] target = getTarget();
             if(target != null){
@@ -82,6 +81,17 @@ public class PoisonNPCAbility extends Ability{
             return null;
 
         return t.getEntities();
+    }
+
+    @Override
+    protected void abilityFailHook() {
+        Entity[] target = getTarget();
+        if(target != null){
+            for(int i = 0; i < target.length; i++){
+                target[i].enrage();
+                System.out.println("ABILITY FAILED, NPC IS ANGRYYYYY");
+            }
+        }
     }
 
 

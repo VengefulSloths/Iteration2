@@ -164,6 +164,11 @@ public class LevelFactory {
         town.getTile(new Coord(2,1)).addEntity(testNPC2);
         testNPC2.setLocation(new Coord(2,1));
         new NonAggressiveNPCControllerManager(town, testNPC, Direction.S);
+
+
+        town.getTile(new Coord(6,2)).addAreaEffect(new TakeDamageAE(2));
+        Ability hot = AbilityFactory.getInstance().createHealOverTime(Avatar.getInstance());
+        town.getTile(new Coord(5,2)).addTakeableItem(new TakeableItem("Rejuvination", new AbilityItem(hot), new Coord(5,2)));
     }
     public void createTestMap() {
         this.cameras = new CameraViewManager();
@@ -341,6 +346,7 @@ public class LevelFactory {
 
 
         //stuff to test enemy controllers
+
 //        AggressiveNPC testEnemy =  new AggressiveNPC("xXOG_SwaG_LorD_BlazE_MasteR_420_Xx", new Stats(new BaseStatsAddable(0,0,0,15,30)));
 ////        testEnemy.getInventory().addItem(p);
 ////        testEnemy.getInventory().addItem(p);
