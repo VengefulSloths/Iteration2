@@ -19,7 +19,7 @@ import com.vengeful.sloths.Models.Stats.Stats;
 public class Sneak extends Occupation {
 
     public Sneak(Stats stats, SkillManager skillManager, AbilityManager abilityManager, Entity entity) {
-        stats.add(new BaseStatsAddable(0, 10, 0, 0, 0));
+        stats.add(new BaseStatsAddable(2, 10, 1, 3, 1));
         this.addSharedSkills(skillManager);
         skillManager.addSkill(new Skill("pick pocket"));
         //skillManager.addSkill(new Skill("remove trap")); //TODO: uncomment after testing

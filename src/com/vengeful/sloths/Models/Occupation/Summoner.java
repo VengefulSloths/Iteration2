@@ -19,7 +19,7 @@ import com.vengeful.sloths.Models.Stats.Stats;
 public class Summoner extends Occupation {
 
     public Summoner(Stats stats, SkillManager skillManager, AbilityManager abilityManager, Entity entity){
-        stats.add(new BaseStatsAddable(0, 0, 10, 0, 0));
+        stats.add(new BaseStatsAddable(1, 1, 10, 1, 1));
         this.addSharedSkills(skillManager);
         skillManager.addSkill(new Skill("enchantment"));
         skillManager.addSkill(new Skill("boon"));
