@@ -396,6 +396,19 @@ public class SaveVisitor implements ModelVisitor {
         asaElement.setAttribute("manaCost", flameThrowerAbility.getManaCost() +"");
         asaElement.setAttribute("name", flameThrowerAbility.getItemName());
     }
+    @Override
+    public void visitWeakenNPCAbility(WeakenNPCAbility weakenNPCAbility) {
+        Element asaElement = doc.createElement("WeakenNPCAbility");
+        currentParent.peek().appendChild(asaElement);
+        asaElement.setAttribute("name", weakenNPCAbility.getItemName());
+    }
+
+    @Override
+    public void visitPoisonNPCAbility(PoisonNPCAbility poisonNPCAbility) {
+        Element asaElement = doc.createElement("PoisonNPCAbility");
+        currentParent.peek().appendChild(asaElement);
+        asaElement.setAttribute("name", poisonNPCAbility.getItemName());
+    }
 
     @Override
     public void visitRemoveTrapAbility(RemoveTrapAbility removeTrapAbility) {
@@ -482,15 +495,6 @@ public class SaveVisitor implements ModelVisitor {
         currentParent.pop();
     }
 
-    @Override
-    public void visitWeakenNPCAbility(WeakenNPCAbility weakenNPCAbility) {
-
-    }
-
-    @Override
-    public void visitPoisonNPCAbility(PoisonNPCAbility poisonNPCAbility) {
-
-    }
 
     //mount ability needs to get observers from avatar once its loaded
     //save buff here
