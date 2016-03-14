@@ -32,7 +32,7 @@ public class PoisonNPCAbility extends Ability{
     private int coolDownTicks;
 
     public PoisonNPCAbility(Entity entity, int windupTicks, int coolDownTicks){
-        super("Slow NPC", windupTicks, coolDownTicks);
+        super("Poison", windupTicks, coolDownTicks);
         this.entity = entity;
         this.windupTicks = windupTicks;
         this.coolDownTicks = coolDownTicks;

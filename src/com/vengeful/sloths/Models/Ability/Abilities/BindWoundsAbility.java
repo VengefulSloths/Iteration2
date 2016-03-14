@@ -38,7 +38,7 @@ public class BindWoundsAbility extends Ability {
 
         this.entity.setActive(true);
 
-        System.out.println("DOING BINDWOUNDS ABILITY");
+        //ystem.out.println("DOING BINDWOUNDS ABILITY");
 
         TimeModel.getInstance().registerAlertable(() -> {
             this.doHeal();

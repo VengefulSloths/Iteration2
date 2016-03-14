@@ -1,6 +1,8 @@
 package com.vengeful.sloths.Models.Occupation;
 
 import com.vengeful.sloths.AreaView.ViewObjects.Hands.SmartHandViewObject;
+import com.vengeful.sloths.Models.Ability.Ability;
+import com.vengeful.sloths.Models.Ability.AbilityFactory;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.ModelVisitor;
@@ -20,6 +22,14 @@ public class Smasher extends Occupation {
         skillManager.addSkill(new Skill("one-handed weapon"));
         skillManager.addSkill(new Skill("two-handed weapon"));
         skillManager.addSkill(new Skill("brawling"));
+
+        Ability a1 = AbilityFactory.getInstance().createBindWoundsAbility(entity);
+        abilityManager.addAbility(a1);
+        abilityManager.equipAbility(a1,0);
+
+//        Ability a2 = AbilityFactory.getInstance().create(entity);
+//        abilityManager.addAbility(a2);
+//        abilityManager.equipAbility(a2,1);
 
         this.addSharedAbility(abilityManager, entity);
     }

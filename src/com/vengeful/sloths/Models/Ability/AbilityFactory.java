@@ -79,8 +79,8 @@ public class AbilityFactory {
         return new ExplosionAbility(entity, expandingTime, expandingDistance, startupTicks, coolDownTicks);
     }
 
-    public FlameThrowerAbility createAngleSpellAbility(Entity entity, int expandingTime, int expandingDistance, int startupTicks, int coolDownTicks){
-        return new FlameThrowerAbility(entity, expandingTime, expandingDistance, startupTicks, coolDownTicks);
+    public FlameThrowerAbility createAngleSpellAbility(Entity entity){
+        return new FlameThrowerAbility(entity, 5, 4, 50, 55);
     }
 
     public NPCFallAsleepAbility createNPCFallAsleepAbility(Entity entity){

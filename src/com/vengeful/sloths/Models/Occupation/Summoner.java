@@ -1,6 +1,7 @@
 package com.vengeful.sloths.Models.Occupation;
 
 
+import com.vengeful.sloths.Models.Ability.Abilities.BindWoundsAbility;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityFactory;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
@@ -24,9 +25,23 @@ public class Summoner extends Occupation {
         skillManager.addSkill(new Skill("bane"));
         skillManager.addSkill(new Skill("staff"));
 
-        Ability a1 = AbilityFactory.getInstance().createStealthAbility(entity);
+        Ability a1 = AbilityFactory.getInstance().createFireBallAbility(entity);
         abilityManager.addAbility(a1);
         abilityManager.equipAbility(a1,0);
+
+        Ability a2 = AbilityFactory.getInstance().createAngleSpellAbility(entity);
+        abilityManager.addAbility(a2);
+        abilityManager.equipAbility(a2,1);
+
+        Ability a3 = AbilityFactory.getInstance().createDamageBoost(entity);
+        abilityManager.addAbility(a3);
+        abilityManager.equipAbility(a3,2);
+
+        Ability a4 = AbilityFactory.getInstance().createWeakenNPCAbility(entity);
+        abilityManager.addAbility(a4);
+        abilityManager.equipAbility(a4,3);
+
+        abilityManager.addAbility(new BindWoundsAbility(entity));
 
         this.addSharedAbility(abilityManager, entity);
     }
