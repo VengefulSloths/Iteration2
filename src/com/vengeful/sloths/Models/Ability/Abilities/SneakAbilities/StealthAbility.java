@@ -20,7 +20,7 @@ public class StealthAbility extends SelfBuffAbility {
     private Buff buff;
 
     public StealthAbility(Entity entity, Buff buff, int windTicks, int coolTicks) {
-        super("Stealth", entity, buff, windTicks, coolTicks);
+        super("Stealth", "Hide from enemies", entity, buff, windTicks, coolTicks);
         this.entity = entity;
         this.buff = buff;
     }
@@ -38,6 +38,7 @@ public class StealthAbility extends SelfBuffAbility {
         }
         return output;
     }
+
 
     @Override
     public void accept(ModelVisitor visitor){

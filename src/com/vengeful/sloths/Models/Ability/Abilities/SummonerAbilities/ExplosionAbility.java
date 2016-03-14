@@ -34,6 +34,10 @@ public class ExplosionAbility extends Ability{
         this.name = "Explosion";
     }
 
+    @Override
+    public String getDescription() {
+        return "3 .. 2 .. 1 .. BOOM!!!";
+    }
 
 
     @Override

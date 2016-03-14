@@ -19,13 +19,14 @@ public class MountAbility extends SelfBuffAbility {
     private Entity entity;
     private Buff buff;
     public MountAbility(Entity entity, Buff buff, String mountName, int windTicks, int coolTicks) {
-        super("Mount", entity, buff, windTicks, coolTicks);
+        super("Mount", "Because your inpatient", entity, buff, windTicks, coolTicks);
         this.mountName = mountName;
         this.entity = entity;
         this.buff = buff;
         this.name = "Mount";
 
     }
+
 
     @Override
     public int execute() {

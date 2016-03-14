@@ -93,6 +93,11 @@ public class FireBallAbility extends Ability {
         reg.createRangedEffect();
     }
 
+    @Override
+    public String getDescription() {
+        return "Do some fire damage from afar";
+    }
+
     public void accept(ModelVisitor sv){
         sv.visitFireBallAbility(this);
     }

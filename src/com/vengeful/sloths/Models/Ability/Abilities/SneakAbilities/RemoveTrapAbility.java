@@ -24,7 +24,10 @@ public class RemoveTrapAbility extends Ability{
         super("Remove Trap", windTicks, coolTicks);
         this.entity = entity;
     }
-
+    @Override
+    public String getDescription() {
+        return "ITS A TRAP";
+    }
 
     @Override
     public int execute() {

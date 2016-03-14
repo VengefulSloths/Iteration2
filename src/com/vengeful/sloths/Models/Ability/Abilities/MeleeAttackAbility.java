@@ -37,6 +37,10 @@ public class MeleeAttackAbility extends Ability {
         this.name = "Melee Attack";
     }
 
+    @Override
+    public String getDescription() {
+        return "Doing damage";
+    }
 
     @Override
     public int execute() {

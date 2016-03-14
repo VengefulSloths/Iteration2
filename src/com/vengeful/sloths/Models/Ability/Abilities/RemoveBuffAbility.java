@@ -22,6 +22,11 @@ public class RemoveBuffAbility extends Ability {
     }
 
     @Override
+    public String getDescription() {
+        return "Rid yourself of a buff";
+    }
+
+    @Override
     public int execute() {
         //if (entity.isActive()) return 0;
         buffManager.removeBuff(buff);

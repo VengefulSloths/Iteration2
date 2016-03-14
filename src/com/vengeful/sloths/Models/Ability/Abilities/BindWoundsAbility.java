@@ -29,6 +29,10 @@ public class BindWoundsAbility extends Ability {
 
     }
 
+    @Override
+    public String getDescription() {
+        return "This will only hurt a little";
+    }
 
     @Override
     public int execute() {
