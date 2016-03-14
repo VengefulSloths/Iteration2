@@ -33,7 +33,7 @@ public class InGameScrollableMenu extends ScrollableMenu {
         //needs to be edited to select save file
         list.addItem(new EnterKeyBindViewMenuItem());//TODO change this to an actual keybinding item
         list.addItem(new SaveGameMenuItem("Save Game"));
-        list.addItem(new LoadGameMenuItem("Load Game"));
+        //list.addItem(new LoadGameMenuItem("Load Game"));
         list.addItem(new ExitToMainMenuItem());
         this.setList(list);
         //this.setBackground(Color.GRAY);
