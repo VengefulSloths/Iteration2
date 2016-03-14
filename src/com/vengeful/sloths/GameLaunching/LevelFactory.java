@@ -127,6 +127,16 @@ public class LevelFactory {
         TeleportSenderTile tst3 = new TeleportSenderTile(town, townDstFromRescue);
         rescue.addTile(new Coord(1,1), tst3);
 
+        TeleportDestinationTile areaThreeFromTown = new TeleportDestinationTile(new Coord(2,1));
+        area3.addTile(new Coord(2,1), areaThreeFromTown);
+        TeleportSenderTile toArea3FromTown = new TeleportSenderTile(area3, areaThreeFromTown);
+        town.addTile(new Coord(2,3), toArea3FromTown);
+
+        TeleportDestinationTile townFromAreaThree = new TeleportDestinationTile(new Coord(4,1));
+        town.addTile(new Coord(4,1), townFromAreaThree);
+        TeleportSenderTile areaThreeToTown = new TeleportSenderTile(town, townFromAreaThree);
+        area3.addTile(new Coord(1,1), areaThreeToTown);
+
 
 
 

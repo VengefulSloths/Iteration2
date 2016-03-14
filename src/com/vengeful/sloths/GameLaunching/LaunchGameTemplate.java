@@ -61,6 +61,8 @@ public class LaunchGameTemplate {
          * AVATAR STARTING INVENTORY
          */
         avatar.getInventory().addGold(new Gold(100));
+        Potion p = new Potion("Blue Potion", new StrengthAddable(5));
+//        avatar.getInventory().addItem(p);
         avatar.equip(new Mount("Hover", 10));
 
         //************************END AVATAR STARING INVENTORY
