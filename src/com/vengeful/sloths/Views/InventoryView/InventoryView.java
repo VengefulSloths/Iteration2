@@ -281,7 +281,6 @@ public class InventoryView extends View implements InventoryObserver {
     public void alertItemAdded(InventoryItem item) {
         //manager.addInventoryItemViewObject(new AbilityViewObject(item));
         System.out.println("Item is : " + item);
-        RealTuple<ItemViewObject, InventoryItem> itemTuple = new RealTuple<>(new ItemViewObject(item), item);
         this.getItemList().add(new ItemViewObject(item));
         System.out.println("AN ITEM WAS ADDED!!! " + item.getItemName());
     }

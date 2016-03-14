@@ -2,6 +2,9 @@ package com.vengeful.sloths.Views.EquipmentView;
 
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.EquippableItems;
 import com.vengeful.sloths.Models.InventoryItems.EquippableItems.Mount;
+import com.vengeful.sloths.Views.InventoryView.ItemViewObject;
+import com.vengeful.sloths.Views.ViewFactory.ItemImageFactory;
+import com.vengeful.sloths.Views.ViewFactory.ItemViewObjectFactory;
 import com.vengeful.sloths.Views.ViewFactory.MountImageFactory;
 
 import javax.swing.*;
@@ -14,7 +17,7 @@ import java.awt.*;
  */
 public class MountViewObject extends EquipmentViewObject {
     private Mount mount;
-    private MountImageFactory imageFactory = new MountImageFactory();
+    private ItemImageFactory imageFactory = new ItemImageFactory();
 
     public Mount getMount() {
         return mount;
@@ -23,16 +26,18 @@ public class MountViewObject extends EquipmentViewObject {
         this.mount = mount;
     }
     @Override
-    public MountImageFactory getImageFactory() {
+    public ItemImageFactory getImageFactory() {
         return imageFactory;
     }
-    public void setImageFactory(MountImageFactory imageFactory) {
+    public void setImageFactory(ItemImageFactory imageFactory) {
         this.imageFactory = imageFactory;
     }
 
     public MountViewObject(Mount viewItem) {
+        this.setEquipmentItem(viewItem);
         this.setViewItem(viewItem);
         this.setMount(viewItem);
+        this.setItemName(viewItem.getName());
         this.setItemImage(this.getImageFactory().handleUnscaledItemImageGeneration(viewItem));
         this.setIsDisplayed(false);
     }

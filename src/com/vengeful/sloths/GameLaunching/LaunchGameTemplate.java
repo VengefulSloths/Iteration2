@@ -59,7 +59,8 @@ public class LaunchGameTemplate {
 
 
         /*****Test avatar drop******/
-        avatar.equip(new Mount("lazy_mount", 10));
+
+        avatar.equip(new Mount("Hover", 10));
 
         avatar.getInventory().addItem(new Potion("redPotion", new HealthManaExperienceAddable(5,0,0,0,0)));
         avatar.getInventory().addItem(new Potion("bluePotion", new HealthManaExperienceAddable(0,0,5,0,0)));

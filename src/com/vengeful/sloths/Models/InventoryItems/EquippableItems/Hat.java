@@ -30,7 +30,6 @@ public class Hat extends EquippableItems implements ModelVisitable {
         System.out.println("TRYING TO REMOVE A HAT FROM Equipped");
 
     }
-
     @Override
     public void accept(ModelVisitor modelVisitor) {
         modelVisitor.visitHat(this);

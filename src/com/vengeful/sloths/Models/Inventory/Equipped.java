@@ -82,11 +82,13 @@ public class Equipped implements ViewObservable, ModelVisitable{
 
     public void addMount(Mount mount) {
         if (this.mount != null) {
-            removeMount();
+            removeMount(mount);
         }
 
         this.mount = mount;
         this.abilityManager.setMountAbility(mount.getMountAbility(entity));
+
+        alertMountEquipped(mount);
         //TODO: alert observers
     }
 
@@ -119,10 +121,11 @@ public class Equipped implements ViewObservable, ModelVisitable{
     }
 
 
-    public void removeMount() {
+    public void removeMount(Mount mount) {
         abilityManager.setMountAbility(new NullAbility());
-
-        //TODO: alert equipped view that mount is equiped
+        System.out.println("Removing mount: " + mount);
+        this.mount = null;
+        alertMountUnequipped(mount);
     }
 
     public int getOffensiveRating() {
@@ -213,6 +216,7 @@ public class Equipped implements ViewObservable, ModelVisitable{
             EquipmentObserver io = iter.next();
             io.alertMountUnequipped(mount);
         }
+        System.out.println("Adding mount " + mount + " to inventory");
         this.entity.getInventory().addItem(mount);
     }
 

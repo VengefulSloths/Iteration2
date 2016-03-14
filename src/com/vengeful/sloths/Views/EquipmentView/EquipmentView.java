@@ -240,6 +240,7 @@ public class EquipmentView extends View implements EquipmentObserver {
             this.equipmentViewObjectArray[1]=null;
         } else if(selectionIndex==2 && this.equipmentViewObjectArray[2]!=null) {
             //this.getMount().getEquipmentItem().removeFromEquipped(this.equipment);
+            System.out.println("remioving " + this.getMount().getMount() + " from equipment");
             this.getMount().getMount().removeFromEquipped(this.equipment);
             this.equipmentViewObjectArray[2]=null;
         }
@@ -275,6 +276,7 @@ public class EquipmentView extends View implements EquipmentObserver {
         @Override
         public void alertMountEquipped(Mount mount) {
             if (this.getMount() != null) {
+                System.out.println("MOUNT  IS: " + this.getMount().getEquipmentItem());
                 Avatar.getInstance().getInventory().addItem(this.getMount().getEquipmentItem());
             }
             this.setMount(new MountViewObject(mount));
