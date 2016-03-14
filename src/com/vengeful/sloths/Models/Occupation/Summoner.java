@@ -7,6 +7,7 @@ import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.NPCFallAsl
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityFactory;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
+import com.vengeful.sloths.Models.Buff.HealOverTimeBuff;
 import com.vengeful.sloths.Models.Entity.Entity;
 import com.vengeful.sloths.Models.ModelVisitor;
 import com.vengeful.sloths.Models.Skills.Skill;
