@@ -58,11 +58,14 @@ public class InventoryControllerState extends InputControllerState{
 
     @Override
     public boolean handleESCKey() {
-        return false;
+
+        MainController.getInstance().setAvatarControllerState();return false;
     }
 
     @Override
-    public boolean handleSouthWestKey() {
+    public boolean handleSouthWestKey(){
+        this.inventoryView.selectWestItem();
+        this.inventoryView.selectWestItem();
         return false;
     }
 
@@ -81,18 +84,8 @@ public class InventoryControllerState extends InputControllerState{
         //Here due to InputStrategy
 
         //test code
-        Inventory inventory = Avatar.getInstance().getInventory();
-        if(inventory.getCurrentSize() > 0){
-            //MainController.getInstance().getPlayer().drop(inventory.getItem(0)); //edit: think this was working before
-
-            System.out.println("About to dorp item: " + this.inventoryView.getCurrentItem().getItemName());
-            MainController.getInstance().getPlayer().drop(this.inventoryView.getCurrentItem());
-            this.inventoryView.dropViewItem();
-            return true;
-        }else{
-            System.out.println("Nothing in inventory");
-            return false;
-        }
+        this.inventoryView.selectEastItem();
+        return true;
     }
 
 
@@ -129,7 +122,19 @@ public class InventoryControllerState extends InputControllerState{
 
     @Override
     public boolean handleNorthWestKey() {
-        return false;
+        Inventory inventory = Avatar.getInstance().getInventory();
+        if(inventory.getCurrentSize() > 0){
+            //MainController.getInstance().getPlayer().drop(inventory.getItem(0)); //edit: think this was working before
+
+            System.out.println("About to dorp item: " + this.inventoryView.getCurrentItem().getItemName());
+            MainController.getInstance().getPlayer().drop(this.inventoryView.getCurrentItem());
+            this.inventoryView.dropViewItem();
+            return true;
+        }else{
+            System.out.println("Nothing in inventory");
+            return false;
+        }
+
     }
 
 

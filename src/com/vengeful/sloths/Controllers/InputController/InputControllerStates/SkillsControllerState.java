@@ -1,5 +1,6 @@
 package com.vengeful.sloths.Controllers.InputController.InputControllerStates;
 
+import com.vengeful.sloths.Controllers.InputController.MainController;
 import com.vengeful.sloths.Views.SkillsView.SkillsView;
 
 /**
@@ -57,6 +58,7 @@ public class SkillsControllerState extends  InputControllerState {
 
     @Override
     public boolean handleESCKey() {
+        MainController.getInstance().setAvatarControllerState();
         return false;
     }
 
