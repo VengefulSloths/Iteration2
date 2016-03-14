@@ -350,6 +350,16 @@ public class NonTeleMoveVisitor extends CanMoveVisitor{
     }
 
     @Override
+    public void visitWeakenNPCAbility(WeakenNPCAbility weakenNPCAbility) {
+
+    }
+
+    @Override
+    public void visitPoisonNPCAbility(PoisonNPCAbility poisonNPCAbility) {
+
+    }
+
+    @Override
     public void visitMountAbility(MountAbility mountAbility) {
 
     }

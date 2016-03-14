@@ -464,6 +464,17 @@ public class SaveVisitor implements ModelVisitor {
         }
         currentParent.pop();
     }
+
+    @Override
+    public void visitWeakenNPCAbility(WeakenNPCAbility weakenNPCAbility) {
+
+    }
+
+    @Override
+    public void visitPoisonNPCAbility(PoisonNPCAbility poisonNPCAbility) {
+
+    }
+
     //mount ability needs to get observers from avatar once its loaded
     //save buff here
     @Override

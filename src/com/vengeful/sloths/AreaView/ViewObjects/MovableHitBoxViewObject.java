@@ -59,7 +59,7 @@ public class MovableHitBoxViewObject extends MovingViewObject implements HitBoxO
         return new NonVisibleViewObject(getR(), getS(), getCoordinateStrategy(), getLocationStrategy(), visibleImages);
     }
 
-    //TODO: how to pass in the correct direction for this to fire
+
     public void changeDirection(Direction d) {
         this.direction = d;
         switch (d) {
@@ -97,10 +97,6 @@ public class MovableHitBoxViewObject extends MovingViewObject implements HitBoxO
 
     @Override
     public void alertDestroyed() {
-        //TODO: TELL TILE TO DESTROY VO
-        //for(DestroyVOObserver dvoo : this.observers){
-        //    dvoo.alertDestroyVO(this);
-        //}
         ((DynamicTimedImage) currentDynamicImage).start(20);
     }
 

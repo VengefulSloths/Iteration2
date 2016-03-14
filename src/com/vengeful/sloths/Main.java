@@ -38,8 +38,6 @@ public class Main {
         HexMath.angle(new Coord(1,-1), 8, Direction.S);
 
 
-
-
         MainController mainController = MainController.getInstance();
 
         mainController.setMenuControllerState(menu);

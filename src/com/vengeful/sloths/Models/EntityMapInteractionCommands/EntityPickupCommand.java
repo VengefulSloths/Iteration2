@@ -14,7 +14,7 @@ public class EntityPickupCommand {
     Inventory inv;
 
     public EntityPickupCommand(Entity entity, Inventory inv, TakeableItem itemToPickup){
-        System.out.println("Created pick up command");
+        //System.out.println("Created pick up command");
         this.entity = entity;
         this.item = itemToPickup;
         this.inv = inv;
@@ -22,7 +22,7 @@ public class EntityPickupCommand {
 
     public void execute(){
 
-        System.out.println("IPCKUP!");
+        //System.out.println("IPCKUP!");
         if(this.inv.addItem(item.getInventorpRep())){
             Map.getInstance().getActiveMapArea().getTile(this.item.getLocation()).removeTakeableItem(this.item);
             this.item.alertObserverOnDestroy();
@@ -31,10 +31,11 @@ public class EntityPickupCommand {
         }
 
         //TODO: debug line, remove
+        /*
         System.out.println("Inventory size: " + entity.getInventory().getCurrentSize());
         System.out.println("Items in entity's inventory:");
         for(int i = 0; i < entity.getInventory().getCurrentSize(); i++){
             System.out.println(entity.getInventory().getItem(i).getItemName());
-        }
+        }*/
     }
 }

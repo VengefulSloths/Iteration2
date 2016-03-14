@@ -8,6 +8,10 @@ import com.vengeful.sloths.Models.Ability.Abilities.SneakAbilities.StealthAbilit
 import com.vengeful.sloths.Models.Ability.Abilities.SummonerAbilities.*;
 import com.vengeful.sloths.Models.Ability.Ability;
 import com.vengeful.sloths.Models.Ability.AbilityManager;
+import com.vengeful.sloths.Models.Buff.Buff;
+import com.vengeful.sloths.Models.Buff.BuffManager;
+import com.vengeful.sloths.Models.Buff.BuffOverTime;
+import com.vengeful.sloths.Models.Buff.PoisonBuff;
 import com.vengeful.sloths.Models.Buff.*;
 import com.vengeful.sloths.Models.DialogueTrade.TerminalDialogContainer;
 import com.vengeful.sloths.Models.DialogueTrade.TradeDialogContainer;
@@ -124,6 +128,8 @@ public interface ModelVisitor {
     void visitNPCFallAsleepAbility(NPCFallAsleepAbility npcFallAsleepAbility);
     void visitPickPocketAbility(PickPocketAbility pickPocketAbility);
     void visitSelfBuffAbility(SelfBuffAbility selfBuffAbility);
+    void visitWeakenNPCAbility(WeakenNPCAbility weakenNPCAbility);
+    void visitPoisonNPCAbility(PoisonNPCAbility poisonNPCAbility);
 
     void visitBreakBoxQuest(BreakBoxQuest breakBoxQuest);
 

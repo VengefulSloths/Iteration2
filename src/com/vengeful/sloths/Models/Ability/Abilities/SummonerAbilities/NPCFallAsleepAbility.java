@@ -30,7 +30,6 @@ public class NPCFallAsleepAbility extends Ability{
 
     private int manaCost = ModelConfig.getManaCostHigh();
 
-
     public NPCFallAsleepAbility(Entity entity, int windup, int cooldown, int sleepTime){
         super("NPC Go To Sleep", windup, cooldown);
         this.entity = entity;
@@ -87,6 +86,17 @@ public class NPCFallAsleepAbility extends Ability{
             return null;
 
         return t.getEntityIterator();
+    }
+
+    @Override
+    protected void abilityFailHook() {
+        Iterator<Entity> target = getTarget();
+        if(target != null){
+            while(target.hasNext()) {
+                target.next().enrage();
+                System.out.println("ABILITY FAILED, NPC IS ANGRYYYYY");
+            }
+        }
     }
 
     @Override

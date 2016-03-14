@@ -86,6 +86,15 @@ public class AbilityFactory {
         return new NPCFallAsleepAbility(entity, 8, 15, 360);
     }
 
+
+    public PoisonNPCAbility createPoisonNPCAbility(Entity entity){
+        return new PoisonNPCAbility(entity, 8, 15);
+    }
+
+    public WeakenNPCAbility createWeakenNPCAbility(Entity entity) {
+        return new WeakenNPCAbility(entity, 8, 15);
+    }
+
     public RangedAttackAbility createRangedAttackAbility(Entity entity, int baseDamage, int windTicks, int coolTicks) {
         return new RangedAttackAbility(entity, entity.getSkillManager().getRangedWeaponSkill(), baseDamage, windTicks, coolTicks);
     }

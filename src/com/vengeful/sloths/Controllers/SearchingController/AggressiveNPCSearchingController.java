@@ -390,6 +390,16 @@ public class AggressiveNPCSearchingController extends SearchingController {
     }
 
     @Override
+    public void visitWeakenNPCAbility(WeakenNPCAbility weakenNPCAbility) {
+
+    }
+
+    @Override
+    public void visitPoisonNPCAbility(PoisonNPCAbility poisonNPCAbility) {
+
+    }
+
+    @Override
     public void visitMountAbility(MountAbility mountAbility) {
 
     }
