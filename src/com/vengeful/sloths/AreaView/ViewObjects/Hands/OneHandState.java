@@ -9,6 +9,7 @@ import com.vengeful.sloths.AreaView.ViewObjects.ViewObject;
 import com.vengeful.sloths.AreaView.ViewObjects.WeaponImageContainer;
 import com.vengeful.sloths.AreaView.ViewTime;
 import com.vengeful.sloths.Models.TimeModel.TimeController;
+import com.vengeful.sloths.Sound.SoundEffect;
 import com.vengeful.sloths.Utility.Direction;
 
 import java.awt.*;
@@ -105,7 +106,12 @@ public class OneHandState implements HandState {
         cast(windUpTime, coolDownTime);
 
         AttackViewObject attack = TemporaryVOCreationVisitor.getInstance().createAttack(r, s, "resources/effects/slash/slash.xml", windUpTime);
-        ViewTime.getInstance().registerAlert(0, () ->attack.start());
+        ViewTime.getInstance().registerAlert(0, () -> {
+            attack.start();
+            System.out.println("Slashing");
+            (new SoundEffect("resources/audio/slash2.wav")).play();
+            System.out.println("Slashing");
+        });
     }
 
 
