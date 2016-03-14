@@ -91,7 +91,7 @@ public class Trap extends MapItem implements ModelVisitable, ViewObservable{
             TimeModel.getInstance().registerAlertable(() -> {
                 this.detectable = true;
                 System.out.println("TRAP IS DETECTABLE!!!!");
-            }, 120); //make it undetectable for 1 seconds
+            }, 60); //make it undetectable for 1 seconds
         }
     }
 
