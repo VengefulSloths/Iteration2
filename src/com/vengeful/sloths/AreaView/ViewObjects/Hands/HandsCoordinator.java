@@ -39,6 +39,7 @@ public class HandsCoordinator {
     }
 
     public void equipWeapon(WeaponImageContainer weapon, WeaponClass weaponClass) {
+        System.out.println("Equipping " + weapon.toString() + " with class " + weaponClass);
         switch (weaponClass) {
             case FISTS:
                 this.state = new UnarmedState(r, s, coordinateStrategy, locationStrategy, resourcePath, direction);
@@ -50,6 +51,8 @@ public class HandsCoordinator {
                 this.state = new TwoHandState(r, s, coordinateStrategy, locationStrategy, resourcePath, direction);
                 break;
             case BOW:
+                System.out.println("BOWHANDSTATE!!!");
+                System.out.println("rsource: " + resourcePath);
                 this.state = new BowHandState(r, s, coordinateStrategy, locationStrategy, resourcePath, direction);
                 break;
             case THROW:
