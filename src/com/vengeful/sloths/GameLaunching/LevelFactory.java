@@ -365,9 +365,14 @@ public class LevelFactory {
         agroNPC3.getInventory().addItem(new TwoHandedWeapon("Dragon 2H", new StrengthAddable(5), 5));
         agroNPC2.getInventory().addItem(new Knuckle("Katar", new StrengthAddable(5), 5));
 
-//        CameraView camera1 = new PlainsCameraView();
-//        camera1.init(area3);
-//        cameras.addCameraView(area3, camera1);
+        CameraView camera1 = new PlainsCameraView();
+        camera1.init(area3);
+        camera1.addDecal(new Coord(4,4),"resources/decals/Hydrangeas_slow.xml");
+        camera1.addDecal(new Coord(4,7),"resources/decals/Hydrangeas_slow.xml");
+        camera1.addDecal(new Coord(1,11),"resources/decals/Roses_slow.xml");
+        //camera1.addDecal(new Coord(1,11),"Roses_slow.xml");
+        cameras.addCameraView(area3, camera1);
+
 
     }
 
@@ -430,6 +435,7 @@ public class LevelFactory {
         NonAggressiveNPC Dan = new NonAggressiveNPC("Dan", new Stats( new BaseStatsAddable(0,0,0,10,20)));
         town.getTile(new Coord(6,4)).addEntity(Dan);
         Dan.setLocation(new Coord(6,4));
+        Dan.setShirt("grey_shirt");
         new NonAggressiveNPCControllerManager(town, Dan, Direction.S, 1);
         TerminalDialogContainer saveFriend = new TerminalDialogContainer(Dan.getName());
         saveFriend.appendDialog("Cyclop's have kidnapped my beautiful wife! Please go rescue her!");
@@ -439,6 +445,7 @@ public class LevelFactory {
 
         NonAggressiveNPC Richie = new NonAggressiveNPC("Richie", new Stats( new BaseStatsAddable(0,0,0,10,20)));
         town.getTile(new Coord(2,1)).addEntity(Richie);
+        Richie.setShirt("pink_shirt");
         Richie.setLocation(new Coord(2,1));
         Inventory RichieInventory = Richie.getInventory();
         RichieInventory.addGold(new Gold(1000));
@@ -461,6 +468,7 @@ public class LevelFactory {
         new NonAggressiveNPCControllerManager(town, Richie, Direction.SE, 1);
 
         NonAggressiveNPC BobSmith = new NonAggressiveNPC("BobSmith", new Stats( new BaseStatsAddable(0,0,0,10,20)));
+        BobSmith.setShirt("brown_shirt");
         Inventory BobSmithInventoryInv = BobSmith.getInventory();
         BobSmithInventoryInv.addItem(new Bow("Bow", new AgilityAddable(1),2));
         BobSmithInventoryInv.addItem(new OneHandedWeapon("Mystical Dagger", new StrengthAddable(1),2));
@@ -480,6 +488,7 @@ public class LevelFactory {
         Avatar.getInstance().initialSetPet(piggy);
 
         NonAggressiveNPC Pete = new NonAggressiveNPC("Pete", new Stats( new BaseStatsAddable(0,0,0,10,20)));
+        Pete.setShirt("blue_shirt");
         Inventory PeteInventory = Pete.getInventory();
         PiggyTotem pt = new PiggyTotem("Piggy Totem", piggy);
         pt.setValue(1);
@@ -589,6 +598,7 @@ public class LevelFactory {
 
 
         NonAggressiveNPC testNPC = new NonAggressiveNPC("greg", new Stats( new BaseStatsAddable(0,0,0,10,20)));
+        testNPC.setShirt("blue_shirt");
         summonerArea.getTile(new Coord(8,3)).addEntity(testNPC);
         testNPC.setLocation(new Coord(8,3));
         new NonAggressiveNPCControllerManager(summonerArea, testNPC, Direction.S, 1);
