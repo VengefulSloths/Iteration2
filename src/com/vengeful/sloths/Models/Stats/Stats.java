@@ -343,6 +343,8 @@ public class Stats implements ModelVisitable, ViewObservable {
         updateObservers();
     }
 
+    public void dsfsdfds(){}
+
     @Override
     public void registerObserver(ModelObserver observer) {
             this.observers.add((StatsObserver) observer);

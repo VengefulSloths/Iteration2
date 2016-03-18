@@ -31,14 +31,18 @@ public class PiggyActionController extends ActionController {
             //Target idleTarget = new AvatarTarget(2);
             //idleTarget.setCoord(Avatar.getInstance().getLocation());
             //idleTarget.accept(this);
-
-            Coord location = this.getEntity().getLocation();
-            Map.getInstance().getTile(location).removeEntity(this.getEntity());
-
-            Direction oppositeDirection = Avatar.getInstance().getFacingDirection().oppositeDirection;
-            Coord newCoord = HexMath.getNextFacingCoord(Avatar.getInstance().getLocation(), oppositeDirection);
-            Map.getInstance().addEntity(HexMath.getClosestMovableTile(new Location(Map.getInstance().getActiveMapArea(), newCoord)), this.getEntity());
+            idle();
         }
+    }
+
+    private void idle(){
+        Coord location = this.getEntity().getLocation();
+        Map.getInstance().getTile(location).removeEntity(this.getEntity());
+
+        Direction oppositeDirection = Avatar.getInstance().getFacingDirection().oppositeDirection;
+        Coord newCoord = HexMath.getNextFacingCoord(Avatar.getInstance().getLocation(), oppositeDirection);
+        Map.getInstance().addEntity(HexMath.getClosestMovableTile(new Location(Map.getInstance().getActiveMapArea(), newCoord)), this.getEntity());
+
     }
 
     @Override
@@ -52,7 +56,12 @@ public class PiggyActionController extends ActionController {
             // find and walk towards avatar
 
             //this.moveToTarget(avatar);
-            this.getEntity().move(this.getNextStepInPathBFS(avatar));
+            Direction nextStep = this.getNextStepInPathBFS(avatar);
+            if(nextStep != null) {
+                this.getEntity().move(nextStep);
+            }else{
+                idle();
+            }
         }
     }
 
@@ -75,8 +84,12 @@ public class PiggyActionController extends ActionController {
             //bfs here
             //actually gonna try shitty directional code to not do bfs kek
             //System.out.println("PIGGY IS finding an aggressive NPC!!!");
-
-            this.getEntity().move(this.getNextStepInPathBFS(aNPC));
+            Direction nextStep = this.getNextStepInPathBFS(aNPC);
+            if(nextStep != null) {
+                this.getEntity().move(nextStep);
+            }else{
+                idle();
+            }
         }
     }
 
@@ -97,7 +110,6 @@ public class PiggyActionController extends ActionController {
             //bfs here
             //actually gonna try shitty directional code to not do bfs kek
             //System.out.println("PIGGY IS finding a mapItem!");
-
             this.moveToTarget(mapItemTarget);
         }
 
